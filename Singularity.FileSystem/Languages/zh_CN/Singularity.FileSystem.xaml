@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ComputeHashCommandItem">计算哈希值</sys:String>
+    <sys:String x:Key="MD5HashCommandItem">MD5</sys:String>
+    <sys:String x:Key="SHA1HashCommandItem">SHA1</sys:String>
+    <sys:String x:Key="SHA256HashCommandItem">SHA256</sys:String>
+    <sys:String x:Key="SHA512HashCommandItem">SHA512</sys:String>
+</ResourceDictionary>

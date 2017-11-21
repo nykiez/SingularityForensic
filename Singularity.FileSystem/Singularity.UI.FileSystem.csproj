@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF97758C-4647-4BF5-9CF0-B90B0A508964}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Singularity.UI.FileSystem</RootNamespace>
+    <AssemblyName>Singularity.UI.FileSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\AvalonDock.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFC.Hasher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.1\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCControls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.1\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.1\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.1\lib\NET451\EventLogger.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandDefinitions.cs" />
+    <Compile Include="FileSystemModule.cs" />
+    <Compile Include="Global\Events\TabEvents.cs" />
+    <Compile Include="Global\Services\FileSystemService.cs" />
+    <Compile Include="Global\Services\FSNodeManagerService.cs" />
+    <Compile Include="Global\Services\FSTabService.cs" />
+    <Compile Include="Global\TabModels\FileBrowserTabModel.cs" />
+    <Compile Include="Helpers\FileRowHelper.cs" />
+    <Compile Include="Helpers\FsConfigHelper.cs" />
+    <Compile Include="MessageBoxes\BlockDeviceFSInfoMessageBox.cs" />
+    <Compile Include="Models\AndroidDeviceCaseFile.cs" />
+    <Compile Include="Models\AndroidDeviceCaseManager.cs" />
+    <Compile Include="Models\CaseFiles.cs" />
+    <Compile Include="Models\FileRow.cs" />
+    <Compile Include="Models\FSTreeUnit.cs" />
+    <Compile Include="Models\IHaveTabModels.cs" />
+    <Compile Include="Models\NavNodeModel.cs" />
+    <Compile Include="Models\SearchKeyOption.cs" />
+    <Compile Include="Models\TreeUnit.cs" />
+    <Compile Include="Models\ViewerProgramModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Resources\IconSources.cs" />
+    <Compile Include="ViewModels\BlockDeviceFSInfoViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowserViewModel.cs" />
+    <Compile Include="ViewModels\FileDetailTabModel.cs" />
+    <Compile Include="ViewModels\FileHexTabViewModel.cs" />
+    <Compile Include="ViewModels\FilePreviewerViewModel.cs" />
+    <Compile Include="ViewModels\FolderBrowserViewModel.cs" />
+    <Compile Include="ViewModels\ThumbnailTabModel.cs" />
+    <Compile Include="Views\BlockDeviceFSInfoWindow.xaml.cs">
+      <DependentUpon>BlockDeviceFSInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomIndexSearch.xaml.cs">
+      <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileBrowser.xaml.cs">
+      <DependentUpon>FileBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileDetailInfo.xaml.cs">
+      <DependentUpon>FileDetailInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FolderBrowser.xaml.cs">
+      <DependentUpon>FolderBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItrChildrenPreview.xaml.cs">
+      <DependentUpon>ItrChildrenPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartitionsBrowser.xaml.cs">
+      <DependentUpon>PartitionsBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThumbnailInfo.xaml.cs">
+      <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
+      <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
+      <Name>CDFC.Parse.Android</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
+      <Project>{13044F46-874A-4419-90EC-BA559828A960}</Project>
+      <Name>CDFC.Parse.Local</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Signature\CDFC.Parse.Signature.csproj">
+      <Project>{CCE9A2BC-2EB4-4523-809D-7C4D57C8FC82}</Project>
+      <Name>CDFC.Parse.Signature</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
+      <Project>{EE637D4B-27E6-457C-AF39-1293F47AA966}</Project>
+      <Name>CDFC.Parse</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.Interfaces\Singularity.Interfaces.csproj">
+      <Project>{C8E8EC30-CD51-40F7-85FF-ABAD3F3D86EF}</Project>
+      <Name>Singularity.Interfaces</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
+      <Project>{EA0D6D56-DB66-4F7F-8456-A23DE8AE1105}</Project>
+      <Name>Singularity.UI.Case</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
+      <Project>{8A63F7A1-6895-4846-9BB5-5F5693D06B7E}</Project>
+      <Name>Singularity.UI.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Converters\Singularity.UI.Converters.csproj">
+      <Project>{29AE3C3F-F323-488B-972E-754036C27183}</Project>
+      <Name>Singularity.UI.Converters</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.MessageBoxes\Singularity.UI.MessageBoxes.csproj">
+      <Project>{83701165-1dee-4a3e-8c86-140c70b277ee}</Project>
+      <Name>Singularity.UI.MessageBoxes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
+      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
+      <Name>Singularity.UI.Themes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
+      <Name>SingularityForensic</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Languages\zh_CN\Singularity.FileSystem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BlockDeviceFSInfoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomIndexSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FileBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FileDetailInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FolderBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ItrChildrenPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PartitionsBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ThumbnailInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ToolBar_AddImg.png" />
+    <Resource Include="Images\Type_Device.png" />
+    <Resource Include="Images\Type_DeviceActive.png" />
+    <Resource Include="Images\Type_Partition.png" />
+    <Resource Include="Images\Type_PartitionActive.png" />
+    <Resource Include="Images\Type_RegularFile.ico" />
+    <Resource Include="Images\Type_Unknown.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Type_Directory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Type_DirectoryActive.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"
+Copy "$(SolutionDir)packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\CDFC.Hasher.dll"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

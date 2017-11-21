@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Singularity.UI.ITunes.Languages.zh_CN">
+    <sys:String x:Key="AddITunesBackUp">添加ITunes备份</sys:String>
+    <sys:String x:Key="SelectItemsToAquire">请选择需要读取的项</sys:String>
+    <sys:String x:Key="InvalidItunesBPath">这个路径包含了非ASCII码字符,请更换至可用的ASCII码路径</sys:String>
+
+    <sys:String x:Key="DeviceName">设备名称</sys:String>
+    <sys:String x:Key="LastBackupDate">最后备份时间</sys:String>
+    <sys:String x:Key="ProductType">类型</sys:String>
+    <sys:String x:Key="ProductName">名称</sys:String>
+    <sys:String x:Key="ProductVersion">版本号</sys:String>
+    <sys:String x:Key="BuidVersion">编译版本</sys:String>
+    <sys:String x:Key="SerialNumber">序列号</sys:String>
+    <sys:String x:Key="ITunesVer">ITunes版本</sys:String>
+    <sys:String x:Key="GUID">GUID</sys:String>
+    <sys:String x:Key="ICCID">ICCID</sys:String>
+    <sys:String x:Key="IMEI">IMEI</sys:String>
+    <sys:String x:Key="MEID">MEID</sys:String>
+    <sys:String x:Key="PhoneNumber">电话号码</sys:String>
+    <sys:String x:Key="TargetIdentifier">TargetIdentifier</sys:String>
+    <sys:String x:Key="UniqueIdentifier">UniqueIdentifier</sys:String>
+
+</ResourceDictionary>

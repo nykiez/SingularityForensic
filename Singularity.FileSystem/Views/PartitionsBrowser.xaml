@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="Singularity.UI.FileSystem.Views.PartitionsFolderBrowser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             xmlns:pubCvts="clr-namespace:Singularity.UI.Converters;assembly=Singularity.UI.Converters"
+             xmlns:contracts="clr-namespace:CDFC.Parse.Contracts;assembly=CDFC.Parse"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/DataGrid.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
+            <Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource TransparentButton}">
+                <Setter Property='DockPanel.Dock' Value="Right"/>
+                <Setter Property="Height" Value="14"/>
+                <Setter Property="DataContext" Value="{Binding Data,Source={StaticResource dataElement}}"/>
+            </Style>
+            <ImageBrush x:Key="FilterUsing" Stretch="None" ImageSource="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--<StackPanel Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding NavNodes}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="TextElement.Foreground" Value="Black"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{Binding EscapeToCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock >/</TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Text="{DynamicResource IsRecursivelyBrowsing}" Foreground="Black"
+                       Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
+        </StackPanel>-->
+        <controls:DataGridEx  Grid.Row="1"
+                  SelectedItem="{Binding SelectedFileRow}"
+                  PreviewMouseDown="DataGrid_PreviewMouseDown"
+                  AutoGenerateColumns="False" LoadingRow="dg_LoadingRow"
+                  RowHeaderWidth="0" CanUserAddRows="False"
+                  HorizontalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding FileRows}" x:Name="dg" >
+            <controls:DataGridEx.ScrollContentContextMenu>
+                <ContextMenu ItemsSource="{Binding ContextCommands}">
+                    <ContextMenu.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="Header" Value="{Binding CommandName}"/>
+                            <Setter Property="Icon" Value="{Binding Icon}"/>
+                        </Style>
+                    </ContextMenu.ItemContainerStyle>
+                </ContextMenu>
+            </controls:DataGridEx.ScrollContentContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn  TextBlock.TextAlignment="Center" CanUserSort="False" Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGridRow}},Path=Header}"
+                                    Width="50" MinWidth="10" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="160"  SortMemberPath="PartitionIndex">
+                    <DataGridTemplateColumn.Header>
+                        <DockPanel >
+                            <TextBlock Text="{DynamicResource ParitionName}"/>
+                            <Button Command="{Binding FilterFileNameCommand}" Width="20"  >
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource FilterButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FilterFileNameNeeded,FallbackValue=False}" Value="False">
+                                                <Setter Property="Content" >
+                                                    <Setter.Value>
+                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding FilterFileNameNeeded,FallbackValue=False}" Value="True">
+                                                <Setter Property="Content" >
+                                                    <Setter.Value>
+                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Border/>
+                        </DockPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<CheckBox IsChecked="{Binding Path=Checked,UpdateSourceTrigger=PropertyChanged}" />-->
+                                <Grid Margin="0,0,3,0">
+                                    <Image >
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Width" Value="17"/>
+                                                <Setter Property="Height" Value="17"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
+                                                        <DataTrigger.Value>
+                                                            <contracts:FileType>Directory</contracts:FileType>
+                                                        </DataTrigger.Value>
+                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Directory.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
+                                                        <DataTrigger.Value>
+                                                            <contracts:FileType>BlockDeviceFile</contracts:FileType>
+                                                        </DataTrigger.Value>
+                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Partition.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
+                                                        <DataTrigger.Value>
+                                                            <contracts:FileType>RegularFile</contracts:FileType>
+                                                        </DataTrigger.Value>
+                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_RegularFile.ico"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
+                                                        <DataTrigger.Value>
+                                                            <contracts:FileType>Unknown</contracts:FileType>
+                                                        </DataTrigger.Value>
+                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Unknown.ico"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <Image>
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Height" Value="17"/>
+                                                <Setter Property="Width" Value="17"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Deleted,Mode=OneTime}" Value="True">
+                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Sign_Deleted.ico"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </Grid>
+                                <controls:HighlightTextBlock Content="{Binding FileName,Mode=OneTime,Converter={x:Static controls:HlContentConverter.StaticInstance}}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="90" >
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource ParitionType}" />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <controls:HighlightTextBlock Content="{Binding FileType,Mode=OneTime,Converter={x:Static controls:HlContentConverter.StaticInstance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn  Width="120" Binding="{Binding FileSize,Converter={x:Static pubCvts:ByteSizeToSizeConverter.StaticInstance},Mode=OneTime}"
+                                    IsReadOnly="True" >
+                    <DataGridTextColumn.Header>
+                        <DockPanel>
+                            <TextBlock Text="{DynamicResource ParititonSize}"/>
+                            <Button Command="{Binding FilterFileSizeCommand}"   >
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource FilterButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FilterFileSizeNeeded,FallbackValue=False}" Value="False">
+                                                <Setter Property="Content" >
+                                                    <Setter.Value>
+                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding FilterFileSizeNeeded,FallbackValue=False}" Value="True">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Border/>
+                        </DockPanel>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StartSec,Mode=OneTime}" IsReadOnly="True" Width="120" Header="{DynamicResource StartSec}"/>
+                <DataGridTextColumn Binding="{Binding EndSec,Mode=OneTime}" IsReadOnly="True" Width="120" Header="{DynamicResource EndSec}"/>
+                <DataGridTextColumn Binding="{Binding LastMountTime,Mode=OneTime}" IsReadOnly="True" Width="120" Header="{DynamicResource LastMountTime}"/>
+                <DataGridTextColumn Binding="{Binding LastWriteTime,Mode=OneTime}" IsReadOnly="True" Width="120" Header="{DynamicResource LastWriteTime}"/>
+            </DataGrid.Columns>
+        </controls:DataGridEx>
+        
+    </Grid>
+</UserControl>

@@ -1,0 +1,211 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--Audio属性-->
+    <sys:String x:Key="AdbAudioTitle">标题</sys:String>
+    <sys:String x:Key="AdbAudioAlbum">专辑</sys:String>
+    <sys:String x:Key="AdbAudioArtlist">艺术家</sys:String>
+    <sys:String x:Key="AdbAudioUrl">路径</sys:String>
+    <sys:String x:Key="AdbAudioType">类型</sys:String>
+    <sys:String x:Key="AdbAudioDuration">时长</sys:String>
+    <sys:String x:Key="AdbAudioSize">大小</sys:String>
+    <sys:String x:Key="AdbAudioAddDt">添加时间</sys:String>
+    <sys:String x:Key="AdbAudioModifyDt">修改时间</sys:String>
+    
+    <sys:String x:Key="AdbAudioName">标题</sys:String>
+    
+    
+    <!--Video属性-->
+    <sys:String x:Key="AdbVideoTitle">标题</sys:String>
+    <sys:String x:Key="AdbVideoUrl">路径</sys:String>
+    <sys:String x:Key="AdbVideoSize">大小</sys:String>
+    <sys:String x:Key="AdbVideoAddDt">添加时间</sys:String>
+    <sys:String x:Key="AdbVideoModifyDt">修改时间</sys:String>
+    <sys:String x:Key="AdbVideoArtlist">艺术家</sys:String>
+    <sys:String x:Key="AdbVideoAlbum">专辑</sys:String>
+    <sys:String x:Key="AdbVideoType">类型</sys:String>
+    <sys:String x:Key="AdbVideoDuration">时长</sys:String>
+    <sys:String x:Key="AdbVideoLatitude">纬度</sys:String>
+    <sys:String x:Key="AdbVideoLongitude">经度</sys:String>
+    
+    <!--Image属性-->
+    <sys:String x:Key="AdbImageTitle">标题</sys:String>
+    <sys:String x:Key="AdbImageUrl">路径</sys:String>
+    <sys:String x:Key="AdbImageSize">大小</sys:String>
+    <sys:String x:Key="AdbImageAddDt">添加时间</sys:String>
+    <sys:String x:Key="AdbImageModifyDt">修改时间</sys:String>
+    <sys:String x:Key="AdbImageType">类型</sys:String>
+    <sys:String x:Key="AdbImageLatitude" >纬度</sys:String>
+    <sys:String x:Key="AdbImageLongitude">经度</sys:String>
+    
+    <!--短讯属性-->
+    <sys:String x:Key="AdbSmsName">姓名</sys:String>
+    <sys:String x:Key="AdbSmsAddress">地址</sys:String>
+    <sys:String x:Key="AdbSmsDate">日期</sys:String>
+    <sys:String x:Key="AdbSmsType">类型</sys:String>
+    <sys:String x:Key="AdbSmsSubject">主题</sys:String>
+    <sys:String x:Key="AdbSmsBody">内容</sys:String>
+    <sys:String x:Key="AdbSmsRead">是否已读</sys:String>
+    <sys:String x:Key="AdbSmsProtocol">协议</sys:String>
+    
+    <!--联系人属性-->
+    <sys:String x:Key="AdbContactId">ID</sys:String>
+    <sys:String x:Key="AdbContactName">姓名</sys:String>
+    <sys:String x:Key="AdbContactPhoneNumberNum">号码数目</sys:String>
+    <sys:String x:Key="AdbContactEmailNum">邮箱数目</sys:String>
+
+    <!--以下一段翻译,按照中文原意直译即可,无需参考英文-->
+    <sys:String x:Key="AdbContactNumbers">电话号码：</sys:String>
+    <sys:String x:Key="AdbContactNumberName">名称</sys:String>
+    <sys:String x:Key="AdbContactNumberNumber">号码</sys:String>
+    <sys:String x:Key="AdbContactNumberFullNumber">完整号码</sys:String>
+    <sys:String x:Key="AdbContactNumberLocation">位置</sys:String>
+    <sys:String x:Key="AdbContactEmails">电子邮箱：</sys:String>
+    <sys:String x:Key="AdbContactEmailName">名称</sys:String>
+    <sys:String x:Key="AdbContactEmailAddress">地址</sys:String>
+    
+    <!--通话记录-->
+    <sys:String x:Key="AdbCalllogName">姓名</sys:String>
+    <sys:String x:Key="AdbCalllogNumber">号码</sys:String>
+    <sys:String x:Key="AdbCalllogDate">通话时间</sys:String>
+    <sys:String x:Key="AdbCalllogDuration">时长</sys:String>
+    <sys:String x:Key="AdbCalllogType">类型</sys:String>
+    
+    <!--GPS属性-->
+    <sys:String x:Key="AdbGPSName">名称</sys:String>
+    <sys:String x:Key="AdbGPSLongitude">经度</sys:String>
+    <sys:String x:Key="AdbGPSLatitude">纬度</sys:String>
+    <sys:String x:Key="AdbGPSAltitude">海拔</sys:String>
+    <sys:String x:Key="AdbGPSAccuracy">加速度</sys:String>
+    
+    <!--APK信息-->
+    <sys:String x:Key="AdbPackageName">名称</sys:String>
+    <sys:String x:Key="AdbPackagePackageName">软件包名</sys:String>
+    <sys:String x:Key="AdbPackageVersionName">版本名</sys:String>
+    <sys:String x:Key="AdbPackageVersionCode">版本号</sys:String>
+    <sys:String x:Key="AdbPackageSourcePath">源路径</sys:String>
+    <sys:String x:Key="AdbPackagePermissions">权限</sys:String>
+    <sys:String x:Key="AdbPackageSize">大小</sys:String>
+    <sys:String x:Key="AdbPackageIsSystem">是否为系统应用</sys:String>
+    <sys:String x:Key="AdbPackageLastModify">最后修改时间</sys:String>
+    
+    <!--ADB设备基本信息-->
+    <sys:String x:Key="AdbBasicState">SIM可用状态</sys:String>
+    <sys:String x:Key="AdbBasicImei">Imei</sys:String>
+    <sys:String x:Key="AdbBasicImsi">Imsi</sys:String>
+    <sys:String x:Key="AdbBasicRelease">发行版本</sys:String>
+    <sys:String x:Key="AdbBasicInet">运营商识别号</sys:String>
+    <sys:String x:Key="AdbBasicIsim">SIM序列号</sys:String>
+    <sys:String x:Key="AdbBasicNumber">电话号码</sys:String>
+    <sys:String x:Key="AdbBasicModel">版本号</sys:String>
+    <sys:String x:Key="AdbBasicAbi">CPU ABI</sys:String>
+    <sys:String x:Key="AdbBasicZone">时区</sys:String>
+    <sys:String x:Key="AdbBasicBrand">品牌</sys:String>
+    <sys:String x:Key="AdbBasicBoard">处理器型号</sys:String>
+    <sys:String x:Key="AdbBasicHardware">硬件</sys:String>
+    <sys:String x:Key="AdbBasicDevice">设备</sys:String>
+
+    <!--详细Tab相关-->
+    <sys:String x:Key="AdbDetailInfo">详细</sys:String>
+    <sys:String x:Key="AdbNoDetail">无详细</sys:String>
+    
+    <!--十六进制-->
+    <sys:String x:Key="AdbTabHex">十六进制</sys:String>
+    
+    <!---操作相关-->
+    <sys:String x:Key="AdbFileBeingCopied">拷贝中</sys:String>
+
+
+    <!--Adb信息获取时提示-->
+    <sys:String x:Key="AdbNumAquired">已获取{0}/{1}</sys:String>
+    <sys:String x:Key="AdbFileDownloading">文件下载中</sys:String>
+    <sys:String x:Key="AdbNumDownloading">正在下载{0}/{1}</sys:String>
+    <sys:String x:Key="AdbNoData">无记录</sys:String>
+    <sys:String x:Key="ErrorExportingAdbFile">导出文件错误</sys:String>
+    <sys:String x:Key="AdbFileBeingDownloaded">正在下载：</sys:String>
+    <sys:String x:Key="CasePathDoesNotExist">案件路径：{0}不存在</sys:String>
+    <sys:String x:Key="ConfirmToConnectYourPhone">请确认手机正被连接</sys:String>
+    <sys:String x:Key="ConfirmPerssionAllowed">请允许设备的授权请求</sys:String>
+
+    <sys:String x:Key="PhoneInfoAquiredItems">手机信息获取项</sys:String>
+    <sys:String x:Key="PhoneFileAquiredItems">手机文件获取项</sys:String>
+    
+    <sys:String x:Key="UnableToConnectToPhone">无法连接到手机</sys:String>
+    <sys:String x:Key="ConfirmRetry" >是否重试?</sys:String>
+    <sys:String x:Key="ConfirmToBackUp">请在设备上操作以确认备份</sys:String>
+    <sys:String x:Key="FailedToBackup">备份发生了错误：</sys:String>
+    <sys:String x:Key="PleaseInputBackUpPass">请输入您在手机上输入的备份密码</sys:String>
+    <sys:String x:Key="SucceedToBackUp">备份成功</sys:String>
+    <sys:String x:Key="ParsingTheBackUp">解析备份中</sys:String>
+    <sys:String x:Key="PleaseConnectToPhone">请连接手机</sys:String>
+    <sys:String x:Key="ChooseDeviceDetected">请选择设备</sys:String>
+
+    <sys:String x:Key="FailedToGetAllFiles">获取所有文件错误</sys:String>
+    <sys:String x:Key="FailedToGetFileList">获取所有文件列表失败</sys:String>
+
+    <sys:String x:Key="AdbBPPwdNotCorrect">密码不正确</sys:String>
+
+    <sys:String x:Key="WaitUntilAuqiringDone">请等待至此次取证完成</sys:String>
+
+    <sys:String x:Key="ConfirmToExitAdbViewer">确定退出吗?所有的结果将不被保存。</sys:String>
+    <!--自动侦测设备相关-->
+    <sys:String x:Key="FailedToDetectAdbDevices">自动检测设备错误</sys:String>
+
+    <sys:String x:Key="AdbDeviceRefreshing">设备正在刷新</sys:String>
+
+    <!--工具栏信息-->
+    <sys:String x:Key="CreateReport">分析报告</sys:String>
+    <sys:String x:Key="TargetPersonReport">目标人报告</sys:String>
+
+    <!--展示视图相关-->
+    <sys:String x:Key="FileView">文件视图</sys:String>
+    <sys:String x:Key="ListView">列表视图</sys:String>
+    <sys:String x:Key="TalkingView">对话视图</sys:String>
+    <sys:String x:Key="BasicInfo">基本信息</sys:String>
+    <sys:String x:Key="InfoMenuText">信息</sys:String>
+
+    <sys:String x:Key="ForensicInfo">取证信息</sys:String>
+
+    <sys:String x:Key="Album">专辑</sys:String>
+    <sys:String x:Key="Artist">艺术家</sys:String>
+    <sys:String x:Key="Type">类别</sys:String>
+    <sys:String x:Key="Duration">时长</sys:String>
+    <sys:String x:Key="AddTime">添加时间</sys:String>
+    <sys:String x:Key="ModifyTime">最后修改时间</sys:String>
+    <sys:String x:Key="Size">大小</sys:String>
+    <sys:String x:Key="Url">路径</sys:String>
+    <sys:String x:Key="Title">标题</sys:String>
+    <sys:String x:Key="Name">名称</sys:String>
+    <sys:String x:Key="InfoType">信息类别</sys:String>
+
+    <sys:String x:Key="Latitude">纬度</sys:String>
+    <sys:String x:Key="Longitude">经度</sys:String>
+    
+    <sys:String x:Key="Contact">联系人</sys:String>
+    <sys:String x:Key="Address">地址</sys:String>
+    <sys:String x:Key="Subject">主题</sys:String>
+    <sys:String x:Key="Read">是否已读</sys:String>
+    <sys:String x:Key="Protocol">协议</sys:String>
+    <sys:String x:Key="FromWhom">本地动作</sys:String>
+    <sys:String x:Key="SendContent">发送内容</sys:String>
+    <sys:String x:Key="SenderRemark">发送者备注</sys:String>
+    <sys:String x:Key="SenderAccount">发送者账号</sys:String>
+
+    <sys:String x:Key="PhoneNumberNum">号码数量</sys:String>
+    <sys:String x:Key="EmailNum">邮箱数量</sys:String>
+    <sys:String x:Key="Id">联系人ID</sys:String>
+    <sys:String x:Key="Number">号码</sys:String>
+    <sys:String x:Key="Date">时间</sys:String>
+    <sys:String x:Key="Altitude">海拔</sys:String>
+    <sys:String x:Key="Accuracy">加速度</sys:String>
+    <!--<sys:String x:Key="PackageName"></sys:String>
+    <sys:String x:Key="VersionName"></sys:String>
+    <sys:String x:Key="VersionCode"></sys:String>
+    <sys:String x:Key="SourcePath"></sys:String>
+    <sys:String x:Key="Permissions"></sys:String>
+    <sys:String x:Key="Size"></sys:String>
+    <sys:String x:Key="IsSystem"></sys:String>
+    <sys:String x:Key="LastModify"></sys:String>
+    <sys:String x:Key="InfoType"></sys:String>
+    <sys:String x:Key="Info"></sys:String>-->
+</ResourceDictionary>

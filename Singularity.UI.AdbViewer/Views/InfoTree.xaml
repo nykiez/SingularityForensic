@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.InfoTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/Menu.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/GroupBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TreeViewEx.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
+                <StackPanel Orientation="Horizontal" >
+                    <Image Margin="6,0" Source="{Binding Icon}" />
+                    <TextBlock Text="{Binding Label}"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GroupBox Header="{DynamicResource CaseData}" >
+        <DockPanel >
+            <FrameworkElement x:Name="dataElment" Visibility="Collapsed" />
+            <controls:TreeViewEx BorderThickness="0" Background="White" ItemTemplate="{StaticResource TreeViewExItemTemplate}" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
+                                 DockPanel.Dock="Top" ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" >
+
+            </controls:TreeViewEx>
+        </DockPanel>
+    </GroupBox>
+</UserControl>

@@ -1,0 +1,147 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ConfirmLaunchForensic">是否立即取证?</sys:String>
+    <sys:String x:Key="StartForensic">开始取证</sys:String>
+    <sys:String x:Key="SelectItemsToAquire">请选择需要读取的项</sys:String>
+
+    <sys:String x:Key="SmsTreeLabel">短信</sys:String>
+    <sys:String x:Key="ContactTreeLabel">联系人</sys:String>
+    <sys:String x:Key="CalllogTreeLabel">通话记录</sys:String>
+    
+    <!--数据检索相关-->
+    <sys:String x:Key="MultiMediaInfoTreeLabel">多媒体信息</sys:String>
+    <sys:String x:Key="BasicInfoTreeLabel">APP分析</sys:String>
+    <sys:String x:Key="OtherFileTreeLabel">其他文件</sys:String>
+    <sys:String x:Key="QQTreeLabel">QQ</sys:String>
+    <sys:String x:Key="WeChatTreeLabel">微信</sys:String>
+    
+    <sys:String x:Key="PicFileTreeLabel">图片文件</sys:String>
+    <sys:String x:Key="VideoFileTreeLabel">视频文件</sys:String>
+    <sys:String x:Key="AudioFileTreeLabel">音频文件</sys:String>
+    <sys:String x:Key="AmrFileTreeLabel">QQ/微信/录音文件</sys:String>
+
+    <sys:String x:Key="ConfirmToCheckForensicItem">请选择取证项后操作</sys:String>
+    <sys:String x:Key="SureToCancelForensic">确定中止取证吗?</sys:String>
+    <sys:String x:Key="ConfirmToShow">是否立即显示?</sys:String>
+
+    <sys:String x:Key="SmsUnitLabel">短信</sys:String>
+    <sys:String x:Key="ContactUnitLabel">联系人</sys:String>
+    <sys:String x:Key="CalllogUnitLabel">通话记录</sys:String>
+    <sys:String x:Key="InstantChat">即时通讯</sys:String>
+    
+    <!--短信字段-->
+    <sys:String x:Key="msisdn">手机号码</sys:String>
+    <sys:String x:Key="relationship_account">对方号码</sys:String>
+    <sys:String x:Key="relationship_name">对方姓名</sys:String>
+    <!--<sys:String x:Key="local_action">指向</sys:String>-->
+    <sys:String x:Key="mail_view_status">读取状态</sys:String>
+    <sys:String x:Key="mail_save_folder">保存类别</sys:String>
+    <!--<sys:String x:Key="delete_status">是否删除</sys:String>-->
+    <sys:String x:Key="delete_time">删除时间</sys:String>
+    
+    <!--通话记录字段-->
+    <!--<sys:String x:key="msisdn"></sys:String>-->
+    <!--<sys:String x:Key="relationship_account">号码</sys:String>
+    <sys:String x:Key="relationship_name">联系人姓名</sys:String>-->
+    <sys:String x:Key="call_status">通话状态</sys:String>
+    <!--<sys:String x:key="local_action"></sys:String>-->
+    <sys:String x:Key="start_time">起始时间</sys:String>
+    <sys:String x:Key="end_time">终止时间</sys:String>
+    <sys:String x:Key="dual_time">经过时间</sys:String>
+    <!--<sys:String x:key="delete_status"></sys:String>-->
+    <!--<sys:String x:key="delete_time"></sys:String>-->
+    <!--<sys:String x:key="privacyconfig"></sys:String>
+    <sys:String x:key="collect_target_id"></sys:String>-->
+
+    <!--联系人字段-->
+    <!--<sys:String x:key="sequence_name"></sys:String>-->
+    <!--<sys:String x:Key="relationship_name">姓名</sys:String>-->
+    <!--<sys:StrinK x:key="delete_status">是否删除</sys:String>
+    <sys:String x:Key="delete_time">删除时间</sys:String>-->
+    
+    <sys:String x:Key="PhoneNumbers">电话号码</sys:String>
+    <sys:String x:Key="PhoneNumbersCount">号码数量</sys:String>
+    <sys:String x:Key="EmailNumbersCount">邮箱数量</sys:String>
+    <sys:String x:Key="privacyconfig">是否加密</sys:String>
+
+    <!--信息种类(节点需用到)-->
+    <sys:String x:Key="AndBasicCalllog">通话记录</sys:String>
+    <sys:String x:Key="AndBasicContact">联系人</sys:String>
+    <sys:String x:Key="AndBasicSmses">短信</sys:String>
+    <sys:String x:Key="AndBasicSms">短信</sys:String>
+    <sys:String x:Key="AndQQ">QQ</sys:String>
+    <sys:String x:Key="AndWeChat">微信</sys:String>
+    <sys:String x:Key="AndGroupMsgs">群组消息</sys:String>
+    <sys:String x:Key="AndGroupMsg">群组消息</sys:String>
+    <sys:String x:Key="AndGroupMembers">群组成员</sys:String>
+    <sys:String x:Key="AndFriends">好友信息</sys:String>
+    <sys:String x:Key="AndFriendMsgs">好友消息</sys:String>
+    <sys:String x:Key="AndFriendMsg">好友消息</sys:String>
+
+    <!--<sys:String x:Key="contact_account_type">账号类型</sys:String>-->
+    <!--<sys:String x:Key="account_id">账号唯一值</sys:String>-->
+    <!--<sys:String x:Key="account">群账号</sys:String>-->
+    <sys:String x:Key="group_num">群组ID</sys:String>
+    <sys:String x:Key="group_name">群组名称</sys:String>
+    <sys:String x:Key="friend_id">发送者ID</sys:String>
+    <sys:String x:Key="friend_account">发送者账号</sys:String>
+    <sys:String x:Key="friend_nickname">发送者昵称</sys:String>
+    <sys:String x:Key="content">即时信息内容</sys:String>
+    <sys:String x:Key="mail_send_time">发送时间</sys:String>
+    <sys:String x:Key="local_action">本地动作</sys:String>
+    <sys:String x:Key="talk_id">聊天记录ID</sys:String>
+    <sys:String x:Key="troop_type">群组类型</sys:String>
+
+
+    <sys:String x:Key="contact_account_type">即时通讯应用类型</sys:String>
+    <sys:String x:Key="account_id">用户ID</sys:String>
+    <sys:String x:Key="account">账号(本机)</sys:String>
+    <sys:String x:Key="friend_remark">群成员备注</sys:String>
+    <sys:String x:Key="area">国家代号</sys:String>
+    <sys:String x:Key="city_code">行政区划</sys:String>
+    <sys:String x:Key="fixed_phone">电话号码</sys:String>
+    <sys:String x:Key="email_account">邮箱地址</sys:String>
+    <sys:String x:Key="certificate_type">对象证件类型</sys:String>
+    <sys:String x:Key="certificate_code">对象证件号码</sys:String>
+    <sys:String x:Key="sexcode">性别</sys:String>
+    <sys:String x:Key="age">年龄</sys:String>
+    <sys:String x:Key="postal_address">联系地址</sys:String>
+    <sys:String x:Key="postal_code">邮政编码</sys:String>
+    <sys:String x:Key="occupation_name">职业名称</sys:String>
+    <sys:String x:Key="blood_type">血型</sys:String>
+    <sys:String x:Key="name">真实名</sys:String>
+    <sys:String x:Key="sign_name">个性签名</sys:String>
+    <sys:String x:Key="personal_desc">个人说明</sys:String>
+    <sys:String x:Key="reg_city">城市</sys:String>
+    <sys:String x:Key="graduateschool">毕业院校</sys:String>
+    <sys:String x:Key="zodiac">生肖</sys:String>
+    <sys:String x:Key="constallation">星座</sys:String>
+    <sys:String x:Key="birthday">出生年月</sys:String>
+    <sys:String x:Key="delete_status">删除状态</sys:String>
+    <sys:String x:Key="last_msg_inform">最近一次的消息时间</sys:String>
+
+    <sys:String x:Key="regis_nickname">昵称</sys:String>
+
+    <sys:String x:Key="last_login_time">最后一次登入时间</sys:String>
+
+    <sys:String x:Key="SendTime">发送时间</sys:String>
+    <sys:String x:Key="PrivacyConfig">是否加密</sys:String>
+
+    <sys:String x:Key="IsDeleted">是否删除</sys:String>
+    <sys:String x:Key="DeleteTime">删除时间</sys:String>
+    <sys:String x:Key="SendDate">发送时间</sys:String>
+    <sys:String x:Key="SendContent">发送内容</sys:String>
+    <sys:String x:Key="SenderRemark">发送者备注名</sys:String>
+    <sys:String x:Key="SenderAccount">发送者账号</sys:String>
+    <sys:String x:Key="FromWhom">本地动作</sys:String>
+    <sys:String x:Key="collect_target_id">手机取证采集目标编号</sys:String>
+
+    <sys:String x:Key="Numbers">号码</sys:String>
+    <sys:String x:Key="Emails">邮箱</sys:String>
+    <!--表示信息流动方向-->
+    <sys:String x:Key="SendAction">发送</sys:String>
+    <sys:String x:Key="AcceptAction">接收</sys:String>
+    <sys:String x:Key="OtherAction">其它</sys:String>
+    <sys:String x:Key="UnSentAction">未发送</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="DemoUI.TestTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DemoUI"
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TreeViewEx.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <controls:TreeViewEx BorderThickness="0" Background="White" 
+                                 DockPanel.Dock="Top" ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList"  >
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource TidaTreeViewItem}">
+                    <Setter Property="ItemContainerStyle" Value="{StaticResource TidaTreeViewItem}"/>
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu ItemsSource="{Binding ContextCommands}">
+                                <ContextMenu.ItemContainerStyle>
+                                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                                        <Setter Property="Command" Value="{Binding Command}"/>
+                                        <Setter Property="Header" Value="{Binding CommandName}"/>
+                                        <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
+                                                <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContextMenu.ItemContainerStyle>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ContextCommands}" Value="{x:Null}">
+                            <Setter Property="ContextMenu" Value="{x:Null}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeViewItem Header="Sumsung EVO">
+                <TreeViewItem Header="Sumsung EVO">
+                    <TreeViewItem Header="Sumsung EVO">
+                        <TreeViewItem Header="Sumsung EVO">
+                            <TreeViewItem Header="Sumsung EVO">
+
+                            </TreeViewItem>
+                        </TreeViewItem>
+
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+        </controls:TreeViewEx>
+    </Grid>
+</UserControl>

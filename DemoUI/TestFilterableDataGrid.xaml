@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="DemoUI.TestFilterableDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fi="clr-namespace:Singularity.UI.Controls.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
+             xmlns:local="clr-namespace:DemoUI"
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <fi:FilterableDataGrid  RowType="{Binding Type}" SelectionMode="Single"  PreItemsSource="{Binding Items}"  IsReadOnly="True">
+            <fi:FilterableDataGrid.DynamicColumns>
+                <controls:DataGridCloumnsCollection>
+                    <DataGridTextColumn Header="你好啊" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="F/M" Binding="{Binding Sex}" />
+                </controls:DataGridCloumnsCollection>
+            </fi:FilterableDataGrid.DynamicColumns>
+        </fi:FilterableDataGrid>
+    </Grid>
+</UserControl>
