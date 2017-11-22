@@ -213,6 +213,28 @@ namespace CDFC.Parse.Android.DeviceObjects {
             return device;
         }
 
+        /// <summary>
+        /// 检查是否是一个有效的安卓手机镜像;
+        /// </summary>
+        /// <param name="fs"></param>
+        /// <returns></returns>
+        public static bool CheckIsValid(FileStream fs) {
+            if(fs == null) {
+                throw new ArgumentNullException(nameof(fs));
+            }
+
+            try {
+                var ptr = Cflabqd_Init(fs.SafeFileHandle);
+                
+                return ptr != IntPtr.Zero;
+            }
+            catch(Exception ex) {
+                Logger.WriteCallerLine(ex.Message);
+                return false;
+            }
+            
+        }
+
         private int? secSize;                                                   //扇区大小;
         public override int SecSize {
             get {

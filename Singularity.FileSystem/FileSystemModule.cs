@@ -20,10 +20,7 @@ using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
 using Singularity.UI.FileSystem.Global.Services;
 using System.Collections.ObjectModel;
-using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Input;
-using System.Linq;
 using CDFCUIContracts.Commands;
 
 namespace Singularity.UI.FileSystem {

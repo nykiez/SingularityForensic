@@ -48,7 +48,7 @@
     <Compile Include="IHaveGroup.cs" />
     <Compile Include="IHavePinKind.cs" />
     <Compile Include="IPreviewer.cs" />
-    <Compile Include="IStreamParser.cs" />
+    <Compile Include="IStreamFileParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

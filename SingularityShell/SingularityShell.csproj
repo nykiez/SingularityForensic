@@ -236,8 +236,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCopy "$(SolutionDir)\packages\CDFC.Common.0.1.3.1\lib\NET451" "D:\SingularitySolution\SingularityShell\$(OutDir)\Common\"  /E /Y
-XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.0.3\lib\NET451" "D:\SingularitySolution\SingularityShell\$(OutDir)\Controls\"  /E /Y
+    <PostBuildEvent>XCopy "$(SolutionDir)\packages\CDFC.Common.0.1.3.1\lib\NET451" "$(SolutionDir)\SingularityShell\$(OutDir)\Common\"  /E /Y
+XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.0.3\lib\NET451" "$(SolutionDir)\SingularityShell\$(OutDir)\Controls\"  /E /Y
 
 copy "$(SolutionDir)\packages\Prism.Core.6.3.0\lib\net45\Prism.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Common\Prism.dll"
 copy "$(SolutionDir)\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Common\Prism.Mef.Wpf.dll"

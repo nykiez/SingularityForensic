@@ -1,5 +1,7 @@
 ﻿using Prism.Mef;
 using Prism.Modularity;
+using Singularity.Previewers;
+using Singularity.UI.AdbViewer;
 using Singularity.UI.Case;
 using Singularity.UI.FileSystem;
 using Singularity.UI.Hex;
@@ -23,16 +25,17 @@ namespace SingularityShell {
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
 
             ////功能模块;
-            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AdbViewerModule).Assembly));
+            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AdbViewerModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidInfoModule).Assembly));
             ////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(RelevanceModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ITunesModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(HexModule).Assembly));
 
             ////默认预览器模块;
-            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DefaultPreviewerModule).Assembly));
+            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DefaultPreviewerModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileSystemModule).Assembly));
         }
+
 
         protected override IModuleCatalog CreateModuleCatalog() {
             return new ConfigurationModuleCatalog();

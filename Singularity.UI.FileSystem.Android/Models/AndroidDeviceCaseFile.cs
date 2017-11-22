@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Singularity.UI.FileSystem.Models {
+namespace Singularity.UI.FileSystem.Android.Models {
     //安卓设备案件文件;
     public class AndroidDeviceCaseFile : DeviceCaseFile<AndroidDevice> {
         /// <summary>

@@ -29,8 +29,9 @@ namespace Singularity.UI.MessageBoxes.MessageBoxes {
                 try {
                     DoWork?.Invoke(this, new DoWorkEventArgs(this));
                     window.Dispatcher.Invoke(() => {
-                        RunWorkerCompleted?.Invoke(this, new RunWorkerCompletedEventArgs(null, null, CancellationPending));
                         window.Close();
+                        RunWorkerCompleted?.Invoke(this, new RunWorkerCompletedEventArgs(null, null, CancellationPending));
+                        
                     });
                 }
                 catch (Exception ex) {

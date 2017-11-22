@@ -21,7 +21,6 @@ using EventLogger;
 using Ookii.Dialogs.Wpf;
 using SingularityForensic.Modules.Shell.Global.Services;
 using System;
-using CDFC.Parse.Android.DeviceObjects;
 using System.IO;
 using System.Windows;
 using Singularity.UI.Case.Global.Services;
@@ -40,6 +39,7 @@ using CDFC.Parse.Signature.DeviceObjects;
 using CDFC.Parse.Signature.Pictures;
 using System.Collections.Generic;
 using CDFC.Parse.Signature.Contracts;
+using CDFC.Parse.Android.DeviceObjects;
 
 namespace Singularity.UI.FileSystem {
     [Export(typeof(CommandItem<(DirectoriesBrowserViewModel, FileRow)>))]

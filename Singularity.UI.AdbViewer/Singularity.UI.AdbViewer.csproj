@@ -358,13 +358,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Controls\$(ProjectName).dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Newtonsoft.Json.dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\ICSharpCode.SharpZipLib.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\ICSharpCode.SharpZipLib.dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\BouncyCastle.Crypto.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\BouncyCastle.Crypto.dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Cflab.DataTransport.dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Chloe.dll"
-Copy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Chloe.SQLite.dll"
-xcopy "$(SolutionDir)DataTransport\Cflab.DataTransport\$(OutDir)\Tools" "$(SolutionDir)SingularityShell\$(OutDir)Tools"  /E /Y
+Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Newtonsoft.Json.dll"
+Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\BouncyCastle.Crypto.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\BouncyCastle.Crypto.dll"
+Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Cflab.DataTransport.dll"
+Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Chloe.dll"
+Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\Chloe.SQLite.dll"
+xcopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(SolutionDir)SingularityShell\$(OutDir)Tools"  /E /Y
 
 
 

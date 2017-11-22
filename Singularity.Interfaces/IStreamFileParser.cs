@@ -7,6 +7,6 @@ namespace Singularity.Interfaces {
     public interface IStreamFileParser {
         //检查是否为可用流;
         bool CheckIsValid(Stream stream);
-        IFile ParseStream(Stream stream,Action<(double detailPro,double totalPro, string word,string desc)> ntfAct);
+        IFile ParseStream(Stream stream,Action<(double totalPro, double detailPro, string word,string desc)> ntfAct);
     }
 }

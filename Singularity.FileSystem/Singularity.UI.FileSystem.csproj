@@ -192,7 +192,6 @@
     <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
       <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
       <Name>CDFC.Parse.Android</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
       <Project>{13044F46-874A-4419-90EC-BA559828A960}</Project>
