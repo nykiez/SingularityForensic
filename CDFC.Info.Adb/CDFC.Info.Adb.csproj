@@ -73,10 +73,9 @@
       <Name>CDFC.Parse</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\DataTransport\Cflab.DataTransport\Cflab.DataTransport.csproj">
-      <Project>{80F67817-5BF1-4542-B77B-9F29F739B360}</Project>
+    <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">
+      <Project>{80f67817-5bf1-4542-b77b-9f29f739b360}</Project>
       <Name>Cflab.DataTransport</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Converters\Singularity.UI.Converters.csproj">
       <Project>{29AE3C3F-F323-488B-972E-754036C27183}</Project>

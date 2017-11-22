@@ -4,6 +4,7 @@ using Singularity.UI.FileSystem.Models;
 using Singularity.UI.Info.Android.ViewModels;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Views;
+using SingularityForensic.Modules.MainPage.Models;
 using System.ComponentModel.Composition;
 using System.Linq;
 

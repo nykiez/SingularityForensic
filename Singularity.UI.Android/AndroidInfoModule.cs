@@ -27,8 +27,6 @@ using static CDFCCultures.Managers.ManagerLocator;
 namespace Singularity.UI.Info.Android {
     [ModuleExport(typeof(AndroidInfoModule))]
     public class AndroidInfoModule : IModule {
-        
-
         public void Initialize() {
             //订阅镜像文件附加事件;
             PubEventHelper.GetEvent<CaseFileAddedEvent<AndroidDeviceCaseFile>>()?.Subscribe(adCFile => {
@@ -43,7 +41,7 @@ namespace Singularity.UI.Info.Android {
 
             //订阅镜像文件加载事件;
             PubEventHelper.GetEvent<CaseFileLoadedEvent<AndroidDeviceCaseFile>>()?.Subscribe(adCFile => {
-                LoadForensicUnit(adCFile);
+                //LoadForensicUnit(adCFile);
             });
 
             //订阅节点附加事件;

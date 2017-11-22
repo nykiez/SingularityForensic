@@ -280,7 +280,7 @@
       <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
       <Name>CDFC.Parse</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataTransport\Cflab.DataTransport\Cflab.DataTransport.csproj">
+    <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">
       <Project>{80f67817-5bf1-4542-b77b-9f29f739b360}</Project>
       <Name>Cflab.DataTransport</Name>
     </ProjectReference>
