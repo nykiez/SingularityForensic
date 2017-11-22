@@ -22,7 +22,7 @@ namespace CDFC.Parse.Python {
         public static ProcessStartInfo GetProcessStartInfo(string pyName,string arg,UriKind pyKind = UriKind.Relative) {
             var stInfo = new ProcessStartInfo {
                 //Arguments = $"\"D:/C# Console/Python/Pys/Pys/Git/{pyName}\" \"{arg}\"",
-                Arguments = $"\"{AppDomain.CurrentDomain.BaseDirectory}/Pys/Git/{pyName}\" \"{arg}\" ",
+                Arguments = $"\"{AppDomain.CurrentDomain.BaseDirectory}/Pys/{pyName}\" \"{arg}\" ",
                 FileName = $"{AppDomain.CurrentDomain.BaseDirectory}/{PythonPath}{PythonName}",
 
                 UseShellExecute = false,

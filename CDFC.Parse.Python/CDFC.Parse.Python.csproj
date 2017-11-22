@@ -81,16 +81,16 @@
     <Folder Include="Python34\Lib\xml\dom\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pys\Git\Common\Common_ImgRead.py" />
-    <Content Include="Pys\Git\Common\Common_ImgRead2.py" />
-    <Content Include="Pys\Git\Common\read_imei.py" />
-    <Content Include="Pys\Git\Phone_msg_calllog\Phone_msg_calllog.py" />
-    <Content Include="Pys\Git\Phone_msg_calllog_extract.py" />
-    <Content Include="Pys\Git\QQ\sqliteqq.py" />
-    <Content Include="Pys\Git\qq_extract.py" />
-    <Content Include="Pys\Git\Wechat\sqlcipher_d.exe" />
-    <Content Include="Pys\Git\Wechat\wechat_sqlite.py" />
-    <Content Include="Pys\Git\wechat_extract.py" />
+    <Content Include="Pys\Common\Common_ImgRead.py" />
+    <Content Include="Pys\Common\Common_ImgRead2.py" />
+    <Content Include="Pys\Common\read_imei.py" />
+    <Content Include="Pys\Phone_msg_calllog\Phone_msg_calllog.py" />
+    <Content Include="Pys\Phone_msg_calllog_extract.py" />
+    <Content Include="Pys\QQ\sqliteqq.py" />
+    <Content Include="Pys\qq_extract.py" />
+    <Content Include="Pys\Wechat\sqlcipher_d.exe" />
+    <Content Include="Pys\Wechat\wechat_sqlite.py" />
+    <Content Include="Pys\wechat_extract.py" />
     <Content Include="Python34\DLLs\py.ico" />
     <Content Include="Python34\DLLs\pyc.ico" />
     <Content Include="Python34\DLLs\python3.dll" />
@@ -233,22 +233,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Pys\Git\Common\__pycache__\Common_ImgRead.cpython-34.pyc" />
-    <None Include="Pys\Git\Common\__pycache__\Common_ImgRead.cpython-35.pyc" />
-    <None Include="Pys\Git\Common\__pycache__\Common_ImgRead.cpython-36.pyc" />
-    <None Include="Pys\Git\Common\__pycache__\read_imei.cpython-34.pyc" />
-    <None Include="Pys\Git\Common\__pycache__\read_imei.cpython-35.pyc" />
-    <None Include="Pys\Git\Common\__pycache__\read_imei.cpython-36.pyc" />
-    <None Include="Pys\Git\decrypto.db" />
-    <None Include="Pys\Git\output.db" />
-    <None Include="Pys\Git\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-34.pyc" />
-    <None Include="Pys\Git\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-35.pyc" />
-    <None Include="Pys\Git\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-36.pyc" />
-    <None Include="Pys\Git\QQ\__pycache__\sqliteqq.cpython-35.pyc" />
-    <None Include="Pys\Git\QQ\__pycache__\sqliteqq.cpython-36.pyc" />
-    <None Include="Pys\Git\Wechat\__pycache__\wechat_sqlite.cpython-34.pyc" />
-    <None Include="Pys\Git\Wechat\__pycache__\wechat_sqlite.cpython-35.pyc" />
-    <None Include="Pys\Git\Wechat\__pycache__\wechat_sqlite.cpython-36.pyc" />
+    <None Include="Pys\Common\__pycache__\Common_ImgRead.cpython-34.pyc" />
+    <None Include="Pys\Common\__pycache__\Common_ImgRead.cpython-35.pyc" />
+    <None Include="Pys\Common\__pycache__\Common_ImgRead.cpython-36.pyc" />
+    <None Include="Pys\Common\__pycache__\read_imei.cpython-34.pyc" />
+    <None Include="Pys\Common\__pycache__\read_imei.cpython-35.pyc" />
+    <None Include="Pys\Common\__pycache__\read_imei.cpython-36.pyc" />
+    <None Include="Pys\decrypto.db" />
+    <None Include="Pys\output.db" />
+    <None Include="Pys\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-34.pyc" />
+    <None Include="Pys\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-35.pyc" />
+    <None Include="Pys\Phone_msg_calllog\__pycache__\Phone_msg_calllog.cpython-36.pyc" />
+    <None Include="Pys\QQ\__pycache__\sqliteqq.cpython-35.pyc" />
+    <None Include="Pys\QQ\__pycache__\sqliteqq.cpython-36.pyc" />
+    <None Include="Pys\Wechat\__pycache__\wechat_sqlite.cpython-34.pyc" />
+    <None Include="Pys\Wechat\__pycache__\wechat_sqlite.cpython-35.pyc" />
+    <None Include="Pys\Wechat\__pycache__\wechat_sqlite.cpython-36.pyc" />
     <None Include="Python34\DLLs\pyexpat.pyd" />
     <None Include="Python34\DLLs\select.pyd" />
     <None Include="Python34\DLLs\unicodedata.pyd" />

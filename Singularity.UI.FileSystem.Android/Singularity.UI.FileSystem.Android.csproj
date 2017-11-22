@@ -33,30 +33,39 @@
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\AvalonDock.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCControls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\EventLogger.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -64,6 +73,7 @@
     </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
       <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
@@ -82,10 +92,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -138,22 +150,27 @@
     <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
       <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
       <Name>CDFC.Parse.Android</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
       <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
       <Name>CDFC.Parse</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.FileSystem\Singularity.UI.FileSystem.csproj">
       <Project>{BF97758C-4647-4BF5-9CF0-B90B0A508964}</Project>
       <Name>Singularity.UI.FileSystem</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.Interfaces\Singularity.Interfaces.csproj">
       <Project>{C8E8EC30-CD51-40F7-85FF-ABAD3F3D86EF}</Project>
       <Name>Singularity.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
       <Project>{EA0D6D56-DB66-4F7F-8456-A23DE8AE1105}</Project>
       <Name>Singularity.UI.Case</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
