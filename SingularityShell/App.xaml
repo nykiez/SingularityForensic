@@ -29,7 +29,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info;component/Languages/zh_CN/Singularity.UI.Info.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Singularity.UI.ITunes;component/Languages/zh_CN/Singularity.UI.ITunes.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Relevance;component/Languages/zh_CN/Singularity.UI.Relevance.xaml"/>-->
-                <ResourceDictionary Source="pack://application:,,,/Singularity.FileSystem;component/Languages/zh_CN/Singularity.FileSystem.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.FileSystem;component/Languages/zh_CN/Singularity.FileSystem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

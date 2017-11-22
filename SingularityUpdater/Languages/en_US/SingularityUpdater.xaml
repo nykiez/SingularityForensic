@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:SingularityUpdater.Language.zh_CN">
+    <!--升级程序语言字典-->
+    <sys:String x:Key="SoftName">CFLab Video Retrieval-Upgrade Program</sys:String>
+    <sys:String x:Key="DownloadingFile">Downloading the file</sys:String>
+    <sys:String x:Key="NoNeedToUpdate">No need to update</sys:String>
+    <sys:String x:Key="CurFile">Current File</sys:String>
+
+    <!--下载后若文件读取错误,{0}为错误文件名,{1}为异常信息-->
+    <sys:String x:Key="FailedToReadFileFormat">{0}File-reading Error:{1},confirm to proceed?</sys:String>
+    <sys:String x:Key="FailedToUpdateFileFormat">{0}File-update Error:{1},confirm to proceed?</sys:String>
+
+    <sys:String x:Key="SetupingFile">Installing the file </sys:String>
+    <sys:String x:Key="ErrorWhenDownLoading">Download Error</sys:String>
+    <sys:String x:Key="UpdatingCanceled">Update Canceled</sys:String>
+    <sys:String x:Key="UpdatingFinished">Update Completed</sys:String>
+
+    <sys:String x:Key="ConfirmToRestartProgram">Update completed,proceed to reboot the program?</sys:String>
+    <sys:String x:Key="TerminatedWhenDownLoadingTheFile">{0}File-downloading Error,query terminated</sys:String>
+    <sys:String x:Key="TerminatedWhenDownReadingTheFile">{0}File-reading Error,query terminated</sys:String>
+
+    <sys:String x:Key="Error">Error</sys:String>
+
+    <sys:String x:Key="ConfirmToTerminateWhileUpdating">Updating,are you sure to exit?</sys:String>
+    <sys:String x:Key="Tip">Tip</sys:String>
+</ResourceDictionary>

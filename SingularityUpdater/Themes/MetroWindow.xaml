@@ -1,0 +1,134 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:SingularityUpdater.Themes">
+    <sys:Double x:Key="hoverHeight">20</sys:Double>
+    <sys:Double x:Key="hoverWidth">20</sys:Double>
+    <sys:Double x:Key="normalHeight">16</sys:Double>
+    <sys:Double x:Key="normalWidth">16</sys:Double>
+    <!--标题栏按钮样式-->
+    <Style x:Key="commandButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Margin" Value="6,0,12,0"/>
+        <!--<Setter Property="Height" Value="{StaticResource normalHeight}"/>
+        <Setter Property="Width" Value="{StaticResource normalWidth}"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="grid" Width="30" Background="Transparent">
+                        <ContentPresenter x:Name="contentPresenter" Opacity="1"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      RecognizesAccessKey="True"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                             Value="True">
+                            <Setter TargetName="contentPresenter"
+                                Property="Opacity"
+                                Value="1" />
+                            <Setter TargetName="grid"
+                                Property="Background"
+                                Value="LightBlue" />
+                            <Setter Property="Foreground"
+                                    Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                             Value="False">
+                            <Setter TargetName="contentPresenter"
+                                Property="Opacity"
+                                Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                             Value="True">
+                            <Setter TargetName="grid"
+                                Property="Background"
+                                Value="#E04343" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                             Value="false">
+                            <Setter Property="Foreground"
+                                Value="#ADADAD" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--最小化按钮样式-->
+    <Style x:Key="WindowMinButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource commandButtonStyle}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Grid>
+                        <Image x:Name="hoverImg" RenderOptions.BitmapScalingMode="HighQuality" 
+                               Height="{StaticResource hoverHeight}" Width="{StaticResource hoverWidth}"
+                               Source="/Images/Shell/TitleBar/Hover/BtnMin.png" Visibility="Hidden" />
+                        <Image x:Name="normalImg" RenderOptions.BitmapScalingMode="HighQuality" Height="{StaticResource normalHeight}" Width="{StaticResource normalWidth}"
+                               Source="/Images/Shell/TitleBar/Normal/BtnMin.png" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="hoverImg" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="normalImg" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--最大化按钮样式--><!--
+    <Style x:Key="WindowMaxButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource commandButtonStyle}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Grid >
+                        <Image x:Name="hoverImg" Visibility="Hidden" Height="{StaticResource hoverHeight}" Width="{StaticResource hoverWidth}"
+                               Source="/Images/Shell/TitleBar/Hover/CommandBtn.png"/>
+                        <Image x:Name="normalImg" Height="{StaticResource normalHeight}" Width="{StaticResource normalWidth}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="hoverImg" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding WindowState,RelativeSource={RelativeSource AncestorType=metros:MetroWindow}}" Value="Normal">
+                            <Setter TargetName="normalImg" Property="Source" Value="/Images/Shell/TitleBar/Normal/BtnMax_Normal.png" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowState,RelativeSource={RelativeSource AncestorType=metros:MetroWindow}}" Value="Maximized">
+                            <Setter TargetName="normalImg" Property="Source" Value="/Images/Shell/TitleBar/Normal/BtnMax_Maximumed.png" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+    <!--关闭按钮样式-->
+    <Style x:Key="WindowCloseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource commandButtonStyle}" >
+        <Setter Property="Margin" Value="6,0,21,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Grid>
+                        <Image x:Name="hoverImg" RenderOptions.BitmapScalingMode="HighQuality" 
+                               Height="{StaticResource hoverHeight}" Width="{StaticResource hoverWidth}"
+                               Source="/Images/Shell/TitleBar/Hover/BtnClose.png" Visibility="Hidden" />
+                        <Image x:Name="normalImg" RenderOptions.BitmapScalingMode="HighQuality"  
+                               Height="{StaticResource normalHeight}" Width="{StaticResource normalWidth}"
+                               Source="/Images/Shell/TitleBar/Normal/BtnClose.png" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="hoverImg" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="normalImg" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

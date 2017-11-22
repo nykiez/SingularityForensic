@@ -1,0 +1,82 @@
+﻿<metros:MetroWindow x:Class="CDFCVideoExactorUpdater.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CDFCVideoExactorUpdater"
+        xmlns:commands="clr-namespace:CDFCVideoExactorUpdater.Commands"
+          WindowTitleBrush="#cfcfcf"   WindowStartupLocation="CenterScreen"
+                    ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Title="星云视频恢复-升级程序" Height="350" Width="768">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <commands:EventToCommand Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <commands:EventToCommand PassEventArgsToCommand="True" Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Margin="3" Padding="3" CornerRadius="3" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding BrandImage,FallbackValue=WelcomeImage.png}" Stretch="Fill"/>
+                <Border Grid.Row="2" BorderBrush="Black" CornerRadius="3" BorderThickness="1">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="Gainsboro"/>
+                                <Setter Property="Margin" Value="4" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Height="24" Background="#f4f4f2"
+                                   Text="{Binding UpdatingWord,FallbackValue=正在Patch中:}"
+                                   Foreground="Black" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Row="1">目前:</TextBlock>
+                        <metros:MetroProgressBar  Grid.Column="1" Grid.Row="1" Value="{Binding CurItemPtg,FallbackValue=50}" />
+                        <TextBlock Grid.Row="2" >全部:</TextBlock>
+                        <metros:MetroProgressBar  Grid.Column="1" Grid.Row="2" Value="{Binding TotalItemPtg,FallbackValue=50}" />
+                        <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding CurFileWord}" />
+                            <Button DockPanel.Dock="Right" Command="{Binding CancleOrCloseCommand}">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsWorking,FallbackValue=False}" Value="True">
+                                                <Setter Property="Content" Value="取消"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsWorking,FallbackValue=False}" Value="False">
+                                                <Setter Property="Content" Value="确认"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Border/>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/RadialBackground.png" />
+        </Grid.Background>
+    </Grid>
+</metros:MetroWindow>

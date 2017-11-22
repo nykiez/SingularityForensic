@@ -21,24 +21,6 @@
 bld/
 [Bb]in/
 [Oo]bj/
-CDFCControls/
-CDFCMessageBoxes/
-Singulatity.Fonts/
-Singularity.Previewers/
-Singularity.UI.Converters/
-Singularity.UI.MessageBoxes/
-SingularityForensic/
-SingularityUpdater/
-CDFC.Parse/
-CDFC.Parse.Signature/
-CDFC.Parse.Android/
-CDFC.Singularity.Forensics/
-DirectOutIn/
-SingularitySetup/
-SingularityWibuSetup/
-CDFC.PInvoke/
-CDFC.Previewers.Contracts/
-CDFCCultures/
 
 # Visual Studio 2015 cache/options directory
 .vs/

@@ -1,42 +1,38 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Contracts;
 using EventLogger;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Modularity;
-using Singularity.UI.FileSystem.Global.TabModels;
-using Singularity.UI.FileSystem.ViewModels;
-using SingularityForensic.Modules.MainPage.Global.Services;
 using SingularityForensic.Modules.Shell.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
-using System.Threading;
-using SingularityForensic.Modules.Shell.Global.Services;
-using Singularity.UI.MessageBoxes.Models;
 using SingularityForensic.Helpers;
 using SingularityForensic.Modules.MainPage.Global.Events;
 using Singularity.UI.FileSystem.Models;
 using CDFCUIContracts.Models;
 using Singularity.Interfaces;
-using CDFC.Parse.Local.DeviceObjects;
-using CDFC.Parse.Signature.DeviceObjects;
-using CDFC.Parse.Signature.Pictures;
 using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
 using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
 using Singularity.UI.FileSystem.Global.Services;
+using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Input;
+using System.Linq;
+using CDFCUIContracts.Commands;
 
 namespace Singularity.UI.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]
     public class FileSystemModule : IModule {
         [Import]
         IFSNodeService fsNodeService;
+        [ImportMany(CommandDefinitions.DeviceNodeContextCommand)]
+        private IEnumerable<ICommandItem> DeviceNodeCommandItems;
 
         public void Initialize() {
             RegisterEvents();
@@ -92,7 +88,7 @@ namespace Singularity.UI.FileSystem {
                 }
                 
             });
-            //为设备案件文件节点加入右键菜单,子节点;
+            //为设备案件文件节点加入文件系统子节点;
             PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
                 if (unit is IHaveData<ICaseFile> haveCaseFile) {
                     //若为可迭代(设备)案件文件，则添加文件系统节点;
@@ -100,7 +96,24 @@ namespace Singularity.UI.FileSystem {
                         unit.Children.Add(new FileSystemUnit(haveCaseFile.Data, unit));
                     }
 
+                    if(haveCaseFile.Data is IHaveData<Device>) {
+
+                        try {
+                            var commands = unit.ContextCommands ?? (unit.ContextCommands = new ObservableCollection<ICommandItem>());
+                            if(DeviceNodeCommandItems != null) {
+                                commands.AddRange(DeviceNodeCommandItems);
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        
+                    }
                 }
+            });
+            //为设备案件文件节点加入文件系统子节点;
+            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
+                
             });
         }
         

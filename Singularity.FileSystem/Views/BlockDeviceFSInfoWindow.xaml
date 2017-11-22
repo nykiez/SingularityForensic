@@ -172,7 +172,7 @@
                                  DockPanel.Dock="Top" ItemsSource="{Binding Units}" x:Name="CaseTreeList"  
                                 ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
                 <TreeView.ItemContainerStyle>
-                    <Style TargetType="TreeViewItem" BasedOn="{StaticResource DefaultTreeViewItem}">
+                    <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type TreeViewItem}">

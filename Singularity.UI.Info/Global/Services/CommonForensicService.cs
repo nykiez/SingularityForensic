@@ -14,6 +14,7 @@ namespace Singularity.UI.Info.Global.Services {
         PinTreeUnit AddForensicUnit<TCaseFile>(TCaseFile cFile) where TCaseFile : class, ICaseFile;
         PinTreeUnit GetForensicInfoUnit<TCaseFile>(TCaseFile csFile) where TCaseFile : class, ICaseFile;
     }
+
     /// <summary>
     /// 公共取证服务;
     /// </summary>

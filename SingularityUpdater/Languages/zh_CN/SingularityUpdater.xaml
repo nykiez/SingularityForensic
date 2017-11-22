@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--升级程序语言字典-->
+    <sys:String x:Key="SoftName">流火手机取证分析系统-升级程序</sys:String>
+    <sys:String x:Key="DownloadingFile">正在下载文件</sys:String>
+    <sys:String x:Key="NoNeedToUpdate">无需更新</sys:String>
+    <sys:String x:Key="CurFile">当前文件</sys:String>
+    <sys:String x:Key="FailedToConnectToServer">连接远程服务器失败</sys:String>
+    <sys:String x:Key="UnknownError">未知错误</sys:String>
+                
+    <!--下载后若文件读取错误,{0}为错误文件名,{1}为异常信息-->
+    <sys:String x:Key="FailedToReadFileFormat">读取文件{0}时错误:{1},是否继续?</sys:String>
+    <sys:String x:Key="FailedToUpdateFileFormat">更新文件{0}时错误:{1},是否继续?</sys:String>
+
+    <sys:String x:Key="SetupingFile">正在安装文件</sys:String>
+    <sys:String x:Key="ErrorWhenDownLoading">下载错误</sys:String>
+    <sys:String x:Key="UpdatingCanceled">用户取消了更新</sys:String>
+    <sys:String x:Key="UpdatingFinished">更新完成</sys:String>
+
+    <sys:String x:Key="ConfirmToRestartProgram">更新完成,是否重新启动程序?</sys:String>
+    <sys:String x:Key="TerminatedWhenDownLoadingTheFile">下载文件{0}时错误,请求被终止</sys:String>
+    <sys:String x:Key="TerminatedWhenDownReadingTheFile">下载文件{0}时错误,请求被终止</sys:String>
+
+    <sys:String x:Key="Error">错误</sys:String>
+
+    <sys:String x:Key="ConfirmToTerminateWhileUpdating">正在执行更新,确定退出吗？</sys:String>
+    <sys:String x:Key="Tip">提示</sys:String>
+</ResourceDictionary>

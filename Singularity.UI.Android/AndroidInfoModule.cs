@@ -27,29 +27,7 @@ using static CDFCCultures.Managers.ManagerLocator;
 namespace Singularity.UI.Info.Android {
     [ModuleExport(typeof(AndroidInfoModule))]
     public class AndroidInfoModule : IModule {
-        /// <summary>
-        /// 加载取证信息节点;
-        /// </summary>
-        /// <param name="adCFile"></param>
-        private void LoadForensicUnit(AndroidDeviceCaseFile adCFile) {
-            var frService = ServiceLocator.Current.GetInstance<ICommonForensicService>();
-            //加载取证分析节点;
-            var fUnit = frService?.AddForensicUnit(adCFile);
-            if(fUnit == null) {
-                RemainingMessageBox.Tell($"{nameof(fUnit)} can't be null!");
-                return;
-            }
-
-            foreach (var infoKind in PinKindsDefinitions.ForensicClassTypes) {
-                if(fUnit.Children.FirstOrDefault(p => p is PinTreeUnit pinUnit && pinUnit.ContentId == infoKind) == null) {
-                    fUnit.Children.Add(
-                        new PinTreeUnit(infoKind, fUnit) {
-                            Label = PinKindsDefinitions.GetClassLabel(infoKind)
-                        }
-                    );
-                }
-            }
-        }
+        
 
         public void Initialize() {
             //订阅镜像文件附加事件;

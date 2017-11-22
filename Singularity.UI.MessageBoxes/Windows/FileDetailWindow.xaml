@@ -1,0 +1,26 @@
+﻿<controls:CorneredWindow x:Class="Singularity.UI.MessageBoxes.Windows.FileDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+                    ResizeMode="NoResize" 
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="{DynamicResource FileDetailInfo}" Height="300" Width="300" Style="{DynamicResource MsgWindowStyle}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Singularity.UI.Themes;component/CorneredWindow.xaml"/>
+                <ResourceDictionary Source="/Singularity.UI.Themes;component/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="txbMain" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
+        <Button Grid.Row="1" x:Name="btnClose" Style="{DynamicResource SureBtnStyle}" Click="btnClose_Click"  Margin="0,6" HorizontalAlignment="Center" Content="{DynamicResource Close}" />
+    </Grid>
+</controls:CorneredWindow>
