@@ -1,4 +1,5 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
+﻿using CDFC.Parse.Contracts;
+using CDFCMessageBoxes.MessageBoxes;
 using Singularity.UI.FileSystem.Models;
 using Singularity.UI.FileSystem.ViewModels;
 using System;
@@ -21,10 +22,10 @@ namespace Singularity.UI.FileSystem.Views {
                 vm = e.NewValue as FolderBrowserViewModel;
                 if (vm != null) {
                     Action<bool> checkAct = check => {
-                        List<FileRow> slRows = new List<FileRow>();
+                        var slRows = new List<IFileRow>();
                         try {
                             foreach (var item in dg.SelectedItems) {
-                                slRows.Add(item as FileRow);
+                                slRows.Add(item as IFileRow);
                             }
                         }
                         catch (Exception ex) {
@@ -61,9 +62,9 @@ namespace Singularity.UI.FileSystem.Views {
             if (e.ClickCount == 2) {
                 try {
                     var s = e.OriginalSource as FrameworkElement;
-                    var row = s.DataContext as FileRow;
+                    var row = s.DataContext as IFileRow;
                     if (row != null) {
-                        VM?.EnterRow(row);
+                        VM?.EnterRow(row as IFileRow<IFile>);
                     }
                 }
                 catch {

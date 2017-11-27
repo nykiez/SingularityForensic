@@ -1,6 +1,6 @@
 ﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Android.DeviceObjects;
 using CDFC.Parse.Contracts;
+using CDFC.Parse.DeviceObjects;
 using CDFCCultures.Helpers;
 using EventLogger;
 using Singularity.Interfaces;

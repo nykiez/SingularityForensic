@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Cflab.DataTransport.Modules.Transport.Model;
-using CDFC.Info.Infrastructure;
 using Prism.Mvvm;
+using Singularity.UI.Info.Contracts;
+using Singularity.UI.AdbViewer.Helpers;
 
 namespace Singularity.UI.AdbViewer.Models.AdbViewer {
     public class AdbTreeUnit : BindableBase {

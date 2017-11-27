@@ -290,11 +290,6 @@
     <Folder Include="Modules\StatusBar\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Info.Infrastructure\CDFC.Info.Infrastructure.csproj">
-      <Project>{60D14BD5-ADF6-4CF1-BEE0-100D4D8C8C2F}</Project>
-      <Name>CDFC.Info.Infrastructure</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Singularity.Interfaces\Singularity.Interfaces.csproj">
       <Project>{c8e8ec30-cd51-40f7-85ff-abad3f3d86ef}</Project>
       <Name>Singularity.Interfaces</Name>

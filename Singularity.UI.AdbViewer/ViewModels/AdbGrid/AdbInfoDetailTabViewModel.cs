@@ -5,9 +5,8 @@ using static CDFCCultures.Managers.ManagerLocator;
 using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using Cflab.DataTransport.Modules.Transport.Model;
-using CDFC.Info.Infrastructure;
 using Prism.Mvvm;
-using CDFC.Info.Adb;
+using Singularity.UI.Info.Contracts;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
     public class AdbInfoDetailTabViewModel : BindableBase,ITabModel {

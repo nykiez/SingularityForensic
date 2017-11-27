@@ -87,10 +87,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Info.Android\CDFC.Info.Android.csproj">
-      <Project>{461e8ed4-1366-4bea-92ad-2ee52c6049ea}</Project>
-      <Name>CDFC.Info.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
       <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
       <Name>CDFC.Parse.Android</Name>

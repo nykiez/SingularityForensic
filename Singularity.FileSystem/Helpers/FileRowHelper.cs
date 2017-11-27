@@ -1,4 +1,5 @@
-﻿using CDFC.Parse.IO;
+﻿using CDFC.Parse.Contracts;
+using CDFC.Parse.IO;
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Singularity.UI.FileSystem.Models;
@@ -14,7 +15,7 @@ namespace Singularity.UI.FileSystem.Helpers {
         /// </summary>
         /// <param name="row"></param>
         /// <returns></returns>
-        public static FileStream SaveFileToTemp(FileRow row) {
+        public static FileStream SaveFileToTemp(IFileRow<IFile> row) {
             var file = row.File;
             if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}/Tmp")) {
                 System.IO.Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}/Tmp");

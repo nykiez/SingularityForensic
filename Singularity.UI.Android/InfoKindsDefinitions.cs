@@ -1,5 +1,6 @@
-﻿using CDFC.Info.Android;
-using Singularity.UI.Info.Android.Resouces;
+﻿using Singularity.UI.Info.Android.Resouces;
+using Singularity.UI.Info.Models;
+using Singularity.UI.Info.Models.Chating;
 using System;
 using static CDFCCultures.Managers.ManagerLocator;
 

@@ -113,14 +113,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandDefinitions.cs" />
+    <Compile Include="Global\Constances.cs" />
+    <Compile Include="Global\Services\Ext4NodeDetailProvider.cs" />
+    <Compile Include="MessageBoxes\BlockDeviceFSInfoMessageBox.cs" />
+    <Compile Include="Models\FileRows.cs" />
+    <Compile Include="Models\TreeUnit.cs" />
+    <Compile Include="ViewModels\BlockDeviceFSInfoViewModel.cs" />
+    <Compile Include="Views\BlockDeviceFSInfoWindow.xaml.cs">
+      <DependentUpon>BlockDeviceFSInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AndroidDeviceStreamParser.cs" />
     <Compile Include="AndroidFSModule.cs" />
+    <Page Include="Views\BlockDeviceFSInfoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global\Services\AndroidDeviceFileSystemServiceProvider.cs" />
+    <Compile Include="Global\Services\AndroidDeviceStreamParser.cs" />
     <Compile Include="Models\AndroidDeviceCaseFile.cs" />
     <Compile Include="Models\AndroidDeviceCaseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -172,7 +187,12 @@
       <Name>Singularity.UI.Case</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
+      <Name>SingularityForensic</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"</PostBuildEvent>

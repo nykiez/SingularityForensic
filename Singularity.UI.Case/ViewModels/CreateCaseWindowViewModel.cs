@@ -1,5 +1,4 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;

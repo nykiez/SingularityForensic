@@ -12,8 +12,10 @@ using Singularity.Interfaces;
 using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
 using Singularity.UI.Case.Global.Services;
+using CDFC.Parse.DeviceObjects;
+using Singularity.UI.FileSystem.Models;
 
-namespace Singularity.UI.FileSystem.Models {
+namespace Singularity.UI.FileSystem.Android.Models {
     [Export(typeof(ICaseManager))]
     public class AndroidDeviceCaseManager : ICaseManager {
         public void LoadCase(CaseLoaderHelper.CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {

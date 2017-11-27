@@ -115,16 +115,19 @@
   <ItemGroup>
     <Compile Include="CommandDefinitions.cs" />
     <Compile Include="FileSystemModule.cs" />
+    <Compile Include="Global\Constances.cs" />
     <Compile Include="Global\Events\TabEvents.cs" />
-    <Compile Include="Global\Services\FileSystemService.cs" />
+    <Compile Include="Global\Services\DefaultFileSystemProvider.cs" />
     <Compile Include="Global\Services\FSNodeManagerService.cs" />
     <Compile Include="Global\Services\FSTabService.cs" />
     <Compile Include="Global\TabModels\FileBrowserTabModel.cs" />
     <Compile Include="Helpers\FileRowHelper.cs" />
+    <Compile Include="Helpers\FileSystemHelper.cs" />
     <Compile Include="Helpers\FsConfigHelper.cs" />
-    <Compile Include="MessageBoxes\BlockDeviceFSInfoMessageBox.cs" />
-    <Compile Include="Models\AndroidDeviceCaseFile.cs" />
-    <Compile Include="Models\AndroidDeviceCaseManager.cs" />
+    <Compile Include="Interfaces\IFileDetailInfoProvider.cs" />
+    <Compile Include="Interfaces\IFileSystemServiceProvider.cs" />
+    <Compile Include="Interfaces\IRowBuilder.cs" />
+    <Compile Include="Interfaces\IStreamFileParser.cs" />
     <Compile Include="Models\CaseFiles.cs" />
     <Compile Include="Models\FileRow.cs" />
     <Compile Include="Models\FSTreeUnit.cs" />
@@ -133,6 +136,8 @@
     <Compile Include="Models\SearchKeyOption.cs" />
     <Compile Include="Models\TreeUnit.cs" />
     <Compile Include="Models\ViewerProgramModel.cs" />
+    <Compile Include="Modules\Indexing\CommandDefinitions.cs" />
+    <Compile Include="Modules\RecoverSign\CommandDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -147,16 +152,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Resources\IconSources.cs" />
-    <Compile Include="ViewModels\BlockDeviceFSInfoViewModel.cs" />
     <Compile Include="ViewModels\FileBrowserViewModel.cs" />
     <Compile Include="ViewModels\FileDetailTabModel.cs" />
     <Compile Include="ViewModels\FileHexTabViewModel.cs" />
     <Compile Include="ViewModels\FilePreviewerViewModel.cs" />
     <Compile Include="ViewModels\FolderBrowserViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailTabModel.cs" />
-    <Compile Include="Views\BlockDeviceFSInfoWindow.xaml.cs">
-      <DependentUpon>BlockDeviceFSInfoWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CustomIndexSearch.xaml.cs">
       <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
     </Compile>
@@ -189,10 +190,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
-      <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
-      <Name>CDFC.Parse.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
       <Project>{13044F46-874A-4419-90EC-BA559828A960}</Project>
       <Name>CDFC.Parse.Local</Name>
@@ -248,10 +245,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BlockDeviceFSInfoWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\CustomIndexSearch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -296,6 +289,7 @@
   <ItemGroup>
     <Resource Include="Images\Type_DirectoryActive.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"

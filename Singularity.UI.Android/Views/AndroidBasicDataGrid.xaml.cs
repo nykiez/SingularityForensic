@@ -1,5 +1,5 @@
-﻿using CDFC.Info.Android;
-using CDFC.Util;
+﻿using CDFC.Util;
+using Singularity.UI.Info.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

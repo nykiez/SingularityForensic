@@ -36,7 +36,6 @@ namespace Singularity.Previewers {
             "MP4",
             "AVI",
             "RMVB",
-
             "MP3"
         };
 

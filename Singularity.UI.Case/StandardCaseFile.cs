@@ -1,5 +1,4 @@
-﻿using Singularity.Interfaces;
-using Singularity.UI.Case.Contracts;
+﻿using Singularity.UI.Case.Contracts;
 using System;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;

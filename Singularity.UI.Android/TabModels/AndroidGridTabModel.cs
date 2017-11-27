@@ -1,6 +1,6 @@
-﻿using CDFC.Info.Android;
-using Singularity.UI.Info.Android.ViewModels;
+﻿using Singularity.UI.Info.Android.ViewModels;
 using Singularity.UI.Info.Android.Views;
+using Singularity.UI.Info.Models;
 using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using CDFCUIContracts.Commands;
 using CDFCUIContracts.Models;
-using Singularity.Interfaces;
 using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case.Resources;
 using SingularityForensic.Modules.MainPage.Models;

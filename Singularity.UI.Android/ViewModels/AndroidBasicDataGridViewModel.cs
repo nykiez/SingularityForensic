@@ -1,5 +1,5 @@
-﻿using CDFC.Info.Android;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
+using Singularity.UI.Info.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

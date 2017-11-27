@@ -1,6 +1,6 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
-using Singularity.UI.FileSystem.Models;
+using Singularity.UI.FileSystem.Android.Models;
 using Singularity.UI.Info.Android.ViewModels;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Views;

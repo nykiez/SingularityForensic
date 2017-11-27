@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBox x:Name="mainTxb" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        <TextBox x:Name="mainTxb" IsReadOnly="True" Text="{Binding Text}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
     </Grid>
 </UserControl>

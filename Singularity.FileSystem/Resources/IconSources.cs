@@ -17,8 +17,11 @@ namespace Singularity.UI.FileSystem.Resources {
         public static readonly Uri PartActiveUnitIcon      = new Uri("/Singularity.UI.FileSystem;component/Images/Type_PartitionActive.png", UriKind.RelativeOrAbsolute);
         public static readonly Uri DirectoryUnitIcon       = new Uri("/Singularity.UI.FileSystem;component/Images/Type_Directory.png", UriKind.RelativeOrAbsolute);
         public static readonly Uri DirectoryActiveUnitIcon = new Uri("/Singularity.UI.FileSystem;component/Images/Type_DirectoryActive.png", UriKind.RelativeOrAbsolute);
-        public static readonly Uri RegFileIcon             = new Uri("/Singularity.UI.FileSystem;component/Images/Type_RegularFile.png", UriKind.RelativeOrAbsolute);
+        public static readonly Uri RegFileUnitIcon         = new Uri("/Singularity.UI.FileSystem;component/Images/Type_RegularFile.png", UriKind.RelativeOrAbsolute);
         public static readonly Uri UnknownIcon             = new Uri("/Singularity.UI.FileSystem;component/Images/Type_Unknown.ico", UriKind.RelativeOrAbsolute);
-        
+
+        public static readonly Uri DirectoryRowIcon        = new Uri("/Singularity.UI.FileSystem;component/Images/Type_Directory.png", UriKind.RelativeOrAbsolute);
+        public static readonly Uri RegFileRowIcon          = new Uri("/Singularity.UI.FileSystem;component/Images/Type_RegularFile.png", UriKind.RelativeOrAbsolute);
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using Singularity.UI.FileSystem.Models;
+﻿using Singularity.UI.FileSystem.Android.Models;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.ViewModels;
 using System.Collections.Generic;

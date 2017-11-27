@@ -31,7 +31,7 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:FileRow}">
+                <DataTemplate DataType="{x:Type models:IFileRow}">
                     <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="{Binding FileName}" >
                         <Image Source="{Binding PreviewSource}" RenderOptions.BitmapScalingMode="LowQuality"
                                Stretch="Fill"

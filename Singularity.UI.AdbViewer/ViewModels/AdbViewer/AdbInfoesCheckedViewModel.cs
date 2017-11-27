@@ -13,12 +13,14 @@ using System.IO;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Helpers.IOPathHelper;
 using Prism.Commands;
-using CDFC.Info.Infrastructure;
 using CDFC.Info.Adb;
 using Singularity.UI.MessageBoxes.MessageBoxes;
 using Singularity.UI.AdbViewer.Models.AdbViewer;
 using Cflab.DataTransport.Modules.Backup.Android;
 using Singularity.UI.Case;
+using Singularity.UI.Info.Contracts;
+using Singularity.UI.AdbViewer.Contracts;
+using Singularity.UI.AdbViewer.Helpers;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
     public partial class AdbInfoesCheckedViewModel:PageModelBase,IDisposable {

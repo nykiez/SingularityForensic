@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition;
 using Microsoft.Practices.ServiceLocation;
 using System.Linq;
-using CDFC.Info.Android;
 using Singularity.UI.Android.Models;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -12,10 +11,12 @@ using Singularity.UI.Info.Global.Services;
 using EventLogger;
 using Singularity.Interfaces;
 using CDFCUIContracts.Models;
-using Singularity.UI.FileSystem.Models;
 using SingularityForensic.Modules.MainPage.Models;
 using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
+using Singularity.UI.FileSystem.Android.Models;
+using Singularity.UI.Info.Models;
+using Singularity.UI.Info.Models.Chating;
 
 namespace Singularity.UI.Info.Android.Models {
     [Export(typeof(ICaseManager))]

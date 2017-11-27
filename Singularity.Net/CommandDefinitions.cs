@@ -4,7 +4,6 @@ using CDFCUIContracts.Commands;
 using EventLogger;
 using Prism.Commands;
 using Renci.SshNet;
-using Singularity.UI.FileSystem.Models;
 using Singularity.UI.FileSystem.ViewModels;
 using System;
 using System.ComponentModel.Composition;

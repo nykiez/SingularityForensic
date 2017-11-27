@@ -1,5 +1,4 @@
-﻿using CDFC.Info.Android;
-using CDFC.Parse.Signature.Contracts;
+﻿using CDFC.Parse.Signature.Contracts;
 using CDFC.Parse.Signature.DeviceObjects;
 using CDFC.Parse.Signature.Pictures;
 using CDFCMessageBoxes.MessageBoxes;
@@ -7,11 +6,13 @@ using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Singularity.UI.Android.Models;
 using Singularity.UI.Case;
+using Singularity.UI.FileSystem.Android.Models;
 using Singularity.UI.FileSystem.Global.Services;
 using Singularity.UI.FileSystem.Models;
 using Singularity.UI.Info.Android.Helpers;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Models;
+using Singularity.UI.Info.Models.Chating;
 using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,7 @@ namespace Singularity.UI.Info.Android.Models {
                         foreach (var unit in fiUnit.Children) {
                             if(unit is PinTreeUnit afcUnit && afcUnit.ContentId == ForensicCalssType) {
                                 var preUnit = afcUnit.Children.FirstOrDefault(p => p.Label?.StartsWith(Name) ?? false);
-                                var sunit = new StorageTreeUnit(part, afcUnit) { Label = $"{Name}({ownNdList.Count})" };
+                                var sunit = new StorageTreeUnit(part, afcUnit,DefaultFileSystemProvider.StaticInstance) { Label = $"{Name}({ownNdList.Count})" };
                                 if (preUnit != null) {
                                     afcUnit.Children.Remove(preUnit);
                                 }

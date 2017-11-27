@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.InteropServices;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CDFC.Parse.ITunes.Models;
 using CDFC.Parse.ITunes;
 using System.IO;

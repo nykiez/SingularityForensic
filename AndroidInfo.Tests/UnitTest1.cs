@@ -1,14 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Singularity.UI.MessageBoxes.ViewModels;
 using CDFC.Parse.Android.DeviceObjects;
-using Singularity.UI.Info.Android.Models;
-using System.IO;
-using CDFC.Info.Android;
 using Singularity.UI.Info.Android.Helpers;
 using Singularity.UI.Case.ViewModels;
 using Singularity.UI.Case;
-using Singularity.UI.FileSystem.Models;
 
 namespace AndroidInfo.Tests {
     [TestClass]

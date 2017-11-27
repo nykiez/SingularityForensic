@@ -57,25 +57,25 @@ namespace Singularity.UI.FileSystem.ViewModels {
         public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
 
         //文件/资源行;(须在外部指定实例);
-        public ObservableCollection<FileRow> FileRows { get; set; } 
+        public ObservableCollection<IFileRow> FileRows { get; set; } 
 
-        public event EventHandler<TEventArgs<FileRow>> SelectedFileRowChanged;               //当当前选择文件变化时触发;
+        public event EventHandler<TEventArgs<IFileRow>> SelectedFileRowChanged;               //当当前选择文件变化时触发;
 
-        private FileRow _selectedFileRow;                                    //当前选定的文件行;
-        public FileRow SelectedFileRow {
+        private IFileRow _selectedFileRow;                                    //当前选定的文件行;
+        public IFileRow SelectedFileRow {
             get {
                 return _selectedFileRow;
             }
             set {
                 SetProperty(ref _selectedFileRow, value);
-                if (_selectedFileRow != null && _selectedFileRow.File != null) {
-                    SelectedFileRowChanged?.Invoke(this,new TEventArgs<FileRow>( _selectedFileRow ));
+                if (_selectedFileRow != null) {
+                    SelectedFileRowChanged?.Invoke(this,new TEventArgs<IFileRow>( _selectedFileRow ));
                 }
             }
         }
 
-        private FileRow _focusRow;                                                  //当前聚焦行，用于滚动视图;
-        public FileRow FocusRow {
+        private IFileRow _focusRow;                                                  //当前聚焦行，用于滚动视图;
+        public IFileRow FocusRow {
             get => _focusRow;
             set => SetProperty(ref _focusRow, value);
         }
@@ -128,7 +128,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                     var rModel = sender as ViewerProgramModel;
                     if (rModel != ViewerProgramModel.OtherProgramModel) {
                         try {
-                            var regFile = SelectedFileRow.File as RegularFile;
+                            var regFile = (SelectedFileRow as IFileRow<IFile>).File as RegularFile;
                             var stream = StreamExtensions.CreateStreamByFile(regFile);
                             ThreadPool.QueueUserWorkItem(callBack => {
                                 WatchRequired?.Invoke(this,new TEventArgs<ViewerProgramMessage>(
@@ -143,7 +143,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                         var dialog = new VistaOpenFileDialog();
                         dialog.Filter = $"({FindResourceString("Executable")})|*.exe";
                         if (dialog.ShowDialog() == true) {
-                            var regFile = SelectedFileRow.File as RegularFile;
+                            var regFile = (SelectedFileRow as IFileRow<IFile>).File as RegularFile;
                             using (var stream = regFile.GetStream()) {
                                 ThreadPool.QueueUserWorkItem(callBack => {
                                     WatchRequired?.Invoke(this, new TEventArgs<ViewerProgramMessage>(
@@ -159,7 +159,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                         }
                     }
                 };
-                model.CanSee = () => SelectedFileRow?.File?.FileType == FileType.RegularFile;
+                model.CanSee = () => (SelectedFileRow as IFileRow<IFile>)?.File?.FileType == FileType.RegularFile;
             };
             if (pros != null) {
                 foreach (var item in pros) {
@@ -190,11 +190,11 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
     //目录/资源浏览器模型命令部分;
     public abstract partial class FolderBrowserViewModel {
-        public event EventHandler<TEventArgs<FileRow>> RowEntered;                      //进入了某个文件行;
+        public event EventHandler<TEventArgs<IFileRow>> RowEntered;                      //进入了某个文件行;
 
         //选择子文件时,进入该文件;
-        public void EnterRow(FileRow row) {
-            RowEntered?.Invoke(this,new TEventArgs<FileRow>( row ));
+        public void EnterRow(IFileRow<IFile> row) {
+            RowEntered?.Invoke(this,new TEventArgs<IFileRow>( row ));
             if(row?.File is RegularFile regFile) {
                 OpenFile(row);
             }
@@ -215,13 +215,13 @@ namespace Singularity.UI.FileSystem.ViewModels {
                             listBlockMsg = null;
                         }
 
-                        if (SelectedFileRow.File != null) {
-                            var blockGroupedFile = SelectedFileRow.File as IBlockGroupedFile;
+                        if ((SelectedFileRow as IFileRow<IFile>).File != null) {
+                            var blockGroupedFile = (SelectedFileRow as IFileRow<IFile>).File as IBlockGroupedFile;
                             if(blockGroupedFile.BlockGroups == null) {
                                 CDFCMessageBox.Show(FindResourceString("DeletedCannotBeListed"));
                             }
                             else {
-                                listBlockMsg = new ListBlockMessageBox(blockGroupedFile.BlockGroups, SelectedFileRow.File);
+                                listBlockMsg = new ListBlockMessageBox(blockGroupedFile.BlockGroups, (SelectedFileRow as IFileRow<IFile>).File);
                                 listBlockMsg.SelectedAddressChanged += (sender, e) => {
                                     if (File is SearcherPartition) {
                                         if (listBlockMsg.File is RegularFile) {
@@ -238,7 +238,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                                 listBlockMsg.Show();
                             }
                         }
-                    }, () => SelectedFileRow != null && SelectedFileRow.File is IBlockGroupedFile));
+                    }, () => SelectedFileRow != null && (SelectedFileRow as IFileRow<IFile>).File is IBlockGroupedFile));
             }
         }
 
@@ -246,7 +246,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
         /// 选中目标行;
         /// </summary>
         /// <param name="rows"></param>
-        public void CheckRows(IEnumerable<FileRow> rows, bool isCheck = true) {
+        public void CheckRows(IEnumerable<IFileRow> rows, bool isCheck = true) {
             if (rows == null)
                 throw new ArgumentNullException(nameof(rows));
 
@@ -293,7 +293,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
             set {
                 if (value != null) {
                     foreach (var row in FileRows) {
-                        row.NotifyChecked(value.Value);
+                        row.SetChecked(value.Value);
                     }
                 }
 
@@ -305,12 +305,12 @@ namespace Singularity.UI.FileSystem.ViewModels {
         private DelegateCommand _showFileDetailCommand;
         public DelegateCommand ShowFileDetailCommand =>
             _showFileDetailCommand ?? (_showFileDetailCommand = new DelegateCommand(() => {
-                if(SelectedFileRow.File != null) {
-                    FileDetailMessageBox.Show(SelectedFileRow.File);
+                if((SelectedFileRow as IFileRow<IFile>).File != null) {
+                    FileDetailMessageBox.Show((SelectedFileRow as IFileRow<IFile>).File);
                 }
             }));
 
-        public void OpenFile(FileRow row) {
+        public void OpenFile(IFileRow row) {
             try {
                 
                 if(row.LocalPath != null) {
@@ -512,7 +512,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
         public DelegateCommand RecCheckedCommand =>
             _recCheckedCommand ??
             (_recCheckedCommand = new DelegateCommand(() => {
-                RecoverFiles(FileRows.Where(p => p.Checked).Select(p => p.File).ToArray());
+                RecoverFiles(FileRows.Where(p => p.Checked).Select(p => (p as IFileRow<IFile>).File).ToArray());
             }, () => FileRows.FirstOrDefault(p => p.Checked) != null));
 
         private void RecoverFiles(IEnumerable<IFile> files) {
@@ -674,7 +674,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                         OpenFile(SelectedFileRow);
                     }
                 },
-                () => SelectedFileRow?.File is RegularFile).
+                () => (SelectedFileRow as IFileRow<IFile>)?.File is RegularFile).
             ObservesProperty(() => SelectedFileRow));
 
         private ObservableCollection<ICommandItem> _contextCommands;
@@ -703,8 +703,8 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
                     _contextCommands.AddRange(base.ContextCommands);
 
-                    var externCommandItems = ServiceLocator.Current.GetAllInstances<CommandItem<FileRow>>();
-                    var externTupleCommandItems = ServiceLocator.Current.GetAllInstances<CommandItem<(DirectoriesBrowserViewModel, FileRow)>>();
+                    var externCommandItems = ServiceLocator.Current.GetAllInstances<CommandItem<IFileRow>>();
+                    var externTupleCommandItems = ServiceLocator.Current.GetAllInstances<CommandItem<(DirectoriesBrowserViewModel, IFileRow)>>();
 
                     void SetCommandItems<TData>(IEnumerable<CommandItem<TData>> items,Func<TData> valFunc) {
                         if (items != null) {
@@ -734,19 +734,19 @@ namespace Singularity.UI.FileSystem.ViewModels {
             get {
                 return copyOrRecvCommand ??
                     (copyOrRecvCommand = new DelegateCommand(() => {
-                        if (SelectedFileRow.File.FileType == FileType.Directory
-                        && SelectedFileRow.File is Directory dir) {
+                        if ((SelectedFileRow as IFileRow<IFile>).File.FileType == FileType.Directory
+                        && (SelectedFileRow as IFileRow<IFile>).File is Directory dir) {
                             if (dir.IsBackFile() || dir.IsBackUpFile()) {
                                 CDFCMessageBox.Show(FindResourceString("RootOrBackNodeFileCannotBeExtracted"));
                             }
                             else {
-                                RecoverFiles(new IFile[] { SelectedFileRow.File });
+                                RecoverFiles(new IFile[] { (SelectedFileRow as IFileRow<IFile>).File });
                             }
                         }
-                        else if (SelectedFileRow.File.FileType == FileType.RegularFile) {
-                            RecoverFiles(new IFile[] { SelectedFileRow.File });
+                        else if ((SelectedFileRow as IFileRow<IFile>).File.FileType == FileType.RegularFile) {
+                            RecoverFiles(new IFile[] { (SelectedFileRow as IFileRow<IFile>).File });
                         }
-                    }, () => SelectedFileRow != null && SelectedFileRow.File.FileType != FileType.BlockDeviceFile));
+                    }, () => SelectedFileRow != null && (SelectedFileRow as IFileRow<IFile>).File.FileType != FileType.BlockDeviceFile));
             }
         }
     }

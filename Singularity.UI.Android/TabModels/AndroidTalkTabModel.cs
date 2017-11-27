@@ -1,4 +1,4 @@
-﻿using CDFC.Info.Infrastructure;
+﻿using Singularity.UI.Info.Contracts;
 using Singularity.UI.Info.ViewModels;
 using Singularity.UI.Info.Views;
 using SingularityForensic.Modules.MainPage.Models;

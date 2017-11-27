@@ -1,6 +1,6 @@
-﻿using CDFC.Info.Infrastructure;
-using Cflab.DataTransport.Modules.Transport.Model;
+﻿using Cflab.DataTransport.Modules.Transport.Model;
 using EventLogger;
+using Singularity.UI.AdbViewer.Helpers;
 using Singularity.UI.AdbViewer.ViewModels;
 using Singularity.UI.AdbViewer.ViewModels.AdbGrid;
 using Singularity.UI.AdbViewer.Views;

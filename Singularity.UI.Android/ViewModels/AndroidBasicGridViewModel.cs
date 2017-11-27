@@ -1,6 +1,6 @@
-﻿using CDFC.Info.Android;
-using CDFC.Info.Infrastructure;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
+using Singularity.UI.Info.Contracts;
+using Singularity.UI.Info.Models;
 using System.Collections.Generic;
 using System.Text;
 using static CDFCCultures.Managers.ManagerLocator;

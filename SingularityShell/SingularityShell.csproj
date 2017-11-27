@@ -200,6 +200,10 @@
       <Name>Singularity.UI.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.UI.FileSystem.Android.csproj">
+      <Project>{98D376F1-121C-464C-8E94-716A131FFC21}</Project>
+      <Name>Singularity.UI.FileSystem.Android</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
       <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
       <Name>Singularity.UI.Info</Name>

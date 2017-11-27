@@ -5,7 +5,6 @@ using System.IO;
 using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using Singularity.Previewers;
-using CDFC.Info.Infrastructure;
 using Prism.Mvvm;
 using System.ComponentModel.Composition;
 using System.Collections.Generic;
@@ -13,6 +12,9 @@ using System.Linq;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFC.Info.Adb;
 using Singularity.UI.Case;
+using Singularity.UI.Info.Contracts;
+using Singularity.UI.AdbViewer.Contracts;
+using Singularity.UI.AdbViewer.Helpers;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
     [Export]

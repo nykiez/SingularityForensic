@@ -9,6 +9,7 @@ using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case.Global.Services;
 using Singularity.UI.Case.Models;
 using Singularity.UI.FileSystem.Global.Services;
+using Singularity.UI.FileSystem.Interfaces;
 using Singularity.UI.FileSystem.Resources;
 using System;
 using System.Collections.ObjectModel;
@@ -25,12 +26,17 @@ namespace Singularity.UI.FileSystem.Models {
 
     //文件系统节点(针对设备);
     public class FileSystemUnit : TreeUnit {
-        public FileSystemUnit(ICaseFile itrCFile,ITreeUnit parent):base(parent) {
+        public FileSystemUnit(ICaseFile itrCFile,ITreeUnit parent,IFileSystemServiceProvider FsServiceProvider):base(parent) {
+            if(FsServiceProvider == null) {
+                throw new ArgumentNullException(nameof(FsServiceProvider));
+            }
+
             this.CaseFile = itrCFile;
             Label = FindResourceString("FileSystem");
+            this.FsServiceProvider = FsServiceProvider;
         }
         public ICaseFile CaseFile { get; }
-
+        public IFileSystemServiceProvider FsServiceProvider { get; }
         //子文件为分区
         private ObservableCollection<ITreeUnit> _children;
         public override ObservableCollection<ITreeUnit> Children {
@@ -50,7 +56,7 @@ namespace Singularity.UI.FileSystem.Models {
                                     var children = pUnit.Children ?? (pUnit.Children = new ObservableCollection<ITreeUnit>());
                                     foreach (var file in pcFile.Data.Children) {
                                         if (file is Directory dir && !dir.IsBackFile() && !dir.IsBackUpFile()) {
-                                            children.Add(new StorageTreeUnit(file, pUnit));
+                                            children.Add(new StorageTreeUnit(file, pUnit,FsServiceProvider));
                                         }
                                     }
                                     pUnit.ContextCommands = new ObservableCollection<ICommandItem> {
@@ -104,17 +110,22 @@ namespace Singularity.UI.FileSystem.Models {
         /// </summary>
         /// <param name="file">文件本体</param>
         /// <returns></returns>
-        public StorageTreeUnit(IFile file,TreeUnit parent):base(parent) {
+        public StorageTreeUnit(IFile file,TreeUnit parent,IFileSystemServiceProvider fsProvider):base(parent) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
+            if(fsProvider == null) {
+                throw new ArgumentNullException(nameof(fsProvider));
+            }
+
+            FSProvider = fsProvider;
             File = file;
             Label = file.Name;
 
             if (File is Partition) {
                 Icon = IconSources.PartUnitIcon;
             }
-            else if (File is CDFC.Parse.Abstracts.Device) {
+            else if (File is Device) {
                 Icon = IconSources.DeviceUnitIcon;
             }
             else if (File.FileType == FileType.Directory) {
@@ -127,6 +138,8 @@ namespace Singularity.UI.FileSystem.Models {
 
         public IFile File { get; private set; }
         
+        public IFileSystemServiceProvider FSProvider { get; }
+
         private ObservableCollection<ITreeUnit> children;
         public override ObservableCollection<ITreeUnit> Children {
             get {
@@ -140,7 +153,7 @@ namespace Singularity.UI.FileSystem.Models {
                                     if (p.FileType == FileType.Directory) {
                                         var dir = p as CDFC.Parse.Abstracts.Directory;
                                         if (!dir.IsBackFile() && !dir.IsBackUpFile()) {
-                                            children.Add(new StorageTreeUnit(dir, this));
+                                            children.Add(new StorageTreeUnit(dir, this,FSProvider));
                                         }
                                     }
                                 });

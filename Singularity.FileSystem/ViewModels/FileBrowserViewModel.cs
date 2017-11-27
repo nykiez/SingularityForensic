@@ -24,6 +24,7 @@ using Singularity.UI.Controls.MessageBoxes.Filtering;
 using Singularity.UI.Controls.Filtering;
 using CDFC.Parse.Signature.DeviceObjects;
 using CDFC.Parse.Local.DeviceObjects;
+using Singularity.UI.FileSystem.Interfaces;
 
 namespace Singularity.UI.FileSystem.ViewModels {
     //对象浏览器主模型;
@@ -33,8 +34,10 @@ namespace Singularity.UI.FileSystem.ViewModels {
         /// 对象浏览器主模型构造方法;
         /// </summary>
         /// <param name="file">所描述的文件</param>
-        public FileBrowserViewModel(IFile file) {
-            this.File = file;
+        public FileBrowserViewModel(IFile file,IFileSystemServiceProvider fsServiceProvider) {
+            this.File = file ?? throw new ArgumentNullException(nameof(file));
+            this.FsServiceProvider = fsServiceProvider ?? throw new ArgumentNullException(nameof(fsServiceProvider));
+
             this.CurFile = file;
 
             if(file != null) {
@@ -51,7 +54,22 @@ namespace Singularity.UI.FileSystem.ViewModels {
             SelectedTabModel = MainHexViewModel;
             ExistingBrowsers.Add(this);
         }
-        
+
+        public IFileSystemServiceProvider FsServiceProvider { get; }
+        private IRowBuilder _rowBuilder;
+        public IRowBuilder RowBuilder {
+            get {
+                if(_rowBuilder == null) {
+                    _rowBuilder = FsServiceProvider.GetService<IRowBuilder>();
+                    if(_rowBuilder == null) {
+                        Logger.WriteCallerLine($"{nameof(_rowBuilder)} can't be null!");
+                        RemainingMessageBox.Tell($"{nameof(_rowBuilder)} can't be null!");
+                    }
+                }
+                return _rowBuilder;
+            }
+        }
+
         public IFile File { get; private set; }                             //该模型当前所属文件;
         public IFile OwnerFile { get;  }                        //该模型最高等级文件;
         
@@ -65,21 +83,25 @@ namespace Singularity.UI.FileSystem.ViewModels {
             protected set {
                 //若目标文件不等于当前文件,则跳转;
                 if (true) {
-                    var itrFile = value as IIterableFile;
-                    if (itrFile != null) {
+                    if (value is IIterableFile itrFile) {
                         _curFile = value;
                         FolderBrowserViewModel?.NavNodes?.Clear();
                         allRows.Clear();
+                        
+                        if(RowBuilder == null) {
+                            return;
+                        }
 
+                        //若为目录;
                         if (itrFile.FileType != FileType.BlockDeviceFile) {
-                            allRows.AddRange(itrFile.Children.Select(p => new FileRow(p)));
+                            allRows.AddRange(itrFile.Children.Select(p => RowBuilder.BuildRow(p)));
                         }
                         //若为设备;
-                        else if(itrFile is Device) {
+                        else if (itrFile is Device) {
                             var device = itrFile as Device;
                             var partIndex = 0;
                             allRows.AddRange(itrFile.Children.Select(p => {
-                                var row = new FileRow(p);
+                                var row = RowBuilder.BuildRow(p);
                                 row.PartitionIndex = partIndex++;
                                 return row;
                             }));
@@ -94,7 +116,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                                     }
                                 }
                                 return true;
-                            }).Select(p => new FileRow(p)));
+                            }).Select(p => RowBuilder.BuildRow(p)));
                         }
                         ApplyAllRows();
 
@@ -120,7 +142,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
         }
 
         //未过滤的所有行;
-        private List<FileRow> allRows = new List<FileRow>();                
+        private List<IFileRow> allRows = new List<IFileRow>();                
 
         //应用过滤所有行;
         private void ApplyAllRows() {                                       
@@ -187,20 +209,23 @@ namespace Singularity.UI.FileSystem.ViewModels {
         }
 
         //选择子文件时,进入该文件;
-        public void EnterRow(FileRow row) {
-            var targetFile = row.File;
-            //验证是否属于该文件列表;
-            if (FileRows.FirstOrDefault(p => p.File == targetFile) != null) {//验证是否包含文件;
-                if (!(OwnerFile is Device)) {
-                    EnterTargetFile(targetFile);
+        public void EnterRow(IFileRow row) {
+            if(row is IFileRow<IFile> fileRow) {
+                var targetFile = fileRow.File;
+                //验证是否属于该文件列表;
+                //if (FileRows.FirstOrDefault(p => p.File == targetFile) != null) {//验证是否包含文件
+                    if (!(OwnerFile is Device)) {
+                        EnterTargetFile(targetFile);
+                    }
+                //}
+                if (fileRow != null && fileRow.File != null) {
+                    if (fileRow.File is Partition) {
+                        AddPartTabRequired?.Invoke(this, new TEventArgs<Partition>(fileRow.File as Partition));
+                    }
                 }
+                AllChecked = false;
             }
-            if (row != null && row.File != null) {
-                if (row.File is Partition) {
-                    AddPartTabRequired?.Invoke(this,new TEventArgs<Partition>( row.File as Partition ));
-                }
-            }
-            AllChecked = false;
+            
         }
 
         public event EventHandler<TEventArgs< Partition >> AddPartTabRequired;            //通知需增加分区Tab;
@@ -224,7 +249,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
                     //为文件行变更时;
                     folderBrowserViewModel.FileRows = FileRows;
-                    WeakEventManager <FolderBrowserViewModel,TEventArgs<FileRow>>.
+                    WeakEventManager <FolderBrowserViewModel,TEventArgs<IFileRow>>.
                         AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.SelectedFileRowChanged),
                     (sender, e) => {
                         EscapeToFile(e.Target);
@@ -244,7 +269,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                             }
                         });
 
-                    WeakEventManager<FolderBrowserViewModel,TEventArgs<FileRow>>
+                    WeakEventManager<FolderBrowserViewModel,TEventArgs<IFileRow>>
                         .AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.RowEntered),
                         (sender, e) => {
                             EnterRow(e.Target);
@@ -396,16 +421,16 @@ namespace Singularity.UI.FileSystem.ViewModels {
         /// 选定文件发生变化时的处理;(Hex跳转)
         /// </summary>
         /// <param name="file">需跳转到的文件</param>
-        protected virtual void EscapeToFile(FileRow row) {
-            if(row?.File != null) {
-                var file = row.File;
+        protected virtual void EscapeToFile(IFileRow row) {
+            if(row is IFileRow<IFile> fileRow && fileRow.File != null) {
+                var file = fileRow.File;
                 if(file.FileType == FileType.BlockDeviceFile) {             //若选定单元为块设备文件，则可能为分区;
                     if(file is Partition part) {
                         MainHexViewModel.Position = part.StartLBA;
                     }
                 }
                 else if(file.FileType == FileType.Directory) {
-                    if (file is CDFC.Parse.Abstracts.Directory directory) {
+                    if (file is Directory directory) {
                         MainHexViewModel.Position = directory.StartLBA;
                     }
                 }
@@ -471,7 +496,8 @@ namespace Singularity.UI.FileSystem.ViewModels {
                                             if((innerFile = itera.GetInnerFileByPosition(e.Target / secSize * secSize)) != null) {
                                                 AppInvoke(() => {
                                                     CurFile = innerFile.Parent;
-                                                    FolderBrowserViewModel.SelectedFileRow = FileRows.FirstOrDefault(p => p.File == innerFile);
+                                                    FolderBrowserViewModel.SelectedFileRow = 
+                                                    FileRows.FirstOrDefault(p => p is IFileRow<IFile> fileRow && fileRow.File == innerFile);
                                                 });
                                             }
                                             else {
@@ -533,11 +559,16 @@ namespace Singularity.UI.FileSystem.ViewModels {
         //递归展开某个文件;
         public void ExpandFile(IIterableFile file, string keyValue = null) {
             List<IFile> fileList = new List<IFile>();
-            
             //递归获取所有文件;
             TraverGetNormalFile(file, fileList);
             this.allRows.Clear();
-            this.allRows.AddRange(fileList.Select(p => new FileRow(p)));
+
+            
+            if(RowBuilder == null) {
+                return;
+            }
+
+            this.allRows.AddRange(fileList.Select(p => RowBuilder.BuildRow(p)));
 
             //匹配搜索;
             HighlightContent.ToHighlight = keyValue??string.Empty;
@@ -563,9 +594,13 @@ namespace Singularity.UI.FileSystem.ViewModels {
         public void FillFiles(List<IFile> files) {
             if (files == null)
                 throw new ArgumentNullException(nameof(files));
-
+            
             allRows.Clear();
-            var newRows = files.Select(p => new FileRow(p));
+            if(RowBuilder == null) {
+                return;
+            }
+
+            var newRows = files.Select(p => RowBuilder.BuildRow(p));
             allRows.AddRange(newRows);
 
             IsExpanded = true;
@@ -669,7 +704,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
         }
 
         //文件/资源行;(须在外部指定实例);
-        public ObservableCollection<FileRow> FileRows { get; set; } = new ObservableCollection<FileRow>();
+        public ObservableCollection<IFileRow> FileRows { get; set; } = new ObservableCollection<IFileRow>();
 
         //是否全选;
         public bool? AllChecked {
@@ -702,8 +737,8 @@ namespace Singularity.UI.FileSystem.ViewModels {
         /// </summary>
         /// <param name="obRows"></param>
         /// <returns></returns>
-        public IEnumerable<FileRow> FilterRows(IEnumerable<FileRow> obRows) {
-            IEnumerable<FileRow> rows = obRows;
+        public IEnumerable<IFileRow> FilterRows(IEnumerable<IFileRow> obRows) {
+            IEnumerable<IFileRow> rows = obRows;
 
             if (FilterFileNameNeeded) {
                 rows = FilterStringRow(rows, filterFileNameModel,row => row.FileName);
@@ -742,7 +777,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
             return rows;
         }
         
-        private IEnumerable<FileRow> FilterStringRow(IEnumerable<FileRow> rows,FilterStringModel fsModel,Func<FileRow,string> fieldFunc) {
+        private IEnumerable<IFileRow> FilterStringRow(IEnumerable<IFileRow> rows,FilterStringModel fsModel,Func<IFileRow,string> fieldFunc) {
             if (fsModel == null)
                 return rows;
 
@@ -756,7 +791,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
                 }
             }
             else if (fsModel.MatchWay == StringMatchWay.FullMatch) {
-                List<FileRow> rowList = new List<FileRow>();
+                List<IFileRow> rowList = new List<IFileRow>();
                 fsModel.Keys = fsModel.Keys?.Where(p => !string.IsNullOrWhiteSpace(p.Trim()))?.ToArray()??null;
 
                 foreach (var row in rows) {
@@ -772,7 +807,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
             return rows;
          }
 
-        private IEnumerable<FileRow> FilterSizeRow(IEnumerable<FileRow> rows,FilterSizeModel fzModel) {
+        private IEnumerable<IFileRow> FilterSizeRow(IEnumerable<IFileRow> rows,FilterSizeModel fzModel) {
             if (fzModel.Condition == TwoConditionRule.MinOnly) {
                 rows = rows.Where(p => p.FileSize >= (fzModel.MinSize ?? 0));
             }
@@ -788,7 +823,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
             return rows;
         }
 
-        private IEnumerable<FileRow> FilterDTRow(IEnumerable<FileRow> rows, FilterDateModel fdtModel, Func<FileRow, DateTime?> dtFunc) {
+        private IEnumerable<IFileRow> FilterDTRow(IEnumerable<IFileRow> rows, FilterDateModel fdtModel, Func<IFileRow, DateTime?> dtFunc) {
             if (fdtModel.Condition == TwoConditionRule.MinOnly) {
                 rows = rows.Where(p => dtFunc(p) >= fdtModel.MinTime);
             }
@@ -855,7 +890,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
     //设备对象浏览器模型;
     public class DeviceBrowserTabModel : FileBrowserViewModel {
-        public DeviceBrowserTabModel(Device file) : base(file) {
+        public DeviceBrowserTabModel(Device file,IFileSystemServiceProvider fsServiceProvider) : base(file,fsServiceProvider) {
             TabViewModels.Add(PartHexModel);
         }
         private PartitionHexTabViewModel partHexModel;                     //分区十六进制查看视图模型;
@@ -866,10 +901,10 @@ namespace Singularity.UI.FileSystem.ViewModels {
             }
         }
 
-        protected override void EscapeToFile(FileRow row) {                  //分区流转化;
+        protected override void EscapeToFile(IFileRow row) {                  //分区流转化;
             base.EscapeToFile(row);
-            if (row?.File is Partition) {
-                PartHexModel.File = row.File;
+            if (row is IFileRow<Partition> partRow) {
+                PartHexModel.File = partRow.File;
             }
         }
         
@@ -877,10 +912,10 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
     //分区对象浏览器模型;
     public class PartitionBrowserViewModel : FileBrowserViewModel {
-        public PartitionBrowserViewModel(Partition part) : this(part as IFile) { }
-        public PartitionBrowserViewModel(CDFC.Parse.Abstracts.Directory directory) : this(directory as IFile) { }
+        public PartitionBrowserViewModel(Partition part,IFileSystemServiceProvider fsServiceProvider) : this(part as IFile,fsServiceProvider) { }
+        public PartitionBrowserViewModel(Directory directory, IFileSystemServiceProvider fsServiceProvider) : this(directory as IFile, fsServiceProvider) { }
 
-        public PartitionBrowserViewModel(IFile file) : base(file) {
+        public PartitionBrowserViewModel(IFile file, IFileSystemServiceProvider fsServiceProvider) : base(file , fsServiceProvider) {
             TabViewModels.Add(FileHexModel);
             TabViewModels.Add(PreviewerModel);
             TabViewModels.Add(DetailModel);
@@ -902,7 +937,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
         public FilePreviewerTabModel PreviewerModel => _previewerModel ?? (_previewerModel = new FilePreviewerTabModel());
 
         private FileDetailTabModel _detailModel;
-        public FileDetailTabModel DetailModel => _detailModel ?? (_detailModel = new FileDetailTabModel());
+        public FileDetailTabModel DetailModel => _detailModel ?? (_detailModel = new FileDetailTabModel(FsServiceProvider));
 
         private ThumbnailViewModel _thumbNailModel;
         public ThumbnailViewModel ThumbNailModel {
@@ -911,20 +946,20 @@ namespace Singularity.UI.FileSystem.ViewModels {
                     _thumbNailModel = new ThumbnailViewModel();
                     _thumbNailModel.GetRowsFunc = () => FileRows;
 
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<ObservableCollection<FileRow>>>.
+                    WeakEventManager<ThumbnailViewModel, TEventArgs<ObservableCollection<IFileRow>>>.
                         AddHandler(_thumbNailModel, nameof(_thumbNailModel.SetRows), (sender, e) => {
                             FileRows = e.Target;
                         });
 
                     //进入目录;
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<FileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.EnterRowed), (sender, e) => {
+                    WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.EnterRowed), (sender, e) => {
                         if(e.Target != null) {
                             EnterRow(e.Target);
                         }
                     });
 
                     //选定时滚动;
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<FileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.SelectedRowChanged), (sender, e) => {
+                    WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.SelectedRowChanged), (sender, e) => {
                         if(e.Target != null) {
                             FolderBrowserViewModel.FocusRow = e.Target;
                             FolderBrowserViewModel.SelectedFileRow = e.Target;
@@ -937,32 +972,34 @@ namespace Singularity.UI.FileSystem.ViewModels {
 
         private object previewLocker = new object();
         
-        protected override void EscapeToFile(FileRow row) {                  //分区流转化;
+        protected override void EscapeToFile(IFileRow row) {                  //分区流转化;
             base.EscapeToFile(row);
+            if(row is IFileRow<IFile> fileRow) {
+                var file = fileRow.File;
+                FileHexModel.File = file;
 
-            var file = row.File;
-            FileHexModel.File = file;
 
-
-            //预览器跳转;
-            if (file.FileType == FileType.RegularFile) {
-                ThreadPool.QueueUserWorkItem(callBack => {
-                    lock (previewLocker) {
-                        try {
-                            PreviewerModel.LoadPreviewerByFileRow(row);
+                //预览器跳转;
+                if (file.FileType == FileType.RegularFile) {
+                    ThreadPool.QueueUserWorkItem(callBack => {
+                        lock (previewLocker) {
+                            try {
+                                PreviewerModel.LoadPreviewerByFileRow(fileRow);
+                            }
+                            catch (Exception ex) {
+                                Logger.WriteCallerLine(ex.Message);
+                                AppInvoke(() => {
+                                    RemainingMessageBox.Tell(ex.Message);
+                                });
+                            }
                         }
-                        catch(Exception ex) {
-                            Logger.WriteCallerLine(ex.Message);
-                            AppInvoke(() => {
-                                RemainingMessageBox.Tell(ex.Message);
-                            });
-                        }
-                    }
-                });
+                    });
+                }
+
+                //详细信息跳转;
+                DetailModel.File = file;
             }
-
-            //详细信息跳转;
-            DetailModel.File = file;
+            
             
         }
         //~PartitionBrowserTabModel() {
@@ -977,7 +1014,7 @@ namespace Singularity.UI.FileSystem.ViewModels {
     
     //本地目录浏览器;
     public class LocalDirectoryBrowserViewModel : FileBrowserViewModel {
-        public LocalDirectoryBrowserViewModel(IFile file) : base(file) {
+        public LocalDirectoryBrowserViewModel(IFile file,IFileSystemServiceProvider fsServiceProvider) : base(file,fsServiceProvider) {
             TabViewModels.Add(MainHexViewModel);
             TabViewModels.Add(PreviewerModel);
             SelectedTabModel = MainHexViewModel;
@@ -996,24 +1033,24 @@ namespace Singularity.UI.FileSystem.ViewModels {
             }
         }
         
-        protected override void EscapeToFile(FileRow row) {
-            if(row == null) {
-                return;
-            }
+        protected override void EscapeToFile(IFileRow row) {
+            if(row is IFileRow<IFile> fileRow) {
+                var file = fileRow.File;
+                if (file is LocalRegFile localFile) {
+                    try {
+                        PreviewerModel.DisposePreviewer();
+                        MainHexViewModel.Stream = localFile.GetStream();
 
-            var file = row.File;
-            if (file is LocalRegFile localFile) {
-                try {
-                    PreviewerModel.DisposePreviewer();
-                    MainHexViewModel.Stream = localFile.GetStream();
-
-                    PreviewerModel.LoadPreviewerByFileName(localFile.FileInfo.FullName);
-                }
-                catch (Exception ex) {
-                    Logger.WriteLine($"{nameof(LocalDirectoryBrowserViewModel)}->{nameof(EscapeToFile)}:{ex.Message}");
-                    RemainingMessageBox.Tell(ex.Message);
+                        PreviewerModel.LoadPreviewerByFileName(localFile.FileInfo.FullName);
+                    }
+                    catch (Exception ex) {
+                        Logger.WriteLine($"{nameof(LocalDirectoryBrowserViewModel)}->{nameof(EscapeToFile)}:{ex.Message}");
+                        RemainingMessageBox.Tell(ex.Message);
+                    }
                 }
             }
+
+            
         }
 
         private FileHexTabViewModel _mainHexViewModel;

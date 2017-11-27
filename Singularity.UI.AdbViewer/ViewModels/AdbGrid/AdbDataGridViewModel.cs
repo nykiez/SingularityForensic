@@ -10,10 +10,12 @@ using CDFCCultures.Helpers;
 using static CDFCCultures.Managers.ManagerLocator;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Commands;
-using CDFC.Info.Infrastructure;
 using Prism.Mvvm;
 using CDFC.Info.Adb;
 using Singularity.UI.Case;
+using Singularity.UI.AdbViewer.Contracts;
+using Singularity.UI.AdbViewer.Helpers;
+using Singularity.UI.Info.Contracts;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
     //Adb文件网格视图模型;

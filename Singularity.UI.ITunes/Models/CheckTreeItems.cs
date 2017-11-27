@@ -3,6 +3,7 @@ using CDFC.Parse.ITunes.DeviceObjects;
 using CDFC.Parse.ITunes.Models;
 using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
+using Singularity.UI.FileSystem.Global.Services;
 using Singularity.UI.FileSystem.Models;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Models;
@@ -66,7 +67,7 @@ namespace Singularity.UI.ITunes.Models {
                     foreach (var unit in fiUnit.Children) {
                         if (unit is PinTreeUnit pinUnit && pinUnit.ContentId == ForensicClassType) {
                             var preUnit = pinUnit.Children.FirstOrDefault(p => p.Label?.StartsWith(Name) ?? false);
-                            var sunit = new StorageTreeUnit(part, pinUnit) { Label = $"{Name}({ownNdList.Count})" };
+                            var sunit = new StorageTreeUnit(part, pinUnit,DefaultFileSystemProvider.StaticInstance) { Label = $"{Name}({ownNdList.Count})" };
                             if (preUnit != null) {
                                 pinUnit.Children.Remove(preUnit);
                             }

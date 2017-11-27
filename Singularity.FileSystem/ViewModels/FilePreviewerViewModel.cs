@@ -1,4 +1,5 @@
-﻿using CDFCUIContracts.Abstracts;
+﻿using CDFC.Parse.Contracts;
+using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
@@ -78,16 +79,20 @@ namespace Singularity.UI.FileSystem.ViewModels {
         /// 通过文件行加载预览器;
         /// </summary>
         /// <param name="row"></param>
-        public void LoadPreviewerByFileRow(FileRow row) {
+        public void LoadPreviewerByFileRow(IFileRow row) {
             DisposePreviewer();
 
-            var fs = FileRowHelper.SaveFileToTemp(row);
+            if(row is IFileRow<IFile> fileRow) {
+                var fs = FileRowHelper.SaveFileToTemp(fileRow);
 
-            if (fs != null) {
-                var fileName = fs.Name;
-                fs.Close();
-                LoadPreviewerByFileName(fileName);
+                if (fs != null) {
+                    var fileName = fs.Name;
+                    fs.Close();
+                    LoadPreviewerByFileName(fileName);
+                }
             }
+
+            
         }
 
         /// <summary>

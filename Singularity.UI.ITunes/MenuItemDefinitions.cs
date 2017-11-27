@@ -1,20 +1,16 @@
-﻿using CDFC.Parse.ITunes.Models;
-using CDFCCultures.Helpers;
+﻿using CDFCCultures.Helpers;
 using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
 using Singularity.UI.Case.Global.Services;
-using Singularity.UI.Info.Global.Services;
 using Singularity.UI.ITunes.Global.Services;
 using Singularity.UI.ITunes.Models;
 using Singularity.UI.ITunes.Resources;
 using SingularityForensic.Modules.MainMenu.Models;
 using SingularityForensic.Modules.MainPage;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using static CDFCCultures.Managers.ManagerLocator;
 
 namespace Singularity.UI.ITunes {

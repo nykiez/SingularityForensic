@@ -1,6 +1,6 @@
-﻿using CDFC.Info.Infrastructure;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System;
+using Singularity.UI.Info.Contracts;
 
 namespace Singularity.UI.Info.Design {
     public class TalkViewDesignModel {

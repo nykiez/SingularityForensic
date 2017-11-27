@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Singularity.UI.Case.Contracts {
     //案件文件管理器契约;(针对单种类型的管理)

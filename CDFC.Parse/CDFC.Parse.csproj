@@ -79,6 +79,7 @@
     <Compile Include="Abstracts\RegularFile.cs" />
     <Compile Include="Contracts\ITimeable.cs" />
     <Compile Include="Contracts\PartsType.cs" />
+    <Compile Include="DeviceObjects\UnKnownDevice.cs" />
     <Compile Include="IO\StreamExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

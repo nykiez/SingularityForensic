@@ -4,6 +4,7 @@ using Singularity.Previewers;
 using Singularity.UI.AdbViewer;
 using Singularity.UI.Case;
 using Singularity.UI.FileSystem;
+using Singularity.UI.FileSystem.Android;
 using Singularity.UI.Hex;
 using Singularity.UI.Info;
 using Singularity.UI.Info.Android;
@@ -34,6 +35,8 @@ namespace SingularityShell {
             ////默认预览器模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DefaultPreviewerModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileSystemModule).Assembly));
+
+            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidFSModule).Assembly));
         }
 
 

@@ -54,7 +54,7 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:FileDetailTabModel}">
                     <Border>
-                        <local:FileDetailInfo File="{Binding File}" />
+                        <local:FileDetailInfo  />
                     </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:ThumbnailViewModel}">

@@ -228,11 +228,6 @@
     <Folder Include="Languages\en_US\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Info.Infrastructure\CDFC.Info.Infrastructure.csproj">
-      <Project>{60D14BD5-ADF6-4CF1-BEE0-100D4D8C8C2F}</Project>
-      <Name>CDFC.Info.Infrastructure</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
       <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
       <Name>CDFC.Parse.Android</Name>

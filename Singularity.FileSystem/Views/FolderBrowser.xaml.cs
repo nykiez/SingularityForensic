@@ -1,4 +1,5 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
+﻿using CDFC.Parse.Contracts;
+using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Helpers;
 using Singularity.UI.FileSystem.Models;
 using Singularity.UI.FileSystem.ViewModels;
@@ -21,10 +22,10 @@ namespace Singularity.UI.FileSystem.Views {
             
         }
         private void CheckRows(bool isChecked) {
-            List<FileRow> slRows = new List<FileRow>();
+            var slRows = new List<IFileRow>();
             try {
                 foreach (var item in dg.SelectedItems) {
-                    slRows.Add(item as FileRow);
+                    slRows.Add(item as IFileRow);
                 }
             }
             catch (Exception ex) {
@@ -66,18 +67,18 @@ namespace Singularity.UI.FileSystem.Views {
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
             if(e.ClickCount == 2) {
                 try {
-                    FileRow row = null;
+                    IFileRow row = null;
                    
                     var s = e.OriginalSource as FrameworkElement;
                     if(s == null) {
                         var parent = VisualHelper.GetVisualParent<FrameworkElement>(e.OriginalSource as DependencyObject);
-                        row = parent.DataContext as FileRow;
+                        row = parent.DataContext as IFileRow;
                     }
                     else {
-                        row = s.DataContext as FileRow;
+                        row = s.DataContext as IFileRow;
                     }
                     if(row != null) {
-                        VM?.EnterRow(row);
+                        VM?.EnterRow(row as IFileRow<IFile>);
                     }
                 }
                 catch {

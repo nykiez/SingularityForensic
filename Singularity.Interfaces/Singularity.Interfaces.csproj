@@ -48,14 +48,7 @@
     <Compile Include="IHaveGroup.cs" />
     <Compile Include="IHavePinKind.cs" />
     <Compile Include="IPreviewer.cs" />
-    <Compile Include="IStreamFileParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
-      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
-      <Name>CDFC.Parse</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

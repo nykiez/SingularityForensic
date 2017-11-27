@@ -10,11 +10,11 @@ namespace Singularity.UI.FileSystem.ViewModels {
     public class ThumbnailViewModel : BindableBase, ITabModel {
         public string Header => FindResourceString("ThumbnailTab");
 
-        public Func<ObservableCollection<FileRow>> GetRowsFunc { get; set; }
+        public Func<ObservableCollection<IFileRow>> GetRowsFunc { get; set; }
 
-        public event EventHandler<TEventArgs<ObservableCollection<FileRow>>> SetRows;
+        public event EventHandler<TEventArgs<ObservableCollection<IFileRow>>> SetRows;
         
-        public ObservableCollection<FileRow> FileRows {
+        public ObservableCollection<IFileRow> IFileRows {
             get {
                 if(GetRowsFunc != null) {
                     return GetRowsFunc();
@@ -22,26 +22,26 @@ namespace Singularity.UI.FileSystem.ViewModels {
                 return null;
             }
             set {
-                SetRows?.Invoke(this,new TEventArgs<ObservableCollection<FileRow>>(value));
+                SetRows?.Invoke(this,new TEventArgs<ObservableCollection<IFileRow>>(value));
             }
         }
         
-        public event EventHandler<TEventArgs<FileRow>> EnterRowed;
-        public void EnterRow(FileRow row) {
+        public event EventHandler<TEventArgs<IFileRow>> EnterRowed;
+        public void EnterRow(IFileRow row) {
             if(row != null) {
-                EnterRowed?.Invoke(this,new TEventArgs<FileRow>( row ));
+                EnterRowed?.Invoke(this,new TEventArgs<IFileRow>( row ));
             }
         }
 
-        public event EventHandler<TEventArgs<FileRow>> SelectedRowChanged;
-        private FileRow _selectedRow;
-        public FileRow SelectedRow {
+        public event EventHandler<TEventArgs<IFileRow>> SelectedRowChanged;
+        private IFileRow _selectedRow;
+        public IFileRow SelectedRow {
             get {
                 return _selectedRow;
             }
             set {
                 SetProperty(ref _selectedRow, value);
-                SelectedRowChanged?.Invoke(this,new TEventArgs<FileRow>(_selectedRow));
+                SelectedRowChanged?.Invoke(this,new TEventArgs<IFileRow>(_selectedRow));
             }
         }
 

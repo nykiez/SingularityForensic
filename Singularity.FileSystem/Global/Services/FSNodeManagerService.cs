@@ -3,40 +3,25 @@ using CDFC.Parse.Contracts;
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
-using Prism.Commands;
-using Singularity.UI.MessageBoxes.MessageBoxes;
-using Singularity.UI.MessageBoxes.Models;
 using Singularity.UI.FileSystem.Global.TabModels;
-using Singularity.UI.FileSystem.MessageBoxes;
-using Singularity.UI.FileSystem.Models;
 using Singularity.UI.FileSystem.ViewModels;
 using SingularityForensic.Modules.MainPage.Global.Services;
 using SingularityForensic.Modules.Shell.Global.Services;
-using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using static CDFCCultures.Managers.ManagerLocator;
-using Singularity.Interfaces;
-using CDFC.Parse.Signature.DeviceObjects;
-using CDFC.Parse.Signature.Pictures;
-using CDFC.Parse.Signature.Contracts;
 using CDFC.Parse.Local.DeviceObjects;
-using Singularity.UI.Case.Contracts;
-using Singularity.UI.Case;
-using Singularity.UI.Case.MessageBoxes;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
+using Singularity.UI.FileSystem.Interfaces;
 
 namespace Singularity.UI.FileSystem.Global.Services {
     public interface IFSNodeService {
         //void ShowCaseFileProperty(ICaseFile csFile);
-        void ShowFileSystem(IFile file);
+        //void ShowFileSystem(IFile file);
         //void SignSearch(BlockDeviceFile blDevice, SignSearchSetting setting);
         //void RecoverSign(BlockDeviceFile blDevice, bool isReComposite = false);
-        void AddShowingFile(IFile file);
+        void AddShowingFile(IFile file, IFileSystemServiceProvider provider);
         void ExpandFile(IIterableFile file);
     }
 
@@ -47,19 +32,19 @@ namespace Singularity.UI.FileSystem.Global.Services {
         [Import]
         Lazy<INodeService> nodeService;
         
-        //显示文件系统信息;
-        public void ShowFileSystem(IFile file) {
-            var device = file as Device;
-            BlockDeviceFSInfoMessageBox.Show(device);
+        ////显示文件系统信息;
+        //public void ShowFileSystem(IFile file) {
+        //    var device = file as Device;
+        //    BlockDeviceFSInfoMessageBox.Show(device);
             
-        }
+        //}
         
 
         /// <summary>
         /// 加入新的文件显示;
         /// </summary>
         /// <param name="file"></param>
-        public void AddShowingFile(IFile file) {
+        public void AddShowingFile(IFile file,IFileSystemServiceProvider provider) {
             var documentService = ServiceLocator.Current.GetInstance<IDocumentTabService>();
             if (documentService == null) {
                 EventLogger.Logger.WriteCallerLine($"{nameof(documentService)} can't be null!");
@@ -106,21 +91,21 @@ namespace Singularity.UI.FileSystem.Global.Services {
                 //选定新增的Tab;
                 FileBrowserViewModel newFbVm = null;
                 if (file is Partition) {
-                    newFbVm = new PartitionBrowserViewModel(file as Partition);
+                    newFbVm = new PartitionBrowserViewModel(file as Partition,provider);
                 }
                 else if (file is Device) {
-                    newFbVm = new DeviceBrowserTabModel(file as Device);
+                    newFbVm = new DeviceBrowserTabModel(file as Device, provider);
 
                     //添加请求;
                     newFbVm.AddPartTabRequired += (sender, e) => {
-                        AddShowingFile(e.Target);
+                        AddShowingFile(e.Target, provider);
                     };
                 }
                 else if (file is LocalDirectory) {
-                    newFbVm = new LocalDirectoryBrowserViewModel(file);
+                    newFbVm = new LocalDirectoryBrowserViewModel(file,provider);
                 }
                 else if (file is CDFC.Parse.Abstracts.Directory) {
-                    newFbVm = new PartitionBrowserViewModel(file as CDFC.Parse.Abstracts.Directory);
+                    newFbVm = new PartitionBrowserViewModel(file as CDFC.Parse.Abstracts.Directory, provider);
                 }
                 if (newFbVm != null) {
                     ////订阅关闭事件;

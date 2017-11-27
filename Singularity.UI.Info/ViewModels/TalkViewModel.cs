@@ -1,4 +1,4 @@
-﻿using CDFC.Info.Infrastructure;
+﻿using Singularity.UI.Info.Contracts;
 using System.Collections.ObjectModel;
 
 namespace Singularity.UI.Info.ViewModels {

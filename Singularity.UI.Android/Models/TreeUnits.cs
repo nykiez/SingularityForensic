@@ -1,5 +1,5 @@
-﻿using CDFC.Info.Android;
-using CDFCUIContracts.Models;
+﻿using CDFCUIContracts.Models;
+using Singularity.UI.Info.Models;
 using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;

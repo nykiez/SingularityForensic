@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Singularity.UI.Info.Android.Views"
-             xmlns:ins="clr-namespace:CDFC.Info.Infrastructure;assembly=CDFC.Info.Infrastructure"
-             xmlns:dbmodels="clr-namespace:CDFC.Info.Android;assembly=CDFC.Info.Android"
+             xmlns:ins="clr-namespace:Singularity.UI.Info.Contracts;assembly=Singularity.UI.Info"
+             xmlns:dbmodels="clr-namespace:Singularity.UI.Info.Models;assembly=Singularity.UI.Info"
+             xmlns:chatingmodels="clr-namespace:Singularity.UI.Info.Models.Chating;assembly=Singularity.UI.Info"
              xmlns:fi="clr-namespace:Singularity.UI.Controls.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              mc:Ignorable="d" 
@@ -217,16 +218,16 @@
                         <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:ContactDbModel}" >
                             <Setter Property="DynamicColumns" Value="{StaticResource ContactColumns}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:GroupMsgDbModel}">
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:GroupMsgDbModel}">
                             <Setter Property="DynamicColumns" Value="{StaticResource AndGroupMsgsColumns}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:GroupMemberDbModel}">
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:GroupMemberDbModel}">
                             <Setter Property="DynamicColumns" Value="{StaticResource AndGroupMemberColumns}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:FriendInfoDbModel}">
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:FriendInfoDbModel}">
                             <Setter Property="DynamicColumns" Value="{StaticResource AndFriendInfoColumns}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:FriendMsgDbModel}">
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:FriendMsgDbModel}">
                             <Setter Property="DynamicColumns" Value="{StaticResource AndFriendMsgColumns}"/>
                         </DataTrigger>
                     </Style.Triggers>

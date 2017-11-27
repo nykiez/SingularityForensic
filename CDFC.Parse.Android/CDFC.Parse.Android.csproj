@@ -72,7 +72,6 @@
     <Compile Include="DeviceObjects\AndroidRegFile.cs" />
     <Compile Include="DeviceObjects\AndroidSuperBlock.cs" />
     <Compile Include="DeviceObjects\OtherParititon.cs" />
-    <Compile Include="DeviceObjects\UnKnownDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Static\CCommonMethods.cs" />
     <Compile Include="Static\InodeBlockMethods.cs" />

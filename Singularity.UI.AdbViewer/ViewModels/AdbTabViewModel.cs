@@ -2,8 +2,8 @@
 using Singularity.UI.AdbViewer.ViewModels.AdbGrid;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Mvvm;
-using CDFC.Info.Infrastructure;
 using CDFC.Info.Adb;
+using Singularity.UI.AdbViewer.Contracts;
 
 namespace Singularity.UI.AdbViewer.ViewModels {
     public class AdbTabViewModel : BindableBase {

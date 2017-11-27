@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Singularity.UI.Info.Views"
-             xmlns:infoins="clr-namespace:CDFC.Info.Infrastructure;assembly=CDFC.Info.Infrastructure"
+             xmlns:infoins="clr-namespace:Singularity.UI.Info.Contracts"
              xmlns:dvms="clr-namespace:Singularity.UI.Info.Design"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance dvms:TalkViewDesignModel,IsDesignTimeCreatable=True}"
              d:DesignHeight="300" d:DesignWidth="300">

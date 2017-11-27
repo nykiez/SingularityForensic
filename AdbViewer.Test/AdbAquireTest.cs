@@ -1,14 +1,11 @@
-﻿using Castle.Core.Internal;
-using CDFCCultures.Managers;
+﻿using CDFCCultures.Managers;
 using CDFCUIContracts.Helpers;
-using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Singularity.UI.AdbViewer.ViewModels.AdbViewer;
 using System;
 using System.Linq;
 using System.Threading;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace AdbViewer.Test {
     [TestClass]

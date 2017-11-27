@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.InfoMainListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:infoins="clr-namespace:CDFC.Info.Infrastructure;assembly=CDFC.Info.Infrastructure"
+             xmlns:infoins="clr-namespace:Singularity.UI.Info.Contracts;assembly=Singularity.UI.Info"
+             xmlns:localIns="clr-namespace:Singularity.UI.AdbViewer.Contracts"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:filDg ="clr-namespace:Singularity.UI.Controls.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
@@ -229,7 +230,7 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding InfoBoxType,Mode=OneWay}">
                             <DataTrigger.Value>
-                                <infoins:MInfoTypeBox>AdbFile</infoins:MInfoTypeBox>
+                                <localIns:MInfoTypeBox>AdbFile</localIns:MInfoTypeBox>
                             </DataTrigger.Value>
                             <Setter Property="ScrollContentContextMenu">
                                 <Setter.Value>

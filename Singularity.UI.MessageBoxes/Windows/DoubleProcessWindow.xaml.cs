@@ -35,10 +35,11 @@ namespace Singularity.UI.MessageBoxes.Windows {
         private bool detailAnimating;
         
         private void SetProValue(ProgressBar bar,double val,Func<bool> isAnimating,Action<bool> setAnimating) {
-            if (val != bar.Value && !isAnimating.Invoke()) {
+            bar.Value = val;
+            if (val > bar.Value && !isAnimating.Invoke()) {
                 setAnimating(true);
                 val = val > 100 ? 100 : val;
-                bar.Value = val;
+                
                 var animate = new DoubleAnimation(bar.Value, val, new Duration(TimeSpan.FromMilliseconds(100)));
                 animate.Completed += delegate {
                     setAnimating(false);

@@ -107,10 +107,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdbModels.cs" />
     <Compile Include="AdbViewerModule.cs" />
+    <Compile Include="Contracts\IInfoModel.cs" />
+    <Compile Include="Contracts\IInfoModelContainer.cs" />
+    <Compile Include="Contracts\MInfoTypeBox.cs" />
+    <Compile Include="DeviceObjects\AdbFile.cs" />
     <Compile Include="Global\InfoRegionNames.cs" />
     <Compile Include="Global\RegionNames.cs" />
     <Compile Include="Global\Services\AdbViewerService.cs" />
+    <Compile Include="Helpers\MInfoTypeHelper.cs" />
     <Compile Include="Helpers\ResultHelper.cs" />
     <Compile Include="InfoKindsDefinitions.cs" />
     <Compile Include="MenuItemDefinitions.cs" />
@@ -122,6 +128,7 @@
     <Compile Include="Models\AdbViewer\PhoneInfoModel.cs" />
     <Compile Include="Models\ShowingItem.cs" />
     <Compile Include="Models\TreeUnits.cs" />
+    <Compile Include="PhoneInfoContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -200,6 +207,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -264,14 +272,6 @@
     <Folder Include="Languages\en_US\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Info.Adb\CDFC.Info.Adb.csproj">
-      <Project>{EC3C921D-A78A-4AB7-AB1E-EE13A450F1E0}</Project>
-      <Name>CDFC.Info.Adb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Info.Infrastructure\CDFC.Info.Infrastructure.csproj">
-      <Project>{60d14bd5-adf6-4cf1-bee0-100d4d8c8c2f}</Project>
-      <Name>CDFC.Info.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
       <Project>{13044f46-874a-4419-90ec-ba559828a960}</Project>
       <Name>CDFC.Parse.Local</Name>
