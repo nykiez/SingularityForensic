@@ -126,7 +126,12 @@ namespace AndroidInfo.Tests {
         [TestMethod]
         public void TestAdFsServiceProvider() {
             var s = GetAndroidDeviceFileSystemServiceProvider();
+            var csService = ServiceProvider.Current.GetInstance<ICaseService>();
+            foreach (var item in csService.CurrentCase.CaseEvidences) {
+                
+            } 
         }
+
 
         [TestMethod]
         public void TestStartForensic() {

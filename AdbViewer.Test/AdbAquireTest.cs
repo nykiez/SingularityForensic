@@ -40,10 +40,10 @@ namespace AdbViewer.Test {
                 }
             } 
             
-            adbVM.InfoCheckerViewModel.ConfirmCommand.Execute();
-            while (adbVM.InfoCheckerViewModel.IsAquiring) {
-                Thread.Sleep(1000);
-            }
+            //adbVM.InfoCheckerViewModel.ConfirmCommand.Execute();
+            //while (adbVM.InfoCheckerViewModel.IsAquiring) {
+            //    Thread.Sleep(1000);
+            //}
         }
     }
 }

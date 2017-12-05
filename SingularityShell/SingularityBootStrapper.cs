@@ -53,11 +53,11 @@ namespace SingularityShell {
         }
 
         protected override DependencyObject CreateShell() {
+            ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
             return this.Container.GetExportedValue<IShell>() as DependencyObject;
         }
 
         protected override void InitializeShell() {
-            ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
             base.InitializeShell();
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
