@@ -1,5 +1,5 @@
 ﻿using EventLogger;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -183,8 +183,7 @@ namespace Singularity.UI.Info.Models {
         /// <summary>
         /// 请求时间;
         /// </summary>
-        [Required]
-        public long mail_send_time { get; set; }
+        public long? mail_send_time { get; set; }
         /// <summary>
         /// 内容;
         /// </summary>

@@ -1,13 +1,13 @@
 ﻿using CDFCControls.Controls;
+using Singularity.Android.Models;
 using Singularity.UI.FileSystem.Android.ViewModels;
-using Singularity.UI.FileSystem.Models;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Singularity.UI.FileSystem.Android.Views {
+namespace Singularity.Android.Views {
     /// <summary>
     /// Interaction logic for BlockDeviceFSInfoWindow.xaml
     /// </summary>

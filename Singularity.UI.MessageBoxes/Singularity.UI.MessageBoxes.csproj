@@ -37,28 +37,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\AvalonDock.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCControls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -109,9 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IFilter.cs" />
-    <Compile Include="MessageBoxes\CreateCaseMessageBox.cs" />
     <Compile Include="MessageBoxes\DoubleProcessMessageBox.cs" />
-    <Compile Include="MessageBoxes\FileDetailMessageBox.cs" />
     <Compile Include="MessageBoxes\FindHexValueMessageBox.cs" />
     <Compile Include="MessageBoxes\FindTextMessageBox.cs" />
     <Compile Include="MessageBoxes\GoToOffsetMessageBox.cs" />
@@ -236,11 +242,6 @@
     <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
       <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
       <Name>CDFC.Parse</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Converters\Singularity.UI.Converters.csproj">
-      <Project>{29ae3c3f-f323-488b-972e-754036c27183}</Project>
-      <Name>Singularity.UI.Converters</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">

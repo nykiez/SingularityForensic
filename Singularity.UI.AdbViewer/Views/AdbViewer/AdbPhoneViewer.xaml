@@ -7,7 +7,7 @@
         xmlns:adbvs="clr-namespace:Singularity.UI.AdbViewer.Views.AdbViewer"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
                          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:cvts="clr-namespace:Singularity.UI.Converters;assembly=Singularity.UI.Converters"
+        xmlns:cvts="http://singularity/converters"
                          xmlns:commands="clr-namespace:CDFCUIContracts.Commands;assembly=CDFCUIContracts"
                     WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
                          ShowCloseButton="True" d:DesignHeight ="360"   

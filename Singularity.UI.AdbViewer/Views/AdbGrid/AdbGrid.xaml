@@ -2,14 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:models="clr-namespace:CDFC.Info.Adb;assembly=CDFC.Info.Adb"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:local="clr-namespace:Singularity.UI.AdbViewer.Views.AdbGrid"
              xmlns:gridviews="clr-namespace:Singularity.UI.AdbViewer.Views.AdbGrid"
              xmlns:gridvms="clr-namespace:Singularity.UI.AdbViewer.ViewModels.AdbGrid"
              xmlns:ctrviews="clr-namespace:Singularity.UI.Controls.Views;assembly=Singularity.UI.Controls"
-             xmlns:prviews="clr-namespace:Singularity.Previewers.Views;assembly=Singularity.Previewers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>

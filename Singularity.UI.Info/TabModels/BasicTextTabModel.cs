@@ -1,6 +1,6 @@
-﻿using Singularity.UI.Info.ViewModels;
+﻿using Singularity.Contracts.TabControl;
+using Singularity.UI.Info.ViewModels;
 using Singularity.UI.Info.Views;
-using SingularityForensic.Modules.MainPage.Models;
 
 namespace Singularity.UI.Info.TabModels {
 

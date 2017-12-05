@@ -4,7 +4,7 @@ using System.Linq;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Singularity.UI.AdbViewer;
 using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 
 namespace CDFC.Info.Adb {
     //手机所有信息载体;

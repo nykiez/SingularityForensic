@@ -1,117 +1,58 @@
 ﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
 using EventLogger;
 using Prism.Modularity;
-using SingularityForensic.Modules.Shell.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
-using SingularityForensic.Helpers;
-using SingularityForensic.Modules.MainPage.Global.Events;
-using Singularity.UI.FileSystem.Models;
 using CDFCUIContracts.Models;
-using Singularity.Interfaces;
-using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
 using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
-using Singularity.UI.FileSystem.Global.Services;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using CDFCUIContracts.Commands;
-using Singularity.UI.FileSystem.Helpers;
-using Singularity.UI.FileSystem.Global;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.MainPage.Events;
+using Singularity.Contracts.Common;
 
 namespace Singularity.UI.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]
     public class FileSystemModule : IModule {
-        [Import]
-        IFSNodeService fsNodeService;
-
         [ImportMany(Constances.DeviceNodeContextCommand)]
         private IEnumerable<ICommandItem> DeviceNodeCommandItems;
         
-
         public void Initialize() {
             RegisterEvents();
         }
         
-        private void ViewFile(ViewerProgramMessage e) {
-            FileStream targetStream = null;
-            try {
-                var path = SingularityCase.Current.Path;
-                if (!System.IO.Directory.Exists($"{path}/Temp")) {
-                    System.IO.Directory.CreateDirectory($"{path}/Temp");
-                }
-                var oriStream = e.FStream;
-                targetStream = File.Create($"{path}/Temp/{e.FileName}");
-                oriStream.CopyTo(targetStream);
-                Process.Start(e.ViewerPath, $"{path}/Temp/{ e.FileName}");
-            }
-            catch (Exception ex) {
-                Logger.WriteCallerLine($"{ex.Message}");
-                AppInvoke(() => {
-                    RemainingMessageBox.Tell($"{FindResourceString("FailedToExtractFile")}:{ex.Message}");
-                });
-            }
-            finally {
-                targetStream?.Close();
-            }
-        }
+        
         
         private void RegisterEvents() {
-            //加入文件系统节点响应(左键);
-            PubEventHelper.Subscribe<TreeNodeClickEvent, ITreeUnit>(e => {
-                if (e != null) {
-                    if (e is StorageTreeUnit stUnit) {
-                        fsNodeService?.AddShowingFile(stUnit.File,stUnit.FSProvider);
-                    }
-                    else if (e is IHaveData<ICaseFile> cFileUnit && cFileUnit.Data is IHaveData<Partition> fCFile) {
-                        fsNodeService?.AddShowingFile(fCFile.Data,FileSystemHelper.GetFileSystemServiceProvider(cFileUnit.Data));
-                    }
-                    else if (e is FileSystemUnit fsUnit && fsUnit.CaseFile is IHaveData<IFile> dCFile) {
-                        fsNodeService?.AddShowingFile(dCFile.Data,fsUnit.FsServiceProvider);
-                    }
-                    
-                }
-                
-            });
-            //右键递归响应;
-            PubEventHelper.Subscribe<TreeNodeRightClicked, ITreeUnit>(e => {
-                if(e is StorageTreeUnit stUnit) {
-                    fsNodeService?.ExpandFile(stUnit.File as IIterableFile);
-                }
-                else if(e is FileSystemUnit fsUnit && fsUnit.CaseFile is IHaveData<IFile> dCFile) {
-                    fsNodeService?.AddShowingFile(dCFile.Data,fsUnit.FsServiceProvider);
-                }
-                
-            });
-            //为设备案件文件节点加入文件系统子节点;
-            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
-                if (unit is IHaveData<ICaseFile> haveCaseFile) {
-                    
-                    //若为可迭代(设备)案件文件，则添加文件系统节点;
-                    if (haveCaseFile.Data is IHaveGroup<ICaseFile>) {
-                        unit.Children.Add(new FileSystemUnit(haveCaseFile.Data, unit,FileSystemHelper.GetFileSystemServiceProvider(haveCaseFile.Data)));
-                    }
 
-                    if(haveCaseFile.Data is IHaveData<Device>) {
-                        try {
-                            var commands = unit.ContextCommands ?? (unit.ContextCommands = new ObservableCollection<ICommandItem>());
-                            if(DeviceNodeCommandItems != null) {
-                                commands.AddRange(DeviceNodeCommandItems);
-                            }
+            //为设备案件文件节点加入上下文菜单;
+            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
+                if (unit is ICaseEvidenceUnit<ICaseEvidence> haveCaseFile &&haveCaseFile.Evidence is IHaveData<Device>) {
+                    try {
+                        unit.Icon = IconSources.HardDiskIcon;
+                        var commands = unit.ContextCommands ?? (unit.ContextCommands = new ObservableCollection<ICommandItem>());
+                        if (DeviceNodeCommandItems != null) {
+                            commands.AddRange(DeviceNodeCommandItems);
                         }
-                        catch {
-                            
-                        }
+                    }
+                    catch (Exception ex){
+                        Logger.WriteCallerLine(ex.Message);
                         
                     }
+
                 }
             });
+
+
             //为设备案件文件节点加入文件系统子节点;
             PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
                 

@@ -2,8 +2,11 @@
 using CDFCCultures.Helpers;
 using CDFC.Parse.Signature.Pictures;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace CommonTest {
+
     [TestClass]
     public class UnitTest1 {
         [TestMethod]
@@ -19,6 +22,18 @@ namespace CommonTest {
             searcher.AlignToSector = false;
             Assert.IsTrue(searcher.SearchStart(0, fs.Length));
             var fList = searcher.GetFileList(".dav");
+        }
+
+        [TestMethod]
+        public void TestSerilizable() {
+            var s = new ObservableCollection<string>();
+            s.Add("dad");
+            var formatter = new BinaryFormatter();
+            var ms = new MemoryStream();
+            formatter.Serialize(ms, s);
+            ms.Position = 0;
+            var s2 = formatter.Deserialize(ms);
+
         }
     }
 }

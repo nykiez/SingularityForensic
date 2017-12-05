@@ -18,9 +18,9 @@ using Singularity.UI.MessageBoxes.MessageBoxes;
 using Singularity.UI.AdbViewer.Models.AdbViewer;
 using Cflab.DataTransport.Modules.Backup.Android;
 using Singularity.UI.Case;
-using Singularity.UI.Info.Contracts;
 using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.Helpers;
+using Singularity.Contracts.Info;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
     public partial class AdbInfoesCheckedViewModel:PageModelBase,IDisposable {

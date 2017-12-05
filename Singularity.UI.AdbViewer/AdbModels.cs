@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFCCultures.Helpers;
 using EventLogger;
-using Singularity.UI.Converters;
-using Singularity.UI.Info.Contracts;
 using Singularity.UI.AdbViewer.Helpers;
 using Singularity.UI.AdbViewer.Contracts;
+using Singularity.Contracts.Info;
+using Singularity.Contracts.Converters;
 
 namespace Singularity.UI.AdbViewer {
     public interface IAdbTimeable {

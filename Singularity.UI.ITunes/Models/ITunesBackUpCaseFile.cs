@@ -1,4 +1,4 @@
-﻿using Singularity.UI.Case;
+﻿using Singularity.Contracts.Case;
 using System;
 
 namespace Singularity.UI.ITunes.Models {

@@ -5,8 +5,8 @@ namespace CDFC.Parse.Contracts {
     //具有子文件的文件;
     public interface IIterableFile : IFile {
         List<IFile> Children { get; }       //子文件;
-        
     }
+
     public static class IIterableHelper{
         /// <summary>
         /// 判定是否为备用文件;(.)
@@ -61,7 +61,7 @@ namespace CDFC.Parse.Contracts {
         }
         private static void TraverseAddNum(IIterableFile file,ref long sum) {
             foreach (var p in file.Children) {
-                if (p.FileType == FileType.Directory) {
+                if (p.Type == FileType.Directory) {
                     var direc = p as Abstracts.Directory;
                     if (direc?.Deleted == false) {
                         if (direc.Name != ".." && direc.Name != ".") {
@@ -70,7 +70,7 @@ namespace CDFC.Parse.Contracts {
                     }
 
                 }
-                else if (p.FileType == FileType.RegularFile) {
+                else if (p.Type == FileType.RegularFile) {
                     sum += p.Size;
                 }
             }

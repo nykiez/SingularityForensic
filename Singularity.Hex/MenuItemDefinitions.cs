@@ -7,9 +7,6 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Singularity.UI.Hex.Resources;
 using Singularity.UI.MessageBoxes.MessageBoxes;
-using SingularityForensic.Helpers;
-using SingularityForensic.Modules.MainMenu.Models;
-using SingularityForensic.Modules.Shell.Global.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -22,16 +19,21 @@ using System.Windows.Input;
 using static CDFCCultures.Managers.ManagerLocator;
 using static Singularity.UI.Controls.ViewModels.HexStreamEditorViewModel;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
-using SingularityForensic.Modules.MainPage.Global.Events;
-using SingularityForensic.Modules.MainPage.Models;
 using SingularityForensic.Modules.MainPage;
-using SingularityForensic.Modules.MainPage.Global.Services;
-using Singularity.UI.FileSystem.ViewModels;
-using Singularity.UI.FileSystem.Global.Events;
-using Singularity.Interfaces;
-using Singularity.UI.FileSystem.Global.TabModels;
-using Singularity.UI.FileSystem.Models;
 using Singularity.UI.Case;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.MainPage.Events;
+using Singularity.UI.FileExplorer.ViewModels;
+using Singularity.Contracts.FileExplorer;
+using Singularity.Contracts.Common;
+using Singularity.UI.FileExplorer.Models;
+using Singularity.Contracts.TabControl;
+using Singularity.Contracts.MainPage;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.MainMenu;
+using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.Shell;
+using Singularity.Contracts.FileExplorer.Events;
 
 namespace Singularity.UI.Hex {
     public static partial class MenuItemDefinitions {
@@ -102,7 +104,7 @@ namespace Singularity.UI.Hex {
         [Export]
         public static MenuButtonItemModel GoToOffsetMenuItem
             => _goToOffsetMenuItem ??(_goToOffsetMenuItem = new MenuButtonItemModel(
-            MenuGroupDefinitions.MainPageMenuGroup,
+            MenuConstants.MenuMainGroup,
             FindResourceString("GoToOffset")) {
                 Command = GoToOffsetCommand,
                 IconSource = IconSources.GotoOffsetIcon,
@@ -117,7 +119,8 @@ namespace Singularity.UI.Hex {
         
         [Export]
         public static MenuButtonItemModel FindHexMenuItem 
-            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItemModel(MenuGroupDefinitions.MainPageMenuGroup, FindResourceString("SearchForHex")) {
+            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, 
+                FindResourceString("SearchForHex")) {
                         Command = FindHexValueCommand,
                         IconSource = IconSources.FindHexIcon,
                         Modifier = ModifierKeys.Alt | ModifierKeys.Control,
@@ -158,7 +161,7 @@ namespace Singularity.UI.Hex {
 
         [Export]
         public static MenuButtonItemModel FindTextMenuItem
-              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItemModel(MenuGroupDefinitions.MainPageMenuGroup,
+              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup,
                         FindResourceString("SearchForText")) {
                         Command = FindTextCommand,
                         IconSource = IconSources.FindTextIcon,
@@ -199,7 +202,7 @@ namespace Singularity.UI.Hex {
         public static MenuButtonItemModel SearchKeyMenuItem {
             get {
                 if (_searchKeyMenuItem == null) {
-                    _searchKeyMenuItem = new MenuButtonItemModel(MenuGroupDefinitions.MainPageMenuGroup, FindResourceString("IndexSearch")) {
+                    _searchKeyMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, FindResourceString("IndexSearch")) {
                         Command = SearchKeyConfirmCommand,
                         IconSource = IconSources.FindTextIcon
                     };
@@ -214,18 +217,19 @@ namespace Singularity.UI.Hex {
         private static DelegateCommand _searchKeyConfirmCommand;
         public static DelegateCommand SearchKeyConfirmCommand =>
             _searchKeyConfirmCommand ?? (_searchKeyConfirmCommand = new DelegateCommand(() => {
-                var fsTabService = ServiceLocator.Current.GetInstance<IDocumentTabService>();
+                var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
                 if(fsTabService == null) {
                     Logger.WriteCallerLine("FsTabService is null!");
                     return;
                 }
-
+                
                 var fileBrowserViewModel = (fsTabService.SelectedTab as FileBrowserTabModel).FileBrowserViewModel;
-                //确认搜索设备;
-                var blDevice = fileBrowserViewModel.File as BlockDeviceFile;
 
-                var device = blDevice is Device ? blDevice as Device : blDevice.Parent as Device;
-                var indexableFile = SingularityCase.Current.CaseFiles.
+                //确认搜索设备;
+                var blDevice = fileBrowserViewModel.File as Device;
+
+                var device = blDevice?? blDevice.GetParent<Device>() as Device;
+                var indexableFile = SingularityCase.Current.CaseEvidences.
                     FirstOrDefault(p => 
                     p is IHaveData<IFile> fcsFile
                     && fcsFile.Data == device) as IIndexable;
@@ -238,7 +242,7 @@ namespace Singularity.UI.Hex {
                     }
                     //开始搜索索引的委托;
                     Action searchAct = () => {
-                        ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(true);
+                        ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true);
                         ThreadPool.QueueUserWorkItem(cb => {
                             try {
                                 var itrFile = fileBrowserViewModel.CurFile as IIterableFile;
@@ -278,7 +282,7 @@ namespace Singularity.UI.Hex {
                                 Logger.WriteCallerLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
                             }
                             finally {
-                                ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(false);
+                                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false);
                             }
                         });
                     };
@@ -287,7 +291,7 @@ namespace Singularity.UI.Hex {
                     if (!indexableFile.HasIndexes) {
                         //若确定,则开始建立索引;
                         if (CDFCMessageBox.Show(FindResourceString("IndexesNeeded"), FindResourceString("IndexesNotBeenBuilt"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                            ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
+                            ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
                             var msg = new ProgressMessageBox();
                             bool broke = false;
                             var proc = 0;
@@ -329,7 +333,7 @@ namespace Singularity.UI.Hex {
                             };
 
                             msg.RunWorkerCompleted += (sender, e) => {
-                                ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(false, null);
+                                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false, null);
                             };
                             msg.ShowDialog();
                         }
@@ -350,7 +354,7 @@ namespace Singularity.UI.Hex {
                     //});
                 }
             }, 
-                () => (ServiceLocator.Current.GetInstance<IDocumentTabService>()?.SelectedTab is FileBrowserTabModel fbTabModel)
+                () => (ServiceProvider.Current.GetInstance<IDocumentTabService>()?.SelectedTab is FileBrowserTabModel fbTabModel)
             && (fbTabModel?.FileBrowserViewModel?.OwnerFile is Partition)));
 
         private static SearchKeyOption _slSearchKeyOption;

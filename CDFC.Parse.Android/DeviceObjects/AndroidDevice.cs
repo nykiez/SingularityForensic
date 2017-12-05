@@ -63,7 +63,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                             partition = adPartition;
                         }
                         else {
-                            partition = new AndroidOtherParititon(p, this);
+                            partition = new AndroidUnknownParititon(p, this);
                         }
                         //var name = Marshal.PtrToStringUni(p.StPartInfo.Value.PartTabNameUnicode, 36);
                         partition.Name = $"{PartSuffix}{(partIndex++)}({p.StPartInfo.Value.PartTabName})";

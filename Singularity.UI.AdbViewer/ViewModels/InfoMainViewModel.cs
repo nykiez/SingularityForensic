@@ -1,7 +1,7 @@
 ﻿using Prism.Mvvm;
+using Singularity.Contracts.Info;
 using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.Info.Contracts;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;

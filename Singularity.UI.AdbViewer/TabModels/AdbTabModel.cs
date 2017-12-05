@@ -1,5 +1,6 @@
 ﻿using Cflab.DataTransport.Modules.Transport.Model;
 using EventLogger;
+using Singularity.Contracts.TabControl;
 using Singularity.UI.AdbViewer.Helpers;
 using Singularity.UI.AdbViewer.ViewModels;
 using Singularity.UI.AdbViewer.ViewModels.AdbGrid;
@@ -7,7 +8,6 @@ using Singularity.UI.AdbViewer.Views;
 using Singularity.UI.AdbViewer.Views.AdbGrid;
 using Singularity.UI.Info.ViewModels;
 using Singularity.UI.Info.Views;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Text;
 using static CDFCCultures.Managers.ManagerLocator;

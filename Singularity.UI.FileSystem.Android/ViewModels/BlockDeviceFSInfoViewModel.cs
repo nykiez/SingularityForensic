@@ -1,7 +1,7 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Android.DeviceObjects;
 using Prism.Mvvm;
-using Singularity.UI.FileSystem.Models;
+using Singularity.Android.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

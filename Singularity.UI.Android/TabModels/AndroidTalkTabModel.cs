@@ -1,7 +1,7 @@
-﻿using Singularity.UI.Info.Contracts;
+﻿using Singularity.Contracts.Info;
+using Singularity.Contracts.TabControl;
 using Singularity.UI.Info.ViewModels;
 using Singularity.UI.Info.Views;
-using SingularityForensic.Modules.MainPage.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

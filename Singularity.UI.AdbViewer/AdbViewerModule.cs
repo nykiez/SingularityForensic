@@ -6,13 +6,13 @@ using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.Models;
 using Singularity.UI.AdbViewer.TabModels;
 using Singularity.UI.AdbViewer.ViewModels;
-using SingularityForensic.Helpers;
-using SingularityForensic.Modules.MainPage.Global.Events;
-using SingularityForensic.Modules.MainPage.Global.Services;
 using System;
 using Singularity.UI.AdbViewer.Helpers;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Singularity.Contracts.MainPage;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.MainPage.Events;
 
 namespace Singularity.UI.AdbViewer {
     [ModuleExport(typeof(AdbViewerModule))]

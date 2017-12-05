@@ -1,5 +1,5 @@
 ﻿using Prism.Mvvm;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 using Singularity.UI.Info.Models;
 using System.Collections.Generic;
 using System.Text;

@@ -10,15 +10,17 @@ using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using Microsoft.Practices.ServiceLocation;
 using Singularity.UI.AdbViewer.Global.Services;
-using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
-using Singularity.UI.Case.Global.Services;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Common;
 
 namespace Singularity.UI.AdbViewer.Models {
     [Export(typeof(ICaseManager))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AdbDeviceCaseManager : ICaseManager {
-        public void LoadCase(CaseLoaderHelper.CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
+        public int SortOrder => 0;
+
+        public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
             if(SingularityCase.Current == null) {
                 Logger.WriteLine($"{nameof(AdbDeviceCaseManager)}->{nameof(LoadCase)}:{nameof(SingularityCase)}.{nameof(SingularityCase.Current)} can't be null.");
                 return;
@@ -27,7 +29,7 @@ namespace Singularity.UI.AdbViewer.Models {
             var cs = SingularityCase.Current;
             //找出所有Adb证据文件;
             var adbFilesElems = cs.XDoc.Root.
-                Element(nameof(SingularityCase.CaseFiles)).
+                Element(nameof(SingularityCase.CaseEvidences)).
                 Elements("CaseFile").
                 Where(p => p.Attribute(nameof(StandardCaseFile.Type))?.Value == AdbDeviceCaseFile.AdbCaseFileType);
 
@@ -43,8 +45,8 @@ namespace Singularity.UI.AdbViewer.Models {
                                 $"SN : {elem.Element(AdbDeviceCaseFile.AdbSerialNumber).Value}");
                         }
                         var cFile = new AdbDeviceCaseFile(container, elem);
-                        ServiceLocator.Current.GetInstance<ICaseService>()?.AddNewCaseFile(cFile);
-                        ServiceLocator.Current.GetInstance<AdbViewerService>()?.AddAdbInfoNode(container);
+                        ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(cFile);
+                        ServiceProvider.Current.GetInstance<AdbViewerService>()?.AddAdbInfoNode(container);
                     }
                 }
                 catch (Exception ex) {

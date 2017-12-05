@@ -4,15 +4,16 @@ using CDFCUIContracts.Commands;
 using EventLogger;
 using Prism.Commands;
 using Renci.SshNet;
-using Singularity.UI.FileSystem.ViewModels;
+using Singularity.Contracts.FileExplorer;
+using Singularity.UI.FileExplorer.ViewModels;
 using System;
 using System.ComponentModel.Composition;
 using static CDFCCultures.Managers.ManagerLocator;
 
 namespace Singularity.Net {
-    [Export(typeof(CommandItem<(DirectoriesBrowserViewModel, FileRow)>))]
+    [Export(typeof(CommandItem<(DirectoriesBrowserViewModel, IFileRow)>))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public class UploadFileRowCommandItem:CommandItem<(DirectoriesBrowserViewModel dvm,FileRow fileRow)> {
+    public class UploadFileRowCommandItem:CommandItem<(DirectoriesBrowserViewModel dvm,IFileRow fileRow)> {
         public UploadFileRowCommandItem() {
             CommandName = FindResourceString("UploadingFileCommandItem");
             Command = new DelegateCommand(() => {
@@ -20,7 +21,7 @@ namespace Singularity.Net {
                     try {
                         //CDFCMessageBox.Show("Dasd","d");
                         var data = GetData();
-                        var file = data.fileRow.File;
+                        var file = (data.fileRow as IFileRow<RegularFile>)?.File;
                         if(file is RegularFile regFile) {
                             var msg = new ProgressMessageBox {
                                 WindowTitle = "上传文件"

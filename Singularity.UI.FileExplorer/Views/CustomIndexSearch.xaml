@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Singularity.UI.FileExplorer.Views.CustomIndexSearch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             xmlns:local="clr-namespace:Singularity.UI.FileExplorer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <TextBox VerticalAlignment="Center" Width="120" Height="36" Text="{Binding SearchingKey,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource SearchTextBox}"  controls:PlaceholderManager.Placeholder="{DynamicResource PleaseInputContent}" >
+        <TextBox.InputBindings>
+            <KeyBinding Key="Enter"  Command="{Binding SearchKeyConfirmCommand}" />
+        </TextBox.InputBindings>
+    </TextBox>
+</UserControl>

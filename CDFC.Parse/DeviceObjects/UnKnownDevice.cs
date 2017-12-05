@@ -48,13 +48,7 @@ namespace CDFC.Parse.DeviceObjects {
 
             try {
                 fs = File.Open(path, FileMode.Open, readOnly ? FileAccess.Read : FileAccess.ReadWrite, FileShare.ReadWrite);
-                var device = new UnKnownDevice {
-                    _stream = fs,
-                    Name = path.Substring(path.LastIndexOf("\\") + 1),
-                    Children = new System.Collections.Generic.List<IFile>()
-                };
-
-                return device;
+                return LoadFromFileStream(fs);
             }
             catch (Exception ex) {
                 Logger.WriteLine($"{nameof(UnKnownDevice)} -> {nameof(LoadFromPath)}:{ex.Message}");
@@ -62,6 +56,16 @@ namespace CDFC.Parse.DeviceObjects {
                 throw new Exception("Failed to load img!", ex);
             }
 
+        }
+
+        public static UnKnownDevice LoadFromFileStream(FileStream fs) {
+            var device = new UnKnownDevice {
+                _stream = fs,
+                Name = fs.Name.Substring(fs.Name.LastIndexOf("\\") + 1),
+                Children = new System.Collections.Generic.List<IFile>()
+            };
+
+            return device;
         }
 
         public override void Exit() {

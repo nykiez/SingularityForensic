@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
-using Singularity.Interfaces;
+using Singularity.Contracts.FileExplorer;
 
 namespace Singularity.Previewers {
     public class ImagePreviewer : IPreviewer {

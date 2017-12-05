@@ -4,15 +4,15 @@ using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCCultures.Helpers;
 using CDFCControls.Controls;
-using Singularity.UI.Case.Contracts;
+using Singularity.Contracts.Case;
 
 namespace Singularity.UI.Case.Views {
     /// <summary>
     /// Interaction logic for IFilePropertyWindow.xaml
     /// </summary>
     public partial class ShowCaseFilePropertyWindow : CorneredWindow {
-        public ICaseFile CFile { get; }
-        public ShowCaseFilePropertyWindow(ICaseFile cFile) {
+        public ICaseEvidence CFile { get; }
+        public ShowCaseFilePropertyWindow(ICaseEvidence cFile) {
             InitializeComponent();
             this.CFile = cFile ?? throw new ArgumentNullException();
 

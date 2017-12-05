@@ -75,7 +75,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
             }
         }
 
-        public override FileType FileType {
+        public override FileType Type {
             get {
                 return FileType.Unknown;
             }

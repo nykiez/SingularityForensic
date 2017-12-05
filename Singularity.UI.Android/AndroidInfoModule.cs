@@ -4,20 +4,21 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Singularity.Interfaces;
+using Singularity.Android.Models;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Case.Events;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.Info;
+using Singularity.Contracts.MainPage;
+using Singularity.Contracts.MainPage.Events;
+using Singularity.Contracts.TabControl;
+using Singularity.Contracts.TreeView;
 using Singularity.UI.Android.Models;
-using Singularity.UI.Case.Events;
-using Singularity.UI.Case.Models;
-using Singularity.UI.FileSystem.Android.Models;
 using Singularity.UI.Info.Android.Global.Services;
 using Singularity.UI.Info.Android.TabModels;
-using Singularity.UI.Info.Contracts;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.Models.Chating;
-using SingularityForensic.Helpers;
-using SingularityForensic.Modules.MainPage.Global.Events;
-using SingularityForensic.Modules.MainPage.Global.Services;
-using SingularityForensic.Modules.MainPage.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -29,8 +30,8 @@ namespace Singularity.UI.Info.Android {
     public class AndroidInfoModule : IModule {
         public void Initialize() {
             //订阅镜像文件附加事件;
-            PubEventHelper.GetEvent<CaseFileAddedEvent<AndroidDeviceCaseFile>>()?.Subscribe(adCFile => {
-                var frService = ServiceLocator.Current.GetInstance<ForensicService>();
+            PubEventHelper.GetEvent<CaseEvidenceAddedEvent<AndroidDeviceCaseEvidence>>()?.Subscribe(adCFile => {
+                var frService = ServiceProvider.Current.GetInstance<ForensicService>();
                 //询问是否开始取证;
                 if (CDFCMessageBox.Show(FindResourceString("ConfirmLaunchForensic"),
                         MessageBoxButton.YesNo)
@@ -40,17 +41,19 @@ namespace Singularity.UI.Info.Android {
             });
 
             //订阅镜像文件加载事件;
-            PubEventHelper.GetEvent<CaseFileLoadedEvent<AndroidDeviceCaseFile>>()?.Subscribe(adCFile => {
-                //LoadForensicUnit(adCFile);
+            PubEventHelper.GetEvent<CaseFileLoadedEvent<AndroidDeviceCaseEvidence>>()?.Subscribe(adCFile => {
+                var frService = ServiceProvider.Current.GetInstance<ForensicService>();
+                //加载取证分析节点;
+                frService?.LoadForensicUnit(adCFile);
             });
 
             //订阅节点附加事件;
-            PubEventHelper.GetEvent<TreeNodeAdded<CaseFileUnit<AndroidDeviceCaseFile>>>()?.Subscribe(cfUnit => {
-                var adcFile = cfUnit.Data;
+            PubEventHelper.GetEvent<TreeNodeAdded<CaseEvidenceUnit<AndroidDeviceCaseEvidence>>>()?.Subscribe(cfUnit => {
+                var adcFile = cfUnit.Evidence;
                 cfUnit.ContextCommands.Add(new CDFCUIContracts.Commands.CommandItem {
                     CommandName = FindResourceString("StartForensic"),
                     Command = new DelegateCommand(() => {
-                        var fService = ServiceLocator.Current.GetInstance<ForensicService>();
+                        var fService = ServiceProvider.Current.GetInstance<ForensicService>();
                         fService?.StartForensic(adcFile);
                     })
                 });
@@ -58,19 +61,19 @@ namespace Singularity.UI.Info.Android {
             
             //订阅节点点击事件;
             PubEventHelper.GetEvent<TreeNodeClickEvent>()?.Subscribe(unit => {
-                var fsTabService = ServiceLocator.Current.GetInstance<IDocumentTabService>();
+                var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
                 if(fsTabService == null) {
                     RemainingMessageBox.Tell("FSTabService can't be null!");
                     return;
                 }
                 if(unit is TreeUnit biUnit) {
-                    var advUnit = biUnit.GetParent<CaseFileUnit<AndroidDeviceCaseFile>>();
+                    var advUnit = biUnit.GetParent<CaseEvidenceUnit<AndroidDeviceCaseEvidence>>();
                     if (advUnit == null) {
                         //RemainingMessageBox.Tell("advUnit can't be null!");
                         return;
                     }
 
-                    var advCaseFile = advUnit.Data;
+                    var advCaseFile = advUnit.Evidence;
 
                     if (unit is IHavePinKind havePinKind) {
                         //分配预计Tab标识;

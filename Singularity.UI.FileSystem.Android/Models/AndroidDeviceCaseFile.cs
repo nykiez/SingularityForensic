@@ -1,15 +1,15 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Android.DeviceObjects;
-using Singularity.UI.Case.Contracts;
-using Singularity.UI.FileSystem.Models;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Singularity.UI.FileSystem.Android.Models {
+namespace Singularity.Android.Models {
     //安卓设备案件文件;
-    public class AndroidDeviceCaseFile : DeviceCaseFile<AndroidDevice> {
+    public class AndroidDeviceCaseEvidence : DeviceCaseFile<AndroidDevice> {
         /// <summary>
         /// 安卓镜像设备总文件夹;
         /// </summary>
@@ -19,7 +19,7 @@ namespace Singularity.UI.FileSystem.Android.Models {
         /// </summary>
         /// <param name="device"></param>
         /// <param name="xElem"></param>
-        public AndroidDeviceCaseFile(AndroidDevice device, XElement xElem) : base(device, xElem) {
+        public AndroidDeviceCaseEvidence(AndroidDevice device, XElement xElem) : base(device, xElem) {
             //加入子案件文件;
             var elements = xElem.Elements(RootElemName);
             foreach (var elem in elements) {
@@ -42,13 +42,15 @@ namespace Singularity.UI.FileSystem.Android.Models {
         /// <param name="device"></param>
         /// <param name="interLabel"></param>
         /// <param name="dateAdded"></param>
-        public AndroidDeviceCaseFile(AndroidDevice device, string interLabel, DateTime dateAdded) :
+        public AndroidDeviceCaseEvidence(AndroidDevice device, string interLabel, DateTime dateAdded) :
             base(device, nameof(AndroidDevice), device.Name, interLabel, dateAdded) {
             //加入子案件文件;
             var partID = 0;
+            
             device.Children.ForEach((Action<CDFC.Parse.Contracts.IFile>)(p => {
                 if (p is Partition part) {
                     var pFile = new PartitionCaseFile(part, $"{interLabel}-{part.Name}", dateAdded, partID++);
+                    XElem.Add(pFile.XElem);
                     //.Add(pFile.Data);
                     _children.Add(pFile);
                 }
@@ -56,8 +58,8 @@ namespace Singularity.UI.FileSystem.Android.Models {
 
         }
 
-        private List<ICaseFile> _children = new List<ICaseFile>();
-        public override IEnumerable<ICaseFile> Members => _children?.Select(p => p);
+        private List<ICaseEvidence> _children = new List<ICaseEvidence>();
+        public override IEnumerable<ICaseEvidence> InnerCaseFiles => _children?.Select(p => p);
 
         protected override string GetBasePath() => $"{AndDeviceClassFolder}/{Guid.NewGuid().ToString("N")}-{Name}";
     }

@@ -15,7 +15,7 @@
         <Setter Property="Background" Value="{DynamicResource Window.Background}"/>
         <Setter Property="MinWidth" Value="800" />
         <Setter Property="MinHeight" Value="540" />
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Window.Border}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="TitlebarHeight" Value="38"/>
     </Style>

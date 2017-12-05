@@ -1,5 +1,5 @@
 ﻿using Prism.Mvvm;
-using Singularity.UI.Case.Contracts;
+using Singularity.Contracts.Case;
 using System;
 using System.Collections.ObjectModel;
 
@@ -58,7 +58,7 @@ namespace Singularity.UI.Info.Models {
         public ObservableCollection<CheckItemTreeItem> Children { get; set; } = new ObservableCollection<CheckItemTreeItem>();
     }
     
-    public class CheckGroupTreeItem<TCaseFile> : CheckGroupTreeItem where TCaseFile : ICaseFile {
+    public class CheckGroupTreeItem<TCaseFile> : CheckGroupTreeItem where TCaseFile : ICaseEvidence {
         public CheckGroupTreeItem(string name):base(name) {
 
         }
@@ -119,7 +119,7 @@ namespace Singularity.UI.Info.Models {
     }
 
     //选项;
-    public abstract class CheckItemTreeItem<TCaseFile> :CheckItemTreeItem  where TCaseFile:ICaseFile {
+    public abstract class CheckItemTreeItem<TCaseFile> :CheckItemTreeItem  where TCaseFile:ICaseEvidence {
         public CheckItemTreeItem(CheckGroupTreeItem group) : base(group) {
 
         }

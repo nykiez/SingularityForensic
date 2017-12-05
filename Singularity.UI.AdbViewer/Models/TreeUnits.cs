@@ -4,12 +4,13 @@ using CDFCUIContracts.Commands;
 using CDFCUIContracts.Models;
 using Cflab.DataTransport.Modules.Transport.Model;
 using EventLogger;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.FileExplorer;
+using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.Info;
 using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.DeviceObjects;
 using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.FileSystem.Global.Services;
-using Singularity.UI.FileSystem.Models;
-using Singularity.UI.Info.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,7 +58,11 @@ namespace Singularity.UI.AdbViewer.Models {
                 if (p is BackUpFilesContainer container) {
                     try {
                         var direct = new LocalDirectory(new DirectoryInfo(container.AbPath + container.RelPath), null);
-                        FSUnit.Children.Add(new StorageTreeUnit(direct, FSUnit,DefaultFileSystemProvider.StaticInstance));
+                        var stUnit = ServiceProvider.Current.GetInstance<IFSNodeService>()?
+                            .CreateStorageUnit(direct, FSUnit, DefaultFileExplorerServiceProvider.StaticInstance);
+                        if(stUnit != null) {
+                            FSUnit.Children.Add(stUnit);
+                        }
                     }
                     catch (Exception ex) {
                         Logger.WriteLine($"{nameof(AdbDeviceCaseFileUnit)}->{nameof(ReloadChildren)}:{ex.Message}");
@@ -66,7 +71,7 @@ namespace Singularity.UI.AdbViewer.Models {
                 else if (p is AllFilesContainer) {
                     var part = new AdbAllFilesPartition((p as AllFilesContainer).Files);
                     part.Name = MInfoTypeHelper.GetInfoTypeWord(p.InfoType);
-                    FSUnit.Children.Add(new StorageTreeUnit(part, FSUnit,DefaultFileSystemProvider.StaticInstance));
+                    FSUnit.Children.Add(ServiceProvider.Current.GetInstance<IFSNodeService>()?.CreateStorageUnit(part, FSUnit,DefaultFileExplorerServiceProvider.StaticInstance));
                 }
                 else {
                     if (p is IAdbMultiInfoContainer<IInfo, InfoModel> multiInfoContainer) {

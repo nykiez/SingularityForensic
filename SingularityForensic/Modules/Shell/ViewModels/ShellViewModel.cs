@@ -12,7 +12,8 @@ using Prism.Commands;
 using Prism.Regions;
 using Prism.Modularity;
 using Prism.Mvvm;
-using SingularityForensic.Modules.Shell.Global.Events;
+using Singularity.Contracts.Shell.Events;
+using Singularity.Contracts.Helpers;
 
 namespace SingularityForensic.ViewModels.Shell {
     //主模型;

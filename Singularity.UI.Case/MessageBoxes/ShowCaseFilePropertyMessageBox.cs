@@ -1,4 +1,4 @@
-﻿using Singularity.UI.Case.Contracts;
+﻿using Singularity.Contracts.Case;
 using Singularity.UI.Case.Views;
 
 namespace Singularity.UI.Case.MessageBoxes {
@@ -7,8 +7,8 @@ namespace Singularity.UI.Case.MessageBoxes {
         //    //ServiceLocator.Current.GetInstance<>
         //}
 
-        public static TCaseFile Show<TCaseFile>(TCaseFile caseFile) {
-            var window = new ShowCaseFilePropertyWindow(caseFile as ICaseFile);
+        public static TCaseFile Show<TCaseFile>(TCaseFile caseFile) where TCaseFile : ICaseEvidence {
+            var window = new ShowCaseFilePropertyWindow(caseFile);
             var res = window.ShowDialog();
             if (res == true) {
                 return caseFile;

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
-using SingularityForensic.Helpers;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.Shell;
 using SingularityForensic.Modules.MainMenu.Global.Events;
-using SingularityForensic.Modules.MainMenu.Models;
-using SingularityForensic.Modules.Shell.Global.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -27,7 +28,7 @@ namespace SingularityForensic.Modules.MainMenu.ViewModels {
             //});
             //PubEventHelper.GetEvent<MenuSelectedGroupChangedEvent>()?.Subscribe(group => {
             //    if (group != MenuGroupDefinitions.HelpMenuGroup && group != MenuGroupDefinitions.OptionsMenuGroup) {
-            //        ServiceLocator.Current.GetInstance<IRegionManager>()?.RequestNavigate(RegionNames.MainRegion, "BlankPage");
+            //        ServiceProvider.Current.GetInstance<IRegionManager>()?.RequestNavigate(RegionNames.MainRegion, "BlankPage");
             //    }
             //});
         }
@@ -37,7 +38,7 @@ namespace SingularityForensic.Modules.MainMenu.ViewModels {
         /// </summary>
         private void BuildBasicMenus() {
             foreach (var group in MenuGroups) {
-                foreach (var item in menuItems.Where(i => i.Group == group).OrderBy(i => i.SortOrder)) {
+                foreach (var item in menuItems.Where(i => i.GroupID == group.GUID).OrderBy(i => i.SortOrder)) {
                     group.Children.Add(item);
                 } 
             }
@@ -47,7 +48,7 @@ namespace SingularityForensic.Modules.MainMenu.ViewModels {
         /// 添加快捷键绑定;
         /// </summary>
         private void AddGestures() {
-            var shellService = ServiceLocator.Current.GetInstance<IShellService>();
+            var shellService = ServiceProvider.Current.GetInstance<IShellService>();
             foreach (var item in menuItems) {
                 if (item.Key != Key.None) {
                     shellService?.AddKeyGestrue(item.Command, item.Key, item.Modifier, item.CommandParameter);

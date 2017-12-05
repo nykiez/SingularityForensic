@@ -1,5 +1,5 @@
 ﻿using CDFC.Info.Adb;
-using Singularity.UI.Case;
+using Singularity.Contracts.Case;
 using System;
 using System.Xml.Linq;
 

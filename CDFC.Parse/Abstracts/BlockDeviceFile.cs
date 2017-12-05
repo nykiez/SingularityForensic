@@ -10,7 +10,7 @@ namespace CDFC.Parse.Abstracts {
         
         public List<IFile> Children { get; protected set; } = new List<IFile>();                   //子文件;
 
-        public FileType FileType {
+        public FileType Type {
             get {
                 return FileType.BlockDeviceFile;
             }

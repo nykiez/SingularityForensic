@@ -4,16 +4,17 @@ using CDFC.Parse.Signature.Pictures;
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
+using Singularity.Android.Models;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.FileExplorer;
+using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.TreeView;
 using Singularity.UI.Android.Models;
 using Singularity.UI.Case;
-using Singularity.UI.FileSystem.Android.Models;
-using Singularity.UI.FileSystem.Global.Services;
-using Singularity.UI.FileSystem.Models;
 using Singularity.UI.Info.Android.Helpers;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.Models.Chating;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -32,21 +33,21 @@ namespace Singularity.UI.Info.Android.Models {
     /// </summary>
     public static class CheckGroupDefinitions {
         [Export]
-        public static readonly CheckGroupTreeItem<AndroidDeviceCaseFile> BasicGroup = 
-            new CheckGroupTreeItem<AndroidDeviceCaseFile>(FindResourceString("BasicInfoTreeLabel"));
+        public static readonly CheckGroupTreeItem<AndroidDeviceCaseEvidence> BasicGroup = 
+            new CheckGroupTreeItem<AndroidDeviceCaseEvidence>(FindResourceString("BasicInfoTreeLabel"));
 
         [Export]
-        public static readonly CheckGroupTreeItem<AndroidDeviceCaseFile> InstantChat = new CheckGroupTreeItem<AndroidDeviceCaseFile>(FindResourceString("InstantChat"));
+        public static readonly CheckGroupTreeItem<AndroidDeviceCaseEvidence> InstantChat = new CheckGroupTreeItem<AndroidDeviceCaseEvidence>(FindResourceString("InstantChat"));
 
         [Export]
-        public static readonly CheckGroupTreeItem<AndroidDeviceCaseFile> MultiMediaGroup = new CheckGroupTreeItem<AndroidDeviceCaseFile>(FindResourceString("MultiMediaInfoTreeLabel"));
+        public static readonly CheckGroupTreeItem<AndroidDeviceCaseEvidence> MultiMediaGroup = new CheckGroupTreeItem<AndroidDeviceCaseEvidence>(FindResourceString("MultiMediaInfoTreeLabel"));
         
         [Export]
-        public static readonly CheckGroupTreeItem<AndroidDeviceCaseFile> OtherGroup = new CheckGroupTreeItem<AndroidDeviceCaseFile>(FindResourceString("OtherFileTreeLabel"));
+        public static readonly CheckGroupTreeItem<AndroidDeviceCaseEvidence> OtherGroup = new CheckGroupTreeItem<AndroidDeviceCaseEvidence>(FindResourceString("OtherFileTreeLabel"));
     }
     
     //重组相关信息项;
-    public class RecomCheckTreeItem : CheckItemTreeItem<AndroidDeviceCaseFile> {
+    public class RecomCheckTreeItem : CheckItemTreeItem<AndroidDeviceCaseEvidence> {
         public RecomCheckTreeItem(CheckGroupTreeItem group,string[] extName, string afc):base(group) {
             this.ExtNames = extName;
             this.ForensicCalssType = afc;
@@ -64,15 +65,16 @@ namespace Singularity.UI.Info.Android.Models {
                 var part = SearcherPartition.LoadFromNodeList(CaseFile.Data, 
                     ownNdList,$"{CaseFile.Name}-{Name}");
                 
-                var fsService = ServiceLocator.Current.GetInstance<IFSNodeService>();
+                var fsService = ServiceProvider.Current.GetInstance<IFSNodeService>();
                 
                 if(fsService != null) {
                     try {
-                        var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit<AndroidDeviceCaseFile>(CaseFile);
+                        var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit<AndroidDeviceCaseEvidence>(CaseFile);
                         foreach (var unit in fiUnit.Children) {
                             if(unit is PinTreeUnit afcUnit && afcUnit.ContentId == ForensicCalssType) {
                                 var preUnit = afcUnit.Children.FirstOrDefault(p => p.Label?.StartsWith(Name) ?? false);
-                                var sunit = new StorageTreeUnit(part, afcUnit,DefaultFileSystemProvider.StaticInstance) { Label = $"{Name}({ownNdList.Count})" };
+                                var sunit = ServiceProvider.Current.GetInstance<IFSNodeService>()?.
+                                CreateStorageUnit(part, afcUnit, DefaultFileExplorerServiceProvider.StaticInstance);
                                 if (preUnit != null) {
                                     afcUnit.Children.Remove(preUnit);
                                 }
@@ -118,7 +120,7 @@ namespace Singularity.UI.Info.Android.Models {
 
         private static List<IFileNode> stNdList;
         
-        public override void Init(AndroidDeviceCaseFile deviceFile) {
+        public override void Init(AndroidDeviceCaseEvidence deviceFile) {
             base.Init(deviceFile);
             if(Searcher == null || Searcher.Device != deviceFile.Data) {
                 Free();
@@ -141,7 +143,7 @@ namespace Singularity.UI.Info.Android.Models {
     }
 
     //现有基本相关信息(Python);
-    public class BasicCheckTreeItem : CheckItemTreeItem<AndroidDeviceCaseFile> {
+    public class BasicCheckTreeItem : CheckItemTreeItem<AndroidDeviceCaseEvidence> {
         public BasicCheckTreeItem(string pinKind,CheckGroupTreeItem group):base(group) {
             this.PinKind = pinKind;
         }
@@ -150,7 +152,7 @@ namespace Singularity.UI.Info.Android.Models {
         //取证结果保存字段;
         private List<ForensicInfoDbModel> dbModels;
 
-        public override void Init(AndroidDeviceCaseFile adcFile) {
+        public override void Init(AndroidDeviceCaseEvidence adcFile) {
             base.Init(adcFile);
             dbModels = new List<ForensicInfoDbModel>();
         }
@@ -258,7 +260,7 @@ namespace Singularity.UI.Info.Android.Models {
     /// <summary>
     /// 即时通讯相关信息(Python);
     /// </summary>
-    public class InstanceChatTreeItem:CheckItemTreeItem<AndroidDeviceCaseFile> {
+    public class InstanceChatTreeItem:CheckItemTreeItem<AndroidDeviceCaseEvidence> {
         /// <summary>
         /// py文件名;
         /// </summary>
@@ -277,7 +279,7 @@ namespace Singularity.UI.Info.Android.Models {
         private List<FriendInfoDbModel> friends;
         private List<FriendMsgDbModel> friendMsgs;
 
-        public override void Init(AndroidDeviceCaseFile adcFile) {
+        public override void Init(AndroidDeviceCaseEvidence adcFile) {
             base.Init(adcFile);
             groupMsgs = new List<GroupMsgDbModel>();
             groupMembers = new List<GroupMemberDbModel>();
@@ -299,7 +301,7 @@ namespace Singularity.UI.Info.Android.Models {
 
             }
             //保存内容到案件;
-            var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
+            var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
             if (fiUnit == null) {
                 return;
             }
@@ -421,58 +423,58 @@ namespace Singularity.UI.Info.Android.Models {
     }
 
     public static class CheckItemDefinitions {
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly RecomCheckTreeItem PicRecomTreeItem = new RecomCheckTreeItem(CheckGroupDefinitions.MultiMediaGroup,
             new string[] { "jpg", "png" }, PinKindsDefinitions.ForensicClassMultiMedia) {
             Name = FindResourceString("PicFileTreeLabel")
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly RecomCheckTreeItem AudioRecomTreeItem = new RecomCheckTreeItem(CheckGroupDefinitions.MultiMediaGroup,
             new string[] { "mp3", "amr" }, PinKindsDefinitions.ForensicClassMultiMedia) {
             Name = FindResourceString("AudioFileTreeLabel")
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly RecomCheckTreeItem VideoRecomTreeItem = new RecomCheckTreeItem(CheckGroupDefinitions.MultiMediaGroup,
             new string[] { "mp4" }, PinKindsDefinitions.ForensicClassMultiMedia) {
             Name = FindResourceString("VideoFileTreeLabel")
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly RecomCheckTreeItem ApkRecomTreeItem = new RecomCheckTreeItem(CheckGroupDefinitions.OtherGroup,
             new string[] { "apk" }, PinKindsDefinitions.ForensicClassOther) {
             Name = "APK文件"
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly RecomCheckTreeItem DbRecomTreeItem = new RecomCheckTreeItem(CheckGroupDefinitions.OtherGroup,
             new string[] { "db", "sqlite" }, PinKindsDefinitions.ForensicClassOther) {
             Name = "数据库文件"
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly BasicCheckTreeItem SmsInfoTreeItem = new BasicCheckTreeItem(PinKindsDefinitions.AndBasicSmses, CheckGroupDefinitions.BasicGroup) {
             Name = "短信"
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly BasicCheckTreeItem CalllogInfoTreeItem = new BasicCheckTreeItem(PinKindsDefinitions.AndBasicCalllog, CheckGroupDefinitions.BasicGroup) {
             Name = "通话记录"
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly BasicCheckTreeItem ContactInfoTreeItem = new BasicCheckTreeItem(PinKindsDefinitions.AndBasicContact, CheckGroupDefinitions.BasicGroup) {
             Name = "联系人"
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly InstanceChatTreeItem QQChatTreeItem = new InstanceChatTreeItem("qq_extract.py") {
             Name = FindResourceString("QQTreeLabel"),
             PinKind = PinKindsDefinitions.AndQQ
         };
 
-        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseFile>))]
+        [Export(typeof(CheckItemTreeItem<AndroidDeviceCaseEvidence>))]
         public static readonly InstanceChatTreeItem WeChatTreeItem = new InstanceChatTreeItem("wechat_extract.py") {
             Name = FindResourceString("WeChatTreeLabel"),
             PinKind = PinKindsDefinitions.AndWeChat

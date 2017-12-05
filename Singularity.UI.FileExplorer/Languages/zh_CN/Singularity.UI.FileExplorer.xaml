@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Singularity.UI.FileExplorer.Languages.zh_CN">
+    <sys:String x:Key="ComputeHashCommandItem">计算哈希值</sys:String>
+    <sys:String x:Key="MD5HashCommandItem">MD5</sys:String>
+    <sys:String x:Key="SHA1HashCommandItem">SHA1</sys:String>
+    <sys:String x:Key="SHA256HashCommandItem">SHA256</sys:String>
+    <sys:String x:Key="SHA512HashCommandItem">SHA512</sys:String>
+
+    <sys:String x:Key="MobileRecompositeBySign">文件重组扫描</sys:String>
+    <sys:String x:Key="FileSystemInfo">显示文件系统信息</sys:String>
+    <sys:String x:Key="CustomSignSearch">自定义签名搜索</sys:String>
+</ResourceDictionary>

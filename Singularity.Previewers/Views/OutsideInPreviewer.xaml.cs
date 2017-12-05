@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Singularity.Previewers.Views {
+namespace Singularity.UI.Previewers.Views {
     /// <summary>
     /// Interaction logic for OutsideInPreviewer.xaml
     /// </summary>

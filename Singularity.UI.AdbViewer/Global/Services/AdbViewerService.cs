@@ -2,9 +2,9 @@
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Prism.Events;
+using Singularity.Contracts.MainPage;
 using Singularity.UI.AdbViewer.Models;
 using Singularity.UI.Case;
-using SingularityForensic.Modules.MainPage.Global.Services;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -57,7 +57,7 @@ namespace Singularity.UI.AdbViewer.Global.Services {
             try {
                 AdbDeviceCaseFile adbCSFile = null;
                 //查看是否存在同一个容器案件文件;
-                if (SingularityCase.Current.CaseFiles.FirstOrDefault(p => p is AdbDeviceCaseFile adbCFile &&
+                if (SingularityCase.Current.CaseEvidences.FirstOrDefault(p => p is AdbDeviceCaseFile adbCFile &&
                 adbCFile.Container.Device.Serial == container.Device.Serial) is AdbDeviceCaseFile preAdbFile) {
                     preAdbFile.Container.CombineWith(container);
                     container = preAdbFile.Container;
@@ -95,7 +95,7 @@ namespace Singularity.UI.AdbViewer.Global.Services {
                 return;
 
             //查询是否具有相同的Adb设备;
-            var preAdbCFile = SingularityCase.Current.CaseFiles.
+            var preAdbCFile = SingularityCase.Current.CaseEvidences.
                 FirstOrDefault(p => p is AdbDeviceCaseFile adbCSFile
             && adbCSFile.Container?.Device?.Serial == container.Device.Serial);
             

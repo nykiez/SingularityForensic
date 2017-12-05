@@ -4,18 +4,20 @@ using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Case.Events;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.MainMenu;
+using Singularity.Contracts.Shell;
 using Singularity.UI.Case;
-using Singularity.UI.Case.Contracts;
-using Singularity.UI.Case.Events;
-using Singularity.UI.Case.Global.Services;
 using Singularity.UI.Case.Resources;
 using Singularity.UI.MessageBoxes.MessageBoxes;
-using SingularityForensic.Helpers;
-using SingularityForensic.Modules.MainMenu.Models;
 using SingularityForensic.Modules.MainPage;
-using SingularityForensic.Modules.Shell.Global.Services;
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
@@ -36,7 +38,10 @@ namespace SingularityForensic.Modules.Case {
 
         //加载案件菜单;
         [Export]
-        public static readonly MenuButtonItemModel OpenCaseMenuItem = new MenuButtonItemModel(MenuGroupDefinitions.MainPageMenuGroup, FindResourceString("OpenCase")) {
+        public static readonly MenuButtonItemModel OpenCaseMenuItem = new MenuButtonItemModel(
+            MenuConstants.MenuMainGroup,
+            FindResourceString("OpenCase")) {
+
             Command = new DelegateCommand(() => {
                 //若已经存在打开的案件;
                 if (SingularityCase.Current != null) {
@@ -56,7 +61,7 @@ namespace SingularityForensic.Modules.Case {
                         return;
                     }
 
-                    ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
+                    ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
 
                     //后台加载
                     var sCase = SingularityCase.LoadFrom(tp.Value.path,tp.Value.fileName);
@@ -70,7 +75,7 @@ namespace SingularityForensic.Modules.Case {
                             }
 
                             Application.Current.Dispatcher.Invoke(() => {
-                                ServiceLocator.Current.GetInstance<ICaseService>()?.LoadCase(sCase);
+                                ServiceProvider.Current.GetInstance<ICaseService>()?.LoadCase(sCase);
                             });
                         }
 
@@ -78,7 +83,7 @@ namespace SingularityForensic.Modules.Case {
 
                         var msg = new DoubleProcessMessageBox() { Title = FindResourceString("LoadingCase") };
                         msg.DoWork += delegate {
-                            foreach (var manager in ServiceLocator.Current.GetAllInstances<ICaseManager>()) {
+                            foreach (var manager in ServiceProvider.Current.GetAllInstances<ICaseManager>()?.OrderBy(p => p.SortOrder)) {
                                 manager.LoadCase((totalPro, pro, capTip, tip) => {
                                     msg.ReportProgress(totalPro, pro, capTip, tip);
                                 }, () => msg.CancellationPending);
@@ -99,7 +104,7 @@ namespace SingularityForensic.Modules.Case {
                     }
                     finally {
                         sCase?.Save();
-                        ServiceLocator.Current.GetInstance<IShellService>()?.ChangeLoadState(false, string.Empty);
+                        ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false, string.Empty);
                     }
 
                 }
@@ -110,7 +115,7 @@ namespace SingularityForensic.Modules.Case {
         private static readonly DelegateCommand CloseCaseCommand = new DelegateCommand(
             () => {
                 if (CDFCMessageBox.Show(FindResourceString("ConfirmToCloseCase"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                    ServiceLocator.Current.GetInstance<ICaseService>()?.CloseCase();
+                    ServiceProvider.Current.GetInstance<ICaseService>()?.CloseCase();
                 }
             },
             () =>
@@ -119,7 +124,7 @@ namespace SingularityForensic.Modules.Case {
         //关闭案件菜单;
         [Export]
         public static MenuButtonItemModel CloseCaseMenuItem = new MenuButtonItemModel(
-                        MenuGroupDefinitions.MainPageMenuGroup,
+                        MenuConstants.MenuMainGroup,
                         FindResourceString("CloseCase")) {
             Command = CloseCaseCommand,
             IconSource = IconSources.CloseCaseIcon
@@ -129,10 +134,10 @@ namespace SingularityForensic.Modules.Case {
         [Export]
         public static readonly MenuButtonItemModel CreateCaseMenuItem =
             new MenuButtonItemModel(
-                MenuGroupDefinitions.MainPageMenuGroup,
+                MenuConstants.MenuMainGroup,
                 FindResourceString("CreateNewCase"), 0) {
                     Command = new DelegateCommand(() => {
-                        ServiceLocator.Current.GetInstance<ICaseService>()?.CreateCase();
+                        ServiceProvider.Current.GetInstance<ICaseService>()?.CreateCase();
                     }),
                     IconSource = IconSources.CreateCaseIcon
             };

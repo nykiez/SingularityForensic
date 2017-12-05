@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:models="clr-namespace:Singularity.UI.Info.Models"
-            xmlns:cvts="clr-namespace:Singularity.UI.Converters;assembly=Singularity.UI.Converters"
+            xmlns:cvts="http://singularity/converters"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             xmlns:commands="clr-namespace:CDFCUIContracts.Commands;assembly=CDFCUIContracts"

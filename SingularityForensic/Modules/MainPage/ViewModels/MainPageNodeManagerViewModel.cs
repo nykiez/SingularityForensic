@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using Prism.Commands;
 using System.ComponentModel.Composition;
-using SingularityForensic.Helpers;
 using Prism.Mvvm;
 using CDFCUIContracts.Models;
-using SingularityForensic.Modules.MainPage.Global.Events;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.MainPage.Events;
 
 namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]

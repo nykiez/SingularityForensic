@@ -104,7 +104,7 @@ namespace CDFC.Parse.IO {
         public static Stream CreateStreamByFile(IFile file) {
             if (file != null) {
                 try {
-                    if (file.FileType == FileType.BlockDeviceFile) {                        //若为块文件，则文件为设备或分区;
+                    if (file.Type == FileType.BlockDeviceFile) {                        //若为块文件，则文件为设备或分区;
                         if (file is Partition part) {                                            //若为分区，则根据分区的起始，终止地址构造流;
                             var device = file.GetParent<Device>();
                             if (device != null) {

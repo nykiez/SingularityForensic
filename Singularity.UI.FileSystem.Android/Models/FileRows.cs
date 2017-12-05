@@ -2,12 +2,12 @@
 using CDFC.Parse.Android.DeviceObjects;
 using CDFC.Parse.Contracts;
 using CDFCCultures.Helpers;
-using Singularity.UI.FileSystem.Models;
+using Singularity.Contracts.FileExplorer;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.FileSystem.Android.Models {
-    public class AndroidFileRow<TFile>:FileRow<TFile> where TFile:IFile {
-        public AndroidFileRow(TFile file):base(file) {
+namespace Singularity.Android.Models {
+    public class AndroidFileRow:FileRow<IFile> {
+        public AndroidFileRow(IFile file):base(file) {
 
         }
 

@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{050EE5E6-526C-4195-881F-E50D0882FACA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SingularityParser</RootNamespace>
+    <AssemblyName>SingularityParser</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\SingularityShell\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\SingularityShell\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Singularity.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\AvalonDock.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFC.Util, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.0.2\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCControls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCCultures, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.0.2\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CDFCUIContracts, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.0.2\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EventLogger, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.0.2\lib\NET451\EventLogger.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SingularityBootStrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
+      <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
+      <Name>Singularity.Contracts</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.FileSystem\Singularity.UI.FileSystem.csproj">
+      <Project>{bf97758c-4647-4bf5-9cf0-b90b0a508964}</Project>
+      <Name>Singularity.UI.FileSystem</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.Hex\Singularity.UI.Hex.csproj">
+      <Project>{b3fce5d0-77d8-4d8f-8c26-d831f9e2816e}</Project>
+      <Name>Singularity.UI.Hex</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.Previewers\Singularity.UI.Previewers.csproj">
+      <Project>{2a1fb9a3-57dc-4694-b1e4-4f4bafa7c21d}</Project>
+      <Name>Singularity.UI.Previewers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.AdbViewer\Singularity.AdbViewer.csproj">
+      <Project>{0d85ee7b-6532-4c80-b5b1-699ec5a03a58}</Project>
+      <Name>Singularity.AdbViewer</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
+      <Project>{06fef118-76f8-4afd-b6ba-486579380a59}</Project>
+      <Name>Singularity.UI.Info.Android</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
+      <Project>{ea0d6d56-db66-4f7f-8456-a23de8ae1105}</Project>
+      <Name>Singularity.UI.Case</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
+      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
+      <Name>Singularity.UI.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.FileExplorer\Singularity.UI.FileExplorer.csproj">
+      <Project>{751ab44c-3900-46ec-90c9-84512fcfacb9}</Project>
+      <Name>Singularity.UI.FileExplorer</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
+      <Project>{98d376f1-121c-464c-8e94-716a131ffc21}</Project>
+      <Name>Singularity.Android</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
+      <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
+      <Name>Singularity.UI.Info</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.ITunes\Singularity.UI.ITunes.csproj">
+      <Project>{8e5c50c6-e84b-4494-adbc-0e78e45a9a1f}</Project>
+      <Name>Singularity.UI.ITunes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.MessageBoxes\Singularity.UI.MessageBoxes.csproj">
+      <Project>{83701165-1dee-4a3e-8c86-140c70b277ee}</Project>
+      <Name>Singularity.UI.MessageBoxes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
+      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
+      <Name>Singularity.UI.Themes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
+      <Name>SingularityForensic</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Singularity.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Languages\zh_CN\SingularityParser2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

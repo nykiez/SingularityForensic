@@ -25,6 +25,7 @@ namespace CDFC.Parse.Abstracts {
 
         public abstract uint? BlockSize { get;  }                             //簇大小;
         public abstract FileSystemType FSType { get; }              //文件系统类型;
+        
     }
 
     /// <summary>
@@ -56,6 +57,13 @@ namespace CDFC.Parse.Abstracts {
         /// <param name="urlArgs"></param>
         /// <returns></returns>
         public static IFile GetFileByUrl(this Partition part,string[] urlArgs) {
+            if(urlArgs == null) {
+                return null;
+            }
+            if(urlArgs.Length == 1 && string.IsNullOrEmpty(urlArgs[0])) {
+                return part;
+            }
+
             IIterableFile fileNode = part;
             for (int index = 0; index < urlArgs.Length - 1; index++) {
                 if (fileNode == null) {

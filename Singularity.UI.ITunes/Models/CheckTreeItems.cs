@@ -3,11 +3,12 @@ using CDFC.Parse.ITunes.DeviceObjects;
 using CDFC.Parse.ITunes.Models;
 using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
-using Singularity.UI.FileSystem.Global.Services;
-using Singularity.UI.FileSystem.Models;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.FileExplorer;
+using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.TreeView;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Models;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -63,15 +64,20 @@ namespace Singularity.UI.ITunes.Models {
                 //    ownNdList, $"{CaseFile.Name}-{Name}"
                 
                 try {
-                    var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
+                    var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
                     foreach (var unit in fiUnit.Children) {
                         if (unit is PinTreeUnit pinUnit && pinUnit.ContentId == ForensicClassType) {
                             var preUnit = pinUnit.Children.FirstOrDefault(p => p.Label?.StartsWith(Name) ?? false);
-                            var sunit = new StorageTreeUnit(part, pinUnit,DefaultFileSystemProvider.StaticInstance) { Label = $"{Name}({ownNdList.Count})" };
-                            if (preUnit != null) {
-                                pinUnit.Children.Remove(preUnit);
+                            var sunit = ServiceProvider.Current.GetInstance<IFSNodeService>()?.
+                                CreateStorageUnit(part, pinUnit, DefaultFileExplorerServiceProvider.StaticInstance);
+                            if(sunit != null) {
+                                sunit.Label = $"{Name}({ownNdList.Count}";
+
+                                if (preUnit != null) {
+                                    pinUnit.Children.Remove(preUnit);
+                                }
+                                pinUnit.Children.Add(sunit);
                             }
-                            pinUnit.Children.Add(sunit);
                         }
                     }
                 }
@@ -153,7 +159,7 @@ namespace Singularity.UI.ITunes.Models {
             }
 
             try {
-                var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
+                var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
                 foreach (var unit in fiUnit.Children) {
                     if (unit is PinTreeUnit pinUnit && pinUnit.ContentId == PinKindsDefinitions.ForensicClassBasic) {
                         var iBasicUnit = pinUnit as ExtTreeUnit<IOSBasicStruct?>;

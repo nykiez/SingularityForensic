@@ -44,10 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IHaveData.cs" />
-    <Compile Include="IHaveGroup.cs" />
-    <Compile Include="IHavePinKind.cs" />
-    <Compile Include="IPreviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

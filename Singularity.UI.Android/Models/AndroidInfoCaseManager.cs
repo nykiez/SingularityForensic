@@ -9,21 +9,23 @@ using System.Collections.Generic;
 using static CDFCCultures.Managers.ManagerLocator;
 using Singularity.UI.Info.Global.Services;
 using EventLogger;
-using Singularity.Interfaces;
 using CDFCUIContracts.Models;
-using SingularityForensic.Modules.MainPage.Models;
-using Singularity.UI.Case.Contracts;
 using Singularity.UI.Case;
-using Singularity.UI.FileSystem.Android.Models;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.Models.Chating;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.TreeView;
+using Singularity.Android.Models;
+using Singularity.Contracts.Case;
 
 namespace Singularity.UI.Info.Android.Models {
     [Export(typeof(ICaseManager))]
     public class AndroidInfoCaseManager : ICaseManager {
-        public void LoadCase(CaseLoaderHelper.CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
-            foreach (var csFile in SingularityCase.Current.CaseFiles) {
-                if(csFile is AndroidDeviceCaseFile advCFile) {
+        public int SortOrder => 4;
+
+        public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
+            foreach (var csFile in SingularityCase.Current.CaseEvidences) {
+                if(csFile is AndroidDeviceCaseEvidence advCFile) {
                     Action<string> loadBasicAct = ik => {
                         if(!string.IsNullOrEmpty(advCFile[ik])) {
                             try {
@@ -53,15 +55,15 @@ namespace Singularity.UI.Info.Android.Models {
         /// <param name="advCFile"></param>
         /// <param name="binPath"></param>
         /// <param name="pinKind"></param>
-        public static void LoadBasicInfo(AndroidDeviceCaseFile advCFile,string pinKind) {
-            var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(advCFile);
+        public static void LoadBasicInfo(AndroidDeviceCaseEvidence advCFile,string pinKind) {
+            var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(advCFile);
             if (fiUnit == null) {
                 return;
             }
 
             if (fiUnit.Children.FirstOrDefault(p => p is IHavePinKind havePin && havePin.ContentId == pinKind) is ITreeUnit preUnit) {
                 fiUnit.Children.Remove(preUnit);
-                //var fsTabService = ServiceLocator.Current.GetInstance<FSTabService>();
+                //var fsTabService = ServiceProvider.Current.GetInstance<FSTabService>();
             }
 
             TreeUnit newUnit = null;
@@ -99,9 +101,9 @@ namespace Singularity.UI.Info.Android.Models {
         /// </summary>
         /// <param name="advCFile"></param>
         /// <param name="infoKind"></param>
-        public static void LoadInstanceChat(AndroidDeviceCaseFile advCFile,string pinKind) {
+        public static void LoadInstanceChat(AndroidDeviceCaseEvidence advCFile,string pinKind) {
             //保存内容到案件;
-            var fiUnit = ServiceLocator.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(advCFile);
+            var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(advCFile);
             if (fiUnit == null) {
                 return;
             }

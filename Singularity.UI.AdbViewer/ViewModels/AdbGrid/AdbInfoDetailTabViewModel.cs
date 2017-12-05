@@ -6,7 +6,7 @@ using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Mvvm;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
     public class AdbInfoDetailTabViewModel : BindableBase,ITabModel {

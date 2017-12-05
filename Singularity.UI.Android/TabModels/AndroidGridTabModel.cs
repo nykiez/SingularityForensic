@@ -1,7 +1,7 @@
-﻿using Singularity.UI.Info.Android.ViewModels;
+﻿using Singularity.Contracts.TabControl;
+using Singularity.UI.Info.Android.ViewModels;
 using Singularity.UI.Info.Android.Views;
 using Singularity.UI.Info.Models;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;
 

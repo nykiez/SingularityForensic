@@ -1,8 +1,13 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using CDFCMessageBoxes.MessageBoxes;
+using Microsoft.Practices.ServiceLocation;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.TreeView;
+using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Views;
 using Singularity.UI.ITunes.Models;
 using Singularity.UI.ITunes.ViewModels;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace Singularity.UI.ITunes.Global.Services {
     [Export]
@@ -14,7 +19,7 @@ namespace Singularity.UI.ITunes.Global.Services {
         /// <param name="cFile"></param>
         public void StartForensic(ITunesBackUpCaseFile csFile) {
             var window = new StartForensicWindow();
-            var vm = ServiceLocator.Current.GetInstance<ITunesStartForensicWindowViewModel>();
+            var vm = ServiceProvider.Current.GetInstance<ITunesStartForensicWindowViewModel>();
 
             window.DataContext = vm;
             vm.DeviceFile = csFile;
@@ -24,6 +29,30 @@ namespace Singularity.UI.ITunes.Global.Services {
 
             window.ShowDialog();
             //ITunesBackUpCaseFile cFile
+        }
+
+        /// <summary>
+        /// 加载取证信息节点;
+        /// </summary>
+        /// <param name="adCFile"></param>
+        public void LoadForensicUnit(ITunesBackUpCaseFile adCFile) {
+            var frService = ServiceProvider.Current.GetInstance<ICommonForensicService>();
+            //加载取证分析节点;
+            var fUnit = frService?.AddForensicUnit(adCFile);
+            if (fUnit == null) {
+                RemainingMessageBox.Tell($"{nameof(fUnit)} can't be null!");
+                return;
+            }
+
+            foreach (var infoKind in PinKindsDefinitions.ForensicClassTypes) {
+                if (fUnit.Children.FirstOrDefault(p => p is PinTreeUnit pinUnit && pinUnit.ContentId == infoKind) == null) {
+                    fUnit.Children.Add(
+                        new PinTreeUnit(infoKind, fUnit) {
+                            Label = PinKindsDefinitions.GetClassLabel(infoKind)
+                        }
+                    );
+                }
+            }
         }
     }
 }

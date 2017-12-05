@@ -1,4 +1,4 @@
-﻿using Singularity.UI.FileSystem.Android.Models;
+﻿using Singularity.Android.Models;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.ViewModels;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 namespace Singularity.UI.Info.Android.ViewModels {
     [Export]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    internal class AndStartForensicWindowViewModel : StartForensicWindowViewModel<AndroidDeviceCaseFile> {
+    internal class AndStartForensicWindowViewModel : StartForensicWindowViewModel<AndroidDeviceCaseEvidence> {
         static AndStartForensicWindowViewModel() {
             
         }
@@ -15,8 +15,8 @@ namespace Singularity.UI.Info.Android.ViewModels {
 
         [ImportingConstructor]
         public AndStartForensicWindowViewModel(
-            [ImportMany]IEnumerable<CheckGroupTreeItem<AndroidDeviceCaseFile>> groups,
-            [ImportMany]IEnumerable<CheckItemTreeItem<AndroidDeviceCaseFile>> items):base(groups,items) {
+            [ImportMany]IEnumerable<CheckGroupTreeItem<AndroidDeviceCaseEvidence>> groups,
+            [ImportMany]IEnumerable<CheckItemTreeItem<AndroidDeviceCaseEvidence>> items):base(groups,items) {
             
         }
         

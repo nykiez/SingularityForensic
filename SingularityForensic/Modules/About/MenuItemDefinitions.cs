@@ -1,9 +1,10 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Prism.Commands;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.MainMenu;
 using SingularityForensic.Modules.About.MessageBoxes;
 using SingularityForensic.Modules.About.Resources;
 using SingularityForensic.Modules.HelpAbout;
-using SingularityForensic.Modules.MainMenu.Models;
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
@@ -17,13 +18,13 @@ namespace SingularityForensic.Modules.About {
 
         [Export]
         public static readonly MenuButtonItemModel AboutMenuItem =
-            new MenuButtonItemModel(MenuGroupDefinitions.HelpMenuGroup, FindResourceString("About")) {
+            new MenuButtonItemModel(MenuConstants.AboutGroup, FindResourceString("About")) {
                 Command = AboutCommand,
                 IconSource = IconSources.AboutIcon
             };
         [Export]
         public static readonly MenuButtonItemModel CalcMenuItem =
-            new MenuButtonItemModel(MenuGroupDefinitions.HelpMenuGroup, FindResourceString("Calculator")) {
+            new MenuButtonItemModel(MenuConstants.AboutGroup, FindResourceString("Calculator")) {
                 Command = new DelegateCommand(() => {
                     try {
                         Process.Start("Calc");

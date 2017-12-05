@@ -12,14 +12,14 @@ using System.ComponentModel;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using Singularity.UI.Info.Models;
 using EventLogger;
-using Singularity.UI.Case.Contracts;
+using Singularity.Contracts.Case;
 
 namespace Singularity.UI.Info.ViewModels {
     /// <summary>
     /// 开始取证窗体视图模型;
     /// </summary>
     /// <typeparam name="TCaseFile"></typeparam>
-    public abstract partial class StartForensicWindowViewModel<TCaseFile>:BindableBase where TCaseFile:ICaseFile {
+    public abstract partial class StartForensicWindowViewModel<TCaseFile>:BindableBase where TCaseFile:ICaseEvidence {
         public StartForensicWindowViewModel(IEnumerable<CheckGroupTreeItem> groups,
             IEnumerable<CheckItemTreeItem<TCaseFile>> items) {
             this.items = items;

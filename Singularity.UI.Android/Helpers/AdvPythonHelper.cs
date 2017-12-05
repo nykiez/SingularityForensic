@@ -1,8 +1,8 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Python;
 using EventLogger;
+using Singularity.Android.Models;
 using Singularity.UI.Case;
-using Singularity.UI.FileSystem.Android.Models;
 using System;
 using System.IO;
 using System.Xml.Linq;
@@ -21,7 +21,7 @@ namespace Singularity.UI.Info.Android.Helpers {
         /// <param name="outPutXDocPath">输出参数文件路径</param>
         /// <param name="pyName"></param>
         /// <returns>输出相对路径以及参数文件的路径</returns>
-        public static (string outPutPath, string outDocName) GetProcessOutPut(AndroidDeviceCaseFile CaseFile, string pyName) {
+        public static (string outPutPath, string outDocName) GetProcessOutPut(AndroidDeviceCaseEvidence CaseFile, string pyName) {
             var guid = Guid.NewGuid().ToString("N");
             var outPutPath = $"{SingularityCase.Current.Path}/{CaseFile.BasePath}/{guid}";
             var outPutDocName = "output.xml";

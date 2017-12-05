@@ -15,7 +15,7 @@ using CDFC.Info.Adb;
 using Singularity.UI.Case;
 using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
     //Adb文件网格视图模型;

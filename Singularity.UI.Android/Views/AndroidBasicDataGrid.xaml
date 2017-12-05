@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Singularity.UI.Info.Android.Views"
-             xmlns:ins="clr-namespace:Singularity.UI.Info.Contracts;assembly=Singularity.UI.Info"
+             xmlns:ins="clr-namespace:Singularity.Contracts.Info;assembly=Singularity.Contracts"
              xmlns:dbmodels="clr-namespace:Singularity.UI.Info.Models;assembly=Singularity.UI.Info"
              xmlns:chatingmodels="clr-namespace:Singularity.UI.Info.Models.Chating;assembly=Singularity.UI.Info"
              xmlns:fi="clr-namespace:Singularity.UI.Controls.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
@@ -203,11 +203,42 @@
     
     </UserControl.Resources>
     <Grid>
+        <!--<controls:DataGridEx ItemsSource="{Binding DbModels}">
+            <controls:DataGridEx.Style>
+                <Style TargetType="controls:DataGridEx" BasedOn="{StaticResource {x:Type controls:DataGridEx}}" >
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:SmsDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource SmsColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:CalllogDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource CalllogColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:ContactDbModel}" >
+                            <Setter Property="DynamicColumns" Value="{StaticResource ContactColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:GroupMsgDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource AndGroupMsgsColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:GroupMemberDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource AndGroupMemberColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:FriendInfoDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource AndFriendInfoColumns}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type chatingmodels:FriendMsgDbModel}">
+                            <Setter Property="DynamicColumns" Value="{StaticResource AndFriendMsgColumns}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:DataGridEx.Style>
+        </controls:DataGridEx>-->
         <fi:FilterableDataGrid PreItemsSource="{Binding DbModels}" RowType="{Binding RowType}" IsReadOnly="True"
-                               LoadingRow="FilterableDataGrid_LoadingRow"
+                               
                                SelectedItem="{Binding SelectedDbModel}">
+            <!--LoadingRow="FilterableDataGrid_LoadingRow"-->
             <fi:FilterableDataGrid.Style>
-                <Style TargetType="{x:Type fi:FilterableDataGrid}" BasedOn="{StaticResource {x:Type fi:FilterableDataGrid}}">
+                <Style TargetType="{x:Type fi:FilterableDataGrid}" BasedOn="{StaticResource {x:Type controls:DataGridEx}}" >
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding RowType,Mode=OneTime}" Value="{x:Type dbmodels:SmsDbModel}">
                             <Setter Property="DynamicColumns" Value="{StaticResource SmsColumns}"/>

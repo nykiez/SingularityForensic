@@ -5,13 +5,12 @@ using System.Linq;
 using System.IO;
 using SysIO = System.IO;
 using EventLogger;
-using Singularity.UI.Case.Contracts;
 using System.Runtime.CompilerServices;
+using Singularity.Contracts.Case;
 
 namespace Singularity.UI.Case{
-    
-    //案件实体；
-    public partial class SingularityCase {
+    //案件实体;
+    public partial class SingularityCase : ICase{
         /// <summary>
         /// 案件实体构造方法;
         /// </summary>
@@ -45,20 +44,20 @@ namespace Singularity.UI.Case{
         }
 
         //得到某个Elem值;
-        private string GetXElemValue([CallerMemberName]string elemName = null) => 
+        private string GetXElemValue([CallerMemberName]string elemName = null) =>
             XDoc?.Root?.Element(elemName)?.Value;
 
         //设定某个Elem值;
         private void SetXElemValue(string value, [CallerMemberName]string elemName = null) {
             var rootElem = XDoc?.Root;
-            if(rootElem != null) {
+            if (rootElem != null) {
                 var labelElem = rootElem.Element(elemName);
                 //若不存在label文件名,则新建之;
                 if (labelElem == null) {
                     labelElem = new XElement(XName.Get(elemName));
                     rootElem.Add(labelElem);
                 }
-                labelElem.Value = value??string.Empty;
+                labelElem.Value = value ?? string.Empty;
             }
         }
 
@@ -177,40 +176,40 @@ namespace Singularity.UI.Case{
         public XDocument XDoc => _xDoc ?? (_xDoc = new XDocument(new XElement("Case")));
 
         //案件所关联的设备文件(外部不可访问);
-        private List<ICaseFile> caseFiles = new List<ICaseFile>();
+        private List<ICaseEvidence> caseFiles = new List<ICaseEvidence>();
         //案件所关联的设备文件(外部可访问);
-        public IEnumerable<ICaseFile> CaseFiles => caseFiles?.Select(p => p);
+        public IEnumerable<ICaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
 
         //载入案件文件;(针对案件中现有的文件)
-        public void LoadCaseFile(ICaseFile cFile) {
+        public void LoadCaseFile(ICaseEvidence cFile) {
             if (cFile == null) {
                 Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(LoadCaseFile)}:cFile can't be null");
                 return;
             }
-            
+
             caseFiles.Add(cFile);
         }
-        
+
         /// <summary>
         /// //加入案件文件,(针对新加入的文件);
         /// </summary>
         /// <param name="cFile">案件文件</param>
         /// <param name="cElem">案件文件对应的xmlelem</param>
-        public void AddNewCaseFile(ICaseFile cFile) {
+        public void AddNewCaseFile(ICaseEvidence cFile) {
             if (cFile == null) {
                 Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(AddNewCaseFile)}:cFile can't be null");
                 return;
             }
-            
+            caseFiles.Add(cFile);
             //若为标准案件文件则加入XDoc;
             //并创建路径;
-            if(cFile is StandardCaseFile stdCaseFile) {
+            if (cFile is StandardCaseFile stdCaseFile) {
                 try {
                     var root = XDoc.Root;
                     if (root != null) {
-                        var cFilesElem = root.Element(nameof(CaseFiles));
+                        var cFilesElem = root.Element(nameof(CaseEvidences));
                         if (cFilesElem == null) {
-                            root.Add((cFilesElem = new XElement(nameof(CaseFiles))));
+                            root.Add((cFilesElem = new XElement(nameof(CaseEvidences))));
                         }
                         cFilesElem.Add(stdCaseFile.XElem);
                     }
@@ -267,7 +266,7 @@ namespace Singularity.UI.Case{
             get => XDoc?.Root?.Attribute(nameof(CaseName))?.Value;
             set => XDoc?.Root?.SetAttributeValue(nameof(CaseName), value);
         }
-        
+
         /// <summary>
         /// 从指定路径加载案件文件;
         /// </summary>
@@ -306,6 +305,6 @@ namespace Singularity.UI.Case{
 
     public partial class SingularityCase {
         //当前所加载的案件;
-        public static SingularityCase Current { get; set; }
+        public static SingularityCase Current { get; internal set; }
     }
 }

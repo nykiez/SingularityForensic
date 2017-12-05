@@ -34,16 +34,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,11 +67,11 @@
     <Compile Include="DeviceObjects\AndroidGroupDescInfo.cs" />
     <Compile Include="DeviceObjects\AndroidMbrInfo.cs" />
     <Compile Include="DeviceObjects\AndroidOtherFile.cs" />
+    <Compile Include="DeviceObjects\AndroidUnknownParititon.cs" />
     <Compile Include="DeviceObjects\AndroidPartition.cs" />
     <Compile Include="DeviceObjects\PartTabInfo.cs" />
     <Compile Include="DeviceObjects\AndroidRegFile.cs" />
     <Compile Include="DeviceObjects\AndroidSuperBlock.cs" />
-    <Compile Include="DeviceObjects\OtherParititon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Static\CCommonMethods.cs" />
     <Compile Include="Static\InodeBlockMethods.cs" />
@@ -89,7 +89,9 @@
     <Compile Include="Structs\StPhotoFileNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cdfcqd.dll" />
+    <Content Include="cdfcqd.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="cdfcqd.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using CDFC.Parse.Contracts;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace CDFC.Parse.Abstracts {
@@ -11,7 +12,7 @@ namespace CDFC.Parse.Abstracts {
             this.Parent = parent;
         }
         public abstract string Name { get; }                          //路径名;
-        public FileType FileType => FileType.Directory;                 //文件类型为目录;
+        public FileType Type => FileType.Directory;                 //文件类型为目录;
         public abstract List<IFile> Children { get; }               //子文件;
 
         public IFile Parent { get; }                           //父文件;
@@ -25,5 +26,10 @@ namespace CDFC.Parse.Abstracts {
         public abstract DateTime? ModifiedTime { get; }             //最后修改时间;
         public abstract DateTime? AccessedTime { get; }             //最后访问时间;
         public abstract DateTime? CreateTime { get; }               //创建时间;
+
+        public virtual IEnumerable<RegularFile> GetFiles() => 
+            Children?.Where(p => p.Type == FileType.RegularFile).Select(p => p as RegularFile);
+
+
     }
 }

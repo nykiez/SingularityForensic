@@ -3,13 +3,16 @@ using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Singularity.UI.AdbViewer.MessageBoxes;
-using SingularityForensic.Modules.MainMenu.Models;
 using System.ComponentModel.Composition;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using Singularity.UI.AdbViewer.Global.Services;
 using SingularityForensic.Modules.MainPage;
 using Singularity.UI.Case;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.MainMenu;
+using Singularity.Contracts.Common;
 
 namespace Singularity.UI.AdbViewer {
     public static class MenuItemDefinitions {
@@ -18,7 +21,7 @@ namespace Singularity.UI.AdbViewer {
             get {
                 if (_connectToDeviceMenuItem == null) {
                     _connectToDeviceMenuItem = new MenuButtonItemModel(
-                        MenuGroupDefinitions.MainPageMenuGroup, FindResourceString("ConnectToDevice"), 2) {
+                        MenuConstants.MenuMainGroup, FindResourceString("ConnectToDevice"), 2) {
                         Command = ConnectToDeviceCommand,
                         IconSource = Resources.IconSources.ConnectToDeviceIcon
                     };
@@ -38,7 +41,7 @@ namespace Singularity.UI.AdbViewer {
                             return;
                         }
                         else {
-                            ServiceLocator.Current.GetInstance<Case.Global.Services.ICaseService>()?.CreateCase();
+                            ServiceProvider.Current.GetInstance<ICaseService>()?.CreateCase();
                         }
                     }
 
@@ -52,7 +55,7 @@ namespace Singularity.UI.AdbViewer {
                         return;
                     }
 
-                    ServiceLocator.Current.GetInstance<AdbViewerService>()?.LoadAdbPhoneContainer(container);
+                    ServiceProvider.Current.GetInstance<AdbViewerService>()?.LoadAdbPhoneContainer(container);
                     //FsNodeManagerViewModel?.AddAdbUnit(container);
                     //发布事件;
                     //Aggregator?.GetEvent<AdbPhoneContainerAquiredEvent>().Publish(container);

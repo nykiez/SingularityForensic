@@ -24,23 +24,10 @@ namespace Singularity.UI.Controls.Controls.FilterableDataGrid {
 
         }
         static FilterableDataGrid() {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FilterableDataGrid), new FrameworkPropertyMetadata(typeof(FilterableDataGrid)));
+            //DefaultStyleKeyProperty.OverrideMetadata(typeof(FilterableDataGrid), new FrameworkPropertyMetadata(typeof(FilterableDataGrid)));
+            //DataGridEx.DynamicColumnsProperty.OverrideMetadata(typeof(FilterableDataGrid), new PropertyMetadata(null, DynamicColumns_PropertyChanged));
         }
-
-
-        ////滚动内容上下文菜单;
-        //public static readonly DependencyProperty ScrollContentContextMenuProprerty =
-        //    DependencyProperty.Register(
-        //    "ScrollContentContextMenu", typeof(ContextMenu), typeof(FilterableDataGrid),
-        //    new PropertyMetadata(null));
-        //public ContextMenu ScrollContentContextMenu {
-        //    get {
-        //        return (ContextMenu)this.GetValue(ScrollContentContextMenuProprerty);
-        //    }
-        //    set {
-        //        this.SetValue(ScrollContentContextMenuProprerty, value);
-        //    }
-        //}
+        
 
         public static readonly DependencyProperty IsLoadingVisibleProperty =
             DependencyProperty.Register(nameof(IsLoadingVisible),typeof(Visibility),typeof(FilterableDataGrid),new PropertyMetadata(Visibility.Hidden));
@@ -53,127 +40,118 @@ namespace Singularity.UI.Controls.Controls.FilterableDataGrid {
                 SetValue(IsLoadingVisibleProperty, value);
             }
         }
-
-        ////动态列属性;
-        public new static readonly DependencyProperty DynamicColumnsProperty = DependencyProperty.Register(
-            nameof(DynamicColumns), typeof(DataGridCloumnsCollection), typeof(FilterableDataGrid)
-            , new PropertyMetadata(null, DynamicColumns_PropertyChanged));
-
-        private static void DynamicColumns_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            if (d is FilterableDataGrid dg) {
+        
+        protected override void ApplyDynamicColumns(DependencyPropertyChangedEventArgs e) {
+            if (e.NewValue is DataGridCloumnsCollection newColumns) {
                 Func<string, FilterHeader> createHeaderPanel = header => {
                     var ctr = new FilterHeader { ColHeader = header };
                     return ctr;
                 };
+                Columns.Clear();
+                colTypes.Clear();
+                fstringModels.Clear();
+                fzModels.Clear();
+                fdModels.Clear();
 
-                var newColumns = e.NewValue as DataGridCloumnsCollection;
-                if (newColumns != null) {
-                    dg.Columns.Clear();
-                    dg.colTypes.Clear();
-                    dg.fstringModels.Clear();
-                    dg.fzModels.Clear();
-                    dg.fdModels.Clear();
+                foreach (var col in newColumns) {
+                    if (RowType != null && (col as DataGridTextColumn)?.Binding is Binding colBinding) {
+                        var prop = RowType.GetProperty(colBinding.Path.Path);
 
-                    foreach (var col in newColumns) {
-                        if (dg.RowType != null && (col as DataGridTextColumn)?.Binding is Binding colBinding) {
-                            var prop = dg.RowType.GetProperty(colBinding.Path.Path);
-
-                            if (prop != null && (prop.PropertyType == typeof(DateTime?) || prop.PropertyType == typeof(string)
-                                || prop.PropertyType == typeof(long))) {
-                                string headerText = null;
-                                if (col.Header is string) {
-                                    headerText = col.Header as string;
+                        if (prop != null && (prop.PropertyType == typeof(DateTime?) || prop.PropertyType == typeof(string)
+                            || prop.PropertyType == typeof(long))) {
+                            string headerText = null;
+                            if (col.Header is string) {
+                                headerText = col.Header as string;
+                            }
+                            else if (col.Header is FilterHeader filterHeader) {
+                                headerText = filterHeader.ColHeader;
+                            }
+                            if (headerText != null) {
+                                var header = createHeaderPanel(headerText);
+                                if (prop != null) {
+                                    colTypes.Add(prop.Name, prop.PropertyType);
                                 }
-                                else if (col.Header is FilterHeader filterHeader) {
-                                    headerText = filterHeader.ColHeader;
+                                if (prop.PropertyType == typeof(string)) {
+                                    fstringModels.Add(prop.Name, null);
                                 }
-                                if (headerText != null) {
-                                    var header = createHeaderPanel(headerText);
-                                    if (prop != null) {
-                                        dg.colTypes.Add(prop.Name, prop.PropertyType);
-                                    }
-                                    if (prop.PropertyType == typeof(string)) {
-                                        dg.fstringModels.Add(prop.Name, null);
-                                    }
-                                    EventHandler<EventArgs> filterAct = (sender, o) => {
-                                        var filHeader = header;
-                                        if (filHeader != null) {
-                                            Action<Func<bool?>> FilterAndDealAct = func => {
-                                                var res = func();
-                                                if (res == null) {
-                                                    return;
+                                EventHandler<EventArgs> filterAct = (sender, o) => {
+                                    var filHeader = header;
+                                    if (filHeader != null) {
+                                        Action<Func<bool?>> FilterAndDealAct = func => {
+                                            var res = func();
+                                            if (res == null) {
+                                                return;
+                                            }
+
+                                            filHeader.Filtering = res.Value;
+                                            Items.Clear();
+                                            IsLoadingVisible = Visibility.Visible;
+                                            ThreadPool.QueueUserWorkItem(cb => {
+                                                try {
+                                                    IEnumerable<object> rows = null;
+                                                    Dispatcher.Invoke(() => {
+                                                        rows = PreItemsSource;
+                                                    });
+                                                    foreach (var item in FilterRows(rows)) {
+                                                        Dispatcher.Invoke(() => {
+                                                            Items.Add(item);
+                                                        });
+                                                    }
+                                                    //Thread.Sleep(5000);
                                                 }
+                                                catch (Exception ex) {
+                                                    Logger.WriteLine($"{nameof(FilterableDataGrid)}->Filtering:{ex.Message}");
+                                                }
+                                                finally {
+                                                    Dispatcher.Invoke(() => {
+                                                        IsLoadingVisible = Visibility.Hidden;
+                                                    });
+                                                }
+                                            });
+                                        };
+                                        if ((col as DataGridTextColumn)?.Binding is Binding) {
+                                            var path = ((col as DataGridTextColumn).Binding as Binding).Path.Path;
+                                            var colTp = colTypes.FirstOrDefault(p => p.Key == path);
 
-                                                filHeader.Filtering = res.Value;
-                                                dg.Items.Clear();
-                                                dg.IsLoadingVisible = Visibility.Visible;
-                                                ThreadPool.QueueUserWorkItem(cb => {
-                                                    try {
-                                                        IEnumerable<object> rows = null;
-                                                        dg.Dispatcher.Invoke(() => {
-                                                            rows = dg.PreItemsSource;
-                                                        });
-                                                        foreach (var item in dg.FilterRows(rows)) {
-                                                            dg.Dispatcher.Invoke(() => {
-                                                                dg.Items.Add(item);
-                                                            });
-                                                        }
-                                                        //Thread.Sleep(5000);
-                                                    }
-                                                    catch (Exception ex) {
-                                                        Logger.WriteLine($"{nameof(FilterableDataGrid)}->Filtering:{ex.Message}");
-                                                    }
-                                                    finally {
-                                                        dg.Dispatcher.Invoke(() => {
-                                                            dg.IsLoadingVisible = Visibility.Hidden;
-                                                        });
-                                                    }
+                                            if (prop.PropertyType == typeof(string)) {
+                                                var fSModel = fstringModels.FirstOrDefault(p => p.Key == path).Value;
+                                                FilterAndDealAct(() => {
+                                                    var res = FilterStringMessageBox.Show(ref fSModel);
+                                                    fstringModels[path] = fSModel;
+                                                    return res;
                                                 });
-                                            };
-                                            if ((col as DataGridTextColumn)?.Binding is Binding) {
-                                                var path = ((col as DataGridTextColumn).Binding as Binding).Path.Path;
-                                                var colTp = dg.colTypes.FirstOrDefault(p => p.Key == path);
-
-                                                if (prop.PropertyType == typeof(string)) {
-                                                    var fSModel = dg.fstringModels.FirstOrDefault(p => p.Key == path).Value;
-                                                    FilterAndDealAct(() => {
-                                                        var res = FilterStringMessageBox.Show(ref fSModel);
-                                                        dg.fstringModels[path] = fSModel;
-                                                        return res;
-                                                    });
-                                                }
-                                                else if (prop.PropertyType == typeof(DateTime?)) {
-                                                    var fdModel = dg.fdModels.FirstOrDefault(p => p.Key == path).Value;
-                                                    FilterAndDealAct(() => {
-                                                        var res = FilterDTMessageBox.Show(ref fdModel);
-                                                        dg.fdModels[path] = fdModel;
-                                                        return res;
-                                                    });
-                                                }
-                                                else if (prop.PropertyType == typeof(long)) {
-                                                    var fzModel = dg.fzModels.FirstOrDefault(p => p.Key == path).Value;
-                                                    FilterAndDealAct(() => {
-                                                        var res = FilterSizeMessageBox.Show(ref fzModel);
-                                                        dg.fzModels[path] = fzModel;
-                                                        return res;
-                                                    });
-                                                }
+                                            }
+                                            else if (prop.PropertyType == typeof(DateTime?)) {
+                                                var fdModel = fdModels.FirstOrDefault(p => p.Key == path).Value;
+                                                FilterAndDealAct(() => {
+                                                    var res = FilterDTMessageBox.Show(ref fdModel);
+                                                    fdModels[path] = fdModel;
+                                                    return res;
+                                                });
+                                            }
+                                            else if (prop.PropertyType == typeof(long)) {
+                                                var fzModel = fzModels.FirstOrDefault(p => p.Key == path).Value;
+                                                FilterAndDealAct(() => {
+                                                    var res = FilterSizeMessageBox.Show(ref fzModel);
+                                                    fzModels[path] = fzModel;
+                                                    return res;
+                                                });
                                             }
                                         }
-                                    };
+                                    }
+                                };
 
-                                    header.FilterRequired += filterAct;
-                                    //WeakEventManager<FilterHeader, EventArgs>.AddHandler(header, nameof(header.FilterRequired), filterAct);
+                                header.FilterRequired += filterAct;
+                                //WeakEventManager<FilterHeader, EventArgs>.AddHandler(header, nameof(header.FilterRequired), filterAct);
 
-                                    col.Header = header;
-                                }
-
+                                col.Header = header;
                             }
 
                         }
 
-                        dg.Columns.Add(col);
                     }
+
+                    Columns.Add(col);
                 }
             }
         }
@@ -346,8 +324,6 @@ namespace Singularity.UI.Controls.Controls.FilterableDataGrid {
                 SetValue(PreItemsSourceProperty, value);
             }
         }
-
-        
         
     }
 }

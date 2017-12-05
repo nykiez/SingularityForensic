@@ -6,7 +6,7 @@ namespace CDFC.Parse.Abstracts {
     
     //其他类型的文件;
     public abstract class OtherFile : IFile, IBlockGroupedFile, ITimeable {
-        public abstract FileType FileType { get; } //文件类型尚不确定;
+        public abstract FileType Type { get; } //文件类型尚不确定;
 
         public abstract IFile Parent { get;} //父文件尚未确定;
 

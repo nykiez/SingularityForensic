@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System;
-using Singularity.UI.Info.Contracts;
+using Singularity.Contracts.Info;
 
 namespace Singularity.UI.Info.Design {
     public class TalkViewDesignModel {

@@ -5,7 +5,7 @@ namespace CDFC.Parse.Abstracts {
         public SymbolLink(IFile parent) {
             this.Parent = parent;
         }
-        public FileType FileType => FileType.SymbolicLink;
+        public FileType Type => FileType.SymbolicLink;
 
         public abstract string Name { get; }
 

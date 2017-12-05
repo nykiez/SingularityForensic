@@ -1,10 +1,11 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
-using Singularity.UI.FileSystem.Android.Models;
+using Singularity.Android.Models;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.TreeView;
 using Singularity.UI.Info.Android.ViewModels;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Views;
-using SingularityForensic.Modules.MainPage.Models;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -16,9 +17,9 @@ namespace Singularity.UI.Info.Android.Global.Services {
         /// 开始对某个案件文件取证;
         /// </summary>
         /// <param name="cFile"></param>
-        public void StartForensic(AndroidDeviceCaseFile cFile) {
+        public void StartForensic(AndroidDeviceCaseEvidence cFile) {
             var window = new StartForensicWindow();
-            var vm = ServiceLocator.Current.GetInstance<AndStartForensicWindowViewModel>();
+            var vm = ServiceProvider.Current.GetInstance<AndStartForensicWindowViewModel>();
 
             window.DataContext = vm;
             vm.DeviceFile = cFile;
@@ -33,8 +34,8 @@ namespace Singularity.UI.Info.Android.Global.Services {
         /// 加载取证信息节点;
         /// </summary>
         /// <param name="adCFile"></param>
-        public void LoadForensicUnit(AndroidDeviceCaseFile adCFile) {
-            var frService = ServiceLocator.Current.GetInstance<ICommonForensicService>();
+        public void LoadForensicUnit(AndroidDeviceCaseEvidence adCFile) {
+            var frService = ServiceProvider.Current.GetInstance<ICommonForensicService>();
             //加载取证分析节点;
             var fUnit = frService?.AddForensicUnit(adCFile);
             if (fUnit == null) {

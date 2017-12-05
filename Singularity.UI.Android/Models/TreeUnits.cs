@@ -1,6 +1,6 @@
 ﻿using CDFCUIContracts.Models;
+using Singularity.Contracts.TreeView;
 using Singularity.UI.Info.Models;
-using SingularityForensic.Modules.MainPage.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

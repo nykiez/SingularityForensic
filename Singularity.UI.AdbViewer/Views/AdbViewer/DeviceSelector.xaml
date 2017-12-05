@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:adbms="clr-namespace:Singularity.UI.AdbViewer.Models.AdbViewer"
              xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:cvts="clr-namespace:Singularity.UI.Converters;assembly=Singularity.UI.Converters"
+             xmlns:cvts="http://singularity/converters"
              mc:Ignorable="d" 
              d:DesignHeight="360" d:DesignWidth="330">
     <UserControl.Resources>

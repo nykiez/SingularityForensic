@@ -3,6 +3,7 @@ using Prism.Modularity;
 using Singularity.Net;
 using Singularity.Previewers;
 using Singularity.UI.AdbViewer;
+using Singularity.UI.Hex;
 using Singularity.UI.Info;
 using Singularity.UI.Info.Android;
 using Singularity.UI.ITunes;

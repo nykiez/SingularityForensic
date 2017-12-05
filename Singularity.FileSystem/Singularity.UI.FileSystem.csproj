@@ -32,36 +32,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\AvalonDock.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFC.Hasher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\AvalonDock.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCHexaEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCMessageBoxes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -116,28 +116,9 @@
     <Compile Include="CommandDefinitions.cs" />
     <Compile Include="FileSystemModule.cs" />
     <Compile Include="Global\Constances.cs" />
-    <Compile Include="Global\Events\TabEvents.cs" />
-    <Compile Include="Global\Services\DefaultFileSystemProvider.cs" />
-    <Compile Include="Global\Services\FSNodeManagerService.cs" />
-    <Compile Include="Global\Services\FSTabService.cs" />
-    <Compile Include="Global\TabModels\FileBrowserTabModel.cs" />
     <Compile Include="Helpers\FileRowHelper.cs" />
     <Compile Include="Helpers\FileSystemHelper.cs" />
     <Compile Include="Helpers\FsConfigHelper.cs" />
-    <Compile Include="Interfaces\IFileDetailInfoProvider.cs" />
-    <Compile Include="Interfaces\IFileSystemServiceProvider.cs" />
-    <Compile Include="Interfaces\IRowBuilder.cs" />
-    <Compile Include="Interfaces\IStreamFileParser.cs" />
-    <Compile Include="Models\CaseFiles.cs" />
-    <Compile Include="Models\FileRow.cs" />
-    <Compile Include="Models\FSTreeUnit.cs" />
-    <Compile Include="Models\IHaveTabModels.cs" />
-    <Compile Include="Models\NavNodeModel.cs" />
-    <Compile Include="Models\SearchKeyOption.cs" />
-    <Compile Include="Models\TreeUnit.cs" />
-    <Compile Include="Models\ViewerProgramModel.cs" />
-    <Compile Include="Modules\Indexing\CommandDefinitions.cs" />
-    <Compile Include="Modules\RecoverSign\CommandDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,34 +132,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Resources\IconSources.cs" />
-    <Compile Include="ViewModels\FileBrowserViewModel.cs" />
-    <Compile Include="ViewModels\FileDetailTabModel.cs" />
-    <Compile Include="ViewModels\FileHexTabViewModel.cs" />
-    <Compile Include="ViewModels\FilePreviewerViewModel.cs" />
-    <Compile Include="ViewModels\FolderBrowserViewModel.cs" />
-    <Compile Include="ViewModels\ThumbnailTabModel.cs" />
-    <Compile Include="Views\CustomIndexSearch.xaml.cs">
-      <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FileBrowser.xaml.cs">
-      <DependentUpon>FileBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FileDetailInfo.xaml.cs">
-      <DependentUpon>FileDetailInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FolderBrowser.xaml.cs">
-      <DependentUpon>FolderBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ItrChildrenPreview.xaml.cs">
-      <DependentUpon>ItrChildrenPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PartitionsBrowser.xaml.cs">
-      <DependentUpon>PartitionsBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ThumbnailInfo.xaml.cs">
-      <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="IconSources.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -205,9 +159,9 @@
       <Name>CDFC.Parse</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.Interfaces\Singularity.Interfaces.csproj">
-      <Project>{C8E8EC30-CD51-40F7-85FF-ABAD3F3D86EF}</Project>
-      <Name>Singularity.Interfaces</Name>
+    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
+      <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
+      <Name>Singularity.Contracts</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
@@ -220,11 +174,6 @@
       <Name>Singularity.UI.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Converters\Singularity.UI.Converters.csproj">
-      <Project>{29AE3C3F-F323-488B-972E-754036C27183}</Project>
-      <Name>Singularity.UI.Converters</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.MessageBoxes\Singularity.UI.MessageBoxes.csproj">
       <Project>{83701165-1dee-4a3e-8c86-140c70b277ee}</Project>
       <Name>Singularity.UI.MessageBoxes</Name>
@@ -233,10 +182,6 @@
     <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
       <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
       <Name>Singularity.UI.Themes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
-      <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
-      <Name>SingularityForensic</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -245,34 +190,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CustomIndexSearch.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FileBrowser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FileDetailInfo.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FolderBrowser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ItrChildrenPreview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PartitionsBrowser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ThumbnailInfo.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ToolBar_AddImg.png" />
@@ -280,16 +197,18 @@
     <Resource Include="Images\Type_DeviceActive.png" />
     <Resource Include="Images\Type_Partition.png" />
     <Resource Include="Images\Type_PartitionActive.png" />
-    <Resource Include="Images\Type_RegularFile.ico" />
     <Resource Include="Images\Type_Unknown.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Type_Directory.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Type_DirectoryActive.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Global\Services\" />
+    <Folder Include="Global\TabModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Type_HardDisk.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"

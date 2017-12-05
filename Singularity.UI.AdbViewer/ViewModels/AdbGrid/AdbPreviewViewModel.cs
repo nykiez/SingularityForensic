@@ -1,6 +1,6 @@
 ﻿using CDFCUIContracts.Abstracts;
 using Prism.Mvvm;
-using Singularity.Interfaces;
+using Singularity.Contracts.FileExplorer;
 using static CDFCCultures.Managers.ManagerLocator;
 
 namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {

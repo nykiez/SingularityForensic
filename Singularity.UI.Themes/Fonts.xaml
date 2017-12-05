@@ -6,5 +6,6 @@
     <sys:Double x:Key="Title.Header.FontSize">13</sys:Double>
     <FontFamily x:Key="Title.Header.FontFamily">Microsoft YaHei</FontFamily>
     <Thickness x:Key="Title.Header.Padding">12,0</Thickness>
-    
+
+    <FontFamily x:Key="Adobe-Heiti-Std-R" >/Singularity.UI.Themes;component/#Adobe Heiti Std R</FontFamily>
 </ResourceDictionary>

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Data;
-using System.Data.SQLite;
+﻿using Newtonsoft.Json;
+using Singularity.UI.Info.Models;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -81,6 +81,21 @@ namespace DllInvoker {
         }
 
         static void Main(string[] args) {
+            var streamWriter = new StreamWriter(File.Create($"{Environment.CurrentDirectory}/1.json"));
+            var model = new SmsDbModel {
+                delete_status = 1
+            };
+            var tp = typeof(SmsDbModel);
+            foreach (var prop in tp.GetProperties()) {
+                streamWriter.WriteLine($"{ prop.Name} {prop.PropertyType.Name}");
+            }
+            
+            var writer = new JsonTextWriter(streamWriter);
+            var serilizer = new JsonSerializer();
+            serilizer.Serialize(writer, model);
+            writer.Close();
+            streamWriter.Close();
+
             
             //try {
             //    if(args.Length < 2) {
@@ -150,35 +165,35 @@ namespace DllInvoker {
             ////using (var pro = PythonHelper.GetProcess("Phone_msg_calllog_extract.py", "D://C# Console/Python/read.xml")) {
             ////    pro.Close();
             ////}
-            
-            var connString = "data source = D://C# Console/Python/2017/qq_2112355002.db";
-            var conn = new SQLiteConnection(connString);
 
-            var ad = new SQLiteDataAdapter("select * from WA_MFORENSICS_020200", conn);
-            var dt = new DataSet();
-            ad.Fill(dt);
-            ad.Dispose();
-            foreach (DataColumn col in dt.Tables[0].Columns) {
-                string tpString = string.Empty;
-                if (col.DataType == typeof(long)) {
-                    tpString = "long";
-                }
-                else if (col.DataType == typeof(string)) {
-                    tpString = "string";
-                }
-                else if (col.DataType == typeof(byte[])) {
-                    tpString = "byte[]";
-                }
-                else {
-                    throw new Exception();
-                }
-                Console.WriteLine($"public {tpString} {col.ColumnName} {{get;set;}}");
-            }
+            //var connString = "data source = D://C# Console/Python/2017/qq_2112355002.db";
+            //var conn = new SQLiteConnection(connString);
 
-            var context = new AndroidDeviceQQContext(connString);
-            foreach (var mem in context.Friends) {
+            //var ad = new SQLiteDataAdapter("select * from WA_MFORENSICS_020200", conn);
+            //var dt = new DataSet();
+            //ad.Fill(dt);
+            //ad.Dispose();
+            //foreach (DataColumn col in dt.Tables[0].Columns) {
+            //    string tpString = string.Empty;
+            //    if (col.DataType == typeof(long)) {
+            //        tpString = "long";
+            //    }
+            //    else if (col.DataType == typeof(string)) {
+            //        tpString = "string";
+            //    }
+            //    else if (col.DataType == typeof(byte[])) {
+            //        tpString = "byte[]";
+            //    }
+            //    else {
+            //        throw new Exception();
+            //    }
+            //    Console.WriteLine($"public {tpString} {col.ColumnName} {{get;set;}}");
+            //}
 
-            }
+            //var context = new AndroidDeviceQQContext(connString);
+            //foreach (var mem in context.Friends) {
+
+            //}
         }
 
         /// <summary>

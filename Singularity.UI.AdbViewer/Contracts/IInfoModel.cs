@@ -1,4 +1,4 @@
-﻿using Singularity.UI.Info.Contracts;
+﻿using Singularity.Contracts.Info;
 
 namespace Singularity.UI.AdbViewer.Contracts {
     //信息模型契约;

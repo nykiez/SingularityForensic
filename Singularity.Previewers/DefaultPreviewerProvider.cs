@@ -1,4 +1,6 @@
-﻿using Singularity.Interfaces;
+﻿using Singularity.Contracts.Common;
+using Singularity.Contracts.FileExplorer;
+using Singularity.UI.Previewers;
 using System.ComponentModel.Composition;
 using System.Linq;
 

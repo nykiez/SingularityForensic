@@ -1,5 +1,5 @@
-﻿using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.Info.Contracts;
+﻿using Singularity.Contracts.Info;
+using Singularity.UI.AdbViewer.Contracts;
 
 namespace Singularity.UI.AdbViewer.Helpers {
     public static class MInfoTypeHelper {

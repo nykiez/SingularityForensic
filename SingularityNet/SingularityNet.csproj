@@ -26,7 +26,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\SingularityShell\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -41,28 +41,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCHexaEditor.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCHexaEditor.dll</HintPath>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.3\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.3\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -171,9 +171,9 @@
       <Name>Singularity.UI.Previewers</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.AdbViewer\Singularity.UI.AdbViewer.csproj">
+    <ProjectReference Include="..\Singularity.UI.AdbViewer\Singularity.AdbViewer.csproj">
       <Project>{0D85EE7B-6532-4C80-B5B1-699EC5A03A58}</Project>
-      <Name>Singularity.UI.AdbViewer</Name>
+      <Name>Singularity.AdbViewer</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
@@ -209,11 +209,6 @@
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
       <Name>SingularityForensic</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singulartity.Fonts\Singularity.Fonts.csproj">
-      <Project>{2193ffbe-faf2-41b6-96aa-304a390f0950}</Project>
-      <Name>Singularity.Fonts</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

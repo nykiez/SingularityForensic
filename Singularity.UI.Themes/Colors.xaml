@@ -9,7 +9,18 @@
     
     <SolidColorBrush x:Key="Window.TitleBrush" Color="#2a2e31"/>
     <SolidColorBrush x:Key="Window.NonActiveTitleBrush" Color="#808080"/>
-    <SolidColorBrush x:Key="Window.StatusBar.Back" Color="#3f92ef" />
+    <SolidColorBrush x:Key="Window.StatusBar.Back" Color="#2a2e31" />
+    <SolidColorBrush x:Key="Window.Border" Color="Black"/>
 
     <SolidColorBrush x:Key="Window.Background" Color="#f5f6f8"/>
+
+    <SolidColorBrush x:Key="MessageBoxWindowTitleBrushKey" Color="#2a2e31"/>
+    <SolidColorBrush x:Key="MessageBoxWindowBorderBrushKey" Color="Black"/>
+    <SolidColorBrush x:Key="MessageBoxButtonBorderBrushKey" Color="#3f92f0"/>
+
+
+    <SolidColorBrush x:Key="SureButtonBack" Color="#3f92f0"/>
+    <SolidColorBrush x:Key="SureButtonFore" Color="White"/>
+    <SolidColorBrush x:Key="DenyButtonBack" Color="#cdcdcd" />
+    <SolidColorBrush x:Key="DenyButtonFore" Color="Black"/>
 </ResourceDictionary>

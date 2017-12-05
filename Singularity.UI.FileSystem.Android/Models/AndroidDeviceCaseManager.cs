@@ -8,19 +8,17 @@ using System.Windows;
 using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
 using CDFC.Parse.Android.DeviceObjects;
-using Singularity.Interfaces;
-using Singularity.UI.Case.Contracts;
-using Singularity.UI.Case;
-using Singularity.UI.Case.Global.Services;
 using CDFC.Parse.DeviceObjects;
-using Singularity.UI.FileSystem.Models;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Common;
+using Singularity.Contracts.FileSystem;
 
-namespace Singularity.UI.FileSystem.Android.Models {
+namespace Singularity.Android.Models {
     [Export(typeof(ICaseManager))]
     public class AndroidDeviceCaseManager : ICaseManager {
-        public void LoadCase(CaseLoaderHelper.CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
+        public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
             try {
-                var elements = SingularityCase.Current.XDoc.Root.Element("CaseFiles").
+                var elements = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.XDoc.Root.Element("CaseFiles").
                     Elements("CaseFile").Where(p => p.Attribute("Type")?.Value == nameof(AndroidDevice)
                 || p.Attribute("Type")?.Value == nameof(UnKnownDevice));
 
@@ -28,7 +26,7 @@ namespace Singularity.UI.FileSystem.Android.Models {
                     try {
                         Device device = null;
 
-                        var path = elem.Element(nameof(AndroidDeviceCaseFile.InterLabel)).Value;
+                        var path = elem.Element(nameof(AndroidDeviceCaseEvidence.InterLabel)).Value;
                         device = AndroidDevice.LoadFromPath(path,
                             false , tuple => {
                             if (tuple.allSize != 0 && tuple.thePartSize != 0) {
@@ -43,16 +41,16 @@ namespace Singularity.UI.FileSystem.Android.Models {
                         }
                         
                         //加载案件文件委托方法;
-                        void loadCaseFile<TCaseFile>(TCaseFile cFile) where TCaseFile : ICaseFile {
+                        void loadCaseFile<TCaseFile>(TCaseFile cFile) where TCaseFile : ICaseEvidence {
                             Application.Current.Dispatcher.Invoke(() => {
                                 ////加载节点;
                                 //ServiceLocator.Current.GetInstance<IFSNodeManagerService>()?.LoadCaseFile(cFile);
-                                ServiceLocator.Current.GetInstance<ICaseService>()?.LoadCaseFile(cFile);
+                                ServiceProvider.Current.GetInstance<ICaseService>()?.LoadCaseFile(cFile);
                             });
                         }
                         
                         if (device is AndroidDevice adDevice) {
-                            loadCaseFile(new AndroidDeviceCaseFile(adDevice,elem));
+                            loadCaseFile(new AndroidDeviceCaseEvidence(adDevice,elem));
                         }
                         else if (device is UnKnownDevice unDevice) {
                             loadCaseFile(new UnknownDeviceCaseFile(unDevice,elem));
@@ -72,8 +70,9 @@ namespace Singularity.UI.FileSystem.Android.Models {
         }
 
         public void Uninstall() {
-            if(SingularityCase.Current != null) {
-                foreach (var cfile in SingularityCase.Current.CaseFiles) {
+            var currentCase = ServiceProvider.Current.GetInstance<ICaseService>()?.CurrentCase;
+            if (currentCase != null) {
+                foreach (var cfile in currentCase.CaseEvidences) {
                     if (cfile is IHaveData<AndroidDevice> deviceCFile) {
                         deviceCFile.Data.Exit();
                     }
@@ -84,5 +83,7 @@ namespace Singularity.UI.FileSystem.Android.Models {
                 AndroidDevice.FreeAll();
             }
         }
+
+        public int SortOrder => 0;
     }
 }

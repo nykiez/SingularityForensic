@@ -16,7 +16,28 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
+    <!--<controls:TabControlEx
+                 SelectedItem="{Binding SelectedBrowserItem}"
+        ItemsSource="{Binding BrowserItems}">
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding Content}" />
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+        <TabControl.ItemContainerStyle>
+            <Style TargetType="TabItem" BasedOn="{StaticResource DefaultTabItem}">
+                <Setter Property="Header" Value="{Binding Model.Title}"/>
+                <Setter Property="ContextMenu">
+                    <Setter.Value>
+                        <ContextMenu>
+                            <MenuItem Header="{DynamicResource Close}" Command="{Binding CloseThisCommand}"/>
+                            <MenuItem Header="{DynamicResource CloseAll}" Command="{Binding CloseAllCommand}"/>
+                        </ContextMenu>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.ItemContainerStyle>
+    </controls:TabControlEx>-->
     <ad:DockingManager DocumentsSource="{Binding BrowserItems}" x:Name="dockMan"  
                        ActiveContent="{Binding SelectedBrowserItem,Mode=TwoWay}">
         <ad:DockingManager.LayoutItemTemplate>

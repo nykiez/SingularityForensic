@@ -3,6 +3,7 @@ using CDFC.Util.IO;
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace CDFC.Parse.Abstracts {
     //常规文件通用结构;
@@ -18,7 +19,7 @@ namespace CDFC.Parse.Abstracts {
         //public abstract long EndLBA { get; }                        //终止LBA(相对分区);
         public abstract long Size { get; }                          //文件大小;
         public virtual IFile Parent { get; private set; }                   //父文件;
-        public FileType FileType => FileType.RegularFile;                                //文件类型为常规文件;
+        public FileType Type => FileType.RegularFile;                                //文件类型为常规文件;
         public abstract string Name { get;  }                       //文件名;
         
         public abstract bool? Deleted { get; }                      //是否被删除;
@@ -41,6 +42,7 @@ namespace CDFC.Parse.Abstracts {
             }
             return null;
         }
+
         //起始LBA(相对设备);
         public long DeviceStartLBA {
             get {
@@ -62,7 +64,7 @@ namespace CDFC.Parse.Abstracts {
                     var sb = new StringBuilder();
                     while (pt != null) {
                         sb.Insert(0, $"{pt.Name}/");
-                        if (pt.FileType == FileType.BlockDeviceFile) {
+                        if (pt.Type == FileType.BlockDeviceFile) {
                             break;
                         }
                         pt = pt.Parent;
@@ -72,5 +74,7 @@ namespace CDFC.Parse.Abstracts {
                 return _filePath;
             }
         }
+
+        public virtual IEnumerable<IFile> Children => throw new InvalidOperationException();
     }
 }

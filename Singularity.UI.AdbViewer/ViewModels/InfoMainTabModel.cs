@@ -1,8 +1,8 @@
 ﻿using CDFCUIContracts.Abstracts;
 using Prism.Mvvm;
+using Singularity.Contracts.Info;
 using Singularity.UI.AdbViewer.Contracts;
 using Singularity.UI.AdbViewer.Resources;
-using Singularity.UI.Info.Contracts;
 using Singularity.UI.Info.ViewModels;
 using System;
 using System.Collections.ObjectModel;

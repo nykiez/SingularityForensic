@@ -2,15 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:local="clr-namespace:Singularity.UI.Themes">
-    <SolidColorBrush x:Key="MessageBoxWindowTitleBrushKey" Color="#3f92f0"/>
-    <SolidColorBrush x:Key="MessageBoxWindowBorderBrushKey" Color="#3f92f0"/>
-    <SolidColorBrush x:Key="MessageBoxButtonBorderBrushKey" Color="#3f92f0"/>
     
     
-    <SolidColorBrush x:Key="SureButtonBack" Color="#3f92f0"/>
-    <SolidColorBrush x:Key="SureButtonFore" Color="White"/>
-    <SolidColorBrush x:Key="DenyButtonBack" Color="#cdcdcd" />
-    <SolidColorBrush x:Key="DenyButtonFore" Color="Black"/>
     <Style x:Key="SureBtnStyle" TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{DynamicResource SureButtonFore}"/>
         <Setter Property="Background" Value="{DynamicResource SureButtonBack}"/>
@@ -58,8 +51,8 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="DenyBtnStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SureBtnStyle}">
-        <Setter Property="Background" Value="{StaticResource DenyButtonBack}"/>
-        <Setter Property="Foreground" Value="{StaticResource DenyButtonFore}"/>
+        <Setter Property="Background" Value="{DynamicResource DenyButtonBack}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DenyButtonFore}"/>
     </Style>
 
     <!--<Style TargetType="Button" BasedOn="{StaticResource SureBtnStyle}"/>-->
@@ -70,7 +63,7 @@
         <Setter Property="metros:ControlsHelper.ContentCharacterCasing"  Value="Upper"/>
         <Setter Property="metros:ControlsHelper.CornerRadius" Value="3"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{StaticResource RefreshButtonBorder}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource RefreshButtonBorder}"/>
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFont}"/>
         <Setter Property="FontSize" Value="{DynamicResource UpperCaseContentFontSize}"/>
         <Setter Property="FontWeight" Value="Bold"/>

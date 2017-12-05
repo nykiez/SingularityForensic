@@ -3,7 +3,7 @@ using System.Text;
 
 namespace CDFC.Parse.Contracts {
     public interface IFile {
-        FileType FileType { get; }          //文件类型;
+        FileType Type { get; }          //文件类型;
         IFile Parent { get; }               //父类型;
         string Name { get; }                //文件名;
         long Size { get; }                  //文件大小;
@@ -34,7 +34,7 @@ namespace CDFC.Parse.Contracts {
             var sb = new StringBuilder();
             while (pt != null) {
                 sb.Insert(0, $"{pt.Name}/");
-                if (pt.FileType == CDFC.Parse.Contracts.FileType.BlockDeviceFile) {
+                if (pt.Type == CDFC.Parse.Contracts.FileType.BlockDeviceFile) {
                     break;
                 }
                 pt = pt.Parent;

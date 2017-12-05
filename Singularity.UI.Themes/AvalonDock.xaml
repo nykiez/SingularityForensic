@@ -95,12 +95,7 @@
         </Style.Triggers>
     </Style>
 
-
-    <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
-    <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="#ECF4FC" Offset="0.0"/>
-        <GradientStop Color="#DCECFC" Offset="1.0"/>
-    </LinearGradientBrush>
+    
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -110,14 +105,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <SolidColorBrush x:Key="TabItem.Selected.Background2" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TabItem.Selected.Background3" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="TabItem.Header.Border" Color="#555555"/>
-    <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#7EB4EA"/>
-    <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
-    <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
-    <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#ACACAC"/>
-    <ImageBrush x:Key="TabItem.Selected.Background"  ImageSource="/Singularity.UI.Themes;component/Images/TabControl/TabItemActive.png" />
+    
     <Style TargetType="{x:Type TabItem}" x:Key="DefaultTabItem">
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Padding" Value="16,0"/>

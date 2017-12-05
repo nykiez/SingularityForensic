@@ -1,4 +1,4 @@
-﻿using Singularity.Interfaces;
+﻿using Singularity.Contracts.FileExplorer;
 using System;
 using System.IO;
 using System.Text;

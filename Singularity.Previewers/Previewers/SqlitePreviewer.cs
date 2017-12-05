@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Singularity.Previewers.ViewModels;
-using Singularity.Interfaces;
+using Singularity.Contracts.FileExplorer;
 
 namespace Singularity.Previewers {
     /// <summary>

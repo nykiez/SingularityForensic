@@ -1,4 +1,4 @@
-﻿using Singularity.UI.Info.Contracts;
+﻿using Singularity.Contracts.Info;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;

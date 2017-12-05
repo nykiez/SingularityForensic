@@ -1,13 +1,13 @@
-﻿using SingularityForensic.Modules.MainMenu.Models;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using Prism.Regions;
 using Prism.Mvvm;
-using SingularityForensic.Helpers;
 using SingularityForensic.Modules.MainMenu.Global.Events;
 using SingularityForensic.Modules.MainPage;
 using Prism.Commands;
-using SingularityForensic.Modules.MainPage.Global.Events;
-using SingularityForensic.Modules.MainPage.Models;
+using Singularity.Contracts.Helpers;
+using Singularity.Contracts.MainPage.Events;
+using Singularity.Contracts.Contracts.MainMenu;
+using Singularity.Contracts.TabControl;
 
 namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]

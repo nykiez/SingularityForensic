@@ -6,8 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:sviews="clr-namespace:SingularityForensic.Views.Shell"
-        xmlns:publicCvts="clr-namespace:Singularity.UI.Converters;assembly=Singularity.UI.Converters"
+        xmlns:publicCvts="http://singularity/converters"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:shell="clr-namespace:SingularityForensic.Modules.Shell"
         WindowStartupLocation="CenterScreen" d:DesignWidth="1440"
@@ -24,6 +25,7 @@
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedCommand}"/>
         </i:EventTrigger>
+        <!--<prism:InteractionRequestTrigger SourceObject="{Binding }"-->
     </i:Interaction.Triggers>
     <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">

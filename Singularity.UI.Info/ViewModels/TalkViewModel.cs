@@ -1,4 +1,4 @@
-﻿using Singularity.UI.Info.Contracts;
+﻿using Singularity.Contracts.Info;
 using System.Collections.ObjectModel;
 
 namespace Singularity.UI.Info.ViewModels {
