@@ -36,13 +36,16 @@ namespace Singularity.Contracts.FileSystem {
 
             return null;
         }
-
-        public CDFC.Parse.Abstracts.Directory OpenDirectory(string path) => null;
-
-        public RegularFile OpenFile(string path) => null;
-
-        public FSFile OpenFile(ICaseEvidence file, string path) {
-            throw new NotImplementedException();
+        
+        public FSFile OpenFile(ICaseEvidence caseEvidence, string path) {
+            if(caseEvidence is UnknownDeviceCaseFile devc) {
+                var oriFile = devc.Data.GetFileByUrl(path);
+                if(oriFile != null) {
+                    return new FSFile(oriFile);
+                }
+                return null;
+            }
+            throw new ArgumentException(nameof(caseEvidence));
         }
     }
 

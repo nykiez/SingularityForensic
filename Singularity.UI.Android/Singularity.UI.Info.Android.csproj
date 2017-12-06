@@ -269,8 +269,8 @@
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"
 
 Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\System.Data.Sqlite.dll"
-Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\EntityFramework.dll"
-Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\EntityFramework.SqlServer.dll"
+Copy "$(SolutionDir)packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\EntityFramework.dll"
+Copy "$(SolutionDir)packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\EntityFramework.SqlServer.dll"
 Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
 Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
 xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x86" "$(SolutionDir)SingularityShell\$(OutDir)x86\"  /E /Y
