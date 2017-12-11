@@ -4,13 +4,25 @@ using CDFC.Parse.Signature.Pictures;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
+using System;
+using CDFC.Util.PInvoke;
+using Microsoft.Win32.SafeHandles;
+using System.Management;
 
 namespace CommonTest {
+    
 
     [TestClass]
-    public class UnitTest1 {
+    public class TestPInvoke {
+        
+
         [TestMethod]
-        public void TestMethod1() {
+        public void TestFat() {
+            
+        }
+
+        public void TestExplorer() {
             ExplorerHelper.OpenFile("D://1.psd");
         }
 

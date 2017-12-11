@@ -1,6 +1,5 @@
 ﻿using CDFC.Parse.Contracts;
 using System;
-using Singularity.UI.FileSystem.Android.Models;
 using CDFC.Util;
 using System.ComponentModel.Composition;
 using CDFC.Parse.Android.DeviceObjects;
@@ -32,10 +31,10 @@ namespace Singularity.Android.Services {
                 return true;
             }
             else if(file is PartitionCaseFile pCFile) {
-                if(pCFile.Data is AndroidPartition) {
+                if(pCFile.Partition is AndroidPartition) {
                     return true;
                 }
-                else if(pCFile.Data is AndroidUnknownParititon) {
+                else if(pCFile.Partition is AndroidUnknownParititon) {
                     return true;
                 }
             }
@@ -43,10 +42,7 @@ namespace Singularity.Android.Services {
         }
         
         public override object GetInstance(Type serviceType) {
-            if(serviceType == typeof(IRowBuilder)) {
-                return AndroidDeviceRowBuilder.StaticInstance;
-            }
-            else if(serviceType == typeof(IFileDetailInfoProvider)) {
+            if(serviceType == typeof(IFileDetailInfoProvider)) {
                 return Ext4NodeDetailProvider.StaticInstance;
             }
             return null;
@@ -71,12 +67,5 @@ namespace Singularity.Android.Services {
         
         //public static readonly AndroidDeviceFileExplorerServiceProvider Ins = AndroidDeviceFileExplorerServiceProvider.StaticInstance;
     }
-
-     
-
-    public class AndroidDeviceRowBuilder : GenericStaticInstance<AndroidDeviceRowBuilder>, IRowBuilder {
-        public IFileRow BuildRow(IFile file) {
-            return new AndroidFileRow(file);
-        }
-    }
+    
 }

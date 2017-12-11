@@ -5,21 +5,24 @@ using System;
 using System.Xml.Linq;
 
 namespace Singularity.Contracts.FileSystem {
+    public interface IPartitionCaseFile {
+
+    }
 
     //分区案件文件;
-    public class PartitionCaseFile : StandardCaseFile, IHaveData<Partition> {
-        public const string PartitionFolderClass = nameof(Partition) + "s";
+    public class PartitionCaseFile : StandardCaseFile {
+        public const string PartitionFolderClass = nameof(CDFC.Parse.Abstracts.Partition) + "s";
 
         //分区案件文件;
         public PartitionCaseFile(Partition part,
             string interLabel,
-            DateTime dtAdded, int partID) : base(nameof(Partition), part.Name, interLabel, dtAdded) {
+            DateTime dtAdded, int partID) : base(nameof(CDFC.Parse.Abstracts.Partition), part.Name, interLabel, dtAdded) {
             this.PartitionID = partID;
-            this.Data = part;
+            this.Partition = part;
         }
 
         public PartitionCaseFile(Partition part, XElement xElem) : base(xElem) {
-            this.Data = part;
+            this.Partition = part;
         }
 
         protected override string GetBasePath() => $"{PartitionFolderClass}/{Guid.NewGuid().ToString("N")}-{Name}";
@@ -30,6 +33,6 @@ namespace Singularity.Contracts.FileSystem {
             set => SetXElemValue(value.ToString());
         }
 
-        public Partition Data { get; }
+        public Partition Partition { get; }
     }
 }

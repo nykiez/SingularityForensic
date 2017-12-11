@@ -13,7 +13,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
     /// <summary>
     /// 安卓设备;
     /// </summary>
-    public class AndroidDevice:Device,IHandleDevice {
+    public class AndroidDevice:Device,IHaveHandle {
         /// <summary>
         /// 
         /// </summary>
@@ -27,8 +27,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         private static extern void Cflab_Free_DiskInfo(IntPtr stDiskInfo);
         [DllImport("cdfcqd.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Cflab_Free_All();
-
-        private const string PartSuffix = "分区";
+        
         /// <summary>
         /// 加载内容(子文件等);
         /// </summary>
@@ -66,7 +65,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                             partition = new AndroidUnknownParititon(p, this);
                         }
                         //var name = Marshal.PtrToStringUni(p.StPartInfo.Value.PartTabNameUnicode, 36);
-                        partition.Name = $"{PartSuffix}{(partIndex++)}({p.StPartInfo.Value.PartTabName})";
+                        partition.Name = $"{p.StPartInfo.Value.PartTabName}";
                         allReadSize += partition.Size;
                         notifySizeAct?.Invoke((partition.Size, partition.Size, allReadSize, allPart, partIndex));
                         Children.Add(partition);

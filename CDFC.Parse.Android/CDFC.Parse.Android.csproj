@@ -69,6 +69,7 @@
     <Compile Include="DeviceObjects\AndroidOtherFile.cs" />
     <Compile Include="DeviceObjects\AndroidUnknownParititon.cs" />
     <Compile Include="DeviceObjects\AndroidPartition.cs" />
+    <Compile Include="DeviceObjects\Fat32Partition.cs" />
     <Compile Include="DeviceObjects\PartTabInfo.cs" />
     <Compile Include="DeviceObjects\AndroidRegFile.cs" />
     <Compile Include="DeviceObjects\AndroidSuperBlock.cs" />

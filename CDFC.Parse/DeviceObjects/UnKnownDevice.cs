@@ -6,7 +6,7 @@ using System;
 using System.IO;
 
 namespace CDFC.Parse.DeviceObjects {
-    public class UnKnownDevice : Device, IHandleDevice {
+    public class UnKnownDevice : Device, IHaveHandle {
         public override PartsType PartsType => PartsType.Unknown;
 
         private int? secSize;

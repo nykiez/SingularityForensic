@@ -20,8 +20,8 @@ namespace CDFC.Parse.Signature.DeviceObjects {
             this.StartLBA = startLBA;
             this.EndLBA = endLBA;
             this.Name = name;
-            if(parent is IHandleDevice) {
-                Handle = (parent as IHandleDevice).Handle;
+            if(parent is IHaveHandle) {
+                Handle = (parent as IHaveHandle).Handle;
                 OriFile = oriFile;
             }
         }

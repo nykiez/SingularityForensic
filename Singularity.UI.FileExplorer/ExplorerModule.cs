@@ -49,12 +49,12 @@ namespace Singularity.UI.FileExplorer {
                     if (e is StorageTreeUnit stUnit) {
                         fsNodeService?.AddShowingFile(stUnit.File, stUnit.FSProvider);
                     }
-                    else if (e is ICaseEvidenceUnit<PartitionCaseFile> pFileUnit && pFileUnit.Evidence is IHaveData<Partition> fCFile) {
+                    else if (e is ICaseEvidenceUnit<PartitionCaseFile> pFileUnit) {
                         var fsUnit = e.GetParent<FileSystemUnit>();
-                        fsNodeService?.AddShowingFile(fCFile.Data, fsUnit.FsServiceProvider);
+                        fsNodeService?.AddShowingFile(pFileUnit.Evidence.Partition, fsUnit.FsExpServiceProvider);
                     }
                     else if (e is FileSystemUnit fsUnit && fsUnit.CaseFile is IHaveData<IFile> dCFile) {
-                        fsNodeService?.AddShowingFile(dCFile.Data, fsUnit.FsServiceProvider);
+                        fsNodeService?.AddShowingFile(dCFile.Data, fsUnit.FsExpServiceProvider);
                     }
 
                 }
@@ -67,7 +67,7 @@ namespace Singularity.UI.FileExplorer {
                     fsNodeService?.ExpandFile(stUnit.File as IIterableFile);
                 }
                 else if (e is FileSystemUnit fsUnit && fsUnit.CaseFile is IHaveData<IFile> dCFile) {
-                    fsNodeService?.AddShowingFile(dCFile.Data, fsUnit.FsServiceProvider);
+                    fsNodeService?.AddShowingFile(dCFile.Data, fsUnit.FsExpServiceProvider);
                 }
 
             });

@@ -12,8 +12,8 @@ using CDFC.Parse.Contracts;
 namespace CDFC.Parse.Signature.Pictures {
     public partial class PictureSearcher : IFileSearcher {
         public PictureSearcher(Device device,int secSize = 512) {
-            if(device is IHandleDevice) {
-                Handle = (device as IHandleDevice).Handle;
+            if(device is IHaveHandle) {
+                Handle = (device as IHaveHandle).Handle;
             }
             else {
                 Logger.WriteLine($"{nameof(PictureSearcher)}->{nameof(PictureSearcher)}:not a valid device:{typeof(Device)}");

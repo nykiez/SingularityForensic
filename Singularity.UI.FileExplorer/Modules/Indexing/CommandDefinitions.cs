@@ -36,7 +36,8 @@ namespace Singularity.UI.FileExplorer.Modules.Indexing {
                         if (setting != null) {
                             if (NodeService?.SelectedNode is ICaseEvidenceUnit<ICaseEvidence> csFileUnit && 
                             csFileUnit.Evidence is IHaveData<Device> dcsFile) {
-                                SignSearch(dcsFile.Data, setting,FileExplorerHelper.GetFileExplorerServiceProvider(csFileUnit.Evidence));
+                                SignSearch(dcsFile.Data, setting,
+                                    FileExplorerHelper.GetFileExplorerServiceProvider(csFileUnit.Evidence));
                             }
                         }
                     }

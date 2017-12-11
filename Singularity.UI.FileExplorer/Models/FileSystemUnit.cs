@@ -30,10 +30,10 @@ namespace Singularity.UI.FileExplorer.Models {
 
             this.CaseFile = itrCFile;
             Label = FindResourceString("FileSystem");
-            this.FsServiceProvider = FsServiceProvider;
+            this.FsExpServiceProvider = FsServiceProvider;
         }
         public ICaseEvidence CaseFile { get; }
-        public IFileExplorerServiceProvider FsServiceProvider { get; }
+        public IFileExplorerServiceProvider FsExpServiceProvider { get; }
         //子文件为分区
         private ObservableCollection<ITreeUnit> _children;
         public override ObservableCollection<ITreeUnit> Children {
@@ -47,13 +47,12 @@ namespace Singularity.UI.FileExplorer.Models {
                                 if (cFile is PartitionCaseFile pcFile) {
                                     var pUnit = new CaseEvidenceUnit<PartitionCaseFile>(pcFile, this) {
                                         Label = cFile.Name,
-                                        //Level = 2,
                                         Icon = IconResources.PartUnitIcon
                                     };
                                     var children = pUnit.Children ?? (pUnit.Children = new ObservableCollection<ITreeUnit>());
-                                    foreach (var file in pcFile.Data.Children) {
+                                    foreach (var file in pcFile.Partition.Children) {
                                         if (file is Directory dir && !dir.IsBackFile() && !dir.IsBackUpFile()) {
-                                            children.Add(new StorageTreeUnit(file, pUnit,FsServiceProvider));
+                                            children.Add(new StorageTreeUnit(file, pUnit,FsExpServiceProvider));
                                         }
                                     }
                                     pUnit.ContextCommands = new ObservableCollection<ICommandItem> {
@@ -66,7 +65,7 @@ namespace Singularity.UI.FileExplorer.Models {
                                             },
                                         new CommandItem {
                                             Command = new DelegateCommand(() => {
-                                                ServiceProvider.Current.GetInstance<IFSNodeService>()?.ExpandFile(pcFile.Data);
+                                                ServiceProvider.Current.GetInstance<IFSNodeService>()?.ExpandFile(pcFile.Partition);
                                             }),
                                             CommandName = FindResourceString("ExploreRecursively")
                                         },

@@ -13,8 +13,8 @@ namespace CDFC.Parse.Signature.Pictures {
     //八爷签名搜索;
     public partial class RecompositeSearcher:IFileSearcher {
         public RecompositeSearcher(BlockDeviceFile device, int secSize = 512) {
-            if (device is IHandleDevice) {
-                Handle = (device as IHandleDevice).Handle;
+            if (device is IHaveHandle) {
+                Handle = (device as IHaveHandle).Handle;
             }
             else {
                 Logger.WriteLine($"{nameof(PictureSearcher)}->{nameof(PictureSearcher)}:not a valid device:{device.GetType()}");
