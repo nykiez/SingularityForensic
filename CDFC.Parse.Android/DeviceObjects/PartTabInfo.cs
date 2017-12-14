@@ -15,6 +15,10 @@ namespace CDFC.Parse.Android.DeviceObjects {
         /// </summary>
         /// <param name="stTabPartInfoPtr">StTabPartInfo的非托管指针</param>
         public TabPartInfo(IntPtr stTabPartInfoPtr) {
+            if(stTabPartInfoPtr == IntPtr.Zero) {
+                throw new ArgumentException(nameof(stTabPartInfoPtr));
+            }
+
             this.StTabPartInfoPtr = stTabPartInfoPtr;
             LoadInfo();
         }
@@ -76,11 +80,11 @@ namespace CDFC.Parse.Android.DeviceObjects {
             get {
                 if(StTabPartInfo != null) {
                     switch (StTabPartInfo.Value.FsType) {
-                        case 1:
+                        case FsType.FAT16:
                             return FileSystemType.FAT16;
-                        case 2:
+                        case FsType.FAT32:
                             return FileSystemType.FAT32;
-                        case 3:
+                        case FsType.EXT4:
                             return FileSystemType.EXT4;
                         default:
                             break;

@@ -53,7 +53,7 @@ namespace Singularity.UI.FileExplorer.Models {
                     try {
                         if (File is IIterableFile) {
                             if (File is IIterableFile itrFile) {
-                                itrFile.Children.ForEach(p => {
+                                foreach (var p in itrFile.Children) {
                                     //目录子节点;
                                     if (p.Type == FileType.Directory) {
                                         var dir = p as CDFC.Parse.Abstracts.Directory;
@@ -61,7 +61,7 @@ namespace Singularity.UI.FileExplorer.Models {
                                             children.Add(new StorageTreeUnit(dir, this, FSProvider));
                                         }
                                     }
-                                });
+                                }
                             }
                         }
                     }

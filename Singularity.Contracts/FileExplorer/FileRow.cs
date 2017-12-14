@@ -134,7 +134,8 @@ namespace Singularity.Contracts.FileExplorer {
         public virtual long EndSec {
             get {
                 if (File is Partition) {
-                    return ((File as Partition).EndLBA / File.GetParent<Device>()?.SecSize ?? 512);
+                    var part = File as Partition;
+                    return (part.StartLBA + part.Size / File.GetParent<Device>()?.SecSize ?? 512);
                 }
                 return 0;
             }

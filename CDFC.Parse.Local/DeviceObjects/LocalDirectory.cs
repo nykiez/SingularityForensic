@@ -22,7 +22,7 @@ namespace CDFC.Parse.Local.DeviceObjects {
         public override DateTime? AccessedTime => null;
         
         private List<IFile> _children;
-        public override List<IFile> Children 
+        public override IEnumerable<IFile> Children 
             {
             get {
                 if(_children == null) {

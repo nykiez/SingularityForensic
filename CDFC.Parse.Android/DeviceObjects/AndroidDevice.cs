@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using CDFC.Parse.Contracts;
+using System.Collections.Generic;
 
 namespace CDFC.Parse.Android.DeviceObjects {
     /// <summary>
@@ -49,7 +50,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
 
                         long curPartSize = 0;
                         //若FSType为3,则表示为Ext4分区;
-                        if( p.StTabPartInfo.Value.FsType == 3) {
+                        if( p.StTabPartInfo.Value.FsType == FsType.EXT4) {
                             var adPartition = new AndroidPartition(p, this);
                             
                             adPartition.LoadChildren(sz => {
@@ -61,6 +62,16 @@ namespace CDFC.Parse.Android.DeviceObjects {
 
                             partition = adPartition;
                         }
+                        else if(p.StTabPartInfo.Value.FsType == FsType.FAT32) {
+                            var fatPartition = new FAT32Partition(p, this);
+                            fatPartition.LoadChildren(sz => {
+                                curPartSize += sz;
+                                notifySizeAct?.Invoke(
+                                (curPartSize, fatPartition.Size, allReadSize + curPartSize, allPart, partIndex));
+                            }, isCancel);
+
+                            partition = fatPartition;
+                        }
                         else {
                             partition = new AndroidUnknownParititon(p, this);
                         }
@@ -68,11 +79,13 @@ namespace CDFC.Parse.Android.DeviceObjects {
                         partition.Name = $"{p.StPartInfo.Value.PartTabName}";
                         allReadSize += partition.Size;
                         notifySizeAct?.Invoke((partition.Size, partition.Size, allReadSize, allPart, partIndex));
-                        Children.Add(partition);
+                        _children.Add(partition);
 
                         if (isCancel?.Invoke() == true) {
                             return;
                         }
+
+                        partIndex++;
                     });
                 }
             }
@@ -81,7 +94,11 @@ namespace CDFC.Parse.Android.DeviceObjects {
             }
             
         }
-        
+
+
+        private List<IFile> _children = new List<IFile>();
+        public override IEnumerable<IFile> Children => _children;
+
         //[DllImport("cdfcqd.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         //private static extern IntPtr Cflabqd_Init(SafeFileHandle H_Disk);
         //public static Func<SafeFileHandle,IntPtr> CFLabAndroidInitFunc {
@@ -188,6 +205,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                     //var stPartInfo = stTabPartInfo.PartInfoPtr.GetStructure<StAndroidPartInfo>();
                     var partTab = new TabPartInfo(stTabPartPtrNode);
                     device.MgrInfo.PartTabInfos.Add(partTab);
+
                     stTabPartPtrNode = stTabPartInfo.Next;
                     count++;
                 }
@@ -261,9 +279,13 @@ namespace CDFC.Parse.Android.DeviceObjects {
         private IntPtr _diskInfo;
 
         public override void Exit() {
-            Children.ForEach(p => {
-                (p as AndroidPartition)?.Exit();
-            });
+            foreach (var p in Children) {
+                if(p is AndroidPartition adPart) {
+                    (p as AndroidPartition)?.Exit();
+                }
+                
+            }
+            
             Stream.Close();
         }
 

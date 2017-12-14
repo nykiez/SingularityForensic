@@ -40,16 +40,14 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Controls.0.1.0.4\lib\NET451\CDFCHexaEditor.dll</HintPath>
@@ -60,12 +58,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFCUIContracts.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -124,7 +120,6 @@
     <Compile Include="MessageBoxes\FileDetailMessageBox.cs" />
     <Compile Include="Models\ViewerProgram.cs" />
     <Compile Include="Models\StorageTreeUnit.cs" />
-    <Compile Include="Models\SearchKeyOption.cs" />
     <Compile Include="Models\NavNodeModel.cs" />
     <Compile Include="Models\FileSystemUnit.cs" />
     <Compile Include="Models\ViewerProgramModel.cs" />

@@ -108,24 +108,28 @@ namespace CDFC.Parse.IO {
                         if (file is Partition part) {                                            //若为分区，则根据分区的起始，终止地址构造流;
                             var device = file.GetParent<Device>();
                             if (device != null) {
-                                return InterceptStream.CreateFromStream(device.Stream, part.StartLBA, part.EndLBA);
+                                return InterceptStream.CreateFromStream(device.Stream, part.StartLBA, part.Size);
                             }
                         }
                         else if (file is Device device) {                                          //若为设备,直接返回设备流;
                             return device.Stream;
                         }
                     }
+                    //否则直接根据StartLBA,EndLBA构建截取流;
+                    else if (file is RegularFile regFile) {
+                        return regFile.GetStream();
+                    }
                     else if (file is IBlockGroupedFile) {
                         var blockGroupedFile = file as IBlockGroupedFile;
                         var part = file.GetParent<Partition>();
                         var device = file.GetParent<Device>();
                         if (part != null && device != null) {
-                            var blockSize = part.BlockSize ?? 4096;
-                            var partStream = InterceptStream.CreateFromStream(device.Stream, part.StartLBA, part.EndLBA);
+                            var blockSize = part.ClusterSize;
+                            var partStream = InterceptStream.CreateFromStream(device.Stream, part.StartLBA, part.Size);
                             //若块组不为空,则遍历块组组成虚拟流;
-                            if(blockGroupedFile.BlockGroups != null) {
+                            if (blockGroupedFile.BlockGroups != null) {
                                 var ranges = blockGroupedFile.BlockGroups.Select(p =>
-                                    ValueTuple.Create(p.BlockAddress * blockSize, p.Count * blockSize)).ToArray();
+                                    ValueTuple.Create(p.BlockAddress * blockSize + p.Offset, p.Count * blockSize)).ToArray();
 
                                 var blockSub = ranges.Sum(p => p.Item2) - file.Size;
                                 if (ranges?.Count() > 0 && 0 < blockSub && blockSub < blockSize) {
@@ -134,12 +138,8 @@ namespace CDFC.Parse.IO {
                                 var multiStream = MulPeriodsStream.CreateFromStream(partStream, ranges);
                                 return multiStream;
                             }
-                            
+
                         }
-                    }
-                    //否则直接根据StartLBA,EndLBA构建截取流;
-                    else if (file is RegularFile regFile) {
-                        return regFile.GetStream();
                     }
                 }
                 catch (Exception ex) {

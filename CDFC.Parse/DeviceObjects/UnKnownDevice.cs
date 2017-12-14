@@ -7,6 +7,8 @@ using System.IO;
 
 namespace CDFC.Parse.DeviceObjects {
     public class UnKnownDevice : Device, IHaveHandle {
+        private UnKnownDevice() { }
+
         public override PartsType PartsType => PartsType.Unknown;
 
         private int? secSize;
@@ -61,8 +63,7 @@ namespace CDFC.Parse.DeviceObjects {
         public static UnKnownDevice LoadFromFileStream(FileStream fs) {
             var device = new UnKnownDevice {
                 _stream = fs,
-                Name = fs.Name.Substring(fs.Name.LastIndexOf("\\") + 1),
-                Children = new System.Collections.Generic.List<IFile>()
+                Name = fs.Name.Substring(fs.Name.LastIndexOf("\\") + 1)
             };
 
             return device;

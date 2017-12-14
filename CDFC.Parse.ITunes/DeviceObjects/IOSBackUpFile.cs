@@ -5,6 +5,7 @@ using CDFCCultures.Helpers;
 using System;
 using System.IO;
 using CDFC.Parse.Contracts;
+using System.Collections.Generic;
 
 namespace CDFC.Parse.ITunes.DeviceObjects {
     /// <summary>
@@ -14,10 +15,15 @@ namespace CDFC.Parse.ITunes.DeviceObjects {
         public ITunesFilePartition():base(null) {
             
         }
-        public override uint? BlockSize => throw new NotImplementedException();
-
+        
         public override FileSystemType FSType => FileSystemType.Unknown;
 
+        private List<IFile> _children = new List<IFile>();
+        public override IEnumerable<IFile> Children => _children;
+
+        public override uint ClusterSize => 0;
+
+        public void AddChildren(IEnumerable<IFile> children) =>  _children.AddRange(_children);
     }
     /// <summary>
     /// IOS备份文件

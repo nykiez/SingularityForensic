@@ -11,4 +11,6 @@
     <sys:String x:Key="MobileRecompositeBySign">文件重组扫描</sys:String>
     <sys:String x:Key="FileSystemInfo">显示文件系统信息</sys:String>
     <sys:String x:Key="CustomSignSearch">自定义签名搜索</sys:String>
+
+    <sys:String x:Key="PartitionUnitLabel">分区</sys:String>
 </ResourceDictionary>

@@ -5,7 +5,7 @@ using System.Linq;
 using CDFC.Parse.Contracts;
 using CDFC.Parse.Android.Structs;
 using EventLogger;
-using static CDFC.Parse.Android.Static.InodeBlockMethods;
+using static CDFC.Parse.Android.Static.Ext4Methods;
 using System.Runtime.ExceptionServices;
 using CDFC.Parse.Android.Contracts;
 
@@ -17,8 +17,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         /// </summary>
         /// <param name="parent">父文件</param>
         /// <param name="stDirEntryPtr">文件结构(自定义)指针</param>
-        public AndroidOtherFile(IntPtr stDirEntryPtr,IFile parent) {
-            this.parent = parent;
+        public AndroidOtherFile(IntPtr stDirEntryPtr,IIterableFile parent) :base(parent){
             this.stDirEntryPtr = stDirEntryPtr;
         }
 
@@ -66,7 +65,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
 
         //文件类型尚未确定;
         private List<BlockGroup> blockGroups;                                           //文件块组;
-        public override List<BlockGroup> BlockGroups {
+        public override IEnumerable<BlockGroup> BlockGroups {
             get {
                 if (blockGroups == null) {
                     LoadContent();
@@ -80,14 +79,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                 return FileType.Unknown;
             }
         }
-
-        //父文件;
-        private IFile parent;
-        public override IFile Parent {
-            get {
-                return parent;
-            }
-        }
+        
 
         private long? startLBA;                                     //起始LBA;
         public override long StartLBA {

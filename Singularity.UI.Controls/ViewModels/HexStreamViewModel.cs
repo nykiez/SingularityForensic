@@ -30,80 +30,12 @@ namespace Singularity.UI.Controls.ViewModels {
             this.Stream = stream;
         }
 
-        
         public override event EventHandler SubmitChangesRequired;
     }
 
     //十六进制流查看器视图模型的命令绑定项;
     public abstract partial class HexStreamEditorViewModel {
-        /// <summary>
-        /// 查找匹配的字符串;
-        /// </summary>
-        /// <param name="findString"></param>
-        public void FindNextString(string findString) {
-            FindNextBytes(ByteConverters.StringToByte(findString), FindMethod.Text);
-        }
 
-        public void FindNextString(string findString, bool isBlockSearch, int blockSize, int blockOffset) =>
-            FindNextBytes(ByteConverters.StringToByte(findString), FindMethod.Text, isBlockSearch, blockSize, blockOffset);
-
-        public void FindNextBytes(byte[] findBytes) =>
-            FindNextBytes(findBytes, FindMethod.Hex, false, -1, -1);
-
-        public void FindNextBytes(byte[] findBytes, FindMethod method) =>
-            FindNextBytes(findBytes, method, false, -1, -1);
-
-        public void FindNextBytes(byte[] findBytes, FindMethod findMethod, bool isBlockSearch, int blockSize, int blockOffset) {
-            if (findBytes == null || findBytes.Length == 0) {
-                Logger.WriteLine($"{nameof(HexStreamEditorViewModel)}->{nameof(FindNextBytes)}:{nameof(findBytes)} can't be null or empty.");
-                return;
-            }
-
-            if (isBlockSearch && (blockSize <= 0 || blockOffset < 0)) {
-                throw new ArgumentException($"Invalid Argument(s):{nameof(blockSize)} or {nameof(blockOffset)}");
-            }
-
-            long pos = (FocusPosition == -1 ? 0 : FocusPosition) + 1;
-            var dialog = new ProgressMessageBox {
-                WindowTitle = findMethod == FindMethod.Text ? FindResourceString("SearchingForText") : FindResourceString("SearchingForHex")
-            };
-
-            dialog.DoWork += (sender, e) => {
-                if (isBlockSearch) {
-                    pos = Stream.SearchBlock(pos, blockSize, blockOffset, findBytes, index => {
-                        dialog.ReportProgress((int)(index * 100 / Stream.Length));
-                    }, () => dialog.CancellationPending);
-                }
-                else {
-                    pos = Stream.Search(pos, findBytes, index => {
-                        dialog.ReportProgress((int)(index * 100 / Stream.Length));
-                    }, () => dialog.CancellationPending);
-                }
-            };
-
-            dialog.RunWorkerCompleted += (sender, e) => {
-                if (!e.Cancelled) {
-                    if (pos != -1) {
-                        //SelectionStart = pos;
-                        //SelectionStop = pos + findBytes.Length - 1;
-                        Position = pos;
-                        FocusPosition = pos;
-                    }
-                    else {
-                        CDFCMessageBox.Show(FindResourceString("CannotFindTheContent"));
-                    }
-                }
-            };
-
-            dialog.ShowDialog();
-        }
-
-        
-        //搜寻方法;
-        public enum FindMethod {
-            Text,                                                               //文字检索;
-            Hex                                                                 //十六进制检索;
-        }
         private DelegateCommand copyToNewFileCommand;                              //拷贝至新文件命令;
         public DelegateCommand CopyToNewFileCommand {
             get {

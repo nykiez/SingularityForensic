@@ -19,14 +19,10 @@ using System.Windows.Input;
 using static CDFCCultures.Managers.ManagerLocator;
 using static Singularity.UI.Controls.ViewModels.HexStreamEditorViewModel;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
-using SingularityForensic.Modules.MainPage;
-using Singularity.UI.Case;
 using Singularity.Contracts.Helpers;
 using Singularity.Contracts.MainPage.Events;
-using Singularity.UI.FileExplorer.ViewModels;
 using Singularity.Contracts.FileExplorer;
 using Singularity.Contracts.Common;
-using Singularity.UI.FileExplorer.Models;
 using Singularity.Contracts.TabControl;
 using Singularity.Contracts.MainPage;
 using Singularity.Contracts.Contracts.MainMenu;
@@ -34,12 +30,15 @@ using Singularity.Contracts.MainMenu;
 using Singularity.Contracts.FileSystem;
 using Singularity.Contracts.Shell;
 using Singularity.Contracts.FileExplorer.Events;
+using Singularity.Contracts.Case;
+using Singularity.UI.Hex.Models;
+using Singularity.Contracts.Hex;
 
 namespace Singularity.UI.Hex {
     public static partial class MenuItemDefinitions {
         static MenuItemDefinitions() {
             PubEventHelper.Subscribe<InnerTabSelectedChangedEvent, ITabModel>(tab => {
-                CurHexViewModel = tab as FileHexTabViewModel;
+                CurHexViewModel = tab as IHexDataContext;
                 RaiseCanExcute();
             });
 
@@ -59,7 +58,7 @@ namespace Singularity.UI.Hex {
             FindHexValueCommand.RaiseCanExecuteChanged();
         }
 
-        public static FileHexTabViewModel CurHexViewModel { get; private set; }
+        public static IHexDataContext CurHexViewModel { get; private set; }
     }
 
     public static partial class MenuItemDefinitions {
@@ -147,10 +146,10 @@ namespace Singularity.UI.Hex {
         private static void FindHex(FindHexValueSetting setting) {
             if (setting != null) {
                 if (!setting.IsBlockSearch) {
-                    CurHexViewModel.FindNextBytes(setting.HexBytes);
+                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.FindNextBytes(CurHexViewModel,setting.HexBytes);
                 }
                 else if (setting.BlockSize != null && setting.BlockOffset != null) {
-                    CurHexViewModel.FindNextBytes(setting.HexBytes,
+                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.FindNextBytes(CurHexViewModel,setting.HexBytes,
                         FindMethod.Hex, true,
                         setting.BlockSize.Value, setting.BlockOffset.Value);
                 }
@@ -189,12 +188,77 @@ namespace Singularity.UI.Hex {
         private static void FindText(FindTextStringSetting setting) {
             if (setting != null) {
                 if (!setting.IsBlockSearch) {
-                    CurHexViewModel.FindNextString(setting.FindText);
+                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.
+                        FindNextString(CurHexViewModel,setting.FindText);
                 }
                 else if (setting.BlockSize != null && setting.BlockOffset != null) {
-                    CurHexViewModel.FindNextString(setting.FindText, true,
+                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.
+                        FindNextString(CurHexViewModel,setting.FindText, true,
                         setting.BlockSize.Value, setting.BlockOffset.Value);
                 }
+            }
+        }
+
+        
+
+
+        /// <summary>
+        /// 验证输入;
+        /// </summary>
+        /// <param name="searchingKey"></param>
+        /// <returns></returns>
+        private static SearchValidateRes ValidateInput(string searchingKey) {
+            if (string.IsNullOrWhiteSpace(searchingKey)) {
+                Application.Current.Dispatcher.Invoke(() => {
+                    CDFCMessageBox.Show(FindResourceString("SearchKeyCannotBeNullOrEmpty"));
+                });
+                return SearchValidateRes.NullRes;
+            }
+
+            if (!Regex.IsMatch(searchingKey, "[^? !@#$%\\^&*()]+")) {
+                Application.Current.Dispatcher.Invoke(() => {
+                    CDFCMessageBox.Show(FindResourceString("SearchKeyIllegal"));
+                });
+                return SearchValidateRes.IlegalChar;
+            }
+
+            return SearchValidateRes.OK;
+        }
+
+        ////搜寻关键字;
+        //private string _searchingKey;
+        //public string SearchingKey {
+        //    get {
+        //        return _searchingKey;
+        //    }
+        //    set {
+        //        SetProperty(ref _searchingKey, value);
+        //    }
+        //}
+
+        //搜寻选项;
+        public static ObservableCollection<SearchKeyOption> SearchOptions { get; set; } =
+            new ObservableCollection<SearchKeyOption>(
+                Enum.GetValues(typeof(SearchMethod)).
+                Cast<SearchMethod>().Select(p => new SearchKeyOption { Method = p }));
+
+        public enum SearchValidateRes {
+            NullRes,
+            IlegalChar,
+            OK
+        }
+    
+        private static SearchKeyOption _slSearchKeyOption;
+        public static SearchKeyOption SlSearchKeyOption {
+            get {
+                if (_slSearchKeyOption == null) {
+                    _slSearchKeyOption = SearchOptions[1];
+                }
+                return _slSearchKeyOption;
+            }
+            set {
+                //SetProperty(ref _slSearchKeyOption, value);
+                //OnPropertyChanged(nameof(SearchMethod));
             }
         }
 
@@ -218,19 +282,19 @@ namespace Singularity.UI.Hex {
         public static DelegateCommand SearchKeyConfirmCommand =>
             _searchKeyConfirmCommand ?? (_searchKeyConfirmCommand = new DelegateCommand(() => {
                 var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
-                if(fsTabService == null) {
+                if (fsTabService == null) {
                     Logger.WriteCallerLine("FsTabService is null!");
                     return;
                 }
-                
-                var fileBrowserViewModel = (fsTabService.SelectedTab as FileBrowserTabModel).FileBrowserViewModel;
+
+                var fileBrowserViewModel = (fsTabService.SelectedTab as ExtTabModel<IFileBrowserDataContext>).Data;
 
                 //确认搜索设备;
                 var blDevice = fileBrowserViewModel.File as Device;
 
-                var device = blDevice?? blDevice.GetParent<Device>() as Device;
-                var indexableFile = SingularityCase.Current.CaseEvidences.
-                    FirstOrDefault(p => 
+                var device = blDevice ?? blDevice.GetParent<Device>() as Device;
+                var indexableFile = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.CaseEvidences.
+                    FirstOrDefault(p =>
                     p is IHaveData<IFile> fcsFile
                     && fcsFile.Data == device) as IIndexable;
 
@@ -319,7 +383,7 @@ namespace Singularity.UI.Hex {
                                     });
                                     //若成功创建索引;开始搜索;
                                     if (succeed && indexableFile.HasIndexes) {
-                                        SingularityCase.Current.Save();
+                                        ServiceProvider.Current.GetInstance<ICaseService>()?.CurrentCase.Save();
                                         //分隔空格;
                                         searchAct();
                                     }
@@ -353,68 +417,8 @@ namespace Singularity.UI.Hex {
                     //    }
                     //});
                 }
-            }, 
-                () => (ServiceProvider.Current.GetInstance<IDocumentTabService>()?.SelectedTab is FileBrowserTabModel fbTabModel)
-            && (fbTabModel?.FileBrowserViewModel?.OwnerFile is Partition)));
-
-        private static SearchKeyOption _slSearchKeyOption;
-        public static SearchKeyOption SlSearchKeyOption {
-            get {
-                if (_slSearchKeyOption == null) {
-                    _slSearchKeyOption = SearchOptions[1];
-                }
-                return _slSearchKeyOption;
-            }
-            set {
-                //SetProperty(ref _slSearchKeyOption, value);
-                //OnPropertyChanged(nameof(SearchMethod));
-            }
-        }
-
-        /// <summary>
-        /// 验证输入;
-        /// </summary>
-        /// <param name="searchingKey"></param>
-        /// <returns></returns>
-        private static SearchValidateRes ValidateInput(string searchingKey) {
-            if (string.IsNullOrWhiteSpace(searchingKey)) {
-                Application.Current.Dispatcher.Invoke(() => {
-                    CDFCMessageBox.Show(FindResourceString("SearchKeyCannotBeNullOrEmpty"));
-                });
-                return SearchValidateRes.NullRes;
-            }
-
-            if (!Regex.IsMatch(searchingKey, "[^? !@#$%\\^&*()]+")) {
-                Application.Current.Dispatcher.Invoke(() => {
-                    CDFCMessageBox.Show(FindResourceString("SearchKeyIllegal"));
-                });
-                return SearchValidateRes.IlegalChar;
-            }
-
-            return SearchValidateRes.OK;
-        }
-
-        ////搜寻关键字;
-        //private string _searchingKey;
-        //public string SearchingKey {
-        //    get {
-        //        return _searchingKey;
-        //    }
-        //    set {
-        //        SetProperty(ref _searchingKey, value);
-        //    }
-        //}
-
-        //搜寻选项;
-        public static ObservableCollection<SearchKeyOption> SearchOptions { get; set; } =
-            new ObservableCollection<SearchKeyOption>(
-                Enum.GetValues(typeof(SearchMethod)).
-                Cast<SearchMethod>().Select(p => new SearchKeyOption { Method = p }));
-
-        public enum SearchValidateRes {
-            NullRes,
-            IlegalChar,
-            OK
-        }
+            },
+                () => (ServiceProvider.Current.GetInstance<IDocumentTabService>()?.SelectedTab is IHaveData<IFileBrowserDataContext> fbTabModel)
+            && (fbTabModel?.Data?.OwnerFile is Partition)));
     }
 }

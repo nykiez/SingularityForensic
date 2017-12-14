@@ -8,6 +8,7 @@ using static CDFCCultures.Managers.ManagerLocator;
 using CDFCUIContracts.Events;
 using Prism.Commands;
 using Singularity.UI.Controls.ViewModels;
+using Singularity.Contracts.Hex;
 
 namespace Singularity.UI.FileExplorer.ViewModels {
     //十六进制文件查看器视图模型;
@@ -75,7 +76,7 @@ namespace Singularity.UI.FileExplorer.ViewModels {
     }
     
     //Tab十六进制流查看器模型;
-    public abstract class TabHexStreamEditorViewModel : HexStreamEditorViewModel,ITabModel {
+    public abstract class TabHexStreamEditorViewModel : HexStreamEditorViewModel, IHexDataContext, ITabModel {
         public TabHexStreamEditorViewModel(Stream stream) : base(stream) {
         }
 

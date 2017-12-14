@@ -7,7 +7,6 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using Singularity.UI.AdbViewer.Global.Services;
-using SingularityForensic.Modules.MainPage;
 using Singularity.UI.Case;
 using Singularity.Contracts.Contracts.MainMenu;
 using Singularity.Contracts.Case;

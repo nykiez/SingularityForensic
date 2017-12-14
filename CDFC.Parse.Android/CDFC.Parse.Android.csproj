@@ -34,16 +34,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\CDFCUIContracts.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.5\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.3.7\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,7 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstracts\TabPartPartition.cs" />
     <Compile Include="Contracts\IExt4Node.cs" />
+    <Compile Include="Contracts\IFAT32Node.cs" />
     <Compile Include="DeviceObjects\AndroidDevice.cs" />
     <Compile Include="DeviceObjects\AndroidDirectory.cs" />
     <Compile Include="DeviceObjects\AndroidDiskMgr.cs" />
@@ -69,13 +71,17 @@
     <Compile Include="DeviceObjects\AndroidOtherFile.cs" />
     <Compile Include="DeviceObjects\AndroidUnknownParititon.cs" />
     <Compile Include="DeviceObjects\AndroidPartition.cs" />
-    <Compile Include="DeviceObjects\Fat32Partition.cs" />
+    <Compile Include="DeviceObjects\FAT32Directory.cs" />
+    <Compile Include="DeviceObjects\Fat32OtherFile.cs" />
+    <Compile Include="DeviceObjects\FAT32Partition.cs" />
+    <Compile Include="DeviceObjects\FAT32RegFile.cs" />
     <Compile Include="DeviceObjects\PartTabInfo.cs" />
     <Compile Include="DeviceObjects\AndroidRegFile.cs" />
     <Compile Include="DeviceObjects\AndroidSuperBlock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Static\CCommonMethods.cs" />
-    <Compile Include="Static\InodeBlockMethods.cs" />
+    <Compile Include="Static\Ext4Methods.cs" />
+    <Compile Include="Static\FAT32Methods.cs" />
+    <Compile Include="Structs\Fat32Structs.cs" />
     <Compile Include="Structs\StBlockList.cs" />
     <Compile Include="Structs\StDirEntry.cs" />
     <Compile Include="Structs\StDiskMgr.cs" />
@@ -94,6 +100,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="cdfcqd.h" />
+    <Content Include="FatRecover.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FatRecover.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -108,7 +118,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"
-Copy "$(ProjectDir)cdfcqd.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\cdfcqd.dll"</PostBuildEvent>
+Copy "$(ProjectDir)cdfcqd.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\cdfcqd.dll"
+Copy "$(ProjectDir)FatRecover.dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\FatRecover.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

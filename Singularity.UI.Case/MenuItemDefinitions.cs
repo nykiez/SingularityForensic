@@ -1,7 +1,6 @@
 ﻿using CDFCCultures.Helpers;
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
-using Microsoft.Practices.ServiceLocation;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
 using Singularity.Contracts.Case;
@@ -14,7 +13,6 @@ using Singularity.Contracts.Shell;
 using Singularity.UI.Case;
 using Singularity.UI.Case.Resources;
 using Singularity.UI.MessageBoxes.MessageBoxes;
-using SingularityForensic.Modules.MainPage;
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;

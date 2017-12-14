@@ -18,7 +18,7 @@ namespace CDFC.Parse.Signature.DeviceObjects {
         /// <param name="endLBA">对象的终止LBA</param>
         public SearcherPartition(Device parent,IFile oriFile,long startLBA,long endLBA,string name) : base(parent) {
             this.StartLBA = startLBA;
-            this.EndLBA = endLBA;
+            
             this.Name = name;
             if(parent is IHaveHandle) {
                 Handle = (parent as IHaveHandle).Handle;
@@ -27,11 +27,7 @@ namespace CDFC.Parse.Signature.DeviceObjects {
         }
         public IFile OriFile { get; }
         public SafeFileHandle Handle { get; private set; }
-        public override uint? BlockSize {
-            get {
-                return 0;
-            }
-        }
+        public override uint ClusterSize => 0;
 
         public override FileSystemType FSType => FileSystemType.Unknown;
 
@@ -48,7 +44,7 @@ namespace CDFC.Parse.Signature.DeviceObjects {
                 var part = blDevice as Partition;
                 device = blDevice.GetParent<Device>();
                 startLBA = part.StartLBA;
-                endLBA = part.EndLBA;
+                endLBA = part.Size + part.StartLBA;
 
             }
 
@@ -56,18 +52,19 @@ namespace CDFC.Parse.Signature.DeviceObjects {
                 var part = new SearcherPartition(device, blDevice, startLBA, endLBA, name);
                 //文件系统对比;
                 var files = new List<RegularFile>();
-                device.Children.ForEach(p => {
+                foreach (var p in device.Children) {
                     if (p is Partition fspart) {
-                        fspart.Children.ForEach(q => {
+                        foreach (var q in fspart.Children) {
                             if (q is CDFC.Parse.Abstracts.Directory) {
                                 TraveringAddFile(q as CDFC.Parse.Abstracts.Directory, files);
                             }
                             else if (q is RegularFile regFile && regFile.Deleted == false) {
                                 files.Add(regFile);
                             }
-                        });
+                        }
                     }
-                });
+                }
+                
                 files.Sort((a, b) => a.StartLBA > b.StartLBA ? 1 : (a.StartLBA == b.StartLBA ? 0 : -1));
                 files.RemoveAll(q => q.Deleted == true);
 
@@ -90,7 +87,7 @@ namespace CDFC.Parse.Signature.DeviceObjects {
                     else {
                         if (device.Children.FirstOrDefault(q => {
                             if (q is Partition pt2) {
-                                return pt2.StartLBA <= p.DeviceStartLBA && pt2.EndLBA >= p.DeviceStartLBA;
+                                return pt2.StartLBA <= p.DeviceStartLBA && (pt2.StartLBA + pt2.Size) >= p.DeviceStartLBA;
                             }
                             return false;
                         }) is IIterableFile pt) {
@@ -102,7 +99,7 @@ namespace CDFC.Parse.Signature.DeviceObjects {
                         fileList.Add(p);
                     }
                 });
-                part.Children.AddRange(fileList);
+                part.AddChildren(fileList);
 
                 return part;
             }
@@ -118,14 +115,23 @@ namespace CDFC.Parse.Signature.DeviceObjects {
         /// <param name="itr"></param>
         /// <param name="files"></param>
         private static void TraveringAddFile(IIterableFile itr, List<RegularFile> files) {
-            itr.Children.ForEach(p => {
-                if (p is CDFC.Parse.Abstracts.Directory && !IIterableHelper.IsBackUpFile(p as IIterableFile) && !IIterableHelper.IsBackFile(p as IIterableFile)) {
-                    TraveringAddFile(p as CDFC.Parse.Abstracts.Directory, files);
+            foreach (var p in itr.Children) {
+                if (p is Directory && !IIterableHelper.IsBackUpFile(p as IIterableFile) && 
+                    !IIterableHelper.IsBackFile(p as IIterableFile)) {
+                    TraveringAddFile(p as Directory, files);
                 }
                 else if (p is RegularFile regFile && regFile.Deleted == false) {
                     files.Add(regFile);
                 }
-            });
+            }
+            
         }
+
+        private List<IFile> _children = new List<IFile>();
+        public override IEnumerable<IFile> Children => _children;
+        public void AddChildren(IEnumerable<IFile> files) {
+            _children.AddRange(files);
+        }
+
     }
 }

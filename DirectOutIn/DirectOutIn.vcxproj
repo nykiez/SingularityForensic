@@ -96,7 +96,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)Singularity.Previewers\bin\$(ConfigurationName)\Entities\$(ProjectName).dll"</Command>
+      <Command>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\bin\$(ConfigurationName)\Entities\$(ProjectName).dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

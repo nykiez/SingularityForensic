@@ -28,7 +28,7 @@ using Singularity.Contracts.FileExplorer.Events;
 
 namespace Singularity.UI.FileExplorer.ViewModels {
     //对象浏览器主模型;
-    public abstract partial class FileBrowserViewModel : BindableBase,IHaveTabModels,IDisposable {
+    public abstract partial class FileBrowserViewModel : BindableBase,IHaveTabModels,IDisposable, IFileBrowserDataContext {
         public event EventHandler<TEventArgs< bool >> IsLoadingRequired;
         /// <summary>
         /// 对象浏览器主模型构造方法;
@@ -591,7 +591,7 @@ namespace Singularity.UI.FileExplorer.ViewModels {
         }
 
         //填充文件;(适用搜索);
-        public void FillFiles(List<IFile> files) {
+        public void FillFiles(IEnumerable<IFile> files) {
             if (files == null)
                 throw new ArgumentNullException(nameof(files));
             
@@ -609,7 +609,7 @@ namespace Singularity.UI.FileExplorer.ViewModels {
         
         //递归得到所有子文件;
         public void TraverGetNormalFile(IIterableFile file, List<IFile> fileList) {
-            file.Children.ForEach(p => {
+            foreach (var p in file.Children) {
                 if (p is IIterableFile) {
                     var itrFile = p as IIterableFile;
                     if (!itrFile.IsBackFile() && !itrFile.IsBackUpFile()) {
@@ -619,7 +619,8 @@ namespace Singularity.UI.FileExplorer.ViewModels {
                 else if (p.Type == FileType.RegularFile) {
                     fileList.Add(p);
                 }
-            });
+            }
+            
         }
     }
 

@@ -2,7 +2,6 @@
 
 namespace CDFC.Parse.Android.Contracts {
     public interface IExt4Node {
-
         StDirEntry? StDirEntry { get; }
         StExt4DirEntry? StExt4DirEntry { get; }
         StExt4Inode? StExt4Inode { get;}

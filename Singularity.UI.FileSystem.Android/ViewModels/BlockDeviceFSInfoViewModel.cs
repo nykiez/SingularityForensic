@@ -79,7 +79,7 @@ namespace Singularity.UI.FileSystem.Android.ViewModels {
                 Units.Add(efiUnit);
             }
             var ptbUnit = new FSTreeUnit { Label = FindResourceString("PartitionTable"), UnitLevel = 0 };
-            adDev.Children.ForEach(p => {
+            foreach (var p in adDev.Children) {
                 var punit = new FSTreeUnit { Label = p.Name, UnitLevel = 1 };
                 if (p is AndroidPartition) {
                     var adPart = p as AndroidPartition;
@@ -127,7 +127,8 @@ namespace Singularity.UI.FileSystem.Android.ViewModels {
                 //    adpAct(punit, part, null);
                 //}
                 ptbUnit.Children.Add(punit);
-            });
+            }
+            
 
             Units.Add(ptbUnit);
         }

@@ -18,9 +18,9 @@ namespace Singularity.UI.MessageBoxes.MessageBoxes {
         private ListBlocksWindow window;
         public bool windowClosed { get; set; }                            //窗体是否已经关闭;
 
-        public List<BlockGroup> Groups { get; private set; }                //描述的快组;
+        public IEnumerable<BlockGroup> Groups { get; private set; }                //描述的快组;
 
-        public ListBlockMessageBox(List<BlockGroup> groups,IFile file)
+        public ListBlockMessageBox(IEnumerable<BlockGroup> groups,IFile file)
         {
             if(groups == null) {
                 throw new ArgumentNullException(nameof(groups));
@@ -53,13 +53,13 @@ namespace Singularity.UI.MessageBoxes.MessageBoxes {
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (sender, e) => {
                     try {
-                        Groups?.ForEach(p => {
+                        foreach (var p in Groups) {
                             if (!windowClosed) {
                                 Application.Current.Dispatcher.Invoke(() => {
                                     vm.AddGroup(p);
                                 });
                             }
-                        });
+                        }
                     }
                     catch {
 

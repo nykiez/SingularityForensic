@@ -7,11 +7,12 @@ using Singularity.Android.Services;
 using Singularity.Contracts.Case;
 using Singularity.Contracts.Common;
 using Singularity.Contracts.FileSystem;
-using Singularity.UI.Case.Global.Services;
+using Singularity.UI.Case.Services;
 using Singularity.UI.Case.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AndroidInfo.Tests {
     /// <summary>
@@ -115,7 +116,7 @@ namespace AndroidInfo.Tests {
 
             var file = AndroidDeviceFileSystemServiceProvider.StaticInstance.OpenFile(adEvidence,"1/");
 
-            Assert.AreEqual(file.File, device.Children[1]);
+            Assert.AreEqual(file.File, device.Children.ElementAt(1));
 
             
 

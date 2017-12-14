@@ -157,30 +157,33 @@ namespace Singularity.UI.FileExplorer.ViewModels {
         /// <param name="isCancel">动作是否取消委托</param>
         private void TraverseSaveDirectory(Directory dir, string drPath,
             Action<RegularFile, string, string> saveFileFunc, Func<bool> isCancel = null) {
-            dir.Children?.ForEach(p => {
-                if (isCancel?.Invoke() == true) { return; }
+            if(dir.Children != null) {
+                foreach (var p in dir.Children) {
+                    if (isCancel?.Invoke() == true) { return; }
 
-                if (p.Type == FileType.Directory) {
-                    var direct = p as Directory;
-                    if (!SysIO.Directory.Exists($"{drPath}/{dir.Name}")) {
-                        try {
-                            SysIO.Directory.CreateDirectory($"{drPath}/{dir.Name}");
+                    if (p.Type == FileType.Directory) {
+                        var direct = p as Directory;
+                        if (!SysIO.Directory.Exists($"{drPath}/{dir.Name}")) {
+                            try {
+                                SysIO.Directory.CreateDirectory($"{drPath}/{dir.Name}");
+                            }
+                            catch (Exception ex) {
+                                Logger.WriteLine($"{nameof(FolderBrowserViewModel)}->{nameof(TraverseSaveDirectory)} Creating Directory:{ex.Message}");
+                                Application.Current.Dispatcher.Invoke(() => {
+                                    RemainingMessageBox.Tell($"{FindResourceString("FailedToCreateDirectory")} {drPath}/{dir.Name}:{ex.Message}");
+                                });
+                            }
                         }
-                        catch (Exception ex) {
-                            Logger.WriteLine($"{nameof(FolderBrowserViewModel)}->{nameof(TraverseSaveDirectory)} Creating Directory:{ex.Message}");
-                            Application.Current.Dispatcher.Invoke(() => {
-                                RemainingMessageBox.Tell($"{FindResourceString("FailedToCreateDirectory")} {drPath}/{dir.Name}:{ex.Message}");
-                            });
+                        if (!direct.IsBackFile() && !direct.IsBackUpFile() && direct.Name != ".." && direct.Name != ".") {
+                            TraverseSaveDirectory(direct, $"{drPath}/{dir.Name}", saveFileFunc, isCancel);
                         }
                     }
-                    if (!direct.IsBackFile() && !direct.IsBackUpFile() && direct.Name != ".." && direct.Name != ".") {
-                        TraverseSaveDirectory(direct, $"{drPath}/{dir.Name}", saveFileFunc, isCancel);
+                    else if (p.Type == FileType.RegularFile) {
+                        saveFileFunc(p as RegularFile, $"{drPath}/{dir.Name}", p.Name);
                     }
                 }
-                else if (p.Type == FileType.RegularFile) {
-                    saveFileFunc(p as RegularFile, $"{drPath}/{dir.Name}", p.Name);
-                }
-            });
+            }
+            
         }
 
         private DelegateCommand _openFileCommand;

@@ -59,7 +59,7 @@ namespace Singularity.UI.ITunes.Models {
                 var part = new ITunesFilePartition() {
                     Name = $"{CaseFile.Name}-{PinKindsDefinitions.GetClassLabel(ForensicClassType)}"
                 };
-                part.Children.AddRange(ownNdList);
+                part.AddChildren(ownNdList);
                 //CaseFile.File,
                 //    ownNdList, $"{CaseFile.Name}-{Name}"
                 

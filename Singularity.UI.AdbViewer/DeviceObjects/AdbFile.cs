@@ -36,6 +36,12 @@ namespace Singularity.UI.AdbViewer.DeviceObjects {
 
         public override long StartLBA => 0;
 
+        public override DateTime? ModifiedTime => DateTime.FromFileTime(AnFile.DateModif);
+
+        public override DateTime? AccessedTime => null;
+
+        public override DateTime? CreateTime => null;
+
         public override Stream GetStream(bool isReadOnly = true) => null;
     }
 
@@ -57,7 +63,7 @@ namespace Singularity.UI.AdbViewer.DeviceObjects {
         public AnFile AnFile { get; }
         
         private List<IFile> _children;
-        public override List<IFile> Children {
+        public override IEnumerable<IFile> Children {
             get {
                 if(_children == null) {
                     LoadContent();
@@ -123,13 +129,13 @@ namespace Singularity.UI.AdbViewer.DeviceObjects {
 
         public List<AnFile> AnFiles { get;  }
         private void LoadContent() {
-            Children.Clear();
+            _children.Clear();
             AnFiles.ForEach(p => {
                 if (p.IsDir) {
-                    Children.Add(new AdbDirectory(p, this));
+                    _children.Add(new AdbDirectory(p, this));
                 }
                 else {
-                    Children.Add(new AdbRegFile(p, this));
+                    _children.Add(new AdbRegFile(p, this));
                 }
                 //switch (p.IsDir) {
                 //    case AnFile.FileType.Directory:
@@ -144,13 +150,13 @@ namespace Singularity.UI.AdbViewer.DeviceObjects {
                 //}
             });
         }
-        public override uint? BlockSize {
-            get {
-                throw new NotImplementedException();
-            }
-        }
-
+        
         public override FileSystemType FSType => FileSystemType.EXT4;
+
+        public List<IFile> _children;
+        public override IEnumerable<IFile> Children => _children;
+
+        public override uint ClusterSize => 0;
     }
 
     /// <summary>
@@ -167,10 +173,10 @@ namespace Singularity.UI.AdbViewer.DeviceObjects {
 
         //备份文件存在本地的目录;
         public DirectoryInfo DirectoryInfo { get; }
-
-        public override uint? BlockSize => null;
-
+        
         public override FileSystemType FSType => FileSystemType.EXT4;
+
+        public override uint ClusterSize => 0;
     }
     
 }

@@ -7,8 +7,8 @@ namespace CDFC.Parse.Abstracts {
         public BlockDeviceFile(BlockDeviceFile parent) {
             this.Parent = parent;
         }
-        
-        public List<IFile> Children { get; protected set; } = new List<IFile>();                   //子文件;
+
+        public virtual IEnumerable<IFile> Children { get; } = new List<IFile>(); //子文件;
 
         public FileType Type {
             get {

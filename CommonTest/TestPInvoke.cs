@@ -9,17 +9,39 @@ using System;
 using CDFC.Util.PInvoke;
 using Microsoft.Win32.SafeHandles;
 using System.Management;
+using CDFC.Parse.Android.DeviceObjects;
+using CDFC.Parse.DeviceObjects;
+using CDFC.Parse.Android.Structs;
+using System.Linq;
 
 namespace CommonTest {
-    
-
     [TestClass]
     public class TestPInvoke {
-        
-
         [TestMethod]
         public void TestFat() {
-            
+            var fs = File.OpenRead("E://fat32.img");
+
+            var device = UnKnownDevice.LoadFromFileStream(fs);
+
+            var stTabInfo = new StPartInfo {
+                PartTabStartLBA = 0,
+                PartTabEndLBA = 1231414
+            };
+            var tabInfoPtr = stTabInfo.GetPtrFromStructure();
+
+            var stTab = new StTabPartInfo {
+                PartInfoPtr = tabInfoPtr
+            };
+            var stTabPtr = stTab.GetPtrFromStructure();
+
+            var tabPartInfo = new TabPartInfo(stTabPtr);
+
+            var part = new FAT32Partition(tabPartInfo,device);
+
+            part.LoadChildren();
+            //            var device = AndroidDevice.LoadFromPath();
+            var direct = part.Children.ElementAt(0) as FAT32Directory;
+            var groups = direct.BlockGroups;
         }
 
         public void TestExplorer() {

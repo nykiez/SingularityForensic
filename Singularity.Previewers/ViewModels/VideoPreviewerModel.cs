@@ -154,7 +154,7 @@ namespace Singularity.Previewers.ViewModels {
             }
             set {
                 SetProperty(ref _maxTimeSpan, value);
-                OnPropertyChanged(nameof(MaxTimeLength));
+                RaisePropertyChanged(nameof(MaxTimeLength));
             }
         }
         public double MaxTimeLength => MaxTimeSpan.TotalSeconds;

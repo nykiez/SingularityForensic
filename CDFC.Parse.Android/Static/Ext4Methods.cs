@@ -1,14 +1,32 @@
 ﻿using CDFC.Parse.Android.Structs;
 using CDFC.Parse.Contracts;
+using CDFC.Util.PInvoke;
+using EventLogger;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
-using static CDFC.Parse.Android.Static.CCommonMethods;
-using EventLogger;
 using System.Runtime.ExceptionServices;
-using CDFC.Util.PInvoke;
+using System.Runtime.InteropServices;
 
 namespace CDFC.Parse.Android.Static {
-    public static class InodeBlockMethods {
+    internal static class Ext4Methods {
+        internal const string EXT4Assembly = "cdfcqd.dll";
+
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Cflabqd_Partition_Init(IntPtr ST_PartTabInfo,SafeFileHandle handle);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Cflabqd_Get_InodeInfo(uint N_Inode);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Cflabqd_Get_BlockList(IntPtr ST_Ext4Inode);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Cflabqd_Parse_Dir(IntPtr stBlockList);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Cflabqd_InodeInfo_Free(IntPtr ST_Ext4Inode);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Cflabqd_BlockList_Free(IntPtr ST_BlockList);
+        [DllImport(EXT4Assembly, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Cflabqd_Dir_Free(IntPtr ST_DirDntry);
+
         /// <summary>
         /// 通过Inode号解析出inode,块链表;
         /// </summary>
@@ -18,10 +36,10 @@ namespace CDFC.Parse.Android.Static {
         /// <param name="stDirEntry">需输出的文件结构(自定义)</param>
         /// <param name="stExt4DirEntry">需输出的文件结构(原生)</param>
         [HandleProcessCorruptedStateExceptions]
-        public static void ParseByDirEntryPtr(
+        internal static void ParseByDirEntryPtr(
             IntPtr stDirEntryPtr,
             out StDirEntry? stDirEntry,
-            
+
             out StExt4DirEntry? stExt4DirEntry,
 
             out IntPtr stExt4InodePtr,
@@ -45,18 +63,18 @@ namespace CDFC.Parse.Android.Static {
                 //if (stExt4DirEntry.Value.inode == 113880) {
 
                 //}
-                if(stExt4DirEntry.Value.inode == 0) {
+                if (stExt4DirEntry.Value.inode == 0) {
                     return;
                 }
                 stExt4InodePtr = Cflabqd_Get_InodeInfo(stExt4DirEntry.Value.inode);         //加载Inode,BlockList;
-                
+
                 if (stExt4InodePtr == IntPtr.Zero) {
                     return;
                 }
 
                 stBlockListPtr = Cflabqd_Get_BlockList(stExt4InodePtr);                     //加载Inode,BlockList;
                 stExt4Inode = stExt4InodePtr.GetStructure<StExt4Inode>();                              //获取INode信息;
-                
+
                 if (stBlockListPtr != IntPtr.Zero) {                                            //获取BlockList信息;
                     for (var stBlockNode = stBlockListPtr; stBlockNode != IntPtr.Zero;) {
                         var stBlock = stBlockNode.GetStructure<StBlockList>();
@@ -72,10 +90,10 @@ namespace CDFC.Parse.Android.Static {
                 }
 
                 //Cflabqd_InodeInfo_Free(stExt4InodePtr);                                         //释放inode信息;
-                
+
             }
-            catch(Exception ex) {
-                Logger.WriteLine($"{nameof(InodeBlockMethods)}->{nameof(ParseByDirEntryPtr)}:{ex.Message}");
+            catch (Exception ex) {
+                Logger.WriteLine($"{nameof(Ext4Methods)}->{nameof(ParseByDirEntryPtr)}:{ex.Message}");
                 bGroups = bGroups ?? new List<BlockGroup>();
                 stExt4Inode = stExt4Inode ?? new StExt4Inode();
                 stDirEntry = stDirEntry ?? new StDirEntry();
@@ -102,8 +120,8 @@ namespace CDFC.Parse.Android.Static {
             IntPtr stExt4InodePtr = IntPtr.Zero;
 
             ParseByDirEntryPtr(stDirEntryPtr,
-                                out stDirEntry, 
-                                
+                                out stDirEntry,
+
                                 out stExt4DirEntry,
 
                                 out stExt4InodePtr,

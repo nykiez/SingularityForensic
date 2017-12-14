@@ -4,21 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using CDFC.Parse.Android.Structs;
 using EventLogger;
-using static CDFC.Parse.Android.Static.CCommonMethods;
+using static CDFC.Parse.Android.Static.Ext4Methods;
 using CDFC.Util.PInvoke;
 using CDFC.Parse.Abstracts;
-using static CDFC.Parse.Android.Static.InodeBlockMethods;
+using static CDFC.Parse.Android.Static.Ext4Methods;
 using System.Runtime.ExceptionServices;
 using CDFC.Parse.Android.Contracts;
 
 namespace CDFC.Parse.Android.DeviceObjects {
     //安卓目录;
-    public partial class AndroidDirectory : Directory,IBlockGroupedFile {
+    public partial class AndroidDirectory : Directory , IExt4Node {
         /// <summary>
         /// 安卓目录结构;
         /// </summary>
         /// <param name="stDirEntryPtr">目录结构指针</param>
-        public AndroidDirectory(IntPtr stDirEntryPtr, IFile parent):base(parent) {
+        public AndroidDirectory(IntPtr stDirEntryPtr, IIterableFile parent):base(parent) {
             if (parent == null)
                 throw new ArgumentNullException(nameof(parent));
 
@@ -40,15 +40,8 @@ namespace CDFC.Parse.Android.DeviceObjects {
             }
         }
 
-        private List<BlockGroup> blockGroups;                                           //目录块组;
-        public  List<BlockGroup> BlockGroups {
-            get {
-                if (blockGroups == null) {
-                    //LoadChildren();
-                }
-                return blockGroups;
-            }
-        }
+        private List<BlockGroup> _blockGroups;                                           //目录块组;
+        public override IEnumerable<BlockGroup> BlockGroups => _blockGroups;
 
         private long? startLBA;                                                         //目录起始位置;
         public override long StartLBA {
@@ -70,7 +63,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         internal void LoadChildren(Action<long> ntfSizeAct = null,Func<bool> isCancel = null) {                                               //加载子内容以及相关内容;
             if (IsOwnCreate) { return; }                                            //假若是虚构，直接返回;
 
-            blockGroups = null;
+            _blockGroups = null;
             children = new List<IFile>();
 
             if (stDirEntryPtr != IntPtr.Zero && Parent != null) {
@@ -89,13 +82,13 @@ namespace CDFC.Parse.Android.DeviceObjects {
                                         out stExt4Inode,
 
                                         out stBlockListPtr,
-                                        out blockGroups);  //解析inode,blockList等;
+                                        out _blockGroups);  //解析inode,blockList等;
                     
                     deleted = stDirEntry?.bDel;
                     name = stExt4DirEntry.Value.name;                               //加载名称;
                     var superBlock = partition.TabPartInfo.SuperBlockInfo;          //确定startLBA;
                     if(superBlock != null && superBlock.StSuperBlock != null) {
-                        var firstBlock = blockGroups.FirstOrDefault();
+                        var firstBlock = _blockGroups.FirstOrDefault();
                         if (firstBlock != null) {
                             startLBA = superBlock.StSuperBlock.Value.s_log_block_size * //块大小 = 2 ^ (10 + s_long_block_size)
                                 2048 * firstBlock.BlockAddress;                       //块序号;
@@ -115,14 +108,14 @@ namespace CDFC.Parse.Android.DeviceObjects {
                                 var dirEntity = dirTab.DirInfo.GetStructure<StExt4DirEntry>();
 
                                 IFile file = null;
-                                if (dirEntity.file_type == 2) {
+                                if (dirEntity.file_type == Ext4FileType.Directory) {
                                     var direct = new AndroidDirectory(stChildrenDirNode, this);
                                     if (!dirTab.bDel) {
                                         direct.LoadChildren(ntfSizeAct,isCancel);
                                     }
                                     file = direct;
                                 }
-                                else if (dirEntity.file_type == 1) {
+                                else if (dirEntity.file_type == Ext4FileType.RegularFile) {
                                     var regFile = new AndroidRegFile(stChildrenDirNode, this);
                                     file = regFile;
                                 }
@@ -164,13 +157,14 @@ namespace CDFC.Parse.Android.DeviceObjects {
             }
         }
 
-        public bool IsOwnCreate { get; }                                               //是否虚构;
         
+        
+        //创建同胞目录".";
         private static AndroidDirectory CreateSiblingDirect(IFile bro) {
             if (bro != null && bro.Parent != null) {
                 var itrFile = bro.Parent as IIterableFile;
                 var direct = new AndroidDirectory {
-                    children = itrFile?.Children,
+                    children = new List<IFile>(itrFile?.Children),
                     name = "."
                 };
                 return direct;
@@ -183,11 +177,16 @@ namespace CDFC.Parse.Android.DeviceObjects {
         }
 
         
+        /// <summary>
+        /// 创建".."目录;
+        /// </summary>
+        /// <param name="son"></param>
+        /// <returns></returns>
         private AndroidDirectory CreateParentDirect(IFile son) {
             if (son != null) {
                 var itrFile = son as IIterableFile;
                 var direct = new AndroidDirectory {
-                    children = itrFile?.Children,
+                    children = new List<IFile>(itrFile?.Children),
                     name = ".."
                 };
                 return direct;
@@ -199,45 +198,15 @@ namespace CDFC.Parse.Android.DeviceObjects {
 
         //目录名称;
         private string name;
-        public override string Name {                                               
-            get {
-                if (name == null) {
-                    LoadChildren();
-                }
-                return name;
-            }
-        }                       
+        public override string Name => name;
 
-        private List<IFile> children;           //子文件节点(包含子目录);
-        public override List<IFile> Children {
-            get {
-                if (children == null || children.Count == 0) {
-                    if(name == ".") {
-                        return (Parent as IIterableFile).Children;
-                    }
-                    else if(name == "..") {
-                        return (Parent.Parent as IIterableFile).Children;
-                    }
-                    else {
-                        LoadChildren();
-                    }
-                }
-                return children;
-            }
-        }
+        internal List<IFile> children;           //子文件节点(包含子目录);
+        public override IEnumerable<IFile> Children => children;
         
         //public IFile Parent { get;  }                            //从属父文件(兼容接口);
             
         private bool? deleted;                                              //是否被删除;
-        public override bool? Deleted { 
-            get {
-                if (deleted == null) {
-                    LoadChildren();
-                }
-
-                return deleted;
-            }
-        }
+        public override bool? Deleted => deleted;
 
 
         private DateTime? modifiedTime;
@@ -277,7 +246,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         }
     }
 
-    public partial class AndroidDirectory : IExt4Node {
+    public partial class AndroidDirectory {
         private StDirEntry? stDirEntry;
         //文件入口结构(自定义结构);
         public StDirEntry? StDirEntry {

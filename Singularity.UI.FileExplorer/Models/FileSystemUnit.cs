@@ -10,6 +10,7 @@ using Singularity.Contracts.FileExplorer;
 using Singularity.Contracts.FileSystem;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using static CDFCCultures.Managers.ManagerLocator;
 
 namespace Singularity.UI.FileExplorer.Models {
@@ -43,16 +44,17 @@ namespace Singularity.UI.FileExplorer.Models {
                     _children = new ObservableCollection<ITreeUnit>();
                     if (CaseFile is IHaveCaseFiles itrCFile) {
                         if (itrCFile.InnerCaseFiles != null) {
+                            var partIndex = 0;
                             foreach (var cFile in itrCFile.InnerCaseFiles) {
                                 if (cFile is PartitionCaseFile pcFile) {
                                     var pUnit = new CaseEvidenceUnit<PartitionCaseFile>(pcFile, this) {
-                                        Label = cFile.Name,
+                                        Label = $"{FindResourceString("PartitionUnitLabel")}{partIndex}({pcFile.Name})",
                                         Icon = IconResources.PartUnitIcon
                                     };
                                     var children = pUnit.Children ?? (pUnit.Children = new ObservableCollection<ITreeUnit>());
                                     foreach (var file in pcFile.Partition.Children) {
                                         if (file is Directory dir && !dir.IsBackFile() && !dir.IsBackUpFile()) {
-                                            children.Add(new StorageTreeUnit(file, pUnit,FsExpServiceProvider));
+                                            children.Add(new StorageTreeUnit(file, pUnit, FsExpServiceProvider));
                                         }
                                     }
                                     pUnit.ContextCommands = new ObservableCollection<ICommandItem> {
@@ -84,8 +86,11 @@ namespace Singularity.UI.FileExplorer.Models {
                                 }
                                     };
                                     _children.Add(pUnit);
+                                    partIndex++;
                                 }
+
                             }
+                           
                         }
                     }
 

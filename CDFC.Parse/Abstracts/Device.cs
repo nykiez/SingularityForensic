@@ -34,7 +34,7 @@ namespace CDFC.Parse.Abstracts {
                 var partArgs = args.ToList().GetRange(1,args.Length - 1);
 
                 var partIndex = int.Parse(args[0]);
-                return (device.Children[partIndex] as Partition).GetFileByUrl(partArgs.ToArray()); 
+                return (device.Children.ElementAt(partIndex) as Partition).GetFileByUrl(partArgs.ToArray()); 
             }
             catch(Exception ex) {
                 EventLogger.Logger.WriteCallerLine(ex.Message);

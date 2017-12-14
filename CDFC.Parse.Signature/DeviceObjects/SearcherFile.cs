@@ -61,8 +61,13 @@ namespace CDFC.Parse.Signature.DeviceObjects {
             }
         }
         public IFile RealParent { get; private set; }                       //亲生爸爸;
-        
-        
+
+        public override DateTime? ModifiedTime => null;
+
+        public override DateTime? AccessedTime => null;
+
+        public override DateTime? CreateTime => null;
+
         public void SetParent(IIterableFile parent) {
             if(Parent is SearcherPartition) {
                 this.RealParent = Parent;

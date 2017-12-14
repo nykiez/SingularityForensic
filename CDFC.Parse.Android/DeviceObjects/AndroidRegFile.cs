@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using EventLogger;
 using System.Linq;
-using static CDFC.Parse.Android.Static.InodeBlockMethods;
+using static CDFC.Parse.Android.Static.Ext4Methods;
 using System.Runtime.ExceptionServices;
 using CDFC.Parse.Android.Contracts;
 using System.Text;
@@ -19,7 +19,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         /// </summary>
         ///<param name="parent">父文件</param>
         ///<param name="stDirEntryPtr">文件结构(自定义)指针</param>
-        public AndroidRegFile(IntPtr stDirEntryPtr, IFile parent):base(parent) {
+        public AndroidRegFile(IntPtr stDirEntryPtr, IIterableFile parent):base(parent) {
             this.stDirEntryPtr = stDirEntryPtr;
         }
 
@@ -72,7 +72,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         //    }
         //}
         private List<BlockGroup> blockGroups;                           //文件块组;
-        public List<BlockGroup> BlockGroups {
+        public override IEnumerable<BlockGroup> BlockGroups {
             get {
                 if (blockGroups == null) {
                     LoadContent();
@@ -120,7 +120,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         /// 加载相关信息,子文件,LBA等;
         /// </summary>
         [HandleProcessCorruptedStateExceptions]
-        public void LoadContent() {
+        internal void LoadContent() {
             blockGroups = new List<BlockGroup>();
             startLBA = 0;
 
@@ -133,7 +133,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
 
                 try {
                     var device = this.GetParent<AndroidDevice>();
-                    CCommonMethods.Cflabqd_Partition_Init(partition.TabPartInfo.StTabPartInfoPtr,device.Handle);
+                    Ext4Methods.Cflabqd_Partition_Init(partition.TabPartInfo.StTabPartInfoPtr,device.Handle);
                     ParseByDirEntryPtr(stDirEntryPtr, out stDirEntry,
                         out stExt4DirEntry,
                         out stExt4Inode,

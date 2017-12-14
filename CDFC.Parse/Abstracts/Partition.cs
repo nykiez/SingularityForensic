@@ -1,4 +1,5 @@
 ﻿using CDFC.Parse.Contracts;
+using CDFC.Util.IO;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,19 +14,28 @@ namespace CDFC.Parse.Abstracts {
         public Partition(Device parent):base(parent) {
         }
         
-        public long StartLBA { get; protected set; }      //起始LBA(相对设备);
-        
-        public long EndLBA { get; protected set; }        //终止LBA(相对设备);
-        
-        public override long Size {
-            get {
-                return EndLBA - StartLBA + 1;
-            }
-        }
+        public virtual long StartLBA { get; protected set; }      //起始LBA(相对设备);
 
-        public abstract uint? BlockSize { get;  }                             //簇大小;
-        public abstract FileSystemType FSType { get; }              //文件系统类型;
+        public override long Size => 0;
+
+        public long EndLBA => StartLBA + Size;
+
         
+        public abstract FileSystemType FSType { get; }              //文件系统类型;
+
+        public virtual Stream GetStream(bool isReadOnly = true) {
+            var device = this.GetParent<Device>();
+            if (device != null) {
+                return InterceptStream.CreateFromStream(device.Stream, StartLBA, EndLBA);
+            }
+            else {
+                EventLogger.Logger.WriteCallerLine($"{nameof(device)} can't be null!");
+                return null;
+            }
+            
+        }
+        
+        public abstract uint ClusterSize { get; }
     }
 
     /// <summary>

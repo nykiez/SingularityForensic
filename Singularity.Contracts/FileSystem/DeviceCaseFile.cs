@@ -253,11 +253,11 @@ namespace Singularity.Contracts.Case {
                         $"{sb.ToString()}{StringHelpers.CleanInvalidXmlChars(file.Name)}");
                     var rangesElem = new XElement(XName.Get("Ranges"));
                     long gotSize = 0;
-                    if (regFile is IBlockGroupedFile blockGroupedFile) {
-                        blockGroupedFile.BlockGroups.ForEach(g => {
+                    if (regFile is IBlockGroupedFile blockGroupedFile) {    
+                        foreach (var g in blockGroupedFile.BlockGroups) {
                             var rangeElem = new XElement(XName.Get("Range"));
-                            rangeElem.SetAttributeValue(XName.Get("StartLBA"), g.BlockAddress * (part.BlockSize ?? 4096) + part.StartLBA);
-                            if (gotSize + g.Count * (part.BlockSize ?? 4096) > file.Size) {
+                            rangeElem.SetAttributeValue(XName.Get("StartLBA"), g.BlockAddress * (part.ClusterSize) + part.StartLBA);
+                            if (gotSize + g.Count * (part.ClusterSize) > file.Size) {
                                 if (file.Size >= gotSize) {
                                     rangeElem.SetAttributeValue(XName.Get("Length"), file.Size - gotSize);
                                 }
@@ -267,12 +267,13 @@ namespace Singularity.Contracts.Case {
                                 }
                             }
                             else {
-                                rangeElem.SetAttributeValue(XName.Get("Length"), g.Count * (part.BlockSize ?? 4096));
+                                rangeElem.SetAttributeValue(XName.Get("Length"), g.Count * (part.ClusterSize));
                             }
 
                             rangesElem.Add(rangeElem);
-                            gotSize += g.Count * (part.BlockSize ?? 4096);
-                        });
+                            gotSize += g.Count * (part.ClusterSize);
+                        }
+                        
                     }
 
                     elem.Add(rangesElem);

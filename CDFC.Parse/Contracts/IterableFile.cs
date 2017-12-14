@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CDFC.Parse.Contracts {
     //具有子文件的文件;
     public interface IIterableFile : IFile {
-        List<IFile> Children { get; }       //子文件;
+        IEnumerable<IFile> Children { get; }       //子文件;
     }
 
     public static class IIterableHelper{
@@ -32,7 +32,14 @@ namespace CDFC.Parse.Contracts {
             if(itrFile == null && itrFile.Children == null) {
                 return -1;
             }
-            return itrFile.Children.IndexOf(file);
+            var idx = 0;
+            foreach (var item in itrFile.Children) {
+                if(item == file) {
+                    return idx;
+                }
+                idx++;
+            }
+            return -1;
         }
 
         /// <summary>

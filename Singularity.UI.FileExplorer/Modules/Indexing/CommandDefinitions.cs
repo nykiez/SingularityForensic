@@ -20,6 +20,7 @@ using Singularity.Contracts.Shell;
 using CDFC.Parse.Signature.DeviceObjects;
 using CDFC.Parse.Signature.Pictures;
 using Singularity.Contracts.FileExplorer;
+using CDFCCultures.Helpers;
 
 namespace Singularity.UI.FileExplorer.Modules.Indexing {
     public static class CommandDefinitions {
@@ -82,7 +83,7 @@ namespace Singularity.UI.FileExplorer.Modules.Indexing {
                 var dialog = new ProgressMessageBox();
                 dialog.WindowTitle = FindResourceString("SignSearch");
 
-                var part = new SearcherPartition(device, blDevice, startLBA, endLBA, $"{blDevice.Name}-{FindResourceString("SignSearch")}");
+                SearcherPartition part = null;
 
                 dialog.DoWork += (sender, e) => {
                     var searcher = new SignSearcher(device.Stream, setting.KeyWord, setting.MaxSize, setting.SectorSize, setting.SecStartLBA);
@@ -113,15 +114,15 @@ namespace Singularity.UI.FileExplorer.Modules.Indexing {
                         if (ndList?.Count != 0) {
                             shfileList.AddRange(ndList.Select(p => new SearcherFile(part, p)));
                         }
-                        shfileList.ForEach(p => {
-                            fileList.Add(p);
-                        });
+                        fileList.AddRange(shfileList);
+
+                        part = SearcherPartition.LoadFromNodeList(device,ndList,
+                            $"{blDevice.Name}-{FindResourceString("SignSearch")}(${ByteConverterHelper.ByteToHex(setting.KeyWord)})");
                     }
                     catch (Exception ex) {
                         Logger.WriteLine($"{nameof(CommandDefinitions)} -> {nameof(RecoverSign)}:{ex.Message}");
                     }
                     finally {
-                        part.Children.AddRange(fileList);
                         searcher.Dispose();
                     }
                 };

@@ -2,18 +2,19 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using EventLogger;
 
 namespace CDFC.Parse.Abstracts {
     /// <summary>
     /// 目录类型;
     /// </summary>
-    public abstract class Directory: IIterableFile,ITimeable {
+    public abstract class Directory: IIterableFile,ITimeable,IBlockGroupedFile {
         public Directory(IFile parent) {
             this.Parent = parent;
         }
         public abstract string Name { get; }                          //路径名;
         public FileType Type => FileType.Directory;                 //文件类型为目录;
-        public abstract List<IFile> Children { get; }               //子文件;
+        public abstract IEnumerable<IFile> Children { get; }               //子文件;
 
         public IFile Parent { get; }                           //父文件;
 
@@ -27,9 +28,22 @@ namespace CDFC.Parse.Abstracts {
         public abstract DateTime? AccessedTime { get; }             //最后访问时间;
         public abstract DateTime? CreateTime { get; }               //创建时间;
 
-        public virtual IEnumerable<RegularFile> GetFiles() => 
-            Children?.Where(p => p.Type == FileType.RegularFile).Select(p => p as RegularFile);
+        public virtual IEnumerable<BlockGroup> BlockGroups { get; }
 
+        
+        public bool IsOwnCreate { get; protected set; }              //是否虚构("."以及"..");
 
+        public virtual long ClusterSize {
+            get {
+                var part = this.GetParent<Partition>();
+                if(part != null) {
+                    return part.ClusterSize;
+                }
+                else {
+                    return 4096;
+                }
+                
+            }
+        }
     }
 }

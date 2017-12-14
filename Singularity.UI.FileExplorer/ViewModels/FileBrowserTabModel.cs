@@ -1,8 +1,9 @@
-﻿using Singularity.Contracts.TabControl;
+﻿using Singularity.Contracts.FileExplorer;
+using Singularity.Contracts.TabControl;
 using Singularity.UI.FileExplorer.Views;
 
 namespace Singularity.UI.FileExplorer.ViewModels {
-    public class FileBrowserTabModel : ExtTabModel<FileBrowserViewModel> {
+    public class FileBrowserTabModel : ExtTabModel<IFileBrowserDataContext> {
         public FileBrowserTabModel(FileBrowserViewModel vm):base(vm,string.Empty) {
             Content = new FileBrowser() { DataContext = vm };
             Title = vm.Header;

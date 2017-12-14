@@ -24,7 +24,7 @@ namespace Singularity.Android.Models {
             var elements = xElem.Elements(RootElemName);
             foreach (var elem in elements) {
                 try {
-                    if (device.Children[int.Parse(elem.Element(nameof(PartitionCaseFile.PartitionID)).Value)]
+                    if (device.Children.ElementAt(int.Parse(elem.Element(nameof(PartitionCaseFile.PartitionID)).Value))
                         is Partition part) {
                         _children.Add(new PartitionCaseFile(part, elem));
                     }
@@ -46,16 +46,15 @@ namespace Singularity.Android.Models {
             base(device, nameof(AndroidDevice), device.Name, interLabel, dateAdded) {
             //加入子案件文件;
             var partID = 0;
-            
-            device.Children.ForEach((Action<CDFC.Parse.Contracts.IFile>)(p => {
+
+            foreach (var p in device.Children) {
                 if (p is Partition part) {
                     var pFile = new PartitionCaseFile(part, $"{interLabel}-{part.Name}", dateAdded, partID++);
                     XElem.Add(pFile.XElem);
                     //.Add(pFile.Data);
                     _children.Add(pFile);
                 }
-            }));
-
+            }
         }
 
         private List<ICaseEvidence> _children = new List<ICaseEvidence>();

@@ -16,7 +16,7 @@ using Singularity.Contracts.Case.Events;
 using Singularity.Contracts.Shell;
 using Singularity.Contracts.Common;
 
-namespace Singularity.UI.Case.Global.Services {
+namespace Singularity.UI.Case.Services {
     [Export(typeof(ICaseService))]
     public class CaseService:ICaseService {
         [ImportMany]
