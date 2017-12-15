@@ -24,15 +24,15 @@ namespace Singularity.Contracts.TabControl {
         //}
 
         //The command will be executed while Close Button clicked ;
-        //private DelegateCommand _closeCommand;
-        //public DelegateCommand CloseCommand =>
-        //    _closeCommand ?? (_closeCommand = new DelegateCommand(() => {
-        //        if (ConfirmToClose()) {
-        //            var fsTabService = ServiceLocator.Current.GetInstance<IDocumentTabService>();
-        //            fsTabService?.CloseTab(this);
-        //            this.Dispose();
-        //        }
-        //    }));
+        private DelegateCommand _closeCommand;
+        public DelegateCommand CloseCommand =>
+            _closeCommand ?? (_closeCommand = new DelegateCommand(() => {
+                if (ConfirmToClose()) {
+                    var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
+                    fsTabService?.CloseTab(this);
+                    this.Dispose();
+                }
+            }));
 
         //private CommandItem _closeCmItem;
         //public CommandItem CloseCmItem => _closeCmItem ??

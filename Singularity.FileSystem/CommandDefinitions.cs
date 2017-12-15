@@ -106,6 +106,7 @@ namespace Singularity.UI.FileSystem {
                     
                     if(file == null) {
                         file = DefaultFileSystemProvider.StaticInstance.StreamFileParser.ParseStream(stream, tuple => { }, () => msg.CancellationPending);
+                        fsProvider = DefaultFileSystemProvider.StaticInstance;
                     }
 
                     loadRes = LoadRes.Succeed;

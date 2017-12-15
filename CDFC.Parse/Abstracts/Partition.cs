@@ -26,7 +26,7 @@ namespace CDFC.Parse.Abstracts {
         public virtual Stream GetStream(bool isReadOnly = true) {
             var device = this.GetParent<Device>();
             if (device != null) {
-                return InterceptStream.CreateFromStream(device.Stream, StartLBA, EndLBA);
+                return InterceptStream.CreateFromStream(device.Stream, StartLBA, Size);
             }
             else {
                 EventLogger.Logger.WriteCallerLine($"{nameof(device)} can't be null!");

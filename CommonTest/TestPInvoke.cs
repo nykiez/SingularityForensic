@@ -19,13 +19,22 @@ namespace CommonTest {
     public class TestPInvoke {
         [TestMethod]
         public void TestFat() {
-            var fs = File.OpenRead("E://fat32.img");
+            var part = GetFAT();
+            //            var device = AndroidDevice.LoadFromPath();
+            var direct = part.Children.ElementAt(0) as FAT32Directory;
+            var groups = direct.BlockGroups;
+        }
+
+        private const string ImgPath = "G:/MobileImgs/Honor/mmcblk0";
+
+        private FAT32Partition GetFAT() {
+            var fs = File.OpenRead(ImgPath);
 
             var device = UnKnownDevice.LoadFromFileStream(fs);
 
             var stTabInfo = new StPartInfo {
-                PartTabStartLBA = 0,
-                PartTabEndLBA = 1231414
+                PartTabStartLBA = 201326592,
+                
             };
             var tabInfoPtr = stTabInfo.GetPtrFromStructure();
 
@@ -34,14 +43,22 @@ namespace CommonTest {
             };
             var stTabPtr = stTab.GetPtrFromStructure();
 
+            
             var tabPartInfo = new TabPartInfo(stTabPtr);
 
-            var part = new FAT32Partition(tabPartInfo,device);
+            var part = new FAT32Partition(tabPartInfo, device);
+
+            Marshal.FreeHGlobal(stTabPtr);
 
             part.LoadChildren();
-            //            var device = AndroidDevice.LoadFromPath();
-            var direct = part.Children.ElementAt(0) as FAT32Directory;
-            var groups = direct.BlockGroups;
+
+            return part;
+        }
+
+        [TestMethod]
+        public void TestFatIntercept() {
+            var part = GetFAT();
+            var stream = part.GetStream();
         }
 
         public void TestExplorer() {

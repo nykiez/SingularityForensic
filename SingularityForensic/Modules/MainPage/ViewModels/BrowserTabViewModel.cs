@@ -38,7 +38,8 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
         }
 
         //选定的浏览集合;
-        public ObservableCollection<TabModel> BrowserItems { get; set; } = new ObservableCollection<TabModel>();
+        public ObservableCollection<TabModel> BrowserItems { get;
+            set; } = new ObservableCollection<TabModel>();
         
         private TabModel selectedBrowserItem;
         public TabModel SelectedBrowserItem {

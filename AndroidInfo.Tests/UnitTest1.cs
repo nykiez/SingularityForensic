@@ -130,7 +130,9 @@ namespace AndroidInfo.Tests {
             var csService = ServiceProvider.Current.GetInstance<ICaseService>();
             foreach (var item in csService.CurrentCase.CaseEvidences) {
                 
-            } 
+            }
+            var part = s.fsProvider.OpenFile(s.evidence, "0/");
+            var s2 = part.Children;
         }
 
 

@@ -46,7 +46,7 @@ namespace Singularity.Contracts.FileSystem {
         public IEnumerable<FSFile> Children {
             get {
                 if(File is IIterableFile itrFile){
-                    itrFile.Children.Select(p => new FSFile(p));
+                    return itrFile.Children.Select(p => new FSFile(p));
                 }
 
                 return null;
