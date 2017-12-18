@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 
 namespace Singularity.Contracts.Case {
+    //案件契约;
     public interface ICase {
         //案件名称;
         string CaseName { get; set; }
