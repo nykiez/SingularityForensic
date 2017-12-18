@@ -1,4 +1,5 @@
 ﻿namespace Singularity.Contracts.Case {
+    //案件服务契约;
     public interface ICaseService {
         void CreateCase();
         bool ConfirmCaseLoaded();

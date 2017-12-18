@@ -1,8 +1,10 @@
 ﻿using CDFCUIContracts.Models;
 using Singularity.Contracts.Case;
+using Singularity.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,7 +24,7 @@ namespace Singularity.Contracts.Forensic {
         void StartForensic(ICaseEvidence csEvidence,IEnumerable<string> itemsGuids,
             Action<(string guid,int percentage,string word)> extractingHandler = null,
             Func<bool> isCanceld = null,
-            Func<(string errCode,string errWord),bool> errHandler = null);
+            Func<(string errCode,string errWord, bool needRetry),bool> errHandler = null);
 
         /// <summary>
         /// 获得取证信息结果节点;
@@ -49,10 +51,12 @@ namespace Singularity.Contracts.Forensic {
         public void StartForensic(ICaseEvidence csEvidence, IEnumerable<string> itemsGuids,
             Action<(string guid, int percentage, string word)> handler = null,
             Func<bool> isCanceld = null,
-            Func<(string errCode, string errWord), bool> errHandler = null) {
+            Func<(string errCode, string errWord,bool needRetry), bool> errHandler = null) {
             if(itemsGuids == null) {
                 throw new ArgumentNullException(nameof(itemsGuids));
             }
+
+            
 
             foreach (var guid in itemsGuids) {
                 for (int i = 0; i < 20; i++) {
@@ -64,8 +68,11 @@ namespace Singularity.Contracts.Forensic {
                 }
             }
 
-            //保存结果动作;
-
+            //保存结果动作,在使用持久化时需使用案件服务;
+            var csService = ServiceProvider.Current.GetInstance<ICaseService>();
+            if (csEvidence != null) {
+                File.WriteAllText($"{csService.CurrentCase.Path}/{csEvidence.BasePath}/res.bin", $"这是{DateTime.Now}保存的案件结果");
+            }
         }
 
         public void Uninstall() => throw new NotImplementedException();
