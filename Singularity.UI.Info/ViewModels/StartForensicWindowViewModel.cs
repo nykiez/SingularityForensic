@@ -18,10 +18,10 @@ namespace Singularity.UI.Info.ViewModels {
     /// <summary>
     /// 开始取证窗体视图模型;
     /// </summary>
-    /// <typeparam name="TCaseFile"></typeparam>
-    public abstract partial class StartForensicWindowViewModel<TCaseFile>:BindableBase where TCaseFile:ICaseEvidence {
+    /// <typeparam name="TCaseEvidence"></typeparam>
+    public abstract partial class StartForensicWindowViewModel<TCaseEvidence>:BindableBase where TCaseEvidence:ICaseEvidence {
         public StartForensicWindowViewModel(IEnumerable<CheckGroupTreeItem> groups,
-            IEnumerable<CheckItemTreeItem<TCaseFile>> items) {
+            IEnumerable<CheckItemTreeItem<TCaseEvidence>> items) {
             this.items = items;
             foreach (var group in groups) {
                 CheckGroups.Add(group);
@@ -33,7 +33,7 @@ namespace Singularity.UI.Info.ViewModels {
         //public void Init() {
 
         //}
-        private IEnumerable<CheckItemTreeItem<TCaseFile>> items;
+        private IEnumerable<CheckItemTreeItem<TCaseEvidence>> items;
 
         public ObservableCollection<CheckGroupTreeItem> CheckGroups { get; set; } = new ObservableCollection<CheckGroupTreeItem>();
 
@@ -59,8 +59,8 @@ namespace Singularity.UI.Info.ViewModels {
             
         }
 
-        private TCaseFile _deviceFile;
-        public TCaseFile DeviceFile {
+        private TCaseEvidence _deviceFile;
+        public TCaseEvidence DeviceFile {
             get => _deviceFile;
             set {
                 _deviceFile = value;
@@ -69,14 +69,14 @@ namespace Singularity.UI.Info.ViewModels {
         }
     }
 
-    public abstract partial class StartForensicWindowViewModel<TCaseFile> {
+    public abstract partial class StartForensicWindowViewModel<TCaseEvidence> {
         //确认命令;
         private DelegateCommand _confirmCommand;
         public DelegateCommand ConfirmCommand =>
             _confirmCommand ?? (_confirmCommand = new DelegateCommand(
                 () => {
                     if (!isWorking) {
-                        var checkedItems = new List<CheckItemTreeItem<TCaseFile>>();
+                        var checkedItems = new List<CheckItemTreeItem<TCaseEvidence>>();
                         TraverseItem(item => {
                             if (item.IsChecked) {
                                 checkedItems.Add(item);
@@ -111,7 +111,7 @@ namespace Singularity.UI.Info.ViewModels {
                                             p.StartForensic(() => isCancel);
                                         }
                                         catch (Exception ex) {
-                                            Logger.WriteLine($"{nameof(StartForensicWindowViewModel<TCaseFile>)} ->{nameof(ConfirmCommand)}({p.Name}):{ex.Message}");
+                                            Logger.WriteLine($"{nameof(StartForensicWindowViewModel<TCaseEvidence>)} ->{nameof(ConfirmCommand)}({p.Name}):{ex.Message}");
                                             AppInvoke(() => {
                                                 RemainingMessageBox.Tell(ex.Message);
                                             });
@@ -137,7 +137,7 @@ namespace Singularity.UI.Info.ViewModels {
                             });
                         }
                         catch (Exception ex) {
-                            Logger.WriteLine($"{nameof(StartForensicWindowViewModel<TCaseFile>)} ->{nameof(ConfirmCommand)}:{ex.Message}");
+                            Logger.WriteLine($"{nameof(StartForensicWindowViewModel<TCaseEvidence>)} ->{nameof(ConfirmCommand)}:{ex.Message}");
                         }
                     }
                     _confirmCommand.RaiseCanExecuteChanged();
@@ -152,10 +152,10 @@ namespace Singularity.UI.Info.ViewModels {
         /// 遍历每一个选项;
         /// </summary>
         /// <param name="act"></param>
-        void TraverseItem(Action<CheckItemTreeItem<TCaseFile>> act) {
+        void TraverseItem(Action<CheckItemTreeItem<TCaseEvidence>> act) {
             foreach (var group in CheckGroups) {
                 foreach (var item in group.Children) {
-                    act(item as CheckItemTreeItem<TCaseFile>);
+                    act(item as CheckItemTreeItem<TCaseEvidence>);
                 }
             }
         }

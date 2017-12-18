@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Singularity.Contracts.FileSystem {
+namespace Singularity.Contracts.Case {
     //将流解析为可用文件;
     public interface IStreamFileParser {
         //检查是否为可用流;

@@ -25,6 +25,10 @@ namespace CDFC.Parse.Abstracts {
         /// <returns></returns>
         public static IFile GetFileByUrl(this Device device,string url) {
             try {
+                if (string.IsNullOrEmpty(url)) {
+                    return device;
+                }
+
                 url = url.Replace('\\', '/');
                 if(url == "/") {
                     return device;

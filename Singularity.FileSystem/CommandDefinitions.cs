@@ -74,11 +74,11 @@ namespace Singularity.UI.FileSystem {
             IFile file = null;
             LoadRes loadRes = LoadRes.Init;
             string msgInfo = string.Empty;
-            IFileSystemServiceProvider fsProvider = null;
+            ICaseEvidenceServiceProvider fsProvider = null;
 
             msg.DoWork += (sender, e) => {
                 try {
-                    var serviceProviders = ServiceProvider.Current.GetAllInstances<IFileSystemServiceProvider>();
+                    var serviceProviders = ServiceProvider.Current.GetAllInstances<ICaseEvidenceServiceProvider>();
                     var stream = File.Open(path, FileMode.Open, isreadonly ? FileAccess.Read : FileAccess.ReadWrite, FileShare.ReadWrite);
                     foreach (var provider in serviceProviders) {
                         if (provider.StreamFileParser.CheckIsValid(stream)) {

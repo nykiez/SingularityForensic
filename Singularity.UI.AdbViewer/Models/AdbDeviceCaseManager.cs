@@ -31,12 +31,12 @@ namespace Singularity.UI.AdbViewer.Models {
             var adbFilesElems = cs.XDoc.Root.
                 Element(nameof(SingularityCase.CaseEvidences)).
                 Elements("CaseFile").
-                Where(p => p.Attribute(nameof(StandardCaseFile.Type))?.Value == AdbDeviceCaseFile.AdbCaseFileType);
+                Where(p => p.Attribute(nameof(ICaseEvidence.Type))?.Value == AdbDeviceCaseFile.AdbCaseFileType);
 
             //遍历adb证据文件;寻找容器序列化;
             foreach (var elem in adbFilesElems) {
                 try {
-                    var storageFile = $"{SingularityCase.Current.Path}/{elem.Element(nameof(StandardCaseFile.BasePath)).Value}/{AdbDeviceCaseFile.AdbStorageFile}";
+                    var storageFile = $"{SingularityCase.Current.Path}/{elem.Element(nameof(ICaseEvidence.BasePath)).Value}/{AdbDeviceCaseFile.AdbStorageFile}";
                     var formatter = new BinaryFormatter();
                     using (var fs = File.OpenRead(storageFile)) {
                         var container = formatter.Deserialize(fs) as PhoneFullInfoContainer;

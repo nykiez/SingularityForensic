@@ -1,6 +1,7 @@
 ﻿using CDFC.Parse.Android.DeviceObjects;
 using CDFC.Parse.Contracts;
 using CDFC.Util;
+using Singularity.Contracts.Case;
 using Singularity.Contracts.FileSystem;
 using System;
 using System.IO;

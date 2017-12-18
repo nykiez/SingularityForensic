@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Singularity.Contracts.Case {
-    public interface IHaveCaseFiles {
+    public interface IHaveCaseEvidences {
         //子案件文件(针对分区,分区间隙);
         IEnumerable<ICaseEvidence> InnerCaseFiles { get; }
     }

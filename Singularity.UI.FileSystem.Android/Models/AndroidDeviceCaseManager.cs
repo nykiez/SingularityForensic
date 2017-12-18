@@ -6,7 +6,6 @@ using EventLogger;
 using CDFC.Parse.Abstracts;
 using System.Windows;
 using CDFCMessageBoxes.MessageBoxes;
-using Microsoft.Practices.ServiceLocation;
 using CDFC.Parse.Android.DeviceObjects;
 using CDFC.Parse.DeviceObjects;
 using Singularity.Contracts.Case;
@@ -19,8 +18,8 @@ namespace Singularity.Android.Models {
         public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
             try {
                 var elements = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.XDoc.Root.Element("CaseFiles").
-                    Elements("CaseFile").Where(p => p.Attribute("Type")?.Value == nameof(AndroidDevice)
-                || p.Attribute("Type")?.Value == nameof(UnKnownDevice));
+                    Elements("CaseFile").Where(p => p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Constants.AndroidDeviceImg)
+                || p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Constants.UnKnownDeviceImg));
 
                 foreach (var elem in elements) {
                     try {

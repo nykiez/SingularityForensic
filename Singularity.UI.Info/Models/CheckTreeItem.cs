@@ -119,12 +119,12 @@ namespace Singularity.UI.Info.Models {
     }
 
     //选项;
-    public abstract class CheckItemTreeItem<TCaseFile> :CheckItemTreeItem  where TCaseFile:ICaseEvidence {
+    public abstract class CheckItemTreeItem<TCaseEvidence> :CheckItemTreeItem  where TCaseEvidence:ICaseEvidence {
         public CheckItemTreeItem(CheckGroupTreeItem group) : base(group) {
 
         }
 
-        public virtual void Init(TCaseFile adcFile) {
+        public virtual void Init(TCaseEvidence adcFile) {
             CaseFile = adcFile;
             Pro = 0;
         }
@@ -133,7 +133,7 @@ namespace Singularity.UI.Info.Models {
 
         public int Level { get; set; } = 1;
         
-        public TCaseFile CaseFile { get; protected set; }
+        public TCaseEvidence CaseFile { get; protected set; }
 
         /// <summary>
         /// 由于此处导出的TreeItem实例是唯一的，无法重新构造实例,对于多次取证过程，
@@ -141,7 +141,7 @@ namespace Singularity.UI.Info.Models {
         /// 将不会对于更高的优先级产生任何影响;
         /// </summary>
         public override void Free() {
-            CaseFile = default(TCaseFile);
+            CaseFile = default(TCaseEvidence);
         }
     }
 }

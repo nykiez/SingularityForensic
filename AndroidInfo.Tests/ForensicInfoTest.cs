@@ -7,6 +7,7 @@ using Singularity.Android.Services;
 using Singularity.Contracts.Case;
 using Singularity.Contracts.Common;
 using Singularity.Contracts.FileSystem;
+using Singularity.Contracts.Forensic;
 using Singularity.UI.Case.Services;
 using Singularity.UI.Case.ViewModels;
 using System;
@@ -49,31 +50,18 @@ namespace AndroidInfo.Tests {
     }
 
     [TestClass]
-    public class UnitTest1 {
-        [TestMethod]
-        public void TestCall() {
-            //var vm = new CreateCaseWindowViewModel();
-            //SingularityCase.Current = vm.SingulartityCase;
-            //SingularityCase.Current.Save();
-            //var device = AndroidDevice.LoadFromPath("G:/MobileImgs/Coolpad/mmcblk0", true, tp => {
-            //    Console.WriteLine($"{tp.curSize}/{tp.allSize}");
-            //});
-            //var adv = new AndroidDeviceCaseFile(device, string.Empty, DateTime.Now);
-            //Console.WriteLine($"Building Xml Doc");
-            //SingularityCase.Current.AddNewCaseFile(adv);
-
-            //var tp2 = AdvPythonHelper.GetProcessOutPut(adv, "qq_extract.py");
-
-            //xDoc.Save("new.xml");
-            //Assert.IsTrue(File.Exists(SingularityCase.Current.))
+    public class ForensicInfoTest {
+        //预设MockerProvider;
+        private void SetServiceProvider() {
+            //将mocker设定为当前服务器提供器;
+            Singularity.Contracts.Common.ServiceProvider.SetServiceProvider(MockServiceProvider.StaticInstance);
         }
-        
+
         /// <summary>
         /// 预设案件服务以及Provider;
         /// </summary>
-        private void SetCaseAndProvider() {
-            //将mocker设定为当前服务器提供器;
-            ServiceProvider.SetServiceProvider(MockServiceProvider.StaticInstance);
+        private void SetCaseService() {
+            
 
             //创建案件服务;
             var cvm = new CreateCaseWindowViewModel();
@@ -91,18 +79,18 @@ namespace AndroidInfo.Tests {
             
         }
 
-        
+        //预设文件系统服务器提供者;
+        private void SetFileSystemServiceProvider() {
+            MockServiceProvider.StaticInstance.SetInstance<IFileSystemServiceProvider>(new FileSystemServiceProvider());
+        }
+
         //镜像文件路径;
         const string imgPath = "G:/MobileImgs/Vivo/VIVO.ardimg";
-
         /// <summary>
-        /// 本方法获得将加载一个镜像并提供对应的文件系统服务与对应案件文件远足;
+        /// 本方法获得将加载一个镜像文件到案件中;
         /// </summary>
         /// <returns></returns>
-        public (IFileSystemServiceProvider fsProvider,ICaseEvidence evidence) GetAndroidDeviceFileSystemServiceProvider() {
-            //预设案件服务以及Provider;
-            SetCaseAndProvider();
-
+        public ICaseEvidence GetAdCaseEvidence() {
             //加载一个镜像文件;
             var device = AndroidDevice.LoadFromPath(imgPath,true,tuple => {
                 //Debug.WriteLine($"{tuple.curSize}/{tuple.allSize}");
@@ -112,27 +100,41 @@ namespace AndroidInfo.Tests {
             //加载至案件中;
             var adEvidence = new AndroidDeviceCaseEvidence(device, imgPath, DateTime.Now);
             ServiceProvider.Current.GetInstance<ICaseService>().AddNewCaseFile(adEvidence);
-
-
-            var file = AndroidDeviceFileSystemServiceProvider.StaticInstance.OpenFile(adEvidence,"1/");
+            
+            var file = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>()?.OpenFile($"{adEvidence.GUID}/1/");
 
             Assert.AreEqual(file.File, device.Children.ElementAt(1));
 
             
 
-            return (AndroidDeviceFileSystemServiceProvider.StaticInstance, adEvidence);
+            return adEvidence;
             //new AndroidDeviceCaseFile
         }
 
+        /// <summary>
+        /// 本方法将设立ServiceProvider，案件，文件系统服务，并加载一个来自imgPath的镜像到案件中;
+        /// 以提供测试所需数据源;
+        /// </summary>
         [TestMethod]
-        public void TestAdFsServiceProvider() {
-            var s = GetAndroidDeviceFileSystemServiceProvider();
+        public void TestAdServiceProvider() {
+            //预设ServiceProvider,案件服务以及文件系统服务;
+            SetServiceProvider();
+            SetCaseService();
+            SetFileSystemServiceProvider();
+            //加载镜像;
+            var evidence = GetAdCaseEvidence();
+            
+            //获得文件系统服务;
+            var fsService = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>();
+
+            //获得案件服务;
             var csService = ServiceProvider.Current.GetInstance<ICaseService>();
-            foreach (var item in csService.CurrentCase.CaseEvidences) {
-                
-            }
-            var part = s.fsProvider.OpenFile(s.evidence, "0/");
-            var s2 = part.Children;
+
+            var forensicInfoProvider = new AdImgInfoForensicInfoServiceProviderExample();
+
+            forensicInfoProvider.StartForensic(evidence,new string[] { "dasdad", "dasd3123" },tuple => {
+                Debug.WriteLine($"{tuple.word}:{tuple.percentage} / 100");
+            });
         }
 
 

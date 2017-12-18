@@ -5,7 +5,7 @@ namespace Singularity.UI.ITunes.Models {
     /// <summary>
     /// ITunes备份案件文件;
     /// </summary>
-    public class ITunesBackUpCaseFile : StandardCaseFile {
+    public class ITunesBackUpCaseFile : CaseEvidence {
         public ITunesBackUpCaseFile(string name, string interLabel, DateTime dateAdded): 
             base(nameof(ITunesBackUpCaseFile), name, interLabel, dateAdded) {
 

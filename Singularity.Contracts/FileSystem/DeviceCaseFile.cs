@@ -16,8 +16,8 @@ using SysIO = System.IO;
 namespace Singularity.Contracts.Case {
     
     //设备案件文件(物理设备/镜像文件);
-    public abstract partial class DeviceCaseFile<TDevice> : StandardCaseFile,
-        IIndexable, IHaveCaseFiles, IHaveData<TDevice> where TDevice : Device {
+    public abstract partial class DeviceCaseFile<TDevice> : CaseEvidence,
+        IIndexable, IHaveCaseEvidences, IHaveData<TDevice> where TDevice : Device {
 
         public DeviceCaseFile(TDevice device, XElement xElem) : base(xElem) {
             this.Data = device;
@@ -29,6 +29,7 @@ namespace Singularity.Contracts.Case {
         }
 
         public TDevice Data { get; }
+
 
         //索引路径;
         public string IndexPath {

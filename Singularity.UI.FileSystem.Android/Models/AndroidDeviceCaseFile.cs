@@ -43,10 +43,10 @@ namespace Singularity.Android.Models {
         /// <param name="interLabel"></param>
         /// <param name="dateAdded"></param>
         public AndroidDeviceCaseEvidence(AndroidDevice device, string interLabel, DateTime dateAdded) :
-            base(device, nameof(AndroidDevice), device.Name, interLabel, dateAdded) {
+            base(device, nameof(Constants.AndroidDeviceImg), device.Name, interLabel, dateAdded) {
             //加入子案件文件;
             var partID = 0;
-
+            
             foreach (var p in device.Children) {
                 if (p is Partition part) {
                     var pFile = new PartitionCaseFile(part, $"{interLabel}-{part.Name}", dateAdded, partID++);

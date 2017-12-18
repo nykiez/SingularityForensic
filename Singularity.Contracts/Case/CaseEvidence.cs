@@ -3,9 +3,50 @@ using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Singularity.Contracts.Case {
+    //案件文件契约;
+    public interface ICaseEvidence {
+        /// <summary>
+        /// //案件文件标识(不可更改);
+        /// </summary>
+        string InterLabel { get; }
+        /// <summary>
+        /// 添加时间(不可更改);
+        /// </summary>
+        DateTime DateAdded { get; }
+        /// <summary>
+        /// 案件文件名(外部，可更改);
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
+        /// //注释（可更改);
+        /// </summary>
+        string Comments { get; set; }
+        /// <summary>
+        /// 案件文件相关的数据目录位置;相对案件本身的位置;
+        /// </summary>
+        string BasePath { get; set; }
+
+        /// <summary>
+        /// 案件文件GUID;
+        /// </summary>
+        string GUID { get; set; }
+
+        /// <summary>
+        /// 案件文件类型;
+        /// </summary>
+        string Type { get; set; }
+
+        /// <summary>
+        /// 可拓展属性;
+        /// </summary>
+        /// <param name="extendName"></param>
+        /// <returns></returns>
+        string this[string extendName] { get;set; }
+    }
+
     //标准案件文件类别;(特征为Xelement成员);
-    public abstract class StandardCaseFile : ICaseEvidence {
-        public StandardCaseFile(XElement xElem) {
+    public abstract class CaseEvidence : ICaseEvidence {
+        public CaseEvidence(XElement xElem) {
             if (xElem == null) {
                 throw new ArgumentNullException($"{nameof(xElem)} can't be null!");
             }
@@ -15,7 +56,7 @@ namespace Singularity.Contracts.Case {
             XElem = xElem;
         }
 
-        public StandardCaseFile(string type, string name, string interLabel, DateTime dateAdded) {
+        public CaseEvidence(string type, string name, string interLabel, DateTime dateAdded) {
             this.type = type;
             this.name = name;
             this.interLabel = interLabel;
@@ -100,10 +141,10 @@ namespace Singularity.Contracts.Case {
             }
             set => SetXElemValue(value);
         }
-        
+
         //GUID
         public virtual string GUID {
-            get  {
+            get {
                 //查找GUID;
                 var _guid = GetXElemValue();
                 //如若GUID为空,则创建一个;
@@ -111,7 +152,7 @@ namespace Singularity.Contracts.Case {
                     SetXElemValue(Guid.NewGuid().ToString("N").ToUpper());
                     _guid = GetXElemValue();
                 }
-                
+
                 return _guid;
             }
             set => GetXElemValue();

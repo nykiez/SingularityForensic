@@ -41,7 +41,7 @@ namespace Singularity.UI.FileExplorer.ViewModels {
             this.CurFile = file;
 
             if(file != null) {
-                if (file.Type == FileType.BlockDeviceFile) {                //若为块设备文件，则最高等级文件即为本身;
+                if (file.Type == CDFC.Parse.Contracts.FileType.BlockDeviceFile) {                //若为块设备文件，则最高等级文件即为本身;
                     OwnerFile = file;
                 }
                 else {                                                          //若为目录,则最高等级文件为所属分区;

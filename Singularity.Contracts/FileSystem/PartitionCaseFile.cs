@@ -10,7 +10,7 @@ namespace Singularity.Contracts.FileSystem {
     }
 
     //分区案件文件;
-    public class PartitionCaseFile : StandardCaseFile {
+    public class PartitionCaseFile : CaseEvidence {
         public const string PartitionFolderClass = nameof(CDFC.Parse.Abstracts.Partition) + "s";
 
         //分区案件文件;

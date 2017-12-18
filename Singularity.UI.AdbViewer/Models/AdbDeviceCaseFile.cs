@@ -7,7 +7,7 @@ namespace Singularity.UI.AdbViewer.Models {
     /// <summary>
     /// adb设备案件文件;
     /// </summary>
-    public class AdbDeviceCaseFile : StandardCaseFile {
+    public class AdbDeviceCaseFile : CaseEvidence {
         public const string AdbDeviceClassFolder = "AdbDevices";
         /// <summary>
         /// adb设备案件文件构造方法(针对新加入的文件);

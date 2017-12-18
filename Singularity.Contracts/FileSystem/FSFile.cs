@@ -6,18 +6,41 @@ using System.IO;
 using System.Linq;
 
 namespace Singularity.Contracts.FileSystem {
+    public enum FsFileType {
+        RegularFile,            //常规文件;
+        Directory,              //目录;
+        Device,                 //设备;
+        Partition,               //分区;
+        Unknown                 //未知;
+    }
+
     public class FSFile {
         public FSFile(IFile file) {
             File = file ?? throw new ArgumentNullException(nameof(file));
         }
 
         public IFile File { get; }
-
-        public IEnumerable<FSFile> Files { get; }
-
+        
         public virtual string Name => File.Name;
 
-        public virtual FileType Type => File.Type;
+        public virtual FsFileType Type {
+            get {
+                switch (File.Type) {
+                    case CDFC.Parse.Contracts.FileType.Directory:
+                        return FsFileType.Directory;
+                    case CDFC.Parse.Contracts.FileType.RegularFile:
+                        return FsFileType.RegularFile;
+                    default:
+                        if(File is Partition) {
+                            return FsFileType.Partition;
+                        }
+                        else if(File is Device) {
+                            return FsFileType.Device;
+                        }
+                        return FsFileType.Unknown;
+                }
+            }
+        }
 
         public virtual long Size => File.Size;
 
@@ -53,8 +76,8 @@ namespace Singularity.Contracts.FileSystem {
             }
         }
 
-        public IEnumerable<FSFile> GetDirectories() => Children?.Where(p => p.Type == FileType.Directory);
+        public IEnumerable<FSFile> GetDirectories() => Children?.Where(p => p.Type == FsFileType.Directory);
 
-        public IEnumerable<FSFile> GetFiles() => Children?.Where(p => p.Type == FileType.RegularFile);
+        public IEnumerable<FSFile> GetFiles() => Children?.Where(p => p.Type == FsFileType.RegularFile);
     }
 }

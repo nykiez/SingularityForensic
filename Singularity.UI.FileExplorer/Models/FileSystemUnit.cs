@@ -42,7 +42,7 @@ namespace Singularity.UI.FileExplorer.Models {
                 if (_children == null) {
                     //子节点为分区案件文件节点;
                     _children = new ObservableCollection<ITreeUnit>();
-                    if (CaseFile is IHaveCaseFiles itrCFile) {
+                    if (CaseFile is IHaveCaseEvidences itrCFile) {
                         if (itrCFile.InnerCaseFiles != null) {
                             var partIndex = 0;
                             foreach (var cFile in itrCFile.InnerCaseFiles) {

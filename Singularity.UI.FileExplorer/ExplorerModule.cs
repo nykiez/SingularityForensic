@@ -31,17 +31,17 @@ namespace Singularity.UI.FileExplorer {
 
         private void RegisterEvents() {
             //为设备案件文件节点加入文件系统子节点;
-            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
-                if (unit is ICaseEvidenceUnit <ICaseEvidence> haveCaseFile) {
+            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>((Action<ITreeUnit>)(unit => {
+                if (unit is ICaseEvidenceUnit<Contracts.Case.ICaseEvidence> haveCaseFile) {
                     //若为可迭代(设备)案件文件，则添加文件系统节点;
                     if (haveCaseFile.Evidence is IHaveData<Device>) {
-                        unit.Children.Add(new FileSystemUnit(haveCaseFile.Evidence, unit,
-                            FileExplorerHelper.GetFileExplorerServiceProvider(haveCaseFile.Evidence)) {
+                        unit.Children.Add(new FileSystemUnit((ICaseEvidence)haveCaseFile.Evidence, unit,
+                            FileExplorerHelper.GetFileExplorerServiceProvider((ICaseEvidence)haveCaseFile.Evidence)) {
                             Icon = IconResources.FileSystemIcon
                         });
                     }
                 }
-            });
+            }));
 
             //加入文件系统节点响应(左键);
             PubEventHelper.Subscribe<TreeNodeClickEvent, ITreeUnit>(e => {

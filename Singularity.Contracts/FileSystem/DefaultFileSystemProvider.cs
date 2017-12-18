@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Singularity.Contracts.FileSystem {
-    public class DefaultFileSystemProvider : EmptyServiceProvider<DefaultFileSystemProvider>,IFileSystemServiceProvider {
+    public class DefaultFileSystemProvider : EmptyServiceProvider<DefaultFileSystemProvider>,ICaseEvidenceServiceProvider {
         public IStreamFileParser StreamFileParser => DefaultFileStreamParser.StaticInstance;
 
         public void AddNewCaseFile(IFile file, string interLabel) {

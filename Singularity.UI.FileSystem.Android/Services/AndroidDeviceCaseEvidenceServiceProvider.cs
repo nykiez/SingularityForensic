@@ -13,9 +13,9 @@ using System.Collections.Generic;
 using Singularity.Contracts.Common;
 
 namespace Singularity.Android.Services {
-    [Export(typeof(IFileSystemServiceProvider))]
-    public class AndroidDeviceFileSystemServiceProvider : EmptyServiceProvider<AndroidDeviceFileSystemServiceProvider>
-        ,IFileSystemServiceProvider {
+    [Export(typeof(ICaseEvidenceServiceProvider))]
+    public class AndroidDeviceCaseEvidenceServiceProvider : EmptyServiceProvider<AndroidDeviceCaseEvidenceServiceProvider>
+        ,ICaseEvidenceServiceProvider {
         public IStreamFileParser StreamFileParser => AndroidDeviceStreamParser.StaticInstance;
 
         public void AddNewCaseFile(IFile file, string interLabel) {
@@ -52,18 +52,6 @@ namespace Singularity.Android.Services {
             throw new NotImplementedException();
         }
         
-        public FSFile OpenFile(ICaseEvidence file, string path) {
-            if(file is AndroidDeviceCaseEvidence cFile) {
-                var device = cFile.Data;
-                var oriFile = device.GetFileByUrl(path);
-                if(oriFile != null) {
-                    return new FSFile(oriFile);
-                }
-                return null;
-            }
-            return null;
-        }
-
         
         //public static readonly AndroidDeviceFileExplorerServiceProvider Ins = AndroidDeviceFileExplorerServiceProvider.StaticInstance;
     }

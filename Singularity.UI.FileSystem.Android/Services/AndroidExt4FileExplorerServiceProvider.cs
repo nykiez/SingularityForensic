@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Singularity.Contracts.FileSystem;
 using System.ComponentModel.Composition;
 using Singularity.Android.Models;
+using Singularity.Contracts.Case;
 
 namespace Singularity.Android.Services {
     [Export(typeof(IFileExplorerServiceProvider))]
     public class AndroidExt4FileExplorerServiceProvider :
         EmptyServiceProvider<AndroidExt4FileExplorerServiceProvider>,
         IFileExplorerServiceProvider {
-        public IFileSystemServiceProvider FileSystemServiceProvider => AndroidDeviceFileSystemServiceProvider.StaticInstance;
+        public ICaseEvidenceServiceProvider FileSystemServiceProvider => AndroidDeviceCaseEvidenceServiceProvider.StaticInstance;
 
         public IRowBuilder RowBuilder => AndroidExt4RowBuilder.StaticInstance;
     }

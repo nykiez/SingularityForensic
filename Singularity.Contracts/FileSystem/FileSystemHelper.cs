@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace Singularity.Contracts.FileSystem {
     public static class FileSystemHelper {
-        public static IFileSystemServiceProvider GetFileSystemServiceProvider(ICaseEvidence caseFile) {
-            var providers = ServiceProvider.Current.GetAllInstances<IFileSystemServiceProvider>();
+        public static ICaseEvidenceServiceProvider GetFileSystemServiceProvider(ICaseEvidence caseFile) {
+            var providers = ServiceProvider.Current.GetAllInstances<ICaseEvidenceServiceProvider>();
             try {
                 return providers.FirstOrDefault(p => p.CheckIsValid(caseFile));
             }

@@ -35,8 +35,8 @@ namespace Singularity.UI.FileSystem {
         private void RegisterEvents() {
 
             //为设备案件文件节点加入上下文菜单;
-            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
-                if (unit is ICaseEvidenceUnit<ICaseEvidence> haveCaseFile &&haveCaseFile.Evidence is IHaveData<Device>) {
+            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>((Action<ITreeUnit>)(unit => {
+                if (unit is ICaseEvidenceUnit<Contracts.Case.ICaseEvidence> haveCaseFile && haveCaseFile.Evidence is IHaveData<Device>) {
                     try {
                         unit.Icon = IconSources.HardDiskIcon;
                         var commands = unit.ContextCommands ?? (unit.ContextCommands = new ObservableCollection<ICommandItem>());
@@ -44,13 +44,13 @@ namespace Singularity.UI.FileSystem {
                             commands.AddRange(DeviceNodeCommandItems);
                         }
                     }
-                    catch (Exception ex){
+                    catch (Exception ex) {
                         Logger.WriteCallerLine(ex.Message);
                         
                     }
 
                 }
-            });
+            }));
 
 
             //为设备案件文件节点加入文件系统子节点;

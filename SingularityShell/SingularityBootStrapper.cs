@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Mef;
 using Prism.Modularity;
+using Singularity.Contracts;
 using Singularity.Contracts.Common;
 using Singularity.Previewers;
 using Singularity.UI.AdbViewer;
@@ -24,6 +25,9 @@ namespace SingularityShell {
             
             //主模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MainModule).Assembly));
+            //框架模块;
+            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Dummy).Assembly));
+
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CaseModule).Assembly));
             ////取证信息模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));

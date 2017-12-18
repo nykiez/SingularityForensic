@@ -203,7 +203,7 @@ namespace Singularity.UI.Case{
             caseFiles.Add(cFile);
             //若为标准案件文件则加入XDoc;
             //并创建路径;
-            if (cFile is StandardCaseFile stdCaseFile) {
+            if (cFile is CaseEvidence stdCaseFile) {
                 try {
                     var root = XDoc.Root;
                     if (root != null) {
@@ -229,7 +229,7 @@ namespace Singularity.UI.Case{
         /// <summary>
         /// 为标准案件文件创建仓储目录;
         /// </summary>
-        private void CreateBasePath(StandardCaseFile stdCFile) {
+        private void CreateBasePath(ICaseEvidence stdCFile) {
             var basePath = $"{stdCFile.BasePath}";
             try {
                 var abBasePath = $"{Path}/{basePath}";
