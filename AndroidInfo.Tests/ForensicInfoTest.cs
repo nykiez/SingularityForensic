@@ -26,7 +26,7 @@ namespace AndroidInfo.Tests {
                     return item.Value;
                 }
             }
-            
+            var ss = 0;
             return null;
         }
 
