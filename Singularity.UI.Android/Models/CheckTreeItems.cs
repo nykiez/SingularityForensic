@@ -191,8 +191,15 @@ namespace Singularity.UI.Info.Android.Models {
             
             if(!isWorking) {
                 isWorking = true;
-                outParams = AdvPythonHelper.GetProcessOutPut(CaseFile, "Phone_msg_calllog_extract.py");
-                evt.Set();
+                try {
+                    outParams = AdvPythonHelper.GetProcessOutPut(CaseFile, "Phone_msg_calllog_extract.py");
+                }
+                catch {
+                    throw;
+                }
+                finally {
+                    evt.Set();
+                }
             }
             evt.WaitOne();
             

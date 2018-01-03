@@ -201,6 +201,11 @@ namespace Singularity.Contracts.Case {
                     foreach (var file in device.Children) {
                         var part = file as Partition;
                         var sb = new StringBuilder(partIndex++.ToString() + "/");
+#if DEBUG
+                        if(partIndex == 24) {
+
+                        }
+#endif
                         TraverseAddFile(sb, part, root, part, ref startIndex, isCancel);
                     }
                     return doc;
@@ -241,53 +246,67 @@ namespace Singularity.Contracts.Case {
         /// <param name="part">分区</param>
         private void TraverseAddFile(StringBuilder sb, IIterableFile itrFile,
              XElement rootElem, Partition part, ref long startIndex, Func<bool> isCancel = null) {
-            foreach (var file in itrFile.Children) {
-                if (isCancel?.Invoke() ?? false) {
-                    return;
-                }
-                if (file.Type == FileType.RegularFile) {
-                    var regFile = file as RegularFile;
-                    var elem = new XElement("File");
-                    elem.SetAttributeValue("Index", startIndex++);
-                    elem.SetAttributeValue("Type", "Reg");
-                    elem.SetAttributeValue("FilePath",
-                        $"{sb.ToString()}{StringHelpers.CleanInvalidXmlChars(file.Name)}");
-                    var rangesElem = new XElement(XName.Get("Ranges"));
-                    long gotSize = 0;
-                    if (regFile is IBlockGroupedFile blockGroupedFile) {    
-                        foreach (var g in blockGroupedFile.BlockGroups) {
-                            var rangeElem = new XElement(XName.Get("Range"));
-                            rangeElem.SetAttributeValue(XName.Get("StartLBA"), g.BlockAddress * (part.ClusterSize) + part.StartLBA);
-                            if (gotSize + g.Count * (part.ClusterSize) > file.Size) {
-                                if (file.Size >= gotSize) {
-                                    rangeElem.SetAttributeValue(XName.Get("Length"), file.Size - gotSize);
+            if(itrFile == null) {
+                throw new ArgumentNullException(nameof(itrFile));
+            }
+#if DEBUG
+            if(itrFile.Name == null) {
+                var s = itrFile.Name;
+            }
+#endif
+            try {
+                foreach (var file in itrFile.Children) {
+                    if (isCancel?.Invoke() ?? false) {
+                        return;
+                    }
+                    if (file.Type == FileType.RegularFile) {
+                        var regFile = file as RegularFile;
+                        var elem = new XElement("File");
+                        elem.SetAttributeValue("Index", startIndex++);
+                        elem.SetAttributeValue("Type", "Reg");
+                        elem.SetAttributeValue("FilePath",
+                            $"{sb.ToString()}{StringHelpers.CleanInvalidXmlChars(file.Name)}");
+                        var rangesElem = new XElement(XName.Get("Ranges"));
+                        long gotSize = 0;
+                        if (regFile is IBlockGroupedFile blockGroupedFile) {
+                            foreach (var g in blockGroupedFile.BlockGroups) {
+                                var rangeElem = new XElement(XName.Get("Range"));
+                                rangeElem.SetAttributeValue(XName.Get("StartLBA"), g.BlockAddress * (part.ClusterSize) + part.StartLBA);
+                                if (gotSize + g.Count * (part.ClusterSize) > file.Size) {
+                                    if (file.Size >= gotSize) {
+                                        rangeElem.SetAttributeValue(XName.Get("Length"), file.Size - gotSize);
+                                    }
+                                    else {
+                                        Logger.WriteLine($"Wrong");
+                                        return;
+                                    }
                                 }
                                 else {
-                                    Logger.WriteLine($"Wrong");
-                                    return;
+                                    rangeElem.SetAttributeValue(XName.Get("Length"), g.Count * (part.ClusterSize));
                                 }
-                            }
-                            else {
-                                rangeElem.SetAttributeValue(XName.Get("Length"), g.Count * (part.ClusterSize));
+
+                                rangesElem.Add(rangeElem);
+                                gotSize += g.Count * (part.ClusterSize);
                             }
 
-                            rangesElem.Add(rangeElem);
-                            gotSize += g.Count * (part.ClusterSize);
                         }
-                        
-                    }
 
-                    elem.Add(rangesElem);
-                    rootElem.Add(elem);
-                }
-                else if (file.Type == FileType.Directory) {
-                    if (!IIterableHelper.IsBackFile(file as IIterableFile) && !IIterableHelper.IsBackUpFile(file as IIterableFile)) {
-                        var folderName = file.Name;
-                        var folderPath = new StringBuilder(sb.ToString()).Append(folderName + "/");
-                        TraverseAddFile(folderPath, file as CDFC.Parse.Abstracts.Directory, rootElem, part, ref startIndex, isCancel);
+                        elem.Add(rangesElem);
+                        rootElem.Add(elem);
+                    }
+                    else if (file.Type == FileType.Directory) {
+                        if (!IIterableHelper.IsBackFile(file as IIterableFile) && !IIterableHelper.IsBackUpFile(file as IIterableFile)) {
+                            var folderName = file.Name;
+                            var folderPath = new StringBuilder(sb.ToString()).Append(folderName + "/");
+                            TraverseAddFile(folderPath, file as CDFC.Parse.Abstracts.Directory, rootElem, part, ref startIndex, isCancel);
+                        }
                     }
                 }
             }
+            catch(Exception ex) {
+
+            }
+            
         }
 
         /// <summary>

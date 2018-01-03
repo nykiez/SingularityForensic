@@ -1,5 +1,6 @@
 ﻿using CDFCUIContracts.Commands;
 using Prism.Commands;
+using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Singularity.Contracts.Case;
 using Singularity.Contracts.Case.Events;
@@ -10,9 +11,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 
 namespace Singularity.UI.Case {
+    [ModuleExport(typeof(CaseModule))]
     public class CaseModule : IModule {
         public void Initialize() {
-            
+            RegisterEvents();   
         }
 
 

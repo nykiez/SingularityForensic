@@ -292,7 +292,7 @@ namespace Singularity.UI.Hex {
                 //确认搜索设备;
                 var blDevice = fileBrowserViewModel.File as Device;
 
-                var device = blDevice ?? blDevice.GetParent<Device>() as Device;
+                var device = blDevice ?? fileBrowserViewModel.File.GetParent<Device>() as Device;
                 var indexableFile = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.CaseEvidences.
                     FirstOrDefault(p =>
                     p is IHaveData<IFile> fcsFile

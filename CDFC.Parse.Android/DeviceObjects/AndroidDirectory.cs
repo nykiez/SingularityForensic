@@ -60,7 +60,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         /// </summary>
         /// <param name="ntfSizeAct">通知进度委托</param>
         [HandleProcessCorruptedStateExceptions]
-        internal void LoadChildren(Action<long> ntfSizeAct = null,Func<bool> isCancel = null) {                                               //加载子内容以及相关内容;
+        internal void LoadContent(Action<long> ntfSizeAct = null,Func<bool> isCancel = null) {                                               //加载子内容以及相关内容;
             if (IsOwnCreate) { return; }                                            //假若是虚构，直接返回;
 
             _blockGroups = null;
@@ -69,7 +69,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
             if (stDirEntryPtr != IntPtr.Zero && Parent != null) {
                 var partition = this.GetParent<AndroidPartition>();
                 if (partition == null) {
-                    Logger.WriteLine($"{nameof(AndroidDirectory)}->{nameof(LoadChildren)}:partition can't be null");
+                    Logger.WriteLine($"{nameof(AndroidDirectory)}->{nameof(LoadContent)}:partition can't be null");
                     return;
                 }
                 try {
@@ -97,12 +97,17 @@ namespace CDFC.Parse.Android.DeviceObjects {
                     
                     stExt4Inode?.GetMacTime(out modifiedTime, out accessedTime, out createTime);        //确定MAC时间;
 
-                    if (stBlockListPtr != IntPtr.Zero) {
+                    if (stBlockListPtr != IntPtr.Zero ) {
                         #region 加载子文件;
                         if (name != ".." && name != "." && !deleted.Value) {                               //当目录名不为".."或者"."时,当作普通目录处理;
                             var stChildrenDirNode = Cflabqd_Parse_Dir(stBlockListPtr);     //加载子文件的Dir;
                             var stChildrenDirPtr = stChildrenDirNode;
 
+#if DEBUG
+                            if(name == "unzip") {
+
+                            }
+#endif
                             while (stChildrenDirNode != IntPtr.Zero) {                              //循环获取,直到节点为空;
                                 var dirTab = stChildrenDirNode.GetStructure<StDirEntry>();
                                 var dirEntity = dirTab.DirInfo.GetStructure<StExt4DirEntry>();
@@ -110,9 +115,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                                 IFile file = null;
                                 if (dirEntity.file_type == Ext4FileType.Directory) {
                                     var direct = new AndroidDirectory(stChildrenDirNode, this);
-                                    if (!dirTab.bDel) {
-                                        direct.LoadChildren(ntfSizeAct,isCancel);
-                                    }
+                                    direct.LoadContent(ntfSizeAct,isCancel);
                                     file = direct;
                                 }
                                 else if (dirEntity.file_type == Ext4FileType.RegularFile) {
@@ -144,7 +147,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.WriteLine($"{nameof(AndroidDirectory)}->{nameof(LoadChildren)}:{ex.Message}");
+                    Logger.WriteLine($"{nameof(AndroidDirectory)}->{nameof(LoadContent)}:{ex.Message}");
                 }
                 finally {
                     if (children.Count == 0 && name != "." && name != "..") {

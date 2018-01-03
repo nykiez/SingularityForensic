@@ -72,7 +72,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
                         IFile file = null;
                         if (dirEntity.file_type == Ext4FileType.Directory) {
                             var direct = new AndroidDirectory(stDirNode, this);
-                            direct.LoadChildren(ntfSizeAct,isCancel);
+                            direct.LoadContent(ntfSizeAct,isCancel);
 
                             file = direct;
                         }
