@@ -79,7 +79,11 @@ namespace CDFC.Parse.Signature.DeviceObjects {
         public override Stream GetStream(bool isReadOnly = true) {
             var device = this.GetParent<Device>();
             if (device != null) {
-                return InterceptStream.CreateFromStream(device.Stream, this.DeviceStartLBA,this.DeviceStartLBA + Size - 1);
+                return InterceptStream.CreateFromStream(
+                    device.Stream, 
+                    this.DeviceStartLBA,
+                    Size
+                );
             }
             
             return null;

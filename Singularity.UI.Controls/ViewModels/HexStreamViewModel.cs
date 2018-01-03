@@ -55,7 +55,9 @@ namespace Singularity.UI.Controls.ViewModels {
                                             int read;
                                             long readSize = 0;
                                             Stream.Position = SelectionStart;
-                                            using (var Ins = InterceptStream.CreateFromStream(Stream, Math.Min(SelectionStart, SelectionStop), Math.Max(SelectionStart, SelectionStop))) {
+                                            var end = Math.Max(SelectionStart, SelectionStop);
+                                            var start = Math.Min(SelectionStart, SelectionStop);
+                                            using (var Ins = InterceptStream.CreateFromStream(Stream,start , end - start + 1)) {
                                                 while ((read = Ins.Read(buffer, 0, buffer.Length)) != 0 && !proDialog.CancellationPending) {
                                                     fs.Write(buffer, 0, read);
                                                     readSize += read;
@@ -97,9 +99,12 @@ namespace Singularity.UI.Controls.ViewModels {
                                 if (SelectionStop - SelectionStart > maxCopyToClipBoardSize) {
                                     CDFCMessageBox.Show(FindResourceString("TooLargeCopySize"));
                                 }
-                                else {
+                                else {                               
                                     Stream.Position = SelectionStart;
-                                    using (var ins = InterceptStream.CreateFromStream(Stream, SelectionStart, SelectionStop)) {
+                                    var start = Math.Min(SelectionStart, SelectionStop);
+                                    var end = Math.Max(SelectionStart, SelectionStop);
+
+                                    using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) { 
                                         StreamReader sr = new StreamReader(ins);
                                         try {
                                             Clipboard.SetDataObject(sr.ReadToEnd());
@@ -130,7 +135,10 @@ namespace Singularity.UI.Controls.ViewModels {
                                 }
                                 else {
                                     Stream.Position = SelectionStart;
-                                    using (var ins = InterceptStream.CreateFromStream(Stream, SelectionStart, SelectionStop)) {
+                                    var start = Math.Min(SelectionStart, SelectionStop);
+                                    var end = Math.Max(SelectionStart, SelectionStop);
+
+                                    using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                         try {
                                             var buffer = new byte[ins.Length];
                                             ins.Read(buffer, 0, (int)ins.Length);
@@ -160,7 +168,10 @@ namespace Singularity.UI.Controls.ViewModels {
                                 }
                                 else {
                                     Stream.Position = SelectionStart;
-                                    using (var ins = InterceptStream.CreateFromStream(Stream, SelectionStart, SelectionStop)) {
+                                    var start = Math.Min(SelectionStart, SelectionStop);
+                                    var end = Math.Max(SelectionStart, SelectionStop);
+
+                                    using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                         try {
                                             var buffer = new byte[ins.Length];
                                             ins.Read(buffer, 0, (int)ins.Length);
@@ -236,7 +247,7 @@ namespace Singularity.UI.Controls.ViewModels {
             //Exclude byte deleted from copy
             if (!copyChange) {
                 byte[] buffer = new byte[selectionLength];
-               // Stream.Read(buffer, 0, (int)selectionLength));
+                Stream.Read(buffer, 0, (int)selectionLength);
                 return buffer;
             }
             else {

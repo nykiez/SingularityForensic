@@ -64,7 +64,7 @@ namespace CDFC.Parse.Abstracts {
 
                 var partStream = part.GetStream();
                 if (partStream != null) {
-                    var fiStream = InterceptStream.CreateFromStream(partStream, StartLBA, Size);
+                    var fiStream = InterceptStream.CreateFromStream(partStream, StartLBA , Size);
                     //var buffer = new byte[128];
                     //var read = fiStream.Read(buffer, 0, buffer.Length);
                     return fiStream;
