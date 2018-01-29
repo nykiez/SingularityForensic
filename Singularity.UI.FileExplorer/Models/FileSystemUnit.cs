@@ -24,14 +24,15 @@ namespace Singularity.UI.FileExplorer.Models {
 
     //文件系统节点(针对设备);
     public class FileSystemUnit : TreeUnit {
-        public FileSystemUnit(ICaseEvidence itrCFile,ITreeUnit parent, IFileExplorerServiceProvider FsServiceProvider):base(parent) {
-            if(FsServiceProvider == null) {
-                throw new ArgumentNullException(nameof(FsServiceProvider));
+        public FileSystemUnit(ICaseEvidence itrCFile,ITreeUnit parent, IFileExplorerServiceProvider fsServiceProvider = null):base(parent) {
+            if(fsServiceProvider == null) {
+                throw new ArgumentNullException(nameof(fsServiceProvider));
             }
-
+            
+            this.FsExpServiceProvider = fsServiceProvider;
             this.CaseFile = itrCFile;
             Label = FindResourceString("FileSystem");
-            this.FsExpServiceProvider = FsServiceProvider;
+            
         }
         public ICaseEvidence CaseFile { get; }
         public IFileExplorerServiceProvider FsExpServiceProvider { get; }

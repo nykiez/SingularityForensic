@@ -45,7 +45,7 @@ namespace Singularity.Contracts.Case {
     }
 
     //标准案件文件类别;(特征为Xelement成员);
-    public abstract class CaseEvidence : ICaseEvidence {
+    public class CaseEvidence : ICaseEvidence {
         public CaseEvidence(XElement xElem) {
             if (xElem == null) {
                 throw new ArgumentNullException($"{nameof(xElem)} can't be null!");

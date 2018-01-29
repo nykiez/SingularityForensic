@@ -141,12 +141,14 @@ namespace Singularity.UI.Case.Services {
             
         }
 
+#pragma warning disable 0169
         [Import]
         private Lazy<INodeService> nodeService;
 
         [Import]
         private Lazy<IDocumentTabService> documentService;
 
+#pragma warning restore 0169
         //显示案件文件属性;
         public void ShowCaseFileProperty<TCaseFile>(TCaseFile csFile) where TCaseFile : ICaseEvidence {
             if (csFile != null) {

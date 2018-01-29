@@ -23,8 +23,10 @@ namespace Singularity.UI.FileExplorer {
     [Export(typeof(IFSNodeService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FSNodeManagerService : IFSNodeService {
+#pragma warning disable 0169
         [Import]
         Lazy<INodeService> nodeService;
+#pragma warning restore 0169
 
         ////显示文件系统信息;
         //public void ShowFileSystem(IFile file) {

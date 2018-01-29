@@ -126,6 +126,7 @@
     <Compile Include="Modules\MainMenu\Global\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Modules\About\AboutMessageBox.cs" />
+    <Compile Include="Modules\MainMenu\MainMenuModule.cs" />
     <Compile Include="Modules\MainMenu\MenuGroupDefinitions.cs" />
     <Compile Include="Modules\MainPage\DocumentTabService.cs" />
     <Compile Include="Modules\MainPage\NodeService.cs" />
@@ -220,8 +221,17 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Modules\ToolBar\Views\ToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\ToolBar\ToolBarModule.cs" />
+    <Compile Include="Modules\ToolBar\ViewModels\ToolBarViewModel.cs" />
+    <Compile Include="Modules\ToolBar\Views\ToolBar.xaml.cs">
+      <DependentUpon>ToolBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -338,12 +348,6 @@
     <Resource Include="Images\Shell\Type_Unknown.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Shell\FolderBrowser\Filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Shell\FolderBrowser\FilterUsing.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Cultures\Logo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -417,6 +421,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Toolbar_GotoOffset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shell\FolderBrowser\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shell\FolderBrowser\FilterUsing.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />

@@ -265,7 +265,7 @@ copy "$(SolutionDir)\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll" "$(So
 copy "$(SolutionDir)\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Common\Prism.Wpf.dll"
 copy "$(SolutionDir)packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Common\Microsoft.Practices.ServiceLocation.dll"
 
-copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  "$(SolutionDir)SingularityShell\$(OutDir)\Controls\MahApps.Metro.dll"
+copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\ lib\net45\MahApps.Metro.dll"  "$(SolutionDir)SingularityShell\$(OutDir)\Controls\MahApps.Metro.dll"
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(SolutionDir)SingularityShell\$(OutDir)\Controls\MahApps.Metro.pdb"
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\System.Windows.Interactivity.dll"
 

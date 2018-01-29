@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Mef;
 using Prism.Modularity;
+using Prism.Mvvm;
 using Singularity.Contracts;
 using Singularity.Contracts.Common;
 using Singularity.Previewers;
@@ -15,7 +16,9 @@ using Singularity.UI.Info.Android;
 using Singularity.UI.ITunes;
 using SingularityForensic;
 using SingularityForensic.Modules.Shell.Models;
+using System;
 using System.ComponentModel.Composition.Hosting;
+using System.Reflection;
 using System.Windows;
 
 namespace SingularityShell {
@@ -49,6 +52,21 @@ namespace SingularityShell {
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExplorerModule).Assembly));
 
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidFSModule).Assembly));
+
+
+            ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType => {
+                var viewSpace = viewType.Namespace;
+                var viewAssemblyName = viewType.GetTypeInfo().Assembly;
+                var viewName = viewType.Name;
+                try {
+                    var lowerSpace = viewSpace.Substring(0, viewSpace.LastIndexOf("Views"));
+                    var viewModelName = $"{lowerSpace}ViewModels.{viewName}ViewModel,{viewAssemblyName}";
+                    return Type.GetType(viewModelName);
+                }
+                catch {
+                    return null;
+                }
+            });
         }
 
 

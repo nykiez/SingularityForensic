@@ -14,8 +14,6 @@ namespace SingularityForensic {
         public void Initialize() {
             RegionHelper.RegisterViewWithRegion(RegionNames.MenuRegion, typeof(MainMenu));
             RegionHelper.RegisterViewWithRegion(RegionNames.MainRegion, typeof(MainPage));
-
-            
             //manager.RegisterViewWithRegion("FSCustomRegion", typeof(CustomIndexSearch));
         }
     }

@@ -135,6 +135,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Services\UnknownFileExplorerServiceProvider.cs" />
     <Compile Include="ViewModels\DirectoriesBrowserViewModel.cs" />
     <Compile Include="ViewModels\FileBrowserTabModel.cs" />
     <Compile Include="ViewModels\FileBrowserViewModel.cs" />
@@ -272,6 +273,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Type_FileSystem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FolderBrowser\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FolderBrowser\FilterUsing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Type_RegularFile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Sign_Deleted.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -7,7 +7,10 @@ namespace Singularity.Contracts.FileExplorer {
     /// 资源管理器契约;
     /// </summary>
     public interface IFileExplorerServiceProvider : IServiceProvider {
-        ICaseEvidenceServiceProvider FileSystemServiceProvider { get; }
+        /// <summary>
+        /// 证据项服务提供者;
+        /// </summary>
+        ICaseEvidenceServiceProvider CaseEvidenceServiceProvider { get; }
 
         /// <summary>
         /// 行生成器;

@@ -203,77 +203,50 @@
             <ImageBrush x:Key="ToolBarBtnClick" Stretch="Fill" ImageSource="/SingularityForensic;component/Images/ToolBarButton_Click.png"  />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
-        <controls:TabControlEx ItemsSource="{Binding MenuGroups}" SelectedItem="{Binding SelectedGroup}"  Style="{DynamicResource MainMenuTab}">
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="TabItem" BasedOn="{StaticResource MainMenuItem}">
-                    <Setter Property="Header" Value="{Binding Text}" >
-                        <!--<Setter.Value>
-                            <Button Style="{DynamicResource TransparentButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding IconSource}" Margin="0,0,6,0">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
-                                                <Style.Triggers>
-                                                    <Trigger Property="Source" Value="{x:Null}">
-                                                        <Setter Property="Margin" Value="0"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Image.Style>
-                                    </Image>
-                                    <TextBlock Text="{Binding Text}"/>
-                                </StackPanel>
-                            </Button>
-                        </Setter.Value>-->
-                    </Setter>
-                </Style>
-            </TabControl.ItemContainerStyle>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <DockPanel Height="70" Background="{StaticResource MainMenu.Background}" >
-                        <ItemsControl ItemsSource="{Binding Children}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Margin="6,8" Command="{Binding Command}" Padding="12,0" >
-                                        <StackPanel>
-                                            <Image Width="24" Source="{Binding IconSource}" Stretch="Fill"/>
-                                            <TextBlock Text="{Binding Text}"/>
-                                        </StackPanel>
-                                        <Button.Style>
-                                            <Style TargetType="Button" BasedOn="{StaticResource TransparentButton}">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource ToolBarBtnHover}"/>
-                                                    </Trigger>
-                                                    <Trigger Property="IsPressed" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource ToolBarBtnClick}"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl prism:RegionManager.RegionName="{Binding CustomRegionName}" DockPanel.Dock="Right">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                        <Border/>
-                    </DockPanel>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-
-        </controls:TabControlEx>
-    </StackPanel>
+    <Menu ItemsSource="{Binding MenuGroups}" >
+        <Menu.ItemContainerStyle>
+            <Style TargetType="MenuItem" >
+                <Setter Property="Header" Value="{Binding Text}" />
+                <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Text}"/>
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Menu.ItemContainerStyle>
+    </Menu>
+    <!--<controls:TabControlEx ItemsSource="{Binding MenuGroups}" SelectedItem="{Binding SelectedGroup}"  Style="{DynamicResource MainMenuTab}">
+        <TabControl.ItemContainerStyle>
+            <Style TargetType="TabItem" BasedOn="{StaticResource MainMenuItem}">
+                <Setter Property="Header" Value="{Binding Text}" />
+            </Style>
+        </TabControl.ItemContainerStyle>
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <DockPanel  Background="{StaticResource MainMenu.Background}" Visibility="Collapsed"  >
+                    <ItemsControl ItemsSource="{Binding Children}" Margin="0,3" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Margin="3,1" Command="{Binding Command}" Padding="3,0" >
+                                    <StackPanel>
+                                        <Image Width="12" Source="{Binding IconSource}" Stretch="Fill" ToolTip="{Binding Text}"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </controls:TabControlEx>-->
+    
 </UserControl>

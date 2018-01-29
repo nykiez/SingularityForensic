@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="DataGrid.Row.SelectedNonActive">#00000000</SolidColorBrush>
     <SolidColorBrush x:Key="DataGrid.Row.HoverBack">#e4f0fd</SolidColorBrush>
 
+    <SolidColorBrush x:Key="DataGrid.Cell.Border">#f0f0f0</SolidColorBrush>
     <SolidColorBrush x:Key="DataGrid.Cell.Fore">#000000</SolidColorBrush>
     
     <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridColumnHeaderBase">
@@ -119,12 +120,12 @@
                 <Style TargetType="{x:Type DataGridCell}">
                     <!--<Setter Property="metros:DataGridCellHelper.SelectionUnit" Value="{Binding (metros:DataGridRowHelper.SelectionUnit), Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type DataGridRow}}}"/>-->
                     <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource DataGrid.Cell.Border}"/>
+                    <Setter Property="BorderThickness" Value="0.3"/>
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                     <Setter Property="Padding" Value="0"/>
                     <Setter Property="Foreground" Value="{StaticResource DataGrid.Cell.Fore}"/>
-                    <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="SnapsToDevicePixels" Value="True"/>
                     <Setter Property="Template">
                         <Setter.Value>
@@ -412,7 +413,8 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource DataGrid.Row.SelectedBorder}"/>
                     <Style.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

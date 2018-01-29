@@ -27,7 +27,7 @@ namespace Singularity.UI.FileExplorer.ViewModels {
         }
 
         private IFileDetailInfoProvider _provider;
-        public IFileDetailInfoProvider Provider => _provider ?? (_provider = FSProvider.FileSystemServiceProvider.GetInstance<IFileDetailInfoProvider>());
+        public IFileDetailInfoProvider Provider => _provider ?? (_provider = FSProvider.CaseEvidenceServiceProvider.GetInstance<IFileDetailInfoProvider>());
 
         private IFile _file;
         public IFile File {

@@ -11,7 +11,7 @@ namespace Singularity.Contracts.FileExplorer {
         public static IFileExplorerServiceProvider GetFileExplorerServiceProvider(ICaseEvidence csV) {
             var providers = ServiceProvider.Current.GetAllInstances<IFileExplorerServiceProvider>();
             try {
-                return providers.FirstOrDefault(p => p.FileSystemServiceProvider.CheckIsValid(csV));
+                return providers.FirstOrDefault(p => p.CaseEvidenceServiceProvider.CheckIsValid(csV));
             }
             catch (Exception ex) {
                 EventLogger.Logger.WriteCallerLine(ex.Message);

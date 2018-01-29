@@ -25,7 +25,10 @@
                     </ad:LayoutAnchorablePane>
                     <ad:LayoutDocumentPane ShowHeader="False"  DockWidth="5*"  >
                         <ad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" CanFloat="False">
-                            <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.MainPageDocumentRegion}" Grid.Column="1"/>
+                            <DockPanel >
+                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.ToolBarRegion}" DockPanel.Dock="Top" />
+                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.MainPageDocumentRegion}" />
+                            </DockPanel>
                         </ad:LayoutAnchorable>
                     </ad:LayoutDocumentPane>
                 </ad:LayoutPanel>

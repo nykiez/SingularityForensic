@@ -155,35 +155,35 @@ namespace SingularityForensic.ViewModels.Shell {
             new DelegateCommand(() => {
                 
                 return;
-                ThreadPool.QueueUserWorkItem(cb => {
-                    Action<Action> sta = Application.Current.Dispatcher.Invoke;
+                //ThreadPool.QueueUserWorkItem(cb => {
+                //    Action<Action> sta = Application.Current.Dispatcher.Invoke;
 
-                    try {
-                        if (VersionHelper.LatestVersion != ConfigState.VersionNum) {
-                            sta(() => {
-                                if (CDFCMessageBox.Show(
-                                $"{FindResourceString("NewVersionFound")}{FindResourceString("Comma")}{VersionHelper.LatestVersion}{FindResourceString("Colon")}{FindResourceString("ConfirmToUpdate")}",
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                                    Update();
-                                }
-                            });
-                        }
-                        else {
-                            try {
-                                ConfigState.NotifyUpdateLog();
-                            }
-                            catch(Exception ex) {
-                                //CDFCMessageBox.Show()
-                            }
-                        }
-                    }
-                    catch (Exception ex) {
-                        Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:{ex.Message}");
-                        sta(() => {
-                            CDFCMessageBox.Show($"{FindResourceString("FailedToCheckUpdate")}:{ex.Message}");
-                        });
-                    }
-                });
+                //    try {
+                //        if (VersionHelper.LatestVersion != ConfigState.VersionNum) {
+                //            sta(() => {
+                //                if (CDFCMessageBox.Show(
+                //                $"{FindResourceString("NewVersionFound")}{FindResourceString("Comma")}{VersionHelper.LatestVersion}{FindResourceString("Colon")}{FindResourceString("ConfirmToUpdate")}",
+                //                MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                //                    Update();
+                //                }
+                //            });
+                //        }
+                //        else {
+                //            try {
+                //                ConfigState.NotifyUpdateLog();
+                //            }
+                //            catch(Exception ex) {
+                //                //CDFCMessageBox.Show()
+                //            }
+                //        }
+                //    }
+                //    catch (Exception ex) {
+                //        Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:{ex.Message}");
+                //        sta(() => {
+                //            CDFCMessageBox.Show($"{FindResourceString("FailedToCheckUpdate")}:{ex.Message}");
+                //        });
+                //    }
+                //});
             }));
 
         private DelegateCommand _contentRenderedCommand;

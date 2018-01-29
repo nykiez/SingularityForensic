@@ -12,6 +12,7 @@ using System.Text;
 using CDFC.Parse.Android.Static;
 
 namespace CDFC.Parse.Android.DeviceObjects {
+#pragma warning disable 0169
     //安卓/EXT4分区常规文件;
     public class AndroidRegFile : RegularFile, IExt4Node,IBlockGroupedFile {
         /// <summary>
@@ -40,7 +41,7 @@ namespace CDFC.Parse.Android.DeviceObjects {
         //    }
         //}
 
-        private IntPtr stExt4InodePtr;                              //inode指针;
+        //private IntPtr stExt4InodePtr;                              //inode指针;
         private StExt4Inode? stExt4Inode;                           //inode结构;
         public StExt4Inode? StExt4Inode {
             get {
@@ -61,7 +62,8 @@ namespace CDFC.Parse.Android.DeviceObjects {
             }
         }
         
-        private IntPtr stBlockListPtr;                                //扇区块链表所指向的指针;
+        //private IntPtr stBlockListPtr;                                //扇区块链表所指向的指针;
+
         //private List<StBlockList?> stBlockList;                   //扇区块链表;
         //public List<StBlockList?> StBlockList {
         //    get {
@@ -204,5 +206,5 @@ namespace CDFC.Parse.Android.DeviceObjects {
         
     }
 
-    
+#pragma warning restore 0169
 }

@@ -15,7 +15,7 @@ namespace Singularity.Android.Services {
     public class AndroidExt4FileExplorerServiceProvider :
         EmptyServiceProvider<AndroidExt4FileExplorerServiceProvider>,
         IFileExplorerServiceProvider {
-        public ICaseEvidenceServiceProvider FileSystemServiceProvider => AndroidDeviceCaseEvidenceServiceProvider.StaticInstance;
+        public ICaseEvidenceServiceProvider CaseEvidenceServiceProvider => AndroidDeviceCaseEvidenceServiceProvider.StaticInstance;
 
         public IRowBuilder RowBuilder => AndroidExt4RowBuilder.StaticInstance;
     }

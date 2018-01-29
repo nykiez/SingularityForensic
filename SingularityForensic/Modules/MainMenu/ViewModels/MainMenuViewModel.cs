@@ -67,7 +67,7 @@ namespace SingularityForensic.Modules.MainMenu.ViewModels {
             }
             set {
                 SetProperty(ref _selectedGroup, value);
-                PubEventHelper.GetEvent<MenuSelectedGroupChangedEvent>().Publish(_selectedGroup);
+                //PubEventHelper.GetEvent<MenuSelectedGroupChangedEvent>().Publish(_selectedGroup);
             }
         }
 

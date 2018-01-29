@@ -26,8 +26,9 @@
                 <Setter Property="DataContext" Value="{Binding Data,Source={StaticResource dataElement}}"/>
             </Style>
             <ImageBrush x:Key="FilterUsing" Stretch="None"  ImageSource="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
-            
             <sys:String x:Key="FilterNormal">/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png</sys:String>
+            <sys:String x:Key="Filtering">/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png</sys:String>
+            
         </ResourceDictionary>
         
     </UserControl.Resources>
@@ -71,14 +72,14 @@
                             <DataTrigger Binding="{Binding AnyFiltering}" Value="True">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                        <Image Source="/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AnyFiltering,FallbackValue=False}" Value="False">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                        <Image Source="/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
@@ -158,14 +159,14 @@
                                             <DataTrigger Binding="{Binding FilterFileNameNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterFileNameNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -190,25 +191,25 @@
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>Directory</contracts:FileType>
                                                         </DataTrigger.Value>
-                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Directory.png"/>
+                                                        <Setter Property="Source" Value="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/Type_Directory.png"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>BlockDeviceFile</contracts:FileType>
                                                         </DataTrigger.Value>
-                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Partition.png"/>
+                                                        <Setter Property="Source" Value="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/Type_Partition.png"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>RegularFile</contracts:FileType>
                                                         </DataTrigger.Value>
-                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_RegularFile.ico"/>
+                                                        <Setter Property="Source" Value="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/Type_RegularFile.ico"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>Unknown</contracts:FileType>
                                                         </DataTrigger.Value>
-                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Unknown.ico"/>
+                                                        <Setter Property="Source" Value="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/Type_Unknown.ico"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -221,7 +222,7 @@
                                                 <Setter Property="Width" Value="17"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Deleted,Mode=OneTime}" Value="True">
-                                                        <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Sign_Deleted.ico"/>
+                                                        <Setter Property="Source" Value="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/Sign_Deleted.ico"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -277,14 +278,14 @@
                                             <DataTrigger Binding="{Binding FilterFilePathNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterFilePathNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -309,14 +310,14 @@
                                             <DataTrigger Binding="{Binding FilterFileSizeNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterFileSizeNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -339,14 +340,14 @@
                                             <DataTrigger Binding="{Binding FilterMTimeNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterMTimeNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -369,14 +370,14 @@
                                             <DataTrigger Binding="{Binding FilterATimeNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterATimeNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -399,14 +400,14 @@
                                             <DataTrigger Binding="{Binding FilterCTimeNeeded,FallbackValue=False}" Value="False">
                                                 <Setter Property="Content" >
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/Filter.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FilterCTimeNeeded,FallbackValue=False}" Value="True">
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
+                                                        <Image Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Images/FolderBrowser/FilterUsing.png"/>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
