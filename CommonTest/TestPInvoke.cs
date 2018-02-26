@@ -17,6 +17,8 @@ using System.Linq;
 namespace CommonTest {
     [TestClass]
     public class TestPInvoke {
+        
+
         [TestMethod]
         public void TestFat() {
             var part = GetFAT();
@@ -86,5 +88,7 @@ namespace CommonTest {
             var s2 = formatter.Deserialize(ms);
 
         }
+
+
     }
 }

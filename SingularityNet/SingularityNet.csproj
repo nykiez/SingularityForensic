@@ -41,22 +41,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
-    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCHexaEditor.dll</HintPath>
-    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -156,24 +153,9 @@
     <Resource Include="Singularity.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Singularity.Hex\Singularity.UI.Hex.csproj">
-      <Project>{B3FCE5D0-77D8-4D8F-8C26-D831F9E2816E}</Project>
-      <Name>Singularity.UI.Hex</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Singularity.Net\Singularity.Net.csproj">
       <Project>{a7bdd269-f104-41e4-b68e-f97e6271748a}</Project>
       <Name>Singularity.Net</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.Previewers\Singularity.UI.Previewers.csproj">
-      <Project>{2A1FB9A3-57DC-4694-B1E4-4F4BAFA7C21D}</Project>
-      <Name>Singularity.UI.Previewers</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.AdbViewer\Singularity.AdbViewer.csproj">
-      <Project>{0D85EE7B-6532-4C80-B5B1-699EC5A03A58}</Project>
-      <Name>Singularity.AdbViewer</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
@@ -181,29 +163,9 @@
       <Name>Singularity.UI.Info.Android</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>Singularity.UI.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
       <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
       <Name>Singularity.UI.Info</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.ITunes\Singularity.UI.ITunes.csproj">
-      <Project>{8E5C50C6-E84B-4494-ADBC-0E78E45A9A1F}</Project>
-      <Name>Singularity.UI.ITunes</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.MessageBoxes\Singularity.UI.MessageBoxes.csproj">
-      <Project>{83701165-1dee-4a3e-8c86-140c70b277ee}</Project>
-      <Name>Singularity.UI.MessageBoxes</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
-      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
-      <Name>Singularity.UI.Themes</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">

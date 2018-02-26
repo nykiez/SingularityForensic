@@ -89,9 +89,9 @@
       <Project>{80F67817-5BF1-4542-B77B-9F29F739B360}</Project>
       <Name>Cflab.DataTransport</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.AdbViewer\Singularity.AdbViewer.csproj">
-      <Project>{0D85EE7B-6532-4C80-B5B1-699EC5A03A58}</Project>
-      <Name>Singularity.AdbViewer</Name>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
+      <Name>SingularityForensic</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

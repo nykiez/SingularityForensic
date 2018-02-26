@@ -34,22 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
-    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCHexaEditor.dll</HintPath>
-    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -135,23 +132,11 @@
     <Compile Include="Models\CheckTreeItem.cs" />
     <Compile Include="Models\DbModels.cs" />
     <Compile Include="TabModels\BasicTextTabModel.cs" />
-    <Compile Include="ViewModels\InfoBasicViewModel.cs" />
     <Compile Include="ViewModels\StartForensicWindowViewModel.cs" />
-    <Compile Include="ViewModels\TalkViewModel.cs" />
-    <Compile Include="Views\InfoBasicView.xaml.cs">
-      <DependentUpon>InfoBasicView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\StartForensicWindow.xaml.cs">
       <DependentUpon>StartForensicWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TalkView.xaml.cs">
-      <DependentUpon>TalkView.xaml</DependentUpon>
-    </Compile>
     <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\InfoBasicView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -159,13 +144,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\TalkView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\TalkViewDesignModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -200,32 +180,10 @@
       <Name>Singularity.Contracts</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.FileSystem\Singularity.UI.FileSystem.csproj">
-      <Project>{BF97758C-4647-4BF5-9CF0-B90B0A508964}</Project>
-      <Name>Singularity.UI.FileSystem</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
+      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
+      <Name>Singularity.UI.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
-      <Project>{EA0D6D56-DB66-4F7F-8456-A23DE8AE1105}</Project>
-      <Name>Singularity.UI.Case</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
-      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
-      <Name>Singularity.UI.Themes</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
-      <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
-      <Name>SingularityForensic</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TalkLog_Left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TalkLog_Right.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />

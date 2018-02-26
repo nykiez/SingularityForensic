@@ -66,10 +66,10 @@ namespace AndroidInfo.Tests {
             //创建案件服务;
             var cvm = new CreateCaseWindowViewModel();
             //保存;
-            cvm.SingulartityCase.Save();
+            cvm.SingularityCase.Save();
             var service = new CaseService();
             //加载案件;
-            service.LoadCase(cvm.SingulartityCase);
+            service.LoadCase(cvm.SingularityCase);
 
             //将案件服务加载至mocker中;
             MockServiceProvider.StaticInstance.SetInstance<ICaseService>(service);

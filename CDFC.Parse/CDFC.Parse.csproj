@@ -67,6 +67,7 @@
     <Compile Include="Contracts\IBlockGrouped.cs" />
     <Compile Include="Contracts\IDelAndRegNumedFile.cs" />
     <Compile Include="Contracts\IHaveHandle.cs" />
+    <Compile Include="Contracts\IParser.cs" />
     <Compile Include="Contracts\IterableFile.cs" />
     <Compile Include="Abstracts\BlockDeviceFile.cs" />
     <Compile Include="Abstracts\Device.cs" />

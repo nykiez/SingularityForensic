@@ -30,7 +30,7 @@ namespace Singularity.Contracts.Case {
 
         //案件对应的根文档;
         XDocument XDoc { get; }
-
+        
         //保存案件状态;
         void Save();
     }

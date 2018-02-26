@@ -5,12 +5,12 @@ using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Singularity.Android.Models;
+using Singularity.Contracts.Case;
 using Singularity.Contracts.Common;
 using Singularity.Contracts.FileExplorer;
 using Singularity.Contracts.FileSystem;
 using Singularity.Contracts.TreeView;
 using Singularity.UI.Android.Models;
-using Singularity.UI.Case;
 using Singularity.UI.Info.Android.Helpers;
 using Singularity.UI.Info.Global.Services;
 using Singularity.UI.Info.Models;
@@ -174,7 +174,11 @@ namespace Singularity.UI.Info.Android.Models {
                 var bf = new BinaryFormatter();
                 //记录二进制文件的位置;
                 var binName = $"{PinKind}.bin";
-                using (var fs = File.Create($"{SingularityCase.Current.Path}/{CaseFile.BasePath}/{binName}")) {
+                var csService = ServiceProvider.Current.GetInstance<ICaseService>();
+                if(csService == null) {
+                    return;
+                }
+                using (var fs = File.Create($"{csService.CurrentCase.Path}/{CaseFile.BasePath}/{binName}")) {
                     bf.Serialize(fs, dbModels);
                 }
                 CaseFile[PinKind] = binName;

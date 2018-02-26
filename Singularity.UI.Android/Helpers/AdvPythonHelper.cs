@@ -1,8 +1,10 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Python;
 using EventLogger;
+using Microsoft.Practices.ServiceLocation;
 using Singularity.Android.Models;
-using Singularity.UI.Case;
+using Singularity.Contracts.Case;
+using Singularity.Contracts.Common;
 using System;
 using System.IO;
 using System.Xml.Linq;
@@ -22,8 +24,13 @@ namespace Singularity.UI.Info.Android.Helpers {
         /// <param name="pyName"></param>
         /// <returns>输出相对路径以及参数文件的路径</returns>
         public static (string outPutPath, string outDocName) GetProcessOutPut(AndroidDeviceCaseEvidence CaseFile, string pyName) {
+            var csService = ServiceProvider.Current?.GetInstance<ICaseService>();
+            if(csService == null) {
+                throw new InvalidOperationException($"{nameof(ICaseService)} is not registered.");
+            }
+
             var guid = Guid.NewGuid().ToString("N");
-            var outPutPath = $"{SingularityCase.Current.Path}/{CaseFile.BasePath}/{guid}";
+            var outPutPath = $"{csService.CurrentCase.Path}/{CaseFile.BasePath}/{guid}";
             var outPutDocName = "output.xml";
             if (!System.IO.Directory.Exists(outPutPath)) {
                 System.IO.Directory.CreateDirectory(outPutPath);

@@ -12,23 +12,22 @@
                 
                 <!--Custom Theme Setting-->
                 <ResourceDictionary Source="pack://application:,,,/CDFCControls;component/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/Generic.xaml"/>
                 
                 <!--Language Setting-->
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Languages/zh_CN/SingularityForensic.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info;component/Languages/zh_CN/Singularity.UI.Info.xaml"/>-->
                 
                 <ResourceDictionary Source="pack://application:,,,/CDFCMessageBoxes;component/Languages/zh_CN/CDFCMessageBoxes.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.MessageBoxes;component/Languages/zh_CN/Singularity.UI.MessageBoxes.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/CDFCHexaEditor;component/Languages/zh_CN/CDFCHexaEditor.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Previewers;component/Languages/zh_CN/Singularity.Previewers.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.AdbViewer;component/Languages/zh_CN/Singularity.AdbViewer.xaml"/>
+
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Previewers/Languages/zh_CN/Singularity.Previewers.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Adb/Languages/zh_CN/Singularity.AdbViewer.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Controls;component/Languages/zh_CN/Singularity.UI.Controls.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info.Android;component/Languages/zh_CN/Singularity.UI.Info.Android.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info;component/Languages/zh_CN/Singularity.UI.Info.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.ITunes;component/Languages/zh_CN/Singularity.UI.ITunes.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.FileExplorer;component/Languages/zh_CN/Singularity.UI.FileExplorer.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.FileSystem;component/Languages/zh_CN/Singularity.FileSystem.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/ITunes/Languages/zh_CN/Singularity.UI.ITunes.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileExplorer/Languages/zh_CN/Singularity.UI.FileExplorer.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileSystem/Languages/zh_CN/Singularity.FileSystem.xaml"/>
 
                 <ResourceDictionary Source="pack://application:,,,/SingularityShell;component/Languages/zh_CN/SingularityShell.xaml"/>
             </ResourceDictionary.MergedDictionaries>

@@ -42,10 +42,16 @@ namespace Singularity.Contracts.Case {
         /// <param name="extendName"></param>
         /// <returns></returns>
         string this[string extendName] { get;set; }
+
+        /// <summary>
+        /// 实体;
+        /// </summary>
+        object Entity { get; }
+
     }
 
     //标准案件文件类别;(特征为Xelement成员);
-    public class CaseEvidence : ICaseEvidence {
+    public class CaseEvidence:ICaseEvidence{
         public CaseEvidence(XElement xElem) {
             if (xElem == null) {
                 throw new ArgumentNullException($"{nameof(xElem)} can't be null!");
@@ -191,5 +197,7 @@ namespace Singularity.Contracts.Case {
             get => GetLocalXElem(extendElemName)?.Attribute(extendElemName)?.Value;
             set => GetLocalXElem(extendElemName)?.SetAttributeValue(extendAttriName, value);
         }
+
+        public object Entity { get; }
     }
 }

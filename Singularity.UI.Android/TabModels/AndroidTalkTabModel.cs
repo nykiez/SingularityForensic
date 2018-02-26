@@ -1,7 +1,7 @@
 ﻿using Singularity.Contracts.Info;
 using Singularity.Contracts.TabControl;
+using Singularity.UI.Controls.Views;
 using Singularity.UI.Info.ViewModels;
-using Singularity.UI.Info.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

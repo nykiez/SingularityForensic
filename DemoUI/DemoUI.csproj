@@ -193,20 +193,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Singularity.Previewers\Singularity.UI.Previewers.csproj">
-      <Project>{2a1fb9a3-57dc-4694-b1e4-4f4bafa7c21d}</Project>
-      <Name>Singularity.UI.Previewers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>Singularity.UI.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
-      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
-      <Name>Singularity.UI.Themes</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"

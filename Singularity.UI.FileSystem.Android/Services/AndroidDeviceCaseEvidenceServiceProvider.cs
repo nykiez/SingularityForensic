@@ -20,7 +20,7 @@ namespace Singularity.Android.Services {
 
         public void AddNewCaseFile(IFile file, string interLabel) {
             if(file is AndroidDevice adDevice) {
-                ServiceLocator.Current.GetInstance<ICaseService>()?.AddNewCaseFile(
+                ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(
                     new AndroidDeviceCaseEvidence(adDevice, interLabel, DateTime.Now));
             }
             

@@ -12,7 +12,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Singularity.UI.Themes;component/CorneredWindow.xaml"/>
+                <ResourceDictionary Source="/Singularity.Contracts;component/Themes/CorneredWindow.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

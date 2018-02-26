@@ -139,19 +139,9 @@
       <Name>Singularity.Contracts</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.FileSystem\Singularity.UI.FileSystem.csproj">
-      <Project>{BF97758C-4647-4BF5-9CF0-B90B0A508964}</Project>
-      <Name>Singularity.UI.FileSystem</Name>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
       <Project>{06fef118-76f8-4afd-b6ba-486579380a59}</Project>
       <Name>Singularity.UI.Info.Android</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Case\Singularity.UI.Case.csproj">
-      <Project>{ea0d6d56-db66-4f7f-8456-a23de8ae1105}</Project>
-      <Name>Singularity.UI.Case</Name>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">

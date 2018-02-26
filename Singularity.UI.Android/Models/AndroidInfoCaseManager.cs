@@ -10,7 +10,6 @@ using static CDFCCultures.Managers.ManagerLocator;
 using Singularity.UI.Info.Global.Services;
 using EventLogger;
 using CDFCUIContracts.Models;
-using Singularity.UI.Case;
 using Singularity.UI.Info.Models;
 using Singularity.UI.Info.Models.Chating;
 using Singularity.Contracts.Common;
@@ -22,9 +21,17 @@ namespace Singularity.UI.Info.Android.Models {
     [Export(typeof(ICaseManager))]
     public class AndroidInfoCaseManager : ICaseManager {
         public int SortOrder => 4;
+        
+        
+        private ICaseService _csService => ServiceProvider.Current.GetInstance<ICaseService>();
 
         public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
-            foreach (var csFile in SingularityCase.Current.CaseEvidences) {
+            if(_csService == null) {
+                Logger.WriteCallerLine($"{nameof(ICaseService)} is not registered.");
+                return;
+            }
+
+            foreach (var csFile in _csService.CurrentCase.CaseEvidences) {
                 if(csFile is AndroidDeviceCaseEvidence advCFile) {
                     Action<string> loadBasicAct = ik => {
                         if(!string.IsNullOrEmpty(advCFile[ik])) {
@@ -60,6 +67,12 @@ namespace Singularity.UI.Info.Android.Models {
             if (fiUnit == null) {
                 return;
             }
+            var csService = ServiceProvider.Current.GetInstance<ICaseService>();
+
+            if (csService == null) {
+                Logger.WriteCallerLine($"{nameof(ICaseService)} is not registered.");
+                return;
+            }
 
             if (fiUnit.Children.FirstOrDefault(p => p is IHavePinKind havePin && havePin.ContentId == pinKind) is ITreeUnit preUnit) {
                 fiUnit.Children.Remove(preUnit);
@@ -68,7 +81,7 @@ namespace Singularity.UI.Info.Android.Models {
 
             TreeUnit newUnit = null;
             try {
-                using (var fs = File.OpenRead($"{SingularityCase.Current.Path}/{advCFile.BasePath}/{advCFile[pinKind]}")) {
+                using (var fs = File.OpenRead($"{csService.CurrentCase.Path}/{advCFile.BasePath}/{advCFile[pinKind]}")) {
                     var bf = new BinaryFormatter();
                     var dbModels = (List<ForensicInfoDbModel>) bf.Deserialize(fs);
                     //显示;

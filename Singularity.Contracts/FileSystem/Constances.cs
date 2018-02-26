@@ -1,5 +1,5 @@
 ﻿namespace Singularity.Contracts.FileSystem {
-    public static class Constances {
+    public static class Constants {
         public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
     }
 }

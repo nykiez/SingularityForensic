@@ -3,7 +3,7 @@
                     xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                     xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-                    xmlns:filDgs ="clr-namespace:Singularity.UI.Controls.Controls.FilterableDataGrid"
+                    xmlns:filDgs ="clr-namespace:Singularity.UI.Controls.FilterableDataGrid"
                     xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/DataGrid.xaml"/>

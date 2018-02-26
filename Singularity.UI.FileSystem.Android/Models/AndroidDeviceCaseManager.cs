@@ -18,8 +18,8 @@ namespace Singularity.Android.Models {
         public void LoadCase(CaseLoadingHanlder loadingHanlder, Func<bool> isCancel) {
             try {
                 var elements = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.XDoc.Root.Element("CaseFiles").
-                    Elements("CaseFile").Where(p => p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Constants.AndroidDeviceImg)
-                || p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Constants.UnKnownDeviceImg));
+                    Elements("CaseFile").Where(p => p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Contracts.Case.Constants.AndroidDeviceImg)
+                || p.Attribute(nameof(ICaseEvidence.Type))?.Value == nameof(Contracts.Case.Constants.UnKnownDeviceImg));
 
                 foreach (var elem in elements) {
                     try {

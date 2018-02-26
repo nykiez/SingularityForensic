@@ -12,9 +12,9 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/GroupBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TreeViewEx.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/CorneredWindow.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/GroupBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TreeViewEx.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/CorneredWindow.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" DataType="{x:Type model:FSTreeUnit}">

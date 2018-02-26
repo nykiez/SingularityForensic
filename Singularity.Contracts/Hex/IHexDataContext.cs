@@ -20,7 +20,7 @@ namespace Singularity.Contracts.Hex {
         long SelectionStop { get; set; }
         long Position { get; set; }
         long FocusPosition { get; set; }
-
-       
     }
+
+    
 }

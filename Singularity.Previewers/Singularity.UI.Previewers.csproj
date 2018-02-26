@@ -41,22 +41,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
-    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCHexaEditor.dll</HintPath>
-    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -127,15 +124,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultPreviewerModule.cs" />
-    <Compile Include="DefaultPreviewerProvider.cs" />
-    <Compile Include="Models\DBUnit.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Previewers\ImagePreviewer.cs" />
-    <Compile Include="Previewers\OutsideInPreviewer.cs" />
-    <Compile Include="Previewers\PlainTextPreviewer.cs" />
-    <Compile Include="Previewers\SqlitePreviewer.cs" />
-    <Compile Include="Previewers\VlcVideoPreviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -149,34 +137,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\SqlitePreviewerModel.cs" />
-    <Compile Include="ViewModels\VideoPreviewerModel.cs" />
-    <Compile Include="Views\ImagePreviewer.xaml.cs">
-      <DependentUpon>ImagePreviewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OutsideInPreviewer.xaml.cs">
-      <DependentUpon>OutsideInPreviewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlainTextPreviewer.xaml.cs">
-      <DependentUpon>PlainTextPreviewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SqlitePreviewer.xaml.cs">
-      <DependentUpon>SqlitePreviewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VideoPreviewer.xaml.cs">
-      <DependentUpon>VideoPreviewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VlcVideoPreviewer.xaml.cs">
-      <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="OutSideIn\adinit.dat" />
-    <None Include="OutSideIn\cmmap000.bin" />
-    <None Include="OutSideIn\oitnsf.id" />
-    <None Include="OutSideIn\oit_font_metrics.db" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -184,9 +148,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Languages\en_US\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
       <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
@@ -208,296 +170,6 @@
       <Name>SingularityForensic</Name>
       <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Languages\zh_CN\Singularity.Previewers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\DataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ImagePreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OutsideInPreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlainTextPreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SqlitePreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VideoPreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VlcVideoPreviewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Type_Case.png" />
-    <Resource Include="Images\Type_Device.png" />
-    <Resource Include="Images\Add_Normal.png" />
-    <Resource Include="Images\Add_Tap.png" />
-    <Resource Include="Images\BtnClose.png" />
-    <Resource Include="Images\BtnClose_Hover.png" />
-    <Resource Include="Images\BtnMax_Maximumed.png" />
-    <Resource Include="Images\BtnMax_Normal.png" />
-    <Resource Include="Images\BtnMin.png" />
-    <Resource Include="Images\Btn_GoBack.png" />
-    <Resource Include="Images\Btn_GoForward.png" />
-    <Resource Include="Images\Btn_Mute.png" />
-    <Resource Include="Images\Btn_Pause.png" />
-    <Resource Include="Images\Btn_Play.png" />
-    <Resource Include="Images\Btn_Stop.png" />
-    <Resource Include="Images\CommandBtn.png" />
-    <Resource Include="Images\Delete_Normal.png" />
-    <Resource Include="Images\Delete_Tap.png" />
-    <Resource Include="Images\Main_Icon.png" />
-    <Resource Include="Images\Play_ControlPanel.png" />
-    <Resource Include="Images\Slider_Back.png" />
-    <Resource Include="Images\Slider_Back2.png" />
-    <Resource Include="Images\Slider_Icon.png" />
-    <Resource Include="Images\Slider_Value.png" />
-    <Resource Include="Images\VideoItemListBanner.png" />
-    <Resource Include="Images\Volume_Back.png" />
-    <Resource Include="Images\Volume_Pin.png" />
-    <Resource Include="Images\Volume_Value.png" />
-    <Content Include="OutSideIn\debmp.dll" />
-    <Content Include="OutSideIn\dehex.dll" />
-    <Content Include="OutSideIn\dess.dll" />
-    <Content Include="OutSideIn\detree.dll" />
-    <Content Include="OutSideIn\devect.dll" />
-    <Content Include="OutSideIn\dewp.dll" />
-    <Content Include="OutSideIn\ibfpx2.dll" />
-    <Content Include="OutSideIn\ibgp42.dll" />
-    <Content Include="OutSideIn\ibjpg2.dll" />
-    <Content Include="OutSideIn\ibpcd2.dll" />
-    <Content Include="OutSideIn\ibpsd2.dll" />
-    <Content Include="OutSideIn\ibxbm2.dll" />
-    <Content Include="OutSideIn\ibxpm2.dll" />
-    <Content Include="OutSideIn\ibxwd2.dll" />
-    <Content Include="OutSideIn\imcd32.dll" />
-    <Content Include="OutSideIn\imcd42.dll" />
-    <Content Include="OutSideIn\imcd52.dll" />
-    <Content Include="OutSideIn\imcd62.dll" />
-    <Content Include="OutSideIn\imcd72.dll" />
-    <Content Include="OutSideIn\imcd82.dll" />
-    <Content Include="OutSideIn\imcdr2.dll" />
-    <Content Include="OutSideIn\imcm52.dll" />
-    <Content Include="OutSideIn\imcm72.dll" />
-    <Content Include="OutSideIn\imcmx2.dll" />
-    <Content Include="OutSideIn\imdsf2.dll" />
-    <Content Include="OutSideIn\imfmv2.dll" />
-    <Content Include="OutSideIn\imgdf2.dll" />
-    <Content Include="OutSideIn\imgem2.dll" />
-    <Content Include="OutSideIn\imigs2.dll" />
-    <Content Include="OutSideIn\immet2.dll" />
-    <Content Include="OutSideIn\impif2.dll" />
-    <Content Include="OutSideIn\impsi2.dll" />
-    <Content Include="OutSideIn\impsz2.dll" />
-    <Content Include="OutSideIn\imps_2.dll" />
-    <Content Include="OutSideIn\imrnd2.dll" />
-    <Content Include="OutSideIn\iphgw2.dll" />
-    <Content Include="OutSideIn\isgdi32.dll" />
-    <Content Include="OutSideIn\ocemul.dll" />
-    <Content Include="OutSideIn\oswin32.dll" />
-    <Content Include="OutSideIn\sccanno.dll" />
-    <Content Include="OutSideIn\sccca.dll" />
-    <Content Include="OutSideIn\sccch.dll" />
-    <Content Include="OutSideIn\sccda.dll" />
-    <Content Include="OutSideIn\sccdu.dll" />
-    <Content Include="OutSideIn\sccfa.dll" />
-    <Content Include="OutSideIn\sccfi.dll" />
-    <Content Include="OutSideIn\sccfmt.dll" />
-    <Content Include="OutSideIn\sccfnt.dll" />
-    <Content Include="OutSideIn\sccfut.dll" />
-    <Content Include="OutSideIn\sccind.dll" />
-    <Content Include="OutSideIn\scclo.dll" />
-    <Content Include="OutSideIn\sccole.dll" />
-    <Content Include="OutSideIn\sccra.dll" />
-    <Content Include="OutSideIn\sccsd.dll" />
-    <Content Include="OutSideIn\sccta.dll" />
-    <Content Include="OutSideIn\sccut.dll" />
-    <Content Include="OutSideIn\sccvw.dll" />
-    <Content Include="OutSideIn\sccxt.dll" />
-    <Content Include="OutSideIn\vsacad.dll" />
-    <Content Include="OutSideIn\vsacs.dll" />
-    <Content Include="OutSideIn\vsami.dll" />
-    <Content Include="OutSideIn\vsarc.dll" />
-    <Content Include="OutSideIn\vsasf.dll" />
-    <Content Include="OutSideIn\vsbdr.dll" />
-    <Content Include="OutSideIn\vsbmp.dll" />
-    <Content Include="OutSideIn\vscdrx.dll" />
-    <Content Include="OutSideIn\vscgm.dll" />
-    <Content Include="OutSideIn\vsdbs.dll" />
-    <Content Include="OutSideIn\vsdez.dll" />
-    <Content Include="OutSideIn\vsdif.dll" />
-    <Content Include="OutSideIn\vsdrw.dll" />
-    <Content Include="OutSideIn\vsdx.dll" />
-    <Content Include="OutSideIn\vsdxla.dll" />
-    <Content Include="OutSideIn\vsdxlm.dll" />
-    <Content Include="OutSideIn\vsemf.dll" />
-    <Content Include="OutSideIn\vsen4.dll" />
-    <Content Include="OutSideIn\vsens.dll" />
-    <Content Include="OutSideIn\vsenw.dll" />
-    <Content Include="OutSideIn\vseshr.dll" />
-    <Content Include="OutSideIn\vsexe2.dll" />
-    <Content Include="OutSideIn\vsfax.dll" />
-    <Content Include="OutSideIn\vsfcd.dll" />
-    <Content Include="OutSideIn\vsfcs.dll" />
-    <Content Include="OutSideIn\vsfft.dll" />
-    <Content Include="OutSideIn\vsflw.dll" />
-    <Content Include="OutSideIn\vsfwk.dll" />
-    <Content Include="OutSideIn\vsgdsf.dll" />
-    <Content Include="OutSideIn\vsgif.dll" />
-    <Content Include="OutSideIn\vsgzip.dll" />
-    <Content Include="OutSideIn\vshgs.dll" />
-    <Content Include="OutSideIn\vshtml.dll" />
-    <Content Include="OutSideIn\vshwp.dll" />
-    <Content Include="OutSideIn\vshwp2.dll" />
-    <Content Include="OutSideIn\vsich.dll" />
-    <Content Include="OutSideIn\vsich6.dll" />
-    <Content Include="OutSideIn\vsid3.dll" />
-    <Content Include="OutSideIn\vsimg.dll" />
-    <Content Include="OutSideIn\vsiwok.dll" />
-    <Content Include="OutSideIn\vsiwok13.dll" />
-    <Content Include="OutSideIn\vsiwon.dll" />
-    <Content Include="OutSideIn\vsiwop.dll" />
-    <Content Include="OutSideIn\vsiwp.dll" />
-    <Content Include="OutSideIn\vsjbg2.dll" />
-    <Content Include="OutSideIn\vsjp2.dll" />
-    <Content Include="OutSideIn\vsjw.dll" />
-    <Content Include="OutSideIn\vsleg.dll" />
-    <Content Include="OutSideIn\vslwp7.dll" />
-    <Content Include="OutSideIn\vslzh.dll" />
-    <Content Include="OutSideIn\vsm11.dll" />
-    <Content Include="OutSideIn\vsmanu.dll" />
-    <Content Include="OutSideIn\vsmbox.dll" />
-    <Content Include="OutSideIn\vsmcw.dll" />
-    <Content Include="OutSideIn\vsmdb.dll" />
-    <Content Include="OutSideIn\vsmif.dll" />
-    <Content Include="OutSideIn\vsmime.dll" />
-    <Content Include="OutSideIn\vsmm.dll" />
-    <Content Include="OutSideIn\vsmm4.dll" />
-    <Content Include="OutSideIn\vsmmfn.dll" />
-    <Content Include="OutSideIn\vsmp.dll" />
-    <Content Include="OutSideIn\vsmpp.dll" />
-    <Content Include="OutSideIn\vsmsg.dll" />
-    <Content Include="OutSideIn\vsmsw.dll" />
-    <Content Include="OutSideIn\vsmwkd.dll" />
-    <Content Include="OutSideIn\vsmwks.dll" />
-    <Content Include="OutSideIn\vsmwp2.dll" />
-    <Content Include="OutSideIn\vsmwpf.dll" />
-    <Content Include="OutSideIn\vsmwrk.dll" />
-    <Content Include="OutSideIn\vsnsf.dll" />
-    <Content Include="OutSideIn\vsolm.dll" />
-    <Content Include="OutSideIn\vsone.dll" />
-    <Content Include="OutSideIn\vsow.dll" />
-    <Content Include="OutSideIn\vspbm.dll" />
-    <Content Include="OutSideIn\vspcl.dll" />
-    <Content Include="OutSideIn\vspcx.dll" />
-    <Content Include="OutSideIn\vspdf.dll" />
-    <Content Include="OutSideIn\vspdfi.dll" />
-    <Content Include="OutSideIn\vspdx.dll" />
-    <Content Include="OutSideIn\vspfs.dll" />
-    <Content Include="OutSideIn\vspgl.dll" />
-    <Content Include="OutSideIn\vspic.dll" />
-    <Content Include="OutSideIn\vspict.dll" />
-    <Content Include="OutSideIn\vspng.dll" />
-    <Content Include="OutSideIn\vspntg.dll" />
-    <Content Include="OutSideIn\vspp12.dll" />
-    <Content Include="OutSideIn\vspp2.dll" />
-    <Content Include="OutSideIn\vspp7.dll" />
-    <Content Include="OutSideIn\vspp97.dll" />
-    <Content Include="OutSideIn\vsppl.dll" />
-    <Content Include="OutSideIn\vspsp6.dll" />
-    <Content Include="OutSideIn\vspst.dll" />
-    <Content Include="OutSideIn\vspstf.dll" />
-    <Content Include="OutSideIn\vsqa.dll" />
-    <Content Include="OutSideIn\vsqad.dll" />
-    <Content Include="OutSideIn\vsqp6.dll" />
-    <Content Include="OutSideIn\vsqp9.dll" />
-    <Content Include="OutSideIn\vsqt.dll" />
-    <Content Include="OutSideIn\vsrar.dll" />
-    <Content Include="OutSideIn\vsras.dll" />
-    <Content Include="OutSideIn\vsrbs.dll" />
-    <Content Include="OutSideIn\vsrft.dll" />
-    <Content Include="OutSideIn\vsrfx.dll" />
-    <Content Include="OutSideIn\vsriff.dll" />
-    <Content Include="OutSideIn\vsrtf.dll" />
-    <Content Include="OutSideIn\vssam.dll" />
-    <Content Include="OutSideIn\vssc5.dll" />
-    <Content Include="OutSideIn\vssdw.dll" />
-    <Content Include="OutSideIn\vsshw3.dll" />
-    <Content Include="OutSideIn\vssmd.dll" />
-    <Content Include="OutSideIn\vssms.dll" />
-    <Content Include="OutSideIn\vssmt.dll" />
-    <Content Include="OutSideIn\vssnap.dll" />
-    <Content Include="OutSideIn\vsso6.dll" />
-    <Content Include="OutSideIn\vssoc.dll" />
-    <Content Include="OutSideIn\vssoc6.dll" />
-    <Content Include="OutSideIn\vssoi.dll" />
-    <Content Include="OutSideIn\vssoi6.dll" />
-    <Content Include="OutSideIn\vssow.dll" />
-    <Content Include="OutSideIn\vsspt.dll" />
-    <Content Include="OutSideIn\vsssml.dll" />
-    <Content Include="OutSideIn\vsswf.dll" />
-    <Content Include="OutSideIn\vstaz.dll" />
-    <Content Include="OutSideIn\vstext.dll" />
-    <Content Include="OutSideIn\vstga.dll" />
-    <Content Include="OutSideIn\vstif6.dll" />
-    <Content Include="OutSideIn\vstw.dll" />
-    <Content Include="OutSideIn\vstxt.dll" />
-    <Content Include="OutSideIn\vsvcrd.dll" />
-    <Content Include="OutSideIn\vsviso.dll" />
-    <Content Include="OutSideIn\vsvsdx.dll" />
-    <Content Include="OutSideIn\vsvw3.dll" />
-    <Content Include="OutSideIn\vsw12.dll" />
-    <Content Include="OutSideIn\vsw6.dll" />
-    <Content Include="OutSideIn\vsw97.dll" />
-    <Content Include="OutSideIn\vswbmp.dll" />
-    <Content Include="OutSideIn\vswg2.dll" />
-    <Content Include="OutSideIn\vswk4.dll" />
-    <Content Include="OutSideIn\vswk6.dll" />
-    <Content Include="OutSideIn\vswks.dll" />
-    <Content Include="OutSideIn\vswm.dll" />
-    <Content Include="OutSideIn\vswmf.dll" />
-    <Content Include="OutSideIn\vswml.dll" />
-    <Content Include="OutSideIn\vsword.dll" />
-    <Content Include="OutSideIn\vswork.dll" />
-    <Content Include="OutSideIn\vswp5.dll" />
-    <Content Include="OutSideIn\vswp6.dll" />
-    <Content Include="OutSideIn\vswpf.dll" />
-    <Content Include="OutSideIn\vswpg.dll" />
-    <Content Include="OutSideIn\vswpg2.dll" />
-    <Content Include="OutSideIn\vswpl.dll" />
-    <Content Include="OutSideIn\vswpml.dll" />
-    <Content Include="OutSideIn\vswpw.dll" />
-    <Content Include="OutSideIn\vsws.dll" />
-    <Content Include="OutSideIn\vsws2.dll" />
-    <Content Include="OutSideIn\vsxl12.dll" />
-    <Content Include="OutSideIn\vsxl5.dll" />
-    <Content Include="OutSideIn\vsxlsb.dll" />
-    <Content Include="OutSideIn\vsxml.dll" />
-    <Content Include="OutSideIn\vsxps.dll" />
-    <Content Include="OutSideIn\vsxy.dll" />
-    <Content Include="OutSideIn\vsyim.dll" />
-    <Content Include="OutSideIn\vszip.dll" />
-    <Content Include="OutSideIn\wvcore.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />

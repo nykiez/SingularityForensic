@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Singularity.UI.Controls.Views.TalkView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Singularity.UI.Info.Views"
+             xmlns:infoins="clr-namespace:Singularity.Contracts.Info;assembly=Singularity.Contracts"
+             xmlns:dvms="clr-namespace:Singularity.UI.Info.Design"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance dvms:TalkViewDesignModel,IsDesignTimeCreatable=True}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid>
+        <Grid.Resources>
+            <ImageBrush x:Key="LeftTalkBack" Stretch="Fill" ImageSource="/Singularity.UI.Controls;component/Images/TalkLog_Left.png"/>
+            <ImageBrush x:Key="RightTalkBack" Stretch="Fill" ImageSource="/Singularity.UI.Controls;component/Images/TalkLog_Right.png"/>
+        </Grid.Resources>
+        <Border BorderThickness="1,0,1,1" BorderBrush="Black">
+            <ListView ItemsSource="{Binding TalkLogs}" >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers></Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <StackPanel>
+                            <TextBlock Text="{Binding SendDate}" Foreground="#707070" TextAlignment="Center" Margin="0,12" />
+                            <StackPanel Orientation="Horizontal" Margin="6,0" >
+                                <TextBlock Text="{Binding SenderRemark,Mode=OneTime}"  Foreground="#707070" />
+                                <TextBlock>-</TextBlock>
+                                <TextBlock Text="{Binding SenderAccount,Mode=OneTime}" Foreground="#707070" />
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FromWhom,Mode=OneTime}" >
+                                                <DataTrigger.Value>
+                                                    <infoins:FromWhom>Self</infoins:FromWhom>
+                                                </DataTrigger.Value>
+                                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                            </StackPanel>
+                            <DockPanel >
+                                <TextBox Text="{Binding SendContent,Mode=OneTime}" Padding="12,0" SelectionBrush="White" FontFamily="Microsoft YaHei" BorderThickness="0"  MaxWidth="240" IsReadOnly="True" TextWrapping="Wrap">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Background" Value="{DynamicResource LeftTalkBack}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding FromWhom,Mode=OneTime}">
+                                                    <DataTrigger.Value>
+                                                        <infoins:FromWhom>Self</infoins:FromWhom>
+                                                    </DataTrigger.Value>
+                                                    <Setter Property="DockPanel.Dock" Value="Right"/>
+                                                    <Setter Property="Background" Value="{DynamicResource RightTalkBack}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                                <Border/>
+                            </DockPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </Border >
+        
+    </Grid>
+</UserControl>

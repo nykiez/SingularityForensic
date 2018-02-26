@@ -74,10 +74,6 @@
       <Project>{23aab916-5da8-431c-bf9a-57907064b7ae}</Project>
       <Name>CDFC.Parse.ITunes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.ITunes\Singularity.UI.ITunes.csproj">
-      <Project>{8e5c50c6-e84b-4494-adbc-0e78e45a9a1f}</Project>
-      <Name>Singularity.UI.ITunes</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

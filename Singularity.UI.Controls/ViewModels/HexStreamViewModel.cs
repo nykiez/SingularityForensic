@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using WPFHexaEditor.Control.Abstracts;
-using WPFHexaEditor.Core.Bytes;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFC.Parse.IO;
 using Ookii.Dialogs.Wpf;
@@ -14,6 +12,8 @@ using SysIO = System.IO;
 using Prism.Commands;
 using CDFC.Util.IO;
 using CDFCCultures.Helpers;
+using Prism.Mvvm;
+using WpfHexaEditor.Core.Bytes;
 
 namespace Singularity.UI.Controls.ViewModels {
     public enum CodeLanguage {
@@ -23,7 +23,70 @@ namespace Singularity.UI.Controls.ViewModels {
         FSharp,
         VBNET
     }
+    public abstract class HexEditorViewModel : BindableBase {
+        private bool readOnlyMode;
+        public bool ReadOnlyMode {
+            get {
+                if (Stream != null) {
+                    return !Stream.CanWrite;
+                }
+                return false;
+            }
+        }
 
+        private Stream stream;                      //所描述的流对象;
+        public Stream Stream {
+            get {
+                return stream;
+            }
+            set {
+                SetProperty(ref stream, value);
+                RaisePropertyChanged(nameof(ReadOnlyMode));
+            }
+        }
+
+        private long selectionStart = -1L;           //选择起始位置;
+        public long SelectionStart {
+            get {
+                return selectionStart;
+            }
+            set {
+                SetProperty(ref selectionStart, value);
+            }
+        }
+
+        private long selectionStop = -1L;                   //控制选定终止处;
+        public long SelectionStop {
+            get {
+                return selectionStop;
+            }
+            set {
+                SetProperty(ref selectionStop, value);
+            }
+        }
+
+        private long position = 0;
+        public long Position {                      //当前位置;
+            get {
+                return position;
+            }
+            set {
+                SetProperty(ref position, value);
+            }
+        }
+
+        private long _focusPosition = -1;
+        public long FocusPosition {
+            get {
+                return _focusPosition;
+            }
+            set {
+                SetProperty(ref _focusPosition, value);
+            }
+        }
+
+        public abstract event EventHandler SubmitChangesRequired;
+    }
     //十六进制流查看器视图模型
     public abstract partial class HexStreamEditorViewModel : HexEditorViewModel {
         public HexStreamEditorViewModel(Stream stream) {

@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.InfoMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vms="clr-namespace:SingularityForensic.Adb.ViewModels"
+             xmlns:local="clr-namespace:Singularity.UI.AdbViewer.Views"
+             xmlns:cviews="clr-namespace:Singularity.UI.Controls.Views;assembly=Singularity.UI.Controls"
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TabControl.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/GroupBox.xaml"/>-->
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="MeTabControlEx" TargetType="{x:Type controls:TabControlEx}">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="Background" Value="{StaticResource TabItem.Selected.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TabItem.Selected.Border}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type controls:TabControlEx}">
+                            <Grid x:Name="templateRoot" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                                    <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                    <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Column="1" Background="{StaticResource TabControl.HeaderPanel.Background}" CornerRadius="3,3,0,0">
+                                    <DockPanel >
+                                        <TextBlock DataContext="{Binding SelectedTabModel,Mode=OneWay}" Text="{Binding Header,Mode=OneWay,FallbackValue=文件视图}" FontSize="{DynamicResource Title.Header.FontSize}"
+                                                   Margin="{DynamicResource Title.Header.Margin}"
+                                                   VerticalAlignment="Center"/>
+                                        <Border  DockPanel.Dock="Right" 
+                                         ClipToBounds="True">
+                                            <WrapPanel x:Name="headerPanel" IsItemsHost="true"  
+                                        Orientation="Horizontal"
+                                    KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                                        </Border>
+                                        <Border/>
+                                    </DockPanel>
+                                </Border>
+                                <Border x:Name="contentPanel" BorderBrush="{StaticResource TabControl.SelectedContent.Border}"
+                                 CornerRadius="0,0,3,3" Padding="0,0,0,3" Grid.Column="1"
+                                Background="Transparent" KeyboardNavigation.DirectionalNavigation="Contained"
+                                     Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                                    <Grid x:Name="PART_ItemsHolder"
+                                      Margin="{TemplateBinding Padding}"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MeTabItem" TargetType="{x:Type TabItem}">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Padding" Value="16,0"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#3F92F0"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TabItem.Header.Border}"/>
+                <Setter Property="FontSize" Value="16px"/>
+                <Setter Property="MinHeight" Value="25"/>
+                <Setter Property="FontFamily" Value="{StaticResource Adobe-Heiti-Std-R}"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}" >
+                            <Grid x:Name="templateRoot"  SnapsToDevicePixels="true" Height="{TemplateBinding Height}" >
+                                <Border  BorderThickness="0,0,1,0" Padding="{TemplateBinding Padding}"  >
+                                    <ContentPresenter x:Name="contentPresenter" ContentSource="Header" TextBlock.FontSize="14"
+                                        Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                        RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                        VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="true"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Panel.ZIndex" Value="1"/>
+                                    <Setter Property="Background" Value="{Binding ActiveIcon}" TargetName="templateRoot"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </MultiTrigger>
+                                <MultiTrigger >
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Panel.ZIndex" Value="1"/>
+                                    <!--<Setter Property="Opacity" TargetName="innerBorder" Value="0.5"/>-->
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!--<Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <ContentPresenter Content="{TemplateBinding Content}" >
+
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>-->
+                <!--<Setter Property="Header">
+                    <Setter.Value>
+                        <Button Style="{DynamicResource TransparentButton}" Width="18" Height="18" ToolTip="{Binding Header,FallbackValue=文件视图}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="{Binding Icon,FallbackValue=/Singularity.UI.Info;component/Images/Btn_ListView.png}" Stretch="Fill" />
+                            </Button.Background>
+                        </Button>
+                    </Setter.Value>
+                </Setter>-->
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <controls:TabControlEx Style="{DynamicResource MeTabControlEx}" ItemsSource="{Binding TabModels}"
+                               SelectedItem="{Binding SelectedTabModel}"
+                               ItemContainerStyle="{DynamicResource MeTabItem}" >
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Cursor="Hand" Width="18" Height="18" ToolTip="{Binding Header,FallbackValue=文件视图}" >
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="{Binding Icon}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}},Path=IsSelected}" Value="True">
+                                        <Setter Property="Source" Value="{Binding ActiveIcon}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type vms:InfoListViewTabModel}">
+                    <local:InfoMainListView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:TalkTabViewModel}">
+                    <cviews:TalkView DataContext="{Binding TalkViewModel}"/>
+                </DataTemplate>
+            </TabControl.Resources>
+        </controls:TabControlEx>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>-->
+        <!--<Border Background="{DynamicResource Title.Header.Background}" CornerRadius="{DynamicResource Title.Header.Corner}" Height="{DynamicResource Title.Header.Height}">
+            <DockPanel Margin="{DynamicResource Title.Header.Margin}">
+                <TextBlock DataContext="{Binding CurShowingModel}"  FontFamily="{DynamicResource Title.Header.FontFamily}" VerticalAlignment="Center" FontSize="{DynamicResource Title.Header.FontSize}" Text="{Binding Word,FallbackValue=文件视图}" Foreground="{DynamicResource Title.Header.Foreground}"/>
+                <ItemsControl ItemsSource="{Binding NaviItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{DynamicResource TransparentButton}" Width="40">
+                                <Button.Background>
+                                    <ImageBrush/>
+                                </Button.Background>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Border/>
+            </DockPanel>
+        </Border>
+        <ContentControl Content="{Binding CurShowingModel}"/>-->
+
+    </Grid>
+
+</UserControl>

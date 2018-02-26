@@ -46,25 +46,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFC.Hasher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
-    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCHexaEditor.dll</HintPath>
-    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
@@ -72,6 +78,12 @@
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Meta.Vlc, Version=16.5.1.0, Culture=neutral, PublicKeyToken=721a8c5379fa4056, processorArchitecture=x86">
+      <HintPath>..\packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll</HintPath>
+    </Reference>
+    <Reference Include="Meta.Vlc.Wpf, Version=16.5.1.0, Culture=neutral, PublicKeyToken=721a8c5379fa4056, processorArchitecture=x86">
+      <HintPath>..\packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -99,10 +111,23 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.107.0\lib\net451\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.107.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.107.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
@@ -115,121 +140,480 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Vlc.DotNet.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.2.2.1\lib\net45\Vlc.DotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.Interops.2.2.1\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Forms.2.2.1\lib\net45\Vlc.DotNet.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.0\lib\NET451\WPFHexaEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adb\AdbModels.cs" />
+    <Compile Include="Adb\AdbViewerModule.cs" />
+    <Compile Include="Adb\Contracts\IInfoModel.cs" />
+    <Compile Include="Adb\Contracts\IInfoModelContainer.cs" />
+    <Compile Include="Adb\Contracts\MInfoTypeBox.cs" />
+    <Compile Include="Adb\DeviceObjects\AdbFile.cs" />
+    <Compile Include="Adb\Global\InfoRegionNames.cs" />
+    <Compile Include="Adb\Global\RegionNames.cs" />
+    <Compile Include="Adb\Global\Services\AdbViewerService.cs" />
+    <Compile Include="Adb\Helpers\MInfoTypeHelper.cs" />
+    <Compile Include="Adb\Helpers\ResultHelper.cs" />
+    <Compile Include="Adb\InfoKindsDefinitions.cs" />
+    <Compile Include="Adb\MenuItemDefinitions.cs" />
+    <Compile Include="Adb\MessageBoxes\AdbViewerMessageBox.cs" />
+    <Compile Include="Adb\Models\AdbDeviceCaseFile.cs" />
+    <Compile Include="Adb\Models\AdbDeviceCaseManager.cs" />
+    <Compile Include="Adb\Models\AdbViewer\AdbDevice.cs" />
+    <Compile Include="Adb\Models\AdbViewer\AdbInfoUnit.cs" />
+    <Compile Include="Adb\Models\AdbViewer\PhoneInfoModel.cs" />
+    <Compile Include="Adb\Models\ShowingItem.cs" />
+    <Compile Include="Adb\Models\TreeUnits.cs" />
+    <Compile Include="Adb\PhoneInfoContainer.cs" />
+    <Compile Include="Adb\IconSources.cs" />
+    <Compile Include="Adb\TabModels\AdbTabModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbBasicPanelViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbGrid\AdbDataGridViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbGrid\AdbFileHexStreamTabViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbGrid\AdbGridViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbGrid\AdbInfoDetailTabViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbGrid\AdbPreviewViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbTabViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbViewer\AdbInfoesCheckedViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbViewer\AdbViewerViewModel.cs" />
+    <Compile Include="Adb\ViewModels\AdbViewer\DeviceSelectorViewModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoBasicViewModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoFolderBrowserViewModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoMainTabModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoMainViewModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoTreeModel.cs" />
+    <Compile Include="Adb\ViewModels\InfoViewModel.cs" />
+    <Compile Include="Adb\Views\AdbBasicPanel.xaml.cs">
+      <DependentUpon>AdbBasicPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbGrid\AdbDataGrid.xaml.cs">
+      <DependentUpon>AdbDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbGrid\AdbGrid.xaml.cs">
+      <DependentUpon>AdbGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbGrid\AdbImagePreview.xaml.cs">
+      <DependentUpon>AdbImagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbGrid\AdbInfoDetailTab.xaml.cs">
+      <DependentUpon>AdbInfoDetailTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbTab.xaml.cs">
+      <DependentUpon>AdbTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbViewer\AdbInfoesChecker.xaml.cs">
+      <DependentUpon>AdbInfoesChecker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbViewer\AdbPhoneViewer.xaml.cs">
+      <DependentUpon>AdbPhoneViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\AdbViewer\DeviceSelector.xaml.cs">
+      <DependentUpon>DeviceSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\InfoMain.xaml.cs">
+      <DependentUpon>InfoMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\InfoMainListView.xaml.cs">
+      <DependentUpon>InfoMainListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\InfoTree.xaml.cs">
+      <DependentUpon>InfoTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Adb\Views\InfoView.xaml.cs">
+      <DependentUpon>InfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Case\CaseModule.cs" />
+    <Compile Include="Case\CommandDefinitions.cs" />
+    <Compile Include="Case\MenuItemDefinitions.cs" />
+    <Compile Include="Case\MessageBoxes\CreateCaseMessageBox.cs" />
+    <Compile Include="Case\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
+    <Compile Include="Case\Models\TreeUnits.cs" />
+    <Compile Include="Case\IconSources.cs" />
+    <Compile Include="Case\CaseService.cs" />
+    <Compile Include="Case\SingularityCase.cs" />
+    <Compile Include="Case\ViewModels\CreateCaseWindowViewModel.cs" />
+    <Compile Include="Case\Views\CreateCaseWindow.xaml.cs">
+      <DependentUpon>CreateCaseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Case\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
+      <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\ExplorerModule.cs" />
+    <Compile Include="FileExplorer\FSNodeManagerService.cs" />
+    <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
+    <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
+    <Compile Include="FileExplorer\IconResources.cs" />
+    <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
+    <Compile Include="FileExplorer\Models\FileSystemUnit.cs" />
+    <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
+    <Compile Include="FileExplorer\Models\StorageTreeUnit.cs" />
+    <Compile Include="FileExplorer\Models\ViewerProgram.cs" />
+    <Compile Include="FileExplorer\Models\ViewerProgramModel.cs" />
+    <Compile Include="FileExplorer\Modules\Hash\ComputeHashCommandItem.cs" />
+    <Compile Include="FileExplorer\Modules\Indexing\CommandDefinitions.cs" />
+    <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
+    <Compile Include="FileExplorer\Services\UnknownFileExplorerServiceProvider.cs" />
+    <Compile Include="FileExplorer\ViewModels\DirectoriesBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FileBrowserTabModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FileBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FileHexTabViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FilePreviewerViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModelcs.cs" />
+    <Compile Include="FileExplorer\ViewModels\ThumbnailTabModel.cs" />
+    <Compile Include="FileExplorer\Views\CustomIndexSearch.xaml.cs">
+      <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\FileBrowser.xaml.cs">
+      <DependentUpon>FileBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\FileDetailInfo.xaml.cs">
+      <DependentUpon>FileDetailInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\FolderBrowser.xaml.cs">
+      <DependentUpon>FolderBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\ItrChildrenPreview.xaml.cs">
+      <DependentUpon>ItrChildrenPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\PartitionsBrowser.xaml.cs">
+      <DependentUpon>PartitionsBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileExplorer\Views\ThumbnailInfo.xaml.cs">
+      <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileSystem\CommandDefinitions.cs" />
+    <Compile Include="FileSystem\FileSystemModule.cs" />
+    <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
+    <Compile Include="FileSystem\IconSources.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
-    <Compile Include="Modules\About\MenuItemDefinitions.cs" />
-    <Compile Include="Modules\About\Resources\IconSources.cs" />
-    <Compile Include="Modules\MainMenu\Global\Events\MenuSelectedGroupChangedEvent.cs" />
+    <Compile Include="About\MenuItemDefinitions.cs" />
+    <Compile Include="About\IconSources.cs" />
+    <Compile Include="Hex\HexModule.cs" />
+    <Compile Include="Hex\MenuItemDefinitions.cs" />
+    <Compile Include="Hex\Models\SearchKeyOptions.cs" />
+    <Compile Include="Hex\IconSources.cs" />
+    <Compile Include="Hex\Services\HexServiceProvider.cs" />
+    <Compile Include="ITunes\Global\Services\ForensicService.cs" />
+    <Compile Include="ITunes\InfoKindsDefinitions.cs" />
+    <Compile Include="ITunes\ITunesModule.cs" />
+    <Compile Include="ITunes\MenuItemDefinitions.cs" />
+    <Compile Include="ITunes\Models\CheckTreeItems.cs" />
+    <Compile Include="ITunes\Models\ITunesBackUpCaseFile.cs" />
+    <Compile Include="ITunes\Resources\IconResources.cs" />
+    <Compile Include="ITunes\TabModels\ITunesGridTabModel.cs" />
+    <Compile Include="ITunes\ViewModels\ITunesStartForensicWindowViewModel.cs" />
+    <Compile Include="ITunes\Views\ITunesGrid.xaml.cs">
+      <DependentUpon>ITunesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ITunes\Views\StartForensicWindow.xaml.cs">
+      <DependentUpon>StartForensicWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu\Global\Events\MenuSelectedGroupChangedEvent.cs" />
+    <Compile Include="MainMenu\MainMenuModule.cs" />
+    <Compile Include="MainMenu\MenuGroupDefinitions.cs" />
+    <Compile Include="MainMenu\ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="MainMenu\Views\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainModule.cs" />
-    <Compile Include="Modules\About\AboutMessageBox.cs" />
-    <Compile Include="Modules\MainMenu\MainMenuModule.cs" />
-    <Compile Include="Modules\MainMenu\MenuGroupDefinitions.cs" />
-    <Compile Include="Modules\MainPage\DocumentTabService.cs" />
-    <Compile Include="Modules\MainPage\NodeService.cs" />
-    <Compile Include="Modules\MainPage\MenuGroupDefinitions.cs" />
-    <Compile Include="Modules\MainPage\Models\TabModel.cs" />
-    <Compile Include="Modules\MainPage\RegionNames.cs" />
-    <Compile Include="Modules\MainPage\Resources\IconResources.cs" />
-    <Compile Include="Modules\MainPage\ViewModels\BrowserTabViewModel.cs" />
-    <Compile Include="Modules\MainPage\ViewModels\MainPageNodeManagerViewModel.cs" />
-    <Compile Include="Modules\MainPage\ViewModels\MainPageViewModel.cs" />
-    <Compile Include="Modules\Shell\Models\IShell.cs" />
-    <Compile Include="Modules\Shell\RegionNames.cs" />
-    <Compile Include="Modules\Shell\ShellService.cs" />
-    <Compile Include="Modules\Shell\Models\ViewerProgramMessage.cs" />
-    <Compile Include="Modules\HelpAbout\MenuDefinitions.cs" />
-    <Compile Include="Modules\MainMenu\ViewModels\MainMenuViewModel.cs" />
-    <Compile Include="Modules\Shell\RecentCaseViewModel.cs" />
-    <Compile Include="Modules\Shell\Views\BlankPage.xaml.cs">
+    <Compile Include="About\AboutMessageBox.cs" />
+    <Compile Include="MainPage\DocumentTabService.cs" />
+    <Compile Include="MainPage\MainPageModule.cs" />
+    <Compile Include="MainPage\NodeService.cs" />
+    <Compile Include="MainPage\MenuGroupDefinitions.cs" />
+    <Compile Include="MainPage\Models\TabModel.cs" />
+    <Compile Include="MainPage\RegionNames.cs" />
+    <Compile Include="MainPage\Resources\IconResources.cs" />
+    <Compile Include="MainPage\ViewModels\BrowserTabViewModel.cs" />
+    <Compile Include="MainPage\ViewModels\MainPageNodeManagerViewModel.cs" />
+    <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Previewers\DefaultPreviewerModule.cs" />
+    <Compile Include="Previewers\DefaultPreviewerProvider.cs" />
+    <Compile Include="Previewers\Models\DBUnit.cs" />
+    <Compile Include="Previewers\Models\Player.cs" />
+    <Compile Include="Previewers\Previewers\ImagePreviewer.cs" />
+    <Compile Include="Previewers\Previewers\OutsideInPreviewer.cs" />
+    <Compile Include="Previewers\Previewers\PlainTextPreviewer.cs" />
+    <Compile Include="Previewers\Previewers\SqlitePreviewer.cs" />
+    <Compile Include="Previewers\Previewers\VlcVideoPreviewer.cs" />
+    <Compile Include="Previewers\ViewModels\SqlitePreviewerModel.cs" />
+    <Compile Include="Previewers\ViewModels\VideoPreviewerModel.cs" />
+    <Compile Include="Previewers\Views\ImagePreviewer.xaml.cs">
+      <DependentUpon>ImagePreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Previewers\Views\OutsideInPreviewer.xaml.cs">
+      <DependentUpon>OutsideInPreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Previewers\Views\PlainTextPreviewer.xaml.cs">
+      <DependentUpon>PlainTextPreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Previewers\Views\SqlitePreviewer.xaml.cs">
+      <DependentUpon>SqlitePreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Previewers\Views\VideoPreviewer.xaml.cs">
+      <DependentUpon>VideoPreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Previewers\Views\VlcVideoPreviewer.xaml.cs">
+      <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\Models\IShell.cs" />
+    <Compile Include="Shell\RegionNames.cs" />
+    <Compile Include="Shell\ShellService.cs" />
+    <Compile Include="Shell\Models\ViewerProgramMessage.cs" />
+    <Compile Include="HelpAbout\MenuDefinitions.cs" />
+    <Compile Include="Shell\ViewModels\RecentCaseViewModel.cs" />
+    <Compile Include="Shell\Views\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Shell\WelcomeViewModel.cs" />
-    <Compile Include="Modules\MainPage\Views\MainPage.xaml.cs">
+    <Compile Include="Shell\WelcomeViewModel.cs" />
+    <Compile Include="MainPage\Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Shell\Views\LoadingMask.xaml.cs">
+    <Compile Include="Shell\Views\LoadingMask.xaml.cs">
       <DependentUpon>LoadingMask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\MainPage\Views\WelcomeView.xaml.cs">
+    <Compile Include="MainPage\Views\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Shell\Views\Welcome.xaml.cs">
+    <Compile Include="Shell\Views\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\About\Views\AboutWindow.xaml.cs">
+    <Compile Include="About\Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Adb\Languages\zh_CN\Singularity.AdbViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbBasicPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbGrid\AdbDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbGrid\AdbGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbGrid\AdbImagePreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbGrid\AdbInfoDetailTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbViewer\AdbInfoesChecker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbViewer\AdbPhoneViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\AdbViewer\DeviceSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\InfoMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\InfoMainListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\InfoTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Adb\Views\InfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Case\Views\CreateCaseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Case\Views\ShowFileCaseFilePropertyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Languages\zh_CN\Singularity.UI.FileExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\CustomIndexSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\FileBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\FileDetailInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\FolderBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\ItrChildrenPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\PartitionsBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\ThumbnailInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileSystem\Languages\zh_CN\Singularity.FileSystem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Hex\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ITunes\Languages\zh_CN\Singularity.UI.ITunes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ITunes\Views\ITunesGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ITunes\Views\StartForensicWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Languages\zh_CN\SingularityForensic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Shell\Views\BlankPage.xaml">
+    <Page Include="MainMenu\Views\MainMenu.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Modules\MainPage\Views\MainPageNodeManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\MainPage\Views\DocumentTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\MainPage\Views\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Shell\Views\LoadingMask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\MainMenu\Views\MainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\MainPage\Views\WelcomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Shell\Views\Welcome.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\About\Views\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Shell\Views\Shell.xaml">
+    <Page Include="Previewers\Languages\zh_CN\Singularity.Previewers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Modules\Shell\ViewModels\ShellViewModel.cs" />
-    <Compile Include="Modules\MainPage\Views\MainPageNodeManager.xaml.cs">
+    <Page Include="Previewers\Themes\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\ImagePreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\OutsideInPreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\PlainTextPreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\SqlitePreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\VideoPreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Previewers\Views\VlcVideoPreviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell\Views\BlankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage\Views\MainPageNodeManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage\Views\DocumentTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage\Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\Views\LoadingMask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage\Views\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\Views\Welcome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="About\Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\Views\Shell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Shell\ViewModels\ShellViewModel.cs" />
+    <Compile Include="MainPage\Views\MainPageNodeManager.xaml.cs">
       <DependentUpon>MainPageNodeManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\MainPage\Views\DocumentTab.xaml.cs">
+    <Compile Include="MainPage\Views\DocumentTab.xaml.cs">
       <DependentUpon>DocumentTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\MainMenu\Views\MainMenu.xaml.cs">
-      <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Shell\Views\Shell.xaml.cs">
+    <Compile Include="Shell\Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Modules\ToolBar\Views\ToolBar.xaml">
+    <Page Include="ToolBar\Views\ToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\ToolBar\ToolBarModule.cs" />
-    <Compile Include="Modules\ToolBar\ViewModels\ToolBarViewModel.cs" />
-    <Compile Include="Modules\ToolBar\Views\ToolBar.xaml.cs">
+    <Compile Include="ToolBar\ToolBarModule.cs" />
+    <Compile Include="ToolBar\ViewModels\ToolBarViewModel.cs" />
+    <Compile Include="ToolBar\Views\ToolBar.xaml.cs">
       <DependentUpon>ToolBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -249,8 +633,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Adb\app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
+    <None Include="Previewers\OutSideIn\adinit.dat" />
+    <None Include="Previewers\OutSideIn\cmmap000.bin" />
+    <None Include="Previewers\OutSideIn\oitnsf.id" />
+    <None Include="Previewers\OutSideIn\oit_font_metrics.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -285,11 +674,46 @@
     <Resource Include="Images\Shell\ToolBar\Btn_Calc.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Adb\Languages\en_US\" />
+    <Folder Include="Hex\Languages\" />
     <Folder Include="Languages\en_US\" />
-    <Folder Include="Modules\MainMenu\Global\Services\" />
-    <Folder Include="Modules\StatusBar\" />
+    <Folder Include="MainMenu\Global\Services\" />
+    <Folder Include="Previewers\Languages\en_US\" />
+    <Folder Include="StatusBar\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
+      <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
+      <Name>CDFC.Parse.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.ITunes\CDFC.Parse.ITunes.csproj">
+      <Project>{23aab916-5da8-431c-bf9a-57907064b7ae}</Project>
+      <Name>CDFC.Parse.ITunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Java\CDFC.Parse.Java.csproj">
+      <Project>{2be4a396-134a-4715-9044-6f188b10752b}</Project>
+      <Name>CDFC.Parse.Java</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
+      <Project>{13044f46-874a-4419-90ec-ba559828a960}</Project>
+      <Name>CDFC.Parse.Local</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Python\CDFC.Parse.Python.csproj">
+      <Project>{14869156-5b67-42aa-82c7-4abcf3ddc97b}</Project>
+      <Name>CDFC.Parse.Python</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse.Signature\CDFC.Parse.Signature.csproj">
+      <Project>{cce9a2bc-2eb4-4523-809d-7c4d57c8fc82}</Project>
+      <Name>CDFC.Parse.Signature</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
+      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
+      <Name>CDFC.Parse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">
+      <Project>{80f67817-5bf1-4542-b77b-9f29f739b360}</Project>
+      <Name>Cflab.DataTransport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
       <Name>Singularity.Contracts</Name>
@@ -298,17 +722,14 @@
     <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
       <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
       <Name>Singularity.UI.Controls</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.MessageBoxes\Singularity.UI.MessageBoxes.csproj">
-      <Project>{83701165-1dee-4a3e-8c86-140c70b277ee}</Project>
-      <Name>Singularity.UI.MessageBoxes</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
+      <Project>{98d376f1-121c-464c-8e94-716a131ffc21}</Project>
+      <Name>Singularity.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Themes\Singularity.UI.Themes.csproj">
-      <Project>{cd659848-e12a-482e-9e5b-6b1a63c9e481}</Project>
-      <Name>Singularity.UI.Themes</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
+      <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
+      <Name>Singularity.UI.Info</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingularityUpdater\SingularityUpdater.csproj">
       <Project>{cea7ed9e-555f-4c9b-8d8b-a1a708feea89}</Project>
@@ -405,10 +826,10 @@
     <Resource Include="Images\ToolbarButton_Hover.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Modules\About\Images\Toolbar_Calc.png" />
+    <Resource Include="About\Images\Toolbar_Calc.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Modules\About\Images\Toolbar_CreateCase.png" />
+    <Resource Include="About\Images\Toolbar_CreateCase.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Toolbar_FindHex.png" />
@@ -428,18 +849,456 @@
   <ItemGroup>
     <Resource Include="Images\Shell\FolderBrowser\FilterUsing.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Attachments\sign.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Attachments\ViewerPrograms.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Images\Toolbar_CreateCase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Images\Toolbar_OpenCase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Images\Type_Case.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Case\Images\Type_CaseActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hex\Images\Toolbar_FindHex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hex\Images\ToolBar_FindNext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hex\Images\Toolbar_FindText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hex\Images\Toolbar_GotoOffset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\ToolBar_AddImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_Device.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_DeviceActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_DirectoryActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_HardDisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_Partition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_PartitionActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileSystem\Images\Type_Unknown.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Btn_ListView.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Btn_ListView_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Btn_TalkView.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Btn_TalkView_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Person_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Person_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Toolbar_Analyze.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Toolbar_ConnectToDevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\Toolbar_TargetPeople.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adb\Images\对话框-30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ITunes\Images\Toolbar_AddITunes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\FolderBrowser\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\FolderBrowser\FilterUsing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Sign_Deleted.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\ToolBar_AddImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_Device.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_DeviceActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_Directory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_DirectoryActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_FileSystem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_Partition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_PartitionActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_RegularFile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FileExplorer\Images\Type_Unknown.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Add_Normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Add_Tap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_GoBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_GoForward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_Mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Btn_Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\BtnClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\BtnClose_Hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\BtnMax_Maximumed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\BtnMax_Normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\BtnMin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\CommandBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Delete_Normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Delete_Tap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Main_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Play_ControlPanel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Slider_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Slider_Back2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Slider_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Slider_Value.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Type_Case.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Type_Device.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\VideoItemListBanner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Volume_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Volume_Pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previewers\Images\Volume_Value.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Previewers\OutSideIn\debmp.dll" />
+    <Content Include="Previewers\OutSideIn\dehex.dll" />
+    <Content Include="Previewers\OutSideIn\dess.dll" />
+    <Content Include="Previewers\OutSideIn\detree.dll" />
+    <Content Include="Previewers\OutSideIn\devect.dll" />
+    <Content Include="Previewers\OutSideIn\dewp.dll" />
+    <Content Include="Previewers\OutSideIn\ibfpx2.dll" />
+    <Content Include="Previewers\OutSideIn\ibgp42.dll" />
+    <Content Include="Previewers\OutSideIn\ibjpg2.dll" />
+    <Content Include="Previewers\OutSideIn\ibpcd2.dll" />
+    <Content Include="Previewers\OutSideIn\ibpsd2.dll" />
+    <Content Include="Previewers\OutSideIn\ibxbm2.dll" />
+    <Content Include="Previewers\OutSideIn\ibxpm2.dll" />
+    <Content Include="Previewers\OutSideIn\ibxwd2.dll" />
+    <Content Include="Previewers\OutSideIn\imcd32.dll" />
+    <Content Include="Previewers\OutSideIn\imcd42.dll" />
+    <Content Include="Previewers\OutSideIn\imcd52.dll" />
+    <Content Include="Previewers\OutSideIn\imcd62.dll" />
+    <Content Include="Previewers\OutSideIn\imcd72.dll" />
+    <Content Include="Previewers\OutSideIn\imcd82.dll" />
+    <Content Include="Previewers\OutSideIn\imcdr2.dll" />
+    <Content Include="Previewers\OutSideIn\imcm52.dll" />
+    <Content Include="Previewers\OutSideIn\imcm72.dll" />
+    <Content Include="Previewers\OutSideIn\imcmx2.dll" />
+    <Content Include="Previewers\OutSideIn\imdsf2.dll" />
+    <Content Include="Previewers\OutSideIn\imfmv2.dll" />
+    <Content Include="Previewers\OutSideIn\imgdf2.dll" />
+    <Content Include="Previewers\OutSideIn\imgem2.dll" />
+    <Content Include="Previewers\OutSideIn\imigs2.dll" />
+    <Content Include="Previewers\OutSideIn\immet2.dll" />
+    <Content Include="Previewers\OutSideIn\impif2.dll" />
+    <Content Include="Previewers\OutSideIn\impsi2.dll" />
+    <Content Include="Previewers\OutSideIn\impsz2.dll" />
+    <Content Include="Previewers\OutSideIn\imps_2.dll" />
+    <Content Include="Previewers\OutSideIn\imrnd2.dll" />
+    <Content Include="Previewers\OutSideIn\iphgw2.dll" />
+    <Content Include="Previewers\OutSideIn\isgdi32.dll" />
+    <Content Include="Previewers\OutSideIn\ocemul.dll" />
+    <Content Include="Previewers\OutSideIn\oswin32.dll" />
+    <Content Include="Previewers\OutSideIn\sccanno.dll" />
+    <Content Include="Previewers\OutSideIn\sccca.dll" />
+    <Content Include="Previewers\OutSideIn\sccch.dll" />
+    <Content Include="Previewers\OutSideIn\sccda.dll" />
+    <Content Include="Previewers\OutSideIn\sccdu.dll" />
+    <Content Include="Previewers\OutSideIn\sccfa.dll" />
+    <Content Include="Previewers\OutSideIn\sccfi.dll" />
+    <Content Include="Previewers\OutSideIn\sccfmt.dll" />
+    <Content Include="Previewers\OutSideIn\sccfnt.dll" />
+    <Content Include="Previewers\OutSideIn\sccfut.dll" />
+    <Content Include="Previewers\OutSideIn\sccind.dll" />
+    <Content Include="Previewers\OutSideIn\scclo.dll" />
+    <Content Include="Previewers\OutSideIn\sccole.dll" />
+    <Content Include="Previewers\OutSideIn\sccra.dll" />
+    <Content Include="Previewers\OutSideIn\sccsd.dll" />
+    <Content Include="Previewers\OutSideIn\sccta.dll" />
+    <Content Include="Previewers\OutSideIn\sccut.dll" />
+    <Content Include="Previewers\OutSideIn\sccvw.dll" />
+    <Content Include="Previewers\OutSideIn\sccxt.dll" />
+    <Content Include="Previewers\OutSideIn\vsacad.dll" />
+    <Content Include="Previewers\OutSideIn\vsacs.dll" />
+    <Content Include="Previewers\OutSideIn\vsami.dll" />
+    <Content Include="Previewers\OutSideIn\vsarc.dll" />
+    <Content Include="Previewers\OutSideIn\vsasf.dll" />
+    <Content Include="Previewers\OutSideIn\vsbdr.dll" />
+    <Content Include="Previewers\OutSideIn\vsbmp.dll" />
+    <Content Include="Previewers\OutSideIn\vscdrx.dll" />
+    <Content Include="Previewers\OutSideIn\vscgm.dll" />
+    <Content Include="Previewers\OutSideIn\vsdbs.dll" />
+    <Content Include="Previewers\OutSideIn\vsdez.dll" />
+    <Content Include="Previewers\OutSideIn\vsdif.dll" />
+    <Content Include="Previewers\OutSideIn\vsdrw.dll" />
+    <Content Include="Previewers\OutSideIn\vsdx.dll" />
+    <Content Include="Previewers\OutSideIn\vsdxla.dll" />
+    <Content Include="Previewers\OutSideIn\vsdxlm.dll" />
+    <Content Include="Previewers\OutSideIn\vsemf.dll" />
+    <Content Include="Previewers\OutSideIn\vsen4.dll" />
+    <Content Include="Previewers\OutSideIn\vsens.dll" />
+    <Content Include="Previewers\OutSideIn\vsenw.dll" />
+    <Content Include="Previewers\OutSideIn\vseshr.dll" />
+    <Content Include="Previewers\OutSideIn\vsexe2.dll" />
+    <Content Include="Previewers\OutSideIn\vsfax.dll" />
+    <Content Include="Previewers\OutSideIn\vsfcd.dll" />
+    <Content Include="Previewers\OutSideIn\vsfcs.dll" />
+    <Content Include="Previewers\OutSideIn\vsfft.dll" />
+    <Content Include="Previewers\OutSideIn\vsflw.dll" />
+    <Content Include="Previewers\OutSideIn\vsfwk.dll" />
+    <Content Include="Previewers\OutSideIn\vsgdsf.dll" />
+    <Content Include="Previewers\OutSideIn\vsgif.dll" />
+    <Content Include="Previewers\OutSideIn\vsgzip.dll" />
+    <Content Include="Previewers\OutSideIn\vshgs.dll" />
+    <Content Include="Previewers\OutSideIn\vshtml.dll" />
+    <Content Include="Previewers\OutSideIn\vshwp.dll" />
+    <Content Include="Previewers\OutSideIn\vshwp2.dll" />
+    <Content Include="Previewers\OutSideIn\vsich.dll" />
+    <Content Include="Previewers\OutSideIn\vsich6.dll" />
+    <Content Include="Previewers\OutSideIn\vsid3.dll" />
+    <Content Include="Previewers\OutSideIn\vsimg.dll" />
+    <Content Include="Previewers\OutSideIn\vsiwok.dll" />
+    <Content Include="Previewers\OutSideIn\vsiwok13.dll" />
+    <Content Include="Previewers\OutSideIn\vsiwon.dll" />
+    <Content Include="Previewers\OutSideIn\vsiwop.dll" />
+    <Content Include="Previewers\OutSideIn\vsiwp.dll" />
+    <Content Include="Previewers\OutSideIn\vsjbg2.dll" />
+    <Content Include="Previewers\OutSideIn\vsjp2.dll" />
+    <Content Include="Previewers\OutSideIn\vsjw.dll" />
+    <Content Include="Previewers\OutSideIn\vsleg.dll" />
+    <Content Include="Previewers\OutSideIn\vslwp7.dll" />
+    <Content Include="Previewers\OutSideIn\vslzh.dll" />
+    <Content Include="Previewers\OutSideIn\vsm11.dll" />
+    <Content Include="Previewers\OutSideIn\vsmanu.dll" />
+    <Content Include="Previewers\OutSideIn\vsmbox.dll" />
+    <Content Include="Previewers\OutSideIn\vsmcw.dll" />
+    <Content Include="Previewers\OutSideIn\vsmdb.dll" />
+    <Content Include="Previewers\OutSideIn\vsmif.dll" />
+    <Content Include="Previewers\OutSideIn\vsmime.dll" />
+    <Content Include="Previewers\OutSideIn\vsmm.dll" />
+    <Content Include="Previewers\OutSideIn\vsmm4.dll" />
+    <Content Include="Previewers\OutSideIn\vsmmfn.dll" />
+    <Content Include="Previewers\OutSideIn\vsmp.dll" />
+    <Content Include="Previewers\OutSideIn\vsmpp.dll" />
+    <Content Include="Previewers\OutSideIn\vsmsg.dll" />
+    <Content Include="Previewers\OutSideIn\vsmsw.dll" />
+    <Content Include="Previewers\OutSideIn\vsmwkd.dll" />
+    <Content Include="Previewers\OutSideIn\vsmwks.dll" />
+    <Content Include="Previewers\OutSideIn\vsmwp2.dll" />
+    <Content Include="Previewers\OutSideIn\vsmwpf.dll" />
+    <Content Include="Previewers\OutSideIn\vsmwrk.dll" />
+    <Content Include="Previewers\OutSideIn\vsnsf.dll" />
+    <Content Include="Previewers\OutSideIn\vsolm.dll" />
+    <Content Include="Previewers\OutSideIn\vsone.dll" />
+    <Content Include="Previewers\OutSideIn\vsow.dll" />
+    <Content Include="Previewers\OutSideIn\vspbm.dll" />
+    <Content Include="Previewers\OutSideIn\vspcl.dll" />
+    <Content Include="Previewers\OutSideIn\vspcx.dll" />
+    <Content Include="Previewers\OutSideIn\vspdf.dll" />
+    <Content Include="Previewers\OutSideIn\vspdfi.dll" />
+    <Content Include="Previewers\OutSideIn\vspdx.dll" />
+    <Content Include="Previewers\OutSideIn\vspfs.dll" />
+    <Content Include="Previewers\OutSideIn\vspgl.dll" />
+    <Content Include="Previewers\OutSideIn\vspic.dll" />
+    <Content Include="Previewers\OutSideIn\vspict.dll" />
+    <Content Include="Previewers\OutSideIn\vspng.dll" />
+    <Content Include="Previewers\OutSideIn\vspntg.dll" />
+    <Content Include="Previewers\OutSideIn\vspp12.dll" />
+    <Content Include="Previewers\OutSideIn\vspp2.dll" />
+    <Content Include="Previewers\OutSideIn\vspp7.dll" />
+    <Content Include="Previewers\OutSideIn\vspp97.dll" />
+    <Content Include="Previewers\OutSideIn\vsppl.dll" />
+    <Content Include="Previewers\OutSideIn\vspsp6.dll" />
+    <Content Include="Previewers\OutSideIn\vspst.dll" />
+    <Content Include="Previewers\OutSideIn\vspstf.dll" />
+    <Content Include="Previewers\OutSideIn\vsqa.dll" />
+    <Content Include="Previewers\OutSideIn\vsqad.dll" />
+    <Content Include="Previewers\OutSideIn\vsqp6.dll" />
+    <Content Include="Previewers\OutSideIn\vsqp9.dll" />
+    <Content Include="Previewers\OutSideIn\vsqt.dll" />
+    <Content Include="Previewers\OutSideIn\vsrar.dll" />
+    <Content Include="Previewers\OutSideIn\vsras.dll" />
+    <Content Include="Previewers\OutSideIn\vsrbs.dll" />
+    <Content Include="Previewers\OutSideIn\vsrft.dll" />
+    <Content Include="Previewers\OutSideIn\vsrfx.dll" />
+    <Content Include="Previewers\OutSideIn\vsriff.dll" />
+    <Content Include="Previewers\OutSideIn\vsrtf.dll" />
+    <Content Include="Previewers\OutSideIn\vssam.dll" />
+    <Content Include="Previewers\OutSideIn\vssc5.dll" />
+    <Content Include="Previewers\OutSideIn\vssdw.dll" />
+    <Content Include="Previewers\OutSideIn\vsshw3.dll" />
+    <Content Include="Previewers\OutSideIn\vssmd.dll" />
+    <Content Include="Previewers\OutSideIn\vssms.dll" />
+    <Content Include="Previewers\OutSideIn\vssmt.dll" />
+    <Content Include="Previewers\OutSideIn\vssnap.dll" />
+    <Content Include="Previewers\OutSideIn\vsso6.dll" />
+    <Content Include="Previewers\OutSideIn\vssoc.dll" />
+    <Content Include="Previewers\OutSideIn\vssoc6.dll" />
+    <Content Include="Previewers\OutSideIn\vssoi.dll" />
+    <Content Include="Previewers\OutSideIn\vssoi6.dll" />
+    <Content Include="Previewers\OutSideIn\vssow.dll" />
+    <Content Include="Previewers\OutSideIn\vsspt.dll" />
+    <Content Include="Previewers\OutSideIn\vsssml.dll" />
+    <Content Include="Previewers\OutSideIn\vsswf.dll" />
+    <Content Include="Previewers\OutSideIn\vstaz.dll" />
+    <Content Include="Previewers\OutSideIn\vstext.dll" />
+    <Content Include="Previewers\OutSideIn\vstga.dll" />
+    <Content Include="Previewers\OutSideIn\vstif6.dll" />
+    <Content Include="Previewers\OutSideIn\vstw.dll" />
+    <Content Include="Previewers\OutSideIn\vstxt.dll" />
+    <Content Include="Previewers\OutSideIn\vsvcrd.dll" />
+    <Content Include="Previewers\OutSideIn\vsviso.dll" />
+    <Content Include="Previewers\OutSideIn\vsvsdx.dll" />
+    <Content Include="Previewers\OutSideIn\vsvw3.dll" />
+    <Content Include="Previewers\OutSideIn\vsw12.dll" />
+    <Content Include="Previewers\OutSideIn\vsw6.dll" />
+    <Content Include="Previewers\OutSideIn\vsw97.dll" />
+    <Content Include="Previewers\OutSideIn\vswbmp.dll" />
+    <Content Include="Previewers\OutSideIn\vswg2.dll" />
+    <Content Include="Previewers\OutSideIn\vswk4.dll" />
+    <Content Include="Previewers\OutSideIn\vswk6.dll" />
+    <Content Include="Previewers\OutSideIn\vswks.dll" />
+    <Content Include="Previewers\OutSideIn\vswm.dll" />
+    <Content Include="Previewers\OutSideIn\vswmf.dll" />
+    <Content Include="Previewers\OutSideIn\vswml.dll" />
+    <Content Include="Previewers\OutSideIn\vsword.dll" />
+    <Content Include="Previewers\OutSideIn\vswork.dll" />
+    <Content Include="Previewers\OutSideIn\vswp5.dll" />
+    <Content Include="Previewers\OutSideIn\vswp6.dll" />
+    <Content Include="Previewers\OutSideIn\vswpf.dll" />
+    <Content Include="Previewers\OutSideIn\vswpg.dll" />
+    <Content Include="Previewers\OutSideIn\vswpg2.dll" />
+    <Content Include="Previewers\OutSideIn\vswpl.dll" />
+    <Content Include="Previewers\OutSideIn\vswpml.dll" />
+    <Content Include="Previewers\OutSideIn\vswpw.dll" />
+    <Content Include="Previewers\OutSideIn\vsws.dll" />
+    <Content Include="Previewers\OutSideIn\vsws2.dll" />
+    <Content Include="Previewers\OutSideIn\vsxl12.dll" />
+    <Content Include="Previewers\OutSideIn\vsxl5.dll" />
+    <Content Include="Previewers\OutSideIn\vsxlsb.dll" />
+    <Content Include="Previewers\OutSideIn\vsxml.dll" />
+    <Content Include="Previewers\OutSideIn\vsxps.dll" />
+    <Content Include="Previewers\OutSideIn\vsxy.dll" />
+    <Content Include="Previewers\OutSideIn\vsyim.dll" />
+    <Content Include="Previewers\OutSideIn\vszip.dll" />
+    <Content Include="Previewers\OutSideIn\wvcore.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
-  </Target>
   <PropertyGroup>
     <PostBuildEvent>Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll"
 Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

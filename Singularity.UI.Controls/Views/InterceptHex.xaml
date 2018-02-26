@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Singularity.UI.Controls.Views"
-             xmlns:hex="clr-namespace:WPFHexaEditor.Control;assembly=CDFCHexaEditor"
+             xmlns:hex="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
              xmlns:vms="clr-namespace:Singularity.UI.Controls.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -13,10 +13,10 @@
             <KeyBinding Key="C" Modifiers="Ctrl + Shift" Command="{Binding CopyHexToCBoardCommand}" />
             <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CopyToClipBoardCommand}" />
         </Grid.InputBindings>
-        <hex:HexaEditor Stream="{Binding Stream,IsAsync=True}" ReadOnlyMode="True" FocusPosition ="{Binding FocusPosition}"
-                        Position="{Binding Position,Mode=TwoWay}" SelectionStop="{Binding SelectionStop,Mode=TwoWay}"
+        <hex:DrawedHexEditor CellMargin="0,2" CellPadding="2" Stream="{Binding Stream,IsAsync=True}" FocusPosition ="{Binding FocusPosition}"
+                        Position="{Binding Position,Mode=TwoWay}" SelectionLength="{Binding SelectionLength}"
                         SelectionStart="{Binding SelectionStart,Mode=TwoWay}"  >
-            <hex:HexaEditor.ContextMenu>
+            <hex:DrawedHexEditor.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="设为起始" Command="{Binding SetAsStartCommand}"/>
                     <MenuItem Header="设为结束" Command="{Binding SetAsEndCommand}"/>
@@ -71,7 +71,7 @@
                     </MenuItem>
                     <!--<MenuItem Header="提交变更" Command="{Binding SubmitChangesCommand}"/>-->
                 </ContextMenu>
-            </hex:HexaEditor.ContextMenu>
-        </hex:HexaEditor>
+            </hex:DrawedHexEditor.ContextMenu>
+        </hex:DrawedHexEditor>
     </Grid>
 </UserControl>
