@@ -1,17 +1,17 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.Shell;
-using SingularityForensic.Modules.MainMenu.Global.Events;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.Shell;
+using SingularityForensic.MainMenu.Global.Events;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 
-namespace SingularityForensic.Modules.MainMenu.ViewModels {
+namespace SingularityForensic.MainMenu.ViewModels {
     [Export]
     public class MainMenuViewModel:BindableBase {
         [ImportingConstructor]

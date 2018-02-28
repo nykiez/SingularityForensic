@@ -3,14 +3,15 @@ using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Case.Events;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainMenu;
-using Singularity.Contracts.Shell;
-using Singularity.UI.MessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Case.Events;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace SingularityForensic.Case {
         [Export]
         public static readonly MenuButtonItemModel OpenCaseMenuItem = new MenuButtonItemModel(
             MenuConstants.MenuMainGroup,
-            FindResourceString("OpenCase")) {
+           LanguageService.Current?.FindResourceString("OpenCase")) {
 
             Command = new DelegateCommand(() => {
                 //若已经存在打开的案件;
@@ -77,10 +78,16 @@ namespace SingularityForensic.Case {
 
                         SingularityCase.Current = sCase;
 
-                        var msg = new DoubleProcessMessageBox() { Title = FindResourceString("LoadingCase") };
+                        var msg = ServiceProvider.Current.GetInstance<IDialogService>()?.CreateDoubleLoadingDialog();
+                        if(msg == null) {
+                            LoggerService.Current?.WriteCallerLine($"{nameof(msg)} can't be null.");
+                            return;
+                        }
+
+                        msg.Title =LanguageService.Current?.FindResourceString("LoadingCase");
                         msg.DoWork += delegate {
                             foreach (var manager in ServiceProvider.Current.GetAllInstances<ICaseManager>()?.OrderBy(p => p.SortOrder)) {
-                                manager.LoadCase((totalPro, pro, capTip, tip) => {
+                                manager.Load((totalPro, pro, capTip, tip) => {
                                     msg.ReportProgress(totalPro, pro, capTip, tip);
                                 }, () => msg.CancellationPending);
                             }
@@ -121,7 +128,7 @@ namespace SingularityForensic.Case {
         [Export]
         public static MenuButtonItemModel CloseCaseMenuItem = new MenuButtonItemModel(
                         MenuConstants.MenuMainGroup,
-                        FindResourceString("CloseCase")) {
+                       LanguageService.Current?.FindResourceString("CloseCase")) {
             Command = CloseCaseCommand,
             IconSource = IconSources.CloseCaseIcon
         };
@@ -131,7 +138,7 @@ namespace SingularityForensic.Case {
         public static readonly MenuButtonItemModel CreateCaseMenuItem =
             new MenuButtonItemModel(
                 MenuConstants.MenuMainGroup,
-                FindResourceString("CreateNewCase"), 0) {
+               LanguageService.Current?.FindResourceString("CreateNewCase"), 0) {
                     Command = new DelegateCommand(() => {
                         ServiceProvider.Current.GetInstance<ICaseService>()?.CreateCase();
                     }),

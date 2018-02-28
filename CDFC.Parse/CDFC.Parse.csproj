@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -79,6 +79,7 @@
     <Compile Include="Abstracts\Partition.cs" />
     <Compile Include="Abstracts\RegularFile.cs" />
     <Compile Include="Contracts\ITimeable.cs" />
+    <Compile Include="Contracts\PartitionTableItem.cs" />
     <Compile Include="Contracts\PartsType.cs" />
     <Compile Include="DeviceObjects\Class1.cs" />
     <Compile Include="DeviceObjects\UnKnownDevice.cs" />
@@ -90,7 +91,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.ITunes {
+﻿namespace SingularityForensic.Controls.ITunes {
     public static class PinKindsDefinitions {
         public const string ForensicClassBasic = nameof(ForensicClassBasic); //基础信息
         public const string ForensicClassInstantTalk = nameof(ForensicClassInstantTalk); //即时通讯;

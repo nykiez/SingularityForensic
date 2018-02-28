@@ -1,10 +1,10 @@
-﻿using Singularity.Contracts.Common;
-using Singularity.Contracts.FileExplorer;
-using Singularity.UI.Previewers;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.Previewers;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace Singularity.Previewers {
+namespace SingularityForensic.Previewers {
     /// <summary>
     /// 默认预览器查看器;
     /// </summary>

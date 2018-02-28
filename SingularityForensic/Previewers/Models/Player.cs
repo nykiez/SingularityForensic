@@ -3,7 +3,7 @@ using Prism.Mvvm;
 using System;
 using System.Windows.Media;
 
-namespace Singularity.Previewers.Models {
+namespace SingularityForensic.Previewers.Models {
     public interface IPlayer : IDisposable {
         bool Play();                        //播放接口;
         bool Pause();                       //暂停接口;

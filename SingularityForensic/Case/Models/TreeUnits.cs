@@ -4,7 +4,7 @@ using SingularityForensic.Case;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Singularity.UI.Case.Models {
+namespace SingularityForensic.Case.Models {
     /// <summary>
     /// 案件节点;
     /// </summary>

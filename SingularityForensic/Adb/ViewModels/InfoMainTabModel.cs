@@ -1,13 +1,15 @@
 ﻿using CDFCUIContracts.Abstracts;
 using Prism.Mvvm;
-using Singularity.Contracts.Info;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.AdbViewer.Resources;
-using Singularity.UI.Info.ViewModels;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Adb.Resources;
+using SingularityForensic.Controls.Info.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using static CDFCCultures.Managers.ManagerLocator;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Adb.ViewModels {
     //主查看器所需的TabModel拓展;
@@ -25,7 +27,7 @@ namespace SingularityForensic.Adb.ViewModels {
         public InfoListViewTabModel() {
             Icon = IconSources.BtnListViewIcon;
             ActiveIcon = IconSources.BtnListViewActiveIcon;
-            Header = FindResourceString("ListView");
+            Header = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ListView");
         }
 
         //信息类型;
@@ -58,7 +60,7 @@ namespace SingularityForensic.Adb.ViewModels {
         public TalkTabViewModel() {
             Icon = IconSources.BtnTalkViewIcon;
             ActiveIcon = IconSources.BtnTalkViewActiveIcon;
-            Header = FindResourceString("TalkingView");
+            Header = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("TalkingView");
         }
 
         public TalkViewModel<ITalkLog> TalkViewModel { get; } = new TalkViewModel<ITalkLog>();

@@ -8,19 +8,19 @@ using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Models;
-using Singularity.UI.Case;
+using SingularityForensic.Case;
 using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using CDFCUIContracts.Commands;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.FileSystem;
-using Singularity.Contracts.MainPage.Events;
-using Singularity.Contracts.Common;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.Common;
 
-namespace Singularity.UI.FileSystem {
+namespace SingularityForensic.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]
     public class FileSystemModule : IModule {
         [ImportMany(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
@@ -33,30 +33,8 @@ namespace Singularity.UI.FileSystem {
         
         
         private void RegisterEvents() {
-
-            //为设备案件文件节点加入上下文菜单;
-            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>((Action<ITreeUnit>)(unit => {
-                if (unit is ICaseEvidenceUnit<Contracts.Case.ICaseEvidence> haveCaseFile && haveCaseFile.Evidence is IHaveData<Device>) {
-                    try {
-                        unit.Icon = IconSources.HardDiskIcon;
-                        var commands = unit.ContextCommands ?? (unit.ContextCommands = new ObservableCollection<ICommandItem>());
-                        if (DeviceNodeCommandItems != null) {
-                            commands.AddRange(DeviceNodeCommandItems);
-                        }
-                    }
-                    catch (Exception ex) {
-                        Logger.WriteCallerLine(ex.Message);
-                        
-                    }
-
-                }
-            }));
-
-
-            //为设备案件文件节点加入文件系统子节点;
-            PubEventHelper.Subscribe<TreeNodeAdded, ITreeUnit>(unit => {
-                
-            });
+            
+            
         }
         
         ///// <summary>
@@ -82,7 +60,7 @@ namespace Singularity.UI.FileSystem {
 
         //    if (device != null) {
         //        var dialog = new ProgressMessageBox();
-        //        dialog.WindowTitle = FindResourceString("SignSearch");
+        //        dialog.WindowTitle =LanguageService.Current?.FindResourceString("SignSearch");
 
         //        var part = new SearcherPartition(device, blDevice, startLBA, endLBA, $"{blDevice.Name}-{FindResourceString("SignSearch")}");
 
@@ -95,7 +73,7 @@ namespace Singularity.UI.FileSystem {
         //                var percentage = (int)((curOffset - startLBA) * 100 / (endLBA - startLBA));
         //                if (percentage >= 0 && percentage <= 100) {
         //                    dialog.ReportProgress(percentage,
-        //                    FindResourceString("SearchingSignFile"),
+        //                   LanguageService.Current?.FindResourceString("SearchingSignFile"),
         //                    $"{FindResourceString("RecoveringBySign")}:{percentage}%");
         //                }
         //                if (dialog.CancellationPending) {

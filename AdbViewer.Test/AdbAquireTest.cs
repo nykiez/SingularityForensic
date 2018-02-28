@@ -2,7 +2,7 @@
 using CDFCUIContracts.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Singularity.UI.AdbViewer.ViewModels.AdbViewer;
+using SingularityForensic.Adb.ViewModels.AdbViewer;
 using System;
 using System.Linq;
 using System.Threading;

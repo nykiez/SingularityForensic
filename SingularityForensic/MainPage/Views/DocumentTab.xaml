@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="SingularityForensic.Modules.MainPage.Views.DocumentTab"
+﻿<UserControl x:Class="SingularityForensic.MainPage.Views.DocumentTab"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:cviews="clr-namespace:Singularity.UI.Controls.Views;assembly=Singularity.UI.Controls"
+             xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              mc:Ignorable="d" 
@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TabControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

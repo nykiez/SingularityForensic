@@ -2,44 +2,35 @@
 using Prism.Mef;
 using Prism.Modularity;
 using Prism.Mvvm;
-using Singularity.Android;
-using Singularity.Contracts.Common;
-using Singularity.Previewers;
-using Singularity.UI.AdbViewer;
-using Singularity.UI.Case;
-using Singularity.UI.FileExplorer;
-using Singularity.UI.FileSystem;
-using Singularity.UI.FileSystem.Android;
-using Singularity.UI.Hex;
-using Singularity.UI.Info;
-using Singularity.UI.Info.Android;
-using Singularity.UI.ITunes;
-using SingularityForensic.Modules.Shell.Models;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Shell;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
-namespace SingularityShell {
-    public class SingularityBootStrapper:MefBootstrapper {
+namespace WpfApp1 {
+    public class SingularityBootStrapper : MefBootstrapper {
         protected override void ConfigureAggregateCatalog() {
             base.ConfigureAggregateCatalog();
-            
+
             //契约模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Singularity.Contracts.Dummy).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Contracts.Dummy).Assembly));
 
             //框架模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Dummy).Assembly));
 
-            
+
             ////取证信息模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
 
-            //////功能模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidInfoModule).Assembly));
+            //安卓模块;
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Android.Dummy).Assembly));
             //////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(RelevanceModule).Assembly));
-
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidFSModule).Assembly));
 
 
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType => {
@@ -72,7 +63,7 @@ namespace SingularityShell {
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
         }
-        
-        
+
+
     }
 }

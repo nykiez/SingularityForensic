@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.InfoMainListView"
+﻿<UserControl x:Class="SingularityForensic.Adb.Views.InfoMainListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:infoins="clr-namespace:Singularity.Contracts.Info;assembly=Singularity.Contracts"
-             xmlns:localIns="clr-namespace:Singularity.UI.AdbViewer.Contracts"
+             xmlns:infoins="clr-namespace:SingularityForensic.Contracts.Info;assembly=SingularityForensic.Contracts"
+             xmlns:localIns="clr-namespace:SingularityForensic.Adb.Contracts"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:filDg="clr-namespace:Singularity.UI.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
+             xmlns:filDg="clr-namespace:SingularityForensic.Controls.FilterableDataGrid;assembly=SingularityForensic.Controls"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:cvts="http://singularity/converters"
              mc:Ignorable="d" 
@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Controls;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Controls;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" >
                 <Setter Property="Height" Value="14"/>

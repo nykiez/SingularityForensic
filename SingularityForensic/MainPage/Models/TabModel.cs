@@ -1,4 +1,4 @@
-﻿namespace SingularityForensic.Modules.MainPage.Models {
+﻿namespace SingularityForensic.MainPage.Models {
 
     public class ExtDataTabModel {
 

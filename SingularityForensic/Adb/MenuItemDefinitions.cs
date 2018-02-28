@@ -2,25 +2,26 @@
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
-using Singularity.UI.AdbViewer.MessageBoxes;
+using SingularityForensic.Adb.MessageBoxes;
 using System.ComponentModel.Composition;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
-using Singularity.UI.AdbViewer.Global.Services;
-using Singularity.UI.Case;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.MainMenu;
-using Singularity.Contracts.Common;
+using SingularityForensic.Adb.Global.Services;
+using SingularityForensic.Case;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.AdbViewer {
+namespace SingularityForensic.Adb {
     public static class MenuItemDefinitions {
         [Export]
         public static MenuButtonItemModel ConnectToDeviceMenuItem {
             get {
                 if (_connectToDeviceMenuItem == null) {
                     _connectToDeviceMenuItem = new MenuButtonItemModel(
-                        MenuConstants.MenuMainGroup, FindResourceString("ConnectToDevice"), 2) {
+                        MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConnectToDevice"), 2) {
                         Command = ConnectToDeviceCommand,
                         IconSource = Resources.IconSources.ConnectToDeviceIcon
                     };

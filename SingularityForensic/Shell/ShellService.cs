@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.Shell;
-using SingularityForensic.Modules.Shell.Models;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Shell.Models;
 using SingularityForensic.Shell.ViewModels;
 using SingularityForensic.ViewModels.Shell;
 using System;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 
-namespace SingularityForensic.Modules.Shell {
+namespace SingularityForensic.Shell {
     /// <summary>
     /// 主窗体服务;
     /// </summary>

@@ -2,7 +2,7 @@
 using Prism.Commands;
 using System;
 
-namespace Singularity.UI.FileExplorer.Models {
+namespace SingularityForensic.Controls.FileExplorer.Models {
     //路径节点;
     public class NavNodeModel {
         public NavNodeModel(IFile file) {

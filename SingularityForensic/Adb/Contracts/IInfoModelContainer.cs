@@ -1,6 +1,6 @@
-﻿using Singularity.Contracts.Info;
+﻿using SingularityForensic.Contracts.Info;
 
-namespace Singularity.UI.AdbViewer.Contracts {
+namespace SingularityForensic.Adb.Contracts {
     //单纯信息载体接口;
     public interface IInfoModelContainer {
         MInfoType InfoType { get; }

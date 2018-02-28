@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Singularity.UI.FileSystem {
+namespace SingularityForensic.FileSystem {
     internal class IconSources {
         public static readonly Uri AddImgIcon          =  new Uri("/SingularityForensic;component/FileSystem/Images/ToolBar_AddImg.png",           UriKind.RelativeOrAbsolute);
 

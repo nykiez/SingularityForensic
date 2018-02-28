@@ -1,4 +1,4 @@
-﻿using Singularity.Contracts.Contracts.MainMenu;
+﻿using SingularityForensic.Contracts.Contracts.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Modules.ToolBar.ViewModels
+namespace SingularityForensic.ToolBar.ViewModels
 {
     [Export]
     public class ToolBarViewModel

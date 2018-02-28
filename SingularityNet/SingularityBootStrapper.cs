@@ -1,14 +1,12 @@
 ﻿using Prism.Mef;
 using Prism.Modularity;
-using Singularity.Net;
-using Singularity.Previewers;
-using Singularity.UI.AdbViewer;
-using Singularity.UI.Hex;
-using Singularity.UI.Info;
-using Singularity.UI.Info.Android;
-using Singularity.UI.ITunes;
+using SingularityForensic.Net;
+using SingularityForensic.Previewers;
+using SingularityForensic.Controls.Hex;
+using SingularityForensic.Controls.Info;
+using SingularityForensic.Controls.ITunes;
 using SingularityForensic;
-using SingularityForensic.Modules.Shell.Models;
+using SingularityForensic.Shell.Models;
 using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 
@@ -18,14 +16,14 @@ namespace SingularityNet {
             base.ConfigureAggregateCatalog();
 
             //主模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MainModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MainModule).Assembly));
 
-            //取证信息模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
+            ////取证信息模块;
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
 
-            ////功能模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AdbViewerModule).Assembly));
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidInfoModule).Assembly));
+            //////功能模块;
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AdbViewerModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidInfoModule).Assembly));
             //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(RelevanceModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ITunesModule).Assembly));
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(HexModule).Assembly));

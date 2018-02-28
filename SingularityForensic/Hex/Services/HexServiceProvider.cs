@@ -1,6 +1,6 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
-using Singularity.Contracts.Hex;
+using SingularityForensic.Contracts.Hex;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFC.Parse.IO;
 using WpfHexaEditor.Core.Bytes;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.Hex.Services {
+namespace SingularityForensic.Controls.Hex.Services {
     [Export(typeof(IHexServiceProvider))]
     public class HexServiceProvider : IHexServiceProvider {
         /// <summary>
@@ -44,8 +46,8 @@ namespace Singularity.UI.Hex.Services {
 
             long pos = (hex.FocusPosition == -1 ? 0 : hex.FocusPosition) + 1;
             var dialog = new ProgressMessageBox {
-                WindowTitle = findMethod == FindMethod.Text ? FindResourceString("SearchingForText") : 
-                FindResourceString("SearchingForHex")
+                WindowTitle = findMethod == FindMethod.Text ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForText") : 
+                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForHex")
             };
 
             dialog.DoWork += (sender, e) => {

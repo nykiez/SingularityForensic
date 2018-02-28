@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using Prism.Commands;
 using System.ComponentModel.Composition;
 using Prism.Mvvm;
-using CDFCUIContracts.Models;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]
@@ -14,9 +14,9 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
 
 
         }
-        public ObservableCollection<ITreeUnit> TreeUnits { get; set; } = new ObservableCollection<ITreeUnit>();
+        public ObservableCollection<TreeUnit> TreeUnits { get; set; } = new ObservableCollection<TreeUnit>();
 
-        public void AddUnit(ITreeUnit unit) {
+        public void AddUnit(TreeUnit unit) {
             TreeUnits.Add(unit);   
         }
         
@@ -36,8 +36,8 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     
     //选定单元以及上下文命令;
     public partial class MainPageNodeManagerViewModel {
-        private ITreeUnit _selectedUnit;
-        public ITreeUnit SelectedUnit {
+        private TreeUnit _selectedUnit;
+        public TreeUnit SelectedUnit {
             get {
                 return _selectedUnit;
             }
@@ -48,14 +48,14 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
             
         }  //选定的单元;
         
-        public void NotifyUnitClick(ITreeUnit unit) {
+        public void NotifyUnitClick(TreeUnit unit) {
             SelectedUnit = unit;
             PubEventHelper.GetEvent<TreeNodeClickEvent>()?.Publish(unit);
         }
         
-        public void NotifyRightClick(ITreeUnit treeUnit) {
+        public void NotifyRightClick(TreeUnit treeUnit) {
             //NotifyUnitClick(treeUnit);
-            PubEventHelper.Publish<TreeNodeRightClicked, ITreeUnit>(treeUnit);
+            PubEventHelper.Publish<TreeNodeRightClicked, TreeUnit>(treeUnit);
         }
         
     }

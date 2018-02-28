@@ -8,27 +8,30 @@ using CDFCMessageBoxes.MessageBoxes;
 using CDFC.Util.IO;
 using System.Threading;
 using CDFCCultures.Helpers;
-using Singularity.UI.FileExplorer.ViewModels;
-using Singularity.UI.MessageBoxes.MessageBoxes;
+using SingularityForensic.Controls.FileExplorer.ViewModels;
+using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using CDFC.Hasher;
 using CDFC.Hasher.Interfaces;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.MessageBoxes;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.FileExplorer.Modules.Hash {
+namespace SingularityForensic.Controls.FileExplorer.Modules.Hash {
     [Export(typeof(CommandItem<(DirectoriesBrowserViewModel, IFileRow)>))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ComputeHashCommandItem : CommandItem<(DirectoriesBrowserViewModel Dvm, IFileRow Row)> {
         public ComputeHashCommandItem() {
-            CommandName = FindResourceString("ComputeHashCommandItem");
+            CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ComputeHashCommandItem");
             LoadChildren();
         }
 
         private void LoadChildren() {
             Children = new ObservableCollection<ICommandItem>();
-            AddHasher(MD5Hasher.StaticInstance, FindResourceString("MD5HashCommandItem"));
-            AddHasher(SHA1Hasher.StaticInstance, FindResourceString("SHA1HashCommandItem"));
-            AddHasher(SHA256Hasher.StaticInstance, FindResourceString("SHA256HashCommandItem"));
-            AddHasher(SHA512Hasher.StaticInstance, FindResourceString("SHA512HashCommandItem"));
+            AddHasher(MD5Hasher.StaticInstance, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MD5HashCommandItem"));
+            AddHasher(SHA1Hasher.StaticInstance, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SHA1HashCommandItem"));
+            AddHasher(SHA256Hasher.StaticInstance, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SHA256HashCommandItem"));
+            AddHasher(SHA512Hasher.StaticInstance, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SHA512HashCommandItem"));
         }
 
         private void AddHasher(IHasher hasher, string commandName) {

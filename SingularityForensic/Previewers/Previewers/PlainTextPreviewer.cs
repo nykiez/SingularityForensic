@@ -1,10 +1,10 @@
-﻿using Singularity.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.FileExplorer;
 using System;
 using System.IO;
 using System.Text;
 using System.Windows;
-using views = Singularity.Previewers.Views;
-namespace Singularity.Previewers {
+using views = SingularityForensic.Previewers.Views;
+namespace SingularityForensic.Previewers {
     public class PlainTextPreviewer : IPreviewer {
         public PlainTextPreviewer(Stream stream) {
             if (stream == null)

@@ -5,7 +5,7 @@ using CDFCUIContracts.Commands;
 using EventLogger;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +13,10 @@ using System.Linq;
 using SysIO = System.IO;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
-using Singularity.Contracts.Common;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
 
     //分区-文件视图;
     public partial class DirectoriesBrowserViewModel : FolderBrowserViewModel {
@@ -200,17 +201,17 @@ namespace Singularity.UI.FileExplorer.ViewModels {
         private ObservableCollection<ICommandItem> _contextCommands;
         public override ObservableCollection<ICommandItem> ContextCommands {
             get {
-                var mainViewerCommandItem = new CommandItem { Children = ViewersCommands, CommandName = FindResourceString("ViewerProgram") };
+                var mainViewerCommandItem = new CommandItem { Children = ViewersCommands, CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
                 if (_contextCommands == null) {
                     _contextCommands = new ObservableCollection<ICommandItem>() {
                             new CommandItem {
-                                CommandName = FindResourceString("Navigation"),
+                                CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Navigation"),
                                 Children = new ObservableCollection<ICommandItem> {
                                     new CommandItem{ CommandName=FindResourceString("ListClusters"),Command=ListBlocksCommand}
                                 }
                             },
                             new CommandItem {
-                                CommandName = FindResourceString("OpenFile"),
+                                CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("OpenFile"),
                                 Command = OpenFileCommand
                             },
                             new CommandItem{ CommandName=FindResourceString("RecoverChecked"),Command=RecCheckedCommand },

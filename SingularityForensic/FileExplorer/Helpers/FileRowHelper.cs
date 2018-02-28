@@ -2,12 +2,12 @@
 using CDFC.Parse.IO;
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer;
 using System;
 using System.IO;
 using System.Windows;
 
-namespace Singularity.UI.FileExplorer.Helpers {
+namespace SingularityForensic.Controls.FileExplorer.Helpers {
     public static class FileRowHelper {
         private const int limSize = 10485760 * 10;
         /// <summary>

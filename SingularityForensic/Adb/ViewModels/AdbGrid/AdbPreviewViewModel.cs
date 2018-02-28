@@ -1,11 +1,13 @@
 ﻿using CDFCUIContracts.Abstracts;
 using Prism.Mvvm;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
+namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     public class AdbPreviewViewModel : BindableBase, ITabModel {
-        public string Header => FindResourceString("Preview");
+        public string Header => ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Preview");
         private IPreviewer previewer;
         public IPreviewer Previewer {
             get {

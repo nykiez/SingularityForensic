@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SingularityForensic.Modules.ToolBar.Views
+namespace SingularityForensic.ToolBar.Views
 {
     /// <summary>
     /// Interaction logic for ToolBar.xaml

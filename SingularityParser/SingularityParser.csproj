@@ -150,26 +150,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
-      <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
-      <Name>Singularity.Contracts</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
-      <Project>{06fef118-76f8-4afd-b6ba-486579380a59}</Project>
-      <Name>Singularity.UI.Info.Android</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
-      <Project>{98d376f1-121c-464c-8e94-716a131ffc21}</Project>
-      <Name>Singularity.Android</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
-      <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
-      <Name>Singularity.UI.Info</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
       <Name>SingularityForensic</Name>

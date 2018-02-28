@@ -12,9 +12,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/ComboBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TextBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TabControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/ComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TextBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="ToolBarBackground" Color="#f5f6f8"/>
             <SolidColorBrush Color="#bfbfbf" x:Key="SubMenuItem.Saparator"/>

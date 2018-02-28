@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Singularity.UI.AdbViewer.Resources {
+namespace SingularityForensic.Adb.Resources {
     public static class IconSources {
         public static readonly Uri ConnectToDeviceIcon = new Uri("/SingularityForensic;component/Adb/Images/Toolbar_ConnectToDevice.png", UriKind.RelativeOrAbsolute);
         public static readonly Uri CreateReportIcon = new Uri("pack://application:,,,/SingularityForensic;component/Adb/Images/Toolbar_Analyze.png", UriKind.Absolute);

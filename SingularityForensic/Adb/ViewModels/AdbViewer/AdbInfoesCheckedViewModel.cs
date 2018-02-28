@@ -14,17 +14,19 @@ using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Helpers.IOPathHelper;
 using Prism.Commands;
 using CDFC.Info.Adb;
-using Singularity.UI.MessageBoxes.MessageBoxes;
-using Singularity.UI.AdbViewer.Models.AdbViewer;
+using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
+using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Modules.Backup.Android;
-using Singularity.UI.Case;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.AdbViewer.Helpers;
-using Singularity.Contracts.Info;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Common;
+using SingularityForensic.Case;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Adb.Helpers;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Controls.MessageBoxes;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
+namespace SingularityForensic.Adb.ViewModels.AdbViewer {
     public partial class AdbInfoesCheckedViewModel:PageModelBase,IDisposable {
         public AdbInfoesCheckedViewModel():base(1) {
             var mobileInfoNode = new AdbTreeUnit(FindResourceString("PhoneInfoAquiredItems"));
@@ -216,7 +218,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
                                                 string pwd = null;
                                                 AppInvoke(() => {
                                                     pwd = InputValueMessageBox.Show(FindResourceString("PleaseInputBackUpPass"),
-                                                            notCorrect ? FindResourceString("AdbBPPwdNotCorrect") : string.Empty);
+                                                            notCorrect ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbBPPwdNotCorrect") : string.Empty);
                                                 });
 
                                                 return new PasswdResult {
@@ -290,7 +292,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
 
                         AppInvoke(() => {
                             var msg = new ProgressMessageBox();
-                            msg.WindowTitle = FindResourceString("AdbFileDownloading");
+                            msg.WindowTitle = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbFileDownloading");
                             //下载文件;
                             msg.DoWork += (sender, e) => {
                                 //统计总大小;

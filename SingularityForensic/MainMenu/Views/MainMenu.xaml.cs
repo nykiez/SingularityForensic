@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Modules.MainMenu.ViewModels;
+﻿using SingularityForensic.MainMenu.ViewModels;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
 

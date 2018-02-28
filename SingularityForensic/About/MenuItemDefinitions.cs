@@ -1,14 +1,16 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Prism.Commands;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.MainMenu;
-using SingularityForensic.Modules.About.MessageBoxes;
-using SingularityForensic.Modules.About.Resources;
-using SingularityForensic.Modules.HelpAbout;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.About.MessageBoxes;
+using SingularityForensic.About.Resources;
+using SingularityForensic.HelpAbout;
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using static CDFCCultures.Managers.ManagerLocator;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.About {
     public static class MenuItemDefinitions {
@@ -18,13 +20,13 @@ namespace SingularityForensic.About {
 
         [Export]
         public static readonly MenuButtonItemModel AboutMenuItem =
-            new MenuButtonItemModel(MenuConstants.AboutGroup, FindResourceString("About")) {
+            new MenuButtonItemModel(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("About")) {
                 Command = AboutCommand,
                 IconSource = IconSources.AboutIcon
             };
         [Export]
         public static readonly MenuButtonItemModel CalcMenuItem =
-            new MenuButtonItemModel(MenuConstants.AboutGroup, FindResourceString("Calculator")) {
+            new MenuButtonItemModel(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Calculator")) {
                 Command = new DelegateCommand(() => {
                     try {
                         Process.Start("Calc");

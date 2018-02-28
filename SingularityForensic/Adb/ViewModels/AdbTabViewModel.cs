@@ -1,11 +1,11 @@
 ﻿using System;
-using Singularity.UI.AdbViewer.ViewModels.AdbGrid;
+using SingularityForensic.Adb.ViewModels.AdbGrid;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Mvvm;
 using CDFC.Info.Adb;
-using Singularity.UI.AdbViewer.Contracts;
+using SingularityForensic.Adb.Contracts;
 
-namespace Singularity.UI.AdbViewer.ViewModels {
+namespace SingularityForensic.Adb.ViewModels {
     public class AdbTabViewModel : BindableBase {
         public AdbTabViewModel(Device device,IInfoModelContainer container) {
             if (device == null)

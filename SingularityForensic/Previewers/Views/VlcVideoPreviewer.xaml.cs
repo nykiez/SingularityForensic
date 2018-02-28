@@ -1,7 +1,7 @@
 ﻿using Meta.Vlc.Wpf;
 using System.Windows.Controls;
 
-namespace Singularity.Previewers.Views {
+namespace SingularityForensic.Previewers.Views {
     /// <summary>
     /// Interaction logic for VideoPreviewer.xaml
     /// </summary>

@@ -72,21 +72,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
+    <ProjectReference Include="..\CDFC.Parse.Modules\CDFC.Parse.Modules.csproj">
       <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
-      <Name>CDFC.Parse.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.Signature\CDFC.Parse.Signature.csproj">
-      <Project>{cce9a2bc-2eb4-4523-809d-7c4d57c8fc82}</Project>
-      <Name>CDFC.Parse.Signature</Name>
+      <Name>CDFC.Parse.Modules</Name>
     </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
       <Project>{EE637D4B-27E6-457C-AF39-1293F47AA966}</Project>
       <Name>CDFC.Parse</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
-      <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
-      <Name>Singularity.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

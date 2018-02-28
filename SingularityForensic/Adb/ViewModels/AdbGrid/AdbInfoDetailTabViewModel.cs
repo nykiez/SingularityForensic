@@ -6,9 +6,11 @@ using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Mvvm;
-using Singularity.Contracts.Info;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
+namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     public class AdbInfoDetailTabViewModel : BindableBase,ITabModel {
         public MInfoType InfoType { get;
             set; }
@@ -23,12 +25,12 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
             }
         }
 
-        public string Header => FindResourceString("AdbDetailInfo");
+        public string Header => ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbDetailInfo");
         
         public string InfoPropsText {
             get {
                 if (AdbModel == null) {
-                    return FindResourceString("AdbNoDetail");
+                    return  ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbNoDetail");
                 }
                 var sb = new StringBuilder();
                 try {

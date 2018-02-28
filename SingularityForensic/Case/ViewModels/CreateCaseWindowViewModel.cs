@@ -9,7 +9,7 @@ using System.Linq;
 using Prism.Mvvm;
 using SingularityForensic.Case;
 
-namespace Singularity.UI.Case.ViewModels {
+namespace SingularityForensic.Case.ViewModels {
     /// <summary>
     /// 创建案件窗体视图模型;
     /// </summary>

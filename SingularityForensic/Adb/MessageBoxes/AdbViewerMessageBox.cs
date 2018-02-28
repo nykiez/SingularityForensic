@@ -1,9 +1,9 @@
 ﻿using CDFC.Info.Adb;
-using Singularity.UI.AdbViewer.ViewModels.AdbViewer;
-using Singularity.UI.AdbViewer.Views.AdbViewer;
+using SingularityForensic.Adb.ViewModels.AdbViewer;
+using SingularityForensic.Adb.Views.AdbViewer;
 using System.Windows;
 
-namespace Singularity.UI.AdbViewer.MessageBoxes {
+namespace SingularityForensic.Adb.MessageBoxes {
     public class AdbViewerMessageBox {
         public static PhoneFullInfoContainer Show() {
             var vm = new AdbViewerViewModel();

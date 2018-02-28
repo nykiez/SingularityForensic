@@ -1,3 +1,3 @@
-﻿namespace Singularity.UI.AdbViewer.ViewModels {
+﻿namespace SingularityForensic.Adb.ViewModels {
 
 }

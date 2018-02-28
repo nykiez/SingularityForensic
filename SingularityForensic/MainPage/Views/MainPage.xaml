@@ -6,7 +6,7 @@
              xmlns:prism="http://www.codeplex.com/prism" 
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:mainPage="clr-namespace:SingularityForensic.Modules.MainPage"
+             xmlns:mainPage="clr-namespace:SingularityForensic.MainPage"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <i:Interaction.Triggers>

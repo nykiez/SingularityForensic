@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="SingularityForensic.Modules.MainPage.Views.MainPageNodeManager"
+﻿<UserControl x:Class="SingularityForensic.MainPage.Views.MainPageNodeManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SingularityForensic.Modules.MainPage.Views"
+             xmlns:local="clr-namespace:SingularityForensic.MainPage.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:prism="http://www.codeplex.com/prism"
@@ -13,9 +13,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/Menu.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/GroupBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TreeViewEx.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Menu.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/GroupBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TreeViewEx.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
 
@@ -60,7 +60,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <DockPanel >
         <FrameworkElement x:Name="dataElment" Visibility="Collapsed" />
         <!--<Menu  Background="Transparent" DockPanel.Dock="Top">
@@ -81,10 +81,10 @@
                 <Separator  Background="#66000000" Style="{DynamicResource SeparatorStyle1}"    />
                 <MenuItem Header="{DynamicResource Edit}"/>
             </Menu>-->
-        <!--
-            Style="{DynamicResource TreeViewExStyle}"-->
-        <controls:TreeViewEx BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
-                                 DockPanel.Dock="Top" ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" 
+        
+        <controls:TreeViewEx BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown" 
+            Style="{DynamicResource TreeViewExStyle}"
+            DockPanel.Dock="Top" ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" 
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">

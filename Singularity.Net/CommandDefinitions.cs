@@ -4,18 +4,20 @@ using CDFCUIContracts.Commands;
 using EventLogger;
 using Prism.Commands;
 using Renci.SshNet;
-using Singularity.Contracts.FileExplorer;
-using Singularity.UI.FileExplorer.ViewModels;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.FileExplorer.ViewModels;
 using System;
 using System.ComponentModel.Composition;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.Net {
+namespace SingularityForensic.Net {
     [Export(typeof(CommandItem<(DirectoriesBrowserViewModel, IFileRow)>))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class UploadFileRowCommandItem:CommandItem<(DirectoriesBrowserViewModel dvm,IFileRow fileRow)> {
         public UploadFileRowCommandItem() {
-            CommandName = FindResourceString("UploadingFileCommandItem");
+            CommandName =ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("UploadingFileCommandItem");
             Command = new DelegateCommand(() => {
                 if(GetData != null) {
                     try {

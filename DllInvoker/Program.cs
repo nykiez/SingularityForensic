@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Singularity.UI.Info.Models;
+using SingularityForensic.Info.Models;
 using System;
 using System.Diagnostics;
 using System.IO;

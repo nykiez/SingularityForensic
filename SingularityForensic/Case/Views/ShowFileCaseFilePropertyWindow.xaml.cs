@@ -4,19 +4,21 @@ using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCCultures.Helpers;
 using CDFCControls.Controls;
-using Singularity.Contracts.Case;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.Case.Views {
+namespace SingularityForensic.Case.Views {
     /// <summary>
     /// Interaction logic for IFilePropertyWindow.xaml
     /// </summary>
     public partial class ShowCaseFilePropertyWindow : CorneredWindow {
-        public ICaseEvidence CFile { get; }
-        public ShowCaseFilePropertyWindow(ICaseEvidence cFile) {
+        public CaseEvidence CFile { get; }
+        public ShowCaseFilePropertyWindow(CaseEvidence cFile) {
             InitializeComponent();
             this.CFile = cFile ?? throw new ArgumentNullException();
 
-            var comma = FindResourceString("Comma");
+            var comma = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Comma");
             var newLine = Environment.NewLine;
 
             //添加日期;

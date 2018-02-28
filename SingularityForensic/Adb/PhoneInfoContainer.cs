@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cflab.DataTransport.Modules.Transport.Model;
-using Singularity.UI.AdbViewer;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.Contracts.Info;
+using SingularityForensic.Adb;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Contracts.Info;
 
 namespace CDFC.Info.Adb {
     //手机所有信息载体;

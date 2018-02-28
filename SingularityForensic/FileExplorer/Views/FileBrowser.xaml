@@ -1,18 +1,19 @@
-﻿<UserControl x:Class="Singularity.UI.FileExplorer.Views.FileBrowser"
+﻿<UserControl x:Class="SingularityForensic.Controls.FileExplorer.Views.FileBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:cviews="clr-namespace:Singularity.UI.Controls.Views;assembly=Singularity.UI.Controls"
+             xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
+             xmlns:hexviews="clr-namespace:SingularityForensic.Hex.Views"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:vms="clr-namespace:Singularity.UI.FileExplorer.ViewModels"
-             xmlns:local="clr-namespace:Singularity.UI.FileExplorer.Views"
+             xmlns:vms="clr-namespace:SingularityForensic.Controls.FileExplorer.ViewModels"
+             xmlns:local="clr-namespace:SingularityForensic.Controls.FileExplorer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TabControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -22,7 +23,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource TabControl.SelectedContent.Border}" BorderThickness="1,0,1,1" CornerRadius="0,0,3,3" Padding="0,0,0,3"
+        <Border BorderThickness="1,0,1,1" CornerRadius="0,0,3,3" Padding="0,0,0,3"
                             Margin="0,0,0,3">
             <ContentControl Content="{Binding FolderBrowserViewModel,Mode=OneTime}">
                 <ContentControl.Resources>
@@ -46,7 +47,7 @@
                 </Style>
                 <DataTemplate DataType="{x:Type vms:FileHexTabViewModel}">
                     <Border >
-                        <cviews:InterceptHex />
+                        <hexviews:InterceptHex />
                     </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:FilePreviewerTabModel}">

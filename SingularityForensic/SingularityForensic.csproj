@@ -160,6 +160,7 @@
   <ItemGroup>
     <Compile Include="Adb\AdbModels.cs" />
     <Compile Include="Adb\AdbViewerModule.cs" />
+    <Compile Include="Adb\Constants.cs" />
     <Compile Include="Adb\Contracts\IInfoModel.cs" />
     <Compile Include="Adb\Contracts\IInfoModelContainer.cs" />
     <Compile Include="Adb\Contracts\MInfoTypeBox.cs" />
@@ -237,8 +238,14 @@
     <Compile Include="Adb\Views\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\Constants.cs" />
+    <Compile Include="App\DialogService.cs" />
+    <Compile Include="App\LanguageService.cs" />
+    <Compile Include="App\LoggerService.cs" />
+    <Compile Include="App\MessageBoxService.cs" />
     <Compile Include="Case\CaseModule.cs" />
     <Compile Include="Case\CommandDefinitions.cs" />
+    <Compile Include="Case\Constants.cs" />
     <Compile Include="Case\MenuItemDefinitions.cs" />
     <Compile Include="Case\MessageBoxes\CreateCaseMessageBox.cs" />
     <Compile Include="Case\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
@@ -253,11 +260,17 @@
     <Compile Include="Case\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dos\Constants.cs" />
+    <Compile Include="Dos\DosCaseManager.cs" />
+    <Compile Include="Dos\DosImgParser.cs" />
+    <Compile Include="Dos\DosModule.cs" />
+    <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\ExplorerModule.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
+    <Compile Include="FileExplorer\MenuDefinitions.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
     <Compile Include="FileExplorer\Models\FileSystemUnit.cs" />
     <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
@@ -267,12 +280,12 @@
     <Compile Include="FileExplorer\Modules\Hash\ComputeHashCommandItem.cs" />
     <Compile Include="FileExplorer\Modules\Indexing\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
-    <Compile Include="FileExplorer\Services\UnknownFileExplorerServiceProvider.cs" />
+    <Compile Include="FileExplorer\UnknownFileExplorerServiceProvider.cs" />
     <Compile Include="FileExplorer\ViewModels\DirectoriesBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FileBrowserTabModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FileBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
-    <Compile Include="FileExplorer\ViewModels\FileHexTabViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\HexModels.cs" />
     <Compile Include="FileExplorer\ViewModels\FilePreviewerViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModelcs.cs" />
@@ -298,6 +311,7 @@
     <Compile Include="FileExplorer\Views\ThumbnailInfo.xaml.cs">
       <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\CommandDefinitions.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
@@ -310,6 +324,10 @@
     <Compile Include="Hex\Models\SearchKeyOptions.cs" />
     <Compile Include="Hex\IconSources.cs" />
     <Compile Include="Hex\Services\HexServiceProvider.cs" />
+    <Compile Include="Hex\ViewModels\HexStreamEditorViewModel.cs" />
+    <Compile Include="Hex\Views\InterceptHex.xaml.cs">
+      <DependentUpon>InterceptHex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
@@ -340,7 +358,7 @@
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="MainPage\Models\TabModel.cs" />
     <Compile Include="MainPage\RegionNames.cs" />
-    <Compile Include="MainPage\Resources\IconResources.cs" />
+    <Compile Include="MainMenu\IconResources.cs" />
     <Compile Include="MainPage\ViewModels\BrowserTabViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageNodeManagerViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
@@ -454,6 +472,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="App\Languages\zh_CN\Singularity.App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Case\Views\CreateCaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -499,6 +521,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Hex\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Hex\Views\InterceptHex.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -682,29 +708,9 @@
     <Folder Include="StatusBar\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
-      <Project>{07563c49-6584-4631-8746-d055bc7e3ca6}</Project>
-      <Name>CDFC.Parse.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.ITunes\CDFC.Parse.ITunes.csproj">
-      <Project>{23aab916-5da8-431c-bf9a-57907064b7ae}</Project>
-      <Name>CDFC.Parse.ITunes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.Java\CDFC.Parse.Java.csproj">
-      <Project>{2be4a396-134a-4715-9044-6f188b10752b}</Project>
-      <Name>CDFC.Parse.Java</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.Local\CDFC.Parse.Local.csproj">
-      <Project>{13044f46-874a-4419-90ec-ba559828a960}</Project>
-      <Name>CDFC.Parse.Local</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.Python\CDFC.Parse.Python.csproj">
-      <Project>{14869156-5b67-42aa-82c7-4abcf3ddc97b}</Project>
-      <Name>CDFC.Parse.Python</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse.Signature\CDFC.Parse.Signature.csproj">
-      <Project>{cce9a2bc-2eb4-4523-809d-7c4d57c8fc82}</Project>
-      <Name>CDFC.Parse.Signature</Name>
+    <ProjectReference Include="..\CDFC.Parse.Modules\CDFC.Parse.Modules.csproj">
+      <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
+      <Name>CDFC.Parse.Modules</Name>
     </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
       <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
@@ -714,22 +720,17 @@
       <Project>{80f67817-5bf1-4542-b77b-9f29f739b360}</Project>
       <Name>Cflab.DataTransport</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
+    <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
-      <Name>Singularity.Contracts</Name>
-      <Private>False</Private>
+      <Name>SingularityForensic.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
+    <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
       <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>Singularity.UI.Controls</Name>
+      <Name>SingularityForensic.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
-      <Project>{98d376f1-121c-464c-8e94-716a131ffc21}</Project>
-      <Name>Singularity.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
-      <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
-      <Name>Singularity.UI.Info</Name>
+    <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
+      <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
+      <Name>SingularityForensic.Info</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingularityUpdater\SingularityUpdater.csproj">
       <Project>{cea7ed9e-555f-4c9b-8d8b-a1a708feea89}</Project>
@@ -1289,8 +1290,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll"
-Copy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)SingularityShell\$(OutDir)Entities\$(ProjectName).dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.Case {
+﻿namespace SingularityForensic.Case {
     public static class CommandDefinitions {
         //private static INodeService _nodeService;
         //private static INodeService NodeService => _nodeService ?? (_nodeService = ServiceProvider.Current.GetInstance<INodeService>());

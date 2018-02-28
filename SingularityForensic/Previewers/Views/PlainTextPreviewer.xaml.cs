@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Singularity.Previewers.Views {
+namespace SingularityForensic.Previewers.Views {
     /// <summary>
     /// Interaction logic for PlainTextPreviewer.xaml
     /// </summary>

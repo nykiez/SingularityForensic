@@ -1,5 +1,5 @@
 ﻿using Prism.Modularity;
-using Singularity.Contracts.Helpers;
+using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Shell;
 using System;
 using System.Collections.Generic;

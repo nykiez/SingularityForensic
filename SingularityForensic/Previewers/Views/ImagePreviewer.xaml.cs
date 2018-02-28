@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace Singularity.Previewers.Views {
+namespace SingularityForensic.Previewers.Views {
     /// <summary>
     /// Interaction logic for ImagePreviewer.xaml
     /// </summary>

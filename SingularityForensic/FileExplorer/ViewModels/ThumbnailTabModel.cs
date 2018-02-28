@@ -1,14 +1,16 @@
 ﻿using CDFCUIContracts.Abstracts;
 using CDFCUIContracts.Events;
 using Prism.Mvvm;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
 using System;
 using System.Collections.ObjectModel;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
     public class ThumbnailViewModel : BindableBase, ITabModel {
-        public string Header => FindResourceString("ThumbnailTab");
+        public string Header => ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ThumbnailTab");
 
         public Func<ObservableCollection<IFileRow>> GetRowsFunc { get; set; }
 

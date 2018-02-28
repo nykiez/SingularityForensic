@@ -1,8 +1,8 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Models;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainPage;
-using Singularity.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace SingularityForensic.Modules.MainPage.Global {
+namespace SingularityForensic.MainPage.Global {
     [Export(typeof(INodeService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class NodeService:INodeService {
+    public class NodeService : INodeService {
         [Import]
         Lazy<MainPageNodeManagerViewModel> VM;
 
@@ -29,49 +29,43 @@ namespace SingularityForensic.Modules.MainPage.Global {
         //}
 
         //移除unit;
-        public void RemoveUnit(ITreeUnit unit) {
+        public void RemoveUnit(TreeUnit unit) {
             VM?.Value?.TreeUnits.Remove(unit);
         }
 
         //所有的Tab;
-        public IEnumerable<ITreeUnit> CurrentUnits => VM?.Value?.TreeUnits.Select(p => p);
+        public IEnumerable<TreeUnit> CurrentUnits => VM?.Value?.TreeUnits.Select(p => p);
 
-        public ITreeUnit SelectedNode => VM?.Value?.SelectedUnit;
+        public TreeUnit SelectedNode => VM?.Value?.SelectedUnit;
+
+        IEnumerable<TreeUnit> INodeService.CurrentUnits => throw new NotImplementedException();
+
+        TreeUnit INodeService.SelectedNode => throw new NotImplementedException();
 
         public void ClearNodes() {
             var cArgs = new CancelEventArgs();
             PubEventHelper.Publish<TreeNodesClearingEvent, CancelEventArgs>(cArgs);
-            if(!cArgs.Cancel) {
+            if (!cArgs.Cancel) {
                 VM?.Value?.TreeUnits.Clear();
             }
         }
-
-        public void AddUnitWith<TParentUnit, TNewUnit>(TParentUnit pUnit, TNewUnit nUnit)
-            where TParentUnit : ITreeUnit
-            where TNewUnit : ITreeUnit {
-            if(pUnit == null) {
-                throw new ArgumentNullException(nameof(pUnit));
+        
+        public void AddUnit(TreeUnit parentUnit,TreeUnit nUnit) {
+            if(parentUnit == null) {
+                VM?.Value?.AddUnit(nUnit);
             }
-            if(nUnit == null) {
-                throw new ArgumentNullException(nameof(nUnit));
+            else {
+                nUnit.MoveToUnit(parentUnit);
             }
-
-            pUnit.Children.Add(nUnit);
-
-            PubEventHelper.Publish<TreeNodeAddedWith,(ITreeUnit,ITreeUnit)>((pUnit,nUnit));
-            PubEventHelper.Publish<TreeNodeAddedWith<TParentUnit, TNewUnit>,(TParentUnit, TNewUnit)> ((pUnit, nUnit));
-        }
-
-        public void AddUnit<TNewUnit>(TNewUnit nUnit) where TNewUnit : ITreeUnit {
-            VM?.Value?.AddUnit(nUnit);
+            
             try {
-                PubEventHelper.Publish<TreeNodeAdded,ITreeUnit>(nUnit);
-                PubEventHelper.Publish<TreeNodeAdded<TNewUnit>, TNewUnit>(nUnit);
+                PubEventHelper.Publish<TreeNodeAddedEvent, TreeUnit>(nUnit);
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 EventLogger.Logger.WriteCallerLine(ex.Message);
                 RemainingMessageBox.Tell(ex.Message);
             }
         }
+        
     }
 }

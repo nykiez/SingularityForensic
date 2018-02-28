@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Singularity.Net.Properties {
+namespace SingularityForensic.Net.Properties {
     
     
     /// <summary>

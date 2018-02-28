@@ -6,11 +6,11 @@ using System.Windows.Input;
 using System.Globalization;
 using System.ComponentModel.Composition;
 using CDFCUIContracts.Helpers;
-using CDFCUIContracts.Models;
 using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
 using CDFC.Util;
+using SingularityForensic.Contracts.TreeView;
 
-namespace SingularityForensic.Modules.MainPage.Views {
+namespace SingularityForensic.MainPage.Views {
     /// <summary>
     /// Interaction logic for CaseManager.xaml
     /// </summary>
@@ -24,6 +24,7 @@ namespace SingularityForensic.Modules.MainPage.Views {
         private MainPageNodeManagerViewModel vm {
             set {
                 this.DataContext = value;
+                
                 value.NotifyUnitExpanded += (d, unit) => {
                     var ti = CaseTreeList.GetContainerFromItemEx(unit);
                     if (ti != null) {
@@ -45,14 +46,14 @@ namespace SingularityForensic.Modules.MainPage.Views {
                         dt = VisualHelper.GetVisualParent<FrameworkElement>(dpo)?.DataContext;
                     }
 
-                    if (dt is ITreeUnit unit) {
+                    if (dt is SingularityForensic.Contracts.TreeView.TreeUnit unit) {
                         if (e.LeftButton == MouseButtonState.Pressed) {
                             vm.NotifyUnitClick(unit);
                         }
                         else {
                             vm.SelectedUnit = unit;
                         }
-                        if (unit is ITreeUnit tUnit) {
+                        if (unit is TreeUnit tUnit) {
                             //右键展开显示;
                             if (e.RightButton == MouseButtonState.Pressed) {
                                 vm.NotifyRightClick(tUnit);

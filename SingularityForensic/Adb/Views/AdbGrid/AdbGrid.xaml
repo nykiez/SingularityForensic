@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.AdbGrid.AdbGrid"
+﻿<UserControl x:Class="SingularityForensic.Adb.Views.AdbGrid.AdbGrid"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:local="clr-namespace:Singularity.UI.AdbViewer.Views.AdbGrid"
-             xmlns:gridviews="clr-namespace:Singularity.UI.AdbViewer.Views.AdbGrid"
-             xmlns:gridvms="clr-namespace:Singularity.UI.AdbViewer.ViewModels.AdbGrid"
-             xmlns:ctrviews="clr-namespace:Singularity.UI.Controls.Views;assembly=Singularity.UI.Controls"
+             xmlns:local="clr-namespace:SingularityForensic.Adb.Views.AdbGrid"
+             xmlns:gridviews="clr-namespace:SingularityForensic.Adb.Views.AdbGrid"
+             xmlns:hexviews="clr-namespace:SingularityForensic.Hex.Views"
+             xmlns:gridvms="clr-namespace:SingularityForensic.Adb.ViewModels.AdbGrid"
+             xmlns:ctrviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -44,7 +45,7 @@
                     <gridviews:AdbInfoDetailTab/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type gridvms:AdbFileHexStreamTabViewModel}">
-                    <ctrviews:InterceptHex/>
+                    <hexviews:InterceptHex/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type gridvms:AdbPreviewViewModel}">
                     <ContentControl DataContext="{Binding Previewer}" Content="{Binding View}" />

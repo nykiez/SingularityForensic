@@ -4,17 +4,17 @@
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Singularity.Previewers.Views"
-             xmlns:models="clr-namespace:Singularity.Previewers.Models"
+             xmlns:local="clr-namespace:SingularityForensic.Previewers.Views"
+             xmlns:models="clr-namespace:SingularityForensic.Previewers.Models"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" 
-    x:Class="Singularity.Previewers.Views.SqlitePreviewer"
+    x:Class="SingularityForensic.Previewers.Views.SqlitePreviewer"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/TreeViewEx.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.Contracts;component/Themes/DataGrid.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TreeViewEx.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/DataGrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" DataType="{x:Type models:DBUnit}">
                 <StackPanel Orientation="Horizontal" >

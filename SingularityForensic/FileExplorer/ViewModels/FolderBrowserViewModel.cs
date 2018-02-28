@@ -4,7 +4,7 @@ using CDFC.Parse.IO;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Commands;
 using Ookii.Dialogs.Wpf;
-using Singularity.UI.MessageBoxes.MessageBoxes;
+using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,13 +15,14 @@ using CDFCUIContracts.Events;
 using System.Windows.Input;
 using Prism.Commands;
 using CDFCCultures.Helpers;
-using Singularity.UI.Controls.ViewModels;
-using Singularity.UI.FileExplorer.Models;
-using Singularity.Contracts.FileExplorer;
-using Singularity.UI.FileExplorer.Helpers;
-using CDFC.Parse.Signature.DeviceObjects;
+using SingularityForensic.Controls.FileExplorer.Models;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.FileExplorer.Helpers;
+using CDFC.Parse.Modules.DeviceObjects;
+using SingularityForensic.Controls.MessageBoxes;
+using SingularityForensic.Controls.ViewModels;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
     //目录/资源浏览器模型;
     public abstract partial class FolderBrowserViewModel : DataGridExViewModel {
         /// <summary>

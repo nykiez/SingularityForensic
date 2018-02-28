@@ -1,20 +1,20 @@
-﻿<UserControl x:Class="Singularity.UI.AdbViewer.Views.AdbGrid.AdbDataGrid"
+﻿<UserControl x:Class="SingularityForensic.Adb.Views.AdbGrid.AdbDataGrid"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:localIns="clr-namespace:Singularity.UI.AdbViewer.Contracts"
+             xmlns:localIns="clr-namespace:SingularityForensic.Adb.Contracts"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:filDg="clr-namespace:Singularity.UI.Controls.FilterableDataGrid;assembly=Singularity.UI.Controls"
-             xmlns:local="clr-namespace:Singularity.UI.AdbViewer.Views.AdbGrid"
-             xmlns:ins="clr-namespace:Singularity.Contracts.Info;assembly=Singularity.Contracts"
+             xmlns:filDg="clr-namespace:SingularityForensic.Controls.FilterableDataGrid;assembly=SingularityForensic.Controls"
+             xmlns:local="clr-namespace:SingularityForensic.Adb.Views.AdbGrid"
+             xmlns:ins="clr-namespace:SingularityForensic.Contracts.Info;assembly=SingularityForensic.Contracts"
              xmlns:cvts="http://singularity/converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Controls;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Controls;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" x:Key="RowIdTxbl">
                 <Setter Property="TextAlignment" Value="Center"/>

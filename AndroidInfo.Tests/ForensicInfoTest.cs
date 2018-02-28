@@ -1,15 +1,15 @@
-﻿using CDFC.Parse.Android.DeviceObjects;
+﻿using CDFC.Parse.Modules.DeviceObjects;
 using CDFC.Parse.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Singularity.Android.Models;
-using Singularity.Android.Services;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.FileSystem;
-using Singularity.Contracts.Forensic;
-using Singularity.UI.Case.Services;
-using Singularity.UI.Case.ViewModels;
+using SingularityForensic.Android.Models;
+using SingularityForensic.Android.Services;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.Forensic;
+using SingularityForensic.Controls.Case.Services;
+using SingularityForensic.Controls.Case.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,7 +54,7 @@ namespace AndroidInfo.Tests {
         //预设MockerProvider;
         private void SetServiceProvider() {
             //将mocker设定为当前服务器提供器;
-            Singularity.Contracts.Common.ServiceProvider.SetServiceProvider(MockServiceProvider.StaticInstance);
+            SingularityForensic.Contracts.Common.ServiceProvider.SetServiceProvider(MockServiceProvider.StaticInstance);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace AndroidInfo.Tests {
             //将案件服务加载至mocker中;
             MockServiceProvider.StaticInstance.SetInstance<ICaseService>(service);
 
-            //var provider = new Mock<Singularity.Contracts.Common.IServiceProvider>();
+            //var provider = new Mock<SingularityForensic.Contracts.Common.IServiceProvider>();
             //provider.Setup(p => p.GetInstance(It.Is<Type>(tp => tp == typeof(ICaseService)))).Returns(service);
             
         }
@@ -90,7 +90,7 @@ namespace AndroidInfo.Tests {
         /// 本方法获得将加载一个镜像文件到案件中;
         /// </summary>
         /// <returns></returns>
-        public ICaseEvidence GetAdCaseEvidence() {
+        public CaseEvidence GetAdCaseEvidence() {
             //加载一个镜像文件;
             var device = AndroidDevice.LoadFromPath(imgPath,true,tuple => {
                 //Debug.WriteLine($"{tuple.curSize}/{tuple.allSize}");

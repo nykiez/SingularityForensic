@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using Singularity.Previewers.ViewModels;
-using Singularity.Previewers.Models;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Previewers.ViewModels;
+using SingularityForensic.Previewers.Models;
+using SingularityForensic.Contracts.FileExplorer;
 
-namespace Singularity.Previewers {
+namespace SingularityForensic.Previewers {
     /// <summary>
     /// Vlc视频播放器;
     /// </summary>

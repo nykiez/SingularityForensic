@@ -12,8 +12,10 @@ using Prism.Commands;
 using Prism.Regions;
 using Prism.Modularity;
 using Prism.Mvvm;
-using Singularity.Contracts.Shell.Events;
-using Singularity.Contracts.Helpers;
+using SingularityForensic.Contracts.Shell.Events;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Shell.ViewModels {
     //主模型;
@@ -23,15 +25,10 @@ namespace SingularityForensic.Shell.ViewModels {
             
         }
         
-        [Import]
-        protected IRegionManager regionManager;
-        
-        [Import]
-        protected IModuleManager moduleManager;
         
         private string BrandName {
             get {
-                return FindResourceString("SoftWareName") + ConfigState.VersionNum;
+                return  ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SoftWareName") + ConfigState.VersionNum;
             }
         }
         

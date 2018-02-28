@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFCCultures.Helpers;
 using EventLogger;
-using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.Contracts.Info;
-using Singularity.Contracts.Converters;
+using SingularityForensic.Adb.Helpers;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Contracts.Converters;
 
-namespace Singularity.UI.AdbViewer {
+namespace SingularityForensic.Adb {
     public interface IAdbTimeable {
         DateTime? ModifyTime { get; }
         DateTime? AddTime { get; }

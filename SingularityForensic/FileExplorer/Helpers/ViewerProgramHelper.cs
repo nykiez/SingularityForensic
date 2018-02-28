@@ -1,9 +1,9 @@
-﻿using Singularity.UI.FileExplorer.Models;
+﻿using SingularityForensic.Controls.FileExplorer.Models;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Singularity.UI.FileExplorer.Helpers {
+namespace SingularityForensic.Controls.FileExplorer.Helpers {
     public static class ViewerProgramHelper {
         public const string AttatchProPath = "/Attachments/ViewerPrograms.xml";
         private static ViewerProgram[] _clientPros;

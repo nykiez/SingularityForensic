@@ -1,4 +1,4 @@
-﻿using Singularity.Previewers.Models;
+﻿using SingularityForensic.Previewers.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Prism.Mvvm;
 using System.Data.SQLite;
 using System.Data;
 
-namespace Singularity.Previewers.ViewModels {
+namespace SingularityForensic.Previewers.ViewModels {
     public partial class SqlitePreviewerModel:BindableBase {
         public string ConnString => $"Data Source={DbPath};Version=3;New=true";
         public SQLiteConnection Conn { get; }

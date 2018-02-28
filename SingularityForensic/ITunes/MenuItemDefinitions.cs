@@ -3,23 +3,24 @@ using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.MainMenu;
-using Singularity.UI.ITunes.Global.Services;
-using Singularity.UI.ITunes.Models;
-using Singularity.UI.ITunes.Resources;
-using SingularityForensic.Modules.MainPage;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.Controls.ITunes.Global.Services;
+using SingularityForensic.Controls.ITunes.Models;
+using SingularityForensic.Controls.ITunes.Resources;
+using SingularityForensic.MainPage;
 using System;
 using System.ComponentModel.Composition;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.ITunes {
+namespace SingularityForensic.Controls.ITunes {
     public static class MenuItemDefinitions {
         [Export]
         public static readonly MenuButtonItemModel AddItunesBackUpMI = new MenuButtonItemModel(MenuConstants.MenuMainGroup,
-            FindResourceString("AddITunesBackUp"), 5) {
+            ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AddITunesBackUp"), 5) {
             IconSource = IconResources.AddITunesIcon,
             //进行Itnues备份文件检索;
             Command = new DelegateCommand(() => {
@@ -43,11 +44,11 @@ namespace Singularity.UI.ITunes {
                 
                 if((!string.IsNullOrWhiteSpace(dialog.SelectedPath) )
                 &&(dialog.SelectedPath?.WordsIScn() != true)) {
-                    var bPath = dialog.SelectedPath;
+                    //var bPath = dialog.SelectedPath;
 
-                    var frService = ServiceProvider.Current.GetInstance<ForensicService>();
-                    var cFile = new ITunesBackUpCaseFile(IOPathHelper.GetFileNameFromUrl(bPath), bPath, DateTime.Now);
-                    ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(cFile);
+                    //var frService = ServiceProvider.Current.GetInstance<ForensicService>();
+                    //var cFile = new ITunesBackUpCaseFile(IOPathHelper.GetFileNameFromUrl(bPath), bPath, DateTime.Now);
+                    //ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(cFile);
 
                     ////加入取证信息节点;
                     //var fUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>()?.AddForensicUnit(cFile);

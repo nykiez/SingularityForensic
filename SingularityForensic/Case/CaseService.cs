@@ -7,14 +7,15 @@ using System.Collections.ObjectModel;
 using CDFCUIContracts.Commands;
 using System.ComponentModel.Composition;
 using CDFCMessageBoxes.MessageBoxes;
-using Singularity.UI.Case.MessageBoxes;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainPage;
-using Singularity.Contracts.Case.Events;
-using Singularity.Contracts.Shell;
-using Singularity.Contracts.Common;
 using SingularityForensic.Case.MessageBoxes;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.Case.Events;
+using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Case.MessageBoxes;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Case{
     [Export(typeof(ICaseService))]
@@ -26,7 +27,9 @@ namespace SingularityForensic.Case{
 
         public void CreateCase() {
             if (SingularityCase.Current != null) {
-                if (CDFCMessageBox.Show(FindResourceString("ConfirmToCloseAndCreate"), FindResourceString("Tip"), MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
+                if(MsgBoxService.Current?.Show(
+                    ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConfirmToCloseAndCreate"),
+                   LanguageService.Current?.FindResourceString("Tip"), MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
                     return;
                 }
             }
@@ -88,7 +91,7 @@ namespace SingularityForensic.Case{
                 SingularityCase.Current.Save();
                 foreach (var cManager in CaseManagers) {
                     //卸载案件，释放相关资源;
-                    cManager.Value?.Uninstall();
+                    cManager.Value?.Clear();
                 }
                 ServiceProvider.Current.GetInstance<IShellService>()?.SetTitle(null);
                 SingularityCase.Current = null;
@@ -96,50 +99,50 @@ namespace SingularityForensic.Case{
             }
         }
         
-        /// <summary>
-        /// 加载案件文件;
-        /// </summary>
-        /// <param name="csFile"></param>
-        public void LoadCaseFile<TCaseFile> (TCaseFile csFile) where TCaseFile:ICaseEvidence {
-            if(SingularityCase.Current == null) {
-                throw new Exception($"{nameof(SingularityCase)} can't be null");
-            }
+        ///// <summary>
+        ///// 加载案件文件;
+        ///// </summary>
+        ///// <param name="csFile"></param>
+        //public void LoadCaseFile<TCaseFile> (TCaseFile csFile) where TCaseFile:CaseEvidence {
+        //    if(SingularityCase.Current == null) {
+        //        throw new Exception($"{nameof(SingularityCase)} can't be null");
+        //    }
 
-            //案件中加入文件;
-            SingularityCase.Current.LoadCaseFile(csFile);
+        //    //案件中加入文件;
+        //    SingularityCase.Current.LoadCaseFile(csFile);
 
-            LoadCaseFileToUnit(csFile);
-            PubEventHelper.GetEvent<CaseFileLoadedEvent<TCaseFile>>()?.Publish(csFile);
+        //    LoadCaseFileToUnit(csFile);
+        //    PubEventHelper.GetEvent<CaseEvidenceLoadedEvent<TCaseFile>>()?.Publish(csFile);
             
-            ////若为文件案件文件,则加入文件性质的上下文菜单;
-            //if (csFile is IHaveData<IFile> fcsFile) {
-            //    //文件系统信息;
-            //    unit.ContextCommands.AddRange(
-            //        new CommandItem[]{
-            //            new CommandItem {
-            //                Command = new DelegateCommand(() => ShowFileSystem(fcsFile.Data)),
-            //                CommandName = FindResourceString("FileSystemInfo")
-            //            },
-            //            //重组扫描;
-            //            new CommandItem {
-            //                Command = RecompositeSignCommand,
-            //                CommandName = FindResourceString("MobileRecompositeBySign")
-            //            },
-            //            //自定义签名扫描;
-            //            new CommandItem {
-            //                Command = CustomSSearchCommand,
-            //                CommandName = FindResourceString("CustomSignSearch")
-            //            },
-            //            //不可用;
-            //            new CommandItem {
-            //                Command = unAvailebleCommand,
-            //                CommandName = FindResourceString("RecoverFileSystemLog")
-            //            }
-            //        }
-            //    );
-            //}
+        //    ////若为文件案件文件,则加入文件性质的上下文菜单;
+        //    //if (csFile is IHaveData<IFile> fcsFile) {
+        //    //    //文件系统信息;
+        //    //    unit.ContextCommands.AddRange(
+        //    //        new CommandItem[]{
+        //    //            new CommandItem {
+        //    //                Command = new DelegateCommand(() => ShowFileSystem(fcsFile.Data)),
+        //    //                CommandName =LanguageService.Current?.FindResourceString("FileSystemInfo")
+        //    //            },
+        //    //            //重组扫描;
+        //    //            new CommandItem {
+        //    //                Command = RecompositeSignCommand,
+        //    //                CommandName =LanguageService.Current?.FindResourceString("MobileRecompositeBySign")
+        //    //            },
+        //    //            //自定义签名扫描;
+        //    //            new CommandItem {
+        //    //                Command = CustomSSearchCommand,
+        //    //                CommandName =LanguageService.Current?.FindResourceString("CustomSignSearch")
+        //    //            },
+        //    //            //不可用;
+        //    //            new CommandItem {
+        //    //                Command = unAvailebleCommand,
+        //    //                CommandName =LanguageService.Current?.FindResourceString("RecoverFileSystemLog")
+        //    //            }
+        //    //        }
+        //    //    );
+        //    //}
             
-        }
+        //}
 
 #pragma warning disable 0169
         [Import]
@@ -150,45 +153,47 @@ namespace SingularityForensic.Case{
 
 #pragma warning restore 0169
         //显示案件文件属性;
-        public void ShowCaseFileProperty<TCaseFile>(TCaseFile csFile) where TCaseFile : ICaseEvidence {
-            if (csFile != null) {
-                csFile = ShowCaseFilePropertyMessageBox.Show(csFile);
-                SingularityCase.Current.Save();
-            }
-        }
+        //public void ShowCaseFileProperty<TCaseFile>(TCaseFile csFile) where TCaseFile : CaseEvidence {
+        //    if (csFile != null) {
+        //        csFile = ShowCaseFilePropertyMessageBox.Show(csFile);
+        //        SingularityCase.Current.Save();
+        //    }
+        //}
 
         /// <summary>
-        /// 加入案件文件;
+        /// //添加案件文件到案件中;;
         /// </summary>
         /// <param name="csFile"></param>
-        public void AddNewCaseFile<TCaseFile> (TCaseFile csFile) where TCaseFile:ICaseEvidence {
+        public void AddNewCaseFile(CaseEvidence csFile) {
             SingularityCase.Current.AddNewCaseFile(csFile);
 
-            LoadCaseFileToUnit(csFile);
+            LoadCaseFile(csFile);
 
-            PubEventHelper.GetEvent<CaseFileLoadedEvent<TCaseFile>>()?.Publish(csFile);
-            PubEventHelper.GetEvent<CaseEvidenceAddedEvent<TCaseFile>>()?.Publish(csFile);
+            //LoadCaseFileToUnit(csFile);
+
+            PubEventHelper.GetEvent<CaseEvidenceAddedEvent>()?.Publish(csFile);
+        }
+        
+        //加载案件文件到案件中;
+        public void LoadCaseFile(CaseEvidence cFile) {
+            try {
+                //发布正在加载事件;
+                PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish(cFile);
+                //案件中加入文件;
+                SingularityCase.Current.LoadCaseFile(cFile);
+                //发布加载完毕事件;
+                PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(cFile);
+            }
+            catch(Exception ex) {
+                LoggerService.Current?.WriteCallerLine(ex.Message);
+            }
         }
 
-        private void LoadCaseFileToUnit<TCaseFile>(TCaseFile csFile) where TCaseFile : ICaseEvidence {
-            var unit = new CaseEvidenceUnit<TCaseFile>(csFile, null) { Label = csFile.Name };
+        
+        
 
-            try {
-                //设定上下文菜单;
-                unit.ContextCommands = new ObservableCollection<ICommandItem> { 
-                    //显示案件文件属性;
-                    new CommandItem {
-                        Command = new DelegateCommand(() => ShowCaseFileProperty(csFile)),
-                        CommandName = FindResourceString("Properties")
-                    }
-                };
-            }
-            catch {
-
-            }
-            
-
-            nodeService?.Value?.AddUnit(unit);
+        public void ShowCaseFileProperty(CaseEvidence csFile) {
+            throw new NotImplementedException();
         }
     }
 }

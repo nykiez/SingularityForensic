@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:player="clr-namespace:Singularity.Previewers.Views;assembly=Singularity.Previewers"
+        xmlns:player="clr-namespace:SingularityForensic.Previewers.Views;assembly=SingularityForensic"
         xmlns:local="clr-namespace:DemoUI"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <local:TestDataGrid/>
+        <local:TestSqlitePreviewer/>
     </Grid>
 </Window>

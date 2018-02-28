@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Singularity.UI.AdbViewer.DeviceObjects {
+namespace SingularityForensic.Adb.DeviceObjects {
     /// <summary>
     /// Adb文件契约;
     /// </summary>

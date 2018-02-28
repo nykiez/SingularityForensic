@@ -1,8 +1,8 @@
 ﻿using EventLogger;
 using Prism.Mvvm;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainPage.Events;
-using Singularity.Contracts.TabControl;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.TabControl;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;

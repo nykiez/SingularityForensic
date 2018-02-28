@@ -124,29 +124,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Android\CDFC.Parse.Android.csproj">
-      <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
-      <Name>CDFC.Parse.Android</Name>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
       <Project>{EE637D4B-27E6-457C-AF39-1293F47AA966}</Project>
       <Name>CDFC.Parse</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
-      <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
-      <Name>Singularity.Contracts</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
-      <Project>{06fef118-76f8-4afd-b6ba-486579380a59}</Project>
-      <Name>Singularity.UI.Info.Android</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
-      <Project>{98D376F1-121C-464C-8E94-716A131FFC21}</Project>
-      <Name>Singularity.Android</Name>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">

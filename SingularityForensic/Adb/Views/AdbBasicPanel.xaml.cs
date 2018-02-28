@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Singularity.UI.AdbViewer.Views {
+namespace SingularityForensic.Adb.Views {
     /// <summary>
     /// Interaction logic for AdbBasicPanel.xaml
     /// </summary>

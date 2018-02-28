@@ -1,19 +1,19 @@
 ﻿using Cflab.DataTransport.Modules.Transport.Model;
 using EventLogger;
-using Singularity.Contracts.TabControl;
-using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.AdbViewer.ViewModels;
-using Singularity.UI.AdbViewer.ViewModels.AdbGrid;
-using Singularity.UI.AdbViewer.Views;
-using Singularity.UI.AdbViewer.Views.AdbGrid;
-using Singularity.UI.Info.ViewModels;
-using Singularity.UI.Info.Views;
+using SingularityForensic.Contracts.TabControl;
+using SingularityForensic.Adb.Helpers;
+using SingularityForensic.Adb.ViewModels;
+using SingularityForensic.Adb.ViewModels.AdbGrid;
+using SingularityForensic.Adb.Views;
+using SingularityForensic.Adb.Views.AdbGrid;
+using SingularityForensic.Controls.Info.ViewModels;
+using SingularityForensic.Controls.Info.Views;
 using SingularityForensic.Adb.ViewModels;
 using System;
 using System.Text;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.AdbViewer.TabModels {
+namespace SingularityForensic.Adb.TabModels {
     public class AdbTabModel : TabModel {
         public AdbTabModel(AdbTabViewModel vm) {
             Content = new AdbTab { DataContext = vm };

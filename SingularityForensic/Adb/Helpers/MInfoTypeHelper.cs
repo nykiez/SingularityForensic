@@ -1,7 +1,7 @@
-﻿using Singularity.Contracts.Info;
-using Singularity.UI.AdbViewer.Contracts;
+﻿using SingularityForensic.Contracts.Info;
+using SingularityForensic.Adb.Contracts;
 
-namespace Singularity.UI.AdbViewer.Helpers {
+namespace SingularityForensic.Adb.Helpers {
     public static class MInfoTypeHelper {
         public static string GetInfoTypeWord(this MInfoType tp) {
             switch (tp) {

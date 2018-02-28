@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Singularity.UI.AdbViewer.Views.AdbViewer {
+namespace SingularityForensic.Adb.Views.AdbViewer {
     /// <summary>
     /// Interaction logic for DeviceSelector.xaml
     /// </summary>

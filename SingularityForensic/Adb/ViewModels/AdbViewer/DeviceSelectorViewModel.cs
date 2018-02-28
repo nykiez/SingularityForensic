@@ -7,14 +7,16 @@ using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
-using Singularity.UI.AdbViewer.Models.AdbViewer;
+using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Tools.Adb.Devices;
 using System.Collections.Generic;
 using Cflab.DataTransport.Modules.Transport.Model;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using Cflab.DataTransport;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
+namespace SingularityForensic.Adb.ViewModels.AdbViewer {
     public partial class DeviceSelectorViewModel:PageModelBase,IDisposable {
         static DeviceSelectorViewModel() {
             void InitAndTrack() {
@@ -60,7 +62,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
         }
         public void RefreshDevices() {
             IsLoading = true;
-            TipWord = FindResourceString("AdbDeviceRefreshing");
+            TipWord = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbDeviceRefreshing");
             Application.Current?.Dispatcher.Invoke(() => {
                 Devices.Clear();
             });
@@ -71,7 +73,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
             PopupDevices(devices);
             
             //if(res.Type != ResultType.Success || Devices.Count == 0) {
-            //    TipWord = FindResourceString("PleaseConnectToPhone");
+            //    TipWord = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("PleaseConnectToPhone");
             //    Logger.WriteLine($"{nameof(DeviceSelectorViewModel)}->{nameof(RefreshDevices)}:No device or failed,type-{res.Type},message-{res.Message}.");
             //}
             
@@ -84,7 +86,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
                 Devices.Clear();
                 try {
                     if (devices == null || devices.Count == 0) {
-                        TipWord = FindResourceString("PleaseConnectToPhone");
+                        TipWord = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("PleaseConnectToPhone");
                         return;
                     }
                     devices.ForEach(p => {
@@ -92,7 +94,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
                         Devices.Add(newDev);
                     });
                     SelectedDevice = Devices[0];
-                    TipWord = FindResourceString("ChooseDeviceDetected");
+                    TipWord = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ChooseDeviceDetected");
                 }
                 catch(Exception ex) {
                     Logger.WriteLine($"{nameof(DeviceSelectorViewModel)}->{ nameof(PopupDevices)}:{ ex.Message}");

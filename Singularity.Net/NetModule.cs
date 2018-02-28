@@ -1,7 +1,7 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
 
-namespace Singularity.Net {
+namespace SingularityForensic.Net {
     [ModuleExport(typeof(NetModule))]
     public class NetModule : IModule {
 

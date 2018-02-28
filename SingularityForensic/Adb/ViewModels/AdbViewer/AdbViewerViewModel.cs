@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbViewer {
+namespace SingularityForensic.Adb.ViewModels.AdbViewer {
     public partial class AdbViewerViewModel : BindableBaseTemp {
         public EventHandler Closed;
         private PageModelBase _curPageModel;

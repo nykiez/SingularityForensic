@@ -1,4 +1,4 @@
-﻿<controls:CorneredWindow x:Class="Singularity.UI.Case.Views.ShowCaseFilePropertyWindow"
+﻿<controls:CorneredWindow x:Class="SingularityForensic.Case.Views.ShowCaseFilePropertyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Singularity.Contracts;component/Themes/CorneredWindow.xaml"/>
+                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

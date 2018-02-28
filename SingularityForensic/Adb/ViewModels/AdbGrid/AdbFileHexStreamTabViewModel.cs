@@ -1,14 +1,17 @@
 ﻿using CDFCUIContracts.Abstracts;
-using Singularity.UI.Controls.ViewModels;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Controls.ViewModels;
+using SingularityForensic.Hex.ViewModels;
 using System.IO;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
+namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     public class AdbFileHexStreamTabViewModel : HexStreamEditorViewModel, ITabModel {
-        public AdbFileHexStreamTabViewModel(Stream stream = null) : base(stream) {
-
+        public AdbFileHexStreamTabViewModel(Stream stream = null)  {
+            this.Stream = stream;
         }
 
-        public string Header => FindResourceString("AdbTabHex");
+        public string Header => ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbTabHex");
     }
 }

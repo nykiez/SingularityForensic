@@ -5,7 +5,7 @@ using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
-using Singularity.UI.MessageBoxes.MessageBoxes;
+using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -16,22 +16,23 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using static CDFCCultures.Managers.ManagerLocator;
-using static Singularity.UI.Controls.ViewModels.HexStreamEditorViewModel;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
-using Singularity.Contracts.Helpers;
-using Singularity.Contracts.MainPage.Events;
-using Singularity.Contracts.FileExplorer;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.TabControl;
-using Singularity.Contracts.MainPage;
-using Singularity.Contracts.Contracts.MainMenu;
-using Singularity.Contracts.MainMenu;
-using Singularity.Contracts.FileSystem;
-using Singularity.Contracts.Shell;
-using Singularity.Contracts.FileExplorer.Events;
-using Singularity.Contracts.Case;
-using Singularity.UI.Hex.Models;
-using Singularity.Contracts.Hex;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.MainPage.Events;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.TabControl;
+using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Contracts.FileExplorer.Events;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Controls.Hex.Models;
+using SingularityForensic.Contracts.Hex;
+using SingularityForensic.Controls.MessageBoxes;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Hex {
     public static partial class MenuItemDefinitions {
@@ -103,7 +104,7 @@ namespace SingularityForensic.Hex {
         public static MenuButtonItemModel GoToOffsetMenuItem
             => _goToOffsetMenuItem ??(_goToOffsetMenuItem = new MenuButtonItemModel(
             MenuConstants.MenuMainGroup,
-            FindResourceString("GoToOffset")) {
+            ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("GoToOffset")) {
                 Command = GoToOffsetCommand,
                 IconSource = IconSources.GotoOffsetIcon,
                 Modifier = ModifierKeys.Alt,
@@ -118,7 +119,7 @@ namespace SingularityForensic.Hex {
         [Export]
         public static MenuButtonItemModel FindHexMenuItem 
             => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, 
-                FindResourceString("SearchForHex")) {
+                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchForHex")) {
                         Command = FindHexValueCommand,
                         IconSource = IconSources.FindHexIcon,
                         Modifier = ModifierKeys.Alt | ModifierKeys.Control,
@@ -160,7 +161,7 @@ namespace SingularityForensic.Hex {
         [Export]
         public static MenuButtonItemModel FindTextMenuItem
               => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup,
-                        FindResourceString("SearchForText")) {
+                        ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchForText")) {
                         Command = FindTextCommand,
                         IconSource = IconSources.FindTextIcon,
                         Modifier = ModifierKeys.Control,
@@ -265,7 +266,7 @@ namespace SingularityForensic.Hex {
         public static MenuButtonItemModel SearchKeyMenuItem {
             get {
                 if (_searchKeyMenuItem == null) {
-                    _searchKeyMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, FindResourceString("IndexSearch")) {
+                    _searchKeyMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexSearch")) {
                         Command = SearchKeyConfirmCommand,
                         IconSource = IconSources.FindTextIcon
                     };
@@ -280,142 +281,142 @@ namespace SingularityForensic.Hex {
         private static DelegateCommand _searchKeyConfirmCommand;
         public static DelegateCommand SearchKeyConfirmCommand =>
             _searchKeyConfirmCommand ?? (_searchKeyConfirmCommand = new DelegateCommand(() => {
-                var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
-                if (fsTabService == null) {
-                    Logger.WriteCallerLine("FsTabService is null!");
-                    return;
-                }
+                //var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
+                //if (fsTabService == null) {
+                //    Logger.WriteCallerLine("FsTabService is null!");
+                //    return;
+                //}
 
-                var fileBrowserViewModel = (fsTabService.SelectedTab as ExtTabModel<IFileBrowserDataContext>).Data;
+                //var fileBrowserViewModel = (fsTabService.SelectedTab as ExtTabModel<IFileBrowserDataContext>).Data;
 
-                //确认搜索设备;
-                var blDevice = fileBrowserViewModel.File as Device;
+                ////确认搜索设备;
+                //var blDevice = fileBrowserViewModel.File as Device;
 
-                var device = blDevice ?? fileBrowserViewModel.File.GetParent<Device>() as Device;
-                var indexableFile = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.CaseEvidences.
-                    FirstOrDefault(p =>
-                    p is IHaveData<IFile> fcsFile
-                    && fcsFile.Data == device) as IIndexable;
+                //var device = blDevice ?? fileBrowserViewModel.File.GetParent<Device>() as Device;
+                ////var indexableFile = ServiceProvider.Current.GetInstance<ICaseService>().CurrentCase.CaseEvidences.
+                ////    FirstOrDefault(p =>
+                ////    p is IHaveData<IFile> fcsFile
+                ////    && fcsFile.Data == device) as IIndexable;
 
-                if (SlSearchKeyOption.Method == SearchMethod.Content) {
-                    if (indexableFile == null) {
-                        Logger.WriteCallerLine($"{nameof(indexableFile)} can't be null");
-                        RemainingMessageBox.Tell(FindResourceString("NullCaseFileUnknownError"));
-                        return;
-                    }
-                    //开始搜索索引的委托;
-                    Action searchAct = () => {
-                        ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true);
-                        ThreadPool.QueueUserWorkItem(cb => {
-                            try {
-                                var itrFile = fileBrowserViewModel.CurFile as IIterableFile;
-                                var searchingKey = string.Empty;
-                                Application.Current.Dispatcher.Invoke(() => {
-                                    searchingKey = InputValueMessageBox.Show(FindResourceString("PleaseInputContent"));
-                                });
-                                if (searchingKey == null) {
-                                    return;
-                                }
-                                if (ValidateInput(searchingKey) == SearchValidateRes.OK && itrFile != null) {
-                                    IFile fileNode = itrFile;
-                                    var sb = new StringBuilder();
-                                    while (fileNode != null) {
-                                        if (fileNode is Partition) {
-                                            sb.Insert(0, $"{device.IndexOf(fileNode)}/");
-                                        }
-                                        else if (!(fileNode is Device)) {
-                                            sb.Insert(0, $"{fileNode.Name}/");
-                                        }
-                                        fileNode = fileNode.Parent;
-                                    }
+                //if (SlSearchKeyOption.Method == SearchMethod.Content) {
+                //    if (indexableFile == null) {
+                //        Logger.WriteCallerLine($"{nameof(indexableFile)} can't be null");
+                //        RemainingMessageBox.Tell(FindResourceString("NullCaseFileUnknownError"));
+                //        return;
+                //    }
+                //    //开始搜索索引的委托;
+                //    Action searchAct = () => {
+                //        ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true);
+                //        ThreadPool.QueueUserWorkItem(cb => {
+                //            try {
+                //                var itrFile = fileBrowserViewModel.CurFile as IIterableFile;
+                //                var searchingKey = string.Empty;
+                //                Application.Current.Dispatcher.Invoke(() => {
+                //                    searchingKey = InputValueMessageBox.Show(FindResourceString("PleaseInputContent"));
+                //                });
+                //                if (searchingKey == null) {
+                //                    return;
+                //                }
+                //                if (ValidateInput(searchingKey) == SearchValidateRes.OK && itrFile != null) {
+                //                    IFile fileNode = itrFile;
+                //                    var sb = new StringBuilder();
+                //                    while (fileNode != null) {
+                //                        if (fileNode is Partition) {
+                //                            sb.Insert(0, $"{device.IndexOf(fileNode)}/");
+                //                        }
+                //                        else if (!(fileNode is Device)) {
+                //                            sb.Insert(0, $"{fileNode.Name}/");
+                //                        }
+                //                        fileNode = fileNode.Parent;
+                //                    }
 
 
-                                    var files = indexableFile.IndexSearchKey(searchingKey.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), sb.ToString());
-                                    if (files != null) {
-                                        fileBrowserViewModel.FillFiles(files);
-                                    }
-                                    else {
-                                        AppInvoke(() => {
-                                            RemainingMessageBox.Tell(FindResourceString("SearchResNull"));
-                                        });
-                                    }
-                                }
-                            }
-                            catch (Exception ex) {
-                                Logger.WriteCallerLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
-                            }
-                            finally {
-                                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false);
-                            }
-                        });
-                    };
+                //                    var files = indexableFile.IndexSearchKey(searchingKey.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), sb.ToString());
+                //                    if (files != null) {
+                //                        fileBrowserViewModel.FillFiles(files);
+                //                    }
+                //                    else {
+                //                        AppInvoke(() => {
+                //                            RemainingMessageBox.Tell(FindResourceString("SearchResNull"));
+                //                        });
+                //                    }
+                //                }
+                //            }
+                //            catch (Exception ex) {
+                //                Logger.WriteCallerLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
+                //            }
+                //            finally {
+                //                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false);
+                //            }
+                //        });
+                //    };
 
-                    //若未建立索引,询问是否建立索引。
-                    if (!indexableFile.HasIndexes) {
-                        //若确定,则开始建立索引;
-                        if (CDFCMessageBox.Show(FindResourceString("IndexesNeeded"), FindResourceString("IndexesNotBeenBuilt"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                            ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
-                            var msg = new ProgressMessageBox();
-                            bool broke = false;
-                            var proc = 0;
+                //    //若未建立索引,询问是否建立索引。
+                //    if (!indexableFile.HasIndexes) {
+                //        //若确定,则开始建立索引;
+                //        if (CDFCMessageBox.Show(FindResourceString("IndexesNeeded"), ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexesNotBeenBuilt"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                //            ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, null);
+                //            var msg = new ProgressMessageBox();
+                //            bool broke = false;
+                //            var proc = 0;
 
-                            msg.DoWork += (sender, e) => {
-                                msg.ReportProgress(0, FindResourceString("IndexesBeingBuilt"), $"{proc}%");
-                                try {
-                                    var succeed = indexableFile.BuildIndexFiles((period, pro, total) => {
-                                        if (period == BuildPeriod.BuildDoc) {
-                                            msg.ReportProgress(0, FindResourceString("IndexesInitializing"), string.Empty);
-                                        }
-                                        else if (total != null) {
-                                            var newProc = (int)(pro * 100 / total);
-                                            if (newProc > proc) {
-                                                proc = newProc;
-                                                msg.ReportProgress(proc > 100 ? 100 : proc, FindResourceString("IndexesBeingBuilt"), $"{proc}%");
-                                            }
-                                        }
-                                    },
-                                    () => {
-                                        if (msg.CancellationPending) {
-                                            broke = true;
-                                        }
-                                        return broke;
-                                    });
-                                    //若成功创建索引;开始搜索;
-                                    if (succeed && indexableFile.HasIndexes) {
-                                        ServiceProvider.Current.GetInstance<ICaseService>()?.CurrentCase.Save();
-                                        //分隔空格;
-                                        searchAct();
-                                    }
-                                }
-                                catch (Exception ex) {
-                                    Logger.WriteLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
-                                    AppInvoke(() => {
-                                        CDFCMessageBox.Show($"{FindResourceString("IndexBuildingFailed")}:{ex.Message}");
-                                    });
-                                }
-                            };
+                //            msg.DoWork += (sender, e) => {
+                //                msg.ReportProgress(0, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexesBeingBuilt"), $"{proc}%");
+                //                try {
+                //                    var succeed = indexableFile.BuildIndexFiles((period, pro, total) => {
+                //                        if (period == BuildPeriod.BuildDoc) {
+                //                            msg.ReportProgress(0, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexesInitializing"), string.Empty);
+                //                        }
+                //                        else if (total != null) {
+                //                            var newProc = (int)(pro * 100 / total);
+                //                            if (newProc > proc) {
+                //                                proc = newProc;
+                //                                msg.ReportProgress(proc > 100 ? 100 : proc, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexesBeingBuilt"), $"{proc}%");
+                //                            }
+                //                        }
+                //                    },
+                //                    () => {
+                //                        if (msg.CancellationPending) {
+                //                            broke = true;
+                //                        }
+                //                        return broke;
+                //                    });
+                //                    //若成功创建索引;开始搜索;
+                //                    if (succeed && indexableFile.HasIndexes) {
+                //                        ServiceProvider.Current.GetInstance<ICaseService>()?.CurrentCase.Save();
+                //                        //分隔空格;
+                //                        searchAct();
+                //                    }
+                //                }
+                //                catch (Exception ex) {
+                //                    Logger.WriteLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
+                //                    AppInvoke(() => {
+                //                        CDFCMessageBox.Show($"{FindResourceString("IndexBuildingFailed")}:{ex.Message}");
+                //                    });
+                //                }
+                //            };
 
-                            msg.RunWorkerCompleted += (sender, e) => {
-                                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false, null);
-                            };
-                            msg.ShowDialog();
-                        }
-                    }
-                    else {
-                        searchAct();
-                    }
+                //            msg.RunWorkerCompleted += (sender, e) => {
+                //                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false, null);
+                //            };
+                //            msg.ShowDialog();
+                //        }
+                //    }
+                //    else {
+                //        searchAct();
+                //    }
 
-                }
-                else {
-                    //ThreadPool.QueueUserWorkItem(cb => {
-                    //    try {
-                    //        _fileBrowserTabModel.SearchNameInCurFile(searchingKey);
-                    //    }
-                    //    finally {
-                    //        Aggregator?.GetEvent<IsLoadingChangedEvent>()?.Publish(false);
-                    //    }
-                    //});
-                }
+                //}
+                //else {
+                //    //ThreadPool.QueueUserWorkItem(cb => {
+                //    //    try {
+                //    //        _fileBrowserTabModel.SearchNameInCurFile(searchingKey);
+                //    //    }
+                //    //    finally {
+                //    //        Aggregator?.GetEvent<IsLoadingChangedEvent>()?.Publish(false);
+                //    //    }
+                //    //});
+                //}
             },
                 () => (ServiceProvider.Current.GetInstance<IDocumentTabService>()?.SelectedTab is IHaveData<IFileBrowserDataContext> fbTabModel)
             && (fbTabModel?.Data?.OwnerFile is Partition)));

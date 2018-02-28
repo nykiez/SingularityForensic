@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
-namespace Singularity.UI.FileExplorer.Views {
+namespace SingularityForensic.Controls.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for CustomIndexSearch.xaml
     /// </summary>

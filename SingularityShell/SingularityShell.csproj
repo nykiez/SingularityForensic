@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9F0E1B1B-0329-49C4-A18E-D287D7393F8A}</ProjectGuid>
+    <ProjectGuid>{A0D2F2F0-83BD-45D5-9EE7-8E7F5DE02F2F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SingularityShell</RootNamespace>
     <AssemblyName>SingularityShell</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
@@ -14,8 +13,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,89 +27,42 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Singularity.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -124,11 +75,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SingularityBootStrapper.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SingularityBootStrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -148,62 +99,28 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Singularity.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
+    <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
-      <Name>Singularity.Contracts</Name>
-      <Private>False</Private>
+      <Name>SingularityForensic.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
-      <Project>{06fef118-76f8-4afd-b6ba-486579380a59}</Project>
-      <Name>Singularity.UI.Info.Android</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Controls\Singularity.UI.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>Singularity.UI.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.FileSystem.Android\Singularity.Android.csproj">
-      <Project>{98D376F1-121C-464C-8E94-716A131FFC21}</Project>
-      <Name>Singularity.Android</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
+    <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
       <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
-      <Name>Singularity.UI.Info</Name>
-      <Private>False</Private>
+      <Name>SingularityForensic.Info</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
       <Name>SingularityForensic</Name>
-      <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SplashScreen Include="Resources\Splash.png" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Page Include="Languages\zh_CN\SingularityShell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -220,10 +137,30 @@ copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb"
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll"
 copy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.1.0\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll"
-
 copy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll"
+Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll"
 
+Copy "$(SolutionDir)SingularityForensic\$(OutDir)\SingularityForensic.dll" "$(TargetDir)Entities\SingularityForensic.dll"
+Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
+Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll"
+Copy "$(SolutionDir)SingularityForensic.Android\$(OutDir)\SingularityForensic.Android.dll" "$(TargetDir)Entities\SingularityForensic.Android.dll"
+Copy "$(SolutionDir)CDFC.Parse\$(OutDir)\CDFC.Parse.dll" "$(TargetDir)Entities\CDFC.Parse.dll"
+Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\CDFC.Parse.Modules.dll" "$(TargetDir)Entities\CDFC.Parse.Modules.dll"
+Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\DiskManager.dll" "$(TargetDir)Entities\DiskManager.dll"
+Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\cdfcqd.dll" "$(TargetDir)Entities\cdfcqd.dll"
+Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
+Copy "$(SolutionDir)CDFC.Parse.ITunes\$(OutDir)\CDFC.Parse.ITunes.dll" "$(TargetDir)Entities\CDFC.Parse.ITunes.dll"
+Copy "$(SolutionDir)CDFC.Parse.Java\$(OutDir)\CDFC.Parse.Java.dll" "$(TargetDir)Entities\CDFC.Parse.Java.dll"
+Copy "$(SolutionDir)CDFC.Parse.Local\$(OutDir)\CDFC.Parse.Local.dll" "$(TargetDir)Entities\CDFC.Parse.Local.dll"
+Copy "$(SolutionDir)CDFC.Parse.Python\$(OutDir)\CDFC.Parse.Python.dll" "$(TargetDir)Entities\CDFC.Parse.Python.dll"
+Copy "$(SolutionDir)CDFC.Parse.Signature\$(OutDir)\CDFC.Parse.Signature.dll" "$(TargetDir)Entities\CDFC.Parse.Signature.dll"
 
+xcopy "$(SolutionDir)CDFC.Parse.ITunes\Entities" "$(TargetDir)Entities"  /E /Y
+
+Copy "$(SolutionDir)SingularityForensic.Controls\$(OutDir)\SingularityForensic.Controls.dll" "$(TargetDir)Controls\SingularityForensic.Controls.dll"
+Copy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll"
+Copy "$(SolutionDir)packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll" "$(TargetDir)Controls\Meta.Vlc.dll"
+XCopy "$(SolutionDir)packages\Meta.Vlc.Lib.16.05.01\content\LibVlc" "$(TargetDir)"  /E /Y
 
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"
@@ -231,13 +168,7 @@ Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\BouncyCastle.Crypto.dll" "$(Ta
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(TargetDir)Entities\Chloe.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll"
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y</PostBuildEvent>
+XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y
+</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

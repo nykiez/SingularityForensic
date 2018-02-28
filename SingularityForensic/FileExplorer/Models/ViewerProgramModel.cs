@@ -2,9 +2,10 @@
 using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
 using Prism.Mvvm;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 
-
-namespace Singularity.UI.FileExplorer.Models {
+namespace SingularityForensic.Controls.FileExplorer.Models {
     //查看程序模型;
     public class ViewerProgramModel:BindableBase {
         public ViewerProgramModel(ViewerProgram program) {
@@ -25,7 +26,7 @@ namespace Singularity.UI.FileExplorer.Models {
             get {
                 if(_otherProgram == null) {
                     _otherProgram = new ViewerProgramModel(new ViewerProgram {
-                        ProgramName = FindResourceString("OtherProgram")
+                        ProgramName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("OtherProgram")
                     });
                 }
                 return _otherProgram;

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Singularity.UI.ITunes.Views {
+namespace SingularityForensic.Controls.ITunes.Views {
     /// <summary>
     /// Interaction logic for ITunesGrid.xaml
     /// </summary>

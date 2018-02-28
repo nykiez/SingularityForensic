@@ -158,16 +158,6 @@
       <Name>Singularity.Net</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Android\Singularity.UI.Info.Android.csproj">
-      <Project>{06FEF118-76F8-4AFD-B6BA-486579380A59}</Project>
-      <Name>Singularity.UI.Info.Android</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Singularity.UI.Info\Singularity.UI.Info.csproj">
-      <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
-      <Name>Singularity.UI.Info</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
       <Name>SingularityForensic</Name>

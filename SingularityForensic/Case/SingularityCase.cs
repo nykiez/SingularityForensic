@@ -6,7 +6,7 @@ using System.IO;
 using SysIO = System.IO;
 using EventLogger;
 using System.Runtime.CompilerServices;
-using Singularity.Contracts.Case;
+using SingularityForensic.Contracts.Case;
 
 namespace SingularityForensic.Case{
     //案件实体;
@@ -176,12 +176,12 @@ namespace SingularityForensic.Case{
         public XDocument XDoc => _xDoc ?? (_xDoc = new XDocument(new XElement("Case")));
 
         //案件所关联的设备文件(外部不可访问);
-        private List<ICaseEvidence> caseFiles = new List<ICaseEvidence>();
+        private List<CaseEvidence> caseFiles = new List<CaseEvidence>();
         //案件所关联的设备文件(外部可访问);
-        public IEnumerable<ICaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
+        public IEnumerable<CaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
 
         //载入案件文件;(针对案件中现有的文件)
-        public void LoadCaseFile(ICaseEvidence cFile) {
+        public void LoadCaseFile(CaseEvidence cFile) {
             if (cFile == null) {
                 Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(LoadCaseFile)}:cFile can't be null");
                 return;
@@ -195,33 +195,31 @@ namespace SingularityForensic.Case{
         /// </summary>
         /// <param name="cFile">案件文件</param>
         /// <param name="cElem">案件文件对应的xmlelem</param>
-        public void AddNewCaseFile(ICaseEvidence cFile) {
+        public void AddNewCaseFile(CaseEvidence cFile) {
             if (cFile == null) {
                 Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(AddNewCaseFile)}:cFile can't be null");
                 return;
             }
             caseFiles.Add(cFile);
-            //若为标准案件文件则加入XDoc;
-            //并创建路径;
-            if (cFile is CaseEvidence stdCaseFile) {
-                try {
-                    var root = XDoc.Root;
-                    if (root != null) {
-                        var cFilesElem = root.Element(nameof(CaseEvidences));
-                        if (cFilesElem == null) {
-                            root.Add((cFilesElem = new XElement(nameof(CaseEvidences))));
-                        }
-                        cFilesElem.Add(stdCaseFile.XElem);
+            
+            //创建路径;
+            try {
+                var root = XDoc.Root;
+                if (root != null) {
+                    var cFilesElem = root.Element(nameof(CaseEvidences));
+                    if (cFilesElem == null) {
+                        root.Add((cFilesElem = new XElement(nameof(CaseEvidences))));
                     }
-                    CreateBasePath(stdCaseFile);
+                    cFilesElem.Add(cFile.XElem);
                 }
-                catch (Exception ex) {
-                    Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(LoadCaseFile)}:{ex.Message}");
-                    throw;
-                }
-                finally {
-                    Save();
-                }
+                CreateBasePath(cFile);
+            }
+            catch (Exception ex) {
+                Logger.WriteLine($"{nameof(SingularityCase)}->{nameof(LoadCaseFile)}:{ex.Message}");
+                throw;
+            }
+            finally {
+                Save();
             }
 
         }
@@ -229,8 +227,8 @@ namespace SingularityForensic.Case{
         /// <summary>
         /// 为标准案件文件创建仓储目录;
         /// </summary>
-        private void CreateBasePath(ICaseEvidence stdCFile) {
-            var basePath = $"{stdCFile.BasePath}";
+        private void CreateBasePath(CaseEvidence stdCFile) {
+            var basePath = $"{stdCFile.EvidenceGUID}";
             try {
                 var abBasePath = $"{Path}/{basePath}";
                 if (!Directory.Exists(abBasePath)) {

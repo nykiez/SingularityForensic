@@ -1,12 +1,12 @@
-﻿using Singularity.Contracts.MainPage;
-using Singularity.Contracts.TabControl;
+﻿using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.TabControl;
 using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace SingularityForensic.Modules.MainPage.Global {
+namespace SingularityForensic.MainPage.Global {
     [Export(typeof(IDocumentTabService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class DocumentTabService : IDocumentTabService {

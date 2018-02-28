@@ -1,7 +1,7 @@
-﻿using Singularity.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.FileExplorer;
 using System.Windows;
 
-namespace Singularity.UI.Previewers {
+namespace SingularityForensic.Controls.Previewers {
     public class OutsideInPreviewer : IPreviewer {
         /// <summary>
         /// OutSideIn-Tech预览器;

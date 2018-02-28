@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Singularity.UI.AdbViewer.Views.AdbGrid {
+namespace SingularityForensic.Adb.Views.AdbGrid {
     /// <summary>
     /// Interaction logic for AdbDataGrid.xaml
     /// </summary>

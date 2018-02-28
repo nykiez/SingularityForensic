@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer;
 
-namespace Singularity.Previewers {
+namespace SingularityForensic.Previewers {
     public class ImagePreviewer : IPreviewer {
         public ImagePreviewer(Stream stream) {
             if (stream == null)

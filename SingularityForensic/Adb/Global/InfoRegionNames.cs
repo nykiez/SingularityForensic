@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.Info {
+﻿namespace SingularityForensic.Controls.Info {
     public static class InfoRegionNames {
         public static readonly string InfoLeftRegion = nameof(InfoLeftRegion);
         public static readonly string InfoMainRegion = nameof(InfoMainRegion);

@@ -1,6 +1,6 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Singularity.Contracts.Helpers;
+using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Shell;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace SingularityForensic.MainPage {
 
         public void Initialize() {
 
-            RegionHelper.RegisterViewWithRegion(RegionNames.MainRegion, typeof(Views.MainPage));
+            RegionHelper.RegisterViewWithRegion(Shell.RegionNames.MainRegion, typeof(Views.MainPage));
             //manager.RegisterViewWithRegion("FSCustomRegion", typeof(CustomIndexSearch));
         }
     }

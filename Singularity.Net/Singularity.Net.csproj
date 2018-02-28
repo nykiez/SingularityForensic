@@ -147,10 +147,9 @@
       <Name>CDFC.Parse</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Singularity.Contracts\Singularity.Contracts.csproj">
+    <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
-      <Name>Singularity.Contracts</Name>
-      <Private>False</Private>
+      <Name>SingularityForensic.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>

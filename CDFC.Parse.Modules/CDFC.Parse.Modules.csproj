@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07563C49-6584-4631-8746-D055BC7E3CA6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CDFC.Parse.Modules</RootNamespace>
+    <AssemblyName>CDFC.Parse.Modules</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\TabPartPartition.cs" />
+    <Compile Include="Contracts\IExt4Node.cs" />
+    <Compile Include="Contracts\IFAT32Node.cs" />
+    <Compile Include="Contracts\IFileNode.cs" />
+    <Compile Include="Contracts\IFileSearcher.cs" />
+    <Compile Include="DeviceObjects\AndroidDevice.cs" />
+    <Compile Include="DeviceObjects\AndroidDirectory.cs" />
+    <Compile Include="DeviceObjects\AndroidDiskMgr.cs" />
+    <Compile Include="DeviceObjects\AndroidEFIInfo.cs" />
+    <Compile Include="DeviceObjects\AndroidGroupDescInfo.cs" />
+    <Compile Include="DeviceObjects\AndroidMbrInfo.cs" />
+    <Compile Include="DeviceObjects\AndroidOtherFile.cs" />
+    <Compile Include="DeviceObjects\AndroidUnknownParititon.cs" />
+    <Compile Include="DeviceObjects\AndroidPartition.cs" />
+    <Compile Include="DeviceObjects\DosDevice.cs" />
+    <Compile Include="DeviceObjects\FAT32Directory.cs" />
+    <Compile Include="DeviceObjects\Fat32OtherFile.cs" />
+    <Compile Include="DeviceObjects\FAT32Partition.cs" />
+    <Compile Include="DeviceObjects\FAT32RegFile.cs" />
+    <Compile Include="DeviceObjects\IOSBackUpFile.cs" />
+    <Compile Include="DeviceObjects\LocalDirectory.cs" />
+    <Compile Include="DeviceObjects\LocalRegFile.cs" />
+    <Compile Include="DeviceObjects\PartTabInfo.cs" />
+    <Compile Include="DeviceObjects\AndroidRegFile.cs" />
+    <Compile Include="DeviceObjects\AndroidSuperBlock.cs" />
+    <Compile Include="DeviceObjects\SearcherFile.cs" />
+    <Compile Include="DeviceObjects\SearcherPartition.cs" />
+    <Compile Include="IOSBackUpParser.cs" />
+    <Compile Include="Pictures\PictureNode.cs" />
+    <Compile Include="Pictures\PictureRecoverer.cs" />
+    <Compile Include="Pictures\PictureSearcher.cs" />
+    <Compile Include="Pictures\RecompositeSearcher.cs" />
+    <Compile Include="Pictures\SignSearcher.cs" />
+    <Compile Include="Static\DosMethods.cs" />
+    <Compile Include="Structs\DosStructs.cs" />
+    <Compile Include="Structs\IOSFileStruct .cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Static\Ext4Methods.cs" />
+    <Compile Include="Static\FAT32Methods.cs" />
+    <Compile Include="Structs\Fat32Structs.cs" />
+    <Compile Include="Structs\StBlockList.cs" />
+    <Compile Include="Structs\StDirEntry.cs" />
+    <Compile Include="Structs\StDiskMgr.cs" />
+    <Compile Include="Structs\StEFIInfo.cs" />
+    <Compile Include="Structs\StExt4DirEntry.cs" />
+    <Compile Include="Structs\StExt4Inode.cs" />
+    <Compile Include="Structs\StExt4GroupDesc.cs" />
+    <Compile Include="Structs\StMbrInfo.cs" />
+    <Compile Include="Structs\StPartInfo.cs" />
+    <Compile Include="Structs\StSuperBlock.cs" />
+    <Compile Include="Structs\StTabPartInfo.cs" />
+    <Compile Include="Structs\StPhotoFileNode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cdfcphoto.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cdfcqd.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cdfcqd.h" />
+    <Content Include="DiskManager.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DiskManager.h" />
+    <Content Include="Entities\iosparse.dll" />
+    <Content Include="Entities\msvcp120d.dll" />
+    <Content Include="Entities\msvcr120d.dll" />
+    <Content Include="Entities\PListCpp.dll" />
+    <Content Include="Entities\vccorlib120d.dll" />
+    <Content Include="FatRecover.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FatRecover.h" />
+    <Content Include="FHR.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entities\Common.lib" />
+    <None Include="Entities\CrossPlatformDefine.lib" />
+    <None Include="Entities\cryptopp.lib" />
+    <None Include="Entities\IOSMonitor.lib" />
+    <None Include="Entities\Sqlite3.lib" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
+      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
+      <Name>CDFC.Parse</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using Singularity.Previewers.ViewModels;
-using Singularity.Contracts.FileExplorer;
+using SingularityForensic.Previewers.ViewModels;
+using SingularityForensic.Contracts.FileExplorer;
 
-namespace Singularity.Previewers {
+namespace SingularityForensic.Previewers {
     /// <summary>
     /// sqlite数据库预览器;
     /// </summary>

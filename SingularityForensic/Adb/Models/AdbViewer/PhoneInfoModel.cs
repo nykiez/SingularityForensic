@@ -1,7 +1,7 @@
 ﻿using Cflab.DataTransport.Modules.Transport.Model;
 using System;
 
-namespace Singularity.UI.AdbViewer.Models.AdbViewer {
+namespace SingularityForensic.Adb.Models.AdbViewer {
     public class SMSPhoneInfoModel {
         //public readonly static DateTime SmsIniTime = DateTime
         public SMSPhoneInfoModel(Sms sms) {

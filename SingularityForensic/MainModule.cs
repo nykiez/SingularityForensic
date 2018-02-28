@@ -1,8 +1,8 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Singularity.Contracts.Helpers;
-using SingularityForensic.Modules.MainPage.Views;
-using SingularityForensic.Modules.Shell;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.MainPage.Views;
+using SingularityForensic.Shell;
 
 namespace SingularityForensic {
     public class Dummy {

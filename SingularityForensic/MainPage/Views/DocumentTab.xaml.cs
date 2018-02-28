@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
-namespace SingularityForensic.Modules.MainPage.Views {
+namespace SingularityForensic.MainPage.Views {
     /// <summary>
     /// Interaction logic for FolderBrowser.xaml
     /// </summary>

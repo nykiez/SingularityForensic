@@ -176,10 +176,11 @@ namespace CommonTest {
             public IntPtr next;
         }
         
-
+        //"J://anli/dos.img"
         [TestMethod]
         public void TestGetPTable() {
-            var fs = File.OpenRead("J://anli/dos.img");
+            //"J:/use/手机镜像/Honor/2017-01-10 10-03-05 867064029171533/mmcblk0"
+            var fs = File.OpenRead("G://MCR3XXX.rar");
             Assert.IsTrue(fs != null);
             var ptr = DiskManager_Get_PTable(fs.SafeFileHandle);
             Assert.IsTrue(ptr != IntPtr.Zero);
@@ -192,6 +193,7 @@ namespace CommonTest {
                 }
             }
             
+
 
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Singularity.UI.FileExplorer.Views {
+namespace SingularityForensic.Controls.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for ItrChildrenPreview.xaml
     /// </summary>

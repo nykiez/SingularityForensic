@@ -12,14 +12,15 @@ using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Commands;
 using Prism.Mvvm;
 using CDFC.Info.Adb;
-using Singularity.UI.Case;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.AdbViewer.Helpers;
-using Singularity.Contracts.Info;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Common;
+using SingularityForensic.Case;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Adb.Helpers;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
+namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     //Adb文件网格视图模型;
     public partial class AdbDataGridViewModel:BindableBase {
         public AdbDataGridViewModel(IDefaultPhoneInfoContainer container) {
@@ -117,7 +118,7 @@ namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
                     if(dialog.ShowDialog() == true) {
                         try {
                             ProgressMessageBox msg = new ProgressMessageBox();
-                            msg.WindowTitle = FindResourceString("AdbFileBeingCopied");
+                            msg.WindowTitle = LanguageService.Current?.FindResourceString("AdbFileBeingCopied");
                             msg.Word = $"{FindResourceString("AdbFileBeingCopied")}:{IOPathHelper.GetFileNameFromUrl(oriUrl)}";
                             var succeed = false;
                             

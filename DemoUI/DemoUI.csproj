@@ -193,6 +193,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
+      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
+      <Name>SingularityForensic.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
+      <Name>SingularityForensic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"

@@ -1,8 +1,8 @@
 ﻿using CDFCControls.Controls;
-using Singularity.UI.AdbViewer.ViewModels.AdbViewer;
+using SingularityForensic.Adb.ViewModels.AdbViewer;
 using System;
 
-namespace Singularity.UI.AdbViewer.Views.AdbViewer {
+namespace SingularityForensic.Adb.Views.AdbViewer {
     /// <summary>
     /// Interaction logic for AdbPhoneDeviceChecker.xaml
     /// </summary>

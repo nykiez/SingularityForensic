@@ -1,6 +1,6 @@
-﻿using Singularity.Contracts.Case;
-using Singularity.UI.Case.ViewModels;
-using Singularity.UI.Case.Views;
+﻿using SingularityForensic.Contracts.Case;
+using SingularityForensic.Case.ViewModels;
+using SingularityForensic.Case.Views;
 
 namespace SingularityForensic.Case.MessageBoxes {
     public class CreateCaseMessageBox {

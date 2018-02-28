@@ -3,19 +3,20 @@ using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.FileExplorer;
-using Singularity.UI.FileExplorer.Helpers;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.FileExplorer.Helpers;
 using System;
 using System.IO;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
     public class FilePreviewerTabModel : BindableBase , ITabModel ,IDisposable {
         public string Header {
             get {
-                return FindResourceString("Preview");
+                return  ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Preview");
             }
         }
 

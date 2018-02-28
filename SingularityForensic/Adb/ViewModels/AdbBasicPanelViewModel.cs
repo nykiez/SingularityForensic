@@ -6,7 +6,7 @@ using Prism.Mvvm;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFC.Info.Adb;
 
-namespace Singularity.UI.AdbViewer.ViewModels {
+namespace SingularityForensic.Adb.ViewModels {
     public class AdbBasicPanelViewModel:BindableBase {
         public AdbBasicPanelViewModel(AdbSingleInfoContainer<Basic,AdbInfoBasicModel> container) {
             this.Container = container;

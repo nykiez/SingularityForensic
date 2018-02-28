@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Singularity.UI.Previewers.Views {
+namespace SingularityForensic.Controls.Previewers.Views {
     /// <summary>
     /// Interaction logic for OutsideInPreviewer.xaml
     /// </summary>

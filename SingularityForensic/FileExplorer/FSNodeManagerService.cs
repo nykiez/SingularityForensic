@@ -1,14 +1,14 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Contracts;
-using CDFC.Parse.Local.DeviceObjects;
+using CDFC.Parse.Modules.DeviceObjects;
 using EventLogger;
-using Singularity.Contracts.Common;
-using Singularity.Contracts.FileExplorer;
-using Singularity.Contracts.FileSystem;
-using Singularity.Contracts.MainPage;
-using Singularity.Contracts.Shell;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.Shell;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
-using Singularity.UI.FileExplorer.ViewModels;
+using SingularityForensic.Controls.FileExplorer.ViewModels;
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -139,9 +139,7 @@ namespace SingularityForensic.FileExplorer {
         }
 
         
-        public IStorageTreeUnit CreateStorageUnit(IFile file, ITreeUnit parent, IFileExplorerServiceProvider fsProvider) {
-            return new StorageTreeUnit(file, parent, fsProvider);
-        }
+        
 
         //展开某个具有子文件的文件;
         public void ExpandFile(IIterableFile file) {

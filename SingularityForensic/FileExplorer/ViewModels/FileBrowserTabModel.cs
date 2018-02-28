@@ -1,8 +1,8 @@
-﻿using Singularity.Contracts.FileExplorer;
-using Singularity.Contracts.TabControl;
-using Singularity.UI.FileExplorer.Views;
+﻿using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.TabControl;
+using SingularityForensic.Controls.FileExplorer.Views;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
     public class FileBrowserTabModel : ExtTabModel<IFileBrowserDataContext> {
         public FileBrowserTabModel(FileBrowserViewModel vm):base(vm,string.Empty) {
             Content = new FileBrowser() { DataContext = vm };

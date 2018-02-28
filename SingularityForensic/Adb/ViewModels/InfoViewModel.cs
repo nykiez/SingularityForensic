@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.AdbViewer.ViewModels {
+﻿namespace SingularityForensic.Adb.ViewModels {
     //[Export]
     //public class InfoViewModel: BindableBase {
     //    ////创建报告菜单项;
@@ -6,7 +6,7 @@
     //    //public MenuItemModel CreateReportMenuItem {
     //    //    get {
     //    //        if(_analyzeMenuItem == null) {
-    //    //            _analyzeMenuItem = new MenuItemModel(MenuDefinitions.HelpMenuGroup, FindResourceString("CreateReport")) {
+    //    //            _analyzeMenuItem = new MenuItemModel(MenuDefinitions.HelpMenuGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("CreateReport")) {
     //    //                IconSource = IconSources.CreateReportIcon
     //    //            };
     //    //        }
@@ -21,7 +21,7 @@
     //    //    get {
     //    //        if(_tartgetPeopleMenuItem == null) {
     //    //            _tartgetPeopleMenuItem = new MenuItemModel(MenuDefinitions.HelpMenuGroup,
-    //    //                FindResourceString("TargetPersonReport")) {
+    //    //                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("TargetPersonReport")) {
     //    //                IconSource = IconSources.TargetPeopleIcon
     //    //            };
     //    //        }

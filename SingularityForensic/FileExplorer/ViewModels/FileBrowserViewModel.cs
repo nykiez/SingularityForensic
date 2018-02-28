@@ -15,18 +15,19 @@ using CDFCMessageBoxes.MessageBoxes;
 using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
 using Prism.Mvvm;
-using Singularity.UI.Controls.Models.Filtering;
-using Singularity.UI.Controls.MessageBoxes.Filtering;
-using Singularity.UI.Controls.Filtering;
-using CDFC.Parse.Local.DeviceObjects;
-using Singularity.Contracts.FileSystem;
-using Singularity.Contracts.FileExplorer;
-using Singularity.Contracts.Helpers;
-using Singularity.UI.FileExplorer.Models;
-using CDFC.Parse.Signature.DeviceObjects;
-using Singularity.Contracts.FileExplorer.Events;
+using CDFC.Parse.Modules.DeviceObjects;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Controls.FileExplorer.Models;
+using CDFC.Parse.Modules.DeviceObjects;
+using SingularityForensic.Contracts.FileExplorer.Events;
+using SingularityForensic.Controls.Models.Filtering;
+using SingularityForensic.Controls.MessageBoxes.Filtering;
+using SingularityForensic.Controls.Filtering;
+using SingularityForensic.Contracts.Hex.Events;
 
-namespace Singularity.UI.FileExplorer.ViewModels {
+namespace SingularityForensic.Controls.FileExplorer.ViewModels {
     //对象浏览器主模型;
     public abstract partial class FileBrowserViewModel : BindableBase,IHaveTabModels,IDisposable, IFileBrowserDataContext {
         public event EventHandler<TEventArgs< bool >> IsLoadingRequired;
@@ -893,6 +894,8 @@ namespace Singularity.UI.FileExplorer.ViewModels {
     public class DeviceBrowserTabModel : FileBrowserViewModel {
         public DeviceBrowserTabModel(Device file,IFileExplorerServiceProvider fsServiceProvider) : base(file,fsServiceProvider) {
             TabViewModels.Add(PartHexModel);
+            MainHexViewModel.Data = file;
+            PubEventHelper.GetEvent<HexEditorLoadedEvent>().Publish(MainHexViewModel);
         }
         private PartitionHexTabViewModel partHexModel;                     //分区十六进制查看视图模型;
         public PartitionHexTabViewModel PartHexModel {

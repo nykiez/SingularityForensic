@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Singularity.Previewers.Models {
+namespace SingularityForensic.Previewers.Models {
     public class DBUnit {
         public string Title { get; set; }
         public DBUnit(DBUnitType unitType) {

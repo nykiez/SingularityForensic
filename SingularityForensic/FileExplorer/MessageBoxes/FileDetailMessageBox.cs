@@ -1,11 +1,13 @@
 ﻿using CDFC.Parse.Contracts;
-using Singularity.UI.MessageBoxes.Windows;
+using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Controls.Windows;
 using System;
 using System.Linq;
 using System.Text;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace Singularity.UI.MessageBoxes.MessageBoxes {
+namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
     //显示文件详细的讯息;
     public class FileDetailMessageBox {
         /// <summary>
@@ -16,7 +18,7 @@ namespace Singularity.UI.MessageBoxes.MessageBoxes {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
-            var comma = FindResourceString("Comma");
+            var comma = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Comma");
             Action<object, StringBuilder,string[]> afa = (ob, sbr ,ignored) => {
                 foreach (var prop in ob.GetType().GetFields()) {
                     if (!(ignored?.Contains(prop.Name) ?? false) && !prop.Name.ToLower().Contains("unknown")) {

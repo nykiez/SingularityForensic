@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Singularity.UI.FileExplorer.Views.ThumbnailInfo"
+﻿<UserControl x:Class="SingularityForensic.Controls.FileExplorer.Views.ThumbnailInfo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:models="clr-namespace:Singularity.UI.FileExplorer.Models"
-             xmlns:local="clr-namespace:Singularity.UI.FileExplorer.Views"
+             xmlns:models="clr-namespace:SingularityForensic.Controls.FileExplorer.Models"
+             xmlns:local="clr-namespace:SingularityForensic.Controls.FileExplorer.Views"
              mc:Ignorable="d" x:Name="root"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>

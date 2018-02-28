@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.AdbViewer.Contracts {
+﻿namespace SingularityForensic.Adb.Contracts {
 
     public enum MInfoTypeBox {
         AdbInfo,

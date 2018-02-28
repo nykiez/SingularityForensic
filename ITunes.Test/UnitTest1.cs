@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CDFC.Parse.ITunes.Models;
-using CDFC.Parse.ITunes;
+using CDFC.Parse.Modules.Structs;
+using CDFC.Parse.Modules;
 using System.IO;
 
 namespace ITunes.Test {

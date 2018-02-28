@@ -1,5 +1,4 @@
-﻿using Singularity.Previewers.ViewModels;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace DemoUI {
     /// <summary>
@@ -8,7 +7,7 @@ namespace DemoUI {
     public partial class TestSqlitePreviewer : UserControl {
         public TestSqlitePreviewer() {
             InitializeComponent();
-            this.DataContext = new SqlitePreviewerModel("D://SingularitySolution//SingularityShell//bin//Debug//Tmp/download_p2p.db");
+            //this.DataContext = new SqlitePreviewerModel("D://SingularitySolution//SingularityShell//bin//Debug//Tmp/download_p2p.db");
         }
     }
 }

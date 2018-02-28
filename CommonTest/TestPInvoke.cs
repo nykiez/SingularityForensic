@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CDFCCultures.Helpers;
-using CDFC.Parse.Signature.Pictures;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,15 +8,20 @@ using System;
 using CDFC.Util.PInvoke;
 using Microsoft.Win32.SafeHandles;
 using System.Management;
-using CDFC.Parse.Android.DeviceObjects;
 using CDFC.Parse.DeviceObjects;
-using CDFC.Parse.Android.Structs;
 using System.Linq;
+using CDFC.Parse.Modules.DeviceObjects;
+using CDFC.Parse.Modules.Structs;
+using CDFC.Parse.Modules.Pictures;
 
 namespace CommonTest {
     [TestClass]
     public class TestPInvoke {
-        
+
+        [TestMethod]
+        public void TestDeviceStream() {
+            var fs = new FileStream("")
+        }
 
         [TestMethod]
         public void TestFat() {

@@ -10,15 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFC.Info.Adb;
-using Singularity.UI.Case;
-using Singularity.UI.AdbViewer.Contracts;
-using Singularity.UI.AdbViewer.Helpers;
-using Singularity.UI.Previewers;
-using Singularity.Contracts.Info;
-using Singularity.Contracts.Case;
-using Singularity.Contracts.Common;
+using SingularityForensic.Case;
+using SingularityForensic.Adb.Contracts;
+using SingularityForensic.Adb.Helpers;
+using SingularityForensic.Controls.Previewers;
+using SingularityForensic.Contracts.Info;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
 
-namespace Singularity.UI.AdbViewer.ViewModels.AdbGrid {
+namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     [Export]
     public partial class AdbGridViewModel:BindableBase {
         public AdbGridViewModel(IDefaultPhoneInfoContainer container) {

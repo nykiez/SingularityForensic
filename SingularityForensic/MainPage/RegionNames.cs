@@ -1,4 +1,4 @@
-﻿namespace SingularityForensic.Modules.MainPage {
+﻿namespace SingularityForensic.MainPage {
     public static class RegionNames {
         public const string ToolBarRegion = nameof(ToolBarRegion);
         public const string MainPageDocumentRegion = nameof(MainPageDocumentRegion);

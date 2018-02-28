@@ -5,7 +5,7 @@
         xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        x:Class="Singularity.UI.Case.Views.CreateCaseWindow" 
+        x:Class="SingularityForensic.Case.Views.CreateCaseWindow" 
         mc:Ignorable="d" Closing="MetroWindow_Closing" ResizeMode="NoResize"
         IsEnabled="{Binding IsEnabled}" IsEnabledChanged="MetroWindow_IsEnabledChanged" 
                     TitlebarHeight="30" WindowStartupLocation="CenterScreen" Style="{DynamicResource MsgWindowStyle}"
@@ -13,10 +13,10 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Singularity.Contracts;component/Themes/Button.xaml"/>
-                <ResourceDictionary Source="/Singularity.UI.Controls;component/Languages/zh_CN/Singularity.UI.Controls.xaml" />
-                <ResourceDictionary Source="/Singularity.Contracts;component/Themes/CorneredWindow.xaml"/>
-                <ResourceDictionary Source="/Singularity.Contracts;component/Themes/TextBox.xaml"/>
+                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
+                <ResourceDictionary Source="/SingularityForensic.Controls;component/Languages/zh_CN/SingularityForensic.Controls.xaml" />
+                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
+                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <ControlTemplate x:Key="TransparentButtonTempate" TargetType="{x:Type ButtonBase}">
                 <Border x:Name="border" BorderBrush="Transparent " BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">

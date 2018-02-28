@@ -1,13 +1,13 @@
 ﻿using EventLogger;
 using Prism.Commands;
 using Prism.Mvvm;
-using Singularity.Previewers.Models;
+using SingularityForensic.Previewers.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
 
-namespace Singularity.Previewers.ViewModels {
+namespace SingularityForensic.Previewers.ViewModels {
     public class VlcVideoPreviewerModel: VideoPreviewerModel<VlcPlayer> {
         public VlcVideoPreviewerModel(VlcPlayer player):base(player) {
 

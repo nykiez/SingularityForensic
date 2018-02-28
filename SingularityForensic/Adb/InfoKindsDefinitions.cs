@@ -1,4 +1,4 @@
-﻿namespace Singularity.UI.AdbViewer {
+﻿namespace SingularityForensic.Adb {
 
     public static class InfoKindsDefinitions {
         public const string AdbFileAudio = nameof(AdbFileAudio);

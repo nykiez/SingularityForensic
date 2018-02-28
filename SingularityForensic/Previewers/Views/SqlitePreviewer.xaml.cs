@@ -1,10 +1,10 @@
-﻿using Singularity.Previewers.Models;
-using Singularity.Previewers.ViewModels;
+﻿using SingularityForensic.Previewers.Models;
+using SingularityForensic.Previewers.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Singularity.Previewers.Views {
+namespace SingularityForensic.Previewers.Views {
     /// <summary>
     /// Interaction logic for SqlitePreviewer.xaml
     /// </summary>

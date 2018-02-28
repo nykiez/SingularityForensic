@@ -1,8 +1,8 @@
 ﻿using CDFCControls.Controls;
-using Singularity.UI.Case.ViewModels;
+using SingularityForensic.Case.ViewModels;
 using System.Windows;
 
-namespace Singularity.UI.Case.Views {
+namespace SingularityForensic.Case.Views {
     /// <summary>
     /// Interaction logic for CreateCaseWindow.xaml
     /// </summary>

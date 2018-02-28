@@ -1,11 +1,11 @@
 ﻿using CDFCUIContracts.Helpers;
-using Singularity.Contracts.FileExplorer;
-using Singularity.UI.FileExplorer.ViewModels;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Controls.FileExplorer.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Singularity.UI.FileExplorer.Views {
+namespace SingularityForensic.Controls.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for ThumbnailInfo.xaml
     /// </summary>

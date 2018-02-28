@@ -1,11 +1,11 @@
-﻿using CDFCUIContracts.Models;
-using Singularity.UI.AdbViewer.ViewModels;
+﻿using SingularityForensic.Adb.ViewModels;
+using SingularityForensic.Contracts.TreeView;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Singularity.UI.AdbViewer.Views {
+namespace SingularityForensic.Adb.Views {
     /// <summary>
     /// Interaction logic for InfoTree.xaml
     /// </summary>
@@ -33,7 +33,7 @@ namespace Singularity.UI.AdbViewer.Views {
             if (e.ClickCount == 1 && vm != null) {
                 var element = e.OriginalSource as FrameworkElement;
                 if (element != null) {
-                    var unit = element.DataContext as ITreeUnit;
+                    var unit = element.DataContext as TreeUnit;
                     if (unit != null) {
                         if (e.LeftButton == MouseButtonState.Pressed) {
                             vm.NotifySelectionUnitChanged(unit);
