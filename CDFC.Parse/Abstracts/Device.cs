@@ -15,6 +15,8 @@ namespace CDFC.Parse.Abstracts {
         public abstract void Exit();                                    //设备退出接口;
 
         public abstract PartsType PartsType { get; }                    //分区表类型;
+
+
     }
 
     public static class DeviceHelper {

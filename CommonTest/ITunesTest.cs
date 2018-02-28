@@ -2,10 +2,11 @@
 using CDFC.Parse.Modules.Structs;
 using CDFC.Parse.Modules;
 using System.IO;
+using CDFC.Parse.ITunes;
 
 namespace ITunes.Test {
     [TestClass]
-    public class UnitTest {    
+    public class ITunesTest {    
         [TestMethod]
         public void TestParse() {
             //I://IOSB10//2f3ab00fb6eaa3ea5f9f881fef46607a210b4730

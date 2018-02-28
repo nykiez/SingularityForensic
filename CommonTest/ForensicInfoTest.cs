@@ -1,32 +1,21 @@
-﻿using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Contracts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SingularityForensic.Android.Models;
-using SingularityForensic.Android.Services;
-using SingularityForensic.Contracts.Case;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Forensic;
-using SingularityForensic.Controls.Case.Services;
-using SingularityForensic.Controls.Case.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AndroidInfo.Tests {
+namespace CommonTest {
     /// <summary>
     /// 服务提供者Mocker;
     /// </summary>
-    public class MockServiceProvider: EmptyServiceProvider<MockServiceProvider> {
+    public class MockServiceProvider : EmptyServiceProvider<MockServiceProvider> {
         public override object GetInstance(Type serviceType) {
             foreach (var item in maps) {
-                if(item.Key == serviceType) {
+                if (item.Key == serviceType) {
                     return item.Value;
                 }
             }
-            
+
             return null;
         }
 
@@ -37,7 +26,7 @@ namespace AndroidInfo.Tests {
         /// <param name="instance"></param>
         public void SetInstance<TInstance>(TInstance instance) {
             foreach (var item in maps) {
-                if(item.Key == typeof(TInstance)) {
+                if (item.Key == typeof(TInstance)) {
                     throw new InvalidOperationException($"The Type {typeof(TInstance)} has already been set.");
                 }
             }
@@ -61,7 +50,7 @@ namespace AndroidInfo.Tests {
         /// 预设案件服务以及Provider;
         /// </summary>
         private void SetCaseService() {
-            
+
 
             //创建案件服务;
             var cvm = new CreateCaseWindowViewModel();
@@ -76,7 +65,7 @@ namespace AndroidInfo.Tests {
 
             //var provider = new Mock<SingularityForensic.Contracts.Common.IServiceProvider>();
             //provider.Setup(p => p.GetInstance(It.Is<Type>(tp => tp == typeof(ICaseService)))).Returns(service);
-            
+
         }
 
         //预设文件系统服务器提供者;
@@ -92,7 +81,7 @@ namespace AndroidInfo.Tests {
         /// <returns></returns>
         public CaseEvidence GetAdCaseEvidence() {
             //加载一个镜像文件;
-            var device = AndroidDevice.LoadFromPath(imgPath,true,tuple => {
+            var device = AndroidDevice.LoadFromPath(imgPath, true, tuple => {
                 //Debug.WriteLine($"{tuple.curSize}/{tuple.allSize}");
             });
             Assert.IsNotNull(device);
@@ -100,12 +89,12 @@ namespace AndroidInfo.Tests {
             //加载至案件中;
             var adEvidence = new AndroidDeviceCaseEvidence(device, imgPath, DateTime.Now);
             ServiceProvider.Current.GetInstance<ICaseService>().AddNewCaseFile(adEvidence);
-            
+
             var file = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>()?.OpenFile($"{adEvidence.GUID}/1/");
 
             Assert.AreEqual(file.File, device.Children.ElementAt(1));
 
-            
+
 
             return adEvidence;
             //new AndroidDeviceCaseFile
@@ -123,7 +112,7 @@ namespace AndroidInfo.Tests {
             SetFileSystemServiceProvider();
             //加载镜像;
             var evidence = GetAdCaseEvidence();
-            
+
             //获得文件系统服务;
             var fsService = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>();
 
@@ -132,7 +121,7 @@ namespace AndroidInfo.Tests {
 
             var forensicInfoProvider = new AdImgInfoForensicInfoServiceProviderExample();
 
-            forensicInfoProvider.StartForensic(evidence,new string[] { "dasdad", "dasd3123" },tuple => {
+            forensicInfoProvider.StartForensic(evidence, new string[] { "dasdad", "dasd3123" }, tuple => {
                 Debug.WriteLine($"{tuple.word}:{tuple.percentage} / 100");
             });
         }

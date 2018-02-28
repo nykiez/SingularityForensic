@@ -64,6 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdbAquirTest.cs" />
+    <Compile Include="ForensicInfoTest.cs" />
+    <Compile Include="ITunesTest.cs" />
     <Compile Include="TestDos.cs" />
     <Compile Include="TestPInvoke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

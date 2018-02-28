@@ -1,13 +1,11 @@
-﻿using CDFCCultures.Managers;
-using CDFCUIContracts.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SingularityForensic.Adb.ViewModels.AdbViewer;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AdbViewer.Test {
+namespace CommonTest {
     [TestClass]
     public class AdbAquirTest {
 
@@ -29,17 +27,17 @@ namespace AdbViewer.Test {
             ApplicationHelper.SetInstance(ms.Object);
 
             var adbVM = new AdbViewerViewModel();
-            
+
             adbVM.DeviceSelectorViewModel.RefreshDevices();
             adbVM.DeviceSelectorViewModel.SelectedDevice = adbVM.DeviceSelectorViewModel.Devices[0];
             adbVM.InfoCheckerViewModel.Device = adbVM.DeviceSelectorViewModel.SelectedDevice.Device;
             foreach (var item in adbVM.InfoCheckerViewModel.AdbUnits) {
                 item.IsChecked = false;
-                if(item.Name == "手机文件获取项") {
-                    item.Children.First(p => p.Name == "备份").IsChecked = true ;
+                if (item.Name == "手机文件获取项") {
+                    item.Children.First(p => p.Name == "备份").IsChecked = true;
                 }
-            } 
-            
+            }
+
             //adbVM.InfoCheckerViewModel.ConfirmCommand.Execute();
             //while (adbVM.InfoCheckerViewModel.IsAquiring) {
             //    Thread.Sleep(1000);
