@@ -43,5 +43,13 @@ namespace CDFC.Parse.Contracts {
         }
     }
 
-    
+    public class FileEntry {
+        public FileEntry() {
+
+        }
+
+        FileEntry Parent { get; }               //父类型;
+        string Name { get; }                //文件名;
+        long Size { get; }                  //文件大小;
+    }
 }

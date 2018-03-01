@@ -20,7 +20,6 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Controls.FileExplorer.Models;
-using CDFC.Parse.Modules.DeviceObjects;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Controls.Models.Filtering;
 using SingularityForensic.Controls.MessageBoxes.Filtering;

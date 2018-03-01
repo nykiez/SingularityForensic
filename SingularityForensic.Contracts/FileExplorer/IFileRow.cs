@@ -44,7 +44,6 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// 本地路径(若已经缓存);
         /// </summary>
         string LocalPath { get; set; }
-
     }
 
     public interface IFileRow<out TFile> : IFileRow where TFile : IFile {

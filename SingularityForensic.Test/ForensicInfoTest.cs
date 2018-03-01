@@ -1,10 +1,17 @@
-﻿using System;
+﻿using CDFC.Parse.Modules.DeviceObjects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SingularityForensic.Case;
+using SingularityForensic.Case.ViewModels;
+using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonTest {
+namespace SingularityForensic.Test {
     /// <summary>
     /// 服务提供者Mocker;
     /// </summary>
@@ -25,13 +32,11 @@ namespace CommonTest {
         /// <typeparam name="TInstance"></typeparam>
         /// <param name="instance"></param>
         public void SetInstance<TInstance>(TInstance instance) {
-            foreach (var item in maps) {
-                if (item.Key == typeof(TInstance)) {
-                    throw new InvalidOperationException($"The Type {typeof(TInstance)} has already been set.");
-                }
-            }
+            
+        }
 
-            maps.Add(typeof(TInstance), instance);
+        public override object GetInstance(Type serviceType, string key) {
+            throw new NotImplementedException();
         }
 
         //类型保存图;
@@ -70,7 +75,7 @@ namespace CommonTest {
 
         //预设文件系统服务器提供者;
         private void SetFileSystemServiceProvider() {
-            MockServiceProvider.StaticInstance.SetInstance<IFileSystemServiceProvider>(new FileSystemServiceProvider());
+            //MockServiceProvider.StaticInstance.SetInstance<IFileSystemService>(new FileSystemServiceProvider());
         }
 
         //镜像文件路径;
@@ -87,16 +92,16 @@ namespace CommonTest {
             Assert.IsNotNull(device);
 
             //加载至案件中;
-            var adEvidence = new AndroidDeviceCaseEvidence(device, imgPath, DateTime.Now);
-            ServiceProvider.Current.GetInstance<ICaseService>().AddNewCaseFile(adEvidence);
+            //var adEvidence = new AndroidDeviceCaseEvidence(device, imgPath, DateTime.Now);
+            //ServiceProvider.Current.GetInstance<ICaseService>().AddNewCaseFile(adEvidence);
 
-            var file = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>()?.OpenFile($"{adEvidence.GUID}/1/");
+            //var file = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>()?.OpenFile($"{adEvidence.GUID}/1/");
 
-            Assert.AreEqual(file.File, device.Children.ElementAt(1));
+            //Assert.AreEqual(file.File, device.Children.ElementAt(1));
 
 
 
-            return adEvidence;
+            return null;
             //new AndroidDeviceCaseFile
         }
 
@@ -114,16 +119,16 @@ namespace CommonTest {
             var evidence = GetAdCaseEvidence();
 
             //获得文件系统服务;
-            var fsService = ServiceProvider.Current.GetInstance<IFileSystemServiceProvider>();
+            var fsService = ServiceProvider.Current.GetInstance<IFileSystemService>();
 
             //获得案件服务;
             var csService = ServiceProvider.Current.GetInstance<ICaseService>();
 
-            var forensicInfoProvider = new AdImgInfoForensicInfoServiceProviderExample();
+            //var forensicInfoProvider = new AdImgInfoForensicInfoServiceProviderExample();
 
-            forensicInfoProvider.StartForensic(evidence, new string[] { "dasdad", "dasd3123" }, tuple => {
-                Debug.WriteLine($"{tuple.word}:{tuple.percentage} / 100");
-            });
+            //forensicInfoProvider.StartForensic(evidence, new string[] { "dasdad", "dasd3123" }, tuple => {
+            //    Debug.WriteLine($"{tuple.word}:{tuple.percentage} / 100");
+            //});
         }
 
 
