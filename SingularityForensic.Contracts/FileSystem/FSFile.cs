@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Authentication;
 
 namespace SingularityForensic.Contracts.FileSystem {
     public enum FsFileType {
@@ -14,7 +15,49 @@ namespace SingularityForensic.Contracts.FileSystem {
         Unknown                 //未知;
     }
 
+    /// <summary>
+    /// 为统一编码,为文件设定了一个类型;
+    /// 内部将自行管理写入安全(通过key)
+    /// </summary>
+    [Serializable]
+    public class FileEn {
+        public string[] TypeGUIDS { get; }
+        public FileEn(string[] _typeGuids, string key) {
+            this._key = key;
+            this.TypeGUIDS = _typeGuids;
+        }
+
+        private FileEnInfo _info = new FileEnInfo();
+
+        public FileEnInfo GetFileEnInfo(string key) {
+            if(_key != key) {
+                throw new AuthenticationException($"{nameof(key)} is not right.");
+            }
+
+            return _info;
+        }
+        
+
+        [Serializable]
+        public class FileEnInfo {
+            public string Name { get; set; }
+            public long Size { get; set; }
+            public List<FileEn> Children { get; set; } = new List<FileEn>();
+            //实体数据;
+            public object Data { get; set; }
+        }
+
+        public IEnumerable<FileEn> Children => _info.Children;
+        
+        private string _key;
+
+        public FileEn Parent { get; }               //父文件;
+        public string Name { get; set; }                //文件名;
+        public long Size { get; }                  //文件大小;
+    }
+
     public class FSFile {
+        
         public FSFile(IFile file) {
             File = file ?? throw new ArgumentNullException(nameof(file));
         }

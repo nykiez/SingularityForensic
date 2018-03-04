@@ -14,11 +14,37 @@ namespace SingularityForensic.Contracts.FileSystem {
         bool CheckIsValid(string path);
         //解析动作;
         IFile ParseStream(string path, Action<(int totalPro, int detailPro, string word, string desc)> ntfAct, Func<bool> isCancel);
-
         //案件文件管理器;
         ICaseManager CaseManager { get; }
-
         //排序号;
         int SortNum { get; }
     }
+
+    public interface IStreamParser {
+        bool CheckIsValidStream(Stream stream);
+        //解析文件;
+        FileEn ParseStream(Stream stream,Action<(int pro,int detailPro)> ntfAct);
+
+        
+    }
+
+
+    //介质->流服务器;
+    public interface IStreamProvider {
+        //检查是否为可用的证据项;
+        bool CheckIsValidCaseEvidence(CaseEvidence csEvidence);
+
+        //得到流;
+        Stream GetStream(CaseEvidence csEvidence);
+
+        string StreamTypeGuid { get; }
+    }
+
+    //镜像流提供者;
+    public interface IStreamProvider {
+        //检查是否为可用的证据项;
+        bool CheckIsValidCaseEvidence(CaseEvidence csEvidence);
+
+    }
+
 }

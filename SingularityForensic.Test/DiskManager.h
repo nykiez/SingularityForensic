@@ -68,6 +68,8 @@ typedef	enum ePTableType
 	e_gpt,
 	e_dos,
 	e_apple,
+
+
 	e_fat,
 	e_ntfs
 };
@@ -156,5 +158,5 @@ typedef struct TagPTable
 #pragma pack()
 
 
-
+StPTable *DiskManager_Get_PTable(HANDLE hDisk);void DiskManager_Exit();
 #endif

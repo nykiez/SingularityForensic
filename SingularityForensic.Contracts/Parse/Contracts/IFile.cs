@@ -1,7 +1,7 @@
-﻿using CDFC.Parse.Abstracts;
+﻿using SingularityForensic.Contracts.Parse.Abstracts;
 using System.Text;
 
-namespace CDFC.Parse.Contracts {
+namespace SingularityForensic.Contracts.Parse.Contracts {
     public interface IFile {
         FileType Type { get; }          //文件类型;
         IFile Parent { get; }               //父类型;
@@ -34,7 +34,7 @@ namespace CDFC.Parse.Contracts {
             var sb = new StringBuilder();
             while (pt != null) {
                 sb.Insert(0, $"{pt.Name}/");
-                if (pt.Type == CDFC.Parse.Contracts.FileType.BlockDeviceFile) {
+                if (pt.Type == SingularityForensic.Contracts.Parse.Contracts.FileType.BlockDeviceFile) {
                     break;
                 }
                 pt = pt.Parent;
@@ -43,13 +43,13 @@ namespace CDFC.Parse.Contracts {
         }
     }
 
-    //public class FileEntry {
-    //    public FileEntry() {
+    public class FileEntry {
+        public FileEntry() {
 
-    //    }
+        }
 
-    //    FileEntry Parent { get; }               //父类型;
-    //    string Name { get; }                //文件名;
-    //    long Size { get; }                  //文件大小;
-    //}
+        FileEntry Parent { get; }               //父类型;
+        string Name { get; }                //文件名;
+        long Size { get; }                  //文件大小;
+    }
 }

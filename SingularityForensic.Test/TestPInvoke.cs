@@ -16,9 +16,10 @@ using CDFC.Parse.Modules.Pictures;
 namespace SingularityForensic.Test {
     [TestClass]
     public class TestPInvoke {
-
         [TestMethod]
         public void TestDeviceStream() {
+            
+            //Marshal.GetFunctionPointerForDelegate<>
             //var fs = new FileStream("dad","Dad");
         }
 

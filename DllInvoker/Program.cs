@@ -43,8 +43,7 @@ namespace DllInvoker {
             for (int i = 0; i < MaxThreadNum; i++) {
                 btArrArr[i] = new byte[BufferSize];
             }
-
-
+            
             var evts = new ManualResetEvent[MaxThreadNum];
             for (int i = 0; i < MaxThreadNum; i++) {
                 evts[i] = new ManualResetEvent(false);

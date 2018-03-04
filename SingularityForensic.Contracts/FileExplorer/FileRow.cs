@@ -79,6 +79,8 @@ namespace SingularityForensic.Contracts.FileExplorer {
                         _deleted = (File as CDFC.Parse.Abstracts.Directory)?.Deleted;
                     }
                     else if (File.Type == CDFC.Parse.Contracts.FileType.RegularFile) {
+
+
                         _deleted = (File as RegularFile)?.Deleted;
                     }
                     else if (File is OtherFile) {

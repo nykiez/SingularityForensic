@@ -133,13 +133,13 @@
     <Compile Include="FileSystem\DefaultFileSystemProvider.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="FileSystem\IFileSystemService.cs" />
+    <Compile Include="FileSystem\IStreamProvider.cs" />
     <Compile Include="FileSystem\UnknownDeviceCaseFile.cs" />
     <Compile Include="FileSystem\PartitionCaseFile.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
     <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileExplorer\IFSNodeService.cs" />
     <Compile Include="FileExplorer\IHaveTabModels.cs" />
-    <Compile Include="FileSystem\DeviceCaseFile.cs" />
     <Compile Include="Case\CaseEvidence.cs" />
     <Compile Include="Case\ICase.cs" />
     <Compile Include="Case\ICaseService.cs" />
