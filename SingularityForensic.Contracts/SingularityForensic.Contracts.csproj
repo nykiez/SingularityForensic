@@ -167,7 +167,7 @@
     <Compile Include="FileExplorer\IFSNodeService.cs" />
     <Compile Include="FileExplorer\IHaveTabModels.cs" />
     <Compile Include="Casing\CaseEvidence.cs" />
-    <Compile Include="Casing\Case.cs" />
+    <Compile Include="Casing\ICase.cs" />
     <Compile Include="Casing\ICaseService.cs" />
     <Compile Include="FileExplorer\IHavePreviewSource.cs" />
     <Compile Include="FileExplorer\IPreviewer.cs" />

@@ -5,6 +5,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -99,7 +100,7 @@ namespace SingularityForensic.Test.Case {
             _caseLoading = false;
             _caseLoaded = false;
 
-            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{Contracts.Casing.Case.CaseFileExtention}");
+            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{Casing.Case.CaseFileExtention}");
             
             Assert.IsTrue(_caseLoading);
             Assert.IsTrue(_caseLoaded);
@@ -177,8 +178,6 @@ namespace SingularityForensic.Test.Case {
             _csEvidence = _csService.CurrentCase.CaseEvidences.FirstOrDefault();
             Assert.IsNotNull(_csEvidence);
             AssertEvidenceMatched();
-            
-
         }
     }
 

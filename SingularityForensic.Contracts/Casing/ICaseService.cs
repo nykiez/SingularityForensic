@@ -7,7 +7,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// 创建一个空案件,注意,并不加载;
         /// </summary>
         /// <returns></returns>
-        Case CreateNewCase();
+        ICase CreateNewCase();
 
         //确认案件是否被加载;
         bool ConfirmCaseLoaded();
@@ -37,7 +37,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// 加载案件;
         /// </summary>
         /// <param name="cFile"></param>
-        void LoadCase(Case cFile);
+        void LoadCase(ICase cFile);
 
         /// <summary>
         /// 打开现有案件文件;
@@ -45,7 +45,7 @@ namespace SingularityForensic.Contracts.Casing {
         void OpenExistingCase();
 
         //当前的案件;
-        Case CurrentCase { get; }
+        ICase CurrentCase { get; }
 
         
     }

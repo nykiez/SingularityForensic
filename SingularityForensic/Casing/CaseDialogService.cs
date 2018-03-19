@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Casing {
     [Export(typeof(ICaseDialogService))]
     public class CaseDialogService : ICaseDialogService {
-        public Case CreateCase() {
+        public ICase CreateCase() {
             return CreateCaseMessageBox.Show();
         }
     }

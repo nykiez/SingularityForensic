@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SingularityForensic.Dos {
-    [ModuleExport(typeof(IModule))]
+    [ModuleExport(typeof(DosModule))]
     public class DosModule : IModule {
         public void Initialize() {
             

@@ -30,17 +30,17 @@ namespace SingularityForensic.Casing{
         /// <summary>
         /// 当前案件;
         /// </summary>
-        public Case CurrentCase {
+        public ICase CurrentCase {
             get => _currentCase;
             private set => _currentCase = value;
         }
-        private Case _currentCase;
+        private ICase _currentCase;
 
         /// <summary>
         /// 创建一个空案件,注意,并不加载;
         /// </summary>
         /// <returns></returns>
-        public Case CreateNewCase() {
+        public ICase CreateNewCase() {
             if (CurrentCase != null) {
                 if(MsgBoxService.Current?.Show(
                     ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConfirmToCloseAndCreate"),
@@ -92,7 +92,7 @@ namespace SingularityForensic.Casing{
         /// 加载案件;
         /// </summary>
         /// <param name="cFile"></param>
-        public void LoadCase(Case cs) {
+        public void LoadCase(ICase cs) {
             if(cs == null) {
                 throw new ArgumentNullException(nameof(cs));
             }

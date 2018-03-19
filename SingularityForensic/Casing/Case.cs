@@ -1,27 +1,21 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.App;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 using SysIO = System.IO;
-using SingularityForensic.Contracts.App;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using static SingularityForensic.Contracts.App.Constants;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
-using static SingularityForensic.Contracts.App.Constants;
 using SingularityForensic.Contracts.Casing.Events;
 
-namespace SingularityForensic.Contracts.Casing {
-    //public interface ICase {
-    //    //案件时间;
-    //    string CaseTime { get; }
-    //    //案件类型;
-    //    public string CaseType { get; }
-
-    //}
-
+namespace SingularityForensic.Casing {
     //案件实体;
-    public class Case {
+    public class Case : ICase {
         /// <summary>
         /// 案件实体构造方法;
         /// </summary>
@@ -34,10 +28,10 @@ namespace SingularityForensic.Contracts.Casing {
             if (string.IsNullOrEmpty(caseName))
                 throw new ArgumentNullException(nameof(caseName));
 
-            this.XDoc = new XDocument(new XElement(nameof(Case)));
+            this.XDoc = new XDocument(new XElement(nameof(ICase)));
             this.CaseName = caseName;
             this.Path = $"{direct}/{caseName}";
-            
+
             try {
                 //创建案件文件夹;
                 if (!SysIO.Directory.Exists(this.Path)) {
@@ -45,7 +39,7 @@ namespace SingularityForensic.Contracts.Casing {
                 }
             }
             catch (Exception ex) {
-                LoggerService.WriteLine($"{nameof(Case)}->{nameof(Case)}:{ex.Message}");
+                LoggerService.WriteLine($"{nameof(ICase)}->{nameof(ICase)}:{ex.Message}");
                 throw;
             }
         }
@@ -56,7 +50,7 @@ namespace SingularityForensic.Contracts.Casing {
             this.CaseName = rootElem.Attribute(nameof(CaseName))?.Value;
             this.Path = path;
         }
-        
+
 
         //案件时间;
         public string CaseTime {
@@ -75,13 +69,13 @@ namespace SingularityForensic.Contracts.Casing {
             get => XDoc.GetXElemValue();
             set => XDoc.SetXElemValue(value);
         }
-        
+
         //案件描述;
         public string CaseDes {
             get => XDoc.GetXElemValue();
             set => XDoc.SetXElemValue(value);
         }
-        
+
         //案件信息;
         public string CaseInfo {
             get => XDoc.GetXElemValue();
@@ -137,9 +131,9 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="csEvidence">已经写入的案件文件</param>
         /// <param name="reporter">进度回调器</param>
-        public void LoadCaseEvidence(CaseEvidence csEvidence,ProgressReporter reporter) {
+        public void LoadCaseEvidence(CaseEvidence csEvidence, ProgressReporter reporter) {
             try {
-                PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence,reporter));
+                PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
                 //案件中加入文件;
                 caseFiles.Add(csEvidence);
                 PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
@@ -150,21 +144,21 @@ namespace SingularityForensic.Contracts.Casing {
             }
 
         }
-        
+
         /// <summary>
         /// 写入案件文件到案件中,注意,不自行加载,需手动调用<see cref="LoadCaseEvidence(CaseEvidence)"/>
         /// </summary>
         /// <param name="csFile"></param>
         public void AddNewCaseEvidence(CaseEvidence csEvidence) {
             if (csEvidence == null) {
-                LoggerService.Current?.WriteCallerLine($"{nameof(Case)}->{nameof(AddNewCaseEvidence)}:cFile can't be null");
+                LoggerService.Current?.WriteCallerLine($"{nameof(ICase)}->{nameof(AddNewCaseEvidence)}:cFile can't be null");
                 return;
             }
 
             //创建路径;
             try {
                 var root = XDoc.Root;
-                if(root == null) {
+                if (root == null) {
                     throw new InvalidOperationException($"{nameof(root)} can't be null.");
                 }
 
@@ -187,13 +181,13 @@ namespace SingularityForensic.Contracts.Casing {
             try {
                 PubEventHelper.GetEvent<CaseEvidenceAddedEvent>()?.Publish(csEvidence);
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
                 MsgBoxService.ShowError(ex.Message);
             }
-            
+
         }
-        
+
         /// <summary>
         /// 为标准案件文件创建仓储目录;
         /// </summary>
@@ -217,13 +211,13 @@ namespace SingularityForensic.Contracts.Casing {
         public void SaveAs(string fullFileName) {
             try {
                 var dir = SysIO.Path.GetDirectoryName(fullFileName);
-                if (!Directory.Exists(dir)){
+                if (!Directory.Exists(dir)) {
                     Directory.CreateDirectory(dir);
                 }
                 XDoc.Save(fullFileName);
             }
             catch (Exception ex) {
-                LoggerService.WriteLine($"{nameof(Case)}->{nameof(SaveAs)}:{ex.Message}");
+                LoggerService.WriteLine($"{nameof(ICase)}->{nameof(SaveAs)}:{ex.Message}");
                 throw;
             }
         }
@@ -249,7 +243,7 @@ namespace SingularityForensic.Contracts.Casing {
         public static Case LoadFrom(string fileName) {
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(fileName);
-            
+
             if (!File.Exists(fileName)) {
                 throw new FileNotFoundException(nameof(fileName));
             }
@@ -259,7 +253,7 @@ namespace SingularityForensic.Contracts.Casing {
             try {
                 stream = File.OpenRead(fileName);
                 var doc = XDocument.Load(stream);
-                return new Case(doc,SysIO.Path.GetDirectoryName(fileName));
+                return new Case(doc, SysIO.Path.GetDirectoryName(fileName));
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -270,6 +264,4 @@ namespace SingularityForensic.Contracts.Casing {
             }
         }
     }
-
-
 }

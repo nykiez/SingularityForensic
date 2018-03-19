@@ -9,7 +9,7 @@ namespace SingularityForensic.Casing.Models {
     /// 案件节点;
     /// </summary>
     public class CaseTreeUnit : TreeUnit {
-        public CaseTreeUnit(Case sCase) : base(null) {
+        public CaseTreeUnit(ICase sCase) : base(null) {
             SingularityCase = sCase ?? throw new ArgumentNullException(nameof(sCase));
             Label = sCase.CaseName;
             Icon = IconSources.CaseUnitIcon;
@@ -17,7 +17,7 @@ namespace SingularityForensic.Casing.Models {
 
         public override ObservableCollection<ICommandItem> ContextCommands { get; set; } = null;
 
-        public Case SingularityCase { get; private set; }
+        public ICase SingularityCase { get; private set; }
 
         public override ObservableCollection<ITreeUnit> Children { get; set; } = new ObservableCollection<ITreeUnit>();
     }

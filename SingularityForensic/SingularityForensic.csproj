@@ -259,6 +259,7 @@
     <Compile Include="App\Views\RemainingMessageBoxWindow.xaml.cs">
       <DependentUpon>RemainingMessageBoxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Casing\Case.cs" />
     <Compile Include="Casing\CaseDialogService.cs" />
     <Compile Include="Casing\CaseModule.cs" />
     <Compile Include="Casing\CommandDefinitions.cs" />

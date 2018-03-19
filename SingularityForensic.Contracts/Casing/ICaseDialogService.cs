@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.Casing {
     //案件相关对话框功能;
     public interface ICaseDialogService {
-        Case CreateCase();
+        ICase CreateCase();
     }
 
     public class CsDialogService : GenericServiceStaticInstance<ICaseDialogService> {

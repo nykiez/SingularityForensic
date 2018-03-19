@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Drive {
-    [ModuleExport(typeof(IModule))]
+    [ModuleExport(typeof(DriveModule))]
     public class DriveModule : IModule {
         public void Initialize() {
             ServiceProvider.Current?.GetInstance<DriveService>();

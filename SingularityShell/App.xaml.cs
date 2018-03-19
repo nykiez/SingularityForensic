@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApp1 {
+namespace SingularityShell {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

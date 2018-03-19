@@ -4,7 +4,7 @@ using SingularityForensic.Casing.Views;
 
 namespace SingularityForensic.Casing.MessageBoxes {
     public class CreateCaseMessageBox {
-        public static Case Show() {
+        public static ICase Show() {
             var vm = new CreateCaseWindowViewModel();
             var msgBox = new CreateCaseWindow(vm);
             var res = msgBox.ShowDialog();

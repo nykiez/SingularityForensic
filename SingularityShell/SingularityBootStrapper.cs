@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApp1 {
+namespace SingularityShell {
     public class SingularityBootStrapper : MefBootstrapper {
         protected override void ConfigureAggregateCatalog() {
             base.ConfigureAggregateCatalog();

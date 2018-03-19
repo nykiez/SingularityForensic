@@ -118,7 +118,7 @@ namespace SingularityForensic.Casing.ViewModels {
                 SetProperty(ref isEnabled, value);
             }
         }
-        public Case Case {
+        public ICase Case {
             get {
                 try {
                     var sCase = new Case($"{casePath}/{caseName}", caseName) {

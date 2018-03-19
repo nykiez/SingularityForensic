@@ -16,7 +16,7 @@ namespace SingularityForensic.Test.Case {
                 if(_caseDialogServiceMocker == null) {
                     var csDialogService = new Mock<ICaseDialogService>();
                     csDialogService.Setup(p => p.CreateCase()).Returns(() => {
-                        var cs = new Contracts.Casing.Case(CaseFolder , CaseName) {
+                        var cs = new SingularityForensic.Casing.Case(CaseFolder , CaseName) {
                             CaseDes = "das",
                             CaseInfo = "Info",
                             CaseType = "dd",
