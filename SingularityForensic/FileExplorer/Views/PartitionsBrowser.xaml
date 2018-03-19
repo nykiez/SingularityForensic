@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:pubCvts="clr-namespace:SingularityForensic.Contracts.Converters;assembly=SingularityForensic.Contracts"
-             xmlns:contracts="clr-namespace:CDFC.Parse.Contracts;assembly=CDFC.Parse"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
@@ -122,7 +121,7 @@
                                             <Style TargetType="Image">
                                                 <Setter Property="Width" Value="17"/>
                                                 <Setter Property="Height" Value="17"/>
-                                                <Style.Triggers>
+                                                <!--<Style.Triggers>
                                                     <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>Directory</contracts:FileType>
@@ -147,7 +146,7 @@
                                                         </DataTrigger.Value>
                                                         <Setter Property="Source" Value="/SingularityForensic;component/Images/Shell/Type_Unknown.ico"/>
                                                     </DataTrigger>
-                                                </Style.Triggers>
+                                                </Style.Triggers>-->
                                             </Style>
                                         </Image.Style>
                                     </Image>

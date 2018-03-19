@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.Casing;
 using System;
 
 namespace SingularityForensic.Controls.ITunes.Models {

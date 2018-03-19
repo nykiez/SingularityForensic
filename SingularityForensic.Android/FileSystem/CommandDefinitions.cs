@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 using CDFC.Parse.Modules.DeviceObjects;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using System.Linq;
 using SingularityForensic.Contracts.App;
 

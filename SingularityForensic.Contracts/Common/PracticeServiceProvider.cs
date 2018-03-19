@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.ServiceLocation;
+using SingularityForensic.Contracts.App;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace SingularityForensic.Contracts.Common {
         public PracticeServiceProvider(IServiceLocator serviceLocator) {
             
             if(serviceLocator == null) {
-                EventLogger.Logger.WriteCallerLine("servicelocator can't be null!");
+                LoggerService.Current?.WriteCallerLine("servicelocator can't be null!");
                 throw new InvalidOperationException("servicelocator can't be null!");
             }
 

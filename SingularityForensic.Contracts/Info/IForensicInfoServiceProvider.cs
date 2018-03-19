@@ -1,5 +1,5 @@
 ﻿using CDFCUIContracts.Models;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace SingularityForensic.Contracts.Info {
     ///// <summary>
     ///// 以下为针对安卓镜像示例;
     ///// </summary>
-    //[Export(SingularityForensic.Contracts.Case.Constants.AndroidDeviceImg, typeof(IForensicInfoServiceProvider))]
+    //[Export(SingularityForensic.Contracts.Casing.Constants.AndroidDeviceImg, typeof(IForensicInfoServiceProvider))]
     //public class AdImgInfoForensicInfoServiceProviderExample : IForensicInfoServiceProvider {
     //    public IEnumerable<ITreeUnit> GetInfoesUnit(CaseEvidence csEvidence) => throw new NotImplementedException();
 

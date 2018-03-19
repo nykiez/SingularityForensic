@@ -1,0 +1,36 @@
+﻿<controls:CorneredWindow x:Class="SingularityForensic.App.Views.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+        xmlns:commands="clr-namespace:CDFCUIContracts.Commands;assembly=CDFCUIContracts"
+        mc:Ignorable="d" Title="工作中" ResizeMode="NoResize"
+        Style="{DynamicResource MsgWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Height="200" Width="450">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <commands:EventToCommand PassEventArgsToCommand="True" Command="{Binding ClosingCommand}"    />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/SingularityForensic;component/App/Images/ProgressMessageBox_Desc_Back.png" />
+            </Border.Background>
+            <TextBlock Text="" x:Name="txblDesc" Padding="24,0,0,0"  FontSize="14" FontWeight="Bold" VerticalAlignment="Center" FontFamily="Microsoft JhengHei UI" ></TextBlock>
+        </Border>
+        <StackPanel Grid.Row="1" Margin="24,0" HorizontalAlignment="Stretch">
+            <TextBlock Text="" x:Name="txblWord" Margin="0,12" FontSize="13" FontFamily="Microsoft YaHei UI"/>
+            <ProgressBar x:Name="ProBar"  Grid.Row="1" MinHeight="20" Value="0" Style="{DynamicResource NormalProgressBar}"  />
+            <Button HorizontalAlignment="Right" Style="{DynamicResource DenyBtnStyle}" x:Name="btnCancel" Margin="0,24,0,0" FontSize="13" Content="{DynamicResource Cancel}" Click="btnCancel_Click" />
+        </StackPanel>
+    </Grid>
+</controls:CorneredWindow>

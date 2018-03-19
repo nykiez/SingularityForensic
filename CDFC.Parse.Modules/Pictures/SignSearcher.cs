@@ -210,7 +210,7 @@ namespace CDFC.Parse.Modules.Pictures {
                 return true;
             }
             catch(Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 return false;
             }
         }

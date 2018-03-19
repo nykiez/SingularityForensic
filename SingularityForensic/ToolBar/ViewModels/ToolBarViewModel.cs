@@ -14,7 +14,7 @@ namespace SingularityForensic.ToolBar.ViewModels
     {
         [ImportingConstructor]
         public ToolBarViewModel(
-            [ImportMany]IEnumerable<MenuButtonItemModel> menuItems) {
+            [ImportMany]IEnumerable<MenuButtonItem> menuItems) {
             this._menuItems = menuItems;
             BuildBasicToolBars();
         }
@@ -28,7 +28,7 @@ namespace SingularityForensic.ToolBar.ViewModels
             }
             
         }
-        public ObservableCollection<MenuButtonItemModel> Tools { get; set; } = new ObservableCollection<MenuButtonItemModel>();
-        private IEnumerable<MenuButtonItemModel> _menuItems;
+        public ObservableCollection<MenuButtonItem> Tools { get; set; } = new ObservableCollection<MenuButtonItem>();
+        private IEnumerable<MenuButtonItem> _menuItems;
     }
 }

@@ -143,13 +143,6 @@
     <None Include="Entities\Sqlite3.lib" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
-      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
-      <Name>CDFC.Parse</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

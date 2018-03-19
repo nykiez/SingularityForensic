@@ -14,6 +14,7 @@ using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Adb.ViewModels;
+using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Adb {
     [ModuleExport(typeof(AdbViewerModule))]
@@ -95,13 +96,14 @@ namespace SingularityForensic.Adb {
             var browserItems = this.fsTabServiceToken.Value.CurrentTabs;
             var preItem = browserItems.FirstOrDefault(p => (p as AdbTabModel)?.AdbTabViewModel.Container == container);
             if (preItem != null) {
-                fsTabServiceToken.Value.ChangeSelectedTab(preItem);
+                fsTabServiceToken.Value.SelectedTab = preItem;
             }
             else {
                 if (container is IDefaultPhoneInfoContainer) {
                     var adbTab = new AdbTabModel(new AdbTabViewModel((container as IDefaultPhoneInfoContainer).Parent.Device, container));
-                    fsTabServiceToken.Value.AddTab(adbTab);
-                    fsTabServiceToken.Value.ChangeSelectedTab(adbTab);
+                    //fsTabServiceToken.Value.AddTab()
+                    //fsTabServiceToken.Value.AddTab(adbTab);
+                    //fsTabServiceToken.Value.ChangeSelectedTab(adbTab);
                 }
             }
         }

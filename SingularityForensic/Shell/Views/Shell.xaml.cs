@@ -15,7 +15,6 @@ namespace SingularityForensic.Shell.Views {
     public partial class Shell : MetroWindow, IShell {
         public Shell() {
             InitializeComponent();
-            
         }
         
         public void AddInputBinding(InputBinding ib) {

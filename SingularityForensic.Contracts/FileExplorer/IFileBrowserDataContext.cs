@@ -1,4 +1,4 @@
-﻿using CDFC.Parse.Contracts;
+﻿using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     public interface IFileBrowserDataContext {
-        IFile File { get; }
-        IFile CurFile { get; }
-        IFile OwnerFile { get; }
-        void FillFiles(IEnumerable<IFile> files);
+        FileBase File { get; }
+        FileBase CurFile { get; }
+        FileBase OwnerFile { get; }
+        void FillFiles(IEnumerable<FileBase> files);
     }
 }

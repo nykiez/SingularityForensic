@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -179,6 +180,10 @@ namespace SingularityForensic.Test {
         //"J://anli/dos.img"
         [TestMethod]
         public void TestGetPTable() {
+            DataTable dt = null;
+            var row = dt.NewRow();
+            row["da"] = 312;
+            
             //"J:/use/手机镜像/Honor/2017-01-10 10-03-05 867064029171533/mmcblk0"
             var fs = System.IO.File.OpenRead("G://MCR3XXX.rar");
             Assert.IsTrue(fs != null);

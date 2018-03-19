@@ -1,6 +1,6 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Controls.Info.Views;

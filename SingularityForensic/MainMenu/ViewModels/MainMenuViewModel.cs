@@ -17,7 +17,7 @@ namespace SingularityForensic.MainMenu.ViewModels {
         [ImportingConstructor]
         public MainMenuViewModel(
             [ImportMany]IEnumerable<MenuItemGroup> groups,
-            [ImportMany]IEnumerable<MenuButtonItemModel> menuItems) {
+            [ImportMany]IEnumerable<MenuButtonItem> menuItems) {
             this.MenuGroups = new ObservableCollection<MenuItemGroup>(groups.OrderBy(g => g.SortOrder));
             this.menuItems = menuItems;
             
@@ -56,7 +56,7 @@ namespace SingularityForensic.MainMenu.ViewModels {
             }
         }
 
-        private IEnumerable<MenuButtonItemModel> menuItems;
+        private IEnumerable<MenuButtonItem> menuItems;
         public ObservableCollection<MenuItemGroup> MenuGroups { get; set; }
 
         private MenuItemGroup _selectedGroup;

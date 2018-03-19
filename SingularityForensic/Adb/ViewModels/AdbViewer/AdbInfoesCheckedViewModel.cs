@@ -7,7 +7,6 @@ using Cflab.DataTransport;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFCMessageBoxes.MessageBoxes;
 using System.Threading;
-using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using System.IO;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
@@ -17,11 +16,11 @@ using CDFC.Info.Adb;
 using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Modules.Backup.Android;
-using SingularityForensic.Case;
+using SingularityForensic.Casing;
 using SingularityForensic.Adb.Contracts;
 using SingularityForensic.Adb.Helpers;
 using SingularityForensic.Contracts.Info;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
@@ -193,7 +192,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                             return true;
                                         },
                                         err => {
-                                            EventLogger.Logger.WriteCallerLine(
+                                            LoggerService.Current?.WriteCallerLine(
                                                 $"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)}-{nameof(Device.Backup)}:" +
                                                 $"{err.Code},{err.Message}");
                                         });
@@ -380,7 +379,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                             msg.RunWorkerCompleted += (sender, e) => {
                                 SetAuiqring(false);
                                 AppInvoke(() => {
-                                    if (!disposed && CDFCMessageBox.Show(FindResourceString("WhetherToShowInfoAquired"),
+                                    if (!disposed && 
+                                    MsgBoxService.Current.Show(FindResourceString("WhetherToShowInfoAquired"),
                                         MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
                                         AquireDone?.Invoke(this, containers);
                                     }
@@ -412,7 +412,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                     Directory.CreateDirectory(dPath);
                 }
                 catch(Exception ex) {
-                    EventLogger.Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                     return;
                 }
             }
@@ -422,7 +422,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                     tellPerAct?.Invoke((int)( all != 0?cur * 100 / all : 0));
                 },
                 err => {
-                    EventLogger.Logger.WriteCallerLine($"{err.Code}-{err.Message}");
+                    LoggerService.Current?.WriteCallerLine($"{err.Code}-{err.Message}");
                 }
             );
 

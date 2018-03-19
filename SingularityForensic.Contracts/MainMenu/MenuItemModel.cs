@@ -1,11 +1,16 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.Contracts.MainMenu {
-    
+    public class MenuObjectItem : IUIObjectProvider {
+
+        public object UIObject { get; }
+    }
+
     //上下文菜单模型;
-    public class MenuButtonItemModel {
-        public MenuButtonItemModel(string groupId , string text, int sortOrder = 32) {
+    public class MenuButtonItem:MenuObjectItem {
+        public MenuButtonItem(string groupId , string text, int sortOrder = 32) {
             this.Text = text;
             this.GroupID = groupId;
             this.SortOrder = sortOrder;

@@ -1,6 +1,6 @@
-﻿using CDFC.Parse.Contracts;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Controls.Windows;
 using System;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
         /// 显示对象;
         /// </summary>
         /// <param name="file"></param>
-        public static void Show(IFile file) {
+        public static void Show(FileBase file) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 

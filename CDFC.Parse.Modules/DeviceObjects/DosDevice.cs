@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFC.Parse.Modules.Static;
+﻿using CDFC.Parse.Modules.Static;
 using CDFC.Parse.Modules.Structs;
 using CDFC.Util.PInvoke;
 using EventLogger;
@@ -90,7 +88,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                     ptr = ptable.next;
                 }
                 catch(Exception ex) {
-                    Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                     break;
                 }
 

@@ -1,5 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Xml.Linq;

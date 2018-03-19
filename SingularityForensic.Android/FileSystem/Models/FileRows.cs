@@ -7,7 +7,7 @@ using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Android.FileSystem.Models {
     public class AndroidFileRow:FileRow<IFile> {
-        public AndroidFileRow(IFile file):base(file) {
+        public AndroidFileRow(IFilefile):base(file) {
 
         }
 

@@ -75,6 +75,9 @@
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
+    <Reference Include="ewf.net">
+      <HintPath>..\EWF.NET\ewf.net.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
@@ -240,30 +243,61 @@
     </Compile>
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\DialogService.cs" />
+    <Compile Include="App\ThreadInvoker.cs" />
     <Compile Include="App\LanguageService.cs" />
     <Compile Include="App\LoggerService.cs" />
+    <Compile Include="App\MessageBoxes\CDFCMessageBox.cs" />
     <Compile Include="App\MessageBoxService.cs" />
-    <Compile Include="Case\CaseModule.cs" />
-    <Compile Include="Case\CommandDefinitions.cs" />
-    <Compile Include="Case\Constants.cs" />
-    <Compile Include="Case\MenuItemDefinitions.cs" />
-    <Compile Include="Case\MessageBoxes\CreateCaseMessageBox.cs" />
-    <Compile Include="Case\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
-    <Compile Include="Case\Models\TreeUnits.cs" />
-    <Compile Include="Case\IconSources.cs" />
-    <Compile Include="Case\CaseService.cs" />
-    <Compile Include="Case\SingularityCase.cs" />
-    <Compile Include="Case\ViewModels\CreateCaseWindowViewModel.cs" />
-    <Compile Include="Case\Views\CreateCaseWindow.xaml.cs">
+    <Compile Include="App\Models\MessageButtonModel.cs" />
+    <Compile Include="App\ViewModels\CDFCMessageBoxViewModel.cs" />
+    <Compile Include="App\Views\CDFCMessageBoxWindow.xaml.cs">
+      <DependentUpon>CDFCMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App\Views\ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App\Views\RemainingMessageBoxWindow.xaml.cs">
+      <DependentUpon>RemainingMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Casing\CaseDialogService.cs" />
+    <Compile Include="Casing\CaseModule.cs" />
+    <Compile Include="Casing\CommandDefinitions.cs" />
+    <Compile Include="Casing\Constants.cs" />
+    <Compile Include="Casing\MenuItemDefinitions.cs" />
+    <Compile Include="Casing\MessageBoxes\CreateCaseMessageBox.cs" />
+    <Compile Include="Casing\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
+    <Compile Include="Casing\Models\TreeUnits.cs" />
+    <Compile Include="Casing\IconSources.cs" />
+    <Compile Include="Casing\CaseService.cs" />
+    <Compile Include="Casing\ViewModels\CreateCaseWindowViewModel.cs" />
+    <Compile Include="Casing\Views\CreateCaseWindow.xaml.cs">
       <DependentUpon>CreateCaseWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Case\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
+    <Compile Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Document\DocumentTabService.cs" />
+    <Compile Include="Document\Models\DocumentModel.cs" />
+    <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
     <Compile Include="Dos\Constants.cs" />
     <Compile Include="Dos\DosCaseManager.cs" />
     <Compile Include="Dos\DosImgParser.cs" />
     <Compile Include="Dos\DosModule.cs" />
+    <Compile Include="Drive\DriveModule.cs" />
+    <Compile Include="Drive\DriveStream.cs" />
+    <Compile Include="Drive\IDriveDialogService.cs" />
+    <Compile Include="Drive\LocalHDDInfos.cs" />
+    <Compile Include="Drive\LocalVolume.cs" />
+    <Compile Include="Drive\LocalVolumeStructs.cs" />
+    <Compile Include="Drive\LocalHDDStructs.cs" />
+    <Compile Include="Drive\ComObject.cs" />
+    <Compile Include="Drive\Constants.cs" />
+    <Compile Include="Drive\DriveService.cs" />
+    <Compile Include="Drive\LocalHDD.cs" />
+    <Compile Include="Drive\ViewModels\DriveItemsWindowViewModel.cs" />
+    <Compile Include="Drive\Views\DrivesItemsWindow.xaml.cs">
+      <DependentUpon>DrivesItemsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\ExplorerModule.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
@@ -272,6 +306,8 @@
     <Compile Include="FileExplorer\IconResources.cs" />
     <Compile Include="FileExplorer\MenuDefinitions.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
+    <Compile Include="FileExplorer\MessageBoxes\ListBlockMessageBox.cs" />
+    <Compile Include="FileExplorer\Models\BlockItem.cs" />
     <Compile Include="FileExplorer\Models\FileSystemUnit.cs" />
     <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
     <Compile Include="FileExplorer\Models\StorageTreeUnit.cs" />
@@ -288,6 +324,7 @@
     <Compile Include="FileExplorer\ViewModels\HexModels.cs" />
     <Compile Include="FileExplorer\ViewModels\FilePreviewerViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\ListBlockWindowViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModelcs.cs" />
     <Compile Include="FileExplorer\ViewModels\ThumbnailTabModel.cs" />
     <Compile Include="FileExplorer\Views\CustomIndexSearch.xaml.cs">
@@ -305,17 +342,21 @@
     <Compile Include="FileExplorer\Views\ItrChildrenPreview.xaml.cs">
       <DependentUpon>ItrChildrenPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileExplorer\Views\ListBlockWindow.xaml.cs">
+      <DependentUpon>ListBlockWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileExplorer\Views\PartitionsBrowser.xaml.cs">
       <DependentUpon>PartitionsBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileExplorer\Views\ThumbnailInfo.xaml.cs">
       <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileSystem\FileSystemService.cs" />
-    <Compile Include="FileSystem\CommandDefinitions.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
     <Compile Include="FileSystem\IconSources.cs" />
+    <Compile Include="FileSystem\UnknownDeviceStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />
     <Compile Include="About\IconSources.cs" />
@@ -328,6 +369,11 @@
     <Compile Include="Hex\Views\InterceptHex.xaml.cs">
       <DependentUpon>InterceptHex.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Imaging\Constants.cs" />
+    <Compile Include="Imaging\DDImageMounter.cs" />
+    <Compile Include="Imaging\IconSources.cs" />
+    <Compile Include="Imaging\ImagingService.cs" />
+    <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
@@ -352,16 +398,15 @@
     </Compile>
     <Compile Include="MainModule.cs" />
     <Compile Include="About\AboutMessageBox.cs" />
-    <Compile Include="MainPage\DocumentTabService.cs" />
+    <Compile Include="Drive\Design\DriveItemsWindowDesignViewModel.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
     <Compile Include="MainPage\NodeService.cs" />
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
-    <Compile Include="MainPage\Models\TabModel.cs" />
     <Compile Include="MainPage\RegionNames.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
-    <Compile Include="MainPage\ViewModels\BrowserTabViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageNodeManagerViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Imaging\EWFImgMounter.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
     <Compile Include="Previewers\DefaultPreviewerProvider.cs" />
     <Compile Include="Previewers\Models\DBUnit.cs" />
@@ -476,13 +521,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Case\Views\CreateCaseWindow.xaml">
+    <Page Include="App\Views\CDFCMessageBoxWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Case\Views\ShowFileCaseFilePropertyWindow.xaml">
+    <Page Include="App\Views\ProgressWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="App\Views\RemainingMessageBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Casing\Views\CreateCaseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Drive\Views\DrivesItemsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FileExplorer\Languages\zh_CN\Singularity.UI.FileExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -505,6 +566,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="FileExplorer\Views\ItrChildrenPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FileExplorer\Views\ListBlockWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -592,7 +657,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage\Views\DocumentTab.xaml">
+    <Page Include="Document\Views\DocumentTabs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -624,19 +689,28 @@
     <Compile Include="MainPage\Views\MainPageNodeManager.xaml.cs">
       <DependentUpon>MainPageNodeManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage\Views\DocumentTab.xaml.cs">
-      <DependentUpon>DocumentTab.xaml</DependentUpon>
+    <Compile Include="Document\Views\DocumentTabs.xaml.cs">
+      <DependentUpon>DocumentTabs.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Splash\Views\SplashView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ToolBar\Views\ToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Splash\SplashService.cs" />
+    <Compile Include="Splash\ViewModels\SplashViewModel.cs" />
+    <Compile Include="Splash\Views\SplashView.xaml.cs">
+      <DependentUpon>SplashView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToolBar\ToolBarModule.cs" />
     <Compile Include="ToolBar\ViewModels\ToolBarViewModel.cs" />
     <Compile Include="ToolBar\Views\ToolBar.xaml.cs">
@@ -661,6 +735,10 @@
     </EmbeddedResource>
     <None Include="Adb\app.config" />
     <None Include="app.manifest" />
+    <Page Include="Imaging\Languages\zh_CN\SingularityForensic.Imaging.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -701,21 +779,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adb\Languages\en_US\" />
+    <Folder Include="Drive\Models\" />
     <Folder Include="Hex\Languages\" />
     <Folder Include="Languages\en_US\" />
     <Folder Include="MainMenu\Global\Services\" />
+    <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
+    <Folder Include="Splash\Images\" />
     <Folder Include="StatusBar\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Modules\CDFC.Parse.Modules.csproj">
-      <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
-      <Name>CDFC.Parse.Modules</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
-      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
-      <Name>CDFC.Parse</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">
       <Project>{80f67817-5bf1-4542-b77b-9f29f739b360}</Project>
       <Name>Cflab.DataTransport</Name>
@@ -727,15 +800,6 @@
     <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
       <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
       <Name>SingularityForensic.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
-      <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
-      <Name>SingularityForensic.Info</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SingularityUpdater\SingularityUpdater.csproj">
-      <Project>{cea7ed9e-555f-4c9b-8d8b-a1a708feea89}</Project>
-      <Name>SingularityUpdater</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -851,26 +915,26 @@
     <Resource Include="Images\Shell\FolderBrowser\FilterUsing.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Attachments\sign.txt">
+    <Resource Include="Casing\Attachments\sign.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Attachments\ViewerPrograms.xml">
+    <Resource Include="Casing\Attachments\ViewerPrograms.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Images\Toolbar_CreateCase.png" />
+    <Resource Include="Casing\Images\Toolbar_CreateCase.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Images\Toolbar_OpenCase.png" />
+    <Resource Include="Casing\Images\Toolbar_OpenCase.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Images\Type_Case.png" />
+    <Resource Include="Casing\Images\Type_Case.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Case\Images\Type_CaseActive.png" />
+    <Resource Include="Casing\Images\Type_CaseActive.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Hex\Images\Toolbar_FindHex.png" />
@@ -1065,6 +1129,12 @@
     <Resource Include="Previewers\Images\Volume_Value.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="App\Images\ProgressMessageBox_Desc_Back.png" />
+    <Resource Include="Imaging\Images\Toolbar_AddImg.png" />
+    <Content Include="Drive\cdfc_device.dll" />
+    <Content Include="Imaging\libewf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Previewers\OutSideIn\debmp.dll" />
     <Content Include="Previewers\OutSideIn\dehex.dll" />
     <Content Include="Previewers\OutSideIn\dess.dll" />
@@ -1287,6 +1357,9 @@
     <Content Include="Previewers\OutSideIn\vsyim.dll" />
     <Content Include="Previewers\OutSideIn\vszip.dll" />
     <Content Include="Previewers\OutSideIn\wvcore.dll" />
+    <Content Include="Imaging\zlib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

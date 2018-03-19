@@ -1,11 +1,12 @@
-﻿using CDFCUIContracts.Commands;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using EventLogger;
+using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Controls.ViewModels {
     public class DataGridExViewModel:BindableBase {
@@ -23,8 +24,8 @@ namespace SingularityForensic.Controls.ViewModels {
         /// <summary>
         /// 拷贝单元格内内容;
         /// </summary>
-        private ICommandItem _copySelectedTextCommandItem;
-        public ICommandItem CopySelectedTextCommandItem {
+        private CommandItem _copySelectedTextCommandItem;
+        public CommandItem CopySelectedTextCommandItem {
             get {
                 if (_copySelectedTextCommandItem == null) {
                     _copySelectedTextCommandItem = new CommandItem {
@@ -42,7 +43,7 @@ namespace SingularityForensic.Controls.ViewModels {
                             _copySelectedTextCommandItem.CommandName = string.Format(FindResourceString("CopyCellTextFormat"), e);
                         }
                         catch(Exception ex) {
-                            Logger.WriteCallerLine(ex.Message);
+                            LoggerService.Current?.WriteCallerLine(ex.Message);
                         }
                     };
 
@@ -50,21 +51,21 @@ namespace SingularityForensic.Controls.ViewModels {
                         _copySelectedTextCommandItem.CommandName = string.Format(FindResourceString("CopyCellTextFormat"), SelectedText);
                     }
                     catch(Exception ex) {
-                        Logger.WriteCallerLine(ex.Message);
+                        LoggerService.Current?.WriteCallerLine(ex.Message);
                     }
                 }
                 return _copySelectedTextCommandItem;
             }
         }
         
-        private ObservableCollection<ICommandItem> _contextCommands;
+        private ObservableCollection<CommandItem> _contextCommands;
         /// <summary>
         /// 上下文菜单命令项;
         /// </summary>
-        public virtual ObservableCollection<ICommandItem> ContextCommands {
+        public virtual ObservableCollection<CommandItem> ContextCommands {
             get {
                 if(_contextCommands == null) {
-                    _contextCommands = new ObservableCollection<ICommandItem>() {
+                    _contextCommands = new ObservableCollection<CommandItem>() {
                         CopySelectedTextCommandItem
                     };
                     

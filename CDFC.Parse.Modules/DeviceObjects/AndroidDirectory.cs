@@ -6,8 +6,6 @@ using CDFC.Parse.Modules.Structs;
 using EventLogger;
 using static CDFC.Parse.Modules.Static.Ext4Methods;
 using CDFC.Util.PInvoke;
-using CDFC.Parse.Abstracts;
-using static CDFC.Parse.Modules.Static.Ext4Methods;
 using System.Runtime.ExceptionServices;
 using CDFC.Parse.Modules.Contracts;
 
@@ -112,7 +110,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                                 var dirTab = stChildrenDirNode.GetStructure<StDirEntry>();
                                 var dirEntity = dirTab.DirInfo.GetStructure<StExt4DirEntry>();
 
-                                IFile file = null;
+                                IFilefile = null;
                                 if (dirEntity.file_type == Ext4FileType.Directory) {
                                     var direct = new AndroidDirectory(stChildrenDirNode, this);
                                     direct.LoadContent(ntfSizeAct,isCancel);
@@ -185,7 +183,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
         /// </summary>
         /// <param name="son"></param>
         /// <returns></returns>
-        private AndroidDirectory CreateParentDirect(IFile son) {
+        private AndroidDirectory CreateParentDirect(IFileson) {
             if (son != null) {
                 var itrFile = son as IIterableFile;
                 var direct = new AndroidDirectory {
@@ -206,7 +204,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
         internal List<IFile> children;           //子文件节点(包含子目录);
         public override IEnumerable<IFile> Children => children;
         
-        //public IFile Parent { get;  }                            //从属父文件(兼容接口);
+        //public IFileParent { get;  }                            //从属父文件(兼容接口);
             
         private bool? deleted;                                              //是否被删除;
         public override bool? Deleted => deleted;

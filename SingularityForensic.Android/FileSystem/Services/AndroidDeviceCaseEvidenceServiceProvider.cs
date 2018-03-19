@@ -6,7 +6,7 @@ using CDFC.Parse.Modules.DeviceObjects;
 using Microsoft.Practices.ServiceLocation;
 using SingularityForensic.Contracts.FileSystem;
 using CDFC.Parse.Abstracts;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Android.FileSystem.Models;
 using SingularityForensic.Contracts.FileExplorer;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace SingularityForensic.Android.FileSystem.Services {
         , ICaseEvidenceServiceProvider {
         public IImgParser StreamFileParser => AndroidDeviceStreamParser.StaticInstance;
 
-        public void AddNewCaseFile(IFile file, string interLabel) {
+        public void AddNewCaseFile(IFilefile, string interLabel) {
             //if (file is AndroidDevice adDevice) {
             //    ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(
             //        new CaseEvidence(adDevice, interLabel, DateTime.Now));

@@ -1,6 +1,6 @@
 ﻿using CDFC.Parse.Abstracts;
 using CDFC.Parse.Modules.DeviceObjects;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;

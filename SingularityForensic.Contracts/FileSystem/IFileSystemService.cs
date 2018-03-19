@@ -1,7 +1,5 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System;
@@ -11,27 +9,60 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.FileSystem {
     public interface IFileSystemService {
-        /// <summary>
-        /// 打开某个文件;
-        /// </summary>
-        /// <param name="evidence">证据</param>
-        /// <param name="fileName"></param>
-        /// GUID为案件文件的GUID;
-        /// <example>{GUID}/"" 空字符串:可能返回设备</example>
-        /// <example>{GUID}/"0" 返回第一个分区</example>
-        /// <example>{GUID}/"0/file.ext" 返回第一个分区下的一个叫做file.ext的文件</example>
-        /// <returns>{GUID}/</returns>
-        FSFile OpenFile(string fileName);
+        //初始化;
+        void Initialize();
 
-        //挂载(到案件上);
-        IFile MountImg(string path);
+        //挂载流;
+        IHaveFileCollection MountStream(Stream stream, string name, XElement xElem, ProgressReporter reporter);
 
-        //脱机(从案件中);
-        //void UnMount(CaseEvidence csFile);
+        //卸载文件;
+        void UnMountFile(IHaveFileCollection file);
+
+        //所有文件;
+        //EnumFile为对应的文件管理单元,xElem为信息项,为了避免与案件耦合(试用xElem作为信息媒介);
+        IEnumerable<(IHaveFileCollection enumFile,XElement xElem)> EnumedFiles { get; }
     }
 
-    
+    public class FSService :GenericServiceStaticInstance<IFileSystemService> {
+
+    }
+
+    public static class FileSystemServiceExtensions {
+        public static FileBase OpenFile(this IFileSystemService fsService,string url) {
+            if (string.IsNullOrEmpty(url)) {
+                return null;
+            }
+            if(fsService == null) {
+                return null;
+            }
+            
+            url = url.Replace('\\', '/');
+
+            var args = url.Split('/');
+            if (args.Count() <= 1) {
+                LoggerService.Current?.WriteCallerLine($"Invalid args count");
+                return null;
+            }
+
+            foreach (var (enumFile, xElem) in fsService.EnumedFiles) {
+                
+                if(xElem.Element(nameof(CaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
+                    if(enumFile is Device device) {
+                        return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
+                    }
+                    else {
+                        return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
+                    }
+                    
+                }
+                
+            }
+
+            return null;
+        }
+    }
 }

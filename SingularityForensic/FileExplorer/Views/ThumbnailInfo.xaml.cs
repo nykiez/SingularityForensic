@@ -1,6 +1,6 @@
 ﻿using CDFCUIContracts.Helpers;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.FileExplorer.ViewModels;
+using SingularityForensic.FileExplorer.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCMessageBoxes.MessageBoxes;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
@@ -21,18 +19,18 @@ using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.TabControl;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.FileExplorer.Events;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Controls.Hex.Models;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Hex {
     public static partial class MenuItemDefinitions {
@@ -42,14 +40,14 @@ namespace SingularityForensic.Hex {
                 RaiseCanExcute();
             });
 
-            PubEventHelper.Subscribe<SelectedTabChangedEvent, TabModel>(tab => {
-                if(tab is IHaveTabModels haveTbs) {
+            //PubEventHelper.Subscribe<SelectedTabChangedEvent, DocumentModel>(tab => {
+            //    if(tab is IHaveTabModels haveTbs) {
                     
-                }
-            });
-            PubEventHelper.Subscribe<SelectedTabChangedEvent, TabModel>(tab => {
-                SearchKeyConfirmCommand.RaiseCanExecuteChanged();
-            });
+            //    }
+            //});
+            //PubEventHelper.Subscribe<SelectedTabChangedEvent, DocumentModel>(tab => {
+            //    SearchKeyConfirmCommand.RaiseCanExecuteChanged();
+            //});
         }
 
         private static void RaiseCanExcute() {
@@ -101,8 +99,8 @@ namespace SingularityForensic.Hex {
         }
 
         [Export]
-        public static MenuButtonItemModel GoToOffsetMenuItem
-            => _goToOffsetMenuItem ??(_goToOffsetMenuItem = new MenuButtonItemModel(
+        public static MenuButtonItem GoToOffsetMenuItem
+            => _goToOffsetMenuItem ??(_goToOffsetMenuItem = new MenuButtonItem(
             MenuConstants.MenuMainGroup,
             ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("GoToOffset")) {
                 Command = GoToOffsetCommand,
@@ -111,14 +109,14 @@ namespace SingularityForensic.Hex {
                 Key = Key.G
             });
 
-        private static MenuButtonItemModel _goToOffsetMenuItem;
+        private static MenuButtonItem _goToOffsetMenuItem;
         
 
         private static FindMethod lastFindMethod;
         
         [Export]
-        public static MenuButtonItemModel FindHexMenuItem 
-            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, 
+        public static MenuButtonItem FindHexMenuItem 
+            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup, 
                 ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchForHex")) {
                         Command = FindHexValueCommand,
                         IconSource = IconSources.FindHexIcon,
@@ -126,7 +124,7 @@ namespace SingularityForensic.Hex {
                         Key = Key.X
                     });
 
-        private static MenuButtonItemModel _findHexMenuItem;
+        private static MenuButtonItem _findHexMenuItem;
 
         private static FindHexValueSetting findHexSetting;
         private static DelegateCommand findHexValueCommand;                           //检索十六进制的命令;
@@ -159,8 +157,8 @@ namespace SingularityForensic.Hex {
 
 
         [Export]
-        public static MenuButtonItemModel FindTextMenuItem
-              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup,
+        public static MenuButtonItem FindTextMenuItem
+              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
                         ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchForText")) {
                         Command = FindTextCommand,
                         IconSource = IconSources.FindTextIcon,
@@ -168,7 +166,7 @@ namespace SingularityForensic.Hex {
                         Key = Key.F
                     });
 
-        private static MenuButtonItemModel _findTextMenuItem;
+        private static MenuButtonItem _findTextMenuItem;
         private static FindTextStringSetting findStringSetting;
         private static DelegateCommand findTextCommand;                               //检索文本的命令;
         public static DelegateCommand FindTextCommand {                               //查找字符串命令;
@@ -263,10 +261,10 @@ namespace SingularityForensic.Hex {
         }
 
         [Export]
-        public static MenuButtonItemModel SearchKeyMenuItem {
+        public static MenuButtonItem SearchKeyMenuItem {
             get {
                 if (_searchKeyMenuItem == null) {
-                    _searchKeyMenuItem = new MenuButtonItemModel(MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexSearch")) {
+                    _searchKeyMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexSearch")) {
                         Command = SearchKeyConfirmCommand,
                         IconSource = IconSources.FindTextIcon
                     };
@@ -275,7 +273,7 @@ namespace SingularityForensic.Hex {
                 return _searchKeyMenuItem;
             }
         }
-        private static MenuButtonItemModel _searchKeyMenuItem;
+        private static MenuButtonItem _searchKeyMenuItem;
 
         //搜索命令;
         private static DelegateCommand _searchKeyConfirmCommand;
@@ -283,7 +281,7 @@ namespace SingularityForensic.Hex {
             _searchKeyConfirmCommand ?? (_searchKeyConfirmCommand = new DelegateCommand(() => {
                 //var fsTabService = ServiceProvider.Current.GetInstance<IDocumentTabService>();
                 //if (fsTabService == null) {
-                //    Logger.WriteCallerLine("FsTabService is null!");
+                //    LoggerService.Current?.WriteCallerLine("FsTabService is null!");
                 //    return;
                 //}
 
@@ -300,7 +298,7 @@ namespace SingularityForensic.Hex {
 
                 //if (SlSearchKeyOption.Method == SearchMethod.Content) {
                 //    if (indexableFile == null) {
-                //        Logger.WriteCallerLine($"{nameof(indexableFile)} can't be null");
+                //        LoggerService.Current?.WriteCallerLine($"{nameof(indexableFile)} can't be null");
                 //        RemainingMessageBox.Tell(FindResourceString("NullCaseFileUnknownError"));
                 //        return;
                 //    }
@@ -309,7 +307,7 @@ namespace SingularityForensic.Hex {
                 //        ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true);
                 //        ThreadPool.QueueUserWorkItem(cb => {
                 //            try {
-                //                var itrFile = fileBrowserViewModel.CurFile as IIterableFile;
+                //                var itrFile = fileBrowserViewModel.CurFile as IEnumerableFileFile;
                 //                var searchingKey = string.Empty;
                 //                Application.Current.Dispatcher.Invoke(() => {
                 //                    searchingKey = InputValueMessageBox.Show(FindResourceString("PleaseInputContent"));
@@ -343,7 +341,7 @@ namespace SingularityForensic.Hex {
                 //                }
                 //            }
                 //            catch (Exception ex) {
-                //                Logger.WriteCallerLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
+                //                LoggerService.Current?.WriteCallerLine($"{nameof(SearchKeyConfirmCommand)}:{ex.Message}");
                 //            }
                 //            finally {
                 //                ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false);
@@ -417,8 +415,6 @@ namespace SingularityForensic.Hex {
                 //    //    }
                 //    //});
                 //}
-            },
-                () => (ServiceProvider.Current.GetInstance<IDocumentTabService>()?.SelectedTab is IHaveData<IFileBrowserDataContext> fbTabModel)
-            && (fbTabModel?.Data?.OwnerFile is Partition)));
+            }));
     }
 }

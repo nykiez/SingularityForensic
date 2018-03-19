@@ -36,7 +36,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                     throw;
                 }
             }
@@ -121,7 +121,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 if (root != IntPtr.Zero) {
                     var node = root;
                     while (node != IntPtr.Zero) {
-                        IFile file = null;
+                        IFilefile = null;
 
                         var rootNode = node.GetStructure<StFAT32FileNode>();
 
@@ -147,7 +147,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 }
             }
             catch(Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
         }
 
@@ -167,7 +167,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                     return (stFatDBR.reserved + stFatDBR.fats * stFatDBR.fat32_length) * stFatDBR.sector_size;
                 }
                 else {
-                    Logger.WriteCallerLine($"{nameof(StFatDBR)} can't be null.");
+                    LoggerService.Current?.WriteCallerLine($"{nameof(StFatDBR)} can't be null.");
                     return 0;
                 }
                 

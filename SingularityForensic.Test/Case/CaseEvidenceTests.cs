@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.Case.Tests {
+namespace SingularityForensic.Contracts.Casing.Tests {
     [TestClass()]
     public class CaseEvidenceTests {
         [TestMethod()]

@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCUIContracts.Commands;
+﻿using CDFCUIContracts.Commands;
 using CDFCUIContracts.Models;
 using SingularityForensic.Contracts.FileSystem;
 using System;
@@ -12,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     public interface IStorageTreeUnit : ITreeUnit {
-        IFile File { get; }
+        FileBase File { get; }
         IFileExplorerServiceProvider FSProvider { get; }
     }
 

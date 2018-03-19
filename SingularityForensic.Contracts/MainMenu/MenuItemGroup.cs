@@ -7,8 +7,8 @@ namespace SingularityForensic.Contracts.Contracts.MainMenu {
             this.SortOrder = sortOrder;
             this.GUID = guid;
         }
-        public ObservableCollection<MenuButtonItemModel> Children {
-            get; set; } = new ObservableCollection<MenuButtonItemModel>();
+        public ObservableCollection<MenuButtonItem> Children {
+            get; set; } = new ObservableCollection<MenuButtonItem>();
         public string Text { get; set; }
         public Uri IconSource { get; set; }
         public int SortOrder { get; }

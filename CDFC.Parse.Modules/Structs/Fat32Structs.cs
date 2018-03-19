@@ -66,7 +66,7 @@ namespace CDFC.Parse.Modules.Structs {
                 return new DateTime(stamp.Year, stamp.Month, stamp.Day, stamp.Hour, stamp.Minute, stamp.Second);
             }
             catch(Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 return null;
             }
             

@@ -6,7 +6,7 @@
              xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
              xmlns:hexviews="clr-namespace:SingularityForensic.Hex.Views"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:vms="clr-namespace:SingularityForensic.Controls.FileExplorer.ViewModels"
+             xmlns:vms="clr-namespace:SingularityForensic.FileExplorer.ViewModels"
              xmlns:local="clr-namespace:SingularityForensic.Controls.FileExplorer.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">

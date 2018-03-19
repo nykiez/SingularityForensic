@@ -2,11 +2,11 @@
 using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Prism.Events;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Adb.Models;
-using SingularityForensic.Case;
+using SingularityForensic.Casing;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;

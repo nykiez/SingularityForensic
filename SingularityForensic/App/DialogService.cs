@@ -27,12 +27,9 @@ namespace SingularityForensic.App
             }
             return null;
         }
+
         public string OpenFile() {
-            var dialog = new VistaOpenFileDialog();
-            if(dialog.ShowDialog() == true) {
-                return dialog.FileName;
-            }
-            return null;
+            return OpenFile(string.Empty);
         }
 
         public ILoadingDialog CreateLoadingDialog() {
@@ -40,12 +37,23 @@ namespace SingularityForensic.App
         }
 
         public IDoubleLoadingDialog CreateDoubleLoadingDialog() => new DoubleProcessDialog();
+
+        public string OpenFile(string filter) {
+            var dialog = new VistaOpenFileDialog();
+            dialog.Filter = filter;
+            if (dialog.ShowDialog() == true) {
+                return dialog.FileName;
+            }
+            return null;
+        }
     }
 
     public class ProcessDialog : ILoadingDialog {
 
         public bool CancellationPending => _msgBox.CancellationPending;
         private ProgressMessageBox _msgBox = new ProgressMessageBox();
+
+        public event EventHandler Canceld;
 
         public string Word { get => _msgBox.Word; set => _msgBox.Word = value; }
         public string Description { get => _msgBox.Description; set => _msgBox.Description = value; }
@@ -77,13 +85,24 @@ namespace SingularityForensic.App
         }
 
         public void ShowDialog(Window owner = null) {
-            _msgBox.ShowDialog(owner);
+            
+        }
+
+        public void ShowDialog() {
+            
+            _msgBox.ShowDialog();
+        }
+
+        public void Show() {
+            throw new NotImplementedException();
         }
     }
 
     public class DoubleProcessDialog:IDoubleLoadingDialog {
         public event DoWorkEventHandler DoWork;
         public event RunWorkerCompletedEventHandler RunWorkerCompleted;
+        public event EventHandler Canceld;
+
         private readonly DoubleProcessWindow window = new DoubleProcessWindow();
         public void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
             window.Dispatcher.Invoke(() => {
@@ -100,14 +119,17 @@ namespace SingularityForensic.App
             }
         }
 
-        public void ShowDialog(Window owner = null) {
+        public void ShowDialog() {
+            RunTask();
+            window.ShowDialog();
+        }
+        private void RunTask() {
             ThreadPool.QueueUserWorkItem(cb => {
                 try {
                     DoWork?.Invoke(this, new DoWorkEventArgs(this));
                     window.Dispatcher.Invoke(() => {
                         window.Close();
                         RunWorkerCompleted?.Invoke(this, new RunWorkerCompletedEventArgs(null, null, CancellationPending));
-
                     });
                 }
                 catch (Exception ex) {
@@ -117,14 +139,13 @@ namespace SingularityForensic.App
                     });
                 }
             });
-            if (owner != null) {
-                window.Owner = owner;
-            }
-            else {
-                window.Owner = Application.Current.MainWindow;
-            }
+            window.Owner = Application.Current.MainWindow;
+            window.ShowInTaskbar = false;
+        }
 
-            window.ShowDialog();
+        public void Show() {
+            RunTask();
+            window.Show();
         }
 
         public string Title {

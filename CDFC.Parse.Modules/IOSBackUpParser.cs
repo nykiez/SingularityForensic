@@ -46,7 +46,7 @@ namespace CDFC.Parse.ITunes {
                 }
             }
             catch (Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
             finally {
                 parse_exit();
@@ -76,7 +76,7 @@ namespace CDFC.Parse.ITunes {
                 }
             }
             catch (Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
 
             return null;

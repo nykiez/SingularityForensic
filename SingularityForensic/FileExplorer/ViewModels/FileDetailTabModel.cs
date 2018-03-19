@@ -1,5 +1,4 @@
-﻿using CDFC.Parse.Contracts;
-using CDFCUIContracts.Abstracts;
+﻿using CDFCUIContracts.Abstracts;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
@@ -9,7 +8,7 @@ using System;
 using System.Text;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     public class FileDetailTabModel : BindableBase,ITabModel {
         public FileDetailTabModel(IFileExplorerServiceProvider fsProvider) {
             if(fsProvider == null) {
@@ -29,10 +28,11 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         }
 
         private IFileDetailInfoProvider _provider;
-        public IFileDetailInfoProvider Provider => _provider ?? (_provider = FSProvider.CaseEvidenceServiceProvider.GetInstance<IFileDetailInfoProvider>());
+        public IFileDetailInfoProvider Provider => _provider;
+            //?? (_provider = FSProvider.CaseEvidenceServiceProvider.GetInstance<IFileDetailInfoProvider>());
 
-        private IFile _file;
-        public IFile File {
+        private FileBase _file;
+        public FileBase File {
             get {
                 return _file;
             }

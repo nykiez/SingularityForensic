@@ -1,18 +1,17 @@
-﻿using CDFC.Parse.Contracts;
-using CDFCUIContracts.Abstracts;
+﻿using CDFCUIContracts.Abstracts;
 using EventLogger;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Controls.FileExplorer.Helpers;
 using System;
 using System.IO;
 using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     public class FilePreviewerTabModel : BindableBase , ITabModel ,IDisposable {
         public string Header {
             get {
@@ -70,7 +69,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                 }
 
             });
@@ -83,15 +82,15 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         public void LoadPreviewerByFileRow(IFileRow row) {
             DisposePreviewer();
 
-            if(row is IFileRow<IFile> fileRow) {
-                var fs = FileRowHelper.SaveFileToTemp(fileRow);
+            //if(row is IFileRow<IFile> fileRow) {
+            //    var fs = FileRowHelper.SaveFileToTemp(fileRow);
 
-                if (fs != null) {
-                    var fileName = fs.Name;
-                    fs.Close();
-                    LoadPreviewerByFileName(fileName);
-                }
-            }
+            //    if (fs != null) {
+            //        var fileName = fs.Name;
+            //        fs.Close();
+            //        LoadPreviewerByFileName(fileName);
+            //    }
+            //}
 
             
         }

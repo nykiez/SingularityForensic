@@ -37,25 +37,30 @@
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,14 +117,17 @@
     <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
       <Name>SingularityForensic.Contracts</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
       <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
       <Name>SingularityForensic.Info</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
       <Name>SingularityForensic</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -142,22 +150,16 @@ Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" 
 
 Copy "$(SolutionDir)SingularityForensic\$(OutDir)\SingularityForensic.dll" "$(TargetDir)Entities\SingularityForensic.dll"
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
-Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll"
-Copy "$(SolutionDir)SingularityForensic.Android\$(OutDir)\SingularityForensic.Android.dll" "$(TargetDir)Entities\SingularityForensic.Android.dll"
-Copy "$(SolutionDir)CDFC.Parse\$(OutDir)\CDFC.Parse.dll" "$(TargetDir)Entities\CDFC.Parse.dll"
-Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\CDFC.Parse.Modules.dll" "$(TargetDir)Entities\CDFC.Parse.Modules.dll"
-Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\DiskManager.dll" "$(TargetDir)Entities\DiskManager.dll"
-Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\cdfcqd.dll" "$(TargetDir)Entities\cdfcqd.dll"
-Copy "$(SolutionDir)CDFC.Parse.Modules\$(OutDir)\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
-Copy "$(SolutionDir)CDFC.Parse.ITunes\$(OutDir)\CDFC.Parse.ITunes.dll" "$(TargetDir)Entities\CDFC.Parse.ITunes.dll"
-Copy "$(SolutionDir)CDFC.Parse.Java\$(OutDir)\CDFC.Parse.Java.dll" "$(TargetDir)Entities\CDFC.Parse.Java.dll"
-Copy "$(SolutionDir)CDFC.Parse.Local\$(OutDir)\CDFC.Parse.Local.dll" "$(TargetDir)Entities\CDFC.Parse.Local.dll"
-Copy "$(SolutionDir)CDFC.Parse.Python\$(OutDir)\CDFC.Parse.Python.dll" "$(TargetDir)Entities\CDFC.Parse.Python.dll"
-Copy "$(SolutionDir)CDFC.Parse.Signature\$(OutDir)\CDFC.Parse.Signature.dll" "$(TargetDir)Entities\CDFC.Parse.Signature.dll"
+Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll"
+Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll"
 
-xcopy "$(SolutionDir)CDFC.Parse.ITunes\Entities" "$(TargetDir)Entities"  /E /Y
+Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll"
+
+Copy "$(SolutionDir)SingularityForensic.Android\$(OutDir)\SingularityForensic.Android.dll" "$(TargetDir)Entities\SingularityForensic.Android.dll"
 
 Copy "$(SolutionDir)SingularityForensic.Controls\$(OutDir)\SingularityForensic.Controls.dll" "$(TargetDir)Controls\SingularityForensic.Controls.dll"
+
+Copy "$(SolutionDir)SingularityForensic.Info\$(OutDir)\SingularityForensic.Info.dll" "$(TargetDir)Entities\SingularityForensic.Info.dll"
 Copy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll"
 Copy "$(SolutionDir)packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll" "$(TargetDir)Controls\Meta.Vlc.dll"
 XCopy "$(SolutionDir)packages\Meta.Vlc.Lib.16.05.01\content\LibVlc" "$(TargetDir)"  /E /Y
@@ -169,6 +171,9 @@ Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(Ta
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(TargetDir)Entities\Chloe.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll"
 XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y
-</PostBuildEvent>
+Copy
+Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
+
+Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

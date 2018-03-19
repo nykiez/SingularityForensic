@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static CDFCCultures.Managers.ManagerLocator;
-using CDFC.Parse.IO;
 using WpfHexaEditor.Core.Bytes;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
@@ -36,7 +35,7 @@ namespace SingularityForensic.Controls.Hex.Services {
         public void FindNextBytes(IHexDataContext hex,byte[] findBytes,
             FindMethod findMethod, bool isBlockSearch, int blockSize, int blockOffset) {
             if (findBytes == null || findBytes.Length == 0) {
-                Logger.WriteCallerLine($"{nameof(findBytes)} can't be null or empty.");
+                LoggerService.Current?.WriteCallerLine($"{nameof(findBytes)} can't be null or empty.");
                 return;
             }
 

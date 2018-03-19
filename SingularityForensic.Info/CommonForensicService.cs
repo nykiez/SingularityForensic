@@ -6,8 +6,9 @@ using static CDFCCultures.Managers.ManagerLocator;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Info {
     public interface ICommonForensicService {
@@ -21,8 +22,12 @@ namespace SingularityForensic.Info {
     [Export(typeof(ICommonForensicService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CommonForensicService:ICommonForensicService {
+#pragma warning disable 0169
+
         [Import]
         private Lazy<INodeService> nodeService;
+
+#pragma warning restore 0169
 
         /// <summary>
         /// 添加取证信息节点;
@@ -32,7 +37,7 @@ namespace SingularityForensic.Info {
             TreeUnit fUnit = null;
             var caseService = ServiceProvider.Current.GetInstance<ICaseService>();
             if(caseService == null) {
-                EventLogger.Logger.WriteCallerLine($"{nameof(caseService)} can't be null!");
+                LoggerService.Current?.WriteCallerLine($"{nameof(caseService)} can't be null!");
             }
 
             AppInvoke(() => {
@@ -89,7 +94,7 @@ namespace SingularityForensic.Info {
                     //}
                 }
                 catch (Exception ex) {
-                    EventLogger.Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                 }
             }
 

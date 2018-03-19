@@ -1,5 +1,4 @@
 ﻿using CDFC.Parse.Modules.Structs;
-using CDFC.Parse.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

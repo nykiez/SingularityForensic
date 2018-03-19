@@ -1,5 +1,4 @@
-﻿using CDFC.Parse.DeviceObjects;
-using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.Casing;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;

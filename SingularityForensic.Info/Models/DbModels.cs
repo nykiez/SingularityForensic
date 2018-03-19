@@ -1,4 +1,5 @@
 ﻿using EventLogger;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Info;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace SingularityForensic.Info.Models {
                 }
             }
             catch (Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 return null;
             }
         }

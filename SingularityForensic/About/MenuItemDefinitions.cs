@@ -19,14 +19,14 @@ namespace SingularityForensic.About {
             (_aboutCommand = new DelegateCommand(AboutMessageBox.Show));
 
         [Export]
-        public static readonly MenuButtonItemModel AboutMenuItem =
-            new MenuButtonItemModel(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("About")) {
+        public static readonly MenuButtonItem AboutMenuItem =
+            new MenuButtonItem(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("About")) {
                 Command = AboutCommand,
                 IconSource = IconSources.AboutIcon
             };
         [Export]
-        public static readonly MenuButtonItemModel CalcMenuItem =
-            new MenuButtonItemModel(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Calculator")) {
+        public static readonly MenuButtonItem CalcMenuItem =
+            new MenuButtonItem(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Calculator")) {
                 Command = new DelegateCommand(() => {
                     try {
                         Process.Start("Calc");

@@ -12,7 +12,7 @@ using System.ComponentModel;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using SingularityForensic.Info.Models;
 using EventLogger;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 
 namespace SingularityForensic.Info.ViewModels {
     /// <summary>

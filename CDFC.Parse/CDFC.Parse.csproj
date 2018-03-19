@@ -63,31 +63,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\SymbolLink.cs" />
-    <Compile Include="Bytes\Bytes.cs" />
-    <Compile Include="Contracts\IBlockGrouped.cs" />
-    <Compile Include="Contracts\IDelAndRegNumedFile.cs" />
-    <Compile Include="Contracts\IHaveHandle.cs" />
-    <Compile Include="Contracts\IParser.cs" />
-    <Compile Include="Contracts\IterableFile.cs" />
-    <Compile Include="Abstracts\BlockDeviceFile.cs" />
-    <Compile Include="Abstracts\Device.cs" />
     <Compile Include="Abstracts\OtherFile.cs" />
-    <Compile Include="Contracts\FileSystemType.cs" />
-    <Compile Include="Contracts\FileType.cs" />
-    <Compile Include="Abstracts\Directory.cs" />
-    <Compile Include="Contracts\IFile.cs" />
     <Compile Include="Abstracts\Partition.cs" />
     <Compile Include="Abstracts\RegularFile.cs" />
-    <Compile Include="Contracts\ITimeable.cs" />
-    <Compile Include="Contracts\PartitionTableItem.cs" />
-    <Compile Include="Contracts\PartsType.cs" />
     <Compile Include="DeviceObjects\Class1.cs" />
-    <Compile Include="DeviceObjects\UnKnownDevice.cs" />
     <Compile Include="IO\StreamExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

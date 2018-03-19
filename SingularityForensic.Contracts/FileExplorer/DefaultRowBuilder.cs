@@ -1,5 +1,4 @@
-﻿using CDFC.Parse.Contracts;
-using CDFC.Util;
+﻿using CDFC.Util;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     public class DefaultRowBuilder : GenericStaticInstance<DefaultRowBuilder>, IRowBuilder {

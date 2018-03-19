@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using SingularityForensic.Contracts.Common;
+using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.Shell {
     public interface IShellService {
@@ -7,5 +8,9 @@ namespace SingularityForensic.Contracts.Shell {
         void Focus();
         void ChangeLoadState(bool isLoading, string word = null);
         void AddKeyGestrue(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None, object commandPara = null);
+    }
+
+    public class ShellService : GenericServiceStaticInstance<IShellService> {
+
     }
 }

@@ -16,7 +16,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
         /// <param name="oriFile">所虚拟的对象</param>
         /// <param name="startLBA">对象的起始LBA</param>
         /// <param name="endLBA">对象的终止LBA</param>
-        public SearcherPartition(Device parent,IFile oriFile,long startLBA,long endLBA,string name) : base(parent) {
+        public SearcherPartition(Device parent,IFileoriFile,long startLBA,long endLBA,string name) : base(parent) {
             this.StartLBA = startLBA;
             
             this.Name = name;
@@ -25,7 +25,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 OriFile = oriFile;
             }
         }
-        public IFile OriFile { get; }
+        public IFileOriFile { get; }
         public SafeFileHandle Handle { get; private set; }
         public override uint ClusterSize => 0;
 

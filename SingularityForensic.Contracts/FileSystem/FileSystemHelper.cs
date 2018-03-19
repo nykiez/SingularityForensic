@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return providers.FirstOrDefault(p => p.CheckIsValid(caseFile));
             }
             catch (Exception ex) {
-                EventLogger.Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 return null;
             }
         }

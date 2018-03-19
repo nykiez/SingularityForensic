@@ -4,12 +4,11 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using SingularityForensic.Adb.MessageBoxes;
 using System.ComponentModel.Composition;
-using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Adb.Global.Services;
-using SingularityForensic.Case;
+using SingularityForensic.Casing;
 using SingularityForensic.Contracts.Contracts.MainMenu;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
@@ -17,10 +16,10 @@ using SingularityForensic.Contracts.App;
 namespace SingularityForensic.Adb {
     public static class MenuItemDefinitions {
         [Export]
-        public static MenuButtonItemModel ConnectToDeviceMenuItem {
+        public static MenuButtonItem ConnectToDeviceMenuItem {
             get {
                 if (_connectToDeviceMenuItem == null) {
-                    _connectToDeviceMenuItem = new MenuButtonItemModel(
+                    _connectToDeviceMenuItem = new MenuButtonItem(
                         MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConnectToDevice"), 2) {
                         Command = ConnectToDeviceCommand,
                         IconSource = Resources.IconSources.ConnectToDeviceIcon
@@ -29,7 +28,7 @@ namespace SingularityForensic.Adb {
                 return _connectToDeviceMenuItem;
             }
         }
-        private static MenuButtonItemModel _connectToDeviceMenuItem;
+        private static MenuButtonItem _connectToDeviceMenuItem;
 
         //连接到设备命令;
         private static DelegateCommand _connectToDeviceCommand;
@@ -37,11 +36,18 @@ namespace SingularityForensic.Adb {
             _connectToDeviceCommand ?? (_connectToDeviceCommand = new DelegateCommand(
                 () => {
                     if (ServiceProvider.Current?.GetInstance<ICaseService>()?.CurrentCase == null) {
-                        if (CDFCMessageBox.Show(FindResourceString("ConfirmToCreateNewCase"), MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
+                        var res = MsgBoxService.Current?.
+                        Show(
+                            LanguageService.Current?.
+                            FindResourceString("ConfirmToCreateNewCase"), 
+                            MessageBoxButton.YesNo
+                        )??MessageBoxResult.No;
+
+                        if(res != MessageBoxResult.Yes) {
                             return;
                         }
                         else {
-                            ServiceProvider.Current.GetInstance<ICaseService>()?.CreateCase();
+                            ServiceProvider.Current.GetInstance<ICaseService>()?.CreateNewCase();
                         }
                     }
 

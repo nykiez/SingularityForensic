@@ -2,7 +2,7 @@
 using CDFC.Parse.Contracts;
 using CDFC.Util;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.IO;
@@ -23,7 +23,7 @@ namespace SingularityForensic.Android.FileSystem.Models {
             return false;
         }
 
-        public IFile ParseStream(Stream stream, Action<(int totalPro, int detailPro, string word, string desc)> ntfAct,Func<bool> isCancel) {
+        public IFileParseStream(Stream stream, Action<(int totalPro, int detailPro, string word, string desc)> ntfAct,Func<bool> isCancel) {
             if (stream is FileStream fs) {
                 return AndroidDevice.LoadFromFileStream(fs, tuple => {
                     if (tuple.allSize != 0L && tuple.thePartSize != 0L) {

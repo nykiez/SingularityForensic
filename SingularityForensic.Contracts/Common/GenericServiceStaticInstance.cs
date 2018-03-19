@@ -10,6 +10,6 @@ namespace SingularityForensic.Contracts.Common {
     /// </summary>
     public class GenericServiceStaticInstance<TService> where TService : class {
         private static TService _service;
-        public static TService Current => _service ?? (_service = ServiceProvider.Current.GetInstance<TService>());
+        public static TService Current => _service ?? (_service = ServiceProvider.Current?.GetInstance<TService>());
     }
 }

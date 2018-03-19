@@ -1,5 +1,4 @@
 ﻿using CDFC.Info.Adb;
-using CDFC.Parse.Modules.DeviceObjects;
 using CDFCUIContracts.Commands;
 using Cflab.DataTransport.Modules.Transport.Model;
 using EventLogger;

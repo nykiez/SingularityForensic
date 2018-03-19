@@ -1,6 +1,7 @@
 ﻿using EventLogger;
 using Prism.Commands;
 using Prism.Mvvm;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Previewers.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -101,7 +102,7 @@ namespace SingularityForensic.Previewers.ViewModels {
                             });
                         }
                         catch(Exception ex) {
-                            Logger.WriteCallerLine(ex.Message);
+                            LoggerService.Current?.WriteCallerLine(ex.Message);
                         }
                     }
                     Thread.Sleep(1000);

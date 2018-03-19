@@ -1,7 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Commands;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
@@ -15,12 +12,13 @@ using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.FileSystem;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
 
     //分区-文件视图;
     public partial class DirectoriesBrowserViewModel : FolderBrowserViewModel {
-        public DirectoriesBrowserViewModel(IFile file) : base(file) {
+        public DirectoriesBrowserViewModel(FileBase file) : base(file) {
 
         }
 
@@ -29,10 +27,10 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         public DelegateCommand RecCheckedCommand =>
             _recCheckedCommand ??
             (_recCheckedCommand = new DelegateCommand(() => {
-                RecoverFiles(FileRows.Where(p => p.Checked).Select(p => (p as IFileRow<IFile>).File).ToArray());
+                RecoverFiles(FileRows.Where(p => p.Checked).Select(p => (p as IFileRow<FileBase>).File).ToArray());
             }, () => FileRows.FirstOrDefault(p => p.Checked) != null));
 
-        private void RecoverFiles(IEnumerable<IFile> files) {
+        private void RecoverFiles(IEnumerable<FileBase> files) {
             if (files == null)
                 throw new ArgumentNullException(nameof(files));
 
@@ -40,15 +38,14 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
             long totalSize = 0;
             try {
                 #region 统计总大小;
-                foreach (var file in files) {
-                    if (file.Type == FileType.Directory) {
-                        var direc = file as Directory;
-                        if (!direc.IsBackFile() && !direc.IsBackUpFile()) {
-                            totalSize += direc.GetTotalSize();
+                foreach (var innerfile in files) {
+                    if (innerfile is Directory direc) {
+                        if (!direc.IsBackDir() && !direc.IsBackUpDir()) {
+                            totalSize += direc.GetSubSize();
                         }
                     }
-                    else if (file.Type == FileType.RegularFile) {
-                        totalSize += file.Size;
+                    else if (innerfile is RegularFile) {
+                        totalSize += innerfile.Size;
                     }
                 }
                 #endregion
@@ -69,7 +66,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                     var fs = SysIO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
                     int read;
 
-                    using (var mulS = rFile.GetStream()) {
+                    using (var mulS = rFile.GetInputStream()) {
                         var buffer = new byte[10485760];
                         mulS.Position = 0;
                         while ((read = mulS.Read(buffer, 0, buffer.Length)) != 0
@@ -92,9 +89,8 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                 }
             };
 
-            if (files.Count() == 1 && files.ElementAt(0).Type == FileType.RegularFile) {
-                var file = files.First() as RegularFile;
-
+            if (files.Count() == 1 && files.FirstOrDefault() is RegularFile file) {
+                
                 if (file != null) {
                     var dialog = new VistaSaveFileDialog();
                     dialog.FileName = file.Name;
@@ -127,12 +123,12 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                         if (!SysIO.Directory.Exists(drPath)) {
                             SysIO.Directory.CreateDirectory(drPath);
                         }
-                        foreach (var file in files) {
-                            if (file.Type == FileType.Directory) {
-                                TraverseSaveDirectory(file as Directory, drPath, saveFileFunc, () => proDialog.CancellationPending);
+                        foreach (var innerfile in files) {
+                            if (innerfile is Directory direct) {
+                                TraverseSaveDirectory(direct, drPath, saveFileFunc, () => proDialog.CancellationPending);
                             }
-                            else if (file.Type == FileType.RegularFile) {
-                                saveFileFunc(file as RegularFile, drPath, file.Name);
+                            else if (innerfile is RegularFile regFile) {
+                                saveFileFunc(regFile, drPath, innerfile.Name);
                             }
                             if (proDialog.CancellationPending) {
                                 break;
@@ -162,8 +158,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                 foreach (var p in dir.Children) {
                     if (isCancel?.Invoke() == true) { return; }
 
-                    if (p.Type == FileType.Directory) {
-                        var direct = p as Directory;
+                    if (p is Directory direct) {
                         if (!SysIO.Directory.Exists($"{drPath}/{dir.Name}")) {
                             try {
                                 SysIO.Directory.CreateDirectory($"{drPath}/{dir.Name}");
@@ -175,12 +170,12 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                                 });
                             }
                         }
-                        if (!direct.IsBackFile() && !direct.IsBackUpFile() && direct.Name != ".." && direct.Name != ".") {
+                        if (!direct.IsBackDir() && !direct.IsBackUpDir() && direct.Name != ".." && direct.Name != ".") {
                             TraverseSaveDirectory(direct, $"{drPath}/{dir.Name}", saveFileFunc, isCancel);
                         }
                     }
-                    else if (p.Type == FileType.RegularFile) {
-                        saveFileFunc(p as RegularFile, $"{drPath}/{dir.Name}", p.Name);
+                    else if (p is RegularFile regFile) {
+                        saveFileFunc(regFile, $"{drPath}/{dir.Name}", p.Name);
                     }
                 }
             }
@@ -195,49 +190,52 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                         OpenFile(SelectedFileRow);
                     }
                 },
-                () => (SelectedFileRow as IFileRow<IFile>)?.File is RegularFile).
+                () => (SelectedFileRow as IFileRow<FileBase>)?.File is RegularFile).
             ObservesProperty(() => SelectedFileRow));
 
-        private ObservableCollection<ICommandItem> _contextCommands;
-        public override ObservableCollection<ICommandItem> ContextCommands {
+        private ObservableCollection<CommandItem> _contextCommands;
+        public override ObservableCollection<CommandItem> ContextCommands {
             get {
-                var mainViewerCommandItem = new CommandItem { Children = ViewersCommands, CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
+                var mainViewerCommandItem = new CommandItem {  CommandName = LanguageService.Current?.FindResourceString("ViewerProgram") };
+                mainViewerCommandItem.Children.AddRange(ViewersCommands);
                 if (_contextCommands == null) {
-                    _contextCommands = new ObservableCollection<ICommandItem>() {
-                            new CommandItem {
-                                CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Navigation"),
-                                Children = new ObservableCollection<ICommandItem> {
-                                    new CommandItem{ CommandName=FindResourceString("ListClusters"),Command=ListBlocksCommand}
-                                }
-                            },
-                            new CommandItem {
-                                CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("OpenFile"),
-                                Command = OpenFileCommand
-                            },
-                            new CommandItem{ CommandName=FindResourceString("RecoverChecked"),Command=RecCheckedCommand },
-                            mainViewerCommandItem,
-                            new CommandItem{ CommandName=FindResourceString("ExtractOrCopy") , Command = CopyOrRecvCommand },
-                            new CommandItem{ CommandName=FindResourceString("CheckSelected") , Command = CheckSelectedCommand },
-                            new CommandItem{ CommandName=FindResourceString("UnCheckSelected"), Command = UnCheckSelectedCommand },
-                            new CommandItem{ CommandName=FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
+                    var navCm = new CommandItem {
+                        CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Navigation")
+                    };
+                    navCm.Children.Add(new CommandItem {
+                        CommandName = LanguageService.Current?.FindResourceString("ListClusters"),
+                        Command = ListBlocksCommand });
+
+                    _contextCommands = new ObservableCollection<CommandItem>() {
+                        navCm,
+                        new CommandItem {
+                            CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("OpenFile"),
+                            Command = OpenFileCommand
+                        },
+                        new CommandItem{ CommandName=FindResourceString("RecoverChecked"),Command=RecCheckedCommand },
+                        mainViewerCommandItem,
+                        new CommandItem{ CommandName=FindResourceString("ExtractOrCopy") , Command = CopyOrRecvCommand },
+                        new CommandItem{ CommandName=FindResourceString("CheckSelected") , Command = CheckSelectedCommand },
+                        new CommandItem{ CommandName=FindResourceString("UnCheckSelected"), Command = UnCheckSelectedCommand },
+                        new CommandItem{ CommandName=FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
                     };
 
                     _contextCommands.AddRange(base.ContextCommands);
 
-                    var externCommandItems = ServiceProvider.Current.GetAllInstances<CommandItem<IFileRow>>();
-                    var externTupleCommandItems = ServiceProvider.Current.GetAllInstances<CommandItem<(DirectoriesBrowserViewModel, IFileRow)>>();
+                    //var externCommandItems = ServiceProvider.Current.GetAllInstances<CommandItem<IFileRow>>();
+                    //var externTupleCommandItems = ServiceProvider.Current.GetAllInstances<CommandItem<(DirectoriesBrowserViewModel, IFileRow)>>();
 
-                    void SetCommandItems<TData>(IEnumerable<CommandItem<TData>> items, Func<TData> valFunc) {
-                        if (items != null) {
-                            foreach (var cmi in items) {
-                                cmi.GetData = valFunc;
-                                _contextCommands.Add(cmi);
-                            }
-                        }
-                    };
+                    //void SetCommandItems<TData>(IEnumerable<CommandItem<TData>> items, Func<TData> valFunc) {
+                    //    if (items != null) {
+                    //        foreach (var cmi in items) {
+                    //            cmi.GetData = valFunc;
+                    //            _contextCommands.Add(cmi);
+                    //        }
+                    //    }
+                    //};
 
-                    SetCommandItems(externCommandItems, () => SelectedFileRow);
-                    SetCommandItems(externTupleCommandItems, () => (this, SelectedFileRow));
+                    //SetCommandItems(externCommandItems, () => SelectedFileRow);
+                    //SetCommandItems(externTupleCommandItems, () => (this, SelectedFileRow));
                 }
 
                 return _contextCommands;
@@ -255,19 +253,21 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
             get {
                 return copyOrRecvCommand ??
                     (copyOrRecvCommand = new DelegateCommand(() => {
-                        if ((SelectedFileRow as IFileRow<IFile>).File.Type == FileType.Directory
-                        && (SelectedFileRow as IFileRow<IFile>).File is Directory dir) {
-                            if (dir.IsBackFile() || dir.IsBackUpFile()) {
+                        if ((SelectedFileRow as IFileRow<FileBase>).File is Directory
+                        && (SelectedFileRow as IFileRow<FileBase>).File is Directory dir) {
+                            if (dir.IsBackDir() || dir.IsBackUpDir()) {
                                 CDFCMessageBox.Show(FindResourceString("RootOrBackNodeFileCannotBeExtracted"));
                             }
                             else {
-                                RecoverFiles(new IFile[] { (SelectedFileRow as IFileRow<IFile>).File });
+                                RecoverFiles(new FileBase[] { (SelectedFileRow as IFileRow<FileBase>).File });
                             }
                         }
-                        else if ((SelectedFileRow as IFileRow<IFile>).File.Type == FileType.RegularFile) {
-                            RecoverFiles(new IFile[] { (SelectedFileRow as IFileRow<IFile>).File });
+                        else if ((SelectedFileRow as IFileRow<FileBase>).File is RegularFile) {
+                            RecoverFiles(new FileBase[] { (SelectedFileRow as IFileRow<FileBase>).File });
                         }
-                    }, () => SelectedFileRow != null && (SelectedFileRow as IFileRow<IFile>).File.Type != FileType.BlockDeviceFile));
+                    }, () => SelectedFileRow != null 
+                    //&& (SelectedFileRow as IFileRow<FileBase>).File is BlockedStreamFile)
+                    ));
             }
         }
     }

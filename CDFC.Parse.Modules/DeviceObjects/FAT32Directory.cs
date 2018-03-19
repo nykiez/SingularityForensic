@@ -67,7 +67,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 var node = root;
 
                 while(node != IntPtr.Zero) {
-                    IFile file = null;
+                    IFilefile = null;
 
                     var rootNode = node.GetStructure<StFAT32FileNode>();
 
@@ -93,7 +93,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 }
             }
             catch(Exception ex) {
-                EventLogger.Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
             
         }

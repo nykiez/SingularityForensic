@@ -1,23 +1,23 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFCUIContracts.Commands;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System.Collections.ObjectModel;
 using static CDFCCultures.Managers.ManagerLocator;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     //磁盘-分区列表视图;
     public class PartitionsBrowserViewModel : FolderBrowserViewModel {
         public PartitionsBrowserViewModel(Device device) : base(device) {
 
         }
 
-        private ObservableCollection<ICommandItem> _contextCommands;
-        public override ObservableCollection<ICommandItem> ContextCommands {
+        private ObservableCollection<CommandItem> _contextCommands;
+        public override ObservableCollection<CommandItem> ContextCommands {
             get {
                 if (_contextCommands == null) {
-                    var mainViewerCommandItem = new CommandItem { Children = ViewersCommands, CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
-                    _contextCommands = new ObservableCollection<ICommandItem> {
+                    var mainViewerCommandItem = new CommandItem {  CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
+                    mainViewerCommandItem.Children.AddRange(ViewersCommands);
+                    _contextCommands = new ObservableCollection<CommandItem> {
                         new CommandItem{ CommandName=FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
                     };
                     _contextCommands.AddRange(base.ContextCommands);

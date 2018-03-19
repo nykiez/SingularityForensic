@@ -1,10 +1,8 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCUIContracts.Commands;
+﻿using CDFCUIContracts.Commands;
 using CDFCUIContracts.Models;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;

@@ -34,25 +34,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.7\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.7\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
+    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.0.7\lib\NET451\CDFCHexaEditor.dll</HintPath>
+    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.0.7\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="ewf.net">
+      <HintPath>..\EWF.NET\ewf.net.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -101,50 +107,68 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Constants.cs" />
+    <Compile Include="App\IThreadInvoker.cs" />
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
     <Compile Include="App\ILoggerService.cs" />
-    <Compile Include="Case\Events\CaseLoadingCanceledEvent.cs" />
-    <Compile Include="Case\Events\EvidenceLoadingProgressChanged.cs" />
-    <Compile Include="Case\ICaseManager.cs" />
-    <Compile Include="Case\Constants.cs" />
-    <Compile Include="Case\Events\CaseFileLoadingEvent.cs" />
-    <Compile Include="Case\Events\CloseCaseEvent.cs" />
-    <Compile Include="Case\Events\CaseLoadedEvent.cs" />
-    <Compile Include="Case\Events\CaseEvidenceLoadedEvent.cs" />
-    <Compile Include="Case\Events\CaseFileAddedEvent.cs" />
-    <Compile Include="Case\ICaseFileUnit.cs" />
+    <Compile Include="Casing\Events\CaseEvidenceRemoved.cs" />
+    <Compile Include="Casing\Events\CaseLoadingEvent.cs" />
+    <Compile Include="Casing\Events\CaseUnloadedEvent.cs" />
+    <Compile Include="Casing\Events\CaseUnloadingEvent.cs" />
+    <Compile Include="Casing\ICaseDialogService.cs" />
+    <Compile Include="Casing\ICaseManager.cs" />
+    <Compile Include="Casing\Constants.cs" />
+    <Compile Include="Casing\Events\CaseEvidenceLoadingEvent.cs" />
+    <Compile Include="Casing\Events\CaseLoadedEvent.cs" />
+    <Compile Include="Casing\Events\CaseEvidenceLoadedEvent.cs" />
+    <Compile Include="Casing\Events\CaseEvidenceAddedEvent.cs" />
+    <Compile Include="Casing\ICaseFileUnit.cs" />
+    <Compile Include="Common\BytesExtensions.cs" />
+    <Compile Include="Common\CommandItem.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
     <Compile Include="Common\EmptyServiceProvider.cs" />
-    <Compile Include="Common\IHaveGroup.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
+    <Compile Include="Common\IUIObjectProvider.cs" />
     <Compile Include="Common\PracticeServiceProvider.cs" />
+    <Compile Include="Common\XElemExtensions.cs" />
+    <Compile Include="Common\SecurityStoken.cs" />
     <Compile Include="Common\ServiceProvider.cs" />
+    <Compile Include="Common\StreamExtensions.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
+    <Compile Include="Document\IDocumentTabService.cs" />
+    <Compile Include="Document\IDocumentTab.cs" />
     <Compile Include="Dummy.cs" />
     <Compile Include="FileExplorer\FileExplorerHelper.cs" />
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />
     <Compile Include="FileExplorer\IFileBrowserDataContext.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileExplorer\IStorageTreeUnit.cs" />
-    <Compile Include="FileExplorer\DefaultRowBuilder.cs" />
-    <Compile Include="FileSystem\IStreamParser.cs" />
-    <Compile Include="FileSystem\DefaultFileSystemProvider.cs" />
+    <Compile Include="FileSystem\BlockDeviceFile.cs" />
+    <Compile Include="FileSystem\Device.cs" />
+    <Compile Include="FileSystem\IBlockDeviceParser.cs" />
+    <Compile Include="FileSystem\IBlockGroupedFile.cs" />
+    <Compile Include="FileSystem\IFile.cs" />
+    <Compile Include="FileSystem\IFileMetaDataProvider.cs" />
+    <Compile Include="FileSystem\IEnumerableFile.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="FileSystem\IFileSystemService.cs" />
-    <Compile Include="FileSystem\IStreamProvider.cs" />
+    <Compile Include="FileSystem\ITimeable.cs" />
+    <Compile Include="FileSystem\ParitionTableItem.cs" />
+    <Compile Include="FileSystem\Partition.cs" />
+    <Compile Include="FileSystem\StreamExtensions.cs" />
+    <Compile Include="FileSystem\SymbolLink.cs" />
     <Compile Include="FileSystem\UnknownDeviceCaseFile.cs" />
     <Compile Include="FileSystem\PartitionCaseFile.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
     <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileExplorer\IFSNodeService.cs" />
     <Compile Include="FileExplorer\IHaveTabModels.cs" />
-    <Compile Include="Case\CaseEvidence.cs" />
-    <Compile Include="Case\ICase.cs" />
-    <Compile Include="Case\ICaseService.cs" />
-    <Compile Include="Common\IHaveData.cs" />
-    <Compile Include="Common\IHavePinKind.cs" />
+    <Compile Include="Casing\CaseEvidence.cs" />
+    <Compile Include="Casing\Case.cs" />
+    <Compile Include="Casing\ICaseService.cs" />
     <Compile Include="FileExplorer\IHavePreviewSource.cs" />
     <Compile Include="FileExplorer\IPreviewer.cs" />
     <Compile Include="Converters\BooleanReverseConverter.cs" />
@@ -158,13 +182,14 @@
     <Compile Include="Converters\TimeSpanToTimeStringConverter.cs" />
     <Compile Include="FileExplorer\IFileExplorerServiceProvider.cs" />
     <Compile Include="FileSystem\IIndexable.cs" />
-    <Compile Include="FileExplorer\IRowBuilder.cs" />
     <Compile Include="FileExplorer\IconSources.cs" />
-    <Compile Include="FileExplorer\FileRow.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="FileExplorer\IFileRow.cs" />
-    <Compile Include="Case\ICaseEvidenceServiceProvider.cs" />
+    <Compile Include="Casing\ICaseEvidenceServiceProvider.cs" />
     <Compile Include="Hex\CodeLanguage.cs" />
+    <Compile Include="Imaging\Constants.cs" />
+    <Compile Include="Imaging\IImagingService.cs" />
+    <Compile Include="Imaging\IImgMounter.cs" />
     <Compile Include="Info\ITalkLog.cs" />
     <Compile Include="Info\Constants.cs" />
     <Compile Include="Info\IForensicInfoServiceProvider.cs" />
@@ -182,20 +207,18 @@
     <Compile Include="MainMenu\MenuItemGroup.cs" />
     <Compile Include="MainMenu\MenuItemGroupEx.cs" />
     <Compile Include="MainMenu\MenuItemModel.cs" />
+    <Compile Include="FileSystem\UnmanagedStreamAdapter.cs" />
     <Compile Include="Shell\IShell.cs" />
-    <Compile Include="TabControl\TabModel.cs" />
-    <Compile Include="TabControl\PinTabModel.cs" />
-    <Compile Include="TreeView\ExtTreeUnit.cs" />
+    <Compile Include="Splash\Events\SplashMessageEvent.cs" />
+    <Compile Include="Splash\ISplashService.cs" />
+    <Compile Include="TreeView\TreeUnit.cs" />
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="TreeView\PinTreeUnit.cs" />
     <Compile Include="MainPage\Events\MainPageEvents.cs" />
     <Compile Include="MainPage\Events\NodeManagerEvents.cs" />
     <Compile Include="MainPage\Events\TabClearedEvent.cs" />
-    <Compile Include="MainPage\Events\TabAddedEvent.cs" />
     <Compile Include="MainPage\Events\TabClosedEvent.cs" />
-    <Compile Include="MainPage\Events\SelectedTabChangedEvent.cs" />
     <Compile Include="MainPage\INodeService.cs" />
-    <Compile Include="MainPage\IDocumentTabService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -608,14 +631,21 @@
     <Folder Include="Themes\Images\RadioButton\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
-      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
-      <Name>CDFC.Parse</Name>
-    </ProjectReference>
+    <Content Include="Contracts.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StreamExtension.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>Copy "$(SolutionDir)$(ConfigurationName)\Contracts.dll" "$(SolutionDir)$(ProjectName)\Contracts.dll"
+Copy "$(SolutionDir)$(ConfigurationName)\StreamExtension.dll" "$(SolutionDir)$(ProjectName)\StreamExtension.dll"
+</PreBuildEvent>
   </PropertyGroup>
 </Project>

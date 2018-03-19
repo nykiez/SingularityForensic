@@ -1,4 +1,4 @@
-﻿using CDFC.Parse.Contracts;
+﻿using SingularityForensic.Contracts.FileSystem;
 using System;
 
 namespace SingularityForensic.Contracts.FileExplorer {
@@ -21,7 +21,6 @@ namespace SingularityForensic.Contracts.FileExplorer {
 
         long FileSize { get; }                             //文件大小;
         bool? Deleted { get; }
-        FileType RowType { get; }         //行类型;
         DateTime? ModifiedTime { get; } //最后修改时间;
         DateTime? AccessedTime { get; }                         //最后访问时间;        
         DateTime? CreateTime { get; }                           //最后创建时间;    
@@ -46,7 +45,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         string LocalPath { get; set; }
     }
 
-    public interface IFileRow<out TFile> : IFileRow where TFile : IFile {
+    public interface IFileRow<out TFile> : IFileRow where TFile : FileBase{
         TFile File { get; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCUIContracts.Commands;
+﻿using CDFCUIContracts.Commands;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.TreeView;
@@ -49,8 +47,8 @@ namespace SingularityForensic.FileExplorer.Models {
     //            if (children == null) {
     //                children = new ObservableCollection<ITreeUnit>();
     //                try {
-    //                    if (File is IIterableFile) {
-    //                        if (File is IIterableFile itrFile) {
+    //                    if (File is IEnumerableFileFile) {
+    //                        if (File is IEnumerableFileFile itrFile) {
     //                            foreach (var p in itrFile.Children) {
     //                                //目录子节点;
     //                                if (p.Type == FileType.Directory) {

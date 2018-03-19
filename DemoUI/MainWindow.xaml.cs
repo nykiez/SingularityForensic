@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SingularityForensic.Drive.Views;
+using System.Windows;
 
 namespace DemoUI {
     /// <summary>
@@ -7,8 +8,9 @@ namespace DemoUI {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-            
-                
+
+            //var win = new DrivesItemsWindow();
+            //win.Show();
         }
     }
     

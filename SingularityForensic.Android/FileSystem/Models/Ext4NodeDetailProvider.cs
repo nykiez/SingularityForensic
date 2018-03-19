@@ -12,9 +12,9 @@ using SingularityForensic.Contracts.App;
 namespace SingularityForensic.Android.FileSystem.Models {
 
     public class Ext4NodeDetailProvider : GenericStaticInstance<Ext4NodeDetailProvider>, IFileDetailInfoProvider {
-        public bool CheckIsValidFile(IFile file) => file is IExt4Node;
+        public bool CheckIsValidFile(IFilefile) => file is IExt4Node;
 
-        public string GetAttachedInfo(IFile file) {
+        public string GetAttachedInfo(IFilefile) {
             var comma = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Comma");
             Action<object, StringBuilder, string[]> afa = (ob, sbr, ignored) => {
                 foreach (var prop in ob.GetType().GetFields()) {

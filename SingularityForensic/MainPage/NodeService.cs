@@ -1,4 +1,5 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.MainPage.Events;
@@ -62,7 +63,7 @@ namespace SingularityForensic.MainPage.Global {
                 PubEventHelper.Publish<TreeNodeAddedEvent, TreeUnit>(nUnit);
             }
             catch (Exception ex) {
-                EventLogger.Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 RemainingMessageBox.Tell(ex.Message);
             }
         }

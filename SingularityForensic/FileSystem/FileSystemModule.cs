@@ -1,5 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using EventLogger;
+﻿using EventLogger;
 using Prism.Modularity;
 using System;
 using System.Diagnostics;
@@ -8,13 +7,13 @@ using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Models;
-using SingularityForensic.Case;
+using SingularityForensic.Casing;
 using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using CDFCUIContracts.Commands;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.MainPage.Events;
@@ -27,14 +26,7 @@ namespace SingularityForensic.FileSystem {
         private IEnumerable<ICommandItem> DeviceNodeCommandItems;
         
         public void Initialize() {
-            RegisterEvents();
-        }
-        
-        
-        
-        private void RegisterEvents() {
-            
-            
+            FSService.Current?.Initialize();
         }
         
         ///// <summary>
@@ -129,12 +121,12 @@ namespace SingularityForensic.FileSystem {
         //                    file = fCFile.Data;
         //                }
         //            }
-        //            if (file is IIterableFile itrFile) {
+        //            if (file is IEnumerableFileFile itrFile) {
         //                ExpandFile(itrFile);
         //            }
         //        }
         //        catch (Exception ex) {
-        //            Logger.WriteCallerLine($"{ex.Message}");
+        //            LoggerService.Current?.WriteCallerLine($"{ex.Message}");
         //            AppInvoke(() => {
         //                RemainingMessageBox.Tell(ex.Message);
         //            });

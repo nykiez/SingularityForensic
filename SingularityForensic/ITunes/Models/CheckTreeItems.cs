@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Modules;
-using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Modules.Structs;
+﻿
 using CDFCMessageBoxes.MessageBoxes;
 using Microsoft.Practices.ServiceLocation;
 using SingularityForensic.Contracts.Common;

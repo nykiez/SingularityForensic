@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 
@@ -10,12 +10,12 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// <summary>
         /// 证据项服务提供者;
         /// </summary>
-        ICaseEvidenceServiceProvider CaseEvidenceServiceProvider { get; }
+        //ICaseEvidenceServiceProvider CaseEvidenceServiceProvider { get; }
 
         /// <summary>
         /// 行生成器;
         /// </summary>
-        IRowBuilder RowBuilder { get; }
+        //IRowBuilder RowBuilder { get; }
         
     }
 }

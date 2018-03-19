@@ -1,17 +1,17 @@
-﻿using CDFC.Parse.Contracts;
-using Prism.Commands;
+﻿using Prism.Commands;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 
 namespace SingularityForensic.Controls.FileExplorer.Models {
     //路径节点;
     public class NavNodeModel {
-        public NavNodeModel(IFile file) {
+        public NavNodeModel(FileBase file) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
             this.File = file;
         }
-        public IFile File { get; private set; }
+        public FileBase File { get; private set; }
 
         public string Name {
             get {
@@ -30,6 +30,6 @@ namespace SingularityForensic.Controls.FileExplorer.Models {
             }
         }
         //跳转事件;
-        public event EventHandler<IFile> EscapeRequired;
+        public event EventHandler<FileBase> EscapeRequired;
     }
 }

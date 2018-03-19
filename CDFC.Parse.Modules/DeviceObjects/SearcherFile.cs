@@ -8,7 +8,7 @@ using CDFC.Util.IO;
 
 namespace CDFC.Parse.Modules.DeviceObjects {
     public class SearcherFile : RegularFile {
-        public SearcherFile(IFile parent, IFileNode fileNode) : base(parent) {
+        public SearcherFile(IFileparent, IFileNode fileNode) : base(parent) {
             if (fileNode == null)
                 throw new ArgumentNullException(nameof(fileNode));
 
@@ -55,12 +55,12 @@ namespace CDFC.Parse.Modules.DeviceObjects {
         
         public bool parentChanged;
         private IIterableFile parent;
-        public override IFile Parent {
+        public override IFileParent {
             get {
                 return parent ?? base.Parent;
             }
         }
-        public IFile RealParent { get; private set; }                       //亲生爸爸;
+        public IFileRealParent { get; private set; }                       //亲生爸爸;
 
         public override DateTime? ModifiedTime => null;
 

@@ -3,10 +3,6 @@ using Prism.Mef;
 using Prism.Modularity;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Previewers;
-using SingularityForensic.Controls.Case;
-using SingularityForensic.Controls.FileExplorer;
-using SingularityForensic.Controls.FileSystem;
-using SingularityForensic.Controls.FileSystem.Android;
 using SingularityForensic.Controls.Hex;
 using SingularityForensic.Controls.Info;
 using SingularityForensic.Controls.ITunes;
@@ -19,17 +15,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using SingularityForensic.Contracts.Shell;
 
 namespace SingularityParser {
     public class SingularityBootStrapper : MefBootstrapper {
         protected override void ConfigureAggregateCatalog() {
             base.ConfigureAggregateCatalog();
 
-            //主模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MainModule).Assembly));
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CaseModule).Assembly));
-            ////取证信息模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
+            ////主模块;
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MainModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CaseModule).Assembly));
+            //////取证信息模块;
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
 
             //////功能模块;
             //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AdbViewerModule).Assembly));
@@ -43,11 +40,11 @@ namespace SingularityParser {
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DefaultPreviewerModule).Assembly));
 
             //文件系统模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileSystemModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileSystemModule).Assembly));
 
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExplorerModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExplorerModule).Assembly));
 
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidFSModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AndroidFSModule).Assembly));
         }
 
 

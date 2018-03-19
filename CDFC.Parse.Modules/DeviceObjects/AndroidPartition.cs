@@ -69,7 +69,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                         var dirTab = stDirNode.GetStructure<StDirEntry>();
                         var dirEntity = dirTab.DirInfo.GetStructure<StExt4DirEntry>();
 
-                        IFile file = null;
+                        IFilefile = null;
                         if (dirEntity.file_type == Ext4FileType.Directory) {
                             var direct = new AndroidDirectory(stDirNode, this);
                             direct.LoadContent(ntfSizeAct,isCancel);

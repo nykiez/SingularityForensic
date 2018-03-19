@@ -1,5 +1,5 @@
 ﻿using Prism.Mvvm;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using System;
 using System.Collections.ObjectModel;
 

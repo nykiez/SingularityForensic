@@ -1,8 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFC.Parse.IO;
-using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Commands;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using Ookii.Dialogs.Wpf;
 using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System;
@@ -18,24 +14,26 @@ using CDFCCultures.Helpers;
 using SingularityForensic.Controls.FileExplorer.Models;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Controls.FileExplorer.Helpers;
-using CDFC.Parse.Modules.DeviceObjects;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Controls.ViewModels;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.FileExplorer.MessageBoxes;
+using SingularityForensic.Contracts.Common;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     //目录/资源浏览器模型;
     public abstract partial class FolderBrowserViewModel : DataGridExViewModel {
         /// <summary>
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
         /// <param name="file">模型所属主文件</param>
-        public FolderBrowserViewModel(IFile file) {
+        public FolderBrowserViewModel(FileBase file) {
             if (file != null) {
                 //this.CurFile = file;                            //初始化当前正在浏览的文件;
-                if (file.Type == FileType.BlockDeviceFile) {
+                if (file is IBlockedStream) {
                     this.File = file;                               //初始化对象文件;
                 }
-                else if (file.Type == FileType.Directory) {
+                else if (file is Directory) {
                     var part = file.GetParent<Partition>();
                     if (part != null) {
                         this.File = part;
@@ -49,7 +47,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
             
         }
 
-        public readonly IFile File;                                        //浏览器所属主文件（分区，设备等);
+        public readonly FileBase File;                                        //浏览器所属主文件（分区，设备等);
         
         public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
 
@@ -78,11 +76,11 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         }
 
         public event EventHandler<TEventArgs< ViewerProgramMessage >> WatchRequired;
-        private ObservableCollection<ICommandItem> _viewersCommands;
-        public ObservableCollection<ICommandItem> ViewersCommands {
+        private ObservableCollection<CommandItem> _viewersCommands;
+        public virtual ObservableCollection<CommandItem> ViewersCommands {
             get {
                 if (_viewersCommands == null) {
-                    _viewersCommands = new ObservableCollection<ICommandItem>();
+                    _viewersCommands = new ObservableCollection<CommandItem>();
                     LoadViewers();
                 }
                 return _viewersCommands;
@@ -91,16 +89,14 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                 _viewersCommands = value;
             }
         }
-        internal class ViewerProgramCommandItem : ICommandItem {
+        internal class ViewerProgramCommandItem : CommandItem {
             public ViewerProgramCommandItem(ViewerProgramModel programModel) {
                 if (programModel == null)
                     throw new ArgumentNullException(nameof(programModel));
 
                 this.VProgramModel = programModel;
             }
-
-            public ObservableCollection<ICommandItem> Children { get; set; }
-
+            
             public ICommand Command {
                 get => VProgramModel.WatchCommand;
                 set => throw new NotImplementedException();
@@ -114,7 +110,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
             
 
             public ViewerProgramModel VProgramModel { get; }
-            public int SortOrder { get; set; }
+            
         }
         private bool viewerEverLoaded;
         private void LoadViewers() {
@@ -125,8 +121,8 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                     var rModel = sender as ViewerProgramModel;
                     if (rModel != ViewerProgramModel.OtherProgramModel) {
                         try {
-                            var regFile = (SelectedFileRow as IFileRow<IFile>).File as RegularFile;
-                            var stream = StreamExtensions.CreateStreamByFile(regFile);
+                            var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
+                            var stream = regFile.GetInputStream();
                             ThreadPool.QueueUserWorkItem(callBack => {
                                 WatchRequired?.Invoke(this,new TEventArgs<ViewerProgramMessage>(
                                     new ViewerProgramMessage(rModel.Program.ProgramPath, regFile.Name, stream)));
@@ -140,8 +136,8 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                         var dialog = new VistaOpenFileDialog();
                         dialog.Filter = $"({FindResourceString("Executable")})|*.exe";
                         if (dialog.ShowDialog() == true) {
-                            var regFile = (SelectedFileRow as IFileRow<IFile>).File as RegularFile;
-                            using (var stream = regFile.GetStream()) {
+                            var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
+                            using (var stream = regFile.GetInputStream()) {
                                 ThreadPool.QueueUserWorkItem(callBack => {
                                     WatchRequired?.Invoke(this, new TEventArgs<ViewerProgramMessage>(
                                         new ViewerProgramMessage(dialog.FileName, regFile.Name, stream)));
@@ -156,7 +152,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                         }
                     }
                 };
-                model.CanSee = () => (SelectedFileRow as IFileRow<IFile>)?.File?.Type == FileType.RegularFile;
+                model.CanSee = () => (SelectedFileRow as IFileRow<FileBase>)?.File is RegularFile;
             };
             if (pros != null) {
                 foreach (var item in pros) {
@@ -190,7 +186,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         public event EventHandler<TEventArgs<IFileRow>> RowEntered;                      //进入了某个文件行;
 
         //选择子文件时,进入该文件;
-        public void EnterRow(IFileRow<IFile> row) {
+        public void EnterRow(IFileRow<FileBase> row) {
             RowEntered?.Invoke(this,new TEventArgs<IFileRow>( row ));
             if(row?.File is RegularFile regFile) {
                 OpenFile(row);
@@ -212,30 +208,30 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
                             listBlockMsg = null;
                         }
 
-                        if ((SelectedFileRow as IFileRow<IFile>).File != null) {
-                            var blockGroupedFile = (SelectedFileRow as IFileRow<IFile>).File as IBlockGroupedFile;
+                        if ((SelectedFileRow as IFileRow<FileBase>).File != null) {
+                            var blockGroupedFile = (SelectedFileRow as IFileRow<FileBase>).File as IBlockGroupedFile;
                             if(blockGroupedFile.BlockGroups == null) {
                                 CDFCMessageBox.Show(FindResourceString("DeletedCannotBeListed"));
                             }
                             else {
-                                listBlockMsg = new ListBlockMessageBox(blockGroupedFile.BlockGroups, (SelectedFileRow as IFileRow<IFile>).File);
+                                listBlockMsg = new ListBlockMessageBox(blockGroupedFile.BlockGroups, (SelectedFileRow as IFileRow<FileBase>).File);
                                 listBlockMsg.SelectedAddressChanged += (sender, e) => {
-                                    if (File is SearcherPartition) {
-                                        if (listBlockMsg.File is RegularFile) {
-                                            var regFile = listBlockMsg.File as RegularFile;
+                                    //if (File is SearcherPartition) {
+                                    //    if (listBlockMsg.File is RegularFile) {
+                                    //        var regFile = listBlockMsg.File as RegularFile;
 
-                                            FocusAddressChanged?.Invoke(this,new TEventArgs<long>((regFile.DeviceStartLBA - regFile.StartLBA) / 4096 + e) );
-                                        }
-                                    }
-                                    else {
-                                        FocusAddressChanged?.Invoke(this,new TEventArgs<long>( e ));
-                                    }
+                                    //        FocusAddressChanged?.Invoke(this,new TEventArgs<long>((regFile.DeviceStartLBA - regFile.StartLBA) / 4096 + e) );
+                                    //    }
+                                    //}
+                                    //else {
+                                    //    FocusAddressChanged?.Invoke(this,new TEventArgs<long>( e ));
+                                    //}
 
                                 };
                                 listBlockMsg.Show();
                             }
                         }
-                    }, () => SelectedFileRow != null && (SelectedFileRow as IFileRow<IFile>).File is IBlockGroupedFile));
+                    }, () => SelectedFileRow != null && (SelectedFileRow as IFileRow<FileBase>).File is IBlockGroupedFile));
             }
         }
 
@@ -302,8 +298,8 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
         private DelegateCommand _showFileDetailCommand;
         public DelegateCommand ShowFileDetailCommand =>
             _showFileDetailCommand ?? (_showFileDetailCommand = new DelegateCommand(() => {
-                if((SelectedFileRow as IFileRow<IFile>).File != null) {
-                    FileDetailMessageBox.Show((SelectedFileRow as IFileRow<IFile>).File);
+                if((SelectedFileRow as IFileRow<FileBase>).File != null) {
+                    //FileDetailMessageBox.Show((SelectedFileRow as IFileRow<IFile>).File);
                 }
             }));
 

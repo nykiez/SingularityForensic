@@ -1,23 +1,18 @@
-﻿using CDFC.Parse.Abstracts;
-using Prism.Commands;
+﻿using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using static CDFCCultures.Managers.ManagerLocator;
 using Microsoft.Practices.ServiceLocation;
-using CDFCUIContracts.Commands;
 using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using EventLogger;
-using CDFC.Parse.Contracts;
 using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Shell;
-using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Modules.Pictures;
 using SingularityForensic.Contracts.FileExplorer;
 using CDFCCultures.Helpers;
 using SingularityForensic.Controls.Models;
@@ -56,7 +51,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {
             );
         
         [Export(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
-        public static readonly ICommandItem CustomSSearchMI = new CommandItem {
+        public static readonly CommandItem CustomSSearchMI = new CommandItem {
             Command = CustomSSearchCommand,
             CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("CustomSignSearch")
         };
@@ -66,7 +61,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {
         /// </summary>
         /// <param name="blDevice"></param>
         /// <param name="setting"></param>
-        private static void SignSearch(BlockDeviceFile blDevice, SignSearchSetting setting, IFileExplorerServiceProvider fsProvider) {
+        private static void SignSearch(IBlockedStream blDevice, SignSearchSetting setting, IFileExplorerServiceProvider fsProvider) {
             //Device device = null;
             //long startLBA = 0;
             //long endLBA = 0;

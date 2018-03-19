@@ -1,5 +1,6 @@
 ﻿using EventLogger;
 using Prism.Mvvm;
+using SingularityForensic.Contracts.App;
 using System;
 using System.Windows.Media;
 
@@ -39,7 +40,7 @@ namespace SingularityForensic.Previewers.Models {
                     _fileName = value;
                 }
                 catch(Exception ex) {
-                    Logger.WriteCallerLine(ex.Message);
+                    LoggerService.Current?.WriteCallerLine(ex.Message);
                     throw;
                 }
             }

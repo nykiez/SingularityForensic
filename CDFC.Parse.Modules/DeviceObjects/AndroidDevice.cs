@@ -246,7 +246,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
                 return ptr != IntPtr.Zero;
             }
             catch(Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
                 return false;
             }
             

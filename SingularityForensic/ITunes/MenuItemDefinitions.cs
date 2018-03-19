@@ -4,7 +4,7 @@ using Microsoft.Practices.ServiceLocation;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
@@ -19,7 +19,7 @@ using static CDFCCultures.Managers.ManagerLocator;
 namespace SingularityForensic.Controls.ITunes {
     public static class MenuItemDefinitions {
         [Export]
-        public static readonly MenuButtonItemModel AddItunesBackUpMI = new MenuButtonItemModel(MenuConstants.MenuMainGroup,
+        public static readonly MenuButtonItem AddItunesBackUpMI = new MenuButtonItem(MenuConstants.MenuMainGroup,
             ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AddITunesBackUp"), 5) {
             IconSource = IconResources.AddITunesIcon,
             //进行Itnues备份文件检索;

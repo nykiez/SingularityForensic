@@ -8,7 +8,7 @@ namespace CDFC.Parse.Modules.DeviceObjects {
     /// 本地目录实体;
     /// </summary>
     public class LocalDirectory : CDFC.Parse.Abstracts.Directory {
-        public LocalDirectory(DirectoryInfo di,IFile parent):base(parent) {
+        public LocalDirectory(DirectoryInfo di,IFileparent):base(parent) {
             if(di == null) {
                 throw new ArgumentNullException(nameof(di));
             }

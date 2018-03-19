@@ -1,7 +1,6 @@
-﻿using CDFC.Parse.Contracts;
-using CDFCMessageBoxes.MessageBoxes;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.FileExplorer.ViewModels;
+using SingularityForensic.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -62,9 +61,8 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
             if (e.ClickCount == 2) {
                 try {
                     var s = e.OriginalSource as FrameworkElement;
-                    var row = s.DataContext as IFileRow;
-                    if (row != null) {
-                        VM?.EnterRow(row as IFileRow<IFile>);
+                    if (s.DataContext is IFileRow row) {
+                        //VM?.EnterRow(row as IFileRow<IFile>);
                     }
                 }
                 catch {

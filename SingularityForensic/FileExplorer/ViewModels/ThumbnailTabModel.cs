@@ -6,9 +6,8 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using System;
 using System.Collections.ObjectModel;
-using static CDFCCultures.Managers.ManagerLocator;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     public class ThumbnailViewModel : BindableBase, ITabModel {
         public string Header => ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ThumbnailTab");
 

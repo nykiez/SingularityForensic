@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Contracts.Case;
+﻿using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
@@ -14,8 +14,8 @@ namespace SingularityForensic.Controls.FileExplorer.Services {
     public class UnknownFileExplorerServiceProvider :
         EmptyServiceProvider<UnknownFileExplorerServiceProvider>,
         IFileExplorerServiceProvider {
-        public ICaseEvidenceServiceProvider CaseEvidenceServiceProvider => DefaultFileSystemProvider.StaticInstance;
+        //public ICaseEvidenceServiceProvider CaseEvidenceServiceProvider => DefaultFileSystemProvider.StaticInstance;
 
-        public IRowBuilder RowBuilder => DefaultRowBuilder.StaticInstance;
+        //public IRowBuilder RowBuilder => DefaultRowBuilder.StaticInstance;
     }
 }

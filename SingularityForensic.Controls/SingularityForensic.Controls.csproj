@@ -117,10 +117,8 @@
     <Compile Include="MessageBoxes\FindTextMessageBox.cs" />
     <Compile Include="MessageBoxes\GoToOffsetMessageBox.cs" />
     <Compile Include="MessageBoxes\InputValueMessageBox.cs" />
-    <Compile Include="MessageBoxes\ListBlockMessageBox.cs" />
     <Compile Include="MessageBoxes\ReComPreSettingMessageBox.cs" />
     <Compile Include="MessageBoxes\SignSearchMessageBox.cs" />
-    <Compile Include="Models\BlockItem.cs" />
     <Compile Include="Models\Filtering\FilterAllModel.cs" />
     <Compile Include="Models\Filtering\FilterDateModel.cs" />
     <Compile Include="Models\Filtering\FilterSizeModel.cs" />
@@ -141,9 +139,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\DataGridExViewModel.cs" />
-    <Compile Include="ViewModels\HexStreamViewModel.cs" />
     <Compile Include="ViewModels\InfoBasicViewModel.cs" />
-    <Compile Include="ViewModels\ListBlockWindowViewModel.cs" />
     <Compile Include="ViewModels\TalkViewModel.cs" />
     <Compile Include="Views\ActiveOrNotView.xaml.cs">
       <DependentUpon>ActiveOrNotView.xaml</DependentUpon>
@@ -184,9 +180,6 @@
     <Compile Include="Windows\InputStringWindow.xaml.cs">
       <DependentUpon>InputStringWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ListBlockWindow.xaml.cs">
-      <DependentUpon>ListBlockWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ReComPreSettingWindow.xaml.cs">
       <DependentUpon>ReComPreSettingWindow.xaml</DependentUpon>
     </Compile>
@@ -205,11 +198,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse\CDFC.Parse.csproj">
-      <Project>{ee637d4b-27e6-457c-af39-1293f47aa966}</Project>
-      <Name>CDFC.Parse</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
       <Name>SingularityForensic.Contracts</Name>
@@ -284,10 +272,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\InputStringWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ListBlockWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

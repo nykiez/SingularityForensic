@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CDFC.Parse.Contracts;
 using CDFC.Util;
 
 namespace SingularityForensic.Android.FileSystem.Models {

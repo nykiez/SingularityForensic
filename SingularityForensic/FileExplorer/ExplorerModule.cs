@@ -1,12 +1,10 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Contracts;
-using CDFCMessageBoxes.MessageBoxes;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Prism.Events;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
@@ -20,6 +18,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using static CDFCCultures.Managers.ManagerLocator;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 
@@ -40,34 +39,21 @@ namespace SingularityForensic.FileExplorer {
                     return;
                 }
                 
-                if (unit.TypeGuid == Contracts.Case.Constants.CaseEvidenceUnit
+                if (unit.TypeGuid == Contracts.Casing.Constants.CaseEvidenceUnit
                 && unit.Data is CaseEvidence csFile) {
-                    
-                    if (csFile.Data is Device device) {
-                        var fsUnit = new TreeUnit(Constants.FileSystemTreeUnit, device) {
-                            Icon = IconResources.FileSystemIcon,
-                            Label = LanguageService.Current?.FindResourceString("FileSystem")
-                        };
-                        fsUnit.MoveToUnit(unit);
-                        //void AddChildrenFile(IIterableFile itrFile) {
-                        //    try {
-                        //        if(itrFile.Children == null) {
-                        //            return;
-                        //        }
 
-                        //        foreach (var file in itrFile.Children) {
-
-                        //            if(file is IIterableFile itFile) {
-
-                        //            }
-                        //        }
-                        //    }
-                        //    catch (Exception ex) {
-
-                        //    }
-                        //}
+                    var device = FSService.Current.EnumedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(CaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+                    if(device == null) {
+                        Logger.WriteCallerLine($"{nameof(device)} can't be null.");
+                        return;
                     }
-                    
+
+                    var fsUnit = new TreeUnit(Constants.FileSystemTreeUnit, device) {
+                        Icon = IconResources.FileSystemIcon,
+                        Label = LanguageService.Current?.FindResourceString("FileSystem")
+                    };
+                    fsUnit.MoveToUnit(unit);
+
                 }
             });
 
@@ -103,7 +89,7 @@ namespace SingularityForensic.FileExplorer {
                 ////右键递归响应;
                 //PubEventHelper.Subscribe<TreeNodeRightClicked, ITreeUnit>(e => {
                 //    if (e is StorageTreeUnit stUnit) {
-                //        fsNodeService?.ExpandFile(stUnit.File as IIterableFile);
+                //        fsNodeService?.ExpandFile(stUnit.File as IEnumerableFileFile);
                 //    }
                 //    else if (e is FileSystemUnit fsUnit && fsUnit.CaseFile is IHaveData<IFile> dCFile) {
                 //        fsNodeService?.AddShowingFile(dCFile.Data, fsUnit.FsExpServiceProvider);
@@ -122,7 +108,7 @@ namespace SingularityForensic.FileExplorer {
                 //            }
                 //        }
                 //        catch (Exception ex) {
-                //            Logger.WriteCallerLine(ex.Message);
+                //            LoggerService.Current?.WriteCallerLine(ex.Message);
 
                 //        }
 
@@ -149,7 +135,7 @@ namespace SingularityForensic.FileExplorer {
                 Process.Start(e.ViewerPath, $"{path}/Temp/{ e.FileName}");
             }
             catch (Exception ex) {
-                Logger.WriteCallerLine($"{ex.Message}");
+                LoggerService.Current?.WriteCallerLine($"{ex.Message}");
                 AppInvoke(() => {
                     RemainingMessageBox.Tell($"{FindResourceString("FailedToExtractFile")}:{ex.Message}");
                 });

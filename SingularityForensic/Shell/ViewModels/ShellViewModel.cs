@@ -1,11 +1,9 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using SingularityForensic.Helpers;
-using SingularityUpdater.Helpers;
 using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using System.ComponentModel.Composition;
 using Prism.Commands;
@@ -107,36 +105,36 @@ namespace SingularityForensic.Shell.ViewModels {
             (_uptOnlineCommand = new DelegateCommand(
                 () => {
                     ThreadPool.QueueUserWorkItem(cb => {
-                        Action<Action> sta = Application.Current.Dispatcher.Invoke;
+                        Action<Action> sta = System.Windows.Application.Current.Dispatcher.Invoke;
 
-                        try {
-                            if (VersionHelper.LatestVersion != ConfigState.VersionNum) {
-                                sta(() => {
-                                    if (CDFCMessageBox.Show(
-                                    $"{FindResourceString("NewVersionFound")}{FindResourceString("Comma")}{VersionHelper.LatestVersion}{FindResourceString("Colon")}{FindResourceString("ConfirmToUpdate")}",
-                                    MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                                        Update();
-                                    }
-                                });
-                            }
-                            else {
-                                sta(() => {
-                                    try {
-                                        CDFCMessageBox.Show(string.Format($"{FindResourceString("CurVersionUpToDateFormat")}", VersionHelper.LatestVersion));
-                                    }
-                                    catch(Exception ex) {
-                                        Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:");
-                                        CDFCMessageBox.Show($"{FindResourceString("UnknownError")}:{ex.Message}");
-                                    }
-                                });
-                            }
-                        }
-                        catch(Exception ex) {
-                            Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:{ex.Message}");
-                            sta(() => {
-                                CDFCMessageBox.Show($"{FindResourceString("FailedToCheckUpdate")}:{ex.Message}");
-                            });
-                        }
+                        //try {
+                        //    if (VersionHelper.LatestVersion != ConfigState.VersionNum) {
+                        //        sta(() => {
+                        //            if (MsgBoxService.Current.Show(
+                        //            $"{FindResourceString("NewVersionFound")}{FindResourceString("Comma")}{VersionHelper.LatestVersion}{FindResourceString("Colon")}{FindResourceString("ConfirmToUpdate")}",
+                        //            MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                        //                Update();
+                        //            }
+                        //        });
+                        //    }
+                        //    else {
+                        //        sta(() => {
+                        //            try {
+                        //                CDFCMessageBox.Show(string.Format($"{FindResourceString("CurVersionUpToDateFormat")}", VersionHelper.LatestVersion));
+                        //            }
+                        //            catch(Exception ex) {
+                        //                Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:");
+                        //                CDFCMessageBox.Show($"{FindResourceString("UnknownError")}:{ex.Message}");
+                        //            }
+                        //        });
+                        //    }
+                        //}
+                        //catch(Exception ex) {
+                        //    Logger.WriteLine($"{nameof(ShellViewModel)}->{nameof(UptOnlineCommand)}:{ex.Message}");
+                        //    sta(() => {
+                        //        CDFCMessageBox.Show($"{FindResourceString("FailedToCheckUpdate")}:{ex.Message}");
+                        //    });
+                        //}
                     });                    
                 })
             );

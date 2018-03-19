@@ -12,11 +12,11 @@ using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Commands;
 using Prism.Mvvm;
 using CDFC.Info.Adb;
-using SingularityForensic.Case;
+using SingularityForensic.Casing;
 using SingularityForensic.Adb.Contracts;
 using SingularityForensic.Adb.Helpers;
 using SingularityForensic.Contracts.Info;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
 

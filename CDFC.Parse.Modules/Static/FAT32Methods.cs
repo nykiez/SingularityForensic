@@ -56,7 +56,7 @@ namespace CDFC.Parse.Modules.Static {
                 
             }
             catch(Exception ex) {
-                Logger.WriteCallerLine(ex.Message);
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
 
             return (groups,startLBA);

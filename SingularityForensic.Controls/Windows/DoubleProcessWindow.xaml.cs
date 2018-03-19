@@ -27,6 +27,8 @@ namespace SingularityForensic.Controls.Windows {
             }
         }
 
+        public event EventHandler Canceld;
+
         public double ProDetail {
             get => ProDetailBar.Value;
             set => SetProValue(ProDetailBar, value,() => detailAnimating,animating => detailAnimating = animating);
@@ -68,6 +70,7 @@ namespace SingularityForensic.Controls.Windows {
 
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
             this.CancellationPending = true;
+            this.Canceld?.Invoke(this, EventArgs.Empty);
         }
     }
 }

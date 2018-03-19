@@ -1,9 +1,6 @@
 ﻿using CDFCUIContracts.Abstracts;
 using System;
 using System.IO;
-using CDFC.Parse.Contracts;
-using CDFC.Parse.Abstracts;
-using static CDFC.Parse.IO.StreamExtensions;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCUIContracts.Events;
 using Prism.Commands;
@@ -13,24 +10,25 @@ using SingularityForensic.Controls.ViewModels;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using SingularityForensic.Hex.ViewModels;
+using SingularityForensic.Contracts.FileSystem;
 
-namespace SingularityForensic.Controls.FileExplorer.ViewModels {
+namespace SingularityForensic.FileExplorer.ViewModels {
     //十六进制文件查看器视图模型;
     public abstract class FileHexTabViewModel : TabHexStreamEditorViewModel {
-        public FileHexTabViewModel(IFile file) {
+        public FileHexTabViewModel(FileBase file) {
             this.File = file;
-            this.Stream = CreateStreamByFile(file);
+            //this.Stream = CreateStreamByFile(file);
         }
 
-        private IFile file;                                     //当前十六进制描述的文件;
-        public IFile File {
+        private FileBase file;                                     //当前十六进制描述的文件;
+        public FileBase File {
             get {
                 return file;
             }
             set {
 
                 if (file != value && value != null) {
-                    Stream = CreateStreamByFile(value);
+                    //Stream = CreateStreamByFile(value);
                 }
                 file = value;
             }
@@ -72,7 +70,7 @@ namespace SingularityForensic.Controls.FileExplorer.ViewModels {
 
     ////十六进制文件查看器试图模型;(针对内部文件)
     public class InternalFileHexTabViewModel : FileHexTabViewModel {
-        public InternalFileHexTabViewModel(IFile file) : base(file) { }
+        public InternalFileHexTabViewModel(FileBase file) : base(file) { }
         public override string Header {
             get {
                 return LanguageService.Current?.FindResourceString("File");

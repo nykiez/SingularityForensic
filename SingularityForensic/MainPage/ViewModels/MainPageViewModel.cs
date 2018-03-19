@@ -7,17 +7,20 @@ using Prism.Commands;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.Contracts.MainMenu;
-using SingularityForensic.Contracts.TabControl;
 using SingularityForensic.MainMenu;
+using SingularityForensic.Document.ViewModels;
+using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]
     public partial class MainPageViewModel : BindableBase {
-        public MainPageViewModel() {
+        [ImportingConstructor]
+        public MainPageViewModel(IDocumentTabService documentTabService) {
+            this._documentTabService = documentTabService;
             RegisterEvents();
             
         }
-        
+        private IDocumentTabService _documentTabService;
         /// <summary>
         /// 注册事件;
         /// </summary>
@@ -33,9 +36,9 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
                 RegionHelper.RequestNavigate(RegionNames.MainPageDocumentRegion, "WelcomeView");
             });
 
-            PubEventHelper.Subscribe<TabAddedEvent,TabModel>(tab => {
+            _documentTabService.TabAdded += (sender, e) => {
                 RegionHelper.RequestNavigate(RegionNames.MainPageDocumentRegion, "DocumentTab");
-            });
+            };
         }
 
         private DelegateCommand _contentRenderedCommand;

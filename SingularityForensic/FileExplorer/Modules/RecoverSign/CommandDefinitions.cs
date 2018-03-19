@@ -5,10 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using static CDFCCultures.Managers.ManagerLocator;
-using CDFC.Parse.Abstracts;
 using EventLogger;
-using CDFCUIContracts.Commands;
-using CDFC.Parse.Contracts;
 using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System.Threading;
@@ -17,11 +14,8 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Shell;
-using SingularityForensic.Contracts.Case;
-using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Modules.Contracts;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.FileExplorer;
-using CDFC.Parse.Modules.Pictures;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
 
@@ -39,7 +33,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
                     //        RecoverSign(haveCaseFile.Evidence, true);
                     //    }
                     //    catch (Exception ex) {
-                    //        Logger.WriteCallerLine(ex.Message);
+                    //        LoggerService.Current?.WriteCallerLine(ex.Message);
                     //    }
                     //}
                     //ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(false, string.Empty);
@@ -48,7 +42,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
                 );
 
         [Export(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
-        public static readonly ICommandItem RecompositeSignCMI = new CommandItem {
+        public static readonly CommandItem RecompositeSignCMI = new CommandItem {
             Command = RecoverSignCommand,
             CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MobileRecompositeBySign")
         };
@@ -59,10 +53,10 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
         /// <param name="blDevice"></param>
         /// <param name="isReComposite"></param>
         private static void RecoverSign(CaseEvidence caseFile, bool isReComposite = false) {
-            Device device = null;
-            long startLBA = 0;
-            long endLBA = 0;
-            BlockDeviceFile blDevice = null;
+            //Device device = null;
+            //long startLBA = 0;
+            //long endLBA = 0;
+            //BlockedStreamFile blDevice = null;
 
             //if(caseFile is IHaveData<BlockDeviceFile> haveBLDevice) {
             //    blDevice = haveBLDevice.Data;
@@ -79,7 +73,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
             //    }
             //}
             //else {
-            //    Logger.WriteCallerLine($"{nameof(caseFile)} is not a valid {nameof(BlockDeviceFile)}");
+            //    LoggerService.Current?.WriteCallerLine($"{nameof(caseFile)} is not a valid {nameof(BlockDeviceFile)}");
             //    return;
             //}
             
@@ -154,7 +148,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
             //            part = SearcherPartition.LoadFromNodeList(blDevice, ndList, $"{blDevice.Name}-{(isReComposite ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MobileRecompositeBySign") : ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("RecoveredBySign"))}");
             //        }
             //        catch (Exception ex) {
-            //            Logger.WriteCallerLine(ex.Message);
+            //            LoggerService.Current?.WriteCallerLine(ex.Message);
             //        }
             //        finally {
 

@@ -1,0 +1,49 @@
+﻿<Window x:Class="SingularityForensic.Drive.Views.DrivesItemsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:cvts="http://singularity/converters"
+        xmlns:design="clr-namespace:SingularityForensic.Drive.Design"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:prism="http://prismlibrary.com/"
+        d:DataContext="{d:DesignData IsDesignTimeCreatable=True,Type=design:DriveItemsWindowDesignViewModel}"
+        mc:Ignorable="d" x:Name="win"
+        Title="DrivesItemsWindow" Height="300" Width="300">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered" >
+            <i:InvokeCommandAction Command="{Binding RenderedCommand}"/>
+        </i:EventTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding CloseRequest,Mode=OneWay}">
+            <ei:CallMethodAction MethodName="Close" TargetObject="{Binding ElementName=win}"/>
+        </prism:InteractionRequestTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DockPanel>
+            <Button DockPanel.Dock="Bottom" Content="{DynamicResource Confirm}" Command="{Binding ConfirmCommand}" ></Button>
+            <TreeView ItemsSource="{Binding DriveUnits}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate  ItemsSource="{Binding Children}" >
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="{Binding Icon}" Width="16" Margin="6,0" />
+                            <TextBlock Text="{Binding Label}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </DockPanel>
+
+        <Border Background="#88000000" Grid.RowSpan="2" 
+                Visibility="{Binding IsLoading,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance},FallbackValue=Hidden}">
+            <StackPanel VerticalAlignment="Center">
+                <metros:MetroProgressBar IsIndeterminate="True" />
+                <TextBlock Text="{Binding LoadingText}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

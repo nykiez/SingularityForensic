@@ -8,7 +8,7 @@ using System.Windows;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFC.Parse.Modules.DeviceObjects;
 using CDFC.Parse.DeviceObjects;
-using SingularityForensic.Contracts.Case;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 
