@@ -68,6 +68,7 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -100,9 +101,11 @@
     <Compile Include="App\AppMockers.cs" />
     <Compile Include="App\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
-    <Compile Include="Case\CaseEvidenceTests.cs" />
-    <Compile Include="Case\CaseMockers.cs" />
-    <Compile Include="Case\CaseServiceTest.cs" />
+    <Compile Include="Casing\CaseEvidenceTests.cs" />
+    <Compile Include="Casing\CaseMockers.cs" />
+    <Compile Include="Casing\CaseServiceTest.cs" />
+    <Compile Include="Casing\CaseUIServiceTests.cs" />
+    <Compile Include="Casing\Commands\OpenCasePathCommandItemTests.cs" />
     <Compile Include="Common\CommonMockers.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />
     <Compile Include="Drive\DriveMockers.cs" />
@@ -155,9 +158,13 @@
     <PostBuildEvent>Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"
+Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
+
+XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 
 Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Microsoft.Expression.Interactions.dll"
 
-copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll"</PostBuildEvent>
+copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

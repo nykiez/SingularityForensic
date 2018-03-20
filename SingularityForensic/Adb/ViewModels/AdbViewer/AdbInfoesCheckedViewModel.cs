@@ -7,7 +7,6 @@ using Cflab.DataTransport;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFCMessageBoxes.MessageBoxes;
 using System.Threading;
-using static CDFCCultures.Managers.ManagerLocator;
 using System.IO;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Helpers.IOPathHelper;
@@ -28,8 +27,8 @@ using SingularityForensic.Contracts.App;
 namespace SingularityForensic.Adb.ViewModels.AdbViewer {
     public partial class AdbInfoesCheckedViewModel:PageModelBase,IDisposable {
         public AdbInfoesCheckedViewModel():base(1) {
-            var mobileInfoNode = new AdbTreeUnit(FindResourceString("PhoneInfoAquiredItems"));
-            var mobileFileNode = new AdbTreeUnit(FindResourceString("PhoneFileAquiredItems"));
+            var mobileInfoNode = new AdbTreeUnit(LanguageService.FindResourceString("PhoneInfoAquiredItems"));
+            var mobileFileNode = new AdbTreeUnit(LanguageService.FindResourceString("PhoneFileAquiredItems"));
 
             Action <AdbTreeUnit,MInfoType> addInfoAct = (node, tp) => {
                 //对于所有文件项，将进行的特殊处理;
@@ -114,7 +113,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
             _confirmCommand ?? (_confirmCommand = new DelegateCommand(
                 () => {
                     if (IsAquiring) {
-                        CDFCMessageBox.Show(FindResourceString("WaitUntilAuqiringDone"));
+                        CDFCMessageBox.Show(LanguageService.FindResourceString("WaitUntilAuqiringDone"));
                         return;
                     }
                     SetAuiqring(true);
@@ -133,7 +132,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                         //确定是否选择了项;
                         if (slUnits.Count == 0) {
                             AppInvoke(() => {
-                                CDFCMessageBox.Show(FindResourceString("PleaseSelectBeforeAquiring"));
+                                CDFCMessageBox.Show(LanguageService.FindResourceString("PleaseSelectBeforeAquiring"));
                                 SetAuiqring(false);
                             });
                             return;
@@ -188,7 +187,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                     var abPath = $"{ServiceProvider.Current?.GetInstance<ICaseService>()?.CurrentCase.Path}/{Device.Serial}/{dtString}/backup.ab";
                                     var bRes = Device.Backup(abPath,
                                         () => {
-                                            AppendLine(FindResourceString("ConfirmToBackUp"));
+                                            AppendLine(LanguageService.FindResourceString("ConfirmToBackUp"));
                                             return true;
                                         },
                                         err => {
@@ -201,14 +200,14 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
 
                                     
                                     if (bRes) {
-                                        AppendLine(FindResourceString("ParsingTheBackUp"));
+                                        AppendLine(LanguageService.FindResourceString("ParsingTheBackUp"));
                                         var bParser = BackupParser.Create(abPath, 
                                             $"{ServiceProvider.Current?.GetInstance<ICaseService>().CurrentCase.Path}/{Device.Serial}/{dtString}/backup",
                                             err => {
                                                 EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)}:{err.Code}-{err.Message}");
                                                 AppInvoke(() => {
-                                                    AppendLine($"{FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
-                                                    CDFCMessageBox.Show($"{FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
+                                                    AppendLine($"{LanguageService.FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
+                                                    MsgBoxService.Show($"{LanguageService.FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
                                                 });
                                             });
 
@@ -216,7 +215,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                              notCorrect => {
                                                 string pwd = null;
                                                 AppInvoke(() => {
-                                                    pwd = InputValueMessageBox.Show(FindResourceString("PleaseInputBackUpPass"),
+                                                    pwd = InputValueMessageBox.Show(LanguageService.FindResourceString("PleaseInputBackUpPass"),
                                                             notCorrect ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbBPPwdNotCorrect") : string.Empty);
                                                 });
 
@@ -234,15 +233,15 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                     if (bRes) {
                                         node.Succeed = true;
                                         node.Direct = $"{Device.Serial}/{dtString}/backup/";
-                                        AppendLine(FindResourceString("SucceedToBackUp"));
+                                        AppendLine(LanguageService.FindResourceString("SucceedToBackUp"));
                                         node.Process = 100;
                                     }
                                 }
                                 catch (Exception ex) {
                                     EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)}->{nameof(BackupParser)}:{ex.Message}");
-                                    AppendLine(FindResourceString("FailedToBackup"));
+                                    AppendLine(LanguageService.FindResourceString("FailedToBackup"));
                                     AppInvoke(() => {
-                                        RemainingMessageBox.Tell($"{FindResourceString("FailedToBackup")}:{ex.Message}");
+                                        RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToBackup")}:{ex.Message}");
                                     });
                                 }
                                 finally {
@@ -346,8 +345,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                                             var totalPer = (int)((downLoadedSize + urlInfo.Size * per / 100) * 100 / totalSize);
                                                             try {
                                                                 msg.ReportProgress(totalPer >= 100 ? 100 : totalPer,
-                                                                string.Format(FindResourceString("AdbNumDownloading"), downloadedCount, totalCount),
-                                                                $"{FindResourceString("AdbFileBeingDownloaded")}:{GetFileNameFromUrl(urlInfo.Url)}");
+                                                                string.Format(LanguageService.FindResourceString("AdbNumDownloading"), downloadedCount, totalCount),
+                                                                $"{LanguageService.FindResourceString("AdbFileBeingDownloaded")}:{GetFileNameFromUrl(urlInfo.Url)}");
                                                             }
                                                             catch (Exception ex) {
                                                                 EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ProgressMessageBox)}({nameof(msg)}):{ex.Message}");
@@ -367,7 +366,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                         catch (Exception ex) {
                                             EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)} DownLoading Error:{ex.Message}");
                                             AppInvoke(() => {
-                                                RemainingMessageBox.Tell($"{FindResourceString("ErrorExportingAdbFile")}:{ex.Message}");
+                                                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("ErrorExportingAdbFile")}:{ex.Message}");
                                             });
                                         }
 
@@ -380,7 +379,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                 SetAuiqring(false);
                                 AppInvoke(() => {
                                     if (!disposed && 
-                                    MsgBoxService.Current.Show(FindResourceString("WhetherToShowInfoAquired"),
+                                    MsgBoxService.Current.Show(LanguageService.FindResourceString("WhetherToShowInfoAquired"),
                                         MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
                                         AquireDone?.Invoke(this, containers);
                                     }
@@ -445,16 +444,16 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
             Device.GetInfo<TInfo>((infos, cur, total) => {
                 if (total != 0) {
                     try {
-                        AppendLine(string.Format(FindResourceString("AdbNumAquired"), cur, total));
+                        AppendLine(string.Format(LanguageService.FindResourceString("AdbNumAquired"), cur, total));
                     }
                     catch (Exception ex) {
                         EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetInfoToNode)}:{ex.Message}" +
-                            $"format :{FindResourceString("node.Process = cur * 100 / total;")}");
+                            $"format :{LanguageService.FindResourceString("node.Process = cur * 100 / total;")}");
                     }
                     node.Process = cur * 100 / total;
                 }
                 else {
-                    AppendLine(FindResourceString("AdbNoData"));
+                    AppendLine(LanguageService.FindResourceString("AdbNoData"));
                 }
 
                 if(infos != null) {
@@ -472,7 +471,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                     $"{Environment.NewLine}OutType:{errCode},{err}");
                 
                 AppInvoke(() => {
-                    RemainingMessageBox.Tell(FindResourceString("ConfirmToConnectYourPhone"));
+                    RemainingMessageBox.Tell(LanguageService.FindResourceString("ConfirmToConnectYourPhone"));
                 });
             });
             
@@ -496,7 +495,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                             EventLogger.Logger.WriteLine(
                                 $"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetAllFileToInfoNode)}:Code {err.Code} Message {err.Message}");
                             AppInvoke(() => {
-                                RemainingMessageBox.Tell($"{FindResourceString("FailedToGetAllFiles")}:Code {err.Code} Message {err.Message}");
+                                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToGetAllFiles")}:Code {err.Code} Message {err.Message}");
                             });
                         }
                     );
@@ -504,7 +503,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                 catch(Exception ex) {
                     EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetAllFileToInfoNode)} Exception:{ex.Message}");
                     AppInvoke(() => {
-                        RemainingMessageBox.Tell($"{FindResourceString("FailedToGetFileList")}:{ex.Message}");
+                        RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToGetFileList")}:{ex.Message}");
                     });
                 }
                 finally {

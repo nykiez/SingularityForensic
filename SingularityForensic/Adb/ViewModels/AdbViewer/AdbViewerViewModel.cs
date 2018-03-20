@@ -2,10 +2,9 @@
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Abstracts;
 using Prism.Commands;
+using SingularityForensic.Contracts.App;
 using System;
 using System.ComponentModel;
-using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Adb.ViewModels.AdbViewer {
     public partial class AdbViewerViewModel : BindableBaseTemp {
@@ -67,7 +66,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                 () => {
                     if(CurPageModel == InfoCheckerViewModel) {
                         if (InfoCheckerViewModel.IsAquiring) {
-                            CDFCMessageBox.Show(FindResourceString("WaitUntilAuqiringDone"));
+                            MsgBoxService.Show(LanguageService.FindResourceString("WaitUntilAuqiringDone"));
                             return;
                         }
                     }
@@ -82,7 +81,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
             _closingCommand ?? (_closingCommand = new DelegateCommand<CancelEventArgs>(
                 e => {
                     if(CurPageModel == InfoCheckerViewModel && InfoCheckerViewModel.IsAquiring) {
-                        if(CDFCMessageBox.Show(FindResourceString("ConfirmToExitAdbViewer"),
+                        if(MsgBoxService.Show(
+                            LanguageService.FindResourceString("ConfirmToExitAdbViewer"),
                             MessageBoxButton.YesNo)
                         == MessageBoxResult.No) {
                             e.Cancel = true;

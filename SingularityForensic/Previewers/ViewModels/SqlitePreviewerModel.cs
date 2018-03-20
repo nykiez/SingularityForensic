@@ -7,11 +7,11 @@ using System.IO;
 using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCCultures.Helpers;
-using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Data.SQLite;
 using System.Data;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Previewers.ViewModels {
     public partial class SqlitePreviewerModel:BindableBase {
@@ -114,7 +114,7 @@ namespace SingularityForensic.Previewers.ViewModels {
                                         newRow[p] = bs.ConvertToHexFormat();
                                     }
                                     else {
-                                        newRow[p] = $"{FindResourceString("BinaryData")}({FindResourceString("BinaryLength")}:{bs.Length})";
+                                        newRow[p] = $"{LanguageService.FindResourceString("BinaryData")}({LanguageService.FindResourceString("BinaryLength")}:{bs.Length})";
                                     }
                                 }
                             });

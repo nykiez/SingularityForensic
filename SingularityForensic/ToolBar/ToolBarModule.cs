@@ -12,7 +12,7 @@ namespace SingularityForensic.ToolBar
     [ModuleExport(typeof(ToolBarModule))]
     public class ToolBarModule : IModule {
         public void Initialize() {
-            RegionHelper.RegisterViewWithRegion(MainPage.RegionNames.ToolBarRegion, typeof(Views.ToolBar));
+            RegionHelper.RegisterViewWithRegion(MainPage.Constants.ToolBarRegion, typeof(Views.ToolBar));
         }
 
 

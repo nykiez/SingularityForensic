@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using static CDFCCultures.Managers.ManagerLocator;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.Global.Services {
     [Export]
@@ -44,7 +45,7 @@ namespace SingularityForensic.Adb.Global.Services {
             catch (Exception ex) {
                 Logger.WriteLine($"{nameof(AdbViewerService)}->{nameof(LoadAdbPhoneContainer)}:{ex.Message}");
 
-                RemainingMessageBox.Tell($"{FindResourceString("FaileToLoadAdbInfo")}:{ex.Message}");
+                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FaileToLoadAdbInfo")}:{ex.Message}");
             }
         }
 

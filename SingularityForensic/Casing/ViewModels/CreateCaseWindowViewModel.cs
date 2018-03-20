@@ -1,14 +1,11 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
-using Ookii.Dialogs.Wpf;
+﻿using EventLogger;
 using Prism.Commands;
 using System;
 using System.IO;
-using static CDFCCultures.Managers.ManagerLocator;
 using System.Linq;
 using Prism.Mvvm;
-using SingularityForensic.Casing;
 using SingularityForensic.Contracts.Casing;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Casing.ViewModels {
     /// <summary>
@@ -16,12 +13,12 @@ namespace SingularityForensic.Casing.ViewModels {
     /// </summary>
     public partial class CreateCaseWindowViewModel : BindableBase {
         public CreateCaseWindowViewModel() {
-            CaseName = "Case" + DateTime.Now.ToString().Replace(':', '-').Replace('/', '-');
+            CaseName = LanguageService.FindResourceString(LanguageService.FindResourceString(Constants.DefaultCaseName));
             CaseTime = DateTime.Now.ToString();
             var bPath = AppDomain.CurrentDomain.BaseDirectory.Replace('\\', '/');
             bPath = bPath.EndsWith("/") ? bPath : $"{bPath}/";
             CasePath = $"{bPath}Cases";
-
+            
         }
     }
 
@@ -150,11 +147,11 @@ namespace SingularityForensic.Casing.ViewModels {
                     new DelegateCommand(
                         () => {
                             if (string.IsNullOrEmpty(CaseName)) {
-                                CDFCMessageBox.Show(FindResourceString("CheckForNullCaseName"));
+                                MsgBoxService.Show(LanguageService.FindResourceString("CheckForNullCaseName"));
                                 return;
                             }
                             if (CaseName.IndexOfAny(new char[] { '\\', '/' }) != -1) {
-                                CDFCMessageBox.Show(FindResourceString("IllegalCaseName"));
+                                MsgBoxService.Show(LanguageService.FindResourceString("IllegalCaseName"));
                                 return;
                             }
                             IsEnabled = false;
@@ -170,18 +167,12 @@ namespace SingularityForensic.Casing.ViewModels {
                 return queryPathCommand ??
                     (queryPathCommand = new DelegateCommand(
                         () => {
-                            var dialog = new VistaFolderBrowserDialog();
-
-                            if (!Directory.Exists(CasePath)) {
-                                Directory.CreateDirectory(CasePath);
+                            var direct = DialogService.Current?.GetDirect();
+                            if (string.IsNullOrEmpty(direct)) {
+                                return;
                             }
-                            dialog.SelectedPath = CasePath;
 
-                            //dialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-                            if (dialog.ShowDialog() == true) {
-                                CasePath = dialog.SelectedPath.Replace('\\', '/');
-
-                            }
+                            CasePath = direct.Replace('\\', '/');
                         }
                     ));
             }

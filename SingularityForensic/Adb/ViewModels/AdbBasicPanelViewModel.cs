@@ -5,6 +5,7 @@ using EventLogger;
 using Prism.Mvvm;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFC.Info.Adb;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.ViewModels {
     public class AdbBasicPanelViewModel:BindableBase {
@@ -77,7 +78,7 @@ namespace SingularityForensic.Adb.ViewModels {
                 try {
                     var sb = new StringBuilder();
                     foreach (var prop in Container.Info.GetType().GetProperties()) {
-                        sb.AppendLine(FindResourceString($"AdbBasic{prop.Name}")+
+                        sb.AppendLine(LanguageService.FindResourceString($"AdbBasic{prop.Name}")+
                             $":{ prop.GetValue(Container.Info)}");
                     }
                     return sb.ToString();

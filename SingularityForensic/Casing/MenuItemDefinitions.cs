@@ -7,9 +7,6 @@ using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainMenu;
 using System.ComponentModel.Composition;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 
 namespace SingularityForensic.Casing {
     public static class MenuItemDefinitions {
@@ -38,7 +35,7 @@ namespace SingularityForensic.Casing {
 
         private static readonly DelegateCommand CloseCaseCommand = new DelegateCommand(
             () => {
-                if (MsgBoxService.Current.Show(FindResourceString("ConfirmToCloseCase"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                if (MsgBoxService.Current.Show(LanguageService.FindResourceString("ConfirmToCloseCase"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
                     ServiceProvider.Current.GetInstance<ICaseService>()?.CloseCurrentCase();
                 }
             },

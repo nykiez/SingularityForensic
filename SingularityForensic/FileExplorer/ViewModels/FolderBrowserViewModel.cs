@@ -19,6 +19,7 @@ using SingularityForensic.Controls.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     //目录/资源浏览器模型;
@@ -134,7 +135,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     }
                     else if (rModel != null) {
                         var dialog = new VistaOpenFileDialog();
-                        dialog.Filter = $"({FindResourceString("Executable")})|*.exe";
+                        dialog.Filter = $"({LanguageService.FindResourceString("Executable")})|*.exe";
                         if (dialog.ShowDialog() == true) {
                             var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
                             using (var stream = regFile.GetInputStream()) {
@@ -211,7 +212,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         if ((SelectedFileRow as IFileRow<FileBase>).File != null) {
                             var blockGroupedFile = (SelectedFileRow as IFileRow<FileBase>).File as IBlockGroupedFile;
                             if(blockGroupedFile.BlockGroups == null) {
-                                CDFCMessageBox.Show(FindResourceString("DeletedCannotBeListed"));
+                                MsgBoxService.Show(LanguageService.FindResourceString("DeletedCannotBeListed"));
                             }
                             else {
                                 listBlockMsg = new ListBlockMessageBox(blockGroupedFile.BlockGroups, (SelectedFileRow as IFileRow<FileBase>).File);

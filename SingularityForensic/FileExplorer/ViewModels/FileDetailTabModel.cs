@@ -40,9 +40,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 if (value != null) {
                     var comma = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("Comma");
                     var sb = new StringBuilder();
-                    sb.AppendLine($"{FindResourceString("BasicFileInfo")}");
-                    sb.AppendLine($"{FindResourceString("FileName")}{comma}{value.Name}");
-                    sb.AppendLine($"{FindResourceString("FileSize")}{comma}{value.Size}{FindResourceString("Byte")}");
+                    sb.AppendLine($"{LanguageService.FindResourceString("BasicFileInfo")}");
+                    sb.AppendLine($"{LanguageService.FindResourceString("FileName")}{comma}{value.Name}");
+                    sb.AppendLine($"{LanguageService.FindResourceString("FileSize")}{comma}{value.Size}{LanguageService.FindResourceString("Byte")}");
                     sb.AppendLine();
                     
                     if(Provider != null) {

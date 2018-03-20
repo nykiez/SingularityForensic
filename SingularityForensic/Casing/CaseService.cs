@@ -14,19 +14,11 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Document;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SingularityForensic.Casing{
     [Export(typeof(ICaseService))]
     public class CaseService:ICaseService {
-#pragma warning disable 0169
-        [Import]
-        private Lazy<INodeService> nodeService;
-
-        [Import]
-        private Lazy<IDocumentTabService> documentService;
-
-#pragma warning restore 0169
-
         /// <summary>
         /// 当前案件;
         /// </summary>
@@ -34,6 +26,9 @@ namespace SingularityForensic.Casing{
             get => _currentCase;
             private set => _currentCase = value;
         }
+
+        public IEnumerable<ICase> RecentCases => Enumerable.Empty<ICase>();
+
         private ICase _currentCase;
 
         /// <summary>

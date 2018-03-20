@@ -14,14 +14,14 @@ using System.Windows.Threading;
 namespace SingularityForensic.Splash {
     [Export(typeof(ISplashService))]
     public class SplashService : ISplashService {
-        private SplashView sWin => ServiceProvider.Current.GetInstance<SplashView>();
+        private Views.Splash sWin => ServiceProvider.Current.GetInstance<Views.Splash>();
         
         public void ReportMessage(string msg) {
             
         }
 
         public void CloseSplash() {
-            var splash = ServiceProvider.Current.GetInstance<SplashView>();
+            var splash = ServiceProvider.Current.GetInstance<Views.Splash>();
             splash.Dispatcher.BeginInvoke((Action)splash.Close);
         }
 
@@ -33,7 +33,7 @@ namespace SingularityForensic.Splash {
                           //Container.RegisterType<SplashViewModel, SplashViewModel>();
                           //Container.RegisterType<SplashView, SplashView>();
 
-                          var splash = ServiceProvider.Current.GetInstance<SplashView>();
+                          var splash = ServiceProvider.Current.GetInstance<Views.Splash>();
                           splash.Show();
 
                           WaitForCreation.Set();

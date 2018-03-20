@@ -243,6 +243,7 @@
     </Compile>
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\DialogService.cs" />
+    <Compile Include="App\ResourceDictionaryEx.cs" />
     <Compile Include="App\ThreadInvoker.cs" />
     <Compile Include="App\LanguageService.cs" />
     <Compile Include="App\LoggerService.cs" />
@@ -262,7 +263,8 @@
     <Compile Include="Casing\Case.cs" />
     <Compile Include="Casing\CaseDialogService.cs" />
     <Compile Include="Casing\CaseModule.cs" />
-    <Compile Include="Casing\CommandDefinitions.cs" />
+    <Compile Include="Casing\Commands\OpenCasePathCommandItem.cs" />
+    <Compile Include="Casing\Commands\ShowCasePropertyCommandItem.cs" />
     <Compile Include="Casing\Constants.cs" />
     <Compile Include="Casing\MenuItemDefinitions.cs" />
     <Compile Include="Casing\MessageBoxes\CreateCaseMessageBox.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Casing\Models\TreeUnits.cs" />
     <Compile Include="Casing\IconSources.cs" />
     <Compile Include="Casing\CaseService.cs" />
+    <Compile Include="Casing\CaseUIService.cs" />
     <Compile Include="Casing\ViewModels\CreateCaseWindowViewModel.cs" />
     <Compile Include="Casing\Views\CreateCaseWindow.xaml.cs">
       <DependentUpon>CreateCaseWindow.xaml</DependentUpon>
@@ -301,6 +304,7 @@
     </Compile>
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\ExplorerModule.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIService.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
@@ -390,7 +394,7 @@
     <Compile Include="ITunes\Views\StartForensicWindow.xaml.cs">
       <DependentUpon>StartForensicWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu\Global\Events\MenuSelectedGroupChangedEvent.cs" />
+    <Compile Include="MainMenu\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainMenu\MainMenuModule.cs" />
     <Compile Include="MainMenu\MenuGroupDefinitions.cs" />
     <Compile Include="MainMenu\ViewModels\MainMenuViewModel.cs" />
@@ -405,7 +409,7 @@
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="MainPage\RegionNames.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
-    <Compile Include="MainPage\ViewModels\MainPageNodeManagerViewModel.cs" />
+    <Compile Include="MainPage\ViewModels\NodeTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
@@ -453,8 +457,8 @@
     <Compile Include="Shell\Views\LoadingMask.xaml.cs">
       <DependentUpon>LoadingMask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage\Views\WelcomeView.xaml.cs">
-      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    <Compile Include="MainPage\Views\Welcome.xaml.cs">
+      <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\Views\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
@@ -462,7 +466,7 @@
     <Compile Include="About\Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Adb\Languages\zh_CN\Singularity.AdbViewer.xaml">
+    <Page Include="Adb\Languages\zh_CN\SingularityForensic.Adb.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -518,7 +522,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="App\Languages\zh_CN\Singularity.App.xaml">
+    <Page Include="App\Languages\zh_CN\SingularityForensic.App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -533,6 +537,11 @@
     <Page Include="App\Views\RemainingMessageBoxWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Casing\Languages\zh_CN\SingularityForensic.Casing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Casing\Views\CreateCaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -582,7 +591,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FileSystem\Languages\zh_CN\Singularity.FileSystem.xaml">
+    <Page Include="FileSystem\Languages\zh_CN\SingularityForensic.FileSystem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -594,7 +603,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ITunes\Languages\zh_CN\Singularity.UI.ITunes.xaml">
+    <Page Include="ITunes\Languages\zh_CN\SingularityForensic.ITunes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -614,7 +623,7 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Previewers\Languages\zh_CN\Singularity.Previewers.xaml">
+    <Page Include="Previewers\Languages\zh_CN\SingularityForensic.Previewers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -654,7 +663,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage\Views\MainPageNodeManager.xaml">
+    <Page Include="MainPage\Views\UnitTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -670,7 +679,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage\Views\WelcomeView.xaml">
+    <Page Include="MainPage\Views\Welcome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -687,8 +696,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Shell\ViewModels\ShellViewModel.cs" />
-    <Compile Include="MainPage\Views\MainPageNodeManager.xaml.cs">
-      <DependentUpon>MainPageNodeManager.xaml</DependentUpon>
+    <Compile Include="MainPage\Views\UnitTree.xaml.cs">
+      <DependentUpon>UnitTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\Views\DocumentTabs.xaml.cs">
       <DependentUpon>DocumentTabs.xaml</DependentUpon>
@@ -697,7 +706,7 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Splash\Views\SplashView.xaml">
+    <Page Include="Splash\Views\Splash.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -709,8 +718,8 @@
   <ItemGroup>
     <Compile Include="Splash\SplashService.cs" />
     <Compile Include="Splash\ViewModels\SplashViewModel.cs" />
-    <Compile Include="Splash\Views\SplashView.xaml.cs">
-      <DependentUpon>SplashView.xaml</DependentUpon>
+    <Compile Include="Splash\Views\Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolBar\ToolBarModule.cs" />
     <Compile Include="ToolBar\ViewModels\ToolBarViewModel.cs" />
@@ -737,6 +746,10 @@
     <None Include="Adb\app.config" />
     <None Include="app.manifest" />
     <Page Include="Imaging\Languages\zh_CN\SingularityForensic.Imaging.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Drive\Languages\zh_CN\SingularityForensic.Drive.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -780,13 +793,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adb\Languages\en_US\" />
+    <Folder Include="Casing\Languages\en_US\" />
+    <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="Hex\Languages\" />
     <Folder Include="Languages\en_US\" />
-    <Folder Include="MainMenu\Global\Services\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
-    <Folder Include="Splash\Images\" />
     <Folder Include="StatusBar\" />
   </ItemGroup>
   <ItemGroup>
@@ -1130,8 +1143,11 @@
     <Resource Include="Previewers\Images\Volume_Value.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Splash\Images\LoadingLogo.png" />
     <Resource Include="App\Images\ProgressMessageBox_Desc_Back.png" />
     <Resource Include="Imaging\Images\Toolbar_AddImg.png" />
+    <Content Include="App\LanguageConfig.xml" />
+    <Resource Include="App\LanguageConfig_Backup.xml" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1364,8 +1380,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>XCopy "$(ProjectDir)Languages" "$(TargetDir)Languages\" /E /Y
+
+XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)FileSystem\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Drive\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Adb\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Imaging\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)ITunes\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /E /Y
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

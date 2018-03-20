@@ -44,7 +44,7 @@ namespace SingularityForensic.Contracts.Common {
         public List<CommandItem> Children { get; } = new List<CommandItem>();
         
         //排列顺序;
-        public int SortOrder { get; set; }
+        public int Sort { get; set; }
     }
 
     //public interface ICommandItem<TData> : ICommandItem {

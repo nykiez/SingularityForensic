@@ -15,6 +15,7 @@ namespace SingularityForensic.Test.Drive {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
+            
             _comObject = ComObject.Current;
             //设定选择设备Mocker;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(DriveMockers.DriveDialogServiceMocker);

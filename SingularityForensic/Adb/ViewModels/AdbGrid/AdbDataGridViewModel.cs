@@ -119,7 +119,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
                         try {
                             ProgressMessageBox msg = new ProgressMessageBox();
                             msg.WindowTitle = LanguageService.Current?.FindResourceString("AdbFileBeingCopied");
-                            msg.Word = $"{FindResourceString("AdbFileBeingCopied")}:{IOPathHelper.GetFileNameFromUrl(oriUrl)}";
+                            msg.Word = $"{LanguageService.FindResourceString("AdbFileBeingCopied")}:{IOPathHelper.GetFileNameFromUrl(oriUrl)}";
                             var succeed = false;
                             
                             msg.DoWork += (sender, e) => {

@@ -7,6 +7,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Imaging;
 using SingularityForensic.Test.App;
+using SingularityForensic.Test.Casing;
 
 namespace SingularityForensic.Test.Imaging {
     /// <summary>
@@ -48,6 +49,21 @@ namespace SingularityForensic.Test.Imaging {
             var firstEvi = _imgService.MounterTuples.First().csEvidence;
 
             Assert.IsTrue(firstEvi.EvidenceTypeGuids.Contains(Contracts.Imaging.Constants.EvidenceType_Img));
+        }
+
+        //测试从案件中加载镜像;
+        [TestMethod]
+        public void TestLoadImgFromCase() {
+            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Case.CaseFileExtention}");
+            Assert.IsNotNull(_csService.CurrentCase);
+
+            Assert.AreNotEqual(_imgService.MounterTuples.Count(),0);
+
+            var imgPath = _imgService.MounterTuples.First().mounter.ImgPath;
+            
+            Assert.AreEqual(Path.GetFullPath(imgPath), Path.GetFullPath(OpenFileName));
+
+            var stream = _imgService.MounterTuples.First().mounter.RawStream;
         }
     }
 }

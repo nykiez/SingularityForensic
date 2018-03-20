@@ -13,5 +13,9 @@ namespace SingularityForensic.Casing {
         public ICase CreateCase() {
             return CreateCaseMessageBox.Show();
         }
+
+        public void ShowCaseProperty(ICase cs) {
+            return;
+        }
     }
 }

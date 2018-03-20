@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.Splash.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -9,12 +10,22 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Splash.ViewModels {
     [Export]
-    class SplashViewModel:BindableBase {
+    public class SplashViewModel:BindableBase {
         public SplashViewModel() {
-            //PubEventHelper.GetEvent<Splash>
+            RegisterEvents();
         }
         private void RegisterEvents() {
-
+            PubEventHelper.GetEvent<SplashMessageEvent>().Subscribe(msg => {
+                LoadingText = msg;
+            });
         }
+
+
+        private string _loadingText;
+        public string LoadingText {
+            get => _loadingText;
+            set => SetProperty(ref _loadingText, value);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using System.Collections.Generic;
 
 namespace SingularityForensic.Contracts.Casing {
     //案件服务契约;
@@ -47,7 +48,8 @@ namespace SingularityForensic.Contracts.Casing {
         //当前的案件;
         ICase CurrentCase { get; }
 
-        
+        //最近案件;
+        IEnumerable<ICase> RecentCases { get; }
     }
 
     public class CaseService: GenericServiceStaticInstance<ICaseService> {

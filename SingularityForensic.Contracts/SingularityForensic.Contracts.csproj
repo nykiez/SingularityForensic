@@ -127,6 +127,7 @@
     <Compile Include="Casing\ICaseFileUnit.cs" />
     <Compile Include="Common\BytesExtensions.cs" />
     <Compile Include="Common\CommandItem.cs" />
+    <Compile Include="Common\Commands\OpenPathCommand.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
     <Compile Include="Common\EmptyServiceProvider.cs" />
@@ -158,9 +159,7 @@
     <Compile Include="FileSystem\ITimeable.cs" />
     <Compile Include="FileSystem\ParitionTableItem.cs" />
     <Compile Include="FileSystem\Partition.cs" />
-    <Compile Include="FileSystem\StreamExtensions.cs" />
     <Compile Include="FileSystem\SymbolLink.cs" />
-    <Compile Include="FileSystem\UnknownDeviceCaseFile.cs" />
     <Compile Include="FileSystem\PartitionCaseFile.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
     <Compile Include="FileSystem\Constants.cs" />
@@ -211,6 +210,7 @@
     <Compile Include="Shell\IShell.cs" />
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
+    <Compile Include="ToolBar\ToolBarObjectItem.cs" />
     <Compile Include="TreeView\TreeUnit.cs" />
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="TreeView\PinTreeUnit.cs" />

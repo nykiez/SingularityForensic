@@ -88,7 +88,7 @@ namespace SingularityForensic.Casing.Views {
 
         private bool CheckInput() {
             if (string.IsNullOrEmpty(ObjectTitleTxb.Text)) {
-                CDFCMessageBox.Show(FindResourceString("ObjectTitleOrNumberCannotBeNull"));
+                CDFCMessageBox.Show(LanguageService.FindResourceString("ObjectTitleOrNumberCannotBeNull"));
                 return false;
             }
             return true;

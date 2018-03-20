@@ -31,7 +31,11 @@ namespace SingularityForensic.Contracts.App {
         /// <returns></returns>
         string SaveFile();
 
-        
+        /// <summary>
+        /// 获得目录;
+        /// </summary>
+        /// <returns></returns>
+        string GetDirect();
 
         ILoadingDialog CreateLoadingDialog();
         IDoubleLoadingDialog CreateDoubleLoadingDialog();

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Prism.Regions;
 using Prism.Mvvm;
-using SingularityForensic.MainMenu.Global.Events;
+using SingularityForensic.MainMenu.Events;
 using SingularityForensic.MainPage;
 using Prism.Commands;
 using SingularityForensic.Contracts.Helpers;
@@ -33,11 +33,11 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
             });
 
             PubEventHelper.Subscribe<TabClearedEvent>(() => {
-                RegionHelper.RequestNavigate(RegionNames.MainPageDocumentRegion, "WelcomeView");
+                RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "WelcomeView");
             });
 
             _documentTabService.TabAdded += (sender, e) => {
-                RegionHelper.RequestNavigate(RegionNames.MainPageDocumentRegion, "DocumentTab");
+                RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "DocumentTab");
             };
         }
 
@@ -45,8 +45,8 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
         public DelegateCommand ContentRenderedCommand => _contentRenderedCommand ??
             (_contentRenderedCommand = new DelegateCommand(
                 () => {
-                    RegionHelper.RequestNavigate(RegionNames.MainPageNodeRegion, "MainPageNodeManager");
-                    RegionHelper.RequestNavigate(RegionNames.MainPageDocumentRegion, "WelcomeView");
+                    RegionHelper.RequestNavigate(Constants.NodeTreeRegion, Constants.UnitTreeView);
+                    RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, Constants.WelcomeView);
                 }
             ));
         

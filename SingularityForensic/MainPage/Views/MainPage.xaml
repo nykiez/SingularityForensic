@@ -20,14 +20,14 @@
                 <ad:LayoutPanel>
                     <ad:LayoutAnchorablePane DockWidth="5*" DockMinWidth="240"  >
                         <ad:LayoutAnchorable CanClose="False" CanHide="False" Title="{DynamicResource CaseData}" CanAutoHide="False" >
-                            <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.MainPageNodeRegion}"/>
+                            <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.NodeTreeRegion}"/>
                         </ad:LayoutAnchorable>
                     </ad:LayoutAnchorablePane>
                     <ad:LayoutDocumentPane ShowHeader="False"  DockWidth="5*"  >
                         <ad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" CanFloat="False">
                             <DockPanel >
-                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.ToolBarRegion}" DockPanel.Dock="Top" />
-                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:RegionNames.MainPageDocumentRegion}" />
+                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.ToolBarRegion}" DockPanel.Dock="Top" />
+                                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}" />
                             </DockPanel>
                         </ad:LayoutAnchorable>
                     </ad:LayoutDocumentPane>

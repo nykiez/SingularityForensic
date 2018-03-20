@@ -1,4 +1,5 @@
 ﻿using Moq;
+using SingularityForensic.App;
 using SingularityForensic.Contracts.App;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,21 @@ namespace SingularityForensic.Test.App {
                 return _dialogMocker;
             }
         }
+
+        private static ILanguageDictObject _languageDictObjectMocker;
+        public static ILanguageDictObject LanguageDictObjectMocker {
+            get {
+                if(_languageDictObjectMocker == null) {
+                    var mocker = new Mock<ILanguageDictObject>();
+                    var resource = new ResourceDictionaryEx();
+                    mocker.Setup(p => p.LanguageDict).Returns(resource);
+                    _languageDictObjectMocker = mocker.Object;
+                }
+
+                return _languageDictObjectMocker;
+            }
+        }
+        
 
         internal static string OpenFileName { get; set; }
         internal static string SaveFileName { get; set; }

@@ -9,10 +9,10 @@ using SingularityForensic.Controls.Info.ViewModels;
 using SingularityForensic.Controls.Info.Views;
 using System;
 using System.Text;
-using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Common;
 using System.Collections.Generic;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.TabModels {
     public class AdbTabModel : IDocumentTab {
@@ -42,7 +42,7 @@ namespace SingularityForensic.Adb.TabModels {
             try {
                 var sb = new StringBuilder();
                 foreach (var prop in basic.GetType().GetProperties()) {
-                    sb.AppendLine(FindResourceString($"AdbBasic{prop.Name}") +
+                    sb.AppendLine(LanguageService.FindResourceString($"AdbBasic{prop.Name}") +
                         $":{ prop.GetValue(basic)}");
                 }
                 vm.BasicText = sb.ToString();

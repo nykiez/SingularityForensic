@@ -34,7 +34,7 @@ namespace SingularityForensic.Controls.ITunes {
                 while (true) {    
                     if (dialog.ShowDialog() == true) {
                         if (dialog.SelectedPath?.WordsIScn() == true) {
-                            CDFCMessageBox.Show(FindResourceString("InvalidItunesBPath"));
+                            CDFCMessageBox.Show(LanguageService.FindResourceString("InvalidItunesBPath"));
                             continue;
                         }
                     }

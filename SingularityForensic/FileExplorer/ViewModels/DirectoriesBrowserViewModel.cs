@@ -52,13 +52,13 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
             catch (Exception ex) {
                 Logger.WriteLine($"{nameof(FolderBrowserViewModel)}->{nameof(RecoverFiles)} Computing Size:{ex.Message}");
-                RemainingMessageBox.Tell($"{FindResourceString("FaileToToComputeTotalSize")}:{ex.Message}");
+                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FaileToToComputeTotalSize")}:{ex.Message}");
                 return;
             }
 
 
             var proDialog = new ProgressMessageBox {
-                WindowTitle = $"{FindResourceString("FilesBeingCopied")}"
+                WindowTitle = $"{LanguageService.FindResourceString("FilesBeingCopied")}"
             };
 
             Action<RegularFile, string, string> saveFileFunc = (rFile, drPath, fileName) => {
@@ -75,7 +75,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                             readSize += read;
                             var pro = (int)(readSize * 100 / (totalSize != 0 ? totalSize : 4096));
                             proDialog.ReportProgress(pro <= 100 ? pro : 100, null,
-                                $"{FindResourceString("CurExtractingFile")}:{fileName}");
+                                $"{LanguageService.FindResourceString("CurExtractingFile")}:{fileName}");
                         }
                     }
                     fs.Close();
@@ -83,7 +83,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 catch (Exception ex) {
                     Logger.WriteLine($"{nameof(FolderBrowserViewModel)}->{nameof(CopyOrRecvCommand)}:{ex.Message}");
                     Application.Current.Dispatcher.Invoke(() => {
-                        RemainingMessageBox.Tell($"{FindResourceString("FailedToExtractFile")}:{ex.Message}");
+                        MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToExtractFile")}:{ex.Message}");
                         //CDFCMessageBox.Show($"{FindResourceString("FailedToExtractFile")}:{ex.Message}");
                     });
                 }
@@ -106,7 +106,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         };
                         proDialog.RunWorkerCompleted += (sender, e) => {
                             if (!e.Cancelled) {
-                                CDFCMessageBox.Show(FindResourceString("Finished"));
+                                MsgBoxService.Show(LanguageService.FindResourceString("Finished"));
                             }
                         };
 
@@ -137,7 +137,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     };
                     proDialog.RunWorkerCompleted += (sender, e) => {
                         if (!e.Cancelled) {
-                            CDFCMessageBox.Show(FindResourceString("Finished"));
+                            CDFCMessageBox.Show(LanguageService.FindResourceString("Finished"));
                         }
                     };
                     proDialog.ShowDialog();
@@ -166,7 +166,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                             catch (Exception ex) {
                                 Logger.WriteLine($"{nameof(FolderBrowserViewModel)}->{nameof(TraverseSaveDirectory)} Creating Directory:{ex.Message}");
                                 Application.Current.Dispatcher.Invoke(() => {
-                                    RemainingMessageBox.Tell($"{FindResourceString("FailedToCreateDirectory")} {drPath}/{dir.Name}:{ex.Message}");
+                                    RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToCreateDirectory")} {drPath}/{dir.Name}:{ex.Message}");
                                 });
                             }
                         }
@@ -212,12 +212,12 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                             CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("OpenFile"),
                             Command = OpenFileCommand
                         },
-                        new CommandItem{ CommandName=FindResourceString("RecoverChecked"),Command=RecCheckedCommand },
+                        new CommandItem{ CommandName = LanguageService.FindResourceString("RecoverChecked"),Command=RecCheckedCommand },
                         mainViewerCommandItem,
-                        new CommandItem{ CommandName=FindResourceString("ExtractOrCopy") , Command = CopyOrRecvCommand },
-                        new CommandItem{ CommandName=FindResourceString("CheckSelected") , Command = CheckSelectedCommand },
-                        new CommandItem{ CommandName=FindResourceString("UnCheckSelected"), Command = UnCheckSelectedCommand },
-                        new CommandItem{ CommandName=FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
+                        new CommandItem{ CommandName = LanguageService.FindResourceString("ExtractOrCopy") , Command = CopyOrRecvCommand },
+                        new CommandItem{ CommandName = LanguageService.FindResourceString("CheckSelected") , Command = CheckSelectedCommand },
+                        new CommandItem{ CommandName = LanguageService.FindResourceString("UnCheckSelected"), Command = UnCheckSelectedCommand },
+                        new CommandItem{ CommandName = LanguageService.FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
                     };
 
                     _contextCommands.AddRange(base.ContextCommands);
@@ -256,7 +256,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         if ((SelectedFileRow as IFileRow<FileBase>).File is Directory
                         && (SelectedFileRow as IFileRow<FileBase>).File is Directory dir) {
                             if (dir.IsBackDir() || dir.IsBackUpDir()) {
-                                CDFCMessageBox.Show(FindResourceString("RootOrBackNodeFileCannotBeExtracted"));
+                                MsgBoxService.Show(LanguageService.FindResourceString("RootOrBackNodeFileCannotBeExtracted"));
                             }
                             else {
                                 RecoverFiles(new FileBase[] { (SelectedFileRow as IFileRow<FileBase>).File });

@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.TreeView;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.TreeView;
 using System.Collections.Generic;
 
 namespace SingularityForensic.Contracts.MainPage {
@@ -12,7 +13,11 @@ namespace SingularityForensic.Contracts.MainPage {
         void RemoveUnit(TreeUnit unit);
 
         IEnumerable<TreeUnit> CurrentUnits { get; }
-        TreeUnit SelectedNode { get; }
+        TreeUnit SelectedUnit { get; }
         void ClearNodes();
+    }
+
+    public class NodeService:GenericServiceStaticInstance<INodeService> {
+
     }
 }

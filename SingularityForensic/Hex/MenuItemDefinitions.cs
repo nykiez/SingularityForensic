@@ -208,14 +208,14 @@ namespace SingularityForensic.Hex {
         private static SearchValidateRes ValidateInput(string searchingKey) {
             if (string.IsNullOrWhiteSpace(searchingKey)) {
                 Application.Current.Dispatcher.Invoke(() => {
-                    CDFCMessageBox.Show(FindResourceString("SearchKeyCannotBeNullOrEmpty"));
+                    CDFCMessageBox.Show(LanguageService.FindResourceString("SearchKeyCannotBeNullOrEmpty"));
                 });
                 return SearchValidateRes.NullRes;
             }
 
             if (!Regex.IsMatch(searchingKey, "[^? !@#$%\\^&*()]+")) {
                 Application.Current.Dispatcher.Invoke(() => {
-                    CDFCMessageBox.Show(FindResourceString("SearchKeyIllegal"));
+                    CDFCMessageBox.Show(LanguageService.FindResourceString("SearchKeyIllegal"));
                 });
                 return SearchValidateRes.IlegalChar;
             }

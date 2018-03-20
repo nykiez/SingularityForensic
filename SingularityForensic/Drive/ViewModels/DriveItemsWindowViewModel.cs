@@ -129,7 +129,7 @@ namespace SingularityForensic.Drive.ViewModels {
         public DelegateCommand ConfirmCommand => _confirmCommand ??
             (_confirmCommand = new DelegateCommand(
                 () => {
-                    SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.Data);
+                    SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.Tag);
                     _confirmed = true;
                     CloseRequest.Raise(new Notification());
                 },

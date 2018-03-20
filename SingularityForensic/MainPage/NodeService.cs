@@ -16,7 +16,7 @@ namespace SingularityForensic.MainPage.Global {
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class NodeService : INodeService {
         [Import]
-        Lazy<MainPageNodeManagerViewModel> VM;
+        Lazy<NodeTreeViewModel> VM;
 
         //增加unit;
         //public void AddUnit(ITreeUnit unit) {
@@ -31,18 +31,27 @@ namespace SingularityForensic.MainPage.Global {
 
         //移除unit;
         public void RemoveUnit(TreeUnit unit) {
-            VM?.Value?.TreeUnits.Remove(unit);
+            if(unit == null) {
+                throw new ArgumentNullException(nameof(unit));
+            }
+
+            if(unit.Parent != null) {
+                unit.Parent.Children.Remove(unit);
+                return;
+            }
+
+            if (VM?.Value?.TreeUnits?.Contains(unit) ?? false) {
+                VM?.Value?.TreeUnits.Remove(unit);
+                return;
+            }
+            
         }
 
-        //所有的Tab;
+        //所有的跟Unit;
         public IEnumerable<TreeUnit> CurrentUnits => VM?.Value?.TreeUnits.Select(p => p);
 
-        public TreeUnit SelectedNode => VM?.Value?.SelectedUnit;
-
-        IEnumerable<TreeUnit> INodeService.CurrentUnits => throw new NotImplementedException();
-
-        TreeUnit INodeService.SelectedNode => throw new NotImplementedException();
-
+        public TreeUnit SelectedUnit => VM?.Value?.SelectedUnit;
+        
         public void ClearNodes() {
             var cArgs = new CancelEventArgs();
             PubEventHelper.Publish<TreeNodesClearingEvent, CancelEventArgs>(cArgs);

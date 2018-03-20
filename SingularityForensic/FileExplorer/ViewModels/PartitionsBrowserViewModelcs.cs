@@ -18,7 +18,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     var mainViewerCommandItem = new CommandItem {  CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
                     mainViewerCommandItem.Children.AddRange(ViewersCommands);
                     _contextCommands = new ObservableCollection<CommandItem> {
-                        new CommandItem{ CommandName=FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
+                        new CommandItem{ CommandName=LanguageService.FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
                     };
                     _contextCommands.AddRange(base.ContextCommands);
 

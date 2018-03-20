@@ -2,14 +2,16 @@
 using Prism.Mef;
 using Prism.Modularity;
 using Prism.Mvvm;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Contracts.Splash;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -56,6 +58,15 @@ namespace SingularityShell {
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
             return this.Container.GetExportedValue<IShell>() as DependencyObject;
+        }
+
+        protected override void InitializeModules() {
+            var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
+            splashService.ShowSplash();
+            //初始化语言;
+            ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
+            base.InitializeModules();
+            splashService.CloseSplash();
         }
 
         protected override void InitializeShell() {

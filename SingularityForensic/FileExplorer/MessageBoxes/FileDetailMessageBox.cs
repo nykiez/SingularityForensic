@@ -22,7 +22,7 @@ namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
             Action<object, StringBuilder,string[]> afa = (ob, sbr ,ignored) => {
                 foreach (var prop in ob.GetType().GetFields()) {
                     if (!(ignored?.Contains(prop.Name) ?? false) && !prop.Name.ToLower().Contains("unknown")) {
-                        var propName = FindResourceString(prop.Name);
+                        var propName = LanguageService.FindResourceString(prop.Name);
                         if (string.IsNullOrEmpty(propName)) {
                             propName = prop.Name;
                         }
@@ -32,9 +32,9 @@ namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
             };
             
             var sb = new StringBuilder();
-            sb.AppendLine($"{FindResourceString("BasicFileInfo")}");
-            sb.AppendLine($"{FindResourceString("FileName")}{comma}{file.Name}");
-            sb.AppendLine($"{FindResourceString("FileSize")}{comma}{file.Size}{FindResourceString("Byte")}");
+            sb.AppendLine($"{LanguageService.FindResourceString("BasicFileInfo")}");
+            sb.AppendLine($"{LanguageService.FindResourceString("FileName")}{comma}{file.Name}");
+            sb.AppendLine($"{LanguageService.FindResourceString("FileSize")}{comma}{file.Size}{LanguageService.FindResourceString("Byte")}");
             sb.AppendLine();
 
             //if(file is IExt4Node) {

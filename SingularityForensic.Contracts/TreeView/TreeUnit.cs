@@ -15,7 +15,7 @@ namespace SingularityForensic.Contracts.TreeView {
             object data = null) {
             
             this.TypeGuid = typeGuid;
-            this.Data = data;
+            this.Tag = data;
         }
         
         //类型GUID;
@@ -43,7 +43,7 @@ namespace SingularityForensic.Contracts.TreeView {
         }
 
         //数据实体;
-        public object Data { get;  }
+        public object Tag { get;  }
 
         //子节点;
         public ObservableCollection<TreeUnit> Children { get; set; } = new ObservableCollection<TreeUnit>();
@@ -55,9 +55,26 @@ namespace SingularityForensic.Contracts.TreeView {
             set => SetProperty(ref _icon, value);
         }
 
-        //上下文菜单;
+        //上下文命令菜单;
         public ObservableCollection<CommandItem> ContextCommands { get; set; } = new ObservableCollection<CommandItem>();
-        
+
+        public void AddCommandItem(CommandItem commandItem) {
+            if(commandItem == null) {
+                throw new ArgumentNullException(nameof(commandItem));
+            }
+
+            var index = 0;
+            
+            foreach (var ci in ContextCommands) {
+                if(ci.Sort > commandItem.Sort) {
+                    break;
+                }
+                index++;
+            }
+
+            ContextCommands.Insert(index, commandItem);
+        }
+
         public bool MoveToUnit(TreeUnit newParent) {
             if (newParent == null) {
                 throw new ArgumentNullException(nameof(newParent));
@@ -80,6 +97,8 @@ namespace SingularityForensic.Contracts.TreeView {
                 return false;
             }
         }
+
+        
     }
 
 }

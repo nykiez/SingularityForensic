@@ -11,12 +11,7 @@ namespace SingularityForensic.MainMenu.Views {
         public MainMenu() {
             InitializeComponent();
         }
-        [Import]
-        MainMenuViewModel VM {
-            set {
-                this.DataContext = value;
-            }
-        }
+       
         
     }
 }

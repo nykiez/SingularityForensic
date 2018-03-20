@@ -4,7 +4,7 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Test.App;
-using SingularityForensic.Test.Case;
+using SingularityForensic.Test.Casing;
 using SingularityForensic.Test.Common;
 using System;
 using System.Collections.Generic;

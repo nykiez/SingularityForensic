@@ -46,6 +46,15 @@ namespace SingularityForensic.App
             }
             return null;
         }
+
+        public string GetDirect() {
+            var dialog = new VistaFolderBrowserDialog();
+            if(dialog.ShowDialog() == true) {
+                return dialog.SelectedPath;
+            }
+
+            return string.Empty;
+        }
     }
 
     public class ProcessDialog : ILoadingDialog {

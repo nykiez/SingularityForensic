@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Imaging {
     internal static class IconSources {
-        public static readonly Uri AddImgIcon = new Uri("/SingularityForensic;component/Imagin/Images/Toolbar_AddImg.png", UriKind.RelativeOrAbsolute);
+        public static readonly Uri AddImgIcon = new Uri("/SingularityForensic;component/Imaging/Images/Toolbar_AddImg.png", UriKind.RelativeOrAbsolute);
     }
 }

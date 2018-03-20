@@ -4,8 +4,7 @@ using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.Contracts.MainMenu {
     public class MenuObjectItem : IUIObjectProvider {
-
-        public object UIObject { get; }
+        public object UIObject { get; set; }
     }
 
     //上下文菜单模型;

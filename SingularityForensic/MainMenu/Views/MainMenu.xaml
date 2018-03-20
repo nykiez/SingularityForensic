@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SingularityForensic.MainMenu.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:prism="http://www.codeplex.com/prism"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             mc:Ignorable="d" 
+             xmlns:prism="http://prismlibrary.com/"
+             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="1440">
     <UserControl.Resources>
         <ResourceDictionary>

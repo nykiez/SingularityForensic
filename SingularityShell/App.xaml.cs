@@ -13,6 +13,7 @@ namespace SingularityShell {
     /// </summary>
     public partial class App : Application {
         public App() {
+            
             DispatcherUnhandledException += (sender, e) => {
                 LoggerService.Current?.WriteCallerLine("主线程错误:" + e.Exception.Message);
                 e.Handled = true;

@@ -68,5 +68,8 @@ namespace SingularityForensic.Contracts.App {
         public static void ShowError(string error) => Current?.ShowError(error);
 
         public static void Show(string msg) => Current?.Show(msg);
+
+        public static MessageBoxResult Show(string msg, MessageBoxButton msgBtn) =>
+            Current?.Show(msg, msgBtn)?? MessageBoxResult.OK;
     }
 }

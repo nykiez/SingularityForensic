@@ -71,7 +71,7 @@ namespace SingularityForensic.Controls.Hex.Services {
                         hex.FocusPosition = pos;
                     }
                     else {
-                        CDFCMessageBox.Show(FindResourceString("CannotFindTheContent"));
+                        CDFCMessageBox.Show(LanguageService.FindResourceString("CannotFindTheContent"));
                     }
                 }
             };

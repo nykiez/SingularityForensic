@@ -38,7 +38,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                 }
                             }, err => {
                                 InitAndTrack();
-                                RemainingMessageBox.Tell($"{FindResourceString("FailedToDetectAdbDevices")}:" + err.Message);
+                                MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToDetectAdbDevices")}:" + err.Message);
                             });
                         }
                     }

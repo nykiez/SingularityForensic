@@ -1,7 +1,6 @@
 ﻿using CDFCUIContracts.Abstracts;
 using System;
 using System.Text;
-using static CDFCCultures.Managers.ManagerLocator;
 using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
 using Cflab.DataTransport.Modules.Transport.Model;
@@ -36,7 +35,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
                 try {
                     foreach (var prop in AdbModel.GetType().GetProperties()) {
                         Action normalAddAct = () => {
-                            sb.AppendLine((FindResourceString($"Adb{InfoType}{prop.Name}")??prop.Name) +
+                            sb.AppendLine((LanguageService.FindResourceString($"Adb{InfoType}{prop.Name}")??prop.Name) +
                          $":{prop.GetValue(AdbModel)}");
                         };
                         if (prop.PropertyType == typeof(DateTime)
@@ -52,19 +51,19 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
                     if (AdbModel is AdbContactModel) {
                         var contact = (AdbModel as AdbContactModel).Info as Contact;
                         sb.AppendLine();
-                        sb.AppendLine($"{FindResourceString("AdbContactNumbers")}({contact.Numbers?.Count??0})");
+                        sb.AppendLine($"{LanguageService.FindResourceString("AdbContactNumbers")}({contact.Numbers?.Count??0})");
                         contact?.Numbers?.ForEach(p => {
-                            sb.AppendLine($"{FindResourceString("AdbContactNumberName")       }:{p.Name      }");
-                            sb.AppendLine($"{FindResourceString("AdbContactNumberNumber")     }:{p.Number    }");
-                            sb.AppendLine($"{FindResourceString("AdbContactNumberFullNumber") }:{p.FullNumber}");
-                            sb.AppendLine($"{FindResourceString("AdbContactNumberLocation")   }:{p.Location  }");
+                            sb.AppendLine($"{LanguageService.FindResourceString("AdbContactNumberName")       }:{p.Name      }");
+                            sb.AppendLine($"{LanguageService.FindResourceString("AdbContactNumberNumber")     }:{p.Number    }");
+                            sb.AppendLine($"{LanguageService.FindResourceString("AdbContactNumberFullNumber") }:{p.FullNumber}");
+                            sb.AppendLine($"{LanguageService.FindResourceString("AdbContactNumberLocation")   }:{p.Location  }");
                         });
                         sb.AppendLine();
 
-                        sb.AppendLine($"{FindResourceString("AdbContactEmails")}({contact.Emails?.Count ?? 0})");
+                        sb.AppendLine($"{LanguageService.FindResourceString("AdbContactEmails")}({contact.Emails?.Count ?? 0})");
                         contact?.Emails?.ForEach(p => {
-                            sb.Append($"{FindResourceString("AdbContactEmailName")   }:{p.Name}");
-                            sb.Append($"{FindResourceString("AdbContactEmailAddress")}:{p.Address}");
+                            sb.Append($"{LanguageService.FindResourceString("AdbContactEmailName")   }:{p.Name}");
+                            sb.Append($"{LanguageService.FindResourceString("AdbContactEmailAddress")}:{p.Address}");
                         });
                     }
                     return sb.ToString();

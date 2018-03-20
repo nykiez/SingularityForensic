@@ -18,10 +18,10 @@ namespace SingularityForensic.Android {
 
         //显示文件系统信息;
         public static readonly DelegateCommand ShowFileSystemInfoCommand = new DelegateCommand(() => {
-            var device = NodeService?.SelectedNode.Data as AndroidDevice;
+            var device = NodeService?.SelectedUnit.Tag as AndroidDevice;
             BlockDeviceFSInfoMessageBox.Show(device);
         },
-            () => NodeService?.SelectedNode.TypeGuid == Constants.AndroidDeviceNodeContextCommand);
+            () => NodeService?.SelectedUnit.TypeGuid == Constants.AndroidDeviceNodeContextCommand);
         
         [Export(Constants.AndroidDeviceNodeContextCommand)]
         public static readonly ICommandItem ShowFileSystemInfoMI = new CommandItem {

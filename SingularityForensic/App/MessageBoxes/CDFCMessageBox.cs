@@ -2,15 +2,14 @@
 using SingularityForensic.App.Views;
 using System;
 using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.App.MessageBoxes {
     public static class CDFCMessageBox {
         public static MessageBoxResult Show(string msgText) {
-            return Show(msgText, FindResourceString("Tip"), MessageBoxButton.OK);
+            return Show(msgText, Contracts.App.LanguageService.FindResourceString("Tip"), MessageBoxButton.OK);
         }
         public static MessageBoxResult Show(string msgText, MessageBoxButton button) {
-            return Show(msgText, FindResourceString("Tip"), button);
+            return Show(msgText, Contracts.App.LanguageService.FindResourceString("Tip"), button);
         }
 
         public static MessageBoxResult Show(string msgText, string caption, MessageBoxButton button) {
