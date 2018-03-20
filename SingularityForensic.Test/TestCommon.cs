@@ -33,16 +33,17 @@ namespace SingularityForensic.Test {
             ExportProviderServiceProviderMocker.StaticInstance.ExportProvider = container;
            
 
-            //设定MessageBoxMocker;
+            //设定案件MessageBoxMocker;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(CaseMockers.CaseDialogServiceMocker);
 
+            //设定事件聚合器;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(CommonMockers.AggregatorMocker);
-
+            
             //App相关Mocker;
-            ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.LanguageMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.MsgBoxMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.ThreadInvokerMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.DialogMocker);
+            ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.LanguageDictObjectMocker);
         }
     }
 }

@@ -101,6 +101,7 @@
     <Compile Include="App\AppMockers.cs" />
     <Compile Include="App\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
+    <Compile Include="App\LanguageServiceTests.cs" />
     <Compile Include="Casing\CaseEvidenceTests.cs" />
     <Compile Include="Casing\CaseMockers.cs" />
     <Compile Include="Casing\CaseServiceTest.cs" />

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 using System.Xml.Linq;
 
 namespace SingularityForensic.App {
@@ -159,19 +160,16 @@ namespace SingularityForensic.App {
             //遍历添加语言文件;
             foreach (var file in di.GetFiles()) {
                 try {
-                    var resource = new ResourceDictionary();
-                    resource.Source = new Uri($"{providerDirect}/{file.Name}",UriKind.Absolute);
-                    _languageDict.MergedDictionaries.Add(resource);
+                    using (var rs = File.OpenRead($"{providerDirect}/{file.Name}")) {
+                        var res = XamlReader.Load(rs) as ResourceDictionary;
+                        _languageDict.MergedDictionaries.Add(res);
+                    }
                 }
                 catch(Exception ex) {
                     Contracts.App.LoggerService.WriteCallerLine(ex.Message);
                 }
             }
         }
-        
-        //public void ReloadLanguage(string languageName) {
-        //    throw new NotImplementedException();
-        //}
     }
 
     //由于测试项目中无Application.Current对象,故单独抽象出一个接口提供被操作的语言资源字典;
