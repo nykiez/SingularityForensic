@@ -18,38 +18,26 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
     public partial class FolderBrowser : UserControl {
         public FolderBrowser() {
             InitializeComponent();
-            this.DataContextChanged += FolderBrowser_DataContextChanged;
+            
             
         }
-        private void CheckRows(bool isChecked) {
-            var slRows = new List<IFileRow>();
-            try {
-                foreach (var item in dg.SelectedItems) {
-                    slRows.Add(item as IFileRow);
-                }
-            }
-            catch (Exception ex) {
-                EventLogger.Logger.WriteLine($"{nameof(FolderBrowser)}->CheckSelected:{ex.Message}");
-                CDFCMessageBox.Show(ex.Message);
-            }
-            finally {
-                vm?.CheckRows(slRows, isChecked);
-            }
-        }
+        //private void CheckRows(bool isChecked) {
+        //    var slRows = new List<IFileRow>();
+        //    try {
+        //        foreach (var item in dg.SelectedItems) {
+        //            slRows.Add(item as IFileRow);
+        //        }
+        //    }
+        //    catch (Exception ex) {
+        //        EventLogger.Logger.WriteLine($"{nameof(FolderBrowser)}->CheckSelected:{ex.Message}");
+        //        CDFCMessageBox.Show(ex.Message);
+        //    }
+        //    finally {
+        //        vm?.CheckRows(slRows, isChecked);
+        //    }
+        //}
 
-        private void FolderBrowser_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
-            if(vm != e.NewValue && e.NewValue != null) {
-                vm = e.NewValue as FolderBrowserViewModel;
-                if(vm != null) {
-                    vm.CheckSelectedRequired += (s, args) => {
-                        CheckRows(true);
-                    };
-                    vm.UnCheckSelectedRequired += (s, args) => {
-                        CheckRows(false);
-                    };
-                }
-            }
-        }
+        
 
         //~FolderBrowser() {
 
@@ -90,6 +78,10 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
 
         private void dg_LoadingRow(object sender, DataGridRowEventArgs e) {
             e.Row.Header = e.Row.GetIndex() + 1;
+        }
+
+        private void RadGridView_SelectedCellsChanged(object sender, Telerik.Windows.Controls.GridView.GridViewSelectedCellsChangedEventArgs e) {
+            
         }
     }
 }

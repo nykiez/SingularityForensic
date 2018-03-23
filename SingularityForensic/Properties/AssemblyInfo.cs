@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -18,6 +19,7 @@ using System.Windows;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+
 
 //In order to begin building localizable applications, set 
 //<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
@@ -38,6 +40,8 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
+[assembly: XmlnsDefinition("http://singularity/controls", "SingularityForensic.Controls")]
+[assembly: XmlnsDefinition("http://singularity/controls", "SingularityForensic.Controls.GridView")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Generic.xaml"/>
-
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Controls/Themes/Generic.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Previewers;component/Languages/zh_CN/Singularity.Previewers.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

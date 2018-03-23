@@ -115,7 +115,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SQLite, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.107.0\lib\net451\System.Data.SQLite.dll</HintPath>
     </Reference>
@@ -126,6 +128,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.107.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>False</Private>
@@ -143,6 +146,20 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="Vlc.DotNet.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
       <HintPath>..\packages\Vlc.DotNet.Core.2.2.1\lib\net45\Vlc.DotNet.Core.dll</HintPath>
     </Reference>
@@ -280,6 +297,11 @@
     <Compile Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GridView\FilterSetting.cs" />
+    <Compile Include="Controls\GridView\GridViewExtensions.cs" />
+    <Compile Include="Controls\GridView\RadGridViewEx.cs" />
+    <Compile Include="Controls\LanguageServiceToTelerikAdapter.cs" />
+    <Compile Include="Controls\ControlsModule.cs" />
     <Compile Include="Controls\Design\TalkViewDesignModel.cs" />
     <Compile Include="Controls\FilterableDataGrid\FilterableDataGrid.cs" />
     <Compile Include="Controls\FilterableDataGrid\FilterHeader.xaml.cs">
@@ -631,11 +653,18 @@
     <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\Themes\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Themes\GridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Themes\MetroWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -947,6 +976,7 @@
     <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
+    <Folder Include="FileExplorer\Design\" />
     <Folder Include="Hex\Languages\" />
     <Folder Include="Languages\en_US\" />
     <Folder Include="MainPage\Models\" />
@@ -1548,6 +1578,7 @@ XCopy "$(ProjectDir)Imaging\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)ITunes\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />

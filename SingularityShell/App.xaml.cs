@@ -39,8 +39,8 @@ namespace SingularityShell {
             try {
                 new SingularityBootStrapper().Run();
             }
-            catch {
-
+            catch(Exception ex){
+                LoggerService.Current?.WriteCallerLine(ex.Message);
             }
 
         }

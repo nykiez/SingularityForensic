@@ -46,6 +46,14 @@ namespace SingularityForensic.Test.Imaging {
             var pos = _handle.SeekOffset(500, System.IO.SeekOrigin.Begin);
             Assert.AreEqual(pos, 500);
             Assert.AreEqual(_handle.GetOffset(),500);
+            
+        }
+        
+        [TestMethod]
+        public void TestCreate() {
+            var _hd = new Handle();
+            _hd.Open(new string[] { "D://1.eo1" }, Handle.GetAccessFlagsWrite());
+            
         }
 
         [TestMethod]

@@ -42,7 +42,14 @@ namespace SingularityForensic.Contracts.Common {
         }
 
         public List<CommandItem> Children { get; } = new List<CommandItem>();
-        
+
+
+        private bool _isEnabled;
+        public bool IsEnabled {
+            get => _isEnabled;
+            set => SetProperty(ref _isEnabled, value);
+        }
+
         //排列顺序;
         public int Sort { get; set; }
     }

@@ -166,6 +166,11 @@ Copy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dl
 Copy "$(SolutionDir)packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll" "$(TargetDir)Controls\Meta.Vlc.dll"
 XCopy "$(SolutionDir)packages\Meta.Vlc.Lib.16.05.01\content\LibVlc" "$(TargetDir)"  /E /Y
 
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.GridView.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll"
+
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\BouncyCastle.Crypto.dll" "$(TargetDir)Entities\BouncyCastle.Crypto.dll"

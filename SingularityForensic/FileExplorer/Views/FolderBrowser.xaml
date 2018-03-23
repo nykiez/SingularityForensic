@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/2008" 
+             xmlns:controls="http://singularity/controls"
              xmlns:pubCvts="clr-namespace:SingularityForensic.Contracts.Converters;assembly=SingularityForensic.Contracts"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1400">
     <UserControl.InputBindings>
@@ -18,12 +19,12 @@
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/DataGrid.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
-            <Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource TransparentButton}">
+            <!--<controls:BindingProxy x:Key="dataElement" Data="{Binding}" />-->
+            <!--<Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource TransparentButton}">
                 <Setter Property='DockPanel.Dock' Value="Right"/>
                 <Setter Property="Height" Value="14"/>
                 <Setter Property="DataContext" Value="{Binding Data,Source={StaticResource dataElement}}"/>
-            </Style>
+            </Style>-->
             <ImageBrush x:Key="FilterUsing" Stretch="None"  ImageSource="/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png"/>
             <sys:String x:Key="FilterNormal">/SingularityForensic;component/Images/Shell/FolderBrowser/Filter.png</sys:String>
             <sys:String x:Key="Filtering">/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png</sys:String>
@@ -66,7 +67,7 @@
                        Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
             <Button DockPanel.Dock="Right" Command="{Binding SwitchFilteringCommand}"  >
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource FilterButton}">
+                    <Style TargetType="Button" BasedOn="{StaticResource TransparentButton}" >
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AnyFiltering}" Value="True">
                                 <Setter Property="Content">
@@ -90,14 +91,19 @@
 
             <Border/>
         </DockPanel>
-        <controls:DataGridEx  Grid.Row="1" FocusItem="{Binding FocusRow,Mode=OneWay}"
+        <telerik:RadGridView ShowGroupPanel="False" ItemsSource="{Binding FileRows}"
+                             Grid.Row="1"
+                             >
+            
+        </telerik:RadGridView>
+        <!--<controls:DataGridEx  Grid.Row="1" FocusItem="{Binding FocusRow,Mode=OneWay}"
                               SelectedText="{Binding SelectedText,Mode=OneWayToSource}"
                   SelectedItem="{Binding SelectedFileRow}"
                   PreviewMouseDown="DataGrid_PreviewMouseDown"
                   AutoGenerateColumns="False" LoadingRow="dg_LoadingRow"
                   RowHeaderWidth="0" CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Auto" 
-                  ItemsSource="{Binding FileRows}" x:Name="dg"  >
+                   x:Name="dg"  >
             <controls:DataGridEx.ScrollContentContextMenu>
                 <ContextMenu ItemsSource="{Binding ContextCommands}">
                     <ContextMenu.ItemContainerStyle>
@@ -105,11 +111,11 @@
                             <Setter Property="Command" Value="{Binding Command}"/>
                             <Setter Property="Header" Value="{Binding CommandName}"/>
                             <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                            <!--<Style.Triggers>
+                            --><!--<Style.Triggers>
                                 <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
                                     <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
                                 </DataTrigger>
-                            </Style.Triggers>-->
+                            </Style.Triggers>--><!--
                         </Style>
                     </ContextMenu.ItemContainerStyle>
                 </ContextMenu>
@@ -186,7 +192,7 @@
                                                 <Setter Property="Width" Value="17"/>
                                                 <Setter Property="Height" Value="17"/>
                                                 <Setter Property="Source" Value="{Binding Icon}"/>
-                                                <!--<Style.Triggers>
+                                                --><!--<Style.Triggers>
                                                     <DataTrigger Binding="{Binding RowType,Mode=OneTime}">
                                                         <DataTrigger.Value>
                                                             <contracts:FileType>Directory</contracts:FileType>
@@ -211,7 +217,7 @@
                                                         </DataTrigger.Value>
                                                         <Setter Property="Source" Value="pack://application:,,,/SingularityForensic;component/FileExplorer/Images/Type_Unknown.ico"/>
                                                     </DataTrigger>
-                                                </Style.Triggers>-->
+                                                </Style.Triggers>--><!--
                                             </Style>
                                         </Image.Style>
                                     </Image>
@@ -447,7 +453,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </controls:DataGridEx>
+        </controls:DataGridEx>-->
     </Grid>
 
 </UserControl>

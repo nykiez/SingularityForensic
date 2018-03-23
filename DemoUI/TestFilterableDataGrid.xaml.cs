@@ -1,4 +1,6 @@
 ﻿using CDFCControls.Controls;
+using Prism.Mvvm;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Controls.FilterableDataGrid;
 using System;
 using System.Collections.Generic;
@@ -65,30 +67,19 @@ namespace DemoUI {
         public partial class TestFilterableDataGrid : UserControl {
         public TestFilterableDataGrid() {
             //Telerik.Windows.Controls.RadGridView
-            InitiliazeItems();
             
             InitializeComponent();
             
             //InitilalizeWithObjects();
             InitiliazeWithDT();
+            this.DataContext = new VM();
             LocalizationManager.Manager = new CustomLocalizationManager();
         }
 
         
 
-        private ObservableCollection<DGModel> items = new ObservableCollection<DGModel>();
-        private void InitiliazeItems() {
-            for (int i = 0; i < 20000; i++) {
-                var model = new DGModel {
-                    Sex = i % 2 == 0,
-                    Name = Path.GetRandomFileName()
-                };
-                Extender.SetAttachedText(model, "Das");
-
-                Extender.SetAttachedText(model, (i % 2).ToString());
-                items.Add(model);
-            }
-        }
+        
+        
 
         private void InitilalizeWithObjects() {
             var dgColumns = new DataGridCloumnsCollection();
@@ -145,43 +136,14 @@ namespace DemoUI {
 
             dgColumns.Add(exCol);
 
-            
-            //dgg.Columns.AddRange(dgColumns);
 
-            this.DataContext = new { Items = items, Type = typeof(DGModel), Columns = dgColumns };
+            //dgg.Columns.AddRange(dgColumns);
+            this.DataContext = new VM();
         }
 
         
         private void InitiliazeWithDT() {
-            var dt = new DataTable();
-            string col1 = nameof(col1);
-            string col2 = nameof(col2);
-            string col3 = nameof(col3);
-            string col4 = nameof(col4);
-            string col5 = nameof(col5);
-            dt.Columns.AddRange(
-                new DataColumn[] {
-                    new DataColumn(col1, typeof(string)),
-                    new DataColumn(col2, typeof(bool)),
-                    new DataColumn(col3, typeof(Depart)),
-                    new DataColumn(col4, typeof(DateTime)),
-                    new DataColumn(col5, typeof(long))
-                }
-            );
-
-            var rand = new Random();
-            foreach (var item in items) {
-                var row = dt.NewRow();
-                row[col1] = item.Name;
-                row[col2] = item.Sex;
-                row[col3] = Depart.dasd;
-                row[col4] = DateTime.Now;
-                row[col5] = rand.Next(1000);
-                dt.Rows.Add(row);
-            }
-
             
-            this.DataContext = new { Items = dt.AsDataView() };
         }
 
         private void dgg_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
@@ -196,93 +158,35 @@ namespace DemoUI {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            var setting = SaveColumnFilters(dgg);
-            LoadColumnFilters(dgg2,setting);
+            
+            
             //dgg2.FilterDescriptors.AddRange(dgg.FilterDescriptors);
         }
 
-        public static IEnumerable<FilterSetting> SaveColumnFilters(Telerik.Windows.Controls.GridView.GridViewDataControl grid) {
-            IList<FilterSetting> settings = new List<FilterSetting>();
-
-            foreach (IFilterDescriptor filter in grid.FilterDescriptors) {
-                Telerik.Windows.Controls.GridView.IColumnFilterDescriptor columnFilter = filter as Telerik.Windows.Controls.GridView.IColumnFilterDescriptor;
-                if (columnFilter != null) {
-                    FilterSetting setting = new FilterSetting();
-
-                    setting.ColumnUniqueName = columnFilter.Column.UniqueName;
-
-                    setting.SelectedDistinctValues.AddRange(columnFilter.DistinctFilter.DistinctValues);
-
-                    if (columnFilter.FieldFilter.Filter1.IsActive) {
-                        setting.Filter1 = new FilterDescriptorProxy();
-                        setting.Filter1.Operator = columnFilter.FieldFilter.Filter1.Operator;
-                        setting.Filter1.Value = columnFilter.FieldFilter.Filter1.Value;
-                        setting.Filter1.IsCaseSensitive = columnFilter.FieldFilter.Filter1.IsCaseSensitive;
-                    }
-
-                    setting.FieldFilterLogicalOperator = columnFilter.FieldFilter.LogicalOperator;
-
-                    if (columnFilter.FieldFilter.Filter2.IsActive) {
-                        setting.Filter2 = new FilterDescriptorProxy();
-                        setting.Filter2.Operator = columnFilter.FieldFilter.Filter2.Operator;
-                        setting.Filter2.Value = columnFilter.FieldFilter.Filter2.Value;
-                        setting.Filter2.IsCaseSensitive = columnFilter.FieldFilter.Filter2.IsCaseSensitive;
-                    }
-
-                    settings.Add(setting);
-                }
-            }
-
-            return settings;
-        }
-
-        public static void LoadColumnFilters(Telerik.Windows.Controls.GridView.GridViewDataControl grid
-            , IEnumerable<FilterSetting> savedSettings) {
-            grid.FilterDescriptors.SuspendNotifications();
-
-            foreach (FilterSetting setting in savedSettings) {
-                Telerik.Windows.Controls.GridViewColumn column = grid.Columns[setting.ColumnUniqueName];
-
-                Telerik.Windows.Controls.GridView.IColumnFilterDescriptor columnFilter = column.ColumnFilterDescriptor;
-
-                foreach (object distinctValue in setting.SelectedDistinctValues) {
-                    columnFilter.DistinctFilter.AddDistinctValue(distinctValue);
-                }
-
-                if (setting.Filter1 != null) {
-                    columnFilter.FieldFilter.Filter1.Operator = setting.Filter1.Operator;
-                    columnFilter.FieldFilter.Filter1.Value = setting.Filter1.Value;
-                    columnFilter.FieldFilter.Filter1.IsCaseSensitive = setting.Filter1.IsCaseSensitive;
-                }
-
-                columnFilter.FieldFilter.LogicalOperator = setting.FieldFilterLogicalOperator;
-
-                if (setting.Filter2 != null) {
-                    columnFilter.FieldFilter.Filter2.Operator = setting.Filter2.Operator;
-                    columnFilter.FieldFilter.Filter2.Value = setting.Filter2.Value;
-                    columnFilter.FieldFilter.Filter2.IsCaseSensitive = setting.Filter2.IsCaseSensitive;
-                }
-            }
-
-            grid.FilterDescriptors.ResumeNotifications();
-        }
-    }
-
-    public class FilterDescriptorProxy {
-        public FilterOperator Operator { get; set; }
-        public object Value { get; set; }
-        public bool IsCaseSensitive { get; set; }
         
+
+        private void dgg2_SelectedCellsChanged(object sender, GridViewSelectedCellsChangedEventArgs e) {
+            
+        }
+
+        private void dgg2_SelectionChanged(object sender, SelectionChangeEventArgs e) {
+
+        }
+
+        private void dgg_Copying(object sender, GridViewClipboardEventArgs e) {
+            
+        }
+
+        private void dgg_CurrentCellChanged(object sender, GridViewCurrentCellChangedEventArgs e) {
+            
+        }
+
+        private void dgg_Filtered(object sender, GridViewFilteredEventArgs e) {
+
+        }
     }
 
-    public class FilterSetting {
-        public string ColumnUniqueName { get; set; }
-        public List<object> SelectedDistinctValues { get; } = new List<object>();
-        public FilterDescriptorProxy Filter1 { get; set; }
-        public FilterCompositionLogicalOperator FieldFilterLogicalOperator { get; set; }
-        public FilterDescriptorProxy Filter2 { get; set; }
-    }
-   
+
 
     public class DGModel : DependencyObject {
         public string Name { get; set; }
@@ -295,7 +199,92 @@ namespace DemoUI {
 
     }
 
-    public class VM {
+    public class VM:BindableBase {
+        public VM() {
+            InitiliazeItems();
+            InitilaizeDt();
+            Commands.Add(new CommandItem {
+                CommandName = "你好"
+            });
+        }
+
+        public ObservableCollection<CommandItem> Commands { get; set; } = new ObservableCollection<CommandItem>();
+        private List<DGModel> items = new List<DGModel>();
+        public DataTable Items {
+            get;private set;
+        }
+
+
+        private object _FilterSettings1;
+        public object FilterSettings1 {
+            get => _FilterSettings1;
+            set => SetProperty(ref _FilterSettings1, value);
+        }
+
+        private object _FilterSettings2;
+        public object FilterSettings2 {
+            get => _FilterSettings2;
+            set => SetProperty(ref _FilterSettings2, value);
+        }
+
+        public void InitilaizeDt() {
+            Items = new DataTable();
+            string col1 = nameof(col1);
+            string col2 = nameof(col2);
+            string col3 = nameof(col3);
+            string col4 = nameof(col4);
+            string col5 = nameof(col5);
+            Items.Columns.AddRange(
+                new DataColumn[] {
+                    new DataColumn(col1, typeof(string)),
+                    new DataColumn(col2, typeof(bool)),
+                    new DataColumn(col3, typeof(Depart)),
+                    new DataColumn(col4, typeof(DateTime)),
+                    new DataColumn(col5, typeof(long))
+                }
+            );
+
+            var rand = new Random();
+            foreach (var item in items) {
+                var row = Items.NewRow();
+                row[col1] = item.Name;
+                row[col2] = item.Sex;
+                row[col3] = Depart.dasd;
+                row[col4] = DateTime.Now;
+                row[col5] = rand.Next(1000);
+                Items.Rows.Add(row);
+            }
+
+
+            
+        }
+        private void InitiliazeItems() {
+            for (int i = 0; i < 20000; i++) {
+                var model = new DGModel {
+                    Sex = i % 2 == 0,
+                    Name = Path.GetRandomFileName()
+                };
+                Extender.SetAttachedText(model, "Das");
+
+                Extender.SetAttachedText(model, (i % 2).ToString());
+                items.Add(model);
+            }
+        }
+
+        private Prism.Commands.DelegateCommand _copyFilterComand;
+        public Prism.Commands.DelegateCommand CopyFilterComand => _copyFilterComand ??
+            (_copyFilterComand = new Prism.Commands.DelegateCommand(
+                () => {
+                    FilterSettings2 = FilterSettings1;
+                }
+            ));
+
+
+        private string _selectedText;
+        public string SelectedText {
+            get => _selectedText;
+            set => SetProperty(ref _selectedText, value);
+        }
 
     }
     

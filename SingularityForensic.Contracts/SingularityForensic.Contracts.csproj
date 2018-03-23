@@ -139,6 +139,7 @@
     <Compile Include="Common\ServiceProvider.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
+    <Compile Include="Document\IDocumentTabExtensionService.cs" />
     <Compile Include="Document\IDocumentTabService.cs" />
     <Compile Include="Document\IDocumentTab.cs" />
     <Compile Include="Dummy.cs" />
