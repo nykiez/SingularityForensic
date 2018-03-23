@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
-using EventLogger;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
 

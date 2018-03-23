@@ -1,13 +1,7 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
 using SingularityForensic.Contracts.Hex;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CDFCCultures.Managers.ManagerLocator;
 using WpfHexaEditor.Core.Bytes;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;

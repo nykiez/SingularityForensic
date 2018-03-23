@@ -5,7 +5,6 @@ using SingularityForensic.Controls.Windows;
 using System;
 using System.Linq;
 using System.Text;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
     //显示文件详细的讯息;

@@ -1,5 +1,4 @@
-﻿using EventLogger;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using System;
 using System.Windows.Media;

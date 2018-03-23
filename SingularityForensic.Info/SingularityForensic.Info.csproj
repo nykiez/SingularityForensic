@@ -181,9 +181,9 @@
       <Name>SingularityForensic.Contracts</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>SingularityForensic.Controls</Name>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
+      <Name>SingularityForensic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

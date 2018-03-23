@@ -1,5 +1,4 @@
 ﻿using System;
-using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;

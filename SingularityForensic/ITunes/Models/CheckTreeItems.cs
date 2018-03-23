@@ -1,19 +1,4 @@
-﻿
-using CDFCMessageBoxes.MessageBoxes;
-using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Controls.Info.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Threading;
-using static CDFCCultures.Managers.ManagerLocator;
-
-namespace SingularityForensic.Controls.ITunes.Models {
+﻿namespace SingularityForensic.Controls.ITunes.Models {
     /// <summary>
     /// 选项组导出;
     /// </summary>
@@ -59,7 +44,7 @@ namespace SingularityForensic.Controls.ITunes.Models {
     //            part.AddChildren(ownNdList);
     //            //CaseFile.File,
     //            //    ownNdList, $"{CaseFile.Name}-{Name}"
-                
+
     //            try {
     //                var fiUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>().GetForensicInfoUnit(CaseFile);
     //                foreach (var unit in fiUnit.Children) {
@@ -81,7 +66,7 @@ namespace SingularityForensic.Controls.ITunes.Models {
     //            catch (Exception ex) {
     //                CDFCMessageBox.Show($"{ex.Message}");
     //            }
-                
+
     //        }
 
     //        //保存;
@@ -177,7 +162,7 @@ namespace SingularityForensic.Controls.ITunes.Models {
     //    public override void Init(ITunesBackUpCaseFile adcFile) {
     //        base.Init(adcFile);
     //    }
-        
+
     //    public override void StartForensic(Func<bool> isCancel) {
     //        Pro = 50;
     //        var parser = new IOSBackUpParser(CaseFile.LocalBackUpPath);
@@ -185,7 +170,7 @@ namespace SingularityForensic.Controls.ITunes.Models {
     //        Pro = 100;
     //    }
     //}
-    
+
     //public static class CheckItemsDefinitions {
     //    [Export(typeof(CheckItemTreeItem<ITunesBackUpCaseFile>))]
     //    public static readonly ITunesParserCheckTreeItem PicRecomTreeItem = new ITunesParserCheckTreeItem(CheckGroupDefinitions.MultiMediaGroup,
@@ -210,6 +195,6 @@ namespace SingularityForensic.Controls.ITunes.Models {
     //        null, PinKindsDefinitions.ForensicClassOther) {
     //        Name = "其它文件"
     //    };
-        
+
     //}
 }

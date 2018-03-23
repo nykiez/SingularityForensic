@@ -1,10 +1,6 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
-using SingularityForensic.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
-using System;
 using System.IO;
-using System.Windows;
 
 namespace SingularityForensic.Controls.FileExplorer.Helpers {
     public static class FileRowHelper {

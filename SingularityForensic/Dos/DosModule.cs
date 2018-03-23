@@ -2,12 +2,6 @@
 using Prism.Modularity;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace SingularityForensic.Dos {
     [ModuleExport(typeof(DosModule))]

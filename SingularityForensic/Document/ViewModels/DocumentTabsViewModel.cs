@@ -1,15 +1,9 @@
 ﻿using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Document.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Document.ViewModels {
     //文件/资源浏览器相关;

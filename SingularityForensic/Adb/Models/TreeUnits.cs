@@ -1,24 +1,4 @@
-﻿using CDFC.Info.Adb;
-using CDFCUIContracts.Commands;
-using Cflab.DataTransport.Modules.Transport.Model;
-using EventLogger;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Info;
-using SingularityForensic.Adb.Contracts;
-using SingularityForensic.Adb.DeviceObjects;
-using SingularityForensic.Adb.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.TreeView;
-
-namespace SingularityForensic.Adb.Models {
+﻿namespace SingularityForensic.Adb.Models {
     //ADB完整信息节点;
     //public class AdbDeviceCaseFileUnit : TreeUnit {
     //    public AdbDeviceCaseFileUnit(PhoneFullInfoContainer container, TreeUnit parent):base(null,null)  {
@@ -85,7 +65,7 @@ namespace SingularityForensic.Adb.Models {
     //        //                    Label = $"{multiInfoContainer.InfoType.GetInfoTypeWord()}({multiInfoContainer.InfoModels.Count()})"
     //        //                });
     //        //            }
-                        
+
     //        //        }
     //        //        else if (p is AdbSingleInfoContainer<Basic, AdbInfoBasicModel> basicContainer) {
     //        //            ForensicUnit.Children.Add(new SingleInfoModelUnit<AdbInfoBasicModel>(basicContainer.InfoModel, p.InfoType,ForensicUnit));
@@ -95,11 +75,11 @@ namespace SingularityForensic.Adb.Models {
     //    }
 
     //    public PhoneFullInfoContainer PhoneInfoContainer { get; }
-        
+
     //    public TreeUnit ForensicUnit { get; private set; }
     //    public TreeUnit FSUnit { get; private set; }
     //}
-    
+
     //单独信息节点;
     //public class SingleInfoModelUnit<TInfoModel>:TreeUnit where TInfoModel:InfoModel {
     //    public SingleInfoModelUnit(TInfoModel inModel,MInfoType infoType,TreeUnit parent):base(null,null) {
@@ -120,7 +100,7 @@ namespace SingularityForensic.Adb.Models {
     //        InfoType = infoType;
     //        Label = MInfoTypeHelper.GetInfoTypeWord(infoType);
     //    }
-        
+
     //    public IEnumerable<InfoModel> InfoModels { get; }
     //    public MInfoType InfoType { get; }
 
@@ -145,7 +125,7 @@ namespace SingularityForensic.Adb.Models {
     //                        { Label = $"{(group.First() as AdbSmsModel).Name??group.Key}({group.Count()})" });
     //                    }
     //                }
-                    
+
     //            }
     //            return _children;
     //        }
@@ -159,13 +139,13 @@ namespace SingularityForensic.Adb.Models {
     //        InfoModels = infoModels;
     //        InfoType = infoType;
     //    }
-        
+
     //    public MInfoType InfoType { get; }
     //    public IEnumerable<InfoModel> InfoModels { get; }
-        
+
     //    public override ObservableCollection<TreeUnit> Children { get => null; set => throw new NotImplementedException(); }
     //}
-    
+
     //信息节点;
     //public class IInfoModelsContainerUnit : TreeUnit {
     //    public IInfoModelsContainerUnit(TreeUnit parent):base(null,null) {
@@ -176,7 +156,7 @@ namespace SingularityForensic.Adb.Models {
 
 
     //}
-    
+
     //public class AdbInfoContainerUnit : TreeUnit {
     //    public AdbInfoContainerUnit(IDefaultPhoneInfoContainer container, TreeUnit parent):base(null,null) {
     //        Container = container ?? throw new ArgumentNullException(nameof(container));

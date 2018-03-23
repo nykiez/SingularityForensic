@@ -1,12 +1,8 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
-using Microsoft.Practices.ServiceLocation;
+﻿using EventLogger;
 using Prism.Commands;
 using SingularityForensic.Adb.MessageBoxes;
 using System.ComponentModel.Composition;
-using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Adb.Global.Services;
-using SingularityForensic.Casing;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.MainMenu;

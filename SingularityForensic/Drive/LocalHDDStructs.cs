@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// 硬盘相关结构;
 /// </summary>
 namespace SingularityForensic.Drive {
-    
+
     /// <summary>
     /// 物理设备的结构;
     /// </summary>

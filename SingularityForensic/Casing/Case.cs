@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SysIO = System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using static SingularityForensic.Contracts.App.Constants;
 using SingularityForensic.Contracts.Casing;

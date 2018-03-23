@@ -1,12 +1,7 @@
 ﻿using EventLogger;
 using SingularityForensic.Contracts.App;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.App {
     [Export(typeof(ILoggerService))]

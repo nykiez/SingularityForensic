@@ -1,10 +1,4 @@
-﻿using SingularityForensic.Controls.Info.Models;
-using SingularityForensic.Controls.Info.ViewModels;
-using SingularityForensic.Controls.ITunes.Models;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-
-namespace SingularityForensic.Controls.ITunes.ViewModels {
+﻿namespace SingularityForensic.Controls.ITunes.ViewModels {
     //[Export]
     //[PartCreationPolicy(CreationPolicy.NonShared)]
     //public class ITunesStartForensicWindowViewModel:StartForensicWindowViewModel<ITunesBackUpCaseFile> {

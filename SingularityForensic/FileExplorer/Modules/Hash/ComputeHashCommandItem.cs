@@ -1,21 +1,4 @@
-﻿using Prism.Commands;
-using static CDFCCultures.Managers.ManagerLocator;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
-using CDFCMessageBoxes.MessageBoxes;
-using CDFC.Util.IO;
-using System.Threading;
-using CDFCCultures.Helpers;
-using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
-using CDFC.Hasher;
-using CDFC.Hasher.Interfaces;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.MessageBoxes;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.FileSystem;
-
-namespace SingularityForensic.Controls.FileExplorer.Modules.Hash {
+﻿namespace SingularityForensic.Controls.FileExplorer.Modules.Hash {
     //[Export(typeof(CommandItem<(DirectoriesBrowserViewModel, IFileRow)>))]
     //[PartCreationPolicy(CreationPolicy.NonShared)]
     //public class ComputeHashCommandItem : CommandItem<(DirectoriesBrowserViewModel Dvm, IFileRow Row)> {

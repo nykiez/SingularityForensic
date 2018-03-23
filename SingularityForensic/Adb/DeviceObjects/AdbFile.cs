@@ -1,9 +1,4 @@
-﻿using Cflab.DataTransport.Modules.Transport.Model;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace SingularityForensic.Adb.DeviceObjects {
+﻿namespace SingularityForensic.Adb.DeviceObjects {
     ///// <summary>
     ///// Adb文件契约;
     ///// </summary>
@@ -25,7 +20,7 @@ namespace SingularityForensic.Adb.DeviceObjects {
     //    }
 
     //    public AnFile AnFile { get; }
-        
+
     //    public override bool? Deleted => false;
 
     //    public override string Name => AnFile.Name;
@@ -59,7 +54,7 @@ namespace SingularityForensic.Adb.DeviceObjects {
     //    public override DateTime? AccessedTime => null;
 
     //    public AnFile AnFile { get; }
-        
+
     //    private List<IFile> _children;
     //    public override IEnumerable<IFile> Children {
     //        get {
@@ -103,7 +98,7 @@ namespace SingularityForensic.Adb.DeviceObjects {
     //    public AdbLinkFile(AnFile anFile,IFileparent):base(parent) {
     //        this.AnFile = anFile;
     //    }
-        
+
     //    public AnFile AnFile { get; }
     //    public IFileLinkTarget { get; internal set; }
 
@@ -137,10 +132,10 @@ namespace SingularityForensic.Adb.DeviceObjects {
     //            }
     //            //switch (p.IsDir) {
     //            //    case AnFile.FileType.Directory:
-                        
+
     //            //        break;
     //            //    case AnFile.FileType.File:
-                        
+
     //            //        break;
     //            //    case AnFile.FileType.Link:
     //            //        Children.Add(new AdbDirectory(p, this));
@@ -148,7 +143,7 @@ namespace SingularityForensic.Adb.DeviceObjects {
     //            //}
     //        });
     //    }
-        
+
     //    public override FileSystemType FSType => FileSystemType.EXT4;
 
     //    public List<IFile> _children;
@@ -171,10 +166,10 @@ namespace SingularityForensic.Adb.DeviceObjects {
 
     //    //备份文件存在本地的目录;
     //    public DirectoryInfo DirectoryInfo { get; }
-        
+
     //    public override FileSystemType FSType => FileSystemType.EXT4;
 
     //    public override uint ClusterSize => 0;
     //}
-    
+
 }

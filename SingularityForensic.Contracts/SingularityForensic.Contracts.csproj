@@ -161,7 +161,7 @@
     <Compile Include="FileSystem\Partition.cs" />
     <Compile Include="FileSystem\SymbolLink.cs" />
     <Compile Include="FileSystem\PartitionCaseFile.cs" />
-    <Compile Include="FileSystem\FSFile.cs" />
+    <Compile Include="FileSystem\FileBase.cs" />
     <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileExplorer\IFSNodeService.cs" />
     <Compile Include="FileExplorer\IHaveTabModels.cs" />

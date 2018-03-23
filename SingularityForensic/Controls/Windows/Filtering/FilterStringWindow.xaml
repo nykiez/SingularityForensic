@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:SingularityForensic.Controls.Views"
         mc:Ignorable="d" ResizeMode="NoResize" ShowCloseButton="True"
         WindowStartupLocation="CenterScreen"
-        Title="{StaticResource Filtering}" SizeToContent="Height" Width="360" Style="{DynamicResource MsgWindowStyle}">
+        Title="{DynamicResource Filtering}" SizeToContent="Height" Width="360" Style="{DynamicResource MsgWindowStyle}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

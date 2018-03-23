@@ -1,6 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Modules.DeviceObjects;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using SingularityForensic.Android.FileSystem.Models;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;

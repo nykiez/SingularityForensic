@@ -4,16 +4,7 @@ using Prism.Modularity;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Previewers;
 using SingularityForensic.Controls.Hex;
-using SingularityForensic.Controls.Info;
-using SingularityForensic.Controls.ITunes;
-using SingularityForensic;
-using SingularityForensic.Shell.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using SingularityForensic.Contracts.Shell;
 

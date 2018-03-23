@@ -1,12 +1,4 @@
-﻿using SingularityForensic.Contracts.Casing;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Dos {
+﻿namespace SingularityForensic.Dos {
     //[Export(typeof(ICaseManager)), Export]
     //public class DosCaseManager : ICaseManager {
     //    public int SortOrder => throw new NotImplementedException();

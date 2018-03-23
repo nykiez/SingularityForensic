@@ -1,9 +1,6 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
-using SingularityForensic.Shell.Models;
 using SingularityForensic.Shell.ViewModels;
-using SingularityForensic.ViewModels.Shell;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

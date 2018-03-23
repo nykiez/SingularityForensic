@@ -1,14 +1,8 @@
 ﻿using Moq;
-using SingularityForensic.Casing;
 using SingularityForensic.Contracts.Casing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Casing {
-   static class CaseMockers {
+    static class CaseMockers {
         private static ICaseDialogService _caseDialogServiceMocker;
 
         internal static ICaseDialogService CaseDialogServiceMocker {

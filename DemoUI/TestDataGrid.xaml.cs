@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows.Controls;
 
 namespace DemoUI {
@@ -13,6 +14,7 @@ namespace DemoUI {
                 vm.Add(new Model());
             }
             this.DataContext = vm;
+            
         }
     }
     class Model {

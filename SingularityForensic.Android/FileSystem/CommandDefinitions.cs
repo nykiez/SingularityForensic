@@ -1,14 +1,9 @@
 ﻿using CDFCUIContracts.Commands;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using SingularityForensic.Android.FileSystem.MessageBoxes.MessageBoxes;
-using static CDFCCultures.Managers.ManagerLocator;
 using System.ComponentModel.Composition;
-using CDFC.Parse.Modules.DeviceObjects;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Casing;
-using System.Linq;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Android {

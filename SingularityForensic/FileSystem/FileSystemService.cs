@@ -1,20 +1,10 @@
-﻿using CDFCCultures.Helpers;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Casing.Events;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.Shell;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using fsContracts = SingularityForensic.Contracts.FileSystem;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SingularityForensic.FileSystem {

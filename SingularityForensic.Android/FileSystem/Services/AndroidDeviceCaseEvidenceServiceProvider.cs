@@ -1,15 +1,8 @@
-﻿using CDFC.Parse.Contracts;
-using System;
-using CDFC.Util;
+﻿using System;
 using System.ComponentModel.Composition;
-using CDFC.Parse.Modules.DeviceObjects;
-using Microsoft.Practices.ServiceLocation;
 using SingularityForensic.Contracts.FileSystem;
-using CDFC.Parse.Abstracts;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Android.FileSystem.Models;
-using SingularityForensic.Contracts.FileExplorer;
-using System.Collections.Generic;
 using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Android.FileSystem.Services {

@@ -1,20 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.Linq;
-using EventLogger;
-using System.Runtime.Serialization.Formatters.Binary;
-using CDFC.Info.Adb;
-using System.IO;
-using CDFCMessageBoxes.MessageBoxes;
-using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
-using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Adb.Global.Services;
-using SingularityForensic.Casing;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
-
-namespace SingularityForensic.Adb.Models {
+﻿namespace SingularityForensic.Adb.Models {
     //[Export(typeof(ICaseManager))]
     //[PartCreationPolicy(CreationPolicy.Shared)]
     //public class AdbDeviceCaseManager : ICaseManager {
@@ -61,14 +45,14 @@ namespace SingularityForensic.Adb.Models {
     //    }
 
     //    public void Clear() {
-            
+
     //    }
 
     //    public void SetData(CaseEvidence csEvidence, object data) {
     //        if(csEvidence == null) {
     //            throw new ArgumentNullException(nameof(csEvidence));
     //        }
-            
+
     //        //if(data is adbs)
     //        //if (csEvidence.EvidenceTypeGuids?.Contains(TypeGUID) ?? false) {
 

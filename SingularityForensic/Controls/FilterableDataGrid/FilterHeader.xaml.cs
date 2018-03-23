@@ -11,17 +11,23 @@ namespace SingularityForensic.Controls.FilterableDataGrid {
             InitializeComponent();
         }
         
-        public string ColHeader {
-            get {
-                return txbHeader.Text;
-            }
-            set {
-                txbHeader.Text = value;
-            }
+        //public string ColHeader {
+        //    get {
+        //        return txbHeader.Text;
+        //    }
+        //    set {
+        //        txbHeader.Text = value;
+        //    }
+        //}
+
+        public Type PropertyType { get; set; }
+        public string PropertyName { get; set; }
+
+        public string HeaderText {
+            get =>txbHeader.Text;
+            set => txbHeader.Text = value;
         }
-
         public static readonly DependencyProperty FilteringProperty = DependencyProperty.Register(nameof(Filtering), typeof(bool), typeof(FilterHeader));
-
         
         public bool Filtering {
             get {

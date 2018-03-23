@@ -7,7 +7,6 @@ using SingularityForensic.Controls.Info.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 

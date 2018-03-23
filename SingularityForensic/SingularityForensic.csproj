@@ -280,6 +280,75 @@
     <Compile Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Design\TalkViewDesignModel.cs" />
+    <Compile Include="Controls\FilterableDataGrid\FilterableDataGrid.cs" />
+    <Compile Include="Controls\FilterableDataGrid\FilterHeader.xaml.cs">
+      <DependentUpon>FilterHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBoxes\DoubleProcessMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\Filtering\FilterDTMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\FindHexValueMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\FindTextMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\GoToOffsetMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\InputValueMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\ReComPreSettingMessageBox.cs" />
+    <Compile Include="Controls\MessageBoxes\SignSearchMessageBox.cs" />
+    <Compile Include="Controls\Models\Filtering\FilterAllModel.cs" />
+    <Compile Include="Controls\Models\Filtering\FilterDateModel.cs" />
+    <Compile Include="Controls\Models\Filtering\FilterSizeModel.cs" />
+    <Compile Include="Controls\Models\Filtering\FilterStringModel.cs" />
+    <Compile Include="Controls\Models\Filtering\IFilterModel.cs" />
+    <Compile Include="Controls\Models\SignSearchSetting.cs" />
+    <Compile Include="Controls\ViewModels\DataGridExViewModel.cs" />
+    <Compile Include="Controls\ViewModels\InfoBasicViewModel.cs" />
+    <Compile Include="Controls\ViewModels\TalkViewModel.cs" />
+    <Compile Include="Controls\Views\ActiveOrNotView.xaml.cs">
+      <DependentUpon>ActiveOrNotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\InfoBasicView.xaml.cs">
+      <DependentUpon>InfoBasicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\TalkView.xaml.cs">
+      <DependentUpon>TalkView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\DoubleProcessWindow.xaml.cs">
+      <DependentUpon>DoubleProcessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\FileDetailWindow.xaml.cs">
+      <DependentUpon>FileDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Filtering\FilterAllWindow.xaml.cs">
+      <DependentUpon>FilterAllWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Filtering\FilterDateTimeWindow.xaml.cs">
+      <DependentUpon>FilterDateTimeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Filtering\FilterSizeWindow.xaml.cs">
+      <DependentUpon>FilterSizeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Filtering\FilterStringWindow.xaml.cs">
+      <DependentUpon>FilterStringWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\FindHexValueWindow.xaml.cs">
+      <DependentUpon>FindHexValueWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
+      <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\GoToOffsetWindow.xaml.cs">
+      <DependentUpon>GoToOffsetWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\InputStringWindow.xaml.cs">
+      <DependentUpon>InputStringWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\ReComPreSettingWindow.xaml.cs">
+      <DependentUpon>ReComPreSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\SignSearchWindow.xaml.cs">
+      <DependentUpon>SignSearchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Document\DocumentTabService.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
     <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
@@ -551,6 +620,87 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\FilterableDataGrid\FilterHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.GridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Themes\MetroWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Views\ActiveOrNotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Views\InfoBasicView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Views\TalkView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\DoubleProcessWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\FileDetailWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\Filtering\FilterAllWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\Filtering\FilterDateTimeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\Filtering\FilterSizeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\Filtering\FilterStringWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\FindHexValueWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\FindTextStringWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\GoToOffsetWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\InputStringWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\ReComPreSettingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\SignSearchWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Drive\Views\DrivesItemsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -794,6 +944,7 @@
   <ItemGroup>
     <Folder Include="Adb\Languages\en_US\" />
     <Folder Include="Casing\Languages\en_US\" />
+    <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="Hex\Languages\" />
@@ -810,10 +961,6 @@
     <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
       <Name>SingularityForensic.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>SingularityForensic.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -1148,6 +1295,16 @@
     <Resource Include="Imaging\Images\Toolbar_AddImg.png" />
     <Content Include="App\LanguageConfig.xml" />
     <Resource Include="App\LanguageConfig_Backup.xml" />
+    <Resource Include="Controls\FilterableDataGrid\Filter.png" />
+    <Resource Include="Controls\FilterableDataGrid\FilterUsing.png" />
+    <Resource Include="Controls\Images\Btn_GoBack.png" />
+    <Resource Include="Controls\Images\Btn_Refresh.png" />
+    <Resource Include="Controls\Images\Btn_Refresh_Click.png" />
+    <Resource Include="Controls\Images\btnSureIcon.png" />
+    <Resource Include="Controls\Images\ConnectingToPC.png" />
+    <Resource Include="Controls\Images\Desc_Back.png" />
+    <Resource Include="Controls\Images\TalkLog_Left.png" />
+    <Resource Include="Controls\Images\TalkLog_Right.png" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

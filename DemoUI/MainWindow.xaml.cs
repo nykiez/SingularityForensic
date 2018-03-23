@@ -1,5 +1,4 @@
-﻿using SingularityForensic.Drive.Views;
-using System.Windows;
+﻿using System.Windows;
 
 namespace DemoUI {
     /// <summary>

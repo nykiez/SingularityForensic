@@ -1,11 +1,5 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Controls.Hex.Models {
     /// <summary>

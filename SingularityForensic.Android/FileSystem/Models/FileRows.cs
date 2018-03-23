@@ -1,8 +1,4 @@
-﻿using CDFC.Parse.Modules.Contracts;
-using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Contracts;
-using CDFCCultures.Helpers;
-using SingularityForensic.Contracts.FileExplorer;
+﻿using CDFCCultures.Helpers;
 using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Android.FileSystem.Models {

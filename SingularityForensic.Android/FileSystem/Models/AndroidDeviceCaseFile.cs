@@ -1,13 +1,4 @@
-﻿using CDFC.Parse.Abstracts;
-using CDFC.Parse.Modules.DeviceObjects;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.FileSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-
-namespace SingularityForensic.Android.FileSystem.Models {
+﻿namespace SingularityForensic.Android.FileSystem.Models {
     //安卓设备案件文件;
     //public class AndroidDeviceCaseEvidence : DeviceCaseFile<AndroidDevice> {
     //    /// <summary>
@@ -46,7 +37,7 @@ namespace SingularityForensic.Android.FileSystem.Models {
     //        base(device, nameof(Contracts.Case.Constants.AndroidDeviceImg), device.Name, interLabel, dateAdded) {
     //        //加入子案件文件;
     //        var partID = 0;
-            
+
     //        foreach (var p in device.Children) {
     //            if (p is Partition part) {
     //                var pFile = new PartitionCaseFile(part, $"{interLabel}-{part.Name}", dateAdded, partID++);

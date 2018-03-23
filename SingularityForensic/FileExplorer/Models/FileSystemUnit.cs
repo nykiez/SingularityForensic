@@ -1,25 +1,11 @@
-﻿using CDFCUIContracts.Commands;
-using CDFCUIContracts.Models;
-using Microsoft.Practices.ServiceLocation;
-using Prism.Commands;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Controls.FileExplorer.Models;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-
-namespace SingularityForensic.FileExplorer.Models {
+﻿namespace SingularityForensic.FileExplorer.Models {
 
     //案件文件类型契约;
     //public interface IHaveCaseFile<out TCaseFile> where TCaseFile : ICaseFile {
     //    TCaseFile CaseFile { get; }
     //}
 
-    
+
 
     //文件系统节点(针对设备);
     //public class FileSystemUnit : TreeUnit {
@@ -27,11 +13,11 @@ namespace SingularityForensic.FileExplorer.Models {
     //        if(fsServiceProvider == null) {
     //            throw new ArgumentNullException(nameof(fsServiceProvider));
     //        }
-            
+
     //        this.FsExpServiceProvider = fsServiceProvider;
     //        this.CaseFile = itrCFile;
     //        Label = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("FileSystem");
-            
+
     //    }
     //    public CaseEvidence CaseFile { get; }
     //    public IFileExplorerServiceProvider FsExpServiceProvider { get; }
@@ -90,7 +76,7 @@ namespace SingularityForensic.FileExplorer.Models {
     //                            }
 
     //                        }
-                           
+
     //                    }
     //                }
 
@@ -103,7 +89,7 @@ namespace SingularityForensic.FileExplorer.Models {
     //    public override ObservableCollection<ICommandItem> ContextCommands { get; set; } = new ObservableCollection<ICommandItem>();
     //}
 
-    
 
-    
+
+
 }

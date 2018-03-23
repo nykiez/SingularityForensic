@@ -1,11 +1,6 @@
 ﻿using CDFC.Util.PInvoke;
 using SingularityForensic.Contracts.App;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// 硬盘相关描述信息项;

@@ -5,7 +5,7 @@
              xmlns:localIns="clr-namespace:SingularityForensic.Adb.Contracts"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:filDg="clr-namespace:SingularityForensic.Controls.FilterableDataGrid;assembly=SingularityForensic.Controls"
+             xmlns:filDg="clr-namespace:SingularityForensic.Controls.FilterableDataGrid"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:cvts="http://singularity/converters"
              mc:Ignorable="d" 

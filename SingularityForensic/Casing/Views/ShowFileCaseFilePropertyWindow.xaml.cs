@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 using CDFCMessageBoxes.MessageBoxes;
 using CDFCCultures.Helpers;
 using CDFCControls.Controls;

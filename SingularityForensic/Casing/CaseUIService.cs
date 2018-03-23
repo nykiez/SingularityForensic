@@ -1,6 +1,4 @@
-﻿using CDFC.Util;
-using Prism.Commands;
-using SingularityForensic.Casing.Commands;
+﻿using SingularityForensic.Casing.Commands;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
@@ -11,12 +9,8 @@ using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.TreeView;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Casing {
     /// <summary>

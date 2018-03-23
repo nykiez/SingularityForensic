@@ -1,14 +1,9 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
-using SingularityForensic.Helpers;
+﻿using SingularityForensic.Helpers;
 using System;
 using System.Diagnostics;
 using System.Threading;
-using static CDFCCultures.Managers.ManagerLocator;
 using System.ComponentModel.Composition;
 using Prism.Commands;
-using Prism.Regions;
-using Prism.Modularity;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.Shell.Events;
 using SingularityForensic.Contracts.Helpers;

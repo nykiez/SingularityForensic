@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows;
 using EventLogger;
 using CDFCMessageBoxes.MessageBoxes;
-using static CDFCCultures.Managers.ManagerLocator;
 using Prism.Commands;
 using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Tools.Adb.Devices;

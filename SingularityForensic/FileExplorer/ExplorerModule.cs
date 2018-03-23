@@ -1,26 +1,15 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
-using EventLogger;
-using Prism.Events;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.Splash.Events;
-using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Controls.FileExplorer.Models;
-using SingularityForensic.Controls.FileExplorer.Services;
-using SingularityForensic.FileExplorer.Models;
 using System;
-using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 
 namespace SingularityForensic.FileExplorer {

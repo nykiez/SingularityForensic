@@ -1,22 +1,5 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Models;
-using Microsoft.Practices.ServiceLocation;
-using Prism.Commands;
-using Prism.Mef.Modularity;
+﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Casing.Events;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Contracts.MainPage.Events;
-using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Controls.ITunes.Global.Services;
-using SingularityForensic.Controls.ITunes.Models;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Controls.ITunes {
     [ModuleExport(typeof(ITunesModule))]

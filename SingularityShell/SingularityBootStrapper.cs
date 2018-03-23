@@ -8,11 +8,7 @@ using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Splash;
 using System;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityShell {

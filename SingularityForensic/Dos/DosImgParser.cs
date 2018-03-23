@@ -1,14 +1,4 @@
-﻿using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileSystem;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Dos {
+﻿namespace SingularityForensic.Dos {
     //[Export(typeof(IImgParser))]
     //public class DosImgParser : IImgParser {
     //    public ICaseManager CaseManager => ServiceProvider.Current?.GetInstance<DosCaseManager>();

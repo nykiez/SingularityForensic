@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SysIO = System.IO;
 using System.Windows;
-using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;

@@ -112,6 +112,7 @@
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />

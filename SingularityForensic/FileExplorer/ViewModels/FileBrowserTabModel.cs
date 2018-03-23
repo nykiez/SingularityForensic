@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Controls.FileExplorer.Views;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
@@ -19,6 +18,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         public List<CommandItem> Commands => null;
 
+        
         public object UIObject { get; }
 
         

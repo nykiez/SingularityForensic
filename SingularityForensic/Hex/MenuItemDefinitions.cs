@@ -1,36 +1,22 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Abstracts;
-using EventLogger;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
-using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using static CDFCCultures.Managers.ManagerLocator;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage.Events;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.FileExplorer.Events;
-using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Controls.Hex.Models;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Hex {
     public static partial class MenuItemDefinitions {

@@ -1,13 +1,5 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Controls.Info.Views;
-using SingularityForensic.Controls.ITunes.Models;
-using SingularityForensic.Controls.ITunes.ViewModels;
+﻿using SingularityForensic.Contracts.Casing;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace SingularityForensic.Controls.ITunes.Global.Services {
     [Export]

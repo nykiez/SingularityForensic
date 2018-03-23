@@ -5,15 +5,8 @@ using Prism.Events;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Adb.Models;
-using SingularityForensic.Casing;
 using System;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using static CDFCCultures.Managers.ManagerLocator;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.Global.Services {

@@ -9,12 +9,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Common;
-using System.Windows;
-using System.Xml.Linq;
 using SingularityForensic.Contracts.FileSystem;
 
 namespace SingularityForensic.Imaging {

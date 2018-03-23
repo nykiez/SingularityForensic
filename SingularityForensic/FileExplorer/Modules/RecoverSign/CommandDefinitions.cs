@@ -1,22 +1,8 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using Prism.Commands;
-using System;
-using System.Collections.Generic;
+﻿using Prism.Commands;
 using System.ComponentModel.Composition;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
-using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
-using System.Threading;
-using System.IO;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {

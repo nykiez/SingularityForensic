@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vms="clr-namespace:SingularityForensic.Adb.ViewModels"
              xmlns:local="clr-namespace:SingularityForensic.Adb.Views"
-             xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
+             xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">

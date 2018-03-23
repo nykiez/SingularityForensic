@@ -1,12 +1,9 @@
 ﻿using CDFCUIContracts.Abstracts;
 using System;
-using System.IO;
-using static CDFCCultures.Managers.ManagerLocator;
 using CDFCUIContracts.Events;
 using Prism.Commands;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Controls.ViewModels;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using SingularityForensic.Hex.ViewModels;

@@ -1,22 +1,17 @@
 ﻿using System;
 using EventLogger;
-using Prism.Commands;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using static SingularityForensic.Casing.Constants;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Casing.Events;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Document;
 using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SingularityForensic.Casing{
+namespace SingularityForensic.Casing {
     [Export(typeof(ICaseService))]
     public class CaseService:ICaseService {
         /// <summary>

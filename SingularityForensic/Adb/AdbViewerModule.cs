@@ -3,17 +3,11 @@ using Prism.Events;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Adb.Contracts;
-using SingularityForensic.Adb.Models;
 using SingularityForensic.Adb.TabModels;
 using SingularityForensic.Adb.ViewModels;
 using System;
-using SingularityForensic.Adb.Helpers;
 using System.ComponentModel.Composition;
 using System.Linq;
-using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage.Events;
-using SingularityForensic.Adb.ViewModels;
 using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Adb {
@@ -77,35 +71,30 @@ namespace SingularityForensic.Adb {
             //        }
             //    });
         }
-        private SubscriptionToken adbConAquiredToken;
-        private SubscriptionToken slUnitChangedToken;
-
-        [Import]
-        Lazy<IDocumentTabService> fsTabServiceToken;
-
+        
         /// <summary>
         /// 加入Adb节点显示;
         /// </summary>
         /// <param name="container"></param>
         public void AddAdbShowingFile(IInfoModelContainer container) {
-            if(this.fsTabServiceToken?.Value == null) {
-                EventLogger.Logger.WriteLine($"{nameof(AdbViewerModule)}->{nameof(AddAdbShowingFile)}:{nameof(AdbViewerModule.fsTabServiceToken)} is null!");
-                return;
-            }
+            //if(this.fsTabServiceToken?.Value == null) {
+            //    EventLogger.Logger.WriteLine($"{nameof(AdbViewerModule)}->{nameof(AddAdbShowingFile)}:{nameof(AdbViewerModule.fsTabServiceToken)} is null!");
+            //    return;
+            //}
 
-            var browserItems = this.fsTabServiceToken.Value.CurrentTabs;
-            var preItem = browserItems.FirstOrDefault(p => (p as AdbTabModel)?.AdbTabViewModel.Container == container);
-            if (preItem != null) {
-                fsTabServiceToken.Value.SelectedTab = preItem;
-            }
-            else {
-                if (container is IDefaultPhoneInfoContainer) {
-                    var adbTab = new AdbTabModel(new AdbTabViewModel((container as IDefaultPhoneInfoContainer).Parent.Device, container));
-                    //fsTabServiceToken.Value.AddTab()
-                    //fsTabServiceToken.Value.AddTab(adbTab);
-                    //fsTabServiceToken.Value.ChangeSelectedTab(adbTab);
-                }
-            }
+            //var browserItems = this.fsTabServiceToken.Value.CurrentTabs;
+            //var preItem = browserItems.FirstOrDefault(p => (p as AdbTabModel)?.AdbTabViewModel.Container == container);
+            //if (preItem != null) {
+            //    fsTabServiceToken.Value.SelectedTab = preItem;
+            //}
+            //else {
+            //    if (container is IDefaultPhoneInfoContainer) {
+            //        var adbTab = new AdbTabModel(new AdbTabViewModel((container as IDefaultPhoneInfoContainer).Parent.Device, container));
+            //        //fsTabServiceToken.Value.AddTab()
+            //        //fsTabServiceToken.Value.AddTab(adbTab);
+            //        //fsTabServiceToken.Value.ChangeSelectedTab(adbTab);
+            //    }
+            //}
         }
 
        

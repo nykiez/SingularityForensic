@@ -1,6 +1,4 @@
 ﻿using CDFCControls.Controls;
-using SingularityForensic.Controls.ITunes.ViewModels;
-using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Controls.ITunes.Views {
     /// <summary>

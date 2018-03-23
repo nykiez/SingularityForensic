@@ -1,23 +1,9 @@
-﻿using EventLogger;
-using Prism.Modularity;
-using System;
-using System.Diagnostics;
-using System.IO;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
-using static CDFCCultures.Managers.ManagerLocator;
-using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Models;
-using SingularityForensic.Casing;
+﻿using Prism.Modularity;
 using Prism.Mef.Modularity;
 using System.ComponentModel.Composition;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using CDFCUIContracts.Commands;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.MainPage.Events;
-using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]

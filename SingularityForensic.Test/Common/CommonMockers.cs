@@ -1,10 +1,5 @@
 ﻿using Prism.Events;
 using Prism.Mef.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Common {
     public static class CommonMockers {

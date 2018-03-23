@@ -1,20 +1,14 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Ookii.Dialogs.Wpf;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
 using SingularityForensic.Controls.Windows;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace SingularityForensic.App
-{
+namespace SingularityForensic.App {
     /// <summary>
     /// 对话框服务;
     /// </summary>

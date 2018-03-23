@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Drive {
+﻿namespace SingularityForensic.Drive {
     public static partial class Constants {
         //本地分区证据项类型;
         public const string EvidenceType_LocalVolume = "B29CE37D-5FE1-4AB0-99D9-4F3744623462";

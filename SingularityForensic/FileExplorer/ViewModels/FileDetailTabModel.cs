@@ -6,7 +6,6 @@ using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Text;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     public class FileDetailTabModel : BindableBase,ITabModel {

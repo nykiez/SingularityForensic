@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Dos {
+﻿namespace SingularityForensic.Dos {
     static class Constants {
         public const string DosDeviceEvidence = nameof(DosDeviceEvidence);
 

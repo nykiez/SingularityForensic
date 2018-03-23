@@ -3,7 +3,6 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
 using System.ComponentModel.Composition;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.HelpAbout {
     //菜单组定义;

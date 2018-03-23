@@ -1,9 +1,5 @@
-﻿using CDFC.Parse.Modules.DeviceObjects;
-using CDFC.Parse.Contracts;
-using CDFC.Util;
+﻿using CDFC.Util;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.IO;
 using static CDFCCultures.Managers.ManagerLocator;

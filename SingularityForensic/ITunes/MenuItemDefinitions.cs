@@ -1,6 +1,4 @@
-﻿using CDFCCultures.Helpers;
-using CDFCMessageBoxes.MessageBoxes;
-using Microsoft.Practices.ServiceLocation;
+﻿using CDFCMessageBoxes.MessageBoxes;
 using Ookii.Dialogs.Wpf;
 using Prism.Commands;
 using SingularityForensic.Contracts.App;
@@ -8,13 +6,8 @@ using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
-using SingularityForensic.Controls.ITunes.Global.Services;
-using SingularityForensic.Controls.ITunes.Models;
 using SingularityForensic.Controls.ITunes.Resources;
-using SingularityForensic.MainPage;
-using System;
 using System.ComponentModel.Composition;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Controls.ITunes {
     public static class MenuItemDefinitions {

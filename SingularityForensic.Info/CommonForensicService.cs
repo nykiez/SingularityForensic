@@ -1,6 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using System;
-using System.Linq;
+﻿using System;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Managers.ManagerLocator;
 using System.ComponentModel.Composition;

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 //盘符相关结构;
 namespace SingularityForensic.Drive {
-    
+
     //盘符结构
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct VolumeStruct {

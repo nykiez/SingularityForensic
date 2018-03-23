@@ -3,13 +3,8 @@ using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Casing {
     [TestClass]

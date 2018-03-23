@@ -5,11 +5,8 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.TreeView;
-using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>

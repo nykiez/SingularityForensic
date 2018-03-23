@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.FileExplorer
-{
+﻿namespace SingularityForensic.FileExplorer {
 
     static partial class Constants {
         public const string FileSystemTreeUnit = nameof(FileSystemTreeUnit);

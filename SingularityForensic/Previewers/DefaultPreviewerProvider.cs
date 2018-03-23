@@ -1,5 +1,4 @@
-﻿using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Controls.Previewers;
 using System.ComponentModel.Composition;
 using System.Linq;

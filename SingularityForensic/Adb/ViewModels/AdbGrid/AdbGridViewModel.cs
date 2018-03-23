@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Cflab.DataTransport.Modules.Transport.Model;
 using CDFC.Info.Adb;
-using SingularityForensic.Casing;
 using SingularityForensic.Adb.Contracts;
 using SingularityForensic.Adb.Helpers;
 using SingularityForensic.Controls.Previewers;

@@ -1,22 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Test.App;
 using SingularityForensic.Test.Casing;
 using SingularityForensic.Test.Common;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SingularityForensic.Test {
-    
-    
+
+
     //业务逻辑测试时必须调用这个类的InitializeTest方法;
     class TestCommon {
         
@@ -25,8 +15,8 @@ namespace SingularityForensic.Test {
         public static void InitializeTest() {
             ServiceProvider.SetServiceProvider(ExportProviderServiceProviderMocker.StaticInstance);
             var catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Dummy).Assembly));
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Contracts.Dummy).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Dummy).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Contracts.Dummy).Assembly));
             
             var container = new CompositionContainer(catalog);
 

@@ -1,9 +1,4 @@
-﻿using CDFC.Info.Adb;
-using SingularityForensic.Contracts.Casing;
-using System;
-using System.Xml.Linq;
-
-namespace SingularityForensic.Adb.Models {
+﻿namespace SingularityForensic.Adb.Models {
     /// <summary>
     /// adb设备案件文件;
     /// </summary>
@@ -22,7 +17,7 @@ namespace SingularityForensic.Adb.Models {
     //        base(AdbCaseFileType,container.Device.Serial,container.Device.Serial,dateAdded) {
     //        this.Container = container;
     //    }
-        
+
     //    public PhoneFullInfoContainer Container { get; }
 
     //    //adb设备案件文件类型(值);

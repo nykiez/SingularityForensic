@@ -1,5 +1,3 @@
-﻿using System.IO;
+﻿namespace SingularityForensic.Shell.Models {
 
-namespace SingularityForensic.Shell.Models {
-    
 }

@@ -1,14 +1,8 @@
 ﻿using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Splash;
-using SingularityForensic.Splash.Views;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace SingularityForensic.Splash {

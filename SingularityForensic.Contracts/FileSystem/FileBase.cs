@@ -159,16 +159,13 @@ namespace SingularityForensic.Contracts.FileSystem {
             return null;
         }
     }
-
     
-
     //常规文件内部信息;
     public sealed class RegularFileStoken : FileStokenBase2  {
 
     }
 
     //文件夹内部信息;
-
     public sealed class DirectoryStoken : FileStokenBase2  {
         public List<FileBase> Children { get; set; } 
     }

@@ -1,11 +1,4 @@
-﻿using CDFCUIContracts.Commands;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.TreeView;
-using System;
-using System.Collections.ObjectModel;
-
-namespace SingularityForensic.FileExplorer.Models {
+﻿namespace SingularityForensic.FileExplorer.Models {
     //文件树形存储节点;
     //public class StorageTreeUnit : TreeUnit {
     //    /// <summary>
@@ -38,7 +31,7 @@ namespace SingularityForensic.FileExplorer.Models {
     //            Icon = IconResources.UnknownIcon;
     //        }
     //    }
-        
+
     //    public IFileExplorerServiceProvider FSProvider { get; }
 
     //    private ObservableCollection<TreeUnit> children;

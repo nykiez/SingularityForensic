@@ -4,11 +4,9 @@ using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.About.MessageBoxes;
 using SingularityForensic.About.Resources;
-using SingularityForensic.HelpAbout;
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
-using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 

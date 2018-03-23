@@ -1,12 +1,6 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Shell;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.MainPage {
     [ModuleExport(typeof(MainPageModule))]

@@ -152,6 +152,8 @@ Copy "$(SolutionDir)SingularityForensic\$(OutDir)\SingularityForensic.dll" "$(Ta
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
 Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll"
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll"
+Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
+XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 
 Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll"
 
@@ -171,7 +173,6 @@ Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(Ta
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(TargetDir)Entities\Chloe.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll"
 XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y
-Copy
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
 
 Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll"</PostBuildEvent>

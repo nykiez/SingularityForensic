@@ -5,8 +5,6 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Controls.MessageBoxes;
 using System.Windows;
 
-using static CDFCCultures.Managers.ManagerLocator;
-
 namespace SingularityForensic.Controls.Windows {
     /// <summary>
     /// Interaction logic for GoToOffsetWindow.xaml

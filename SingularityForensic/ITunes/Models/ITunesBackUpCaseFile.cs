@@ -1,7 +1,4 @@
-﻿using SingularityForensic.Contracts.Casing;
-using System;
-
-namespace SingularityForensic.Controls.ITunes.Models {
+﻿namespace SingularityForensic.Controls.ITunes.Models {
     /// <summary>
     /// ITunes备份案件文件;
     /// </summary>

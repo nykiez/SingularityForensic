@@ -1,12 +1,8 @@
-﻿using SingularityForensic.Contracts.FileSystem;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using SingularityForensic.Contracts.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EWF;
 using SingularityForensic.Contracts.Imaging;
 using System.Xml.Linq;

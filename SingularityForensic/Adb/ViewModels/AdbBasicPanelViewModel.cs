@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using static CDFCCultures.Managers.ManagerLocator;
 using EventLogger;
 using Prism.Mvvm;
 using Cflab.DataTransport.Modules.Transport.Model;

@@ -1,12 +1,8 @@
 ﻿using CDFCUIContracts.Abstracts;
-using EventLogger;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Controls.FileExplorer.Helpers;
 using System;
 using System.IO;
 using System.Windows;

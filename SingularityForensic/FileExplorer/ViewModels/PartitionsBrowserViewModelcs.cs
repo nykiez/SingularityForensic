@@ -2,7 +2,6 @@
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System.Collections.ObjectModel;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     //磁盘-分区列表视图;

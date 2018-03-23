@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using CDFC.Parse.Contracts;
 using static CDFCCultures.Managers.ManagerLocator;
-using CDFC.Parse.Modules.Contracts;
 using CDFC.Util;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Common;

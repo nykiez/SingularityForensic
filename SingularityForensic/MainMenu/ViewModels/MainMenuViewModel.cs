@@ -1,10 +1,7 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Contracts.MainMenu;
-using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Shell;
-using SingularityForensic.MainMenu.Events;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;

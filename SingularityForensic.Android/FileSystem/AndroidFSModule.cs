@@ -1,13 +1,7 @@
-﻿using CDFC.Parse.Modules.DeviceObjects;
-using CDFCUIContracts.Commands;
-using CDFCUIContracts.Models;
+﻿using CDFCUIContracts.Commands;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage.Events;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Android.FileSystem {

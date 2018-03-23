@@ -1,22 +1,10 @@
 ﻿using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Controls.MessageBoxes.MessageBoxes;
-using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.FileExplorer;
-using CDFCCultures.Helpers;
 using SingularityForensic.Controls.Models;
-using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {

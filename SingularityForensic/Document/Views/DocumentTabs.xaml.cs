@@ -1,6 +1,4 @@
-﻿using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
-using System.ComponentModel.Composition;
-using System.Windows;
+﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
 namespace SingularityForensic.Document.Views {

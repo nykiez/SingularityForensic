@@ -182,10 +182,6 @@
       <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
       <Name>SingularityForensic.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic.Controls\SingularityForensic.Controls.csproj">
-      <Project>{8a63f7a1-6895-4846-9bb5-5f5693d06b7e}</Project>
-      <Name>SingularityForensic.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
       <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
       <Name>SingularityForensic.Info</Name>

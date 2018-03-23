@@ -1,10 +1,8 @@
 ﻿using CDFC.Info.Adb;
-using SingularityForensic.Adb.Models;
 using SingularityForensic.Contracts.TreeView;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace SingularityForensic.Adb.ViewModels {
     [Export]

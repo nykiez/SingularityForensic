@@ -1,10 +1,7 @@
-﻿using SingularityForensic.Info.ViewModels;
-using SingularityForensic.Info.Views;
-using SingularityForensic.Controls.Info.ViewModels;
-using SingularityForensic.Controls.Info.Views;
-using SingularityForensic.Contracts.Document;
+﻿using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Common;
 using System.Collections.Generic;
+using SingularityForensic.Controls.Info.ViewModels;
 
 namespace SingularityForensic.Info.TabModels {
 

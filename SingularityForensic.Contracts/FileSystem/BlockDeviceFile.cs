@@ -46,13 +46,14 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     //块-流文件类型;可用作描述分区,磁盘等的基类;
+
     public abstract class BlockedStreamFileBase<TStoken> :
         FileBase<TStoken>,IDisposable,
         IHaveFileCollection where TStoken:BlockedStreamFileStoken , new(){
         public BlockedStreamFileBase(string key,TStoken stoken = null):base(key,stoken){
 
         }
-
+        
         public Stream BaseStream => _stoken?.BaseStream;
 
         public int BlockSize => _stoken?.BlockSize ?? 0;
