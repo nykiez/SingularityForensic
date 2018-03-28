@@ -17,5 +17,7 @@
     public static partial class Constants {
         public const string NoHddMatchedFound = nameof(NoHddMatchedFound);
         public const string NoVolumeMatchedFound = nameof(NoVolumeMatchedFound);
+
+        public const string AddDriveMenuText = nameof(AddDriveMenuText);
     }
 }

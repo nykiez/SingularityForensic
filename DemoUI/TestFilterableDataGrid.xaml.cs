@@ -64,7 +64,7 @@ namespace DemoUI {
         /// <summary>
         /// Interaction logic for TestFilterableDataGrid.xaml
         /// </summary>
-        public partial class TestFilterableDataGrid : UserControl {
+    public partial class TestFilterableDataGrid : UserControl {
         public TestFilterableDataGrid() {
             //Telerik.Windows.Controls.RadGridView
             
@@ -75,10 +75,6 @@ namespace DemoUI {
             this.DataContext = new VM();
             LocalizationManager.Manager = new CustomLocalizationManager();
         }
-
-        
-
-        
         
 
         private void InitilalizeWithObjects() {

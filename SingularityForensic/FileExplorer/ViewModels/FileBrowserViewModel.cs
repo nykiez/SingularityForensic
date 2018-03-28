@@ -22,7 +22,9 @@ using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     //对象浏览器主模型;
-    public abstract partial class FileBrowserViewModel : BindableBase,IHaveTabModels,IDisposable, IFileBrowserDataContext {
+    public abstract partial class FileBrowserViewModel : 
+        BindableBase, 
+        IDisposable, IFileBrowserDataContext {
         public event EventHandler<TEventArgs< bool >> IsLoadingRequired;
         /// <summary>
         /// 对象浏览器主模型构造方法;
@@ -45,7 +47,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             //        }
             //    }
             //}
-            SelectedTabModel = MainHexViewModel;
+            //SelectedTabModel = MainHexViewModel;
             ExistingBrowsers.Add(this);
         }
 
@@ -246,7 +248,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                             }
                             if (part != null) {
                                 if (0 <= e.Target && e.Target < part.Size) {
-                                    MainHexViewModel.Position = e.Target * 4096;
+                                    //MainHexViewModel.Position = e.Target * 4096;
                                 }
                             }
                         });
@@ -408,17 +410,17 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 var file = fileRow.File;
                 if(file is IBlockedStream) {             //若选定单元为块设备文件，则可能为分区;
                     if(file is Partition part) {
-                        MainHexViewModel.Position = part.StartLBA;
+                        //MainHexViewModel.Position = part.StartLBA;
                     }
                 }
                 else if (file is Directory directory) {
                     if(directory.StartLBA != null) {
-                        MainHexViewModel.Position = directory.StartLBA.Value;
+                        //MainHexViewModel.Position = directory.StartLBA.Value;
                     }
                 }
                 else if(file is RegularFile) {
                     if (file is RegularFile regFile) {
-                        MainHexViewModel.Position = regFile.StartLBA??0;
+                        //MainHexViewModel.Position = regFile.StartLBA??0;
                     }
                 }
             }
@@ -450,81 +452,81 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
         
-        private FileHexTabViewModel mainHexViewModel;                     //主十六进制查看视图模型;
-        public virtual FileHexTabViewModel MainHexViewModel {
-            get {
-                if(OwnerFile != null && mainHexViewModel == null) {
-                    if(OwnerFile is Partition) {
-                        var part = OwnerFile as Partition;
-                        var partHex = new PartitionHexTabViewModel(part);
-                        WeakEventManager<PartitionHexTabViewModel, TEventArgs<long>>.AddHandler(
-                            partHex,nameof(PartitionHexTabViewModel.FindFsPositionRequired),
-                            (sender, e) => {
-                                IHaveFileCollection itera = null;
-                                if(this.OwnerFile != null && (itera = OwnerFile as IHaveFileCollection) != null) {
-                                    var secSize = (OwnerFile.Parent as Device)?.BlockSize ?? 512;
-                                    secSize = secSize == 0 ? 512 : secSize;
+        //private FileHexTabViewModel mainHexViewModel;                     //主十六进制查看视图模型;
+        //public virtual FileHexTabViewModel MainHexViewModel {
+        //    get {
+        //        if(OwnerFile != null && mainHexViewModel == null) {
+        //            if(OwnerFile is Partition) {
+        //                var part = OwnerFile as Partition;
+        //                var partHex = new PartitionHexTabViewModel(part);
+        //                WeakEventManager<PartitionHexTabViewModel, TEventArgs<long>>.AddHandler(
+        //                    partHex,nameof(PartitionHexTabViewModel.FindFsPositionRequired),
+        //                    (sender, e) => {
+        //                        IHaveFileCollection itera = null;
+        //                        if(this.OwnerFile != null && (itera = OwnerFile as IHaveFileCollection) != null) {
+        //                            var secSize = (OwnerFile.Parent as Device)?.BlockSize ?? 512;
+        //                            secSize = secSize == 0 ? 512 : secSize;
 
-                                    IsLoadingRequired?.Invoke(this,new TEventArgs<bool>(true));
-                                    //ThreadPool.QueueUserWorkItem(cb => {
-                                    //    try {
-                                    //        IFile innerFile = null;
+        //                            IsLoadingRequired?.Invoke(this,new TEventArgs<bool>(true));
+        //                            //ThreadPool.QueueUserWorkItem(cb => {
+        //                            //    try {
+        //                            //        IFile innerFile = null;
                                             
-                                    //        if((innerFile = itera.GetInnerFileByPosition(e.Target / secSize * secSize)) != null) {
-                                    //            AppInvoke(() => {
-                                    //                CurFile = innerFile.Parent;
-                                    //                FolderBrowserViewModel.SelectedFileRow = 
-                                    //                FileRows.FirstOrDefault(p => p is IFileRow<IFile> fileRow && fileRow.File == innerFile);
-                                    //            });
-                                    //        }
-                                    //        else {
-                                    //            AppInvoke(() => {
-                                    //                RemainingMessageBox.Tell(FindResourceString("UnableToLocateTheFile"));
-                                    //            });
-                                    //        }
-                                    //    }
-                                    //    catch {
-                                    //        AppInvoke(() => {
-                                    //            RemainingMessageBox.Tell(FindResourceString("FailedToLocateTheFile"));
-                                    //        });
-                                    //    }
-                                    //    finally {
-                                    //        IsLoadingRequired?.Invoke(this, new TEventArgs<bool>(false));
-                                    //    }
-                                    //});
-                                }
-                                else {
-                                    Logger.WriteLine($"{nameof(FileBrowserViewModel)}->{nameof(MainHexViewModel)}->{nameof(PartitionHexTabViewModel.FindFsPositionRequired)}: OwnerFile Can't be null!");
-                                }
-                            });
+        //                            //        if((innerFile = itera.GetInnerFileByPosition(e.Target / secSize * secSize)) != null) {
+        //                            //            AppInvoke(() => {
+        //                            //                CurFile = innerFile.Parent;
+        //                            //                FolderBrowserViewModel.SelectedFileRow = 
+        //                            //                FileRows.FirstOrDefault(p => p is IFileRow<IFile> fileRow && fileRow.File == innerFile);
+        //                            //            });
+        //                            //        }
+        //                            //        else {
+        //                            //            AppInvoke(() => {
+        //                            //                RemainingMessageBox.Tell(FindResourceString("UnableToLocateTheFile"));
+        //                            //            });
+        //                            //        }
+        //                            //    }
+        //                            //    catch {
+        //                            //        AppInvoke(() => {
+        //                            //            RemainingMessageBox.Tell(FindResourceString("FailedToLocateTheFile"));
+        //                            //        });
+        //                            //    }
+        //                            //    finally {
+        //                            //        IsLoadingRequired?.Invoke(this, new TEventArgs<bool>(false));
+        //                            //    }
+        //                            //});
+        //                        }
+        //                        else {
+        //                            Logger.WriteLine($"{nameof(FileBrowserViewModel)}->{nameof(MainHexViewModel)}->{nameof(PartitionHexTabViewModel.FindFsPositionRequired)}: OwnerFile Can't be null!");
+        //                        }
+        //                    });
                         
-                        mainHexViewModel = partHex;
-                    }
-                    else if(OwnerFile is Device) {
-                        var device = OwnerFile as Device;
-                        mainHexViewModel = new DeviceHexTabViewModel(device);
-                    }
-                }
-                else {
-                    Logger.WriteLine($"{nameof(FileBrowserViewModel)}->{nameof(MainHexViewModel)}:{nameof(OwnerFile)} Can't be null!");
-                }
-                return mainHexViewModel;
-            }
-        }
+        //                mainHexViewModel = partHex;
+        //            }
+        //            else if(OwnerFile is Device) {
+        //                var device = OwnerFile as Device;
+        //                mainHexViewModel = new DeviceHexTabViewModel(device);
+        //            }
+        //        }
+        //        else {
+        //            Logger.WriteLine($"{nameof(FileBrowserViewModel)}->{nameof(MainHexViewModel)}:{nameof(OwnerFile)} Can't be null!");
+        //        }
+        //        return mainHexViewModel;
+        //    }
+        //}
 
-        private ObservableCollection<ITabModel> _tabViewModels;
-        public virtual ObservableCollection<ITabModel> TabViewModels {
-            get {
-                if(_tabViewModels == null) {
-                    _tabViewModels = new ObservableCollection<ITabModel>();
-                    _tabViewModels.Add(MainHexViewModel);
-                }
-                return _tabViewModels;
-            }
-            set {
-                _tabViewModels = value;
-            }
-        } 
+        //private ObservableCollection<ITabModel> _tabViewModels;
+        //public virtual ObservableCollection<ITabModel> TabViewModels {
+        //    get {
+        //        if(_tabViewModels == null) {
+        //            _tabViewModels = new ObservableCollection<ITabModel>();
+        //            _tabViewModels.Add(MainHexViewModel);
+        //        }
+        //        return _tabViewModels;
+        //    }
+        //    set {
+        //        _tabViewModels = value;
+        //    }
+        //} 
 
         //在当前文件中递归检索;
         public void SearchNameInCurFile(string keyValue) {
@@ -867,23 +869,24 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
     //设备对象浏览器模型;
     public class DeviceBrowserTabModel : FileBrowserViewModel {
-        public DeviceBrowserTabModel(Device file,IFileExplorerServiceProvider fsServiceProvider) : base(file,fsServiceProvider) {
-            TabViewModels.Add(PartHexModel);
-            MainHexViewModel.Data = file;
-            PubEventHelper.GetEvent<HexEditorLoadedEvent>().Publish(MainHexViewModel);
+        public DeviceBrowserTabModel(Device file,IFileExplorerServiceProvider fsServiceProvider) : 
+            base(file,fsServiceProvider) {
+            //TabViewModels.Add(PartHexModel);
+            //MainHexViewModel.Data = file;
+            //PubEventHelper.GetEvent<HexEditorLoadedEvent>().Publish(MainHexViewModel);
         }
-        private PartitionHexTabViewModel partHexModel;                     //分区十六进制查看视图模型;
-        public PartitionHexTabViewModel PartHexModel {
-            get {
-                return partHexModel ??
-                    (partHexModel = new PartitionHexTabViewModel(null));
-            }
-        }
+        //private PartitionHexTabViewModel partHexModel;                     //分区十六进制查看视图模型;
+        //public PartitionHexTabViewModel PartHexModel {
+        //    get {
+        //        return partHexModel ??
+        //            (partHexModel = new PartitionHexTabViewModel(null));
+        //    }
+        //}
 
         protected override void EscapeToFile(IFileRow row) {                  //分区流转化;
             base.EscapeToFile(row);
             if (row is IFileRow<Partition> partRow) {
-                PartHexModel.File = partRow.File;
+                //PartHexModel.File = partRow.File;
             }
         }
         
@@ -899,22 +902,22 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
         private void BuildTabs() {
-            TabViewModels.Add(FileHexModel);
-            TabViewModels.Add(PreviewerModel);
-            TabViewModels.Add(DetailModel);
-            TabViewModels.Add(ThumbNailModel);
-            foreach (var item in FakeTabModel.Fakes) {
-                TabViewModels.Add(item);
-            }
+            //TabViewModels.Add(FileHexModel);
+            //TabViewModels.Add(PreviewerModel);
+            //TabViewModels.Add(DetailModel);
+            //TabViewModels.Add(ThumbNailModel);
+            //foreach (var item in FakeTabModel.Fakes) {
+            //    TabViewModels.Add(item);
+            //}
         }
 
-        private InternalFileHexTabViewModel fileHexModel;
-        public InternalFileHexTabViewModel FileHexModel {
-            get {
-                return fileHexModel ??
-                    (fileHexModel = new InternalFileHexTabViewModel(null));
-            }
-        }
+        //private InternalFileHexTabViewModel fileHexModel;
+        //public InternalFileHexTabViewModel FileHexModel {
+        //    get {
+        //        return fileHexModel ??
+        //            (fileHexModel = new InternalFileHexTabViewModel(null));
+        //    }
+        //}
 
         private FilePreviewerTabModel _previewerModel;
         public FilePreviewerTabModel PreviewerModel => _previewerModel ?? (_previewerModel = new FilePreviewerTabModel());
@@ -959,7 +962,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             base.EscapeToFile(row);
             if(row is IFileRow<FileBase> fileRow) {
                 var file = fileRow.File;
-                FileHexModel.File = file;
+                //FileHexModel.File = file;
 
 
                 //预览器跳转;
@@ -998,23 +1001,23 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     //本地目录浏览器;
     public class LocalDirectoryBrowserViewModel : FileBrowserViewModel {
         public LocalDirectoryBrowserViewModel(FileBase file, IFileExplorerServiceProvider fsServiceProvider) : base(file,fsServiceProvider) {
-            TabViewModels.Add(MainHexViewModel);
-            TabViewModels.Add(PreviewerModel);
-            SelectedTabModel = MainHexViewModel;
+            //TabViewModels.Add(MainHexViewModel);
+            //TabViewModels.Add(PreviewerModel);
+            //SelectedTabModel = MainHexViewModel;
         }
 
         private FilePreviewerTabModel _previewerModel;
         public FilePreviewerTabModel PreviewerModel => _previewerModel ?? (_previewerModel = new FilePreviewerTabModel());
 
         private ObservableCollection<ITabModel> _tabViewModels;
-        public override ObservableCollection<ITabModel> TabViewModels {
-            get {
-                if(_tabViewModels == null) {
-                    _tabViewModels = new ObservableCollection<ITabModel>();
-                }
-                return _tabViewModels;
-            }
-        }
+        //public override ObservableCollection<ITabModel> TabViewModels {
+        //    get {
+        //        if(_tabViewModels == null) {
+        //            _tabViewModels = new ObservableCollection<ITabModel>();
+        //        }
+        //        return _tabViewModels;
+        //    }
+        //}
         
         protected override void EscapeToFile(IFileRow row) {
             if(row is IFileRow<FileBase> fileRow) {
@@ -1036,20 +1039,20 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             
         }
 
-        private FileHexTabViewModel _mainHexViewModel;
-        public override FileHexTabViewModel MainHexViewModel {
-            get {
-                if(_mainHexViewModel == null) {
-                    _mainHexViewModel = new InternalFileHexTabViewModel(null);
-                }
-                return _mainHexViewModel;
-            }
-        }
+        //private FileHexTabViewModel _mainHexViewModel;
+        //public override FileHexTabViewModel MainHexViewModel {
+        //    get {
+        //        if(_mainHexViewModel == null) {
+        //            _mainHexViewModel = new InternalFileHexTabViewModel(null);
+        //        }
+        //        return _mainHexViewModel;
+        //    }
+        //}
 
         public override void Dispose() {
             base.Dispose();
-            MainHexViewModel.Stream?.Close();
-            MainHexViewModel.Stream = null;
+            //MainHexViewModel.Stream?.Close();
+            //MainHexViewModel.Stream = null;
             PreviewerModel.Dispose();
         }
     }

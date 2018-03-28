@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:cvts="http://singularity/converters"
         xmlns:design="clr-namespace:SingularityForensic.Drive.Design"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:prism="http://prismlibrary.com/"
+        xmlns:prism="http://prismlibrary.com/" 
         d:DataContext="{d:DesignData IsDesignTimeCreatable=True,Type=design:DriveItemsWindowDesignViewModel}"
         mc:Ignorable="d" x:Name="win"
         Title="DrivesItemsWindow" Height="300" Width="300">
@@ -26,7 +27,13 @@
     <Grid>
         <DockPanel>
             <Button DockPanel.Dock="Bottom" Content="{DynamicResource Confirm}" Command="{Binding ConfirmCommand}" ></Button>
-            <TreeView ItemsSource="{Binding DriveUnits}">
+            <!--<telerik:RadTreeListView SelectedItem="{Binding SelectedUnit}">
+                <telerik:RadTreeListView.ItemTemplate>
+                    
+                </telerik:RadTreeListView.ItemTemplate>
+            </telerik:RadTreeListView>-->
+            <TreeView ItemsSource="{Binding DriveUnits}"
+                      SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate  ItemsSource="{Binding Children}" >
                         <StackPanel Orientation="Horizontal" >

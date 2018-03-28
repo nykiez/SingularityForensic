@@ -17,14 +17,14 @@ namespace SingularityForensic.Contracts.FileSystem {
         void Initialize();
 
         //挂载流;
-        IHaveFileCollection MountStream(Stream stream, string name, XElement xElem, ProgressReporter reporter);
+        FileBase MountStream(Stream stream, string name, XElement xElem, ProgressReporter reporter);
 
         //卸载文件;
-        void UnMountFile(IHaveFileCollection file);
+        void UnMountFile(FileBase file);
 
         //所有文件;
-        //EnumFile为对应的文件管理单元,xElem为信息项,为了避免与案件耦合(试用xElem作为信息媒介);
-        IEnumerable<(IHaveFileCollection enumFile,XElement xElem)> EnumedFiles { get; }
+        //file为对应的文件管理单元,xElem为信息项,为了避免与案件耦合(试用xElem作为信息媒介);
+        IEnumerable<(FileBase file,XElement xElem)> EnumedFiles { get; }
     }
 
     public class FSService :GenericServiceStaticInstance<IFileSystemService> {
@@ -48,13 +48,14 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return null;
             }
 
-            foreach (var (enumFile, xElem) in fsService.EnumedFiles) {
+            foreach (var (file, xElem) in fsService.EnumedFiles) {
                 
                 if(xElem.Element(nameof(CaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
-                    if(enumFile is Device device) {
+                    if(file is Device device) {
                         return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
                     }
-                    else {
+
+                    if(file is IHaveFileCollection enumFile)  {
                         return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
                     }
                     

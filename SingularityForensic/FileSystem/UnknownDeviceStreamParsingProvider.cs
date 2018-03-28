@@ -19,21 +19,21 @@ namespace SingularityForensic.FileSystem {
             return true;
         }
         
-        public IHaveFileCollection ParseStream(Stream stream, string name, 
+        public FileBase ParseStream(Stream stream, string name, 
             XElement xElem, ProgressReporter reporter) {
             DeviceStoken stoken = new DeviceStoken {
                 BaseStream = stream,
                 PartitionEntries = Enumerable.Empty<PartitionEntry>(),
-                PartsType = LanguageService.Current?.FindResourceString(Constants.UnknownPartsType),
+                PartsType = LanguageService.Current?.FindResourceString(Constants.PartsType_Unknown),
                 Name = name,
                 TypeGuids = new string[] {
-                    Constants.UnknownDeviceType
+                    Constants.DeviceType_Unknown
                 },
                 BlockSize = 0,
                 Size = stream.Length
             };
             
-            return new Device(Constants.UnknownDeviceKey, stoken);
+            return new Device(Constants.DeviceKey_Unknown, stoken);
         }
     }
 }

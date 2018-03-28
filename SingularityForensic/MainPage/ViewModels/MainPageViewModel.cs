@@ -10,6 +10,7 @@ using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.MainMenu;
 using SingularityForensic.Document.ViewModels;
 using SingularityForensic.Contracts.Document;
+using SingularityForensic.Contracts.Document.Events;
 
 namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]
@@ -32,13 +33,15 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
 
             });
 
-            PubEventHelper.Subscribe<TabClearedEvent>(() => {
-                RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "WelcomeView");
-            });
+            //PubEventHelper.Subscribe<TabsClearedEvent>(() => {
+            //    RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "WelcomeView");
+            //});
 
-            _documentTabService.TabAdded += (sender, e) => {
-                RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "DocumentTab");
-            };
+            //PubEventHelper.GetEvent<TabAddedEvent>
+
+            //_documentTabService.TabAdded += (sender, e) => {
+            //    RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "DocumentTab");
+            //};
         }
 
         private DelegateCommand _contentRenderedCommand;

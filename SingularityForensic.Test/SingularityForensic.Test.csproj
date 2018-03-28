@@ -115,6 +115,7 @@
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
+    <Compile Include="FileSystem\TestDosAndGpt.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
@@ -160,7 +161,10 @@
     <PostBuildEvent>Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"
+Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
+Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
+
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 

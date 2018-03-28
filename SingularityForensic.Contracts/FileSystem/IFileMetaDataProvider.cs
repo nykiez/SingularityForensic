@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    //文件元数据提供器;
+    //文件元数据提供器(比如列);
     public interface IFileMetaDataProvider {
         //原数据名称;
         string MetaDataName { get; }

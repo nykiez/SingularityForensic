@@ -8,5 +8,24 @@ namespace SingularityForensic.Drive.Views {
         public DrivesItemsWindow() {
             InitializeComponent();
         }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
+            SelectedItem = e.NewValue;
+        }
+
+
+
+        public object SelectedItem {
+            get { return (object)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object),
+                typeof(DrivesItemsWindow),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
     }
 }

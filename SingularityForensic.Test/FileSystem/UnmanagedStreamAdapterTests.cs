@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SingularityForensic.Contracts.Parsing;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -31,10 +30,9 @@ namespace SingularityForensic.Contracts.FileSystem.Tests {
         [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private static extern void SetStreamPosition(IntPtr stream, long pos);
 
+        //测试多线程下的读写是否正常;
         private void TestThread() {
-            var fs = File.Open("D://vc_2010_x86.exe", FileMode.Open, FileAccess.ReadWrite);
-            var stream = new UnmanagedStreamAdapter(fs);
-            var ptr = stream.StreamPtr;
+            var ptr = _adapter.StreamPtr;
             ThreadPool.QueueUserWorkItem(cb => {
                 Thread.Sleep(4000);
                 ReadTest(ptr);
@@ -46,16 +44,25 @@ namespace SingularityForensic.Contracts.FileSystem.Tests {
         AutoResetEvent evt = new AutoResetEvent(false);
 
         
+        //测试垃圾回收器对适配器类的影响;
         [TestMethod]
-        public void UnmanagedStreamAdapterTest() {
+        public void TestGCForUnmanagedAdapter() {
             TestThread();
             GC.Collect();
             GC.Collect();
             evt.WaitOne();
         }
 
+        //测试读取;
+        [TestMethod]
+        private void TestRead() {
+            var ptr = _adapter.StreamPtr;
+            ReadTest(ptr);
+        }
+
+        //测试长度和位置;
         [TestMethod()]
-        public void TestLength() {
+        public void TestLengthAndPos() {
             Assert.AreEqual(_fs.Length, GetStreamLength(_adapter.StreamPtr));
 
             Assert.AreEqual(_fs.Position, GetStreamPosition(_adapter.StreamPtr));
@@ -67,6 +74,8 @@ namespace SingularityForensic.Contracts.FileSystem.Tests {
 
             Assert.AreEqual(GetStreamPosition(_adapter.StreamPtr), tPos);
         }
+
+       
 
         [TestCleanup]
         public void Clean() {

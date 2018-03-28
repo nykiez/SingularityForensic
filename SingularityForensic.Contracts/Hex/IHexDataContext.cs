@@ -23,7 +23,7 @@ namespace SingularityForensic.Contracts.Hex {
         long Position { get; set; }
         long FocusPosition { get; set; }
         ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; set; }
-        object Data { get; }
+        object Tag { get; set; }
     }
 
     

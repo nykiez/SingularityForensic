@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:cviews="clr-namespace:SingularityForensic.Controls.Views;assembly=SingularityForensic.Controls"
              xmlns:prism="http://www.codeplex.com/prism"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"

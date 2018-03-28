@@ -2,6 +2,7 @@
 using SingularityForensic.Drive.Views;
 using System;
 using System.ComponentModel.Composition;
+using System.Windows.Data;
 
 namespace SingularityForensic.Drive {
     /// <summary>
@@ -30,8 +31,10 @@ namespace SingularityForensic.Drive {
         public (string driveType, object entity)? SelectDrive() {
             var window = new DrivesItemsWindow();
             window.DataContext = _vm.Value;
+            window.SetBinding(DrivesItemsWindow.SelectedItemProperty,
+                new Binding(nameof(DriveItemsWindowViewModel.SelectedUnit)));
             window.ShowDialog();
-
+            
             return _vm.Value.SelectedDriveTuple;
         }
     }

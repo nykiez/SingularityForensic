@@ -49,19 +49,21 @@ namespace SingularityForensic.FileSystem {
 
 
 
-        private List<(IHaveFileCollection enumFile, XElement xElem)> _enumFiles = new List<(IHaveFileCollection enumFile, XElement xElem)>();
+        private List<(FileBase file, XElement xElem)> _enumFiles = new List<(FileBase file, XElement xElem)>();
 
-        public IEnumerable<(IHaveFileCollection enumFile, XElement xElem)> EnumedFiles => _enumFiles.Select(p => p);
+        public IEnumerable<(FileBase file, XElement xElem)> EnumedFiles => _enumFiles.Select(p => p);
         
-        public IHaveFileCollection MountStream(Stream stream,string name,XElement xElem, ProgressReporter reporter) {
+        public FileBase MountStream(Stream stream,string name,XElement xElem, ProgressReporter reporter) {
             foreach (var provider in _parsingProvider) {
                 try {
-                    if (provider.CheckIsValidStream(stream)) {
-                        var blockFile = provider.ParseStream(stream,name,xElem, reporter);
-                        if(blockFile != null) {
-                            _enumFiles.Add((blockFile,xElem));
-                            return blockFile;
-                        }
+                    if (!provider.CheckIsValidStream(stream)) {
+                        continue;   
+                    }
+
+                    var file = provider.ParseStream(stream, name, xElem, reporter);
+                    if (file != null) {
+                        _enumFiles.Add((file, xElem));
+                        return file;
                     }
                 }
                 catch(Exception ex) {
@@ -73,15 +75,15 @@ namespace SingularityForensic.FileSystem {
         }
 
         //卸载文件;
-        public void UnMountFile(IHaveFileCollection file) {
+        public void UnMountFile(FileBase file) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            var tuples = _enumFiles.Where(p => p.enumFile == file).ToArray();
+            var tuples = _enumFiles.Where(p => p.file == file).ToArray();
             foreach (var tuple in tuples) {
                 try {
-                    if(tuple.enumFile is IDisposable disOb) {
+                    if(tuple.file is IDisposable disOb) {
                         disOb.Dispose();
                     }
                 }

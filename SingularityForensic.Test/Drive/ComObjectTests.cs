@@ -41,7 +41,7 @@ namespace SingularityForensic.Drive.DeviceObjects.Tests {
                 }
                 var buffer = new byte[testLength];
                 var read = testStream.Read(buffer, 0, testLength);
-                Assert.AreEqual(read, testLength);
+                Assert.AreEqual(testLength, read);
                 //Trace.WriteLine($"{nameof(TestReadLength)}:{nameof(testLength)}-{testLength}");
             }
 

@@ -27,9 +27,22 @@ namespace SingularityForensic.Casing {
 
             //当案件文件被加载时,向树形节点中加入案件文件;
             PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(OnEvidenceLoaded);
+
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
         }
 
-        //案件加载完成时发生;
+        /// <summary>
+        /// 案件文件被移除时发生;
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnCaseEvidenceRemoved(CaseEvidence obj) {
+            
+        }
+
+        /// <summary>
+        /// //案件加载完成时发生;
+        /// </summary>
+        /// <param name="cs"></param>
         private void OnCaseLoaded(ICase cs) {
             if(cs == null) {
                 return;
@@ -77,9 +90,13 @@ namespace SingularityForensic.Casing {
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
-                MsgBoxService.ShowError(ex.Message);
+                ThreadInvoker.UIInvoke(() => {
+                    MsgBoxService.ShowError(ex.Message);
+                });
             }
-            nodeService.AddUnit(nodeService.CurrentUnits.FirstOrDefault(), unit);
+            ThreadInvoker.UIInvoke(() => {
+                nodeService.AddUnit(nodeService.CurrentUnits.FirstOrDefault(), unit);
+            });
         }
 
         //案件被卸载时发生;

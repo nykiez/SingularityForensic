@@ -27,107 +27,120 @@ namespace SingularityForensic.Imaging {
             RegisterEvents();
         }
 
+        /// <summary>
+        /// 注册事件;
+        /// </summary>
         private void RegisterEvents() {
-            //加载案件文件若为镜像,则响应镜像解析;
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(tuple => {
-                var csEvidence = tuple.csEvidence;
-                var reporter = tuple.reporter;
 
-                if (csEvidence == null) {
-                    return;
-                }
-                
-                if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
-                    return;
-                }
+            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
 
-                var path = csEvidence[ImgPath];
-                if (string.IsNullOrEmpty(path)) {
-                    return;
-                }
 
-                //var streamParser = _mounterProviders.FirstOrDefault(p => csEvidence.EvidenceTypeGuids?.Contains(p.Value.TypeGUID) ?? false)?.Value;
-                //if(streamParser == null) {
-                //    return;
-                //}
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
 
-                ////提取所有流Parsers;
-                //foreach (var mounterProvider in _mounterProviders) {
 
-                //    if (streamParser != null) {
-                //        var file = LoadFromPath(path, streamParser, null);
-                //        streamParser.CaseManager.SetData(csFile, file);
-                //    }
-                //}
-                try {
-                    MountImg(csEvidence, reporter);
-                }
-                catch(Exception ex) {
-                    LoggerService.Current?.WriteCallerLine(ex.Message);
-                    MsgBoxService.Current?.ShowError(ex.Message);
-                }
-                
-            });
-
-            //移除文件若为镜像,则进行卸载;
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(evidence => {
-                if(evidence == null) {
-                    return;
-                }
-
-                if (!(evidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
-                    return;
-                }
-
-                var fsService = FSService.Current;
-                if (fsService == null) {
-                    LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
-                    return;
-                }
-                
-                var tuples = _mounterTuples.Where(p => p.csEvidence == evidence).ToArray();
-                foreach (var tuple in tuples) {
-                    //文件系统卸载文件;
-                    var files = fsService.EnumedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
-                    foreach (var file in files) {
-                        fsService.UnMountFile(file.enumFile);
-                    }
-
-                    tuple.mounter.Dispose();
-                    _mounterTuples.Remove(tuple);
-                }
-                
-
-            });
-
-            //案件卸载时响应;
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(() => {
-                var fsService = FSService.Current;
-                if(fsService == null) {
-                    LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
-                    return;
-                }
-
-                foreach (var tuple in _mounterTuples) {
-                    //文件系统卸载文件;
-                    var files = fsService.EnumedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
-                    foreach (var file in files) {
-                        fsService.UnMountFile(file.enumFile);
-                    }
-                    
-                    tuple.mounter.Dispose();
-                    _mounterTuples.Remove(tuple);
-                }
-            });
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
         }
 
+        /// <summary>
+        /// 加载案件文件若为镜像,则响应镜像解析;
+        /// </summary>
+        /// <param name="tuple"></param>
+        private void OnCaseEvidenceLoading((CaseEvidence csEvidence, ProgressReporter reporter) tuple) {
+            var csEvidence = tuple.csEvidence;
+            var reporter = tuple.reporter;
 
-        //挂载新镜像文件到案件中;
+            if (csEvidence == null) {
+                return;
+            }
+
+            if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
+                return;
+            }
+
+            var path = csEvidence[ImgPath];
+            if (string.IsNullOrEmpty(path)) {
+                return;
+            }
+            
+            try {
+                MountImg(csEvidence, reporter);
+            }
+            catch (Exception ex) {
+                LoggerService.Current?.WriteCallerLine(ex.Message);
+                MsgBoxService.Current?.ShowError(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// 移除文件若为镜像,则进行卸载;
+        /// </summary>
+        /// <param name="evidence"></param>
+        private void OnCaseEvidenceRemoved(CaseEvidence evidence) {
+            if (evidence == null) {
+                return;
+            }
+
+            if (!(evidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
+                return;
+            }
+
+            var fsService = FSService.Current;
+            if (fsService == null) {
+                LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
+                return;
+            }
+
+            var tuples = _mounterTuples.Where(p => p.csEvidence == evidence).ToArray();
+            foreach (var tuple in tuples) {
+                //文件系统卸载文件;
+                var files = fsService.EnumedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+                foreach (var fileTuple in files) {
+                    fsService.UnMountFile(fileTuple.file);
+                }
+
+                tuple.mounter.Dispose();
+                _mounterTuples.Remove(tuple);
+            }
+
+        }
+
+        /// <summary>
+        /// 案件卸载时响应;
+        /// </summary>
+        private void OnCaseUnloaded() {
+            var fsService = FSService.Current;
+            if (fsService == null) {
+                LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
+                return;
+            }
+
+            foreach (var tuple in _mounterTuples) {
+                //文件系统卸载文件;
+                var files = fsService.EnumedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+                foreach (var file in files) {
+                    fsService.UnMountFile(file.file);
+                }
+
+                tuple.mounter.Dispose();
+                _mounterTuples.Remove(tuple);
+            }
+        }
+
+        /// <summary>
+        /// 挂载新镜像文件到案件中;
+        /// </summary>
+        /// <param name="path"></param>
         public void AddImg(string path) {
             InternalAddImg(path, FileAccess.ReadWrite, FileShare.Read);
         }
 
-        //内部使用;
+        /// <summary>
+        /// 内部使用;
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="access"></param>
+        /// <param name="fileshare"></param>
         private void InternalAddImg(string path, FileAccess access, FileShare fileshare) {
             if (path == null) {
                 throw new ArgumentNullException(nameof(path));

@@ -8,6 +8,7 @@ namespace SingularityForensic.Test.Imaging {
     [TestClass]
     public class TestEWF {
         private const string _fileName = "I:\\test.E01";
+        private const string _segName = "I:\\Frags\\test.E02";
         private Handle _handle;
         [TestInitialize]
         public void Init() {
@@ -20,9 +21,10 @@ namespace SingularityForensic.Test.Imaging {
             _handle.Open(globs, Handle.GetAccessFlagsRead());
         }
 
+        //测试分块;
         [TestMethod]
         public void TestGlob() {
-            var globs = Handle.Glob(_fileName);
+            var globs = Handle.Glob(_segName);
             
         }
 
@@ -48,12 +50,42 @@ namespace SingularityForensic.Test.Imaging {
             Assert.AreEqual(_handle.GetOffset(),500);
             
         }
-        
+        private const string exFileName = "D:\\1";
+
+        //测试创建;
         [TestMethod]
         public void TestCreate() {
             var _hd = new Handle();
-            _hd.Open(new string[] { "D://1.eo1" }, Handle.GetAccessFlagsWrite());
+            _hd.Open(new string[] { exFileName,"D:\\2" }, Handle.GetAccessFlagsWrite());
             
+            //_hd.SetBytesPerSector(512);
+            //_hd.SetMediaSize(10240);
+            
+            var secSize = _hd.GetBytesPerSector();
+            var chunkSize = _hd.GetChunkSize();
+            _hd.SetSectorsPerChunk(100);
+            
+            var bSize = 5120;
+            //_hd.SetSectorsPerChunk(20);
+            _hd.SetFormat(15);
+
+            var bts = new byte[chunkSize];
+            //var rand = new Random();
+            //rand.NextBytes(bts);
+            for (int i = 0; i < 10000; i++) {
+                _hd.WriteBuffer(bts, bSize);
+            }
+            
+            _hd.Close();
+            
+            //_hd.Dispose();
+        }
+
+        [TestMethod]
+        public void TestRead2() {
+            var _hd = new Handle();
+            _hd.Open(new string[] { exFileName }, Handle.GetAccessFlagsRead());
+            var length = _hd.SeekOffset(0, System.IO.SeekOrigin.End);
         }
 
         [TestMethod]

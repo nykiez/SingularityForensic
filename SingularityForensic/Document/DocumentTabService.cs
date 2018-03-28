@@ -1,4 +1,6 @@
 ﻿using SingularityForensic.Contracts.Document;
+using SingularityForensic.Contracts.Document.Events;
+using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,9 +21,9 @@ namespace SingularityForensic.Document {
                 return;
             }
 
-            TabAdding?.Invoke(this, tab);
+            PubEventHelper.GetEvent<TabAddingEvent>().Publish(tab);
             _tabs.Add(tab);
-            TabAdded?.Invoke(this, tab);
+            PubEventHelper.GetEvent<TabAddedEvent>().Publish(tab);
         }
 
         private List<IDocumentTab> _tabs = new List<IDocumentTab>();
@@ -32,18 +34,18 @@ namespace SingularityForensic.Document {
         //关闭所有Tab;
         public void CloseAllTabs() {
             var cEvg = new CancelEventArgs();
-            TabsClearing?.Invoke(this,cEvg);
+            PubEventHelper.GetEvent<TabsClearingEvent>().Publish(cEvg);
             if (cEvg.Cancel) {
                 return;
             }
 
             foreach (var tab in _tabs) {
-                TabClosed?.Invoke(this, tab);
+                PubEventHelper.GetEvent<TabClosedEvent>().Publish(tab);
             }
         }
 
         //关闭Tab
-        public void CloseTab(IDocumentTab tab) {
+        public void RemoveTab(IDocumentTab tab) {
             if(tab == null) {
                 throw new ArgumentNullException(nameof(tab));
             }
@@ -53,25 +55,25 @@ namespace SingularityForensic.Document {
             }
             
             var cEvg = new CancelEventArgs();
-            this.TabClosing?.Invoke(this, (tab,cEvg));
+            PubEventHelper.GetEvent<TabClosingEvent>().Publish((tab, cEvg));
             if (cEvg.Cancel) {
                 return;
             }
 
             _tabs.Remove(tab);
 
-            this.TabClosed?.Invoke(this, tab);
+            PubEventHelper.GetEvent<TabClosedEvent>().Publish(tab);
         }
 
         private IDocumentTab _selectedTab;
 
-        public event EventHandler<IDocumentTab> TabAdding;
-        public event EventHandler<IDocumentTab> TabAdded;
-        public event EventHandler<CancelEventArgs> TabsClearing;
-        public event EventHandler TabsCleared;
-        public event EventHandler<(IDocumentTab tab, CancelEventArgs e)> TabClosing;
-        public event EventHandler<IDocumentTab> TabClosed;
-        public event EventHandler<IDocumentTab> SelectedTabChanged;
+        //public event EventHandler<IDocumentTab> TabAdding;
+        //public event EventHandler<IDocumentTab> TabAdded;
+        //public event EventHandler<CancelEventArgs> TabsClearing;
+        //public event EventHandler TabsCleared;
+        //public event EventHandler<(IDocumentTab tab, CancelEventArgs e)> TabClosing;
+        //public event EventHandler<IDocumentTab> TabClosed;
+        //public event EventHandler<IDocumentTab> SelectedTabChanged;
 
         public IDocumentTab SelectedTab {
             get => _selectedTab;
@@ -85,7 +87,8 @@ namespace SingularityForensic.Document {
                 }
 
                 _selectedTab = value;
-                SelectedTabChanged?.Invoke(this, _selectedTab);
+                PubEventHelper.GetEvent<SelectedTabChangedEvent>().Publish(_selectedTab);
+                //SelectedTabChanged?.Invoke(this, _selectedTab);
             }
         }
     }

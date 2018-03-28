@@ -174,10 +174,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDFC.Parse.Modules\CDFC.Parse.Modules.csproj">
-      <Project>{07563C49-6584-4631-8746-D055BC7E3CA6}</Project>
-      <Name>CDFC.Parse.Modules</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
       <Name>SingularityForensic.Contracts</Name>

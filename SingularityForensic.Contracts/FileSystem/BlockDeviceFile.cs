@@ -25,19 +25,10 @@ namespace SingularityForensic.Contracts.FileSystem {
     public class BlockedStreamFileStoken : FileStokenBase  {
         public Stream BaseStream { get; set; }
 
-        public int BlockSize { get; set; }
-        
-    }
-    
-    public class PartitonStoken : BlockedStreamFileStoken {
-        public long StartLBA { get; set; }
-    }
-    
-    
+        public int BlockSize { get; set; }    
 
-    public class DeviceStoken : BlockedStreamFileStoken {
-        public string PartsType { get; set; }                    //分区表类型;
-        public IEnumerable<PartitionEntry> PartitionEntries { get; set; } //分区表项集合;
+        //释放委托;(便于使用非托管的委托);
+        public Action DisposeAct { get; set; }
     }
 
     public interface IBlockedStream {
@@ -46,7 +37,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     //块-流文件类型;可用作描述分区,磁盘等的基类;
-
     public abstract class BlockedStreamFileBase<TStoken> :
         FileBase<TStoken>,IDisposable,
         IHaveFileCollection where TStoken:BlockedStreamFileStoken , new(){
@@ -69,13 +59,15 @@ namespace SingularityForensic.Contracts.FileSystem {
         }
 
         private bool _disposed = false;
-        public void Dispose() {
+        public virtual void Dispose() {
             if (!_disposed) {
                 BaseStream?.Close();
                 _stoken.BaseStream = null;
+                _stoken.DisposeAct?.Invoke();
                 _disposed = true;
             }
         }
+        
 
         private FileBaseCollection _children;
         public FileBaseCollection Children => _children ?? (_children = new FileBaseCollection(this));

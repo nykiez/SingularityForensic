@@ -139,6 +139,14 @@
     <Compile Include="Common\ServiceProvider.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
+    <Compile Include="Document\Events\TabClosedEvent.cs" />
+    <Compile Include="Document\Events\TabClosingEvent.cs" />
+    <Compile Include="Document\Events\TabsCleared.cs" />
+    <Compile Include="Document\Events\TabsClearingEvent.cs" />
+    <Compile Include="Document\Events\TabAddingEvent.cs" />
+    <Compile Include="Document\Events\TabAddedEvent.cs" />
+    <Compile Include="Document\Events\SelectedTabChangedEvent.cs" />
+    <Compile Include="Document\IEnumerableDocumentTab.cs" />
     <Compile Include="Document\IDocumentTabExtensionService.cs" />
     <Compile Include="Document\IDocumentTabService.cs" />
     <Compile Include="Document\IDocumentTab.cs" />
@@ -149,12 +157,13 @@
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileExplorer\IStorageTreeUnit.cs" />
     <Compile Include="FileSystem\BlockDeviceFile.cs" />
+    <Compile Include="FileSystem\HaveFileCollectionHelper.cs" />
     <Compile Include="FileSystem\Device.cs" />
-    <Compile Include="FileSystem\IBlockDeviceParser.cs" />
+    <Compile Include="FileSystem\IStreamParsingProvider.cs" />
     <Compile Include="FileSystem\IBlockGroupedFile.cs" />
-    <Compile Include="FileSystem\IFile.cs" />
+    <Compile Include="FileSystem\FileExtensions.cs" />
     <Compile Include="FileSystem\IFileMetaDataProvider.cs" />
-    <Compile Include="FileSystem\IEnumerableFile.cs" />
+    <Compile Include="FileSystem\IHaveFileCollection.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="FileSystem\IFileSystemService.cs" />
     <Compile Include="FileSystem\ITimeable.cs" />
@@ -217,8 +226,6 @@
     <Compile Include="TreeView\PinTreeUnit.cs" />
     <Compile Include="MainPage\Events\MainPageEvents.cs" />
     <Compile Include="MainPage\Events\NodeManagerEvents.cs" />
-    <Compile Include="MainPage\Events\TabClearedEvent.cs" />
-    <Compile Include="MainPage\Events\TabClosedEvent.cs" />
     <Compile Include="MainPage\INodeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

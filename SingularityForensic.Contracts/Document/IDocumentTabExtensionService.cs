@@ -9,6 +9,12 @@ namespace SingularityForensic.Contracts.Document {
     /// Document拓展服务;
     /// </summary>
     public interface IDocumentTabExtensionService {
-
+        /// <summary>
+        /// 创建一个多级的Tab;
+        /// </summary>
+        /// <returns></returns>
+        IEnumerableDocumentTab CreateEnumerableTab();
     }
+
+    
 }

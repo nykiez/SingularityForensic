@@ -7,15 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Document {
+    //文档实体结构;
     public interface IDocumentTab : IUIObjectProvider {
         string Title { get; }
         List<CommandItem> Commands { get; }
     }
-
-    public interface IEnumerableDocumentTab : IDocumentTab {
-        IEnumerable<IDocumentTab> Children { get; }
-    }
-
-
     
 }

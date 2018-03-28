@@ -152,7 +152,12 @@ Copy "$(SolutionDir)SingularityForensic\$(OutDir)\SingularityForensic.dll" "$(Ta
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
 Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll"
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll"
+Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Entities\cdfc_device.dll"
+Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"
+Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
+
+
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 
 Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll"

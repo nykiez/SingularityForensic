@@ -41,7 +41,7 @@
 
         <controls:TabControlEx Grid.Row="1" Style="{DynamicResource InnerBrowserTablControl}"
                                  ItemsSource="{Binding TabViewModels}" SelectedItem="{Binding SelectedTabModel}" >
-            <TabControl.Resources>
+            <!--<TabControl.Resources>
                 <Style TargetType="TabItem" BasedOn="{StaticResource InnerBrowserTabItem}">
                     <Setter Property="Header" Value="{Binding Header}"/>
                 </Style>
@@ -63,7 +63,7 @@
                         <local:ThumbnailInfo/>
                     </Border>
                 </DataTemplate>
-            </TabControl.Resources>
+            </TabControl.Resources>-->
         </controls:TabControlEx>
     </Grid>
 </UserControl>

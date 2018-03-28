@@ -12,7 +12,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     //用于某块内部使用的文件信息(模块可自定义,建议外部需要根据Key拿到所需数据);
     public abstract class FileStokenBase:SecurityStoken {
         public IEnumerable<string> TypeGuids { get; set; }          //文件类型;
-        public FileBase Parent { get; set; }           //父类型;
         public string Name { get; set; }                //文件名;
         public long Size { get; set; }                  //文件大小;
     }
@@ -43,6 +42,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     public abstract class FileBase {
+        
         public abstract IEnumerable<string> TypeGuids { get; }
 
         public FileBase Parent => InternalParent;
@@ -82,7 +82,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         
         public override IEnumerable<string> TypeGuids => _stoken?.TypeGuids;
 
-        public FileBase Parent => _stoken?.Parent;
+        //public FileBase Parent => _stoken?.Parent;
 
         public override string Name => _stoken?.Name;
 

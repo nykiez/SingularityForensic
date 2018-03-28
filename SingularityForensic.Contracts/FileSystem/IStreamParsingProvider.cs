@@ -21,7 +21,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="xElem">可拓展描述内容</param>
         /// <param name="reporter">进度通知单位</param>
         /// <returns></returns>
-        IHaveFileCollection ParseStream(Stream stream,string name,XElement xElem, ProgressReporter reporter);
+        FileBase ParseStream(Stream stream,string name,XElement xElem, ProgressReporter reporter);
 
         int Order { get; }
     }

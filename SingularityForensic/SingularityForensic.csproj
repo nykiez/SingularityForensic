@@ -378,8 +378,10 @@
     <Compile Include="Dos\DosCaseManager.cs" />
     <Compile Include="Dos\DosImgParser.cs" />
     <Compile Include="Dos\DosModule.cs" />
+    <Compile Include="Dos\DosUIService.cs" />
     <Compile Include="Drive\DriveModule.cs" />
     <Compile Include="Drive\DriveStream.cs" />
+    <Compile Include="Drive\IconSources.cs" />
     <Compile Include="Drive\IDriveDialogService.cs" />
     <Compile Include="Drive\LocalHDDInfos.cs" />
     <Compile Include="Drive\LocalVolume.cs" />
@@ -389,6 +391,7 @@
     <Compile Include="Drive\Constants.cs" />
     <Compile Include="Drive\DriveService.cs" />
     <Compile Include="Drive\LocalHDD.cs" />
+    <Compile Include="Drive\MenuDefinitions.cs" />
     <Compile Include="Drive\ViewModels\DriveItemsWindowViewModel.cs" />
     <Compile Include="Drive\Views\DrivesItemsWindow.xaml.cs">
       <DependentUpon>DrivesItemsWindow.xaml</DependentUpon>
@@ -448,10 +451,13 @@
       <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileSystem\Constants.cs" />
+    <Compile Include="FileSystem\BaseDeviceStreamParsingProvider.cs" />
+    <Compile Include="FileSystem\DosDeviceStreamParsingProvider.cs" />
     <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
     <Compile Include="FileSystem\IconSources.cs" />
+    <Compile Include="FileSystem\Structs.cs" />
     <Compile Include="FileSystem\UnknownDeviceStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />
@@ -1336,6 +1342,8 @@
     <Resource Include="Controls\Images\TalkLog_Left.png" />
     <Resource Include="Controls\Images\TalkLog_Right.png" />
     <Content Include="Drive\cdfc_device.dll" />
+    <Content Include="Drive\DevManager.dll" />
+    <Content Include="FileSystem\PartitionManager.dll" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
