@@ -36,7 +36,7 @@ namespace SingularityForensic.Test.FileSystem {
         
         [TestInitialize]
         public void Initialize() {
-            _fs = File.OpenRead("E://anli/dos.img");
+            _fs = File.OpenRead("E://anli/gpt.img");
             //"G:\\MobileImgs\\Honor\\mmcblk0");
             //"J://anli/noname");
             _unManagedStreamAdapter = new UnmanagedStreamAdapter(_fs);

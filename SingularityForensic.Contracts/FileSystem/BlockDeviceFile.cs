@@ -65,7 +65,9 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
         }
 
-        //正在析构事件;
+        /// <summary>
+        /// //正在析构事件;
+        /// </summary>
         public event EventHandler Disposing; 
 
         private FileBaseCollection _children;

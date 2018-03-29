@@ -119,5 +119,11 @@ namespace SingularityForensic.Contracts.Common {
                 itemElem.Value = value;
             }
         }
+
+        public XElement CreateElem(string elemName) {
+            var elem = new XElement(elemName);
+            _elem.Add(elem);
+            return elem;
+        }
     }
 }

@@ -24,6 +24,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         FileBase ParseStream(Stream stream,string name,XElement xElem, ProgressReporter reporter);
 
         int Order { get; }
+
+        /// <summary>
+        /// 标识GUID;
+        /// </summary>
+        string GUID { get; }
     }
 
 }

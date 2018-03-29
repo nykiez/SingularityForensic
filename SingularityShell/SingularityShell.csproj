@@ -156,7 +156,7 @@ Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Enti
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"
 Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
-
+Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll" 
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 

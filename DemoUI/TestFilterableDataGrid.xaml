@@ -56,9 +56,14 @@
                 </ContextMenu>
             </controls:RadGridViewEx.ScrollContentContextMenu>
         </controls:RadGridViewEx>
-
-        <Button Grid.Row="2" Command="{Binding CopyFilterComand}">
-            Copy Filter
-        </Button>
+        <StackPanel Grid.Row="2">
+            <Button  Command="{Binding CopyFilterComand}">
+                Copy Filter
+            </Button>
+            <Button Command="{Binding ChangeColumnIndexCommand}" Click="Button_Click_1">
+                Change Column
+            </Button>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

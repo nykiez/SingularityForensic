@@ -18,13 +18,10 @@ using Telerik.Windows.Data;
 namespace DemoUI {
 
     public class CustomLocalizationManager : LocalizationManager {
-        
         public override string GetStringOverride(string key) {
             var bs = base.GetStringOverride(key);
-            
             switch (key) {
                 case "GridViewGroupPanelText":
-                    
                     return "Zum gruppieren ziehen Sie den Spaltenkopf in diesen Bereich.";
                 //---------------------- RadGridView Filter Dropdown items texts:
                 case "GridViewClearFilter":
@@ -180,6 +177,10 @@ namespace DemoUI {
         private void dgg_Filtered(object sender, GridViewFilteredEventArgs e) {
 
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) {
+            dgg.Columns[0].Width = 100;
+        }
     }
 
 
@@ -281,6 +282,14 @@ namespace DemoUI {
             get => _selectedText;
             set => SetProperty(ref _selectedText, value);
         }
+
+        private Prism.Commands.DelegateCommand _changeColumnIndexCommand;
+        public Prism.Commands.DelegateCommand ChangeColumnIndexCommand => _changeColumnIndexCommand ??
+            (_changeColumnIndexCommand = new Prism.Commands.DelegateCommand(
+                () => {
+                    Items.Columns.Remove(Items.Columns[0]);
+                }
+            ));
 
     }
     

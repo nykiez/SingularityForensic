@@ -5,13 +5,22 @@
         public const string DeviceKey_DOS = "2739F2F4-B051-4520-8BF0-7A1511765673";
         public const string DeviceKey_GPT = "CC4E4F36-0C69-4FD3-919D-BC932AEA0F47";
 
-        public const string PartEntryKey_Dos = "B96EDB68 - 2F5C-4711-B7C0-2187C69D9C27";
+        public const string PartEntryKey_Dos = "B96EDB68-2F5C-4711-B7C0-2187C69D9C27";
         public const string PartEntryKey_GPT = "0EB0D4E8-0313-4849-9803-1E327411525B";
 
+        public const string PartitionKey_FAT = "D2C19FB9-E98C-498C-B0F2-3AE4EA62BD00";
     }
-
+    
     //语言部分;
     public static partial class Constants {
+        public const string StreamParser_BaseDevice = nameof(StreamParser_BaseDevice);
+        public const string StreamParser_Unknown = nameof(StreamParser_Unknown);
+        public const string StreamParser_FAT = nameof(StreamParser_FAT);
+        public const string StreamParser_NTFS = nameof(StreamParser_NTFS);
+
+        public const string Device_InnerParts = "Parts";
+        public const string Device_InnerPart = "Partition";
+
         public const string PartsType_Unknown = nameof(PartsType_Unknown);
         public const string PartsType_DOS = nameof(PartsType_DOS);
         public const string PartsType_GPT = nameof(PartsType_GPT);

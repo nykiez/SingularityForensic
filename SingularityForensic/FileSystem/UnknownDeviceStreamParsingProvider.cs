@@ -9,7 +9,9 @@ using System.Xml.Linq;
 namespace SingularityForensic.FileSystem {
     [Export(typeof(IStreamParsingProvider))]
     public class UnknownDeviceStreamParsingProvider : IStreamParsingProvider {
-        public int Order => 128;
+        public int Order => int.MaxValue;
+
+        public string GUID => Constants.StreamParser_Unknown;
 
         public bool CheckIsValidStream(Stream stream) {
             if(stream == null) {

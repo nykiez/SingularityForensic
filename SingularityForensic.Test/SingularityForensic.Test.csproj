@@ -114,6 +114,7 @@
     <Compile Include="Drive\DriveServiceTest.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
+    <Compile Include="FileSystem\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
@@ -164,6 +165,7 @@ Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
 Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
+Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)FatRecover.dll" 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 
 
