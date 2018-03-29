@@ -452,12 +452,11 @@
     </Compile>
     <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileSystem\BaseDeviceStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\DosDeviceStreamParsingProvider.cs" />
     <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
     <Compile Include="FileSystem\IconSources.cs" />
-    <Compile Include="FileSystem\Structs.cs" />
+    <Compile Include="FileSystem\NativeStructs.cs" />
     <Compile Include="FileSystem\UnknownDeviceStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />

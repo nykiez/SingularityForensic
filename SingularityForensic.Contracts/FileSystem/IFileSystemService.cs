@@ -24,7 +24,7 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         //所有文件;
         //file为对应的文件管理单元,xElem为信息项,为了避免与案件耦合(试用xElem作为信息媒介);
-        IEnumerable<(FileBase file,XElement xElem)> EnumedFiles { get; }
+        IEnumerable<(FileBase file,XElement xElem)> MountedFiles { get; }
     }
 
     public class FSService :GenericServiceStaticInstance<IFileSystemService> {
@@ -48,7 +48,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return null;
             }
 
-            foreach (var (file, xElem) in fsService.EnumedFiles) {
+            foreach (var (file, xElem) in fsService.MountedFiles) {
                 
                 if(xElem.Element(nameof(CaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
                     if(file is Device device) {

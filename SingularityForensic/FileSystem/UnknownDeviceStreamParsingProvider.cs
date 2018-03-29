@@ -21,9 +21,8 @@ namespace SingularityForensic.FileSystem {
         
         public FileBase ParseStream(Stream stream, string name, 
             XElement xElem, ProgressReporter reporter) {
-            DeviceStoken stoken = new DeviceStoken {
+            var stoken = new DeviceStoken {
                 BaseStream = stream,
-                PartitionEntries = Enumerable.Empty<PartitionEntry>(),
                 PartsType = LanguageService.Current?.FindResourceString(Constants.PartsType_Unknown),
                 Name = name,
                 TypeGuids = new string[] {

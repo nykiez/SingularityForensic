@@ -8,8 +8,11 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileSystem;
 
 namespace SingularityForensic.Test.FileSystem {
+    /// <summary>
+    /// 非托管调用调试;
+    /// </summary>
     [TestClass]
-    public class TestDosAndGpt {
+    public class DosAndGptNativeTest {
         private const string partAsm = "PartitionManager.dll";
         [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private extern static IntPtr Partition_Init(IntPtr stStream);
@@ -33,7 +36,7 @@ namespace SingularityForensic.Test.FileSystem {
         
         [TestInitialize]
         public void Initialize() {
-            _fs = File.OpenRead("J://anli/dos.img");
+            _fs = File.OpenRead("E://anli/dos.img");
             //"G:\\MobileImgs\\Honor\\mmcblk0");
             //"J://anli/noname");
             _unManagedStreamAdapter = new UnmanagedStreamAdapter(_fs);
@@ -50,7 +53,6 @@ namespace SingularityForensic.Test.FileSystem {
         public void TestDos() {
             var isDos = Partition_B_Dos(_partPtr);
             Assert.IsTrue(isDos);
-
             
             var partPtr = Partition_Get_DosPTable(_partPtr);
             Assert.AreNotEqual(partPtr, IntPtr.Zero);
@@ -58,12 +60,12 @@ namespace SingularityForensic.Test.FileSystem {
             var partNode = partPtr;
             while(partNode != IntPtr.Zero) {
                 var dosPTable = partNode.GetStructure<StDosPTable>();
-                Trace.WriteLine(dosPTable.nOffset);
+                Trace.WriteLine($"{dosPTable.DosPartType} - {dosPTable.nOffset}");
                 var stInfo = dosPTable.Info.GetStructure<StInFoDisk>();
-                Trace.WriteLine(stInfo.HeadSecor);
+                Trace.WriteLine($"\t{stInfo.HeadSector} - {stInfo.AllSector}");
                 partNode = dosPTable.next;
             }
-             
+            
         }
 
         [TestMethod]
@@ -78,6 +80,19 @@ namespace SingularityForensic.Test.FileSystem {
             while(partNode != IntPtr.Zero) {
                 var gptPTable = partNode.GetStructure<StGptPTable>();
                 Trace.WriteLine(gptPTable.nOffset);
+                var stEFIInfo = gptPTable.EFIInfo.GetStructure<StEFIInfo>();
+                
+                var stInfo = gptPTable.Info.GetStructure<StInFoDisk>();
+                Trace.WriteLine($"\t{stEFIInfo.GPTStartLBA * 512} - {stEFIInfo.GPTEndLBA * 512}");
+                var stEFITable = gptPTable.EFIPTable.GetStructure<StEFIPTable>();
+                if (gptPTable.EFIPTable != IntPtr.Zero) {
+                    Trace.WriteLine($"\t{stEFITable.PartTabStartLBA } - {stEFITable.PartTabEndLBA }");
+                }
+                else {
+                    Trace.WriteLine($"Null EFITable");
+                }
+                
+                //Trace.WriteLine($"\t{stInfo.HeadSecor * 512} - {stInfo.AllSector}");
                 partNode = gptPTable.next;
             }
         }

@@ -51,7 +51,7 @@ namespace SingularityForensic.FileSystem {
 
         private List<(FileBase file, XElement xElem)> _enumFiles = new List<(FileBase file, XElement xElem)>();
 
-        public IEnumerable<(FileBase file, XElement xElem)> EnumedFiles => _enumFiles.Select(p => p);
+        public IEnumerable<(FileBase file, XElement xElem)> MountedFiles => _enumFiles.Select(p => p);
         
         public FileBase MountStream(Stream stream,string name,XElement xElem, ProgressReporter reporter) {
             foreach (var provider in _parsingProvider) {

@@ -26,9 +26,6 @@ namespace SingularityForensic.Contracts.FileSystem {
         public Stream BaseStream { get; set; }
 
         public int BlockSize { get; set; }    
-
-        //释放委托;(便于使用非托管的委托);
-        public Action DisposeAct { get; set; }
     }
 
     public interface IBlockedStream {
@@ -61,13 +58,15 @@ namespace SingularityForensic.Contracts.FileSystem {
         private bool _disposed = false;
         public virtual void Dispose() {
             if (!_disposed) {
+                Disposing?.Invoke(this, EventArgs.Empty);
                 BaseStream?.Close();
                 _stoken.BaseStream = null;
-                _stoken.DisposeAct?.Invoke();
                 _disposed = true;
             }
         }
-        
+
+        //正在析构事件;
+        public event EventHandler Disposing; 
 
         private FileBaseCollection _children;
         public FileBaseCollection Children => _children ?? (_children = new FileBaseCollection(this));

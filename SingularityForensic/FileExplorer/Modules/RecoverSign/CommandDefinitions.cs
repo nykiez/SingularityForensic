@@ -27,7 +27,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
                 //(NodeService?.SelectedNode is ICaseEvidenceUnit<CaseEvidence> csFUnit) && (csFUnit.Evidence is IHaveData<Device>
                 );
 
-        [Export(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
+        [Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
         public static readonly CommandItem RecompositeSignCMI = new CommandItem {
             Command = RecoverSignCommand,
             CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MobileRecompositeBySign")

@@ -78,6 +78,7 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         public FileBase(string key,TStoken stoken = null) {
             this._key = key;
+            this._stoken = stoken ?? new TStoken();
         }
         
         public override IEnumerable<string> TypeGuids => _stoken?.TypeGuids;
@@ -87,7 +88,6 @@ namespace SingularityForensic.Contracts.FileSystem {
         public override string Name => _stoken?.Name;
 
         public override long Size => _stoken?.Size ?? throw new InvalidOperationException($"{nameof(_stoken)} can't be null");
-        
     }
 
     //用于描述文件,文件夹等具有时间,块组特性的文件;

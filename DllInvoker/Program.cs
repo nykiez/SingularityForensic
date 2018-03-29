@@ -1,12 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using CDFC.Util.PInvoke;
+using Newtonsoft.Json;
+using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.FileSystem;
 using SingularityForensic.Info.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace DllInvoker {
     class Program {
+        private const string partAsm = "PartitionManager.dll";
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static IntPtr Partition_Init(IntPtr stStream);
+
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static bool Partition_B_Dos(IntPtr stPartition);
+
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static bool Partition_B_Gpt(IntPtr stPartition);
+
+        //StDosPTable* Partition_Get_DosPTable(void* stPartition);
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static IntPtr Partition_Get_DosPTable(IntPtr stPartition);
+
+        //StGptPTable* Partition_Get_GptPTable(IntPtr stPartition);
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static IntPtr Partition_Get_GptPTable(IntPtr stPartition);
+
+        [DllImport(partAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void Partition_Exit(IntPtr stPartition);
+
         public static long[] GetByteCount2(Stream stream) {
 
             int bufferLenght = 1048576; //1mb
@@ -80,6 +105,17 @@ namespace DllInvoker {
         }
 
         static void Main(string[] args) {
+            var _fs = File.OpenRead("E://anli/dos.img");
+            //"G:\\MobileImgs\\Honor\\mmcblk0");
+            //"J://anli/noname");
+            var _unManagedStreamAdapter = new UnmanagedStreamAdapter(_fs);
+            
+            var _partPtr = Partition_Init(_unManagedStreamAdapter.StreamPtr);
+            var stPart = _partPtr.GetStructure<StPartition>();
+            var stPTable = stPart.stPTable.GetStructure<StPTable>();
+            var isDos = Partition_B_Dos(_partPtr);
+            var isGPT = Partition_B_Gpt(_partPtr);
+
             var streamWriter = new StreamWriter(File.Create($"{Environment.CurrentDirectory}/1.json"));
             var model = new SmsDbModel {
                 delete_status = 1

@@ -29,7 +29,7 @@ namespace SingularityForensic.FileExplorer {
             if (unit.TypeGuid == Contracts.Casing.Constants.CaseEvidenceUnit
             && unit.Tag is CaseEvidence csFile) {
 
-                var device = FSService.Current.EnumedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(CaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+                var device = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(CaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
                 if (device == null) {
                     LoggerService.WriteCallerLine($"{nameof(device)} can't be null.");
                     return;

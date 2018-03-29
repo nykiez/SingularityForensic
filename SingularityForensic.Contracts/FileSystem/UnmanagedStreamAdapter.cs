@@ -7,57 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-
     /// <summary>
     /// 非托管流适配器，可映射任意流至非托管环境下的一个UnmanagedStream对象;
-    /// <!--本类实现了IDisposable,实例对象同时保存在Static队列中,必须在调用了Dispose()后实例才可能被回收-->
+    /// <!--本类实现了IDisposable,实例对象同时保存在Static队列中,当且仅当在调用了Dispose()后实例才可能被回收-->
     /// </summary>
-    public class UnmanagedStreamAdapter : IDisposable {
-        private const string streamAsm = "StreamExtension.dll";
-
-        //[return: MarshalAs(UnmanagedType.I8)]
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate long GetInt64Delegate();
-
-        //[return: MarshalAs(UnmanagedType.I8)]
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate void SetInt64Delegate(long int64);
-
-        //[return: MarshalAs(UnmanagedType.Bool)]
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate bool GetBoolDelegate();
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int WriteDelegate(IntPtr data, int count);
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int ReadDelegate(IntPtr buffer, int count);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr CreateUnManagedStream();
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetGetLengthFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)] GetInt64Delegate getLengthFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetPositionFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)] GetInt64Delegate getPositionFunc,
-            [MarshalAs(UnmanagedType.FunctionPtr)]SetInt64Delegate setPositionFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetCanReadFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]GetBoolDelegate canReadFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetCanWriteFunc(IntPtr stream, GetBoolDelegate canWriteFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetWriteFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]WriteDelegate writeFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void SetReadFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]ReadDelegate readFunc);
-
-        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void CloseStream(IntPtr stream);
-
+    public partial class UnmanagedStreamAdapter : IDisposable {
         public UnmanagedStreamAdapter(Stream stream) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
@@ -163,6 +117,10 @@ namespace SingularityForensic.Contracts.FileSystem {
         }
 
         private bool _disposed;
+
+        /// <summary>
+        /// 当且仅当在调用了Dispose()后实例才可能被回收
+        /// </summary>
         public void Dispose() {
             CloseStream(StreamPtr);
             StreamPtr = IntPtr.Zero;
@@ -172,8 +130,8 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
         }
 
-        //所有实例必须保存在本列表中,以防止垃圾回收机制回收了实例后;
-        //非托管环境仍然进行了调用,引发了非法访问内存的错误;
+        //所有实例必须保存在本列表中,以防止垃圾回收机制回收了委托实例后;
+        //非托管环境意外进行了调用,引发了非法访问内存的错误;
         //只有在调用Dispose方法后,才可解除引用,使得垃圾回收按照预期正常执行;
         private static List<UnmanagedStreamAdapter> _instances = new List<UnmanagedStreamAdapter>();
 
@@ -182,5 +140,53 @@ namespace SingularityForensic.Contracts.FileSystem {
                 Dispose();
             }
         }
+    }
+
+    public partial class UnmanagedStreamAdapter {
+        private const string streamAsm = "StreamExtension.dll";
+
+        //[return: MarshalAs(UnmanagedType.I8)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate long GetInt64Delegate();
+
+        //[return: MarshalAs(UnmanagedType.I8)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void SetInt64Delegate(long int64);
+
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate bool GetBoolDelegate();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate int WriteDelegate(IntPtr data, int count);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate int ReadDelegate(IntPtr buffer, int count);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr CreateUnManagedStream();
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetGetLengthFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)] GetInt64Delegate getLengthFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetPositionFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)] GetInt64Delegate getPositionFunc,
+            [MarshalAs(UnmanagedType.FunctionPtr)]SetInt64Delegate setPositionFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetCanReadFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]GetBoolDelegate canReadFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetCanWriteFunc(IntPtr stream, GetBoolDelegate canWriteFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetWriteFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]WriteDelegate writeFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SetReadFunc(IntPtr stream, [MarshalAs(UnmanagedType.FunctionPtr)]ReadDelegate readFunc);
+
+        [DllImport(streamAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void CloseStream(IntPtr stream);
+
     }
 }

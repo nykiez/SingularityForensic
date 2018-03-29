@@ -40,7 +40,7 @@ namespace SingularityForensic.Test.Imaging {
             
             Assert.AreEqual(_csService.CurrentCase.CaseEvidences.Count(), 1);
 
-            Assert.AreEqual(_fsService.EnumedFiles.Count(), 1);
+            Assert.AreEqual(_fsService.MountedFiles.Count(), 1);
 
             Assert.AreEqual(_imgService.MounterTuples.Count(), 1);
 

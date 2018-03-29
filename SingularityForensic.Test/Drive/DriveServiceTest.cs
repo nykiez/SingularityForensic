@@ -31,7 +31,7 @@ namespace SingularityForensic.Test.Drive {
         public void TestAddHdd() {
             DriveMockers.SLDriveTuple = (DriveType_LocalHDD, _comObject.LocalHdds.First());
             _dService.AddDrive();
-            Assert.AreEqual(FSService.Current.EnumedFiles.Count(), 1);
+            Assert.AreEqual(FSService.Current.MountedFiles.Count(), 1);
             Assert.AreEqual(CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
             
             

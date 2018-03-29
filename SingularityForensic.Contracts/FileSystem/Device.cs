@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.FileSystem {
     public class DeviceStoken : BlockedStreamFileStoken {
         public string PartsType { get; set; }                    //分区表类型;
-        public IEnumerable<PartitionEntry> PartitionEntries { get; set; } //分区表项集合;
+        public List<PartitionEntry> PartitionEntries { get; } = new List<PartitionEntry>(); //分区表项集合;
     }
 
     public class Device : BlockedStreamFileBase<DeviceStoken> {
@@ -16,10 +16,10 @@ namespace SingularityForensic.Contracts.FileSystem {
         }
 
         //分区类型;
-        public string PartsType => _stoken?.PartsType;
+        public string PartsType => _stoken.PartsType;
 
         //分区表项;
-        public IEnumerable<PartitionEntry> PartitionEntries => _stoken?.PartitionEntries;
+        public IEnumerable<PartitionEntry> PartitionEntries => _stoken.PartitionEntries;
     }
 
     

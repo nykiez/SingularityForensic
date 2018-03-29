@@ -2,6 +2,8 @@
 
     static partial class Constants {
         public const string FileSystemTreeUnit = nameof(FileSystemTreeUnit);
+
+        public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
     }
 
     /// <summary>

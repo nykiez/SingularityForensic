@@ -113,9 +113,10 @@
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
+    <Compile Include="FileSystem\DosAndGptTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
-    <Compile Include="FileSystem\TestDosAndGpt.cs" />
+    <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />

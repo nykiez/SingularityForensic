@@ -8,8 +8,8 @@ using SingularityForensic.Contracts.FileSystem;
 namespace SingularityForensic.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]
     public class FileSystemModule : IModule {
-        [ImportMany(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
-        private IEnumerable<ICommandItem> DeviceNodeCommandItems;
+        //[ImportMany(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
+        //private IEnumerable<ICommandItem> DeviceNodeCommandItems;
         
         public void Initialize() {
             FSService.Current?.Initialize();

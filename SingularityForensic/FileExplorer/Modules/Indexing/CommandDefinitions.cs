@@ -38,7 +38,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {
                 
             );
         
-        [Export(Contracts.FileSystem.Constants.DeviceNodeContextCommand)]
+        [Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
         public static readonly CommandItem CustomSSearchMI = new CommandItem {
             Command = CustomSSearchCommand,
             CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("CustomSignSearch")

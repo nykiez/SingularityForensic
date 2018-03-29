@@ -94,9 +94,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
+      <Project>{AD6DA6A6-29AC-4DE0-A007-CCB3A61FBFF7}</Project>
+      <Name>SingularityForensic.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
       <Project>{6287251B-D2C5-4A03-89F3-7DE1F9399D7A}</Project>
       <Name>SingularityForensic.Info</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
+      <Project>{ADDFFD58-E151-4487-A825-4DB19E4FC0B9}</Project>
+      <Name>SingularityForensic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -107,6 +115,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)PartitionManager.dll"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

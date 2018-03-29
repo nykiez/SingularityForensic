@@ -3,18 +3,9 @@
         /// <summary>
         /// 文件案件类型GUID;
         /// </summary>
-        public const string ImgCaseEvidence = nameof(ImgCaseEvidence);
+        //public const string ImgCaseEvidence = nameof(ImgCaseEvidence);
         
-        public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
-
-        //流来源类型;
-        public const string StreamSourceType = "54F8A966-C881-4BBD-A2C6-F31B36EA8216";
         
-        //硬盘流来源类型;
-        public const string StreamSourceType_Hdd = "5CE1F69D-6490-412F-AA34-F33229454640";
-
-        //分区流来源类型;
-        public const string StreamSourceType_Drive = "EF4589A0-773B-4D42-9120-7E19F5AB7235";
     }
 
     
