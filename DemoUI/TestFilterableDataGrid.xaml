@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="http://singularity/controls"
              xmlns:local="clr-namespace:DemoUI"
-             xmlns:telerik1="http://schemas.telerik.com/2008/xaml/presentation" x:Class="DemoUI.TestFilterableDataGrid"
+             xmlns:telerik1="http://schemas.telerik.com/2008/xaml/presentation" 
+    x:Class="DemoUI.TestFilterableDataGrid"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
@@ -20,13 +21,14 @@
                              FieldFilterEditorCreated="dgg_FieldFilterEditorCreated"
                              SelectedCellsChanged="dgg2_SelectedCellsChanged" 
                              CurrentCellChanged="dgg_CurrentCellChanged"
-                             FilterSettings="{Binding FilterSettings1}"
+                             FilterSettings="{Binding FilterSettings1}" 
                              Copying="dgg_Copying"  Style="{DynamicResource RadGridViewStyle}"
-                             Filtered="dgg_Filtered"
-                             SelectionChanged="dgg2_SelectionChanged" 
+                             Filtered="dgg_Filtered" 
+                             SelectionChanged="dgg2_SelectionChanged"  
                              x:Name="dgg" IsReadOnly="True" ShowGroupFooters="False" SelectedItem="{Binding SelectedItem}"
                              AutoGeneratingColumn="dgg_AutoGeneratingColumn" 
                              ItemsSource="{Binding Items}">
+            
         </controls:RadGridViewEx>
         <!--<fi:FilterableDataGrid2 x:Name="dgg" AutoGenerateColumns="True" DynamicColumns="{Binding Columns}" SelectionMode="Single"  ItemsSource="{Binding Items}"  IsReadOnly="True">-->
         <!--<fi:FilterableDataGrid.DynamicColumns>
@@ -37,8 +39,8 @@
             </fi:FilterableDataGrid.DynamicColumns>-->
         <!--</fi:FilterableDataGrid2>-->
 
-        <controls:RadGridViewEx ShowColumnSortIndexes="True" ShowGroupPanel="False"
-                             Grid.Row="1" 
+        <controls:RadGridViewEx  ShowGroupPanel="False" 
+                                Grid.Row="1" LoadingRowDetails="dgg2_LoadingRowDetails"
                              FilterSettings="{Binding FilterSettings2}"
                              FieldFilterEditorCreated="dgg_FieldFilterEditorCreated"
                              x:Name="dgg2" IsReadOnly="True" ShowGroupFooters="False"
@@ -55,6 +57,7 @@
                     
                 </ContextMenu>
             </controls:RadGridViewEx.ScrollContentContextMenu>
+           
         </controls:RadGridViewEx>
         <StackPanel Grid.Row="2">
             <Button  Command="{Binding CopyFilterComand}">

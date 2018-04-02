@@ -39,7 +39,7 @@
         </Border>
         <GridSplitter  ShowsPreview="True" Height="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
 
-        <controls:TabControlEx Grid.Row="1" Style="{DynamicResource InnerBrowserTablControl}"
+        <controls:TabControlEx Grid.Row="1" 
                                  ItemsSource="{Binding TabViewModels}" SelectedItem="{Binding SelectedTabModel}" >
             <!--<TabControl.Resources>
                 <Style TargetType="TabItem" BasedOn="{StaticResource InnerBrowserTabItem}">

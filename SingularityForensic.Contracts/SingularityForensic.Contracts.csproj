@@ -162,7 +162,7 @@
     <Compile Include="FileSystem\IStreamParsingProvider.cs" />
     <Compile Include="FileSystem\IBlockGroupedFile.cs" />
     <Compile Include="FileSystem\FileExtensions.cs" />
-    <Compile Include="FileSystem\IFileMetaDataProvider.cs" />
+    <Compile Include="FileExplorer\IFileMetaDataProvider.cs" />
     <Compile Include="FileSystem\IHaveFileCollection.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="FileSystem\IFileSystemService.cs" />

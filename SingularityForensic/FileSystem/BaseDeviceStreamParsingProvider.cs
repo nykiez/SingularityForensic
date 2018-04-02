@@ -28,69 +28,6 @@ namespace SingularityForensic.FileSystem {
 
             return GetPartsType(stream) != null;
         }
-
-        /// <summary>
-        /// 获取分区表类型;
-        /// </summary>
-        /// <param name="stream">流</param>
-        /// <returns></returns>
-        private InnerPartsType? GetPartsType(Stream stream) {
-            if (stream == null) {
-                throw new ArgumentNullException(nameof(stream));
-            }
-
-            InnerPartsType? pType = null;
-
-            var unManagedManager = new UnmanagedBasicDeviceManager(stream);
-            if (unManagedManager == null) {
-                LoggerService.WriteCallerLine($"{nameof(unManagedManager)} can't be null.");
-                return null;
-            }
-            
-            //判断是否是符合"签名";
-            try {
-                if (Partition_B_Dos(unManagedManager.BasicDevicePtr)) {
-                    pType = InnerPartsType.DOS;
-                }
-                else if (Partition_B_Gpt(unManagedManager.BasicDevicePtr)) {
-                    pType = InnerPartsType.GPT;
-                }
-            }
-            catch (Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
-            }
-
-            unManagedManager.Dispose();
-            
-            return pType;
-        }
-        
-        /// <summary>
-        /// 释放非托管的内存;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void OnDisposing(object sender, EventArgs e) {
-            if (!(sender is Device device)) {
-                return;
-            }
-
-            if (!(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false)) {
-                return;
-            }
-
-            try {
-                var stoken = device.GetStoken(Constants.DeviceKey_DOS);
-                if (!(stoken.Tag is UnmanagedBasicDeviceManager unManagedManager)) {
-                    LoggerService.WriteCallerLine($"{nameof(stoken.Tag)} is not a {nameof(UnmanagedBasicDeviceManager)}.");
-                    return;
-                }
-                unManagedManager.Dispose();
-            }
-            catch (Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
-            }
-        }
         
         public FileBase ParseStream(Stream stream, string name, XElement xElem, ProgressReporter reporter) {
             if(stream == null) {
@@ -127,7 +64,12 @@ namespace SingularityForensic.FileSystem {
                     break;
             }
 
-            device.FillParts(xElem, reporter);
+            if(device != null) {
+                //加载分区;
+                device.FillParts(xElem, reporter);
+                device.Disposing += OnDeviceDisposing;
+            }
+            
 
             return device;
         }
@@ -141,10 +83,10 @@ namespace SingularityForensic.FileSystem {
             DeviceStoken deviceStoken,
             XElement xElem,
             UnmanagedBasicDeviceManager entity) {
+
             if(deviceStoken == null) {
                 throw new ArgumentNullException(nameof(deviceStoken));
             }
-
             
             var dosDeviceInfo = new DOSDeviceInfo();
             try {
@@ -330,6 +272,94 @@ namespace SingularityForensic.FileSystem {
                 );
             });
         }
+        
+        /// <summary>
+        /// 释放非托管的内存;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected static void OnDeviceDisposing(object sender, EventArgs e) {
+            if (!(sender is Device device)) {
+                return;
+            }
+
+            DeviceStoken deviceStoken = null;
+            //验证类型,尝试获取凭据;
+            try {
+                if (device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
+                    deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
+                }
+                else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
+                    deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
+                }
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+
+            //若凭据为空,需返回;
+            if (deviceStoken == null) {
+                return;
+            }
+
+            if (!(deviceStoken.Tag is BaseDeviceInfo deviceInfo)) {
+                return;
+            }
+
+            try {
+                deviceInfo.UnmanagedManager.Dispose();
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// 获取分区表类型;
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <returns></returns>
+        private static InnerPartsType? GetPartsType(Stream stream) {
+            if (stream == null) {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            InnerPartsType? pType = null;
+            UnmanagedBasicDeviceManager unManagedManager = null;
+
+            try {
+                unManagedManager = new UnmanagedBasicDeviceManager(stream);
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+
+            if (unManagedManager == null) {
+                LoggerService.WriteCallerLine($"{nameof(unManagedManager)} can't be null.");
+                pType = null;
+            }
+            
+            //判断是否是符合"签名";
+            try {
+                if(unManagedManager.BasicDevicePtr == IntPtr.Zero) {
+                    LoggerService.WriteCallerLine($"{nameof(unManagedManager.BasicDevicePtr)} can't be nullptr.");
+                }
+                else if (Partition_B_Dos(unManagedManager.BasicDevicePtr)) {
+                    pType = InnerPartsType.DOS;
+                }
+                else if (Partition_B_Gpt(unManagedManager.BasicDevicePtr)) {
+                    pType = InnerPartsType.GPT;
+                }
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+
+            unManagedManager?.Dispose();
+
+            return pType;
+        }
     }
 
     /// <summary>
@@ -347,7 +377,7 @@ namespace SingularityForensic.FileSystem {
         /// DOS/GPT设备存储信息基类,将会保存在FileBase->Tag字段中;
         /// </summary>
         internal abstract class BaseDeviceInfo {
-            public UnmanagedBasicDeviceManager UnmanagedEntity { get; set; }
+            public UnmanagedBasicDeviceManager UnmanagedManager { get; set; }
         }
 
         /// <summary>
@@ -391,7 +421,11 @@ namespace SingularityForensic.FileSystem {
             public StEFIPTable? StEFIPTable { get; set; }
         }
 
-
+        /// <summary>
+        /// 从Dos分区表项类型转换至Constants;
+        /// </summary>
+        /// <param name="dosPartType"></param>
+        /// <returns></returns>
         private static string FromDosPartTypeToCons(DosPartType dosPartType) {
             switch (dosPartType) {
                 case DosPartType.Error:

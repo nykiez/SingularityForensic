@@ -415,6 +415,7 @@
     <Compile Include="FileExplorer\Modules\Hash\ComputeHashCommandItem.cs" />
     <Compile Include="FileExplorer\Modules\Indexing\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
+    <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
     <Compile Include="FileExplorer\UnknownFileExplorerServiceProvider.cs" />
     <Compile Include="FileExplorer\ViewModels\DirectoriesBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FileBrowserTabModel.cs" />
@@ -452,7 +453,6 @@
     </Compile>
     <Compile Include="FileSystem\Constants.cs" />
     <Compile Include="FileSystem\BaseDeviceStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\DeviceExtensions.cs" />
     <Compile Include="FileSystem\FatStreamParsingProvider.cs" />
     <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
@@ -1348,6 +1348,7 @@
     <Resource Include="Controls\Images\TalkLog_Right.png" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Drive\DevManager.dll" />
+    <Content Include="FileSystem\fat.h" />
     <Content Include="FileSystem\FatRecover.dll" />
     <Content Include="FileSystem\PartitionManager.dll" />
     <Content Include="Imaging\libewf.dll">

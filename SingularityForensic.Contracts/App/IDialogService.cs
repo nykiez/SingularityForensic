@@ -52,7 +52,7 @@ namespace SingularityForensic.Contracts.App {
 
         public event EventHandler<(int pro, string text, string descrip)> ProgressReported;
 
-        void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
+        public void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
             DoubleProgressReported?.Invoke(this,(totalPer, detailPer, desc, detail));
         }
 

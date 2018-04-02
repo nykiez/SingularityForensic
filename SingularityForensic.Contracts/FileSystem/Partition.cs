@@ -7,17 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public class PartitonStoken : BlockedStreamFileStoken {
-        public long StartLBA { get; set; }
+    public class PartitionStoken : BlockedStreamFileStoken {
+        
     }
 
     //分区类型;
-    public class Partition : BlockedStreamFileBase<PartitonStoken> {
-        public Partition(string key, PartitonStoken stoken = null) : base(key, stoken) {
+    public class Partition : BlockedStreamFileBase<PartitionStoken> {
+        public Partition(string key, PartitionStoken stoken = null) : base(key, stoken) {
 
         }
 
-        public long StartLBA => _stoken?.StartLBA ?? 0;
+        public long StartLBA { get;private set; }
+        public void SetStartLBA(IHaveFileCollection parent,long startLBA) {
+            if(this.Parent != parent) {
+                throw new InvalidOperationException($"The StartLBA can only be indicated with {nameof(Parent)} of this instance.");
+            }
+
+            StartLBA = startLBA;
+        }
     }
 
     /// <summary>

@@ -10,22 +10,26 @@ namespace SingularityForensic.FileSystem {
     /// 簇节点;
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct StClusterNode{
-        public uint nClusterNum;		//簇号
-	    public uint nLBAByte;         //簇对应的字节地址(相对于本分区)
+    public struct StFatClusterNode{
+        public ulong nClusterNum;		//簇号
+	    public ulong nLBAByte;         //簇对应的字节地址(相对于本分区)
         //tagClusterList* Next;
         public IntPtr Next;
     }
     
     /// <summary>
-    /// //文件链表
+    /// //文件链表(StFileList);
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct StFileNode {
+    public struct StFatFileNode {
         [MarshalAs(UnmanagedType.ByValArray,SizeConst = 512)]
-        public byte[] Name;
+        public byte[] NameBuffer;
+
+        public string Name => ConvertFatBytesToString(NameBuffer);
+
         public FATFileAttr FileAttrib;           //文件属性：0x01表示只读，0x02隐藏，0x04系统文件，0x08卷标 长文件名目录项，0x10表示目录，0x20表示存档
         public byte MTen;                 //精确1/10秒
+
         public struct FileTime {
             public ushort Second;
             public ushort Minute;
@@ -34,18 +38,30 @@ namespace SingularityForensic.FileSystem {
             public ushort Month;
             public ushort Year;
         }
-        public FileTime CreateTime;
-        public ushort LastAccessTime;		//最后访问时间；
-        public FileTime ChangeTime;
+        public struct FileDate {
+            public ushort Day;
+            public ushort Month;
+            public ushort Year;
+        }
+
+        public FileTime CreateFileTime;
+        public FileDate LastAccessDate;		//最后访问时间；
+        public FileTime ChangeFileTime;
+        
+        public DateTime CreateTime => ConvertFileTimeToDateTime(CreateFileTime);
+        public DateTime ModifiedTime => ConvertFileTimeToDateTime(ChangeFileTime);
+        public DateTime AccessTime => new DateTime(LastAccessDate.Year, LastAccessDate.Month, LastAccessDate.Day);
 
         public uint FileSize;                 //文件大小，子目录设为0
-        public bool bDeleted;
+        public byte bDeleted;
+        public bool Deleted => bDeleted == 1;
         //StClusterList* stClusterList;   //簇链表
         public IntPtr stClusterList;   //簇链表
         //StFileList* Next;
         public IntPtr Next;
 
         //文件属性;
+        [Flags]
         public enum FATFileAttr : byte {
             ReadOnly = 0x01,
             Hidden = 0x02,
@@ -55,8 +71,47 @@ namespace SingularityForensic.FileSystem {
             SDocument = 0x20
         }
 
-    };
+        /// <summary>
+        /// 从文件事件转换至标准时间;
+        /// </summary>
+        /// <param name="fileTime"></param>
+        /// <returns></returns>
+        public static DateTime ConvertFileTimeToDateTime(FileTime fileTime) {
+            return new DateTime(
+                fileTime.Year, 
+                fileTime.Month, 
+                fileTime.Day, 
+                fileTime.Hour,
+                fileTime.Minute,
+                fileTime.Second);
+        }
 
+        public static string ConvertFatBytesToString(byte[] bts) {
+            if(bts == null) {
+                throw new ArgumentNullException(nameof(bts));
+            }
+
+            //以二为步长,截取0至连续出现两个0字符的位置;
+            var maxCount = 0;
+            for (int i = 0; i < bts.Length / 2; i++) {
+                if(bts[2 * i] == 0 && bts[2 * i + 1] == 0) {
+                    break;
+                }
+                maxCount += 2;
+            }
+
+            return ConvertFatBytesToString(bts, 0, maxCount);
+        }
+
+        public static string ConvertFatBytesToString(byte[] bts,int index,int count) {
+            if(bts == null) {
+                throw new ArgumentNullException(nameof(bts));
+            }
+
+            return Encoding.Unicode.GetString(bts,index,count);
+        }
+    };
+    
     /// <summary>
     /// //文件系统引导扇区DBR
     /// </summary>
@@ -100,13 +155,14 @@ namespace SingularityForensic.FileSystem {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 420)]
         public byte[] nothing;             /* 0x5A */
         public ushort marker;
-}
+        public int ClusterSize => sectors_per_cluster * sector_size;
+    }
     
     /// <summary>
-    /// //FSINFO信息
+    /// //FSINFO信息(StFSInfo);
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct StFSINFO {
+    public struct StFatINFO {
         public uint Flag;                //扩展引导标志'52 52 61 41'
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 480)]
         public byte[] Uable;            //未使用
@@ -123,15 +179,15 @@ namespace SingularityForensic.FileSystem {
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct StFatFSDBR {
-        public uint nOffset;
+        public ulong nOffset;
         //StFatDBR* stFatDBR;
         public IntPtr stFatDBR;
     }
     
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct StFatFSInfo {
-        public uint nOffset;
+        public ulong nOffset;
         //StFSINFO* stFSINFO;
-        public IntPtr stFSINFO;
+        public IntPtr stFatINFO;
     }
 }

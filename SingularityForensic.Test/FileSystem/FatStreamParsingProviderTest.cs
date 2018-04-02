@@ -4,14 +4,23 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileSystem;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.FileSystem {
     [TestClass()]
     public class FatStreamParsingProviderTests {
+        private const string FAT32ImgPath = "E://anli//FAT32.img";
+        private IStreamParsingProvider _streamParsingProvider;
+
+        private Stream _fatStream;
+
+        private const string UnknownImgPath = "E://anli/1.E01";
+
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
@@ -25,12 +34,7 @@ namespace SingularityForensic.Test.FileSystem {
             Assert.IsNotNull(_streamParsingProvider);
         }
 
-        private const string FAT32ImgPath = "E://anli/fat32.img";
-        private IStreamParsingProvider _streamParsingProvider;
-
-        private Stream _fatStream;
-
-        private const string UnknownImgPath = "E://anli/gpt.img";
+        
 
         [TestMethod()]
         public void CheckIsValidStreamTest() {
@@ -41,10 +45,50 @@ namespace SingularityForensic.Test.FileSystem {
             }
         }
         
+        [TestMethod]
+        public void TestStructSize() {
+            Assert.AreEqual( Marshal.SizeOf(typeof(StFatFileNode)) , 557);
+            Assert.AreEqual( Marshal.SizeOf(typeof(StFatClusterNode)) , 20);
+        }
 
         [TestMethod()]
         public void ParseStreamTest() {
-            Assert.Fail();
+            var file = _streamParsingProvider.ParseStream(_fatStream, string.Empty, null, null);
+        }
+
+        [TestMethod]
+        public void TestFileName() {
+            var fileBts = new byte[] {
+                72 ,
+                0  ,
+                50 ,
+                0  ,
+                54 ,
+                0  ,
+                52 ,
+                0  ,
+                83 ,
+                0  ,
+                114,
+                0  ,
+                99 ,
+                0 ,
+                0,
+                0 ,
+                0,
+                0 ,
+                0,
+                0 ,
+                0 ,
+                0 ,
+                0,
+                0
+            };
+            var fileName = StFatFileNode.ConvertFatBytesToString(fileBts);
+            Assert.AreEqual("H264Src",fileName);
+
+            
+            //StFatFileNode.ConvertFatBytesToString()
         }
 
         [TestCleanup]

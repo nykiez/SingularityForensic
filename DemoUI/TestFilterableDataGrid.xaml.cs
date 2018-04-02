@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Controls.FilterableDataGrid;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -58,9 +59,28 @@ namespace DemoUI {
             return base.GetStringOverride(key);
         }
     }
-        /// <summary>
-        /// Interaction logic for TestFilterableDataGrid.xaml
-        /// </summary>
+
+    public class RowNumberColumn : Telerik.Windows.Controls.GridViewDataColumn {
+        public override System.Windows.FrameworkElement CreateCellElement(Telerik.Windows.Controls.GridView.GridViewCell cell, object dataItem) {
+            TextBlock textBlock = cell.Content as TextBlock;
+
+            if (textBlock == null) {
+                textBlock = new TextBlock();
+            }
+            else {
+
+            }
+            
+            textBlock.Text = (this.DataControl.Items.IndexOf(dataItem) + 1).ToString();
+            //textBlock.Text = ((this.DataControl.ItemsSource as IList).IndexOf(dataItem) + 1).ToString();
+
+            return textBlock;
+        }
+    }
+
+    /// <summary>
+    /// Interaction logic for TestFilterableDataGrid.xaml
+    /// </summary>
     public partial class TestFilterableDataGrid : UserControl {
         public TestFilterableDataGrid() {
             //Telerik.Windows.Controls.RadGridView
@@ -181,6 +201,16 @@ namespace DemoUI {
         private void Button_Click_1(object sender, RoutedEventArgs e) {
             dgg.Columns[0].Width = 100;
         }
+
+        private void dgg2_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
+            
+        }
+
+        private void dgg_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
+            
+        }
+
+       
     }
 
 
@@ -193,6 +223,9 @@ namespace DemoUI {
             return Name?.ToString();
         }
 
+
+    }
+    public class abDGModel : DependencyObject {
 
     }
 
@@ -231,23 +264,25 @@ namespace DemoUI {
             string col3 = nameof(col3);
             string col4 = nameof(col4);
             string col5 = nameof(col5);
+            string col6 = nameof(col6);
             Items.Columns.AddRange(
                 new DataColumn[] {
                     new DataColumn(col1, typeof(string)),
                     new DataColumn(col2, typeof(bool)),
                     new DataColumn(col3, typeof(Depart)),
                     new DataColumn(col4, typeof(DateTime)),
-                    new DataColumn(col5, typeof(long))
-                }
+                    new DataColumn(col5, typeof(long)),
+                    new DataColumn(col6, typeof(abDGModel))
+        }
             );
-
+            
             var rand = new Random();
             foreach (var item in items) {
                 var row = Items.NewRow();
                 row[col1] = item.Name;
                 row[col2] = item.Sex;
                 row[col3] = Depart.dasd;
-                row[col4] = DateTime.Now;
+                row[col4] = DBNull.Value;
                 row[col5] = rand.Next(1000);
                 Items.Rows.Add(row);
             }
@@ -256,7 +291,7 @@ namespace DemoUI {
             
         }
         private void InitiliazeItems() {
-            for (int i = 0; i < 20000; i++) {
+            for (int i = 0; i < 200000; i++) {
                 var model = new DGModel {
                     Sex = i % 2 == 0,
                     Name = Path.GetRandomFileName()
@@ -290,7 +325,6 @@ namespace DemoUI {
                     Items.Columns.Remove(Items.Columns[0]);
                 }
             ));
-
     }
     
     public enum Depart {

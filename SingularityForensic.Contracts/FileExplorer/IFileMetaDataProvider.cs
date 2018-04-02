@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.FileSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.FileSystem {
+namespace SingularityForensic.Contracts.FileExplorer {
     //文件元数据提供器(比如列);
     public interface IFileMetaDataProvider {
         //原数据名称;
@@ -18,5 +19,8 @@ namespace SingularityForensic.Contracts.FileSystem {
         
         //GUID;
         string GUID { get; }
+
+        //排序;
+        int Order { get; }
     }
 }

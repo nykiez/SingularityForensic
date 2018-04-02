@@ -9,15 +9,21 @@ using System.Linq;
 using System.Security.Authentication;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    //用于某块内部使用的文件信息(模块可自定义,建议外部需要根据Key拿到所需数据);
+    /// <summary>
+    /// 用于某块内部使用的文件信息(Tag可自定义,外部需要根据Key拿到所需数据);
+    /// </summary>
+    [Serializable]
     public abstract class FileStokenBase:SecurityStoken {
         public IEnumerable<string> TypeGuids { get; set; }          //文件类型;
         public string Name { get; set; }                //文件名;
         public long Size { get; set; }                  //文件大小;
     }
-    
-    //用于描述文件,文件夹等具有时间,块组特性的文件的信息;
-    public abstract class FileStokenBase2 : FileStokenBase, ITimeable, IBlockGroupedFile {
+
+    /// <summary>
+    /// 用于描述文件,文件夹等具有时间,块组特性的文件的信息;
+    /// </summary>
+    [Serializable]
+    public abstract class FileStokenBase2 : FileStokenBase {
         public DateTime? ModifiedTime { get; set; }
 
         public DateTime? AccessedTime { get; set; }
@@ -26,9 +32,13 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         public Dictionary<string, DateTime?> ExtendedTimes { get; } = new Dictionary<string, DateTime?>();
 
-        public IEnumerable<BlockGroup> BlockGroups { get; set; }
+        public IList<BlockGroup> BlockGroups { get; } = new List<BlockGroup>();
 
-        //拓展时间获取;
+        /// <summary>
+        /// 拓展时间获取;
+        /// </summary>
+        /// <param name="timeLabel"></param>
+        /// <returns></returns>
         public DateTime? GetExtensionTime(string timeLabel) {
             if (!ExtendedTimes.ContainsKey(timeLabel)) {
                 return null;
@@ -41,6 +51,10 @@ namespace SingularityForensic.Contracts.FileSystem {
         public bool? Deleted { get; set; }                      //是否被删除;
     }
 
+    /// <summary>
+    /// 文件基类;
+    /// </summary>
+    [Serializable]
     public abstract class FileBase {
         
         public abstract IEnumerable<string> TypeGuids { get; }
@@ -58,10 +72,12 @@ namespace SingularityForensic.Contracts.FileSystem {
         }
     }
 
+
     /// <summary>
     /// 文件内部信息基类;
     /// </summary>
     /// <typeparam name="TStoken"></typeparam>
+    [Serializable]
     public abstract class FileBase<TStoken> : 
         FileBase,IHaveStoken<TStoken>
         where TStoken : FileStokenBase, new() {
@@ -90,7 +106,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         public override long Size => _stoken?.Size ?? throw new InvalidOperationException($"{nameof(_stoken)} can't be null");
     }
 
-    //用于描述文件,文件夹等具有时间,块组特性的文件;
+    /// <summary>
+    /// 用于描述文件,文件夹等具有时间,块组特性的文件;
+    /// </summary>
+    /// <typeparam name="TStoken"></typeparam>
+    [Serializable]
     public abstract class BlockGroupedFileBase<TStoken> : FileBase<TStoken>, ITimeable, IBlockGroupedFile where TStoken : FileStokenBase2, new() {
         public BlockGroupedFileBase(string key, TStoken stoken = null) : base(key, stoken) {
 
@@ -102,7 +122,7 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         public DateTime? CreateTime => _stoken?.CreateTime;
 
-        public IEnumerable<BlockGroup> BlockGroups => _stoken?.BlockGroups;
+        public IEnumerable<BlockGroup> BlockGroups => _stoken?.BlockGroups?.Select(p => p);
 
         public DateTime? GetExtensionTime(string timeLabel) => _stoken?.GetExtensionTime(timeLabel);
         
@@ -159,15 +179,29 @@ namespace SingularityForensic.Contracts.FileSystem {
             return null;
         }
     }
-    
-    //常规文件内部信息;
+
+    /// <summary>
+    /// 常规文件内部信息;
+    /// </summary>
+    [Serializable]
     public sealed class RegularFileStoken : FileStokenBase2  {
 
     }
 
-    //文件夹内部信息;
+    /// <summary>
+    /// 文件夹内部信息;
+    /// </summary>
+    [Serializable]
     public sealed class DirectoryStoken : FileStokenBase2  {
-        public List<FileBase> Children { get; set; } 
+        /// <summary>
+        /// 是否为上级目录;
+        /// </summary>
+        public bool IsBack { get; set; }
+
+        /// <summary>
+        /// 是否为本目录;
+        /// </summary>
+        public bool IsLocalBackUp { get; set; }
     }
     
     /// <summary>
@@ -193,73 +227,10 @@ namespace SingularityForensic.Contracts.FileSystem {
         //public IEnumerable<FileBase> Children => _stoken?.Children?.Select(p => p);
 
         
-        public FileBaseCollection Children { get; set; }
+        public FileBaseCollection Children { get; }
+
+        public bool IsBack => _stoken.IsBack;
+
+        public bool IsLocalBackUp => _stoken.IsLocalBackUp;
     }
-    
-    //public class FSFile {
-    //    public FSFile(IFile file) {
-    //        File = file ?? throw new ArgumentNullException(nameof(file));
-    //    }
-
-    //    public IFile File { get; }
-        
-    //    public virtual string Name => File.Name;
-
-    //    public virtual FileAttributes Type {
-    //        get {
-    //            switch (File.Type) {
-    //                case CDFC.Parse.Contracts.FileType.Directory:
-    //                    return FileAttributes.Directory;
-    //                case CDFC.Parse.Contracts.FileType.RegularFile:
-    //                    return FileAttributes.RegularFile;
-    //                default:
-    //                    if(File is Partition) {
-    //                        return FileAttributes.Partition;
-    //                    }
-    //                    else if(File is Device) {
-    //                        return FileAttributes.Device;
-    //                    }
-    //                    return FileAttributes.Unknown;
-    //            }
-    //        }
-    //    }
-
-    //    public virtual long Size => File.Size;
-
-    //    public virtual Stream GetStream() {
-    //        if (File != null) {
-    //            if (File is RegularFile regFile) {
-    //                return regFile.GetStream();
-    //            }
-    //            else if (File is Device device) {
-    //                return device.Stream;
-    //            }
-    //        }
-    //        return null;
-    //    }
-
-    //    private string _path;
-    //    public virtual string Path {
-    //        get {
-    //            if(_path == null) {
-    //                return (_path = File.GetFilePath());
-    //            }
-    //            return _path;
-    //        }
-    //    }
-
-    //    public IEnumerable<FSFile> Children {
-    //        get {
-    //            if(File is IIterableFile itrFile){
-    //                return itrFile.Children.Select(p => new FSFile(p));
-    //            }
-
-    //            return null;
-    //        }
-    //    }
-
-    //    public IEnumerable<FSFile> GetDirectories() => Children?.Where(p => p.Type == FileAttributes.Directory);
-
-    //    public IEnumerable<FSFile> GetFiles() => Children?.Where(p => p.Type == FileAttributes.RegularFile);
-    //}
 }
