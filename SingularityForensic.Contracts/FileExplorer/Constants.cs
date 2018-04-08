@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     public static class Constants {
-        public const string FileMetaDataType_File = nameof(FileMetaDataType_File);
-        public const string FileMetaDataType_Partition = nameof(FileMetaDataType_Partition);
+        //public const string FileMetaDataType_File = nameof(FileMetaDataType_File);
+        //public const string FileMetaDataType_Partition = nameof(FileMetaDataType_Partition);
     }
 }

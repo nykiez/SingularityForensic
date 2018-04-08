@@ -18,8 +18,9 @@ namespace SingularityForensic.Previewers {
         }
 
         private Views.SqlitePreviewer view;
-        
-        public UIElement View {
+
+       
+        public FrameworkElement View {
             get {
                 if (view == null) {
                     view = new Views.SqlitePreviewer();
@@ -27,9 +28,8 @@ namespace SingularityForensic.Previewers {
                 }
                 return view;
             }
+            
         }
-
-        FrameworkElement IPreviewer.View => throw new System.NotImplementedException();
 
         public void Dispose() {
             vm?.Close();

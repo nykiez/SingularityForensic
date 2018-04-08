@@ -9,16 +9,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Test.Data {
     [TestClass]
     public class NotifybleDataTableTest {
-        NotifybleDataTable dt = new NotifybleDataTable();
-        [TestMethod]
-        public void TestClearRaised() {
-            var row = dt.NewRow();
-            dt.CollectionChanged += delegate {
-
-            };
-            dt.Rows.Add(row);
-            dt.Rows.Clear();
-            
-        }
+        
+        
     }
 }

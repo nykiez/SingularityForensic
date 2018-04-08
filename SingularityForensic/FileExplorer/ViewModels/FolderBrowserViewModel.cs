@@ -20,6 +20,9 @@ using System.Data;
 using System.Linq;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.FileExplorer.Events;
+using System.ComponentModel;
+using SingularityForensic.Data;
+using SingularityForensic.FileExplorer.Models;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -35,83 +38,76 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 throw new ArgumentNullException(nameof(part));
             }
             this.Part = part;
-            
-            _fileMetaDataProviders = ServiceProvider.Current?.
-                GetAllInstances<IFileMetaDataProvider>().
-                Where(p => p.MetaDataTypeFor == Contracts.FileExplorer.Constants.FileMetaDataType_File).
-                OrderBy(p => p.Order);
 
-            var dt = InitializeDT();
-            FillRows(part.Children,dt);
-            Files = dt;
+            InitializeFileRowDescriptors();
+            InitializeColumns();
+            FillRows(part.Children);
         }
+
         
+
+        /// <summary>
+        /// 初始化行元数据提供器;
+        /// </summary>
+        private void InitializeFileRowDescriptors() {
+            if (FileRow.DescriptorsInitialized) {
+                return;
+            }
+
+            var fileMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IFileMetaDataProvider>();
+            if(fileMetaDataProviders == null) {
+                LoggerService.WriteCallerLine($"{nameof(fileMetaDataProviders)} can't be null.");
+                return;
+            }
+
+            FileRow.InitializeDescripters(fileMetaDataProviders);
+        }
+
+        /// <summary>
+        /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
+        /// </summary>
+        private void InitializeColumns() {
+            foreach (var descripter in FileRow.PropertyDescriptors) {
+                Files.PropertyDescriptorList.Add(descripter);
+            }
+        }
+
         public Partition Part { get; }                                        //浏览器所属主文件（分区，设备等);
-
-        private DataTable _files;
-        public DataTable Files {
-            get => _files;
-            set => SetProperty(ref _files, value);
-        }
         
-        private DataRow _selectedRow;
-        public DataRow SelectedRow {
+        public CustomTypedListSource<FileRow> Files { get; set; } = new CustomTypedListSource<FileRow>();
+
+        private FileRow _selectedRow;
+        public FileRow SelectedRow {
             get => _selectedRow;
             set {
                 SetProperty(ref _selectedRow, value);
                 if(_selectedRow == null) {
                     return;
                 }
-
-                if(_selectedRow[Constants.FileMetaDataName_File] is FileBase file) {
-                    SelectedFile = file;
-                    PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((file, Part));
-                }
                 
+                SelectedFile = _selectedRow.File;
+                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((SelectedFile, Part));
             }
         }
 
         public FileBase SelectedFile { get; private set; }
-
-        private DataTable InitializeDT() {
-            var files = new DataTable();
-            files.Columns.Add(new DataColumn(Constants.FileMetaDataName_File, typeof(FileBase)));
-            
-            if(_fileMetaDataProviders == null) {
-                return null;
-            }
-
-            foreach (var mProvider in _fileMetaDataProviders) {
-                files.Columns.Add(new DataColumn(mProvider.MetaDataName, mProvider.MetaDataType));
-            }
-            return files;
-        }
-
+        
         /// <summary>
         /// 填充Rows;
         /// </summary>
         /// <param name="files"></param>
-        private void FillRows(IEnumerable<FileBase> files,DataTable dt) {
+        private void FillRows(IEnumerable<FileBase> files) {
             if (files == null) {
                 return;
             }
-            
-            dt.Rows.Clear();
 
+            Files.Clear();
             foreach (var file in files) {
-                var newRow = dt.NewRow();
-                foreach (var mProvider in _fileMetaDataProviders) {
-                    newRow[mProvider.MetaDataName] = mProvider.GetDataObject(file);
-                }
-                newRow[Constants.FileMetaDataName_File] = file;
-
-                dt.Rows.Add(newRow);
+                Files.Add(new FileRow(file));
             }
-
-
         }
 
-        private IEnumerable<IFileMetaDataProvider> _fileMetaDataProviders;
+        
         public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
 
         /// <summary>
@@ -255,32 +251,29 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
     }
 
-    public partial class FolderBrowserViewModel : IGridViewDataContext {
-        public void NotifyDoubliClickOnRow(object row) {
-            if(!(row is DataRow dataRow)) {
+    public partial class FolderBrowserViewModel {
+        public override void NotifyDoubleClickOnRow(object row) {
+            if(!(row is FileRow fileRow)) {
                 return;
             }
 
             try {
-                var dt = InitializeDT();
-                
-                var file = dataRow[Constants.FileMetaDataName_File] as FileBase;
+                var file = fileRow.File;
                 if (!(file is IHaveFileCollection haveFileCollection)) {
                     return;
                 }
-
-                if(file is Directory direct) {
+                
+                if (file is Directory direct) {
                     if (direct.IsBack) {
                         if(direct.Parent is IHaveFileCollection parentCollection
                             && (parentCollection as FileBase)?.Parent is IHaveFileCollection grandCollection) {
-                            FillRows(grandCollection.Children,dt);
+                            FillRows(grandCollection.Children);
                         }
                     }
                     else if(!direct.IsLocalBackUp) {
-                        FillRows(haveFileCollection.Children, dt);
+                        FillRows(haveFileCollection.Children);
                     }
-                    Files?.Dispose();
-                    Files = dt;
+                    
                 }
             }
             catch(Exception ex) {

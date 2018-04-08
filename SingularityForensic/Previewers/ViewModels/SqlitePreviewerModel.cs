@@ -4,14 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
-using CDFCCultures.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Data.SQLite;
 using System.Data;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.TreeView;
+using CDFCCultures.Helpers;
 
 namespace SingularityForensic.Previewers.ViewModels {
     public partial class SqlitePreviewerModel:BindableBase {
@@ -24,7 +23,7 @@ namespace SingularityForensic.Previewers.ViewModels {
                     Conn = new SQLiteConnection(ConnString);
                 }
                 catch(Exception ex) {
-                    Logger.WriteLine($"{nameof(SqlitePreviewerModel)}->{nameof(SqlitePreviewerModel)}:{ex.Message}");
+                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(SqlitePreviewerModel)}:{ex.Message}");
                 }
             }
             LoadUnits();
@@ -37,43 +36,48 @@ namespace SingularityForensic.Previewers.ViewModels {
             }
         }
         private void LoadUnits() {
-            if (File.Exists(DbPath)) {
-                var tablesUnit = new DBUnit(DBUnitType.Content) { Title = "Tables" };
-                var tableCount = 0;
-                try {
-                    CheckOpen();
-                    var comm = Conn.CreateCommand();
-                    comm.CommandText = "select * from sqlite_master where type = 'table'";
-                    comm.CommandType = CommandType.Text;
-                    
-                    var reader = comm.ExecuteReader();
-                    while (reader.Read()) {
-                        try {
-                            var name = reader["name"].ToString();
-                            var tableUnit = new DBUnit(DBUnitType.Table) { Title = name };
-                            tablesUnit.Children.Add(tableUnit);
-                            tableCount++;
-                        }
-                        catch {
-
-                        }
-                    }
-                    reader.Close();
-                }
-                catch(Exception ex) {
-                    Logger.WriteLine($"{nameof(SqlitePreviewerModel)}->{nameof(LoadUnits)}:{ex.Message}");
-                }
-                finally {
-                    tablesUnit.Title += $"({tableCount})";
-                    DBUnits.Add(tablesUnit);
-                }
-                
+            if (!File.Exists(DbPath)) {
+                return;
             }
+
+            var tablesUnit = new TreeUnit(Constants.DBUnitType_Content) {
+                Label = LanguageService.FindResourceString(Constants.UnitLabel_SqliteTable)
+            };
+            var tableCount = 0;
+            try {
+                CheckOpen();
+                var comm = Conn.CreateCommand();
+                comm.CommandText = "select * from sqlite_master where type = 'table'";
+                comm.CommandType = CommandType.Text;
+                    
+                var reader = comm.ExecuteReader();
+                while (reader.Read()) {
+                    try {
+                        var name = reader["name"].ToString();
+                        var tableUnit = new TreeUnit(Constants.DBUnitType_Table) { Label = name };
+                        tablesUnit.Children.Add(tableUnit);
+                        tableCount++;
+                    }
+                    catch {
+
+                    }
+                }
+                reader.Close();
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(LoadUnits)}:{ex.Message}");
+            }
+            finally {
+                tablesUnit.Label += $"({tableCount})";
+                DBUnits.Add(tablesUnit);
+            }
+                
+            
         }
         public string DbPath { get; }
-        public ObservableCollection<DBUnit> DBUnits { get; set; } = new ObservableCollection<DBUnit>();
-        private IEnumerable _browserTableSource;
-        public IEnumerable BrowseTableSource {
+        public ObservableCollection<TreeUnit> DBUnits { get; set; } = new ObservableCollection<TreeUnit>();
+        private DataTable _browserTableSource;
+        public DataTable BrowseTableSource {
             get {
                 return _browserTableSource;
             }
@@ -134,19 +138,20 @@ namespace SingularityForensic.Previewers.ViewModels {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.WriteLine($"{nameof(SqlitePreviewerModel)}->{nameof(NotifySelectedUnitChanged)}:{ex.Message}");
-                    CDFCMessageBox.Show($"{ex.Message}");
+                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(NotifySelectedUnitChanged)}:{ex.Message}");
+                    MsgBoxService.Current?.Show($"{ex.Message}");
                 }
             }
 
             return null;
         }
-        public void NotifySelectedUnitChanged(DBUnit unit) {
-            if(unit.UnitType == DBUnitType.Table) {
-                var dt = GetDataTable($"Select* from { unit.Title}");
-                if(dt != null) {
-                    BrowseTableSource = dt.DefaultView;
-                }
+        public void NotifySelectedUnitChanged(TreeUnit unit) {
+            if(unit.TypeGuid == Constants.DBUnitType_Table) {
+                var dt = GetDataTable($"Select* from { unit.Label}");
+
+                BrowseTableSource?.Dispose();
+                BrowseTableSource = dt;
+                
             }
         }
 
@@ -169,8 +174,8 @@ namespace SingularityForensic.Previewers.ViewModels {
         }
 
         //执行后的结果;
-        private IEnumerable _executedSource;
-        public IEnumerable ExecutedSource {
+        private DataTable _executedSource;
+        public DataTable ExecutedSource {
             get {
                 return _executedSource;
             }
@@ -188,12 +193,11 @@ namespace SingularityForensic.Previewers.ViewModels {
                 () => {
                     if (SqlCommand?.ToUpper().StartsWith("SELECT") == true) {
                         var dt = GetDataTable(SqlCommand);
-                        if(dt != null) {
-                            ExecutedSource = dt.DefaultView;
-                        }
+                        ExecutedSource?.Dispose();
+                        ExecutedSource = dt;
                     }
                     else {
-                        CDFCMessageBox.Show("IncorrectSql");
+                        MsgBoxService.Show("IncorrectSql");
                     }
                 }
             ));

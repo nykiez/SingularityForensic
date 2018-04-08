@@ -249,7 +249,7 @@ namespace SingularityForensic.FileExplorer {
             }
 
             if(tuple.file is Partition part) {
-                focusedTuple.Value.deviceHexContext.Position = part.StartLBA;
+                focusedTuple.Value.deviceHexContext.Position = focusedTuple.Value.device.GetStartLBA(part);
                 focusedTuple.Value.partHexContext.Stream = part.BaseStream;
             }
         }

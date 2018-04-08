@@ -274,6 +274,7 @@ xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x86
 xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
 
 
+
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml"
@@ -283,6 +284,9 @@ Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(Targ
 Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"</PostBuildEvent>
+Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
+
+
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Telerik.Windows.Controls.Navigation.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

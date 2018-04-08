@@ -179,6 +179,7 @@ Copy "$(SolutionDir)packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.GridView.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll"
 
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"

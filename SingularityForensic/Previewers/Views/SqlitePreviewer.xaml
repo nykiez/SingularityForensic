@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SingularityForensic.Previewers.Views"
+            xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:models="clr-namespace:SingularityForensic.Previewers.Models"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" 
     x:Class="SingularityForensic.Previewers.Views.SqlitePreviewer"
@@ -16,29 +17,10 @@
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TreeViewEx.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/DataGrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" DataType="{x:Type models:DBUnit}">
+            <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
-                    <Image Margin="6,0" >
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding UnitType}" >
-                                        <DataTrigger.Value>
-                                            <models:DBUnitType>Content</models:DBUnitType>
-                                        </DataTrigger.Value>
-                                        <Setter Property="Source" Value="/SingularityForensic;component/Previewers/Images/Type_Device.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding UnitType}" >
-                                        <DataTrigger.Value>
-                                            <models:DBUnitType>Table</models:DBUnitType>
-                                        </DataTrigger.Value>
-                                        <Setter Property="Source" Value="/SingularityForensic;component/Previewers/Images/Type_Device.png"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <TextBlock Text="{Binding Title}"/>
+                    <Image Margin="6,0" Source="{Binding Icon}"/>
+                    <TextBlock Text="{Binding Label}"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
         </ResourceDictionary>
@@ -142,11 +124,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <controls:TreeViewEx ItemsSource="{Binding DBUnits}" PreviewMouseDown="TreeViewEx_PreviewMouseDown" ItemTemplate="{StaticResource TreeViewExItemTemplate}"/>
-        <TabControl Grid.Column="1">
-            <TabItem Header="{DynamicResource BrowseTable}">
-                <controls:DataGridEx ItemsSource="{Binding BrowseTableSource}" IsReadOnly="True"/>
-            </TabItem>
-            <TabItem Header="{DynamicResource SqlConsole}">
+        <telerik:RadTabControl Grid.Column="1">
+            <telerik:RadTabItem Header="{DynamicResource BrowseTable}">
+                <telerik:RadGridView ItemsSource="{Binding BrowseTableSource}" IsReadOnly="True"/>
+            </telerik:RadTabItem>
+            <telerik:RadTabItem Header="{DynamicResource SqlConsole}">
                 <DockPanel>
                     <TextBlock Text="{StaticResource EnterSql}" DockPanel.Dock="Top"/>
                     <TextBox TextWrapping="Wrap" Height="48" DockPanel.Dock="Top" Text="{Binding SqlCommand}" />
@@ -156,7 +138,7 @@
                         
                     </controls:DataGridEx>
                 </DockPanel>
-            </TabItem>
-        </TabControl>
+            </telerik:RadTabItem>
+        </telerik:RadTabControl>
     </Grid>
 </UserControl>

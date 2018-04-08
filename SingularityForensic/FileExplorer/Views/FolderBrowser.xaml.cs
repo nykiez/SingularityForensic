@@ -2,6 +2,7 @@
 using SingularityForensic.Contracts.Converters;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Controls.ViewModels;
 using SingularityForensic.FileExplorer;
 using SingularityForensic.FileExplorer.ViewModels;
 using System;
@@ -78,8 +79,9 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
                 return;
             }
 
-            if(DataContext is IGridViewDataContext dt) {
-                dt.NotifyDoubliClickOnRow(cell.DataContext);
+            if(DataContext is IInteractionDataGridViewModel dt) {
+
+                dt.NotifyDoubleClickOnRow(cell.DataContext);
             }
             
         }

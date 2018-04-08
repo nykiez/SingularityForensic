@@ -17,8 +17,6 @@ namespace SingularityForensic.FileExplorer {
         public virtual bool AutoConvert => true;
 
         public abstract object GetDataObject(FileBase file);
-
-        public abstract string MetaDataTypeFor { get; }
     }
 
     abstract class FileNameMetaDataProviderBase : FileMetaDataProviderBase {
@@ -36,7 +34,7 @@ namespace SingularityForensic.FileExplorer {
         public override object GetDataObject(FileBase file) => file?.Name;
     }
 
-    abstract class PartMetaDataProviderBase : IFileMetaDataProvider {
+    abstract class PartMetaDataProviderBase : IPartMetaDataProvider {
         public abstract string MetaDataName { get;}
 
         public abstract Type MetaDataType { get; }
@@ -47,16 +45,14 @@ namespace SingularityForensic.FileExplorer {
 
         public virtual bool AutoConvert => true;
 
-        public abstract object GetDataObject(FileBase file);
-
-        public string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_Partition;
+        public abstract object GetDataObject(Partition file);
     }
 
     abstract class FileSizeMetaDataProviderBase : IFileMetaDataProvider {
         public string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Size);
 
-        public Type MetaDataType => typeof(long);
+        public Type MetaDataType => typeof(long?);
 
         public string GUID => Constants.FileMetaDataGUID_Size;
 
@@ -65,8 +61,6 @@ namespace SingularityForensic.FileExplorer {
         public object GetDataObject(FileBase file) => file.Size;
 
         public virtual bool AutoConvert => true;
-
-        public abstract string MetaDataTypeFor { get; }
     }
 
     /// <summary>
@@ -74,14 +68,10 @@ namespace SingularityForensic.FileExplorer {
     /// </summary>
     [Export(typeof(IFileMetaDataProvider))]
     class FileNameMetaDataProvider : FileNameMetaDataProviderBase {
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
+        
     }
 
-    [Export( typeof(IFileMetaDataProvider))]
-    class PartitionNameMetaDataProvider : FileNameMetaDataProviderBase, IFileMetaDataProvider {
-        public object GetDataObject(Partition part) => part.Name;
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_Partition;
-    }
+    
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileDeletedMetaDataProvider : FileMetaDataProviderBase {
@@ -93,8 +83,6 @@ namespace SingularityForensic.FileExplorer {
         public override string GUID => Constants.FileMetaDataGUID_Deleted;
 
         public override int Order => 12;
-
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
 
         public override object GetDataObject(FileBase file) {
             if(file is IDeletable deletable) {
@@ -114,7 +102,6 @@ namespace SingularityForensic.FileExplorer {
     [Export(typeof(IFileMetaDataProvider))]
     class FileSizeMetaDataProvider : FileSizeMetaDataProviderBase {
         public override int Order => 2;
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
     }
 
     [Export(typeof(IFileMetaDataProvider))]
@@ -127,9 +114,7 @@ namespace SingularityForensic.FileExplorer {
         public override string GUID => Constants.FileMetaDataGUID_FileType;
 
         public override int Order => 4;
-
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
-
+        
         private string dirType;
         private string regType;
         private string unknownType;
@@ -147,13 +132,21 @@ namespace SingularityForensic.FileExplorer {
         }
     }
 
-    [Export(typeof(IFileMetaDataProvider))]
-    class PartitionSizeMetaDataProvider : FileSizeMetaDataProviderBase, IFileMetaDataProvider {
+    [Export(typeof(IPartMetaDataProvider))]
+    class PartitionSizeMetaDataProvider : FileSizeMetaDataProviderBase, IPartMetaDataProvider {
         public override int Order => 2;
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_Partition;
+
+        public object GetDataObject(Partition file) {
+            return file.Size;
+        }
     }
 
-    [Export(typeof(IFileMetaDataProvider))]
+    [Export(typeof(IPartMetaDataProvider))]
+    class PartitionNameMetaDataProvider : FileNameMetaDataProviderBase, IPartMetaDataProvider {
+        public object GetDataObject(Partition part) => part.Name;
+    }
+
+    [Export(typeof(IPartMetaDataProvider))]
     class PartitionTypeMetaDataProvider : PartMetaDataProviderBase {
         public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.PartMetaDataName_PartType);
@@ -164,21 +157,18 @@ namespace SingularityForensic.FileExplorer {
 
         public override int Order => 4;
 
-        public override object GetDataObject(FileBase file) {
-            if(file is Partition part) {
-                return part.PartTypeName;
-            }
-            return string.Empty;
+        public override object GetDataObject(Partition part) {
+            return part.PartTypeName;
         }
     }
 
     
 
-    [Export(typeof(IFileMetaDataProvider))]
+    [Export(typeof(IPartMetaDataProvider))]
     class PartitionStartLBAMetaDataProvider : PartMetaDataProviderBase {
         public override string MetaDataName => LanguageService.FindResourceString(Constants.PartMetaDataName_StartLBA);
 
-        public override Type MetaDataType => typeof(long);
+        public override Type MetaDataType => typeof(long?);
 
         public override string GUID => Constants.PartMetaDataGUID_StartLBA;
 
@@ -186,15 +176,15 @@ namespace SingularityForensic.FileExplorer {
 
         public override bool AutoConvert => false;
 
-        public override object GetDataObject(FileBase file) {
-            if (file is Partition part) {
-                return part.StartLBA;
+        public override object GetDataObject(Partition part) {
+            if(part.Parent is Device device) {
+                return device.GetStartLBA(part);
             }
-            return DBNull.Value;
+            return null;
         }
     }
 
-    [Export( typeof(IFileMetaDataProvider))]
+    [Export(typeof(IPartMetaDataProvider))]
     class ParitionLastMountTimeMetaDataProvider : PartMetaDataProviderBase {
         public override string MetaDataName => LanguageService.FindResourceString(Constants.PartitionMetaDataName_LastMountTime);
 
@@ -204,10 +194,7 @@ namespace SingularityForensic.FileExplorer {
 
         public override int Order => 12;
 
-        public override object GetDataObject(FileBase file) {
-            if (!(file is Partition part)) {
-                return DBNull.Value;
-            }
+        public override object GetDataObject(Partition part) {
             var dt = part.GetExtensionTime(Contracts.FileSystem.Constants.PartitionExtendTime_LastMount);
             if(dt == null) {
                 return DBNull.Value;
@@ -234,7 +221,6 @@ namespace SingularityForensic.FileExplorer {
             }
             return DBNull.Value;
         }
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
     }
     
     [Export( typeof(IFileMetaDataProvider))]
@@ -256,7 +242,6 @@ namespace SingularityForensic.FileExplorer {
             return DBNull.Value;
         }
 
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
     }
     
     [Export( typeof(IFileMetaDataProvider))]
@@ -278,7 +263,6 @@ namespace SingularityForensic.FileExplorer {
             return DBNull.Value;
         }
 
-        public override string MetaDataTypeFor => Contracts.FileExplorer.Constants.FileMetaDataType_File;
     }
     
 }

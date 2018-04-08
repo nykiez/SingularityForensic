@@ -24,6 +24,31 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         //分区表项;
         public IEnumerable<PartitionEntry> PartitionEntries => _stoken.PartitionEntries;
+        public Dictionary<Partition, long> _startLBADicts = new Dictionary<Partition, long>();
+
+        /// <summary>
+        /// 设定分区起始LBA;
+        /// </summary>
+        /// <param name="part"></param>
+        public void SetStartLBA(Partition part, long startLBA) {
+            if (part.Parent != this) {
+                throw new InvalidOperationException($"The StartLBA can only be indicated with {nameof(Parent)} of this instance.");
+            }
+            if (!(Children?.Contains(part) ?? false)) {
+                throw new InvalidOperationException($"The {nameof(Device)} doesn't contain the child");
+            }
+
+            _startLBADicts[part] = startLBA;
+        }
+
+        /// <summary>
+        /// 获取分区起始LBA;
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        public long GetStartLBA(Partition part) {
+            return _startLBADicts[part];
+        }
     }
 
     /// <summary>
@@ -84,11 +109,13 @@ namespace SingularityForensic.Contracts.FileSystem {
 
                 //设定StartLBA;
                 if (file is Partition part) {
-                    part.SetStartLBA(device, partStartLBA);
+                    device.SetStartLBA(part, partStartLBA);
                 }
             }
             
         }
+
+        
     }
 
 }

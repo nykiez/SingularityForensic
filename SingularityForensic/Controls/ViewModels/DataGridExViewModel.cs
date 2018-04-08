@@ -16,11 +16,11 @@ namespace SingularityForensic.Controls.ViewModels {
         /// 通知后台双击事件;
         /// </summary>
         /// <param name="row"></param>
-        void NotifyDoubleClick(object row);
+        void NotifyDoubleClickOnRow(object row);
 
     }
 
-    public class DataGridExViewModel:BindableBase {
+    public class DataGridExViewModel:BindableBase, IInteractionDataGridViewModel {
         private string _selectedText;
         public string SelectedText {
             get => _selectedText;
@@ -84,6 +84,9 @@ namespace SingularityForensic.Controls.ViewModels {
                 return _contextCommands;
             }
             set => SetProperty(ref _contextCommands, value);
+        }
+
+        public virtual void NotifyDoubleClickOnRow(object row) {
         }
     }
 }

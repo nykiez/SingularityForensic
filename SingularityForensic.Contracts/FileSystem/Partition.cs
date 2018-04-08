@@ -18,15 +18,8 @@ namespace SingularityForensic.Contracts.FileSystem {
         public Partition(string key, PartitionStoken stoken = null) : base(key, stoken) {
 
         }
-
-        public long StartLBA { get;private set; }
-        public void SetStartLBA(IHaveFileCollection parent,long startLBA) {
-            if(this.Parent != parent) {
-                throw new InvalidOperationException($"The StartLBA can only be indicated with {nameof(Parent)} of this instance.");
-            }
-
-            StartLBA = startLBA;
-        }
+        
+        
 
         public string PartTypeName => _stoken.PartTypeName;
     }
