@@ -7,5 +7,5 @@
     <FontFamily x:Key="Title.Header.FontFamily">Microsoft YaHei</FontFamily>
     <Thickness x:Key="Title.Header.Padding">12,0</Thickness>
 
-    <FontFamily x:Key="Adobe-Heiti-Std-R" >/Singularity.UI.Themes;component/#Adobe Heiti Std R</FontFamily>
+    <FontFamily x:Key="Adobe-Heiti-Std-R" >/SingularityForensic.Contracts;component/Themes/#Adobe Heiti Std R</FontFamily>
 </ResourceDictionary>

@@ -27,12 +27,12 @@
                             Margin="0,0,0,3">
             <ContentControl Content="{Binding FolderBrowserViewModel,Mode=OneTime}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type vms:DirectoriesBrowserViewModel}">
+                    <!--<DataTemplate DataType="{x:Type vms:DirectoriesBrowserViewModel}">
                         <local:FolderBrowser/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vms:PartitionsBrowserViewModel}">
                         <local:PartitionsFolderBrowser/>
-                    </DataTemplate>
+                    </DataTemplate>-->
 
                 </ContentControl.Resources>
             </ContentControl>

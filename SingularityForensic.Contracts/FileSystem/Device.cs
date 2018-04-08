@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace SingularityForensic.Contracts.FileSystem {
     public class DeviceStoken : BlockedStreamFileStoken {
         public string PartsType { get; set; }                    //分区表类型;
-        public List<PartitionEntry> PartitionEntries { get; } = new List<PartitionEntry>(); //分区表项集合;
+        public IList<PartitionEntry> PartitionEntries { get; } = new List<PartitionEntry>(); //分区表项集合;
     }
 
     public class Device : BlockedStreamFileBase<DeviceStoken> {
@@ -46,6 +46,15 @@ namespace SingularityForensic.Contracts.FileSystem {
             var partsGroup = xElem?.GetGroup(Constants.Device_InnerParts);
 
             foreach (var entry in device.PartitionEntries) {
+                //若分区表项描述分区大小为空;
+                if(entry.PartSize == null
+                    || entry.PartStartLBA == null) {
+                    continue;
+                }
+
+                var partSize = entry.PartSize.Value;
+                var partStartLBA = entry.PartStartLBA.Value;
+
                 //若起始位移大于设备流大小,则舍弃;
                 if (entry.PartStartLBA >= device.Size) {
                     continue;
@@ -53,11 +62,11 @@ namespace SingularityForensic.Contracts.FileSystem {
 
                 var partElem = partsGroup?.CreateElem(Constants.Device_InnerPart);
                 //若分区描述大小偏移超出设备流,则截取从StartLBA到设备流大小长度的区间作为分区区间;
-                var size = Math.Min(entry.PartSize + entry.PartStartLBA, device.Size) - entry.PartStartLBA;
+                var size = Math.Min(partSize + partStartLBA, device.Size) - partStartLBA;
                 var partStream = MulPeriodsStream.CreateFromStream(
                     device.BaseStream,
                     new(long StartIndex, long Size)[] {
-                        (entry.PartStartLBA,size)
+                        (partStartLBA,size)
                     }
                 );
 
@@ -75,13 +84,10 @@ namespace SingularityForensic.Contracts.FileSystem {
 
                 //设定StartLBA;
                 if (file is Partition part) {
-                    part.SetStartLBA(device, entry.PartStartLBA);
+                    part.SetStartLBA(device, partStartLBA);
                 }
             }
-
-            //foreach (var provider in providers) {
-            //    if(provider.CheckIsValidStream())
-            //}
+            
         }
     }
 

@@ -11,11 +11,12 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 using WpfHexaEditor.Core.Bytes;
 
 namespace SingularityForensic.Hex.ViewModels {
 
-    public abstract partial class HexStreamEditorViewModel : BindableBase {
+    public partial class HexStreamEditorViewModel : BindableBase {
         public HexStreamEditorViewModel() {
             InitializeToolTips();
         }
@@ -50,13 +51,13 @@ namespace SingularityForensic.Hex.ViewModels {
             }
         }
 
-        private long selectionStop = -1L;                   //控制选定终止处;
-        public long SelectionStop {
+        private long _selectionLength = -1L;                   //控制选定终止处;
+        public long SelectionLength {
             get {
-                return selectionStop;
+                return _selectionLength;
             }
             set {
-                SetProperty(ref selectionStop, value);
+                SetProperty(ref _selectionLength, value);
             }
         }
 
@@ -79,13 +80,17 @@ namespace SingularityForensic.Hex.ViewModels {
                 SetProperty(ref _focusPosition, value);
             }
         }
-        
+
+        public ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; set; }
+        = new ObservableCollection<(long index, long length, Brush background)>();
+
+        public object Tag { get; set; }
     }
 
     /// <summary>
     /// ToolTip
     /// </summary>
-    public abstract partial class HexStreamEditorViewModel {
+    public partial class HexStreamEditorViewModel {
         public class ToolTipItemModel : BindableBase {
             private string _keyName;
             public string KeyName {
@@ -171,7 +176,7 @@ namespace SingularityForensic.Hex.ViewModels {
     }
 
     //十六进制流查看器视图模型的命令绑定项;
-    public abstract partial class HexStreamEditorViewModel {
+    public partial class HexStreamEditorViewModel {
 
         private DelegateCommand copyToNewFileCommand;                              //拷贝至新文件命令;
         public DelegateCommand CopyToNewFileCommand {
@@ -179,7 +184,7 @@ namespace SingularityForensic.Hex.ViewModels {
                 return copyToNewFileCommand ??
                     (copyToNewFileCommand = new DelegateCommand(
                         () => {
-                            if (SelectionStop != -1 && SelectionStart != -1) {      //验证是否存在选中部分;
+                            if (SelectionLength != -1 && SelectionStart != -1) {      //验证是否存在选中部分;
                                 var dialogService = ServiceProvider.Current.GetInstance<IDialogService>();
                                 if (dialogService == null) {
                                     LoggerService.Current?.WriteCallerLine($"{nameof(dialogService)} can't be null.");
@@ -198,8 +203,8 @@ namespace SingularityForensic.Hex.ViewModels {
                                             int read;
                                             long readSize = 0;
                                             Stream.Position = SelectionStart;
-                                            var end = Math.Max(SelectionStart, SelectionStop);
-                                            var start = Math.Min(SelectionStart, SelectionStop);
+                                            var end = Math.Max(SelectionStart, SelectionLength);
+                                            var start = Math.Min(SelectionStart, SelectionLength);
                                             using (var Ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                                 while ((read = Ins.Read(buffer, 0, buffer.Length)) != 0 && !dialog.CancellationPending) {
                                                     fs.Write(buffer, 0, read);
@@ -237,14 +242,14 @@ namespace SingularityForensic.Hex.ViewModels {
                 return copyToClipBoardCommand ??
                     (copyToClipBoardCommand = new DelegateCommand(
                         () => {
-                            if (SelectionStart != -1 && SelectionStop != -1) {       //若需剪切数据大于4GB
-                                if (SelectionStop - SelectionStart > maxCopyToClipBoardSize) {
+                            if (SelectionStart != -1 && SelectionLength != -1) {       //若需剪切数据大于4GB
+                                if (SelectionLength - SelectionStart > maxCopyToClipBoardSize) {
                                     MsgBoxService.Current?.Show(LanguageService.Current?.FindResourceString("TooLargeCopySize"));
                                 }
                                 else {
                                     Stream.Position = SelectionStart;
-                                    var start = Math.Min(SelectionStart, SelectionStop);
-                                    var end = Math.Max(SelectionStart, SelectionStop);
+                                    var start = Math.Min(SelectionStart, SelectionLength);
+                                    var end = Math.Max(SelectionStart, SelectionLength);
 
                                     using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                         StreamReader sr = new StreamReader(ins);
@@ -271,14 +276,14 @@ namespace SingularityForensic.Hex.ViewModels {
                 return copyHexToCBoardCommand ??
                     (copyHexToCBoardCommand = new DelegateCommand(
                         () => {
-                            if (SelectionStart != -1 && SelectionStop != -1) {       //若需剪切数据大于4GB
-                                if (SelectionStop - SelectionStart > maxCopyToClipBoardSize) {
+                            if (SelectionStart != -1 && SelectionLength != -1) {       //若需剪切数据大于4GB
+                                if (SelectionLength - SelectionStart > maxCopyToClipBoardSize) {
                                     MsgBoxService.Current?.Show(LanguageService.Current?.FindResourceString("TooLargeCopySize"));
                                 }
                                 else {
                                     Stream.Position = SelectionStart;
-                                    var start = Math.Min(SelectionStart, SelectionStop);
-                                    var end = Math.Max(SelectionStart, SelectionStop);
+                                    var start = Math.Min(SelectionStart, SelectionLength);
+                                    var end = Math.Max(SelectionStart, SelectionLength);
 
                                     using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                         try {
@@ -304,14 +309,14 @@ namespace SingularityForensic.Hex.ViewModels {
                 return copyASCIIToCBoardCommand ??
                     (copyASCIIToCBoardCommand = new DelegateCommand(
                         () => {
-                            if (SelectionStart != -1 && SelectionStop != -1) {       //若需剪切数据大于4GB
-                                if (SelectionStop - SelectionStart > maxCopyToClipBoardSize) {
+                            if (SelectionStart != -1 && SelectionLength != -1) {       //若需剪切数据大于4GB
+                                if (SelectionLength - SelectionStart > maxCopyToClipBoardSize) {
                                     MsgBoxService.Current?.Show(LanguageService.Current?.FindResourceString("TooLargeCopySize"));
                                 }
                                 else {
                                     Stream.Position = SelectionStart;
-                                    var start = Math.Min(SelectionStart, SelectionStop);
-                                    var end = Math.Max(SelectionStart, SelectionStop);
+                                    var start = Math.Min(SelectionStart, SelectionLength);
+                                    var end = Math.Max(SelectionStart, SelectionLength);
 
                                     using (var ins = InterceptStream.CreateFromStream(Stream, start, end - start + 1)) {
                                         try {
@@ -349,7 +354,7 @@ namespace SingularityForensic.Hex.ViewModels {
                 return setAsEndCommand ??
                     (setAsEndCommand = new DelegateCommand(() => {
                         if (FocusPosition != -1) {
-                            SelectionStop = FocusPosition;
+                            SelectionLength = FocusPosition;
                         }
                     }));
             }
@@ -405,17 +410,17 @@ namespace SingularityForensic.Hex.ViewModels {
             _copyAsProCodeCommand ??
             (_copyAsProCodeCommand = new DelegateCommand<CodeLanguage?>(language => {
                 //Variables
-                byte[] buffer = GetCopyData(SelectionStart, SelectionStop, false);
+                byte[] buffer = GetCopyData(SelectionStart, SelectionLength, false);
                 int i = 0;
                 long lenght = 0;
                 string delimiter = language == CodeLanguage.FSharp ? ";" : ",";
 
                 StringBuilder sb = new StringBuilder();
 
-                if (SelectionStop > SelectionStart)
-                    lenght = SelectionStop - SelectionStart + 1;
+                if (SelectionLength > SelectionStart)
+                    lenght = SelectionLength - SelectionStart + 1;
                 else
-                    lenght = SelectionStart - SelectionStop + 1;
+                    lenght = SelectionStart - SelectionLength + 1;
 
 
                 sb.AppendLine();
@@ -507,7 +512,7 @@ namespace SingularityForensic.Hex.ViewModels {
 
     }
 
-    public abstract partial class HexStreamEditorViewModel {
+    public partial class HexStreamEditorViewModel {
         public bool IsFileSystemHex { get; protected set; }
     }
 }

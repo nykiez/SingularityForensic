@@ -14,7 +14,7 @@ namespace SingularityForensic.MainPage.Views {
     /// <summary>
     /// Interaction logic for CaseManager.xaml
     /// </summary>
-    [Export(Constants.UnitTreeView)]
+    [Export(Contracts.MainPage.Constants.UnitTreeView)]
     public partial class UnitTree : UserControl {
         public UnitTree() {
             InitializeComponent();

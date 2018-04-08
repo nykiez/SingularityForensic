@@ -24,6 +24,10 @@ namespace SingularityForensic.FileSystem {
 
             try {
                 var unManagedManager = new UnmanagedBasicDeviceManager(stream);
+                if(unManagedManager.BasicDevicePtr == IntPtr.Zero) {
+                    return false;
+                }
+
                 var isFat = Partition_B_Ntfs(unManagedManager.BasicDevicePtr);
                 unManagedManager.Dispose();
                 return isFat;

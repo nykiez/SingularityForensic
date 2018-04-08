@@ -33,7 +33,7 @@
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Adb/Languages/zh_CN/SingularityForensic.Adb.xaml"/>
 
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/ITunes/Languages/zh_CN/SingularityForensic.ITunes.xaml"/>
-                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileExplorer/Languages/zh_CN/Singularity.UI.FileExplorer.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileExplorer/Languages/zh_CN/SingularityForensic.FileExplorer.xaml"/>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileSystem/Languages/zh_CN/SingularityForensic.FileSystem.xaml"/>
 
                         <!--<ResourceDictionary Source="pack://application:,,,/SingularityShell;component/Languages/zh_CN/SingularityShell.xaml"/>-->

@@ -5,26 +5,27 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Controls.FileExplorer.Views;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
-    public class FileBrowserTabModel : IDocumentTab,IDisposable {
-        public FileBrowserTabModel(FileBrowserViewModel vm){
-            UIObject = new FileBrowser() { DataContext = vm };
-            Title = vm.Header;
-            this.FileBrowserViewModel = vm;
-        }
+    //public class FileBrowserTabModel : IDocumentTab,IDisposable {
+    //    public FileBrowserTabModel(FileBrowserViewModel vm){
+    //        UIObject = new FileBrowser() { DataContext = vm };
+    //        Title = vm.Header;
+    //        this.FileBrowserViewModel = vm;
+    //    }
         
-        public FileBrowserViewModel FileBrowserViewModel { get; }
+    //    public FileBrowserViewModel FileBrowserViewModel { get; }
 
-        public string Title { get; }
+    //    public string Title { get; }
 
-        public List<CommandItem> Commands => null;
-
-        
-        public object UIObject { get; }
+    //    public List<CommandItem> CustomCommands => null;
 
         
-        public void Dispose() {
-            FileBrowserViewModel.Dispose();
-        }
+    //    public object UIObject { get; }
 
-    }
+    //    IList<CommandItem> IDocumentTab.CustomCommands => throw new NotImplementedException();
+
+    //    public void Dispose() {
+    //        FileBrowserViewModel.Dispose();
+    //    }
+
+    //}
 }

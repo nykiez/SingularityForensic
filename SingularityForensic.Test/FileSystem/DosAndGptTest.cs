@@ -29,6 +29,8 @@ namespace SingularityForensic.Test.FileSystem {
         private const string InvalidImgPath = "E://anli/FAT16.img";
 
         private const int DOSPartCount = 5;
+        private const int DOSPartEntryCount = 7;
+
         private const int GPTPartCount = 5;
 
         private Stream _stream;
@@ -47,7 +49,8 @@ namespace SingularityForensic.Test.FileSystem {
             Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.FileSystem.Constants.DeviceType_DOS));
 
             if (file is Device device) {
-                Assert.AreEqual(device.PartitionEntries.Count(), DOSPartCount);
+                Assert.AreEqual(device.PartitionEntries.Count(), DOSPartEntryCount);
+                Assert.AreEqual(device.Children.Count, DOSPartCount);
                 foreach (var entry in device.PartitionEntries) {
                     Trace.WriteLine($"{entry.PartStartLBA} - {entry.PartSize}");
                 }

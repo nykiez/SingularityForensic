@@ -130,10 +130,10 @@ namespace SingularityForensic.Hex {
         private static void FindHex(FindHexValueSetting setting) {
             if (setting != null) {
                 if (!setting.IsBlockSearch) {
-                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.FindNextBytes(CurHexViewModel,setting.HexBytes);
+                    ServiceProvider.Current.GetInstance<IHexService>()?.FindNextBytes(CurHexViewModel,setting.HexBytes);
                 }
                 else if (setting.BlockSize != null && setting.BlockOffset != null) {
-                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.FindNextBytes(CurHexViewModel,setting.HexBytes,
+                    ServiceProvider.Current.GetInstance<IHexService>()?.FindNextBytes(CurHexViewModel,setting.HexBytes,
                         FindMethod.Hex, true,
                         setting.BlockSize.Value, setting.BlockOffset.Value);
                 }
@@ -172,11 +172,11 @@ namespace SingularityForensic.Hex {
         private static void FindText(FindTextStringSetting setting) {
             if (setting != null) {
                 if (!setting.IsBlockSearch) {
-                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.
+                    ServiceProvider.Current.GetInstance<IHexService>()?.
                         FindNextString(CurHexViewModel,setting.FindText);
                 }
                 else if (setting.BlockSize != null && setting.BlockOffset != null) {
-                    ServiceProvider.Current.GetInstance<IHexServiceProvider>()?.
+                    ServiceProvider.Current.GetInstance<IHexService>()?.
                         FindNextString(CurHexViewModel,setting.FindText, true,
                         setting.BlockSize.Value, setting.BlockOffset.Value);
                 }

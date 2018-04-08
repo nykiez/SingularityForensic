@@ -125,8 +125,15 @@ namespace SingularityForensic.Test.FileExplorer {
             Trace.WriteLine($"DataTable row:{sw.ElapsedMilliseconds} - {_dt.Rows.Count}");
         }
 
-        
-
+        [TestMethod]
+        public void TestNewRowAdded() {
+            var raised = false;
+            _dt.TableNewRow += delegate {
+                raised = true;
+            };
+            _dt.Rows.Add(_dt.NewRow());
+            Assert.IsTrue(raised);
+        }
     }
    
 }

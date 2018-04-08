@@ -1,8 +1,8 @@
 ﻿<Application x:Class="DemoUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DemoUI"
-             StartupUri="MainWindow.xaml">
+             xmlns:app="clr-namespace:SingularityForensic.App;assembly=SingularityForensic"
+             xmlns:local="clr-namespace:DemoUI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +13,29 @@
 
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Generic.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Controls/Themes/Generic.xaml"/>
+                <app:ResourceDictionaryEx Name="{x:Static app:Constants.LanguageDict}">
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Languages/zh_CN/SingularityForensic.xaml"/>
+
+                        
+
+
+                        <!--<ResourceDictionary Source="pack://application:,,,/CDFCMessageBoxes;component/Languages/zh_CN/CDFCMessageBoxes.xaml"/>-->
+
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Previewers/Languages/zh_CN/SingularityForensic.Previewers.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Adb/Languages/zh_CN/SingularityForensic.Adb.xaml"/>
+
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/ITunes/Languages/zh_CN/SingularityForensic.ITunes.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileExplorer/Languages/zh_CN/SingularityForensic.FileExplorer.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileSystem/Languages/zh_CN/SingularityForensic.FileSystem.xaml"/>
+
+                        <!--<ResourceDictionary Source="pack://application:,,,/SingularityShell;component/Languages/zh_CN/SingularityShell.xaml"/>-->
+
+                        <!--<ResourceDictionary Source="pack://application:,,,/SingularityForensic.Controls;component/Languages/zh_CN/SingularityForensic.Controls.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info.Android;component/Languages/zh_CN/Singularity.UI.Info.Android.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info;component/Languages/zh_CN/Singularity.UI.Info.xaml"/>-->
+                    </ResourceDictionary.MergedDictionaries>
+                </app:ResourceDictionaryEx>
                 <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Previewers;component/Languages/zh_CN/Singularity.Previewers.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

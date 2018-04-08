@@ -141,8 +141,8 @@ namespace SingularityForensic.FileSystem {
             dosDeviceInfo.DosPartInfos.ForEach(dosPartInfo => {
                 //确定起始绝对位移;
                 long startLBA = 0;
-                long partStartLBA = 0;
-                long partSize = dosPartInfo.StInFoDisk.Value.AllSector * SECSIZE;
+                long? partStartLBA = null;
+                long? partSize = dosPartInfo.StInFoDisk.Value.AllSector * SECSIZE;
                 
                 switch (dosPartInfo.StDosPTable.DosPartType) {
                     case DosPartType.Error:
@@ -153,7 +153,10 @@ namespace SingularityForensic.FileSystem {
                         break;
                     case DosPartType.Extend:
                         extendPartLBA += dosPartInfo.StInFoDisk.Value.HeadSector * SECSIZE;
-                        return;
+                        startLBA = (long)dosPartInfo.StDosPTable.nOffset;
+                        partSize = null;
+                        partStartLBA = null;
+                        break;
                     case DosPartType.Logic:
                         startLBA = (long)dosPartInfo.StDosPTable.nOffset;
                         partStartLBA = extendPartLBA + dosPartInfo.StInFoDisk.Value.HeadSector * SECSIZE;

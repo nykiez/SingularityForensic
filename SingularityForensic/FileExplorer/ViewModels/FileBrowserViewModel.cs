@@ -143,7 +143,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 });   
                 row.CheckChanged += (sender, e) => {
                     CheckAllChecked();
-                    (FolderBrowserViewModel as DirectoriesBrowserViewModel)?.RecCheckedCommand.RaiseCanExecuteChanged();
+                    //(FolderBrowserViewModel as DirectoriesBrowserViewModel)?.RecCheckedCommand.RaiseCanExecuteChanged();
                 };
                 addedCount++;
                 if (addedCount % 10000 == 0) {
@@ -220,13 +220,13 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             get {
                 if(folderBrowserViewModel == null) {
                     if(File is Device) {
-                        folderBrowserViewModel = new PartitionsBrowserViewModel(File as Device);
+                        //folderBrowserViewModel = new PartitionsBrowserViewModel(File as Device);
                     }
                     else if(File is Partition) {
-                        folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
+                        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
                     }
                     else if(File is Directory){
-                        folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
+                        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
                     }
 
                     folderBrowserViewModel.FilterFileNameNeeded = FilterFileNameNeeded;
@@ -414,7 +414,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     }
                 }
                 else if (file is Directory directory) {
-                    if(directory.StartLBA != null) {
+                    if(directory.GetStartLBA() != null) {
                         //MainHexViewModel.Position = directory.StartLBA.Value;
                     }
                 }

@@ -2,7 +2,7 @@
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.Previewers;
 
 namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     public class AdbPreviewViewModel : BindableBase, ITabModel {

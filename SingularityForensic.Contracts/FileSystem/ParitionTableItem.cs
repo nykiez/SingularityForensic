@@ -22,11 +22,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <summary>
         /// 分区起始位移;
         /// </summary>
-        public long PartStartLBA { get; set; }
+        public long? PartStartLBA { get; set; }
         /// <summary>
         /// 分区大小;
         /// </summary>
-        public long PartSize { get; set; }
+        public long? PartSize { get; set; }
         
         /// <summary>
         /// 分区表项类型;
@@ -52,13 +52,14 @@ namespace SingularityForensic.Contracts.FileSystem {
         public long Size => _stoken?.Size ?? -1;
 
         /// <summary>
-        /// 分区起始位移;
+        /// 分区起始位移(针对部分分区表结构,如Dos);
         /// </summary>
-        public long PartStartLBA => _stoken.PartStartLBA;
+        public long? PartStartLBA => _stoken.PartStartLBA;
+
         /// <summary>
-        /// 分区大小;
+        /// 分区大小(针对部分分区表结构,如Dos);
         /// </summary>
-        public long PartSize => _stoken.PartSize;
+        public long? PartSize => _stoken.PartSize;
         
         //分区表项类型;
         public string TypeGUID => _stoken?.TypeGUID;

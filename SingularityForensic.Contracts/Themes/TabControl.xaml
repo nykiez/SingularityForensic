@@ -108,11 +108,13 @@
                                         Opacity="0"/>
                         </Border>
                         <Border  BorderThickness="0,0,1,0" Padding="{TemplateBinding Padding}" BorderBrush="{StaticResource InnerBrowserTabItem.Header.Border}" >
-                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" TextElement.FontSize="14"
-                                              TextElement.FontFamily="{StaticResource Adobe-Heiti-Std-R}"
-                                              Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
-                                              RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                            <ContentControl Content="{TemplateBinding Header}" TextElement.FontSize="14" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                               VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <!--<ContentPresenter x:Name="contentPresenter" ContentSource="Header" TextElement.FontSize="14"
+                                               
+                                              />-->
+                            <!--TextElement.FontFamily="{StaticResource Adobe-Heiti-Std-R}"-->
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>

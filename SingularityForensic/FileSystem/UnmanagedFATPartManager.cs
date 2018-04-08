@@ -13,11 +13,11 @@ namespace SingularityForensic.FileSystem {
         /// <summary>
         /// 非托管单元指针;
         /// </summary>
-        public IntPtr FatPtr { get; set; }
+        public IntPtr FatPtr { get; internal set; }
 
         /// <summary>
         /// 流适配器实例;
         /// </summary>
-        public UnmanagedStreamAdapter StreamAdpater { get; set; }
+        public UnmanagedStreamAdapter StreamAdpater { get; internal set; }
     }
 }

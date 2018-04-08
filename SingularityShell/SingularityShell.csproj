@@ -152,9 +152,13 @@ Copy "$(SolutionDir)SingularityForensic\$(OutDir)\SingularityForensic.dll" "$(Ta
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
 Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll"
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll"
+Copy "$(SolutionDir)EWF.NET\ewf.net.dll" "$(TargetDir)Entities\ewf.net.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Entities\cdfc_device.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"
+
 Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
+Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
+
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll" 
 
@@ -183,7 +187,11 @@ Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(Ta
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(TargetDir)Entities\Chloe.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll"
 XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y
+
+XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn" "$(TargetDir)OutSideIn" /E /Y
+
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
+Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
 
 Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll"</PostBuildEvent>
   </PropertyGroup>

@@ -6,6 +6,7 @@ namespace SingularityForensic.MainPage {
     [ModuleExport(typeof(MainPageModule))]
     public class MainPageModule : IModule {
         public MainPageModule() {
+            
         }
 
         public void Initialize() {

@@ -23,6 +23,7 @@ namespace SingularityForensic.Contracts.Helpers {
             if (token != null) {
                 evt?.Unsubscribe(token);
             }
+            
             token = evt?.Subscribe(act);
         }
 

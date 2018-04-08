@@ -27,23 +27,61 @@ namespace SingularityForensic.FileSystem {
                 throw new ArgumentNullException(nameof(stream));
             }
 
+            var unManagedStreamAdapter = new UnmanagedStreamAdapter(stream);
+            
             try {
-                var unManagedManager = new UnmanagedBasicDeviceManager(stream);
-                if(unManagedManager.BasicDevicePtr == IntPtr.Zero) {
+                if (unManagedStreamAdapter.StreamPtr == IntPtr.Zero) {
                     return false;
                 }
-
-                var isFat = Partition_B_Fat(unManagedManager.BasicDevicePtr) || 
-                    Partition_B_Fat16(unManagedManager.BasicDevicePtr);
-                unManagedManager.Dispose();
-                return isFat;
+                var stPartition = Fat_Init(unManagedStreamAdapter.StreamPtr);
+                if (stPartition == IntPtr.Zero) {
+                    return false;
+                }
+                else {
+                    Fat_Exit(stPartition);
+                    return true;
+                }
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
                 return false;
             }
+            finally {
+                unManagedStreamAdapter.Dispose();
+            }
         }
 
+        /// <summary>
+        /// 获得FAT类型;
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        private static FATPartType? GetFatType(Stream stream) {
+            if (stream == null) {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            var unManagedManager = new UnmanagedBasicDeviceManager(stream);
+            try {
+                if (unManagedManager.BasicDevicePtr == IntPtr.Zero) {
+                    return null;
+                }
+                if (Partition_B_Fat(unManagedManager.BasicDevicePtr)) {
+                    return FATPartType.FAT32;
+                }
+                else if (Partition_B_Fat16(unManagedManager.BasicDevicePtr)) {
+                    return FATPartType.FAT16;
+                }
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+            return null;
+        }
+        private enum FATPartType {
+            FAT32,
+            FAT16
+        }
         public FileBase ParseStream(Stream stream, string name, XElement xElem, ProgressReporter reporter) {
             if(stream == null) {
                 throw new ArgumentNullException(nameof(stream));
@@ -64,7 +102,10 @@ namespace SingularityForensic.FileSystem {
             };
             stoken.Tag = partInfo;
 
-            
+            if(unmanagedManager.FATManagerPtr == IntPtr.Zero) {
+                unmanagedManager.Dispose();
+                throw new InvalidOperationException($"{nameof(unmanagedManager.FATManagerPtr)} can't be nullptr.");
+            }
             
             var part = new Partition(Constants.PartitionKey_FAT, stoken);
             LoadPartInfo(partInfo);
@@ -276,7 +317,7 @@ namespace SingularityForensic.FileSystem {
                             isCancel
                         );
                     }
-                    else if (stFileNode.NameBuffer[1] == 46) {
+                    else if (stFileNode.NameBuffer[2] == 46) {
                         dirStoken.IsBack = true;
                     }
                     else {
@@ -342,7 +383,14 @@ namespace SingularityForensic.FileSystem {
             fileStoken2.Deleted = fatFileInfo.StFileNode.Value.Deleted;
             
             EditTime(fileStoken2, fatFileInfo);
+#if DEBUG
+            if (fileStoken2.Name == "avcodec-56.dll") {
 
+            }
+            if(fileStoken2.Name == "SILK2MP3.EXE") {
+
+            }
+#endif
             EditBlockGroups(fileStoken2, partInfo, fatFileInfo);
         }
 
@@ -436,7 +484,7 @@ namespace SingularityForensic.FileSystem {
                     new BlockGroup((long)lastCluster.Value.nClusterNum, blockCount, clusterSize, firstClusterLBA)
                 );
             }
-
+            
             try {
                 foreach (var cluster in clusters) {
                     if (lastCluster == null) {
@@ -607,5 +655,10 @@ namespace SingularityForensic.FileSystem {
         [DllImport(fatAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private extern static ulong Fat_ClusterNum_Convert(IntPtr stPartition, ulong nClusterNum);
 
+        [DllImport(fatAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static IntPtr Fat_Init(IntPtr stStream);
+
+        [DllImport(fatAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void Fat_Exit(IntPtr stPartition);
     }
 }

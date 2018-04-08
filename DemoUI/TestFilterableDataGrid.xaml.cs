@@ -160,9 +160,6 @@ namespace DemoUI {
         }
 
         private void dgg_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
-            if(e.ItemPropertyInfo.Name == "col1") {
-                //e.Cancel = true;
-            }
             
         }
 
@@ -210,7 +207,9 @@ namespace DemoUI {
             
         }
 
-       
+        private void dgg_AutoGeneratingColumn_1(object sender, GridViewAutoGeneratingColumnEventArgs e) {
+
+        }
     }
 
 

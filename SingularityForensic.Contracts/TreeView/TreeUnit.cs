@@ -12,10 +12,10 @@ namespace SingularityForensic.Contracts.TreeView {
     public sealed class TreeUnit : BindableBase {
         public TreeUnit(
             string typeGuid,
-            object data = null) {
+            object tag = null) {
             
             this.TypeGuid = typeGuid;
-            this.Tag = data;
+            this.Tag = tag;
         }
         
         //类型GUID;

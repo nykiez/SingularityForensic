@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <sys:String x:Key="ComputeHashCommandItem">计算哈希值</sys:String>
+  <sys:String x:Key="MD5HashCommandItem">MD5</sys:String>
+  <sys:String x:Key="SHA1HashCommandItem">SHA1</sys:String>
+  <sys:String x:Key="SHA256HashCommandItem">SHA256</sys:String>
+  <sys:String x:Key="SHA512HashCommandItem">SHA512</sys:String>
+  <sys:String x:Key="MobileRecompositeBySign">文件重组扫描</sys:String>
+  <sys:String x:Key="FileSystemInfo">显示文件系统信息</sys:String>
+  <sys:String x:Key="CustomSignSearch">自定义签名搜索</sys:String>
+  <sys:String x:Key="PartitionUnitLabel">分区</sys:String>
+  <sys:String x:Key="FileExploerLoading">正在加载</sys:String>
+  <sys:String x:Key="FileMetaDataName_Name">名称</sys:String>
+  <sys:String x:Key="FileMetaDataName_Size">大小</sys:String>
+  <sys:String x:Key="FileMetaDataName_ModifiedTime">修改时间</sys:String>
+  <sys:String x:Key="FileMetaDataName_AccessedTime">访问时间</sys:String>
+  <sys:String x:Key="FileMetaDataName_CreateTime">创建时间</sys:String>
+  <sys:String x:Key="FileMetaDataName_StartLBA">起始偏移</sys:String>
+  <sys:String x:Key="FileMetaDataName_Deleted">是否删除</sys:String>
+  <sys:String x:Key="PartMetaDataName_PartType">分区类型</sys:String>
+  <sys:String x:Key="PartMetaDataName_StartLBA">起始偏移</sys:String>
+  <sys:String x:Key="PartitionMetaDataName_LastMountTime">最后挂载时间</sys:String>
+  <sys:String x:Key="DocumentTitle_HexDevice">设备</sys:String>
+  <sys:String x:Key="DocumentTitle_HexPartition">分区</sys:String>
+  <sys:String x:Key="DocumentTitle_HexFile">文件</sys:String>
+  <sys:String x:Key="FileMetaDataName_FileType">类型</sys:String>
+  <sys:String x:Key="FileType_Directory">目录</sys:String>
+  <sys:String x:Key="FileType_RegularFile">文件</sys:String>
+  <sys:String x:Key="FileType_Unknown">未知</sys:String>
+  <sys:String x:Key="FileMetaDataName_Path">路径</sys:String>
+  <sys:String x:Key="FileDeleted_Yes">是</sys:String>
+  <sys:String x:Key="FileDeleted_No">否</sys:String>
+  <sys:String x:Key="FileDeleted_Unknown">未知</sys:String>
+  <sys:String x:Key="DocumentTitle_FilePreview">预览</sys:String>
+</ResourceDictionary>

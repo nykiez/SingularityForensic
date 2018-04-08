@@ -158,8 +158,6 @@
     <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="UIAutomationTypes" />
     <Reference Include="Vlc.DotNet.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
       <HintPath>..\packages\Vlc.DotNet.Core.2.2.1\lib\net45\Vlc.DotNet.Core.dll</HintPath>
     </Reference>
@@ -174,7 +172,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.0\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.1\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -371,14 +369,22 @@
     <Compile Include="Controls\Windows\SignSearchWindow.xaml.cs">
       <DependentUpon>SignSearchWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\NotifybleDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\Constants.cs" />
+    <Compile Include="Document\Document.cs" />
     <Compile Include="Document\DocumentTabService.cs" />
+    <Compile Include="Document\EnumerableDocumentTab.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
     <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
-    <Compile Include="Dos\Constants.cs" />
-    <Compile Include="Dos\DosCaseManager.cs" />
-    <Compile Include="Dos\DosImgParser.cs" />
-    <Compile Include="Dos\DosModule.cs" />
-    <Compile Include="Dos\DosUIService.cs" />
+    <Compile Include="Document\ViewModels\EnumerableTabViewModel.cs" />
+    <Compile Include="Document\Views\DocumentTab.xaml.cs">
+      <DependentUpon>DocumentTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Document\Views\EnumerableTab.xaml.cs">
+      <DependentUpon>EnumerableTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Drive\DriveModule.cs" />
     <Compile Include="Drive\DriveStream.cs" />
     <Compile Include="Drive\IconSources.cs" />
@@ -397,7 +403,7 @@
       <DependentUpon>DrivesItemsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileExplorer\Constants.cs" />
-    <Compile Include="FileExplorer\ExplorerModule.cs" />
+    <Compile Include="FileExplorer\FileExplorerModule.cs" />
     <Compile Include="FileExplorer\FileExplorerUIService.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
@@ -424,8 +430,9 @@
     <Compile Include="FileExplorer\ViewModels\HexModels.cs" />
     <Compile Include="FileExplorer\ViewModels\FilePreviewerViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\IGridViewDataContext.cs" />
     <Compile Include="FileExplorer\ViewModels\ListBlockWindowViewModel.cs" />
-    <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModelcs.cs" />
+    <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\ThumbnailTabModel.cs" />
     <Compile Include="FileExplorer\Views\CustomIndexSearch.xaml.cs">
       <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
@@ -467,11 +474,14 @@
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />
     <Compile Include="About\IconSources.cs" />
+    <Compile Include="Hex\Constants.cs" />
+    <Compile Include="Hex\HexDataContext.cs" />
     <Compile Include="Hex\HexModule.cs" />
+    <Compile Include="Hex\HexUIService.cs" />
     <Compile Include="Hex\MenuItemDefinitions.cs" />
     <Compile Include="Hex\Models\SearchKeyOptions.cs" />
     <Compile Include="Hex\IconSources.cs" />
-    <Compile Include="Hex\Services\HexServiceProvider.cs" />
+    <Compile Include="Hex\HexService.cs" />
     <Compile Include="Hex\ViewModels\HexStreamEditorViewModel.cs" />
     <Compile Include="Hex\Views\InterceptHex.xaml.cs">
       <DependentUpon>InterceptHex.xaml</DependentUpon>
@@ -479,6 +489,7 @@
     <Compile Include="Imaging\Constants.cs" />
     <Compile Include="Imaging\DDImageMounter.cs" />
     <Compile Include="Imaging\IconSources.cs" />
+    <Compile Include="Imaging\ImagingModule.cs" />
     <Compile Include="Imaging\ImagingService.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
@@ -506,23 +517,23 @@
     <Compile Include="MainModule.cs" />
     <Compile Include="About\AboutMessageBox.cs" />
     <Compile Include="Drive\Design\DriveItemsWindowDesignViewModel.cs" />
+    <Compile Include="MainPage\Constants.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
     <Compile Include="MainPage\NodeService.cs" />
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
-    <Compile Include="MainPage\RegionNames.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
     <Compile Include="MainPage\ViewModels\NodeTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
-    <Compile Include="Previewers\DefaultPreviewerProvider.cs" />
+    <Compile Include="Previewers\DefaultPreviewProvider.cs" />
     <Compile Include="Previewers\Models\DBUnit.cs" />
     <Compile Include="Previewers\Models\Player.cs" />
-    <Compile Include="Previewers\Previewers\ImagePreviewer.cs" />
-    <Compile Include="Previewers\Previewers\OutsideInPreviewer.cs" />
-    <Compile Include="Previewers\Previewers\PlainTextPreviewer.cs" />
-    <Compile Include="Previewers\Previewers\SqlitePreviewer.cs" />
-    <Compile Include="Previewers\Previewers\VlcVideoPreviewer.cs" />
+    <Compile Include="Previewers\ImagePreviewer.cs" />
+    <Compile Include="Previewers\OutsideInPreviewer.cs" />
+    <Compile Include="Previewers\PlainTextPreviewer.cs" />
+    <Compile Include="Previewers\SqlitePreviewer.cs" />
+    <Compile Include="Previewers\VlcVideoPreviewer.cs" />
     <Compile Include="Previewers\ViewModels\SqlitePreviewerModel.cs" />
     <Compile Include="Previewers\ViewModels\VideoPreviewerModel.cs" />
     <Compile Include="Previewers\Views\ImagePreviewer.xaml.cs">
@@ -741,11 +752,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Document\Views\DocumentTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Document\Views\EnumerableTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Drive\Views\DrivesItemsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FileExplorer\Languages\zh_CN\Singularity.UI.FileExplorer.xaml">
+    <Page Include="FileExplorer\Languages\zh_CN\SingularityForensic.FileExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -943,6 +962,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Hex\Languages\zh_CN\SingularityForensic.Hex.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -988,7 +1011,6 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="Hex\Languages\" />
     <Folder Include="Languages\en_US\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
@@ -1594,6 +1616,8 @@ XCopy "$(ProjectDir)ITunes\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />

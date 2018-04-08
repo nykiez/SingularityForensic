@@ -67,17 +67,23 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     //Tab十六进制流查看器模型;
     public class TabHexStreamEditorViewModel :
         HexStreamEditorViewModel,
-        IHexDataContext,
-        IDocumentTab {
+        IDocument {
+
         public object Tag { get; set; }
-        public string Title { get; }
+        public string Title { get; set; }
         public ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks {
             get; set;
         } = new ObservableCollection<(long index, long length, Brush background)>();
 
-        public List<CommandItem> Commands {get;set;}
+        public IList<CommandItem> CustomCommands {get;set;}
 
         public object UIObject { get; set; }
+
+        
+
+        public void Dispose() {
+            
+        }
     }
 
 }

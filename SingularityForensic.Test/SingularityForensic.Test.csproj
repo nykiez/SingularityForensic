@@ -108,10 +108,13 @@
     <Compile Include="Casing\CaseUIServiceTests.cs" />
     <Compile Include="Casing\Commands\OpenCasePathCommandItemTests.cs" />
     <Compile Include="Common\CommonMockers.cs" />
+    <Compile Include="Data\NotifybleDataTableTest.cs" />
+    <Compile Include="Documents\DocumentServiceTest.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
     <Compile Include="FileSystem\FatStreamParsingProviderTest.cs" />
@@ -168,12 +171,11 @@ Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(Targ
 Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)FatRecover.dll" 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 
-
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 
 Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Microsoft.Expression.Interactions.dll"
 
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll"
-</PostBuildEvent>
+Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)StreamExtension.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

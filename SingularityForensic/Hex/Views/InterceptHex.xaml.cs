@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel.Composition;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using WpfHexaEditor;
 
@@ -6,6 +8,15 @@ namespace SingularityForensic.Hex.Views {
     /// <summary>
     /// Interaction logic for InterceptHex.xaml
     /// </summary>
+    [
+        Export(
+            Constants.HexView,
+            typeof(FrameworkElement)
+        ),
+        PartCreationPolicy(
+            CreationPolicy.NonShared
+        )
+    ]
     public partial class InterceptHex : UserControl {
         public InterceptHex() {
             InitializeComponent();

@@ -229,8 +229,19 @@ namespace SingularityForensic.Imaging {
                 if (string.IsNullOrEmpty(path)) {
                     throw new InvalidOperationException($"{nameof(path)} can't be null.");
                 }
-
-                var mounterProvider = _mounterProviders.FirstOrDefault(p => p.CheckIsValidImg(path));
+                IImgMounterProvider mounterProvider = null;
+                foreach (var mProvider in _mounterProviders) {
+                    try {
+                        if (mProvider.CheckIsValidImg(path)) {
+                            mounterProvider = mProvider;
+                            break;
+                        }
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                    }
+                }
+                 
 
                 //若并未找到,则抛出异常;
                 if (mounterProvider == null) {

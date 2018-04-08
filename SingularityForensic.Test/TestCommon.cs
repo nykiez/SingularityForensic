@@ -5,10 +5,10 @@ using SingularityForensic.Test.Common;
 using System.ComponentModel.Composition.Hosting;
 
 namespace SingularityForensic.Test {
-
-
-    //业务逻辑测试时必须调用这个类的InitializeTest方法;
-    class TestCommon {
+    /// <summary>
+    /// //业务逻辑测试时必须调用这个类的InitializeTest方法;
+    /// </summary>
+    public static class TestCommon {
         
 
         //初始化ServiceProvider等;

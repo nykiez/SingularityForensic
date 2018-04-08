@@ -8,6 +8,18 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Controls.ViewModels {
+    /// <summary>
+    /// 可通知的后台处理视图模型;
+    /// </summary>
+    public interface IInteractionDataGridViewModel {
+        /// <summary>
+        /// 通知后台双击事件;
+        /// </summary>
+        /// <param name="row"></param>
+        void NotifyDoubleClick(object row);
+
+    }
+
     public class DataGridExViewModel:BindableBase {
         private string _selectedText;
         public string SelectedText {

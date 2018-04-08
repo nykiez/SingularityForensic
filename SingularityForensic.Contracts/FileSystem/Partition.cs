@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
     public class PartitionStoken : BlockedStreamFileStoken {
-        
+        public string PartTypeName { get; set; }
     }
 
-    //分区类型;
+    /// <summary>
+    /// 分区类型;
+    /// </summary>
     public class Partition : BlockedStreamFileBase<PartitionStoken> {
         public Partition(string key, PartitionStoken stoken = null) : base(key, stoken) {
 
@@ -25,6 +27,8 @@ namespace SingularityForensic.Contracts.FileSystem {
 
             StartLBA = startLBA;
         }
+
+        public string PartTypeName => _stoken.PartTypeName;
     }
 
     /// <summary>

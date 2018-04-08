@@ -16,39 +16,107 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
+using System.Data;
+using System.Linq;
+using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.FileExplorer.Events;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
-    //目录/资源浏览器模型;
-    public abstract partial class FolderBrowserViewModel : DataGridExViewModel {
+    /// <summary>
+    /// 目录/资源浏览器模型;
+    /// </summary>
+    public partial class FolderBrowserViewModel : DataGridExViewModel {
         /// <summary>
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
-        /// <param name="file">模型所属主文件</param>
-        public FolderBrowserViewModel(FileBase file) {
-            if (file != null) {
-                //this.CurFile = file;                            //初始化当前正在浏览的文件;
-                if (file is IBlockedStream) {
-                    this.File = file;                               //初始化对象文件;
-                }
-                else if (file is Directory) {
-                    var part = file.GetParent<Partition>();
-                    if (part != null) {
-                        this.File = part;
-                    }
-                }
+        /// <param name="part">模型所属主文件</param>
+        public FolderBrowserViewModel(Partition part) {
+            if(part == null) {
+                throw new ArgumentNullException(nameof(part));
             }
-            else {
-                throw new ArgumentNullException($"{nameof(file)} can't be null");
-            }
-
+            this.Part = part;
             
+            _fileMetaDataProviders = ServiceProvider.Current?.
+                GetAllInstances<IFileMetaDataProvider>().
+                Where(p => p.MetaDataTypeFor == Contracts.FileExplorer.Constants.FileMetaDataType_File).
+                OrderBy(p => p.Order);
+
+            var dt = InitializeDT();
+            FillRows(part.Children,dt);
+            Files = dt;
+        }
+        
+        public Partition Part { get; }                                        //浏览器所属主文件（分区，设备等);
+
+        private DataTable _files;
+        public DataTable Files {
+            get => _files;
+            set => SetProperty(ref _files, value);
+        }
+        
+        private DataRow _selectedRow;
+        public DataRow SelectedRow {
+            get => _selectedRow;
+            set {
+                SetProperty(ref _selectedRow, value);
+                if(_selectedRow == null) {
+                    return;
+                }
+
+                if(_selectedRow[Constants.FileMetaDataName_File] is FileBase file) {
+                    SelectedFile = file;
+                    PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((file, Part));
+                }
+                
+            }
         }
 
-        public readonly FileBase File;                                        //浏览器所属主文件（分区，设备等);
-        
+        public FileBase SelectedFile { get; private set; }
+
+        private DataTable InitializeDT() {
+            var files = new DataTable();
+            files.Columns.Add(new DataColumn(Constants.FileMetaDataName_File, typeof(FileBase)));
+            
+            if(_fileMetaDataProviders == null) {
+                return null;
+            }
+
+            foreach (var mProvider in _fileMetaDataProviders) {
+                files.Columns.Add(new DataColumn(mProvider.MetaDataName, mProvider.MetaDataType));
+            }
+            return files;
+        }
+
+        /// <summary>
+        /// 填充Rows;
+        /// </summary>
+        /// <param name="files"></param>
+        private void FillRows(IEnumerable<FileBase> files,DataTable dt) {
+            if (files == null) {
+                return;
+            }
+            
+            dt.Rows.Clear();
+
+            foreach (var file in files) {
+                var newRow = dt.NewRow();
+                foreach (var mProvider in _fileMetaDataProviders) {
+                    newRow[mProvider.MetaDataName] = mProvider.GetDataObject(file);
+                }
+                newRow[Constants.FileMetaDataName_File] = file;
+
+                dt.Rows.Add(newRow);
+            }
+
+
+        }
+
+        private IEnumerable<IFileMetaDataProvider> _fileMetaDataProviders;
         public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
 
-        //文件/资源行;(须在外部指定实例);
+        /// <summary>
+        /// 文件/资源行;(须在外部指定实例);
+        /// </summary>
         public ObservableCollection<IFileRow> FileRows { get; set; } 
 
         public event EventHandler<TEventArgs<IFileRow>> SelectedFileRowChanged;               //当当前选择文件变化时触发;
@@ -70,6 +138,16 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public IFileRow FocusRow {
             get => _focusRow;
             set => SetProperty(ref _focusRow, value);
+        }
+
+
+        private object _filterSettings;
+        public object FilterSettings {
+            get => _filterSettings;
+            set {
+                SetProperty(ref _filterSettings, value);
+                
+            }
         }
 
         public event EventHandler<TEventArgs< ViewerProgramMessage >> WatchRequired;
@@ -173,13 +251,46 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public void Exit() {
             NavNodes.Clear();
         }
-        //~FolderBrowserViewModel() {
+        
 
-        //}
+    }
+
+    public partial class FolderBrowserViewModel : IGridViewDataContext {
+        public void NotifyDoubliClickOnRow(object row) {
+            if(!(row is DataRow dataRow)) {
+                return;
+            }
+
+            try {
+                var dt = InitializeDT();
+                
+                var file = dataRow[Constants.FileMetaDataName_File] as FileBase;
+                if (!(file is IHaveFileCollection haveFileCollection)) {
+                    return;
+                }
+
+                if(file is Directory direct) {
+                    if (direct.IsBack) {
+                        if(direct.Parent is IHaveFileCollection parentCollection
+                            && (parentCollection as FileBase)?.Parent is IHaveFileCollection grandCollection) {
+                            FillRows(grandCollection.Children,dt);
+                        }
+                    }
+                    else if(!direct.IsLocalBackUp) {
+                        FillRows(haveFileCollection.Children, dt);
+                    }
+                    Files?.Dispose();
+                    Files = dt;
+                }
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+        }
     }
 
     //目录/资源浏览器模型命令部分;
-    public abstract partial class FolderBrowserViewModel {
+    public partial class FolderBrowserViewModel {
         public event EventHandler<TEventArgs<IFileRow>> RowEntered;                      //进入了某个文件行;
 
         //选择子文件时,进入该文件;
@@ -314,10 +425,19 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
             }
         }
+        
+        private DelegateCommand<MouseEventArgs> _mouseEnterCommand;
+        public DelegateCommand<MouseEventArgs> MouseEnterCommand => _mouseEnterCommand ??
+            (_mouseEnterCommand = new DelegateCommand<MouseEventArgs>(
+                arg => {
+                    
+                }
+            ));
+
     }
 
     //目录试图资源管理器模型过滤命令部分;
-    public abstract partial class FolderBrowserViewModel {
+    public partial class FolderBrowserViewModel {
         //过滤文件名事件;
         public event EventHandler FilterFileNameRequired;
         //过滤文件名命令;
@@ -345,6 +465,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             _filterFileSizeCommand ?? (_filterFileSizeCommand = new DelegateCommand(() => {
                 FilterFileSizeRequired?.Invoke(this, new EventArgs());
             }));
+
         //是否开启了过滤大小;
         private bool filterFileSizeNeeded;
         public bool FilterFileSizeNeeded {
@@ -364,6 +485,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             _filterFilePathCommand ?? (_filterFilePathCommand = new DelegateCommand(() => {
                 FilterFilePathRequired?.Invoke(this, new EventArgs());
             }));
+
         //public string FilterFileNameKey { get; private set; }
         //是否开启了过滤路径;
         private bool filterFilePathNeeded;
@@ -430,9 +552,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 SetProperty(ref filterCTimeNeeded, value);
             }
         }
-
         
-
         ////是否开启了任何过滤;
         private bool anyFiltering;
         public bool AnyFiltering {
@@ -455,7 +575,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     }
 
     //递归展开视图部分;
-    public abstract partial class FolderBrowserViewModel {
+    public partial class FolderBrowserViewModel {
         //是否展开(递归浏览);
         private bool _isExpanded;
         public bool IsExpanded {

@@ -10,11 +10,11 @@ namespace SingularityForensic.Document.Models {
     //Tab类型;
     public class DocumentModel : LayoutDocument {
         
-        public DocumentModel(IDocumentTab tab) {
+        public DocumentModel(IDocument tab) {
             if(tab == null) {
                 throw new ArgumentNullException(nameof(tab));
             }
-            this.DocumentTab = tab;
+            this.Document = tab;
 
             this.Content = tab.UIObject;
             this.Title = tab.Title;
@@ -23,7 +23,7 @@ namespace SingularityForensic.Document.Models {
             CommandItems.Add(CloseAllCmItem);
         }
         
-        public IDocumentTab DocumentTab { get; }
+        public IDocument Document { get; }
         
         //The command will be executed while Close Button clicked ;
         private DelegateCommand _closeCommand;

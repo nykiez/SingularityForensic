@@ -16,19 +16,21 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     [Export]
     public partial class MainPageViewModel : BindableBase {
         [ImportingConstructor]
-        public MainPageViewModel(IDocumentTabService documentTabService) {
-            this._documentTabService = documentTabService;
+        public MainPageViewModel() {
+            this._documentTabService = DocumentService.MainDocumentService;
             RegisterEvents();
             
         }
-        private IDocumentTabService _documentTabService;
+        private IDocumentService _documentTabService;
         /// <summary>
         /// 注册事件;
         /// </summary>
         private void RegisterEvents() {
             PubEventHelper.Subscribe<MenuSelectedGroupChangedEvent, MenuItemGroup>(group => {
                 if (group == MenuGroupDefinitions.MainPageMenuGroup) {
-                    RegionManager.RequestNavigate(SingularityForensic.Shell.RegionNames.MainRegion, "MainPage");
+                    RegionManager.RequestNavigate(
+                        SingularityForensic.Shell.RegionNames.MainRegion,
+                        SingularityForensic.MainPage.Constants.MainPageView);
                 }
 
             });
@@ -38,9 +40,14 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
             //});
 
             //PubEventHelper.GetEvent<TabAddedEvent>
-
+            PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(tuple => {
+                RegionHelper.RequestNavigate(
+                    Contracts.MainPage.Constants.MainPageDocumentRegion,
+                    Contracts.Document.Constants.DocumentTabsView
+                );
+            });
             //_documentTabService.TabAdded += (sender, e) => {
-            //    RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "DocumentTab");
+            //RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, "DocumentTab");
             //};
         }
 
@@ -48,8 +55,8 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
         public DelegateCommand ContentRenderedCommand => _contentRenderedCommand ??
             (_contentRenderedCommand = new DelegateCommand(
                 () => {
-                    RegionHelper.RequestNavigate(Constants.NodeTreeRegion, Constants.UnitTreeView);
-                    RegionHelper.RequestNavigate(Constants.MainPageDocumentRegion, Constants.WelcomeView);
+                    RegionHelper.RequestNavigate(Contracts.MainPage.Constants.NodeTreeRegion, Contracts.MainPage.Constants.UnitTreeView);
+                    RegionHelper.RequestNavigate(Contracts.MainPage.Constants.MainPageDocumentRegion, Contracts.MainPage.Constants.WelcomeView);
                 }
             ));
         

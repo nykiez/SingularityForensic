@@ -1,7 +1,8 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Helpers;
+﻿using CDFCUIContracts.Helpers;
+using SingularityForensic.Contracts.Converters;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.FileExplorer;
 using SingularityForensic.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,49 +10,22 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.GridView;
 
 namespace SingularityForensic.Controls.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for FolderBrowser.xaml
     /// </summary>
-    [Export(nameof(FolderBrowser))]
+    [Export(SingularityForensic.FileExplorer.Constants.FolderBrowserView,typeof(FrameworkElement))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class FolderBrowser : UserControl {
         public FolderBrowser() {
             InitializeComponent();
             
             
         }
-        //private void CheckRows(bool isChecked) {
-        //    var slRows = new List<IFileRow>();
-        //    try {
-        //        foreach (var item in dg.SelectedItems) {
-        //            slRows.Add(item as IFileRow);
-        //        }
-        //    }
-        //    catch (Exception ex) {
-        //        EventLogger.Logger.WriteLine($"{nameof(FolderBrowser)}->CheckSelected:{ex.Message}");
-        //        CDFCMessageBox.Show(ex.Message);
-        //    }
-        //    finally {
-        //        vm?.CheckRows(slRows, isChecked);
-        //    }
-        //}
-
-        
-
-        //~FolderBrowser() {
-
-        //}
-        //方便应对双击等动作，编写后台VM;
-        private FolderBrowserViewModel vm;
-        public FolderBrowserViewModel VM {
-            get {
-                if(vm == null && DataContext != null) {
-                    vm = DataContext as FolderBrowserViewModel;
-                }
-                return vm;
-            }
-        }
+       
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
             if(e.ClickCount == 2) {
                 try {
@@ -66,7 +40,7 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
                         row = s.DataContext as IFileRow;
                     }
                     if(row != null) {
-                        VM?.EnterRow(row as IFileRow<FileBase>);
+                        //VM?.EnterRow(row as IFileRow<FileBase>);
                     }
                 }
                 catch {
@@ -80,8 +54,38 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
             e.Row.Header = e.Row.GetIndex() + 1;
         }
 
-        private void RadGridView_SelectedCellsChanged(object sender, Telerik.Windows.Controls.GridView.GridViewSelectedCellsChangedEventArgs e) {
+        
+        private void RadGridView_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
+            if (e.ItemPropertyInfo.Name == SingularityForensic.FileExplorer.Constants.FileMetaDataName_File) {
+                e.Cancel = true;
+            }
+            
+            if (e.Column is GridViewDataColumn dataColumn
+            && e.ItemPropertyInfo.PropertyType == typeof(long)) {
+                if (dataColumn.DataMemberBinding != null) {
+                    dataColumn.DataMemberBinding.Converter = ByteSizeToSizeConverter.StaticInstance;
+                }
+            }
+        }
+
+        private void RadGridViewEx_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            if(!(e.OriginalSource is FrameworkElement elem)) {
+                return;
+            }
+
+            var cell = VisualHelper.GetVisualParent<GridViewCell>(elem);
+            if(cell == null) {
+                return;
+            }
+
+            if(DataContext is IGridViewDataContext dt) {
+                dt.NotifyDoubliClickOnRow(cell.DataContext);
+            }
             
         }
+
+        
+
+        
     }
 }

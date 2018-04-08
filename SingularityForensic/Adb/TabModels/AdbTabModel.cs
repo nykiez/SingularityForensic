@@ -15,84 +15,104 @@ using System.Collections.Generic;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.TabModels {
-    public class AdbTabModel : IDocumentTab {
-        public AdbTabModel(AdbTabViewModel vm) {
-            _adbTab = new AdbTab { DataContext = vm };
-            this.AdbTabViewModel = vm;
+    //public class AdbTabModel : IDocumentTab {
+    //    public AdbTabModel(AdbTabViewModel vm) {
+    //        _adbTab = new AdbTab { DataContext = vm };
+    //        this.AdbTabViewModel = vm;
             
-            _title = $"{AdbTabViewModel.Device?.Disply}-{MInfoTypeHelper.GetInfoTypeWord(AdbTabViewModel.Container.InfoType)}"; 
-        }
+    //        Title = $"{AdbTabViewModel.Device?.Disply}-{MInfoTypeHelper.GetInfoTypeWord(AdbTabViewModel.Container.InfoType)}"; 
+    //    }
         
-        public AdbTabViewModel AdbTabViewModel { get; }
+    //    public AdbTabViewModel AdbTabViewModel { get; }
+        
+    //    public string Title { get; set; }
 
-        private string _title;
-        public string Title => _title;
+    //    public IList<CommandItem> CustomCommands => null;
 
-        public List<CommandItem> Commands => null;
+    //    private AdbTab _adbTab;
+    //    public object UIObject => _adbTab ;
 
-        private AdbTab _adbTab;
-        public object UIObject => _adbTab ;
-    }
+    //    public object Tag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public class AdbBasicTabModel : IDocumentTab {
-        public AdbBasicTabModel(Basic basic) {
-
-            var vm = new InfoBasicViewModel();
+    //    public void Dispose() {
             
-            try {
-                var sb = new StringBuilder();
-                foreach (var prop in basic.GetType().GetProperties()) {
-                    sb.AppendLine(LanguageService.FindResourceString($"AdbBasic{prop.Name}") +
-                        $":{ prop.GetValue(basic)}");
-                }
-                vm.BasicText = sb.ToString();
-            }
-            catch (Exception ex) {
-                Logger.WriteLine($"{nameof(AdbBasicTabModel)}:{ex.Message}");
-                vm.BasicText = ex.Message;
-            }
-            _view = new InfoBasicView() {
-                DataContext = vm
-            };
-            this.Basic = basic;
-        }
+    //    }
+    //}
+
+    //public class AdbBasicTabModel : IDocumentTab {
+    //    public AdbBasicTabModel(Basic basic) {
+    //        var vm = new InfoBasicViewModel();
+    //        try {
+    //            var sb = new StringBuilder();
+    //            foreach (var prop in basic.GetType().GetProperties()) {
+    //                sb.AppendLine(LanguageService.FindResourceString($"AdbBasic{prop.Name}") +
+    //                    $":{ prop.GetValue(basic)}");
+    //            }
+    //            vm.BasicText = sb.ToString();
+    //        }
+    //        catch (Exception ex) {
+    //            Logger.WriteLine($"{nameof(AdbBasicTabModel)}:{ex.Message}");
+    //            vm.BasicText = ex.Message;
+    //        }
+    //        _view = new InfoBasicView() {
+    //            DataContext = vm
+    //        };
+    //        this.Basic = basic;
+    //    }
         
-        public Basic Basic { get; }
+    //    public Basic Basic { get; }
+        
+    //    public string Title { get; set; }
 
-        private string _title;
-        public string Title => _title;
+    //    public List<CommandItem> CustomCommands => null;
 
-        public List<CommandItem> Commands => null;
+    //    private InfoBasicView _view;
+    //    public object UIObject => _view;
 
-        private InfoBasicView _view;
-        public object UIObject => _view;
-    }
+    //    IList<CommandItem> IDocumentTab.CustomCommands => throw new NotImplementedException();
 
-    public class AdbMainTabModel : IDocumentTab {
-        public AdbMainTabModel(InfoMainViewModel vm) {
-            UIObject = new InfoMain {
-                DataContext = vm
-            };
-        }
+    //    public object Tag { get ; set ; }
 
-        public string Title => string.Empty;
+    //    public void Dispose() {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
-        public List<CommandItem> Commands => null;
+    //public class AdbMainTabModel : IDocumentTab {
+    //    public AdbMainTabModel(InfoMainViewModel vm) {
+    //        UIObject = new InfoMain {
+    //            DataContext = vm
+    //        };
+    //    }
 
-        public object UIObject { get; }
-    }
+    //    public string Title => string.Empty;
 
-    public class AdbGridTabModel : IDocumentTab {
-        public AdbGridTabModel(AdbGridViewModel vm) {
-            UIObject = new AdbGrid {
-                DataContext = vm
-            };
-        }
+    //    public IList<CommandItem> CustomCommands => null;
 
-        public string Title => string.Empty;
+    //    public object UIObject { get; }
 
-        public List<CommandItem> Commands => null;
+    //    public void Dispose() {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
-        public object UIObject { get; }
-    }
+    //public class AdbGridTabModel : IDocumentTab {
+    //    public AdbGridTabModel(AdbGridViewModel vm) {
+    //        UIObject = new AdbGrid {
+    //            DataContext = vm
+    //        };
+    //    }
+
+    //    public string Title => string.Empty;
+
+    //    public List<CommandItem> CustomCommands => null;
+
+    //    public object UIObject { get; }
+
+    //    IList<CommandItem> IDocumentTab.CustomCommands => throw new NotImplementedException();
+
+    //    public void Dispose() {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

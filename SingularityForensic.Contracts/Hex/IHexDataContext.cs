@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -15,14 +16,14 @@ namespace SingularityForensic.Contracts.Hex {
     }
     
 
-    public interface IHexDataContext {
-        bool ReadOnlyMode { get; }
+    public interface IHexDataContext:IUIObjectProvider2 {
+        bool ReadOnlyMode { get; set; }
         Stream Stream { get; set; }
         long SelectionStart { get; set; }
-        long SelectionStop { get; set; }
+        long SelectionLength { get; set; }
         long Position { get; set; }
         long FocusPosition { get; set; }
-        ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; set; }
+        IList<(long index, long length, Brush background)> CustomBackgroundBlocks { get; }
         object Tag { get; set; }
     }
 

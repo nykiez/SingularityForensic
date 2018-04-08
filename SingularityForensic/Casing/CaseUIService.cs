@@ -102,7 +102,7 @@ namespace SingularityForensic.Casing {
         //案件被卸载时发生;
         private void OnCaseUnloaded() {
             //清空Tab;
-            DocumentTabService.Current.CloseAllTabs();
+            DocumentService.MainDocumentService.CloseAllDocuments();
             //清空树形;
             NodeService.Current?.ClearNodes();
             //重置标题;

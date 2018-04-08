@@ -8,6 +8,7 @@ namespace SingularityForensic.Previewers.Views {
     public partial class VlcVideoPreviewer : UserControl {
         public VlcVideoPreviewer() {
             InitializeComponent();
+            
         }
         public VlcPlayer Player => player;
     }

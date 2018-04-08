@@ -65,6 +65,12 @@ namespace SingularityForensic.Controls.Previewers.Views {
             catch {
                 throw;
             }
+
+            this.Unloaded += OutsideInPreviewer_Unloaded;
+        }
+
+        private void OutsideInPreviewer_Unloaded(object sender, RoutedEventArgs e) {
+            
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e) {
@@ -89,6 +95,8 @@ namespace SingularityForensic.Controls.Previewers.Views {
         }
         public void CloseFile() {
             DoCloseFile(panel.Handle, viewerHandle);
+            panel.SizeChanged -= panel_SizeChanged;
+            panel.Dispose();
         }
     }
     public partial class OutsideInPreviewer {

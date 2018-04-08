@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.Previewers;
 using System;
 using System.IO;
 using System.Windows;
@@ -50,19 +51,19 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             DisposePreviewer();
 
             //获得所有的预览器提供器;
-            var preProviders = ServiceProvider.Current.GetAllInstances<IPreviewerProvider>();
+            var preProviders = ServiceProvider.Current.GetAllInstances<IPreviewProvider>();
             if(preProviders == null) {
                 return;
             }
 
             Application.Current.Dispatcher.Invoke(() => {
                 try {
-                    foreach (var provider in preProviders) {
-                        Previewer = provider.GetPreviewer(fileName);
-                        if(Previewer != null) {
-                            break;
-                        }
-                    }
+                    //foreach (var provider in preProviders) {
+                    //    Previewer = provider.GetPreviewer(fileName);
+                    //    if(Previewer != null) {
+                    //        break;
+                    //    }
+                    //}
                 }
                 catch (Exception ex) {
                     LoggerService.Current?.WriteCallerLine(ex.Message);

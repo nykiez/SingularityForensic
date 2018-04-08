@@ -14,5 +14,9 @@ namespace DemoUI {
                 
             };
         }
+
+        protected override void OnStartup(StartupEventArgs e) {
+            new DemoBootStrapper().Run();   
+        }
     }
 }
