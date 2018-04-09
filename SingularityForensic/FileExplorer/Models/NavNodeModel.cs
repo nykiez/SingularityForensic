@@ -2,7 +2,7 @@
 using SingularityForensic.Contracts.FileSystem;
 using System;
 
-namespace SingularityForensic.Controls.FileExplorer.Models {
+namespace SingularityForensic.FileExplorer.Models {
     //路径节点;
     public class NavNodeModel {
         public NavNodeModel(FileBase file) {

@@ -7,7 +7,6 @@ using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Controls.ViewModels;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using Telerik.Windows.Controls;
 using SingularityForensic.FileExplorer.Models;
-using SingularityForensic.Data;
+using SingularityForensic.Contracts.Controls;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -38,8 +37,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// <summary>
         /// 分区数据绑定源;
         /// </summary>
-        public CustomTypedListSource<Partition> Partitions { get; set; } 
-            = new CustomTypedListSource<Partition>();
+        public CustomTypedListSource<PartitionRow> Partitions { get; set; } 
+            = new CustomTypedListSource<PartitionRow>();
         
         /// <summary>
         /// 初始化行元数据提供器;
@@ -49,13 +48,13 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 return;
             }
 
-            var partMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IPartMetaDataProvider>();
+            var partMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IPartitionMetaDataProvider>();
             if (partMetaDataProviders == null) {
                 LoggerService.WriteCallerLine($"{nameof(partMetaDataProviders)} can't be null.");
                 return;
             }
 
-            PartitionRow.InitializeDescripters(partMetaDataProviders);
+            PartitionRow.InitializeDescriptors(partMetaDataProviders);
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 if(part == null) {
                     continue;
                 }
-                Partitions.Add(part);
+                Partitions.Add(new PartitionRow(part));
             }
         }
         
@@ -103,8 +102,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         public FileBase SelectedPart { get; private set; }
         
-        private ObservableCollection<CommandItem> _contextCommands;
-        public override ObservableCollection<CommandItem> ContextCommands {
+        private IList<CommandItem> _contextCommands;
+        public override IList<CommandItem> ContextCommands {
             get {
                 //if (_contextCommands == null) {
                 //    var mainViewerCommandItem = new CommandItem {  CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
@@ -121,10 +120,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
         //GridViewAutoGeneratingColumnEventArgs
-        private DelegateCommand<GridViewAutoGeneratingColumnEventArgs> _autoGeneratingColumnCommand;
-        public DelegateCommand<GridViewAutoGeneratingColumnEventArgs> AutoGeneratingColumnCommand =>
+        private DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs> _autoGeneratingColumnCommand;
+        public DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs> AutoGeneratingColumnCommand =>
             _autoGeneratingColumnCommand ??
-            (_autoGeneratingColumnCommand = new DelegateCommand<GridViewAutoGeneratingColumnEventArgs>(
+            (_autoGeneratingColumnCommand = new DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs>(
                 e => {
                     if (e == null) {
                         return;

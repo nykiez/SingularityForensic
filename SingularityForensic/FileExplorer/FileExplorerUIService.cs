@@ -10,7 +10,6 @@ using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.Previewers;
 using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -18,6 +17,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.IO;
+using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>
@@ -83,76 +84,76 @@ namespace SingularityForensic.FileExplorer {
             PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(OnDocumentClosed);
         }
 
-        private void OnFocusedFileChangedOnPartPreview((FileBase file, IHaveFileCollection parent) tuple) {
-            var previewTuple = _previewTuplesForPartDocs.FirstOrDefault(p => p?.part == tuple.parent);
-            if (previewTuple == null) {
-                LoggerService.WriteCallerLine($"{nameof(previewTuple)} can't be null.");
-                return;
-            }
+        private void OnFocusedFileChangedOnPartPreview((object sender,FileBase file) tuple) {
+            //var previewTuple = _previewTuplesForPartDocs.FirstOrDefault(p => p?.part == tuple.parent);
+            //if (previewTuple == null) {
+            //    LoggerService.WriteCallerLine($"{nameof(previewTuple)} can't be null.");
+            //    return;
+            //}
             
-            if (!(tuple.file is IBlockGroupedFile blockGrouped)) {
-                return;
-            }
+            //if (!(tuple.file is IBlockGroupedFile blockGrouped)) {
+            //    return;
+            //}
 
-            var fileBaseStream = blockGrouped.GetInputStream();
-            if(fileBaseStream == null) {
-                LoggerService.WriteCallerLine($"{nameof(fileBaseStream)} can't be null.");
-                return;
-            }
+            //var fileBaseStream = blockGrouped.GetInputStream();
+            //if(fileBaseStream == null) {
+            //    LoggerService.WriteCallerLine($"{nameof(fileBaseStream)} can't be null.");
+            //    return;
+            //}
 
-            if(_previewerProviders == null) {
-                LoggerService.WriteCallerLine($"{nameof(_previewerProviders)} can't be null.");
-                return;
-            }
+            //if(_previewerProviders == null) {
+            //    LoggerService.WriteCallerLine($"{nameof(_previewerProviders)} can't be null.");
+            //    return;
+            //}
 
-            var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
-            var tempFileName = tempDirectory + Path.GetRandomFileName();
+            //var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
+            //var tempFileName = tempDirectory + Path.GetRandomFileName();
 
-            var saved = false;
-            IPreviewer previewer = null;
+            //var saved = false;
+            //IPreviewer previewer = null;
 
-            foreach (var provider in _previewerProviders) {
-                try {
-                    //若要求保存到本地,则临时保存;
-                    if (provider.NeedSaveLocal && !saved) {
-                        //创建临时文件夹;
-                        if (!System.IO.Directory.Exists(tempDirectory)) {
-                            System.IO.Directory.CreateDirectory(tempDirectory);
-                        }
+            //foreach (var provider in _previewerProviders) {
+            //    try {
+            //        //若要求保存到本地,则临时保存;
+            //        if (provider.NeedSaveLocal && !saved) {
+            //            //创建临时文件夹;
+            //            if (!System.IO.Directory.Exists(tempDirectory)) {
+            //                System.IO.Directory.CreateDirectory(tempDirectory);
+            //            }
 
-                        using (var tempFs = File.Create(tempFileName)) {
-                            fileBaseStream.CopyTo(tempFs);
-                            saved = true;
-                        }
-                    }
+            //            using (var tempFs = File.Create(tempFileName)) {
+            //                fileBaseStream.CopyTo(tempFs);
+            //                saved = true;
+            //            }
+            //        }
                     
-                    if (provider.NeedSaveLocal) {
-                        if (saved) {
-                            previewer = provider.CreatePreviewer(tempFileName, tuple.file.Name);
-                        }
-                    }
-                    else {
-                        previewer = provider.CreatePreviewer(fileBaseStream);
-                    }
+            //        if (provider.NeedSaveLocal) {
+            //            if (saved) {
+            //                previewer = provider.CreatePreviewer(tempFileName, tuple.file.Name);
+            //            }
+            //        }
+            //        else {
+            //            previewer = provider.CreatePreviewer(fileBaseStream);
+            //        }
 
-                    if(previewer != null) {
-                        break;
-                    }
-                }
-                catch (Exception ex) {
-                    LoggerService.WriteCallerLine(ex.Message);
-                }
-            }
+            //        if(previewer != null) {
+            //            break;
+            //        }
+            //    }
+            //    catch (Exception ex) {
+            //        LoggerService.WriteCallerLine(ex.Message);
+            //    }
+            //}
             
-            if(previewer != null) {
-                var tupleValue = previewTuple.Value;
-                tupleValue.previewer?.Dispose();
-                tupleValue.previewer = previewer;
-                tupleValue.previewDoc.UIObject = previewer.View;
+            //if(previewer != null) {
+            //    var tupleValue = previewTuple.Value;
+            //    tupleValue.previewer?.Dispose();
+            //    tupleValue.previewer = previewer;
+            //    tupleValue.previewDoc.UIObject = previewer.View;
 
-                _previewTuplesForPartDocs.Remove(previewTuple);
-                _previewTuplesForPartDocs.Add(tupleValue);
-            }
+            //    _previewTuplesForPartDocs.Remove(previewTuple);
+            //    _previewTuplesForPartDocs.Add(tupleValue);
+            //}
 
             
         }
@@ -180,24 +181,24 @@ namespace SingularityForensic.FileExplorer {
         /// 分区选中行发生变更新十六进制变化;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnFocusedFileChangedOnPartHex((FileBase file, IHaveFileCollection parent) tuple) {
-            var focusedTuple = _hexTuplesForPartDocs.FirstOrDefault(p => p?.part == tuple.parent);
-            if (focusedTuple == null) {
-                LoggerService.WriteCallerLine($"{nameof(focusedTuple)} can't be null.");
-                return;
-            }
+        private void OnFocusedFileChangedOnPartHex((object sender, FileBase file) tuple) {
+            //var focusedTuple = _hexTuplesForPartDocs.FirstOrDefault(p => p?.part == tuple.parent);
+            //if (focusedTuple == null) {
+            //    LoggerService.WriteCallerLine($"{nameof(focusedTuple)} can't be null.");
+            //    return;
+            //}
 
-            if (!(tuple.file is IBlockGroupedFile blockGrouped)) {
-                return;
-            }
+            //if (!(tuple.file is IBlockGroupedFile blockGrouped)) {
+            //    return;
+            //}
 
-            var startLBA = blockGrouped.GetStartLBA();
-            if(startLBA != null) {
-                focusedTuple.Value.partHexContext.Position = startLBA.Value;
-            }
+            //var startLBA = blockGrouped.GetStartLBA();
+            //if(startLBA != null) {
+            //    focusedTuple.Value.partHexContext.Position = startLBA.Value;
+            //}
 
-            var fileBaseStream = blockGrouped.GetInputStream();
-            focusedTuple.Value.fileHexContext.Stream = fileBaseStream;
+            //var fileBaseStream = blockGrouped.GetInputStream();
+            //focusedTuple.Value.fileHexContext.Stream = fileBaseStream;
             
         }
 
@@ -241,17 +242,20 @@ namespace SingularityForensic.FileExplorer {
         /// 设备选中行发生变更时十六进制变化;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnFocusedFileChangedOnDeviceHex((FileBase file, IHaveFileCollection parent) tuple) {
-            var focusedTuple = _hexTuplesForDeviceDocs.FirstOrDefault(p => p?.device == tuple.parent);
-            if(focusedTuple == null) {
-                LoggerService.WriteCallerLine($"{nameof(focusedTuple)} can't be null.");
-                return;
-            }
+        private void OnFocusedFileChangedOnDeviceHex((object sender,FileBase file) tuple) {
+            //if(tuple.sender is IFolderBrowserViewModel vm) {
 
-            if(tuple.file is Partition part) {
-                focusedTuple.Value.deviceHexContext.Position = focusedTuple.Value.device.GetStartLBA(part);
-                focusedTuple.Value.partHexContext.Stream = part.BaseStream;
-            }
+            //}
+            //var focusedTuple = _hexTuplesForDeviceDocs.FirstOrDefault(p => p?.device == tuple.parent);
+            //if(focusedTuple == null) {
+            //    LoggerService.WriteCallerLine($"{nameof(focusedTuple)} can't be null.");
+            //    return;
+            //}
+
+            //if(tuple.file is Partition part) {
+            //    focusedTuple.Value.deviceHexContext.Position = focusedTuple.Value.device.GetStartLBA(part);
+            //    focusedTuple.Value.partHexContext.Stream = part.BaseStream;
+            //}
         }
         
         /// <summary>

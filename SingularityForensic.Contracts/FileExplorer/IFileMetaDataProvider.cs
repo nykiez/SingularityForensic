@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     /// <summary>
@@ -18,34 +20,77 @@ namespace SingularityForensic.Contracts.FileExplorer {
         //元数据类型;
         Type MetaDataType { get; }
 
-        //获取元数据;
-        object GetDataObject(TFile file);
-        
-        //GUID;
-        string GUID { get; }
-
-        //排序;
-        int Order { get; }
+        /// <summary>
+        /// 获取元数据;
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        object GetMetaData(TFile file);
 
         /// <summary>
-        /// 是否自动转换;
+        /// GUID;
         /// </summary>
-        bool AutoConvert { get; }
+        string GUID { get; }
 
+        /// <summary>
+        /// 排序;
+        /// </summary>
+        int Order { get; }
         
+        /// <summary>
+        /// 转换器,当且仅当DataTemplate为空时才可非空;
+        /// </summary>
+        IValueConverter Converter { get; }
+
+        /// <summary>
+        /// 用于自定义组成;
+        /// </summary>
+        DataTemplate CellTemplate { get; }
     }
 
     /// <summary>
     /// 用于文件/目录浏览器的元数据提供器;
     /// </summary>
     public interface IFileMetaDataProvider:IFileMetaDataProviderProxy<FileBase> {
+        
+    }
 
+    public abstract class FileMetaDataProvider : IFileMetaDataProvider {
+        public abstract string MetaDataName { get; }
+
+        public abstract Type MetaDataType { get; }
+
+        public abstract string GUID { get; }
+
+        public abstract int Order { get; }
+
+        public virtual IValueConverter Converter => null;
+
+        public virtual DataTemplate CellTemplate => null;
+
+        public abstract object GetMetaData(FileBase file);
     }
 
     /// <summary>
     /// 用于设备/分区浏览器的元数据提供器;
     /// </summary>
-    public interface IPartMetaDataProvider: IFileMetaDataProviderProxy<Partition> {
+    public interface IPartitionMetaDataProvider: IFileMetaDataProviderProxy<Partition> {
 
+    }
+
+    public abstract class PartitionMetaDataProvider:IPartitionMetaDataProvider {
+        public abstract string MetaDataName { get; }
+
+        public abstract Type MetaDataType { get; }
+
+        public abstract string GUID { get; }
+
+        public abstract int Order { get; }
+
+        public virtual IValueConverter Converter => null;
+
+        public virtual DataTemplate CellTemplate => null;
+
+        public abstract object GetMetaData(Partition file);
     }
 }

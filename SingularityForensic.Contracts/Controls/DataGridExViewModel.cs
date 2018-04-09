@@ -6,21 +6,30 @@ using System.Windows;
 using static CDFCCultures.Managers.ManagerLocator;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
+using System.ComponentModel;
+using SingularityForensic.Contracts.Controls;
+using System.Collections.Generic;
 
-namespace SingularityForensic.Controls.ViewModels {
+namespace SingularityForensic.Contracts.Controls {
     /// <summary>
     /// 可通知的后台处理视图模型;
     /// </summary>
-    public interface IInteractionDataGridViewModel {
+    public interface IInteractionGridViewModel {
         /// <summary>
         /// 通知后台双击事件;
         /// </summary>
         /// <param name="row"></param>
         void NotifyDoubleClickOnRow(object row);
-
+        /// <summary>
+        /// 通知后台正在自动生成列事件;
+        /// </summary>
+        /// <param name="row"></param>
+        void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e);
     }
 
-    public class DataGridExViewModel:BindableBase, IInteractionDataGridViewModel {
+   
+
+    public class DataGridExViewModel:BindableBase, IInteractionGridViewModel {
         private string _selectedText;
         public string SelectedText {
             get => _selectedText;
@@ -69,17 +78,16 @@ namespace SingularityForensic.Controls.ViewModels {
             }
         }
         
-        private ObservableCollection<CommandItem> _contextCommands;
+        private IList<CommandItem> _contextCommands;
         /// <summary>
         /// 上下文菜单命令项;
         /// </summary>
-        public virtual ObservableCollection<CommandItem> ContextCommands {
+        public virtual IList<CommandItem> ContextCommands {
             get {
                 if(_contextCommands == null) {
                     _contextCommands = new ObservableCollection<CommandItem>() {
                         CopySelectedTextCommandItem
                     };
-                    
                 }
                 return _contextCommands;
             }
@@ -87,6 +95,9 @@ namespace SingularityForensic.Controls.ViewModels {
         }
 
         public virtual void NotifyDoubleClickOnRow(object row) {
+        }
+
+        public virtual void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs arg) {
         }
     }
 }

@@ -2,7 +2,7 @@
 using SingularityForensic.Contracts.FileSystem;
 using System.IO;
 
-namespace SingularityForensic.Controls.FileExplorer.Helpers {
+namespace SingularityForensic.FileExplorer.Helpers {
     public static class FileRowHelper {
         private const int limSize = 10485760 * 10;
         /// <summary>

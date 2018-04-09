@@ -62,7 +62,7 @@ namespace DemoUI {
         }
 
         static void TestPartitionNodeClick() {
-            var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32.img"), "mmp", null, null);
+            var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null);
             var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit, file);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);

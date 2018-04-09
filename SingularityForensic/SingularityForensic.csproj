@@ -326,7 +326,6 @@
     <Compile Include="Controls\Models\Filtering\FilterStringModel.cs" />
     <Compile Include="Controls\Models\Filtering\IFilterModel.cs" />
     <Compile Include="Controls\Models\SignSearchSetting.cs" />
-    <Compile Include="Controls\ViewModels\DataGridExViewModel.cs" />
     <Compile Include="Controls\ViewModels\InfoBasicViewModel.cs" />
     <Compile Include="Controls\ViewModels\TalkViewModel.cs" />
     <Compile Include="Controls\Views\ActiveOrNotView.xaml.cs">
@@ -374,7 +373,6 @@
     <Compile Include="Controls\Windows\SignSearchWindow.xaml.cs">
       <DependentUpon>SignSearchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\CustomTypedListSource.cs" />
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Document.cs" />
     <Compile Include="Document\DocumentTabService.cs" />
@@ -1013,6 +1011,7 @@
     <Folder Include="Adb\Languages\en_US\" />
     <Folder Include="Casing\Languages\en_US\" />
     <Folder Include="Controls\Languages\en_US\" />
+    <Folder Include="Data\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />

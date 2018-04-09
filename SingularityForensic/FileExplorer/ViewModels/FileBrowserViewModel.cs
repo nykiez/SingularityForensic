@@ -131,25 +131,25 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         //应用过滤所有行;
         private void ApplyAllRows() {                                       
-            var fileRows = FilterRows(allRows);
-            Application.Current.Dispatcher.Invoke(() => {
-                FileRows.Clear();
-            });
-            var addedCount = 0;
+            //var fileRows = FilterRows(allRows);
+            //Application.Current.Dispatcher.Invoke(() => {
+            //    FileRows.Clear();
+            //});
+            //var addedCount = 0;
 
-            foreach (var row in fileRows) {
-                Application.Current.Dispatcher.Invoke(() => {
-                    FileRows.Add(row);
-                });   
-                row.CheckChanged += (sender, e) => {
-                    CheckAllChecked();
-                    //(FolderBrowserViewModel as DirectoriesBrowserViewModel)?.RecCheckedCommand.RaiseCanExecuteChanged();
-                };
-                addedCount++;
-                if (addedCount % 10000 == 0) {
-                    Thread.Sleep(10);
-                }
-            }
+            //foreach (var row in fileRows) {
+            //    Application.Current.Dispatcher.Invoke(() => {
+            //        FileRows.Add(row);
+            //    });   
+            //    row.CheckChanged += (sender, e) => {
+            //        CheckAllChecked();
+            //        //(FolderBrowserViewModel as DirectoriesBrowserViewModel)?.RecCheckedCommand.RaiseCanExecuteChanged();
+            //    };
+            //    addedCount++;
+            //    if (addedCount % 10000 == 0) {
+            //        Thread.Sleep(10);
+            //    }
+            //}
         }
 
         //是否已经被展开;
@@ -207,7 +207,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         AddPartTabRequired?.Invoke(this, new TEventArgs<Partition>(fileRow.File as Partition));
                     }
                 }
-                AllChecked = false;
+                //AllChecked = false;
             }
             
         }
@@ -219,148 +219,148 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public virtual FolderBrowserViewModel FolderBrowserViewModel {
             get {
                 if(folderBrowserViewModel == null) {
-                    if(File is Device) {
-                        //folderBrowserViewModel = new PartitionsBrowserViewModel(File as Device);
-                    }
-                    else if(File is Partition) {
-                        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
-                    }
-                    else if(File is Directory){
-                        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
-                    }
+                //    if(File is Device) {
+                //        //folderBrowserViewModel = new PartitionsBrowserViewModel(File as Device);
+                //    }
+                //    else if(File is Partition) {
+                //        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
+                //    }
+                //    else if(File is Directory){
+                //        //folderBrowserViewModel = new DirectoriesBrowserViewModel(File);
+                //    }
 
-                    folderBrowserViewModel.FilterFileNameNeeded = FilterFileNameNeeded;
+                //    folderBrowserViewModel.FilterFileNameNeeded = FilterFileNameNeeded;
 
-                    //为文件行变更时;
-                    folderBrowserViewModel.FileRows = FileRows;
-                    WeakEventManager <FolderBrowserViewModel,TEventArgs<IFileRow>>.
-                        AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.SelectedFileRowChanged),
-                    (sender, e) => {
-                        EscapeToFile(e.Target);
-                    });
+                //    //为文件行变更时;
+                //    folderBrowserViewModel.FileRows = FileRows;
+                //    WeakEventManager <FolderBrowserViewModel,TEventArgs<IFileRow>>.
+                //        AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.SelectedFileRowChanged),
+                //    (sender, e) => {
+                //        EscapeToFile(e.Target);
+                //    });
 
-                    WeakEventManager<FolderBrowserViewModel, TEventArgs<long>>.
-                        AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FocusAddressChanged),
-                        (sender, e) => {
-                            Partition part = null;
-                            if (OwnerFile is IBlockedStream blockDevice) {
-                                part = OwnerFile as Partition;
-                            }
-                            if (part != null) {
-                                if (0 <= e.Target && e.Target < part.Size) {
-                                    //MainHexViewModel.Position = e.Target * 4096;
-                                }
-                            }
-                        });
+                //    WeakEventManager<FolderBrowserViewModel, TEventArgs<long>>.
+                //        AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FocusAddressChanged),
+                //        (sender, e) => {
+                //            Partition part = null;
+                //            if (OwnerFile is IBlockedStream blockDevice) {
+                //                part = OwnerFile as Partition;
+                //            }
+                //            if (part != null) {
+                //                if (0 <= e.Target && e.Target < part.Size) {
+                //                    //MainHexViewModel.Position = e.Target * 4096;
+                //                }
+                //            }
+                //        });
 
-                    WeakEventManager<FolderBrowserViewModel,TEventArgs<IFileRow>>
-                        .AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.RowEntered),
-                        (sender, e) => {
-                            EnterRow(e.Target);
-                        });
+                //    WeakEventManager<FolderBrowserViewModel,TEventArgs<IFileRow>>
+                //        .AddHandler(folderBrowserViewModel,nameof(folderBrowserViewModel.RowEntered),
+                //        (sender, e) => {
+                //            EnterRow(e.Target);
+                //        });
                     
-                    WeakEventManager<FolderBrowserViewModel, TEventArgs<ViewerProgramMessage>>
-                       .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.WatchRequired),
-                       (sender, e) => {
-                           WatchRequired?.Invoke(this, e);
-                       });
+                //    WeakEventManager<FolderBrowserViewModel, TEventArgs<ViewerProgramMessage>>
+                //       .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.WatchRequired),
+                //       (sender, e) => {
+                //           WatchRequired?.Invoke(this, e);
+                //       });
 
-                    WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFileNameRequired),
-                      (sender, e) => {
-                          var res = FilterStringMessageBox.Show(ref filterFileNameModel);
-                          if(res == null) {
-                              return;
-                          }
+                //    WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFileNameRequired),
+                //      (sender, e) => {
+                //          var res = FilterStringMessageBox.Show(ref filterFileNameModel);
+                //          if(res == null) {
+                //              return;
+                //          }
                           
 
-                          ExistingBrowsers.ForEach(p => p.FilterFileNameNeeded = filterFileNameModel?.IsEnabled??false);
-                          RefilterRows(nameof(FolderBrowserViewModel.FilterFileNameRequired));
-                      });
+                //          ExistingBrowsers.ForEach(p => p.FilterFileNameNeeded = filterFileNameModel?.IsEnabled??false);
+                //          RefilterRows(nameof(FolderBrowserViewModel.FilterFileNameRequired));
+                //      });
 
-                    WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFileSizeRequired),
-                      (sender, e) => {
-                          var res = FilterSizeMessageBox.Show(ref filterFileSizeModel);
+                //    WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFileSizeRequired),
+                //      (sender, e) => {
+                //          var res = FilterSizeMessageBox.Show(ref filterFileSizeModel);
 
-                          if (res == null) {
-                              return;
-                          }
-                          if (!FilterFileSizeNeeded && !res.Value) {
-                              return;
-                          }
+                //          if (res == null) {
+                //              return;
+                //          }
+                //          if (!FilterFileSizeNeeded && !res.Value) {
+                //              return;
+                //          }
 
-                          ExistingBrowsers.ForEach(p => p.FilterFileSizeNeeded = res.Value);
-                          RefilterRows(nameof(FolderBrowserViewModel.FilterFileSizeRequired));
-                      });
+                //          ExistingBrowsers.ForEach(p => p.FilterFileSizeNeeded = res.Value);
+                //          RefilterRows(nameof(FolderBrowserViewModel.FilterFileSizeRequired));
+                //      });
                     
-                      WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFilePathRequired),
-                      (sender, e) => {
-                          var res = FilterStringMessageBox.Show(ref filterFilePathModel);
-                          if(res == null) {
-                              return;
-                          }
-                          ExistingBrowsers.ForEach(p => p.FilterFilePathNeeded = filterFilePathModel.IsEnabled);
-                          RefilterRows(nameof(FolderBrowserViewModel.FilterFilePathRequired));
-                      });
+                //      WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterFilePathRequired),
+                //      (sender, e) => {
+                //          var res = FilterStringMessageBox.Show(ref filterFilePathModel);
+                //          if(res == null) {
+                //              return;
+                //          }
+                //          ExistingBrowsers.ForEach(p => p.FilterFilePathNeeded = filterFilePathModel.IsEnabled);
+                //          RefilterRows(nameof(FolderBrowserViewModel.FilterFilePathRequired));
+                //      });
 
-                    WeakEventManager<FolderBrowserViewModel, EventArgs>
-                     .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterMTimeRequired),
-                     (sender, e) => {
-                         var res = FilterDTMessageBox.Show(ref filterMTimeModel);
-                         if (res == null) {
-                             return;
-                         }
-                         if (!FilterMTimeNeeded && !res.Value) {
-                             return;
-                         }
-                         ExistingBrowsers.ForEach(p => p.FilterMTimeNeeded = res.Value);
-                         RefilterRows(nameof(FolderBrowserViewModel.FilterMTimeRequired));
-                     });
+                //    WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //     .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterMTimeRequired),
+                //     (sender, e) => {
+                //         var res = FilterDTMessageBox.Show(ref filterMTimeModel);
+                //         if (res == null) {
+                //             return;
+                //         }
+                //         if (!FilterMTimeNeeded && !res.Value) {
+                //             return;
+                //         }
+                //         ExistingBrowsers.ForEach(p => p.FilterMTimeNeeded = res.Value);
+                //         RefilterRows(nameof(FolderBrowserViewModel.FilterMTimeRequired));
+                //     });
                     
-                      WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterATimeRequired),
-                      (sender, e) => {
-                          var res = FilterDTMessageBox.Show(ref filterATimeModel);
-                          if (res == null) {
-                              return;
-                          }
-                          if (!FilterATimeNeeded && !res.Value) {
-                              return;
-                          }
-                          ExistingBrowsers.ForEach(p => p.FilterATimeNeeded = res.Value);
-                          RefilterRows(nameof(FolderBrowserViewModel.FilterATimeRequired));
-                      });
+                //      WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterATimeRequired),
+                //      (sender, e) => {
+                //          var res = FilterDTMessageBox.Show(ref filterATimeModel);
+                //          if (res == null) {
+                //              return;
+                //          }
+                //          if (!FilterATimeNeeded && !res.Value) {
+                //              return;
+                //          }
+                //          ExistingBrowsers.ForEach(p => p.FilterATimeNeeded = res.Value);
+                //          RefilterRows(nameof(FolderBrowserViewModel.FilterATimeRequired));
+                //      });
                     
-                      WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterCTimeRequired),
-                      (sender, e) => {
-                          var res = FilterDTMessageBox.Show(ref filterCTimeModel);
-                          if (res == null) {
-                              return;
-                          }
-                          if (!FilterCTimeNeeded && !res.Value) {
-                              return;
-                          }
-                          ExistingBrowsers.ForEach(p => p.FilterCTimeNeeded = res.Value);
-                          RefilterRows(nameof(FolderBrowserViewModel.FilterCTimeRequired));
-                      });
+                //      WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.FilterCTimeRequired),
+                //      (sender, e) => {
+                //          var res = FilterDTMessageBox.Show(ref filterCTimeModel);
+                //          if (res == null) {
+                //              return;
+                //          }
+                //          if (!FilterCTimeNeeded && !res.Value) {
+                //              return;
+                //          }
+                //          ExistingBrowsers.ForEach(p => p.FilterCTimeNeeded = res.Value);
+                //          RefilterRows(nameof(FolderBrowserViewModel.FilterCTimeRequired));
+                //      });
 
-                        WeakEventManager<FolderBrowserViewModel, EventArgs>
-                      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.RefilterRequired),
-                      (sender, e) => {
-                          if (AnyFiltering) {
-                              AnyFiltering = false;
-                              FilterFileNameNeeded = false;
-                              FilterFilePathNeeded = false;
-                              FilterFileSizeNeeded = false;
-                              FilterMTimeNeeded = false;
-                              FilterATimeNeeded = false;
-                              FilterCTimeNeeded = false;
-                              RefilterRows("all");
-                          }
-                      });
+                //        WeakEventManager<FolderBrowserViewModel, EventArgs>
+                //      .AddHandler(folderBrowserViewModel, nameof(folderBrowserViewModel.RefilterRequired),
+                //      (sender, e) => {
+                //          if (AnyFiltering) {
+                //              AnyFiltering = false;
+                //              FilterFileNameNeeded = false;
+                //              FilterFilePathNeeded = false;
+                //              FilterFileSizeNeeded = false;
+                //              FilterMTimeNeeded = false;
+                //              FilterATimeNeeded = false;
+                //              FilterCTimeNeeded = false;
+                //              RefilterRows("all");
+                //          }
+                //      });
                 }
                 return folderBrowserViewModel;
             }
@@ -369,34 +369,34 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         //重新过滤委托;
         private static void RefilterRows(string tp) {
             ExistingBrowsers.ForEach(p => {
-                p.IsLoadingRequired?.Invoke(p, new TEventArgs<bool>(true));
-                ThreadPool.QueueUserWorkItem(callBack => {
-                    try {
-                        //若已经展开，则递归添加并过滤;
-                        if (p.IsExpanded) {
-                            //递归添加并过滤;
-                            p.ApplyAllRows();
-                        }
-                        else {
-                            Application.Current.Dispatcher.Invoke(() => {
-                                p.CurFile = p.CurFile;
-                            });
-                        }
-                    }
-                    catch (Exception ex) {
-                        Logger.Write($"{nameof(FileBrowserViewModel)}->{nameof(FolderBrowserViewModel)},Event type: {tp}:{ex.Message}");
-                    }
-                    finally {
-                        p.IsLoadingRequired?.Invoke(p, new TEventArgs<bool>(false));
-                        p.AnyFiltering = p.FilterFileNameNeeded ||
-                        p.FilterFilePathNeeded ||
-                        p.FilterFileSizeNeeded ||
-                        p.FilterMTimeNeeded ||
-                        p.FilterATimeNeeded ||
-                        p.FilterCTimeNeeded;
-                    }
+                //p.IsLoadingRequired?.Invoke(p, new TEventArgs<bool>(true));
+                //ThreadPool.QueueUserWorkItem(callBack => {
+                //    try {
+                //        //若已经展开，则递归添加并过滤;
+                //        if (p.IsExpanded) {
+                //            //递归添加并过滤;
+                //            p.ApplyAllRows();
+                //        }
+                //        else {
+                //            Application.Current.Dispatcher.Invoke(() => {
+                //                p.CurFile = p.CurFile;
+                //            });
+                //        }
+                //    }
+                //    catch (Exception ex) {
+                //        Logger.Write($"{nameof(FileBrowserViewModel)}->{nameof(FolderBrowserViewModel)},Event type: {tp}:{ex.Message}");
+                //    }
+                //    finally {
+                //        p.IsLoadingRequired?.Invoke(p, new TEventArgs<bool>(false));
+                //        p.AnyFiltering = p.FilterFileNameNeeded ||
+                //        p.FilterFilePathNeeded ||
+                //        p.FilterFileSizeNeeded ||
+                //        p.FilterMTimeNeeded ||
+                //        p.FilterATimeNeeded ||
+                //        p.FilterCTimeNeeded;
+                //    }
 
-                });
+                //});
             });
             
         }
@@ -604,220 +604,220 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
     //过滤相关;
     public abstract partial class FileBrowserViewModel {
-        //过滤文件名相关;
-        //是否开启了过滤文件名;
-        public bool FilterFileNameNeeded {
-            get {
-                return filterFileNameModel?.IsEnabled ?? false;
-            }
-            set {
-                if(filterFileNameModel != null) {
-                    filterFileNameModel.IsEnabled = value;
-                }
-                FolderBrowserViewModel.FilterFileNameNeeded = value;
-            }
-        }
-        private static FilterStringModel filterFileNameModel;
+        ////过滤文件名相关;
+        ////是否开启了过滤文件名;
+        //public bool FilterFileNameNeeded {
+        //    get {
+        //        return filterFileNameModel?.IsEnabled ?? false;
+        //    }
+        //    set {
+        //        if(filterFileNameModel != null) {
+        //            filterFileNameModel.IsEnabled = value;
+        //        }
+        //        FolderBrowserViewModel.FilterFileNameNeeded = value;
+        //    }
+        //}
+        //private static FilterStringModel filterFileNameModel;
         
-        public bool FilterFileSizeNeeded {
-            get {
-                return FolderBrowserViewModel.FilterFileSizeNeeded;
-            }
-            set {
-                FolderBrowserViewModel.FilterFileSizeNeeded = value;
-            }
-        }
-        private static FilterSizeModel filterFileSizeModel;
+        //public bool FilterFileSizeNeeded {
+        //    get {
+        //        return FolderBrowserViewModel.FilterFileSizeNeeded;
+        //    }
+        //    set {
+        //        FolderBrowserViewModel.FilterFileSizeNeeded = value;
+        //    }
+        //}
+        //private static FilterSizeModel filterFileSizeModel;
 
-        public bool FilterFilePathNeeded {
-            get {
-                return FolderBrowserViewModel.FilterFilePathNeeded;
-            }
-            set {
-                FolderBrowserViewModel.FilterFilePathNeeded = value;
-            }
-        }
-        private static FilterStringModel filterFilePathModel;
+        //public bool FilterFilePathNeeded {
+        //    get {
+        //        return FolderBrowserViewModel.FilterFilePathNeeded;
+        //    }
+        //    set {
+        //        FolderBrowserViewModel.FilterFilePathNeeded = value;
+        //    }
+        //}
+        //private static FilterStringModel filterFilePathModel;
 
-        public bool FilterMTimeNeeded {
-            get {
-                return FolderBrowserViewModel.FilterMTimeNeeded;
-            }
-            set {
-                FolderBrowserViewModel.FilterMTimeNeeded = value;
-            }
-        }
-        private static FilterDateModel filterMTimeModel;
+        //public bool FilterMTimeNeeded {
+        //    get {
+        //        return FolderBrowserViewModel.FilterMTimeNeeded;
+        //    }
+        //    set {
+        //        FolderBrowserViewModel.FilterMTimeNeeded = value;
+        //    }
+        //}
+        //private static FilterDateModel filterMTimeModel;
 
-        public bool FilterCTimeNeeded {
-            get {
-                return FolderBrowserViewModel.FilterCTimeNeeded;
-            }
-            set {
-                FolderBrowserViewModel.FilterCTimeNeeded = value;
-            }
-        }
-        private static FilterDateModel filterCTimeModel;
+        //public bool FilterCTimeNeeded {
+        //    get {
+        //        return FolderBrowserViewModel.FilterCTimeNeeded;
+        //    }
+        //    set {
+        //        FolderBrowserViewModel.FilterCTimeNeeded = value;
+        //    }
+        //}
+        //private static FilterDateModel filterCTimeModel;
 
-        public bool FilterATimeNeeded {
-            get {
-                return FolderBrowserViewModel.FilterATimeNeeded;
-            }
-            set {
-                FolderBrowserViewModel.FilterATimeNeeded = value;
-            }
-        }
-        private static FilterDateModel filterATimeModel;
+        //public bool FilterATimeNeeded {
+        //    get {
+        //        return FolderBrowserViewModel.FilterATimeNeeded;
+        //    }
+        //    set {
+        //        FolderBrowserViewModel.FilterATimeNeeded = value;
+        //    }
+        //}
+        //private static FilterDateModel filterATimeModel;
 
 
-        public bool AnyFiltering {
-            get {
-                return FolderBrowserViewModel?.AnyFiltering??false;
-            }
-            set {
-                if (FolderBrowserViewModel != null) {
-                    FolderBrowserViewModel.AnyFiltering = value;
-                }
+        //public bool AnyFiltering {
+        //    get {
+        //        return FolderBrowserViewModel?.AnyFiltering??false;
+        //    }
+        //    set {
+        //        if (FolderBrowserViewModel != null) {
+        //            FolderBrowserViewModel.AnyFiltering = value;
+        //        }
                 
-            }
-        }
+        //    }
+        //}
 
-        //文件/资源行;(须在外部指定实例);
-        public ObservableCollection<IFileRow> FileRows { get; set; } = new ObservableCollection<IFileRow>();
+        ////文件/资源行;(须在外部指定实例);
+        //public ObservableCollection<IFileRow> FileRows { get; set; } = new ObservableCollection<IFileRow>();
 
-        //是否全选;
-        public bool? AllChecked {
-            get {
-                return FolderBrowserViewModel?.AllChecked;
-            }
-            set {
-                if(FolderBrowserViewModel != null) {
-                    FolderBrowserViewModel.AllChecked = value;
-                }
-            }
-        }
+        ////是否全选;
+        //public bool? AllChecked {
+        //    get {
+        //        return FolderBrowserViewModel?.AllChecked;
+        //    }
+        //    set {
+        //        if(FolderBrowserViewModel != null) {
+        //            FolderBrowserViewModel.AllChecked = value;
+        //        }
+        //    }
+        //}
 
-        private void CheckAllChecked() {
-            var hasChecked = FolderBrowserViewModel?.FileRows.FirstOrDefault(p => p.Checked) != null;
-            var hasUnchecked = FolderBrowserViewModel?.FileRows.FirstOrDefault(p => !p.Checked) != null;
-            if (hasChecked && hasUnchecked) {
-                AllChecked = null;
-            }
-            else if (hasChecked) {
-                AllChecked = true;
-            }
-            else {
-                AllChecked = false;
-            }
-        }
+        //private void CheckAllChecked() {
+        //    var hasChecked = FolderBrowserViewModel?.FileRows.FirstOrDefault(p => p.Checked) != null;
+        //    var hasUnchecked = FolderBrowserViewModel?.FileRows.FirstOrDefault(p => !p.Checked) != null;
+        //    if (hasChecked && hasUnchecked) {
+        //        AllChecked = null;
+        //    }
+        //    else if (hasChecked) {
+        //        AllChecked = true;
+        //    }
+        //    else {
+        //        AllChecked = false;
+        //    }
+        //}
 
-        /// <summary>
-        /// 过滤得到满足条件的项,最基本方法;
-        /// </summary>
-        /// <param name="obRows"></param>
-        /// <returns></returns>
-        public IEnumerable<IFileRow> FilterRows(IEnumerable<IFileRow> obRows) {
-            IEnumerable<IFileRow> rows = obRows;
+        ///// <summary>
+        ///// 过滤得到满足条件的项,最基本方法;
+        ///// </summary>
+        ///// <param name="obRows"></param>
+        ///// <returns></returns>
+        //public IEnumerable<IFileRow> FilterRows(IEnumerable<IFileRow> obRows) {
+        //    IEnumerable<IFileRow> rows = obRows;
 
-            if (FilterFileNameNeeded) {
-                rows = FilterStringRow(rows, filterFileNameModel,row => row.FileName);
-            }
+        //    if (FilterFileNameNeeded) {
+        //        rows = FilterStringRow(rows, filterFileNameModel,row => row.FileName);
+        //    }
 
-            if (rows.Count() == 0) {
-                return rows;
-            }
+        //    if (rows.Count() == 0) {
+        //        return rows;
+        //    }
 
-            if (FilterFileSizeNeeded) {
-                rows = FilterSizeRow(rows, filterFileSizeModel);
-            }
+        //    if (FilterFileSizeNeeded) {
+        //        rows = FilterSizeRow(rows, filterFileSizeModel);
+        //    }
 
-            if(rows.Count() == 0) {
-                return rows;
-            }
+        //    if(rows.Count() == 0) {
+        //        return rows;
+        //    }
 
-            if (FilterFilePathNeeded) {
-                rows = FilterStringRow(rows, filterFilePathModel,row => row.FilePath);
-            }
+        //    if (FilterFilePathNeeded) {
+        //        rows = FilterStringRow(rows, filterFilePathModel,row => row.FilePath);
+        //    }
 
-            if(FilterMTimeNeeded) {
-                rows = FilterDTRow(rows, filterMTimeModel, row => row.ModifiedTime);
-            }
-            if (FilterATimeNeeded) {
-                rows = FilterDTRow(rows, filterATimeModel, row => row.AccessedTime);
-            }
-            if (FilterCTimeNeeded) {
-                rows = FilterDTRow(rows, filterCTimeModel, row => row.CreateTime);
-            }
+        //    if(FilterMTimeNeeded) {
+        //        rows = FilterDTRow(rows, filterMTimeModel, row => row.ModifiedTime);
+        //    }
+        //    if (FilterATimeNeeded) {
+        //        rows = FilterDTRow(rows, filterATimeModel, row => row.AccessedTime);
+        //    }
+        //    if (FilterCTimeNeeded) {
+        //        rows = FilterDTRow(rows, filterCTimeModel, row => row.CreateTime);
+        //    }
 
-            if (rows.Count() == 0) {
-                return rows;
-            }
+        //    if (rows.Count() == 0) {
+        //        return rows;
+        //    }
 
-            return rows;
-        }
+        //    return rows;
+        //}
         
-        private IEnumerable<IFileRow> FilterStringRow(IEnumerable<IFileRow> rows,FilterStringModel fsModel,Func<IFileRow,string> fieldFunc) {
-            if (fsModel == null)
-                return rows;
+        //private IEnumerable<IFileRow> FilterStringRow(IEnumerable<IFileRow> rows,FilterStringModel fsModel,Func<IFileRow,string> fieldFunc) {
+        //    if (fsModel == null)
+        //        return rows;
 
-            if (fsModel.MatchWay == StringMatchWay.AnyKey) {
-                var keys = fsModel.Keys.ToList();
-                keys.RemoveAll(p => string.IsNullOrWhiteSpace(p));
-                if (keys.Count > 0) {
-                    rows = rows.Where(r =>
-                        keys.Any(key => fieldFunc(r).IndexOf(key,fsModel.MatchCase?StringComparison.Ordinal:StringComparison.OrdinalIgnoreCase) != -1)
-                    );
-                }
-            }
-            else if (fsModel.MatchWay == StringMatchWay.FullMatch) {
-                List<IFileRow> rowList = new List<IFileRow>();
-                fsModel.Keys = fsModel.Keys?.Where(p => !string.IsNullOrWhiteSpace(p.Trim()))?.ToArray()??null;
+        //    if (fsModel.MatchWay == StringMatchWay.AnyKey) {
+        //        var keys = fsModel.Keys.ToList();
+        //        keys.RemoveAll(p => string.IsNullOrWhiteSpace(p));
+        //        if (keys.Count > 0) {
+        //            rows = rows.Where(r =>
+        //                keys.Any(key => fieldFunc(r).IndexOf(key,fsModel.MatchCase?StringComparison.Ordinal:StringComparison.OrdinalIgnoreCase) != -1)
+        //            );
+        //        }
+        //    }
+        //    else if (fsModel.MatchWay == StringMatchWay.FullMatch) {
+        //        List<IFileRow> rowList = new List<IFileRow>();
+        //        fsModel.Keys = fsModel.Keys?.Where(p => !string.IsNullOrWhiteSpace(p.Trim()))?.ToArray()??null;
 
-                foreach (var row in rows) {
-                    if(fsModel.Keys.FirstOrDefault(key => fieldFunc(row).IndexOf(key,fsModel.MatchCase?
-                        StringComparison.Ordinal:StringComparison.OrdinalIgnoreCase) != -1) != null){
-                        rowList.Add(row);
-                    }
-                }
+        //        foreach (var row in rows) {
+        //            if(fsModel.Keys.FirstOrDefault(key => fieldFunc(row).IndexOf(key,fsModel.MatchCase?
+        //                StringComparison.Ordinal:StringComparison.OrdinalIgnoreCase) != -1) != null){
+        //                rowList.Add(row);
+        //            }
+        //        }
                 
-                rows = rowList;
-            }
+        //        rows = rowList;
+        //    }
 
-            return rows;
-         }
+        //    return rows;
+        // }
 
-        private IEnumerable<IFileRow> FilterSizeRow(IEnumerable<IFileRow> rows,FilterSizeModel fzModel) {
-            if (fzModel.Condition == TwoConditionRule.MinOnly) {
-                rows = rows.Where(p => p.FileSize >= (fzModel.MinSize ?? 0));
-            }
-            else if (fzModel.Condition == TwoConditionRule.MaxOnly) {
-                rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0));
-            }
-            else if (fzModel.Condition == TwoConditionRule.MinOrMax) {
-                rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0) || p.FileSize >= (fzModel.MinSize));
-            }
-            else if (fzModel.Condition == TwoConditionRule.MinAndMax) {
-                rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0) && p.FileSize >= (fzModel.MinSize));
-            }
-            return rows;
-        }
+        //private IEnumerable<IFileRow> FilterSizeRow(IEnumerable<IFileRow> rows,FilterSizeModel fzModel) {
+        //    if (fzModel.Condition == TwoConditionRule.MinOnly) {
+        //        rows = rows.Where(p => p.FileSize >= (fzModel.MinSize ?? 0));
+        //    }
+        //    else if (fzModel.Condition == TwoConditionRule.MaxOnly) {
+        //        rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0));
+        //    }
+        //    else if (fzModel.Condition == TwoConditionRule.MinOrMax) {
+        //        rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0) || p.FileSize >= (fzModel.MinSize));
+        //    }
+        //    else if (fzModel.Condition == TwoConditionRule.MinAndMax) {
+        //        rows = rows.Where(p => p.FileSize <= (fzModel.MaxSize ?? 0) && p.FileSize >= (fzModel.MinSize));
+        //    }
+        //    return rows;
+        //}
 
-        private IEnumerable<IFileRow> FilterDTRow(IEnumerable<IFileRow> rows, FilterDateModel fdtModel, Func<IFileRow, DateTime?> dtFunc) {
-            if (fdtModel.Condition == TwoConditionRule.MinOnly) {
-                rows = rows.Where(p => dtFunc(p) >= fdtModel.MinTime);
-            }
-            else if (fdtModel.Condition == TwoConditionRule.MaxOnly) {
-                rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime);
-            }
-            else if(fdtModel.Condition == TwoConditionRule.MinOrMax) {
+        //private IEnumerable<IFileRow> FilterDTRow(IEnumerable<IFileRow> rows, FilterDateModel fdtModel, Func<IFileRow, DateTime?> dtFunc) {
+        //    if (fdtModel.Condition == TwoConditionRule.MinOnly) {
+        //        rows = rows.Where(p => dtFunc(p) >= fdtModel.MinTime);
+        //    }
+        //    else if (fdtModel.Condition == TwoConditionRule.MaxOnly) {
+        //        rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime);
+        //    }
+        //    else if(fdtModel.Condition == TwoConditionRule.MinOrMax) {
                 
-                rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime || dtFunc(p) >= fdtModel.MinTime);
-            }
-            else if(fdtModel.Condition == TwoConditionRule.MinAndMax) {
-                rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime && dtFunc(p) >= fdtModel.MinTime);
-            }
-            return rows;
-        }
+        //        rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime || dtFunc(p) >= fdtModel.MinTime);
+        //    }
+        //    else if(fdtModel.Condition == TwoConditionRule.MinAndMax) {
+        //        rows = rows.Where(p => dtFunc(p) <= fdtModel.MaxTime && dtFunc(p) >= fdtModel.MinTime);
+        //    }
+        //    return rows;
+        //}
     }
     
     //析构,预览相关;
@@ -859,7 +859,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         //关闭方法;
         public virtual void Dispose() {
             FolderBrowserViewModel.Exit();
-            FileRows.Clear();
+            //FileRows.Clear();
             allRows.Clear();
             ExistingBrowsers.Remove(this);
         }
@@ -930,27 +930,27 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             get {
                 if (_thumbNailModel == null) {
                     _thumbNailModel = new ThumbnailViewModel();
-                    _thumbNailModel.GetRowsFunc = () => FileRows;
+                    //_thumbNailModel.GetRowsFunc = () => FileRows;
 
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<ObservableCollection<IFileRow>>>.
-                        AddHandler(_thumbNailModel, nameof(_thumbNailModel.SetRows), (sender, e) => {
-                            FileRows = e.Target;
-                        });
+                    //WeakEventManager<ThumbnailViewModel, TEventArgs<ObservableCollection<IFileRow>>>.
+                    //    AddHandler(_thumbNailModel, nameof(_thumbNailModel.SetRows), (sender, e) => {
+                    //        FileRows = e.Target;
+                    //    });
 
-                    //进入目录;
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.EnterRowed), (sender, e) => {
-                        if(e.Target != null) {
-                            EnterRow(e.Target);
-                        }
-                    });
+                    ////进入目录;
+                    //WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.EnterRowed), (sender, e) => {
+                    //    if(e.Target != null) {
+                    //        EnterRow(e.Target);
+                    //    }
+                    //});
 
-                    //选定时滚动;
-                    WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.SelectedRowChanged), (sender, e) => {
-                        if(e.Target != null) {
-                            FolderBrowserViewModel.FocusRow = e.Target;
-                            FolderBrowserViewModel.SelectedFileRow = e.Target;
-                        }
-                    });
+                    ////选定时滚动;
+                    //WeakEventManager<ThumbnailViewModel, TEventArgs<IFileRow>>.AddHandler(_thumbNailModel, nameof(_thumbNailModel.SelectedRowChanged), (sender, e) => {
+                    //    if(e.Target != null) {
+                    //        FolderBrowserViewModel.FocusRow = e.Target;
+                    //        FolderBrowserViewModel.SelectedFileRow = e.Target;
+                    //    }
+                    //});
                 }
                 return _thumbNailModel;
             }

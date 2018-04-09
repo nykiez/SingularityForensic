@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Data {
+namespace SingularityForensic.Contracts.Controls {
     public class CustomTypedListSource<T> : ObservableCollection<T>, ITypedList {
         public IList<PropertyDescriptor> PropertyDescriptorList { get; } = new List<PropertyDescriptor>();
 

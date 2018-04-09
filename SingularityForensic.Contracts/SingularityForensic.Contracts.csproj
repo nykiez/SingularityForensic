@@ -138,6 +138,9 @@
     <Compile Include="Common\SecurityStoken.cs" />
     <Compile Include="Common\ServiceProvider.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
+    <Compile Include="Controls\CustomTypedListSource.cs" />
+    <Compile Include="Controls\DataGridExViewModel.cs" />
+    <Compile Include="Controls\GridViewAutoGeneratingColumnEventArgs.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Events\DocumentClosedEvent.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="FileExplorer\FileExplorerHelper.cs" />
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />
     <Compile Include="FileExplorer\IFileBrowserDataContext.cs" />
+    <Compile Include="FileExplorer\IFolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IFolderManager.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileExplorer\IStorageTreeUnit.cs" />

@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:models="clr-namespace:SingularityForensic.Controls.FileExplorer.Models"
+             xmlns:models="clr-namespace:SingularityForensic.FileExplorer.Models"
              xmlns:local="clr-namespace:SingularityForensic.Controls.FileExplorer.Views"
              mc:Ignorable="d" x:Name="root"
              d:DesignHeight="300" d:DesignWidth="300">

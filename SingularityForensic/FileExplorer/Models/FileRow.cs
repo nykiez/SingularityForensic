@@ -31,15 +31,15 @@ namespace SingularityForensic.FileExplorer.Models {
         public TFile File { get; }
 
         /// <summary>
-        /// 初始化数据提供器是否被初始化;
+        /// 数据提供器是否被初始化;
         /// </summary>
-        internal static bool DescriptorsInitialized = false;
+        internal static bool DescriptorsInitialized { get; private set; }
 
         /// <summary>
         /// 初始化属性描述器;
         /// </summary>
         /// <param name="metaProviders"></param>
-        internal static void InitializeDescripters(IEnumerable<IFileMetaDataProviderProxy<TFile>> metaProviders) {
+        internal static void InitializeDescriptors(IEnumerable<IFileMetaDataProviderProxy<TFile>> metaProviders) {
             if(metaProviders == null) {
                 throw new ArgumentNullException(nameof(metaProviders));
             }
@@ -50,7 +50,9 @@ namespace SingularityForensic.FileExplorer.Models {
             DescriptorsInitialized = true;
         }
         
-
+        /// <summary>
+        /// 所拥有的所有属性描述器,当且仅当初始化后才可能返回不为空;
+        /// </summary>
         internal static IEnumerable<PropertyDescriptor> PropertyDescriptors {
             get {
                 if (!DescriptorsInitialized) {
@@ -71,14 +73,15 @@ namespace SingularityForensic.FileExplorer.Models {
         public override PropertyDescriptorCollection GetProperties() {
             return _filePropDescriptorCollection;
         }
-
+        
         public class FileRowPropertyDescriptor : PropertyDescriptor {
-            public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.MetaDataName, new Attribute[0]) {
+            public override string DisplayName => FileMetaDataProvider.MetaDataName;
+            public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID, new Attribute[0]) {
                 FileMetaDataProvider = fileMetaDataProvider ?? throw new ArgumentNullException(nameof(fileMetaDataProvider));
             }
 
             public IFileMetaDataProviderProxy<TFile> FileMetaDataProvider { get; }
-            public override Type ComponentType => typeof(FileRow);
+            public override Type ComponentType => typeof(FileRowProxy<TFile>);
 
             public override bool IsReadOnly => true;
 
@@ -88,7 +91,7 @@ namespace SingularityForensic.FileExplorer.Models {
 
             public override object GetValue(object component) {
                 if (component is FileRowProxy<TFile> row) {
-                    return FileMetaDataProvider.GetDataObject(row.File);
+                    return FileMetaDataProvider.GetMetaData(row.File);
                 }
                 throw new InvalidCastException();
             }

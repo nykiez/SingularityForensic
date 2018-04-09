@@ -1,50 +1,45 @@
-﻿using Ookii.Dialogs.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using SysIO = System.IO;
+using System.Data;
+using System.Linq;
+
 using System.Threading;
 using CDFCUIContracts.Events;
 using System.Windows.Input;
 using Prism.Commands;
 using CDFCCultures.Helpers;
-using SingularityForensic.Controls.FileExplorer.Models;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.FileExplorer.Helpers;
-using SingularityForensic.Controls.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
-using System.Data;
-using System.Linq;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.FileExplorer.Events;
-using System.ComponentModel;
-using SingularityForensic.Data;
+using SingularityForensic.Contracts.Controls;
+
 using SingularityForensic.FileExplorer.Models;
+using SingularityForensic.FileExplorer.MessageBoxes;
+using SingularityForensic.FileExplorer.Helpers;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
     /// 目录/资源浏览器模型;
     /// </summary>
-    public partial class FolderBrowserViewModel : DataGridExViewModel {
+    public partial class FolderBrowserViewModel : DataGridExViewModel, IFolderBrowserViewModel {
         /// <summary>
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
         /// <param name="part">模型所属主文件</param>
         public FolderBrowserViewModel(Partition part) {
-            if(part == null) {
+            if (part == null) {
                 throw new ArgumentNullException(nameof(part));
             }
             this.Part = part;
-
+            
             InitializeFileRowDescriptors();
             InitializeColumns();
-            FillRows(part.Children);
+            FillWithCollection(part);
         }
-
-        
 
         /// <summary>
         /// 初始化行元数据提供器;
@@ -54,13 +49,16 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 return;
             }
 
-            var fileMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IFileMetaDataProvider>();
-            if(fileMetaDataProviders == null) {
+            var fileMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IFileMetaDataProvider>().OrderBy(p => p.Order);
+            if (fileMetaDataProviders == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileMetaDataProviders)} can't be null.");
                 return;
             }
 
-            FileRow.InitializeDescripters(fileMetaDataProviders);
+#if DEBUG
+            var arr = fileMetaDataProviders.ToArray();
+#endif
+            FileRow.InitializeDescriptors(fileMetaDataProviders);
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
         public Partition Part { get; }                                        //浏览器所属主文件（分区，设备等);
-        
+
         public CustomTypedListSource<FileRow> Files { get; set; } = new CustomTypedListSource<FileRow>();
 
         private FileRow _selectedRow;
@@ -81,19 +79,36 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             get => _selectedRow;
             set {
                 SetProperty(ref _selectedRow, value);
-                if(_selectedRow == null) {
+                if (_selectedRow == null) {
                     return;
                 }
-                
+
                 SelectedFile = _selectedRow.File;
                 PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((SelectedFile, Part));
             }
         }
 
         public FileBase SelectedFile { get; private set; }
-        
+
         /// <summary>
-        /// 填充Rows;
+        /// 填充行;
+        /// </summary>
+        ///<param name="fileCollection">母文件</param>
+        private void FillWithCollection(IHaveFileCollection fileCollection) {
+            if (fileCollection == null) {
+                return;
+            }
+
+            Files.Clear();
+
+            FillRows(fileCollection.Children);
+
+            this.CurrentFileCollection = fileCollection;
+        }
+
+
+        /// <summary>
+        /// 填充行;
         /// </summary>
         /// <param name="files"></param>
         private void FillRows(IEnumerable<FileBase> files) {
@@ -101,19 +116,18 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 return;
             }
 
-            Files.Clear();
             foreach (var file in files) {
                 Files.Add(new FileRow(file));
             }
         }
 
-        
+
         public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
 
         /// <summary>
         /// 文件/资源行;(须在外部指定实例);
         /// </summary>
-        public ObservableCollection<IFileRow> FileRows { get; set; } 
+        public ObservableCollection<IFileRow> FileRows { get; set; }
 
         public event EventHandler<TEventArgs<IFileRow>> SelectedFileRowChanged;               //当当前选择文件变化时触发;
 
@@ -125,7 +139,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             set {
                 SetProperty(ref _selectedFileRow, value);
                 if (_selectedFileRow != null) {
-                    SelectedFileRowChanged?.Invoke(this,new TEventArgs<IFileRow>( _selectedFileRow ));
+                    SelectedFileRowChanged?.Invoke(this, new TEventArgs<IFileRow>(_selectedFileRow));
                 }
             }
         }
@@ -136,17 +150,19 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             set => SetProperty(ref _focusRow, value);
         }
 
-
+        /// <summary>
+        /// 当前过滤设定;
+        /// </summary>
         private object _filterSettings;
         public object FilterSettings {
             get => _filterSettings;
             set {
                 SetProperty(ref _filterSettings, value);
-                
+
             }
         }
 
-        public event EventHandler<TEventArgs< ViewerProgramMessage >> WatchRequired;
+        public event EventHandler<TEventArgs<ViewerProgramMessage>> WatchRequired;
         private ObservableCollection<CommandItem> _viewersCommands;
         public virtual ObservableCollection<CommandItem> ViewersCommands {
             get {
@@ -167,7 +183,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
                 this.VProgramModel = programModel;
             }
-            
+
             public ICommand Command {
                 get => VProgramModel.WatchCommand;
                 set => throw new NotImplementedException();
@@ -178,10 +194,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 set => throw new NotImplementedException();
             }
 
-            
+
 
             public ViewerProgramModel VProgramModel { get; }
-            
+
         }
         private bool viewerEverLoaded;
         private void LoadViewers() {
@@ -195,7 +211,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                             var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
                             var stream = regFile.GetInputStream();
                             ThreadPool.QueueUserWorkItem(callBack => {
-                                WatchRequired?.Invoke(this,new TEventArgs<ViewerProgramMessage>(
+                                WatchRequired?.Invoke(this, new TEventArgs<ViewerProgramMessage>(
                                     new ViewerProgramMessage(rModel.Program.ProgramPath, regFile.Name, stream)));
                             });
                         }
@@ -204,23 +220,24 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         }
                     }
                     else if (rModel != null) {
-                        var dialog = new VistaOpenFileDialog();
-                        dialog.Filter = $"({LanguageService.FindResourceString("Executable")})|*.exe";
-                        if (dialog.ShowDialog() == true) {
-                            var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
-                            using (var stream = regFile.GetInputStream()) {
-                                ThreadPool.QueueUserWorkItem(callBack => {
-                                    WatchRequired?.Invoke(this, new TEventArgs<ViewerProgramMessage>(
-                                        new ViewerProgramMessage(dialog.FileName, regFile.Name, stream)));
-                                });
+                        var fileName = DialogService.Current?.OpenFile($"({LanguageService.FindResourceString("Executable")})|*.exe");
+                        if (string.IsNullOrEmpty(fileName)) {
+                            return;
+                        }
+                        var regFile = (SelectedFileRow as IFileRow<FileBase>).File as RegularFile;
+                        using (var stream = regFile.GetInputStream()) {
+                            ThreadPool.QueueUserWorkItem(callBack => {
+                                WatchRequired?.Invoke(this, new TEventArgs<ViewerProgramMessage>(
+                                    new ViewerProgramMessage(fileName, regFile.Name, stream)));
+                            });
 
-                                var proName = IOPathHelper.GetFileNameFromUrl(dialog.FileName);
-                                if (proName != null) {
-                                    ViewerProgramHelper.AddProgram(dialog.FileName, proName);
-                                    LoadViewers();
-                                }
+                            var proName = IOPathHelper.GetFileNameFromUrl(fileName);
+                            if (proName != null) {
+                                ViewerProgramHelper.AddProgram(fileName, proName);
+                                LoadViewers();
                             }
                         }
+
                     }
                 };
                 model.CanSee = () => (SelectedFileRow as IFileRow<FileBase>)?.File is RegularFile;
@@ -247,13 +264,21 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public void Exit() {
             NavNodes.Clear();
         }
-        
 
+        public IHaveFileCollection CurrentFileCollection { get; private set; }
     }
 
+    /// <summary>
+    /// 前台通知相关;
+    /// </summary>
     public partial class FolderBrowserViewModel {
+
+        /// <summary>
+        /// 双击进入目录动作;
+        /// </summary>
+        /// <param name="row"></param>
         public override void NotifyDoubleClickOnRow(object row) {
-            if(!(row is FileRow fileRow)) {
+            if (!(row is FileRow fileRow)) {
                 return;
             }
 
@@ -262,23 +287,38 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 if (!(file is IHaveFileCollection haveFileCollection)) {
                     return;
                 }
-                
                 if (file is Directory direct) {
                     if (direct.IsBack) {
-                        if(direct.Parent is IHaveFileCollection parentCollection
+                        if (direct.Parent is IHaveFileCollection parentCollection
                             && (parentCollection as FileBase)?.Parent is IHaveFileCollection grandCollection) {
-                            FillRows(grandCollection.Children);
+                            FillWithCollection(grandCollection);
+
                         }
                     }
-                    else if(!direct.IsLocalBackUp) {
-                        FillRows(haveFileCollection.Children);
+                    else if (!direct.IsLocalBackUp) {
+                        FillWithCollection(haveFileCollection);
                     }
-                    
+
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 自动生成动作;
+        /// </summary>
+        /// <param name="e"></param>
+        public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
+            var descriptor = FileRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            if (!(descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor)) {
+                return;
+            }
+
+
+            e.CellTemplate = fileRowPropDescriptor.FileMetaDataProvider.CellTemplate;
+            e.Converter = fileRowPropDescriptor.FileMetaDataProvider.Converter;
         }
     }
 
@@ -288,16 +328,16 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         //选择子文件时,进入该文件;
         public void EnterRow(IFileRow<FileBase> row) {
-            RowEntered?.Invoke(this,new TEventArgs<IFileRow>( row ));
-            if(row?.File is RegularFile regFile) {
+            RowEntered?.Invoke(this, new TEventArgs<IFileRow>(row));
+            if (row?.File is RegularFile regFile) {
                 OpenFile(row);
             }
         }
 
-        
-        
+
+
         private ListBlockMessageBox listBlockMsg;
-        public event EventHandler<TEventArgs< long >> FocusAddressChanged;
+        public event EventHandler<TEventArgs<long>> FocusAddressChanged;
 
         private DelegateCommand listBlocksCommand;                             //列出簇命令;
         public DelegateCommand ListBlocksCommand {
@@ -311,7 +351,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
                         if ((SelectedFileRow as IFileRow<FileBase>).File != null) {
                             var blockGroupedFile = (SelectedFileRow as IFileRow<FileBase>).File as IBlockGroupedFile;
-                            if(blockGroupedFile.BlockGroups == null) {
+                            if (blockGroupedFile.BlockGroups == null) {
                                 MsgBoxService.Show(LanguageService.FindResourceString("DeletedCannotBeListed"));
                             }
                             else {
@@ -360,7 +400,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
 
-        
+
 
         //取消所有选中项相关;
         public event EventHandler UnCheckSelectedRequired;
@@ -394,178 +434,178 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 SetProperty(ref _allChecked, value);
             }
         }
-       
+
         //显示详细信息相关;
         private DelegateCommand _showFileDetailCommand;
         public DelegateCommand ShowFileDetailCommand =>
             _showFileDetailCommand ?? (_showFileDetailCommand = new DelegateCommand(() => {
-                if((SelectedFileRow as IFileRow<FileBase>).File != null) {
+                if ((SelectedFileRow as IFileRow<FileBase>).File != null) {
                     //FileDetailMessageBox.Show((SelectedFileRow as IFileRow<IFile>).File);
                 }
             }));
 
         public void OpenFile(IFileRow row) {
             try {
-                
-                if(row.LocalPath != null) {
-                    if (SysIO.File.Exists(row.LocalPath)) {
-                        
-                        ExplorerHelper.OpenFile(row.LocalPath);
-                    }
-                }
+
+                //if (row.LocalPath != null) {
+                //    if (SysIO.File.Exists(row.LocalPath)) {
+
+                //        ExplorerHelper.OpenFile(row.LocalPath);
+                //    }
+                //}
             }
             catch {
 
             }
         }
-        
+
         private DelegateCommand<MouseEventArgs> _mouseEnterCommand;
         public DelegateCommand<MouseEventArgs> MouseEnterCommand => _mouseEnterCommand ??
             (_mouseEnterCommand = new DelegateCommand<MouseEventArgs>(
                 arg => {
-                    
+
                 }
             ));
 
     }
 
-    //目录试图资源管理器模型过滤命令部分;
-    public partial class FolderBrowserViewModel {
-        //过滤文件名事件;
-        public event EventHandler FilterFileNameRequired;
-        //过滤文件名命令;
-        private DelegateCommand filterFileNameCommand;
-        public DelegateCommand FilterFileNameCommand =>
-            filterFileNameCommand ?? (filterFileNameCommand = new DelegateCommand(() => {
-                FilterFileNameRequired?.Invoke(this,new EventArgs());
-            }));
+    ////目录试图资源管理器模型过滤命令部分;
+    //public partial class FolderBrowserViewModel {
+    //    //过滤文件名事件;
+    //    public event EventHandler FilterFileNameRequired;
+    //    //过滤文件名命令;
+    //    private DelegateCommand filterFileNameCommand;
+    //    public DelegateCommand FilterFileNameCommand =>
+    //        filterFileNameCommand ?? (filterFileNameCommand = new DelegateCommand(() => {
+    //            FilterFileNameRequired?.Invoke(this,new EventArgs());
+    //        }));
 
-        //是否开启了过滤文件名;
-        private bool _filterFileNameNeeded;
-        public bool FilterFileNameNeeded {
-            get {
-                return _filterFileNameNeeded;
-            }
-            set {
-                SetProperty(ref _filterFileNameNeeded, value);
-            }
-        }
+    //    //是否开启了过滤文件名;
+    //    private bool _filterFileNameNeeded;
+    //    public bool FilterFileNameNeeded {
+    //        get {
+    //            return _filterFileNameNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref _filterFileNameNeeded, value);
+    //        }
+    //    }
 
-        //过滤文件大小事件;
-        public event EventHandler FilterFileSizeRequired;
-        private DelegateCommand _filterFileSizeCommand;
-        public DelegateCommand FilterFileSizeCommand =>
-            _filterFileSizeCommand ?? (_filterFileSizeCommand = new DelegateCommand(() => {
-                FilterFileSizeRequired?.Invoke(this, new EventArgs());
-            }));
+    //    //过滤文件大小事件;
+    //    public event EventHandler FilterFileSizeRequired;
+    //    private DelegateCommand _filterFileSizeCommand;
+    //    public DelegateCommand FilterFileSizeCommand =>
+    //        _filterFileSizeCommand ?? (_filterFileSizeCommand = new DelegateCommand(() => {
+    //            FilterFileSizeRequired?.Invoke(this, new EventArgs());
+    //        }));
 
-        //是否开启了过滤大小;
-        private bool filterFileSizeNeeded;
-        public bool FilterFileSizeNeeded {
-            get {
-                return filterFileSizeNeeded;
-            }
-            set {
-                SetProperty(ref filterFileSizeNeeded, value);
-            }
-        }
+    //    //是否开启了过滤大小;
+    //    private bool filterFileSizeNeeded;
+    //    public bool FilterFileSizeNeeded {
+    //        get {
+    //            return filterFileSizeNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref filterFileSizeNeeded, value);
+    //        }
+    //    }
 
 
-        public event EventHandler FilterFilePathRequired;
+    //    public event EventHandler FilterFilePathRequired;
 
-        private DelegateCommand _filterFilePathCommand;
-        public DelegateCommand FilterFilePathCommand =>
-            _filterFilePathCommand ?? (_filterFilePathCommand = new DelegateCommand(() => {
-                FilterFilePathRequired?.Invoke(this, new EventArgs());
-            }));
+    //    private DelegateCommand _filterFilePathCommand;
+    //    public DelegateCommand FilterFilePathCommand =>
+    //        _filterFilePathCommand ?? (_filterFilePathCommand = new DelegateCommand(() => {
+    //            FilterFilePathRequired?.Invoke(this, new EventArgs());
+    //        }));
 
-        //public string FilterFileNameKey { get; private set; }
-        //是否开启了过滤路径;
-        private bool filterFilePathNeeded;
-        public bool FilterFilePathNeeded {
-            get {
-                return filterFilePathNeeded;
-            }
-            set {
-                SetProperty(ref filterFilePathNeeded, value);
-            }
-        }
+    //    //public string FilterFileNameKey { get; private set; }
+    //    //是否开启了过滤路径;
+    //    private bool filterFilePathNeeded;
+    //    public bool FilterFilePathNeeded {
+    //        get {
+    //            return filterFilePathNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref filterFilePathNeeded, value);
+    //        }
+    //    }
 
-        public event EventHandler FilterMTimeRequired;
+    //    public event EventHandler FilterMTimeRequired;
 
-        private DelegateCommand _filterMTimeCommand;
-        public DelegateCommand FilterMTimeCommand =>
-            _filterMTimeCommand ?? (_filterMTimeCommand = new DelegateCommand(() => {
-                FilterMTimeRequired?.Invoke(this, new EventArgs());
-            }));
+    //    private DelegateCommand _filterMTimeCommand;
+    //    public DelegateCommand FilterMTimeCommand =>
+    //        _filterMTimeCommand ?? (_filterMTimeCommand = new DelegateCommand(() => {
+    //            FilterMTimeRequired?.Invoke(this, new EventArgs());
+    //        }));
 
-        //是否开启了修改时间过滤;
-        private bool filterMTimeNeeded;
-        public bool FilterMTimeNeeded {
-            get {
-                return filterMTimeNeeded;
-            }
-            set {
-                SetProperty(ref filterMTimeNeeded, value);
-            }
-        }
-        
-        public event EventHandler FilterATimeRequired;
+    //    //是否开启了修改时间过滤;
+    //    private bool filterMTimeNeeded;
+    //    public bool FilterMTimeNeeded {
+    //        get {
+    //            return filterMTimeNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref filterMTimeNeeded, value);
+    //        }
+    //    }
 
-        private DelegateCommand _filterATimeCommand;
-        public DelegateCommand FilterATimeCommand =>
-            _filterATimeCommand ?? (_filterATimeCommand = new DelegateCommand(() => {
-                FilterATimeRequired?.Invoke(this, new EventArgs());
-            }));
-        //是否开启了访问时间过滤;
-        private bool filterATimeNeeded;
-        public bool FilterATimeNeeded {
-            get {
-                return filterATimeNeeded;
-            }
-            set {
-                SetProperty(ref filterATimeNeeded, value);
-            }
-        }
+    //    public event EventHandler FilterATimeRequired;
 
-        public event EventHandler FilterCTimeRequired;
+    //    private DelegateCommand _filterATimeCommand;
+    //    public DelegateCommand FilterATimeCommand =>
+    //        _filterATimeCommand ?? (_filterATimeCommand = new DelegateCommand(() => {
+    //            FilterATimeRequired?.Invoke(this, new EventArgs());
+    //        }));
+    //    //是否开启了访问时间过滤;
+    //    private bool filterATimeNeeded;
+    //    public bool FilterATimeNeeded {
+    //        get {
+    //            return filterATimeNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref filterATimeNeeded, value);
+    //        }
+    //    }
 
-        private DelegateCommand _filterCTimeCommand;
-        public DelegateCommand FilterCTimeCommand =>
-            _filterCTimeCommand ?? (_filterCTimeCommand = new DelegateCommand(() => {
-                FilterCTimeRequired?.Invoke(this, new EventArgs());
-            }));
-        //是否开启了创建时间过滤;
-        private bool filterCTimeNeeded;
-        public bool FilterCTimeNeeded {
-            get {
-                return filterCTimeNeeded;
-            }
-            set {
-                SetProperty(ref filterCTimeNeeded, value);
-            }
-        }
-        
-        ////是否开启了任何过滤;
-        private bool anyFiltering;
-        public bool AnyFiltering {
-            get {
-                return anyFiltering;
-            }
-            set {
-                SetProperty(ref anyFiltering, value);
-            }
-        }
+    //    public event EventHandler FilterCTimeRequired;
 
-        //要求重新过滤事件;
-        public event EventHandler RefilterRequired;         
-        //一键开合(取消)所有的过滤;
-        private DelegateCommand switchFilteringCommand;
-        public DelegateCommand SwitchFilteringCommand =>
-            switchFilteringCommand ?? (switchFilteringCommand = new DelegateCommand(() => {
-                RefilterRequired?.Invoke(this, new EventArgs());
-            }));
-    }
+    //    private DelegateCommand _filterCTimeCommand;
+    //    public DelegateCommand FilterCTimeCommand =>
+    //        _filterCTimeCommand ?? (_filterCTimeCommand = new DelegateCommand(() => {
+    //            FilterCTimeRequired?.Invoke(this, new EventArgs());
+    //        }));
+    //    //是否开启了创建时间过滤;
+    //    private bool filterCTimeNeeded;
+    //    public bool FilterCTimeNeeded {
+    //        get {
+    //            return filterCTimeNeeded;
+    //        }
+    //        set {
+    //            SetProperty(ref filterCTimeNeeded, value);
+    //        }
+    //    }
+
+    //    ////是否开启了任何过滤;
+    //    private bool anyFiltering;
+    //    public bool AnyFiltering {
+    //        get {
+    //            return anyFiltering;
+    //        }
+    //        set {
+    //            SetProperty(ref anyFiltering, value);
+    //        }
+    //    }
+
+    //    //要求重新过滤事件;
+    //    public event EventHandler RefilterRequired;         
+    //    //一键开合(取消)所有的过滤;
+    //    private DelegateCommand switchFilteringCommand;
+    //    public DelegateCommand SwitchFilteringCommand =>
+    //        switchFilteringCommand ?? (switchFilteringCommand = new DelegateCommand(() => {
+    //            RefilterRequired?.Invoke(this, new EventArgs());
+    //        }));
+    //}
 
     //递归展开视图部分;
     public partial class FolderBrowserViewModel {
@@ -580,5 +620,5 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
     }
-    
+
 }
