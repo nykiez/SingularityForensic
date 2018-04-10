@@ -20,6 +20,8 @@ using SingularityForensic.Contracts.Controls;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.FileExplorer.Helpers;
+using SingularityForensic.Controls.GridView;
+using SingularityForensic.Controls;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -35,7 +37,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 throw new ArgumentNullException(nameof(part));
             }
             this.Part = part;
-            
+
             InitializeFileRowDescriptors();
             InitializeColumns();
             FillWithCollection(part);
@@ -56,7 +58,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
 
 #if DEBUG
-            var arr = fileMetaDataProviders.ToArray();
+            //var arr = fileMetaDataProviders.ToArray();
 #endif
             FileRow.InitializeDescriptors(fileMetaDataProviders);
         }
@@ -84,7 +86,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
 
                 SelectedFile = _selectedRow.File;
-                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((SelectedFile, Part));
+                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((this,SelectedFile));
             }
         }
 
@@ -150,17 +152,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             set => SetProperty(ref _focusRow, value);
         }
 
-        /// <summary>
-        /// 当前过滤设定;
-        /// </summary>
-        private object _filterSettings;
-        public object FilterSettings {
-            get => _filterSettings;
-            set {
-                SetProperty(ref _filterSettings, value);
-
-            }
-        }
 
         public event EventHandler<TEventArgs<ViewerProgramMessage>> WatchRequired;
         private ObservableCollection<CommandItem> _viewersCommands;
@@ -265,14 +256,23 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             NavNodes.Clear();
         }
 
-        public IHaveFileCollection CurrentFileCollection { get; private set; }
+        /// <summary>
+        /// 当前展开的文件;
+        /// </summary>
+        /// <param name="_fileCollection"></param>
+        private IHaveFileCollection _currentFileCollection;
+        public IHaveFileCollection CurrentFileCollection {
+            get => _currentFileCollection;
+            set {
+                _currentFileCollection = value;
+            }
+        }
     }
 
     /// <summary>
     /// 前台通知相关;
     /// </summary>
     public partial class FolderBrowserViewModel {
-
         /// <summary>
         /// 双击进入目录动作;
         /// </summary>
@@ -315,14 +315,15 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             if (!(descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor)) {
                 return;
             }
-
-
+            
             e.CellTemplate = fileRowPropDescriptor.FileMetaDataProvider.CellTemplate;
             e.Converter = fileRowPropDescriptor.FileMetaDataProvider.Converter;
         }
     }
 
-    //目录/资源浏览器模型命令部分;
+    /// <summary>
+    /// 目录/资源浏览器模型命令部分;
+    /// </summary>
     public partial class FolderBrowserViewModel {
         public event EventHandler<TEventArgs<IFileRow>> RowEntered;                      //进入了某个文件行;
 
@@ -333,13 +334,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 OpenFile(row);
             }
         }
-
-
-
+        
         private ListBlockMessageBox listBlockMsg;
-        public event EventHandler<TEventArgs<long>> FocusAddressChanged;
 
-        private DelegateCommand listBlocksCommand;                             //列出簇命令;
+
+        private DelegateCommand listBlocksCommand;                              //列出簇命令;
         public DelegateCommand ListBlocksCommand {
             get {
                 return listBlocksCommand ??
@@ -470,155 +469,28 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     }
 
     ////目录试图资源管理器模型过滤命令部分;
-    //public partial class FolderBrowserViewModel {
-    //    //过滤文件名事件;
-    //    public event EventHandler FilterFileNameRequired;
-    //    //过滤文件名命令;
-    //    private DelegateCommand filterFileNameCommand;
-    //    public DelegateCommand FilterFileNameCommand =>
-    //        filterFileNameCommand ?? (filterFileNameCommand = new DelegateCommand(() => {
-    //            FilterFileNameRequired?.Invoke(this,new EventArgs());
-    //        }));
+    public partial class FolderBrowserViewModel {
+        //一键取消所有的过滤;
+        private DelegateCommand _cancelFilteringCommand;
+        public DelegateCommand CancelFilteringCommand =>
+            _cancelFilteringCommand ?? (_cancelFilteringCommand = new DelegateCommand(() => {
+                FilterSettings = Enumerable.Empty<FilterSetting>();
+            }));
+    }
 
-    //    //是否开启了过滤文件名;
-    //    private bool _filterFileNameNeeded;
-    //    public bool FilterFileNameNeeded {
-    //        get {
-    //            return _filterFileNameNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref _filterFileNameNeeded, value);
-    //        }
-    //    }
-
-    //    //过滤文件大小事件;
-    //    public event EventHandler FilterFileSizeRequired;
-    //    private DelegateCommand _filterFileSizeCommand;
-    //    public DelegateCommand FilterFileSizeCommand =>
-    //        _filterFileSizeCommand ?? (_filterFileSizeCommand = new DelegateCommand(() => {
-    //            FilterFileSizeRequired?.Invoke(this, new EventArgs());
-    //        }));
-
-    //    //是否开启了过滤大小;
-    //    private bool filterFileSizeNeeded;
-    //    public bool FilterFileSizeNeeded {
-    //        get {
-    //            return filterFileSizeNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref filterFileSizeNeeded, value);
-    //        }
-    //    }
-
-
-    //    public event EventHandler FilterFilePathRequired;
-
-    //    private DelegateCommand _filterFilePathCommand;
-    //    public DelegateCommand FilterFilePathCommand =>
-    //        _filterFilePathCommand ?? (_filterFilePathCommand = new DelegateCommand(() => {
-    //            FilterFilePathRequired?.Invoke(this, new EventArgs());
-    //        }));
-
-    //    //public string FilterFileNameKey { get; private set; }
-    //    //是否开启了过滤路径;
-    //    private bool filterFilePathNeeded;
-    //    public bool FilterFilePathNeeded {
-    //        get {
-    //            return filterFilePathNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref filterFilePathNeeded, value);
-    //        }
-    //    }
-
-    //    public event EventHandler FilterMTimeRequired;
-
-    //    private DelegateCommand _filterMTimeCommand;
-    //    public DelegateCommand FilterMTimeCommand =>
-    //        _filterMTimeCommand ?? (_filterMTimeCommand = new DelegateCommand(() => {
-    //            FilterMTimeRequired?.Invoke(this, new EventArgs());
-    //        }));
-
-    //    //是否开启了修改时间过滤;
-    //    private bool filterMTimeNeeded;
-    //    public bool FilterMTimeNeeded {
-    //        get {
-    //            return filterMTimeNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref filterMTimeNeeded, value);
-    //        }
-    //    }
-
-    //    public event EventHandler FilterATimeRequired;
-
-    //    private DelegateCommand _filterATimeCommand;
-    //    public DelegateCommand FilterATimeCommand =>
-    //        _filterATimeCommand ?? (_filterATimeCommand = new DelegateCommand(() => {
-    //            FilterATimeRequired?.Invoke(this, new EventArgs());
-    //        }));
-    //    //是否开启了访问时间过滤;
-    //    private bool filterATimeNeeded;
-    //    public bool FilterATimeNeeded {
-    //        get {
-    //            return filterATimeNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref filterATimeNeeded, value);
-    //        }
-    //    }
-
-    //    public event EventHandler FilterCTimeRequired;
-
-    //    private DelegateCommand _filterCTimeCommand;
-    //    public DelegateCommand FilterCTimeCommand =>
-    //        _filterCTimeCommand ?? (_filterCTimeCommand = new DelegateCommand(() => {
-    //            FilterCTimeRequired?.Invoke(this, new EventArgs());
-    //        }));
-    //    //是否开启了创建时间过滤;
-    //    private bool filterCTimeNeeded;
-    //    public bool FilterCTimeNeeded {
-    //        get {
-    //            return filterCTimeNeeded;
-    //        }
-    //        set {
-    //            SetProperty(ref filterCTimeNeeded, value);
-    //        }
-    //    }
-
-    //    ////是否开启了任何过滤;
-    //    private bool anyFiltering;
-    //    public bool AnyFiltering {
-    //        get {
-    //            return anyFiltering;
-    //        }
-    //        set {
-    //            SetProperty(ref anyFiltering, value);
-    //        }
-    //    }
-
-    //    //要求重新过滤事件;
-    //    public event EventHandler RefilterRequired;         
-    //    //一键开合(取消)所有的过滤;
-    //    private DelegateCommand switchFilteringCommand;
-    //    public DelegateCommand SwitchFilteringCommand =>
-    //        switchFilteringCommand ?? (switchFilteringCommand = new DelegateCommand(() => {
-    //            RefilterRequired?.Invoke(this, new EventArgs());
-    //        }));
-    //}
 
     //递归展开视图部分;
     public partial class FolderBrowserViewModel {
-        //是否展开(递归浏览);
-        private bool _isExpanded;
-        public bool IsExpanded {
-            get {
-                return _isExpanded;
-            }
-            set {
-                SetProperty(ref _isExpanded, value);
+            //是否展开(递归浏览);
+            private bool _isExpanded;
+            public bool IsExpanded {
+                get {
+                    return _isExpanded;
+                }
+                set {
+                    SetProperty(ref _isExpanded, value);
+                }
             }
         }
-    }
 
 }

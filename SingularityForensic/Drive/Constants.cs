@@ -9,8 +9,15 @@
         //驱动类型-本地卷;
         public const string DriveType_LocalVolume = "9B355290-4BFA-4602-A252-C99EEF3B0139";
 
-        //驱动类型-本地硬盘;
+        /// <summary>
+        /// 驱动类型-本地硬盘;
+        /// </summary>
         public const string DriveType_LocalHDD = "18456299-C255-4020-BE6C-6C638B1508F7";
+
+
+        public const string TreeUnitTag_LocalHDD = nameof(TreeUnitTag_LocalHDD);
+
+        public const string TreeUnitTag_LocalVolume = nameof(TreeUnitTag_LocalVolume);
     }
 
     //语言部分;

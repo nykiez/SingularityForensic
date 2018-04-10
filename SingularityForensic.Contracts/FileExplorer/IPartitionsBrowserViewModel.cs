@@ -7,24 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
-    /// <summary>
-    /// 目录/资源浏览器模型契约;
-    /// </summary>
-    public interface IFolderBrowserViewModel {
+    public interface IPartitionsBrowserViewModel {
         /// <summary>
-        /// 所属分区;
+        /// 所属设备;
         /// </summary>
-        Partition Part { get; }
+        Device Device { get; }
 
         /// <summary>
-        /// 当前选定的文件;
+        /// 选定的分区;
         /// </summary>
-        FileBase SelectedFile { get; }
-
-        /// <summary>
-        /// 当前展开的文件;
-        /// </summary>
-        IHaveFileCollection CurrentFileCollection { get; set; }
+        Partition SelectedPart { get; }
 
         IList<CommandItem> ContextCommands { get; }
     }

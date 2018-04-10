@@ -1,6 +1,6 @@
 ﻿using Prism.Events;
-using SingularityForensic.Contracts.FileSystem;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer.Events {
     /// <summary>
-    /// 聚焦文件(行)变化时发生;
+    /// 过滤设定变更时响应;
     /// </summary>
-    public class FocusedFileChangedEvent:PubSubEvent<(object sender,FileBase file)> {
+    public class FilterSettingsChangedEvent:PubSubEvent<IEnumerable> {
     }
-
-
 }

@@ -16,9 +16,7 @@ namespace SingularityForensic.Controls.GridView {
         public RadGridViewEx() {
             this.CurrentCellChanged += GridViewEx_CurrentCellChanged;
             this.Filtered += GridViewEx_Filtered;
-            this.Filtering += delegate {
-
-            };
+            
         }
 
         private void GridViewEx_Filtered(object sender, GridViewFilteredEventArgs e) {

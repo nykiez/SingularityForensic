@@ -23,7 +23,7 @@ namespace SingularityForensic.FileExplorer {
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
 
             _fileExplorerUIService = ServiceProvider.Current?.GetInstance<FileExplorerUIService>();
-            _fileExplorerUIService?.RegisterEvents();
+            _fileExplorerUIService.Initialize();
         }
 
         private FileExplorerUIService _fileExplorerUIService;

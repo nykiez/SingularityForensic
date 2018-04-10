@@ -50,12 +50,17 @@ namespace SingularityForensic.Controls.GridView {
         //加载过滤设定;
         public static void LoadColumnFilters(GridViewDataControl grid
             , IEnumerable<FilterSetting> savedSettings) {
-            grid.FilterDescriptors.SuspendNotifications();
+            if(savedSettings.Count() == 0) {
+                grid.FilterDescriptors.Clear();
+                return;
+            }
 
+            grid.FilterDescriptors.SuspendNotifications();
+            
             foreach (FilterSetting setting in savedSettings) {
                 Telerik.Windows.Controls.GridViewColumn column = grid.Columns[setting.ColumnUniqueName];
 
-                Telerik.Windows.Controls.GridView.IColumnFilterDescriptor columnFilter = column.ColumnFilterDescriptor;
+                IColumnFilterDescriptor columnFilter = column.ColumnFilterDescriptor;
 
                 foreach (object distinctValue in setting.SelectedDistinctValues) {
                     columnFilter.DistinctFilter.AddDistinctValue(distinctValue);

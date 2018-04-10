@@ -108,7 +108,7 @@
     <Compile Include="Casing\CaseUIServiceTests.cs" />
     <Compile Include="Casing\Commands\OpenCasePathCommandItemTests.cs" />
     <Compile Include="Common\CommonMockers.cs" />
-    <Compile Include="Data\NotifybleDataTableTest.cs" />
+    <Compile Include="Common\TestExtensibleObject.cs" />
     <Compile Include="Documents\DocumentServiceTest.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />
     <Compile Include="Drive\DriveMockers.cs" />
@@ -116,6 +116,7 @@
     <Compile Include="Drive\DriveServiceTest.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
+    <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
     <Compile Include="FileSystem\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
@@ -151,6 +152,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DiskManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

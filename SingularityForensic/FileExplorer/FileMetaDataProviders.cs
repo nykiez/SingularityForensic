@@ -36,8 +36,6 @@ namespace SingularityForensic.FileExplorer {
 
         public object GetMetaData(FileBase file) => file.Size;
 
-        public virtual bool AutoConvert => true;
-
         public virtual IValueConverter Converter => ByteSizeToSizeConverter.StaticInstance;
 
         public virtual DataTemplate CellTemplate => null;
@@ -119,6 +117,8 @@ namespace SingularityForensic.FileExplorer {
         public object GetMetaData(Partition file) {
             return file.Size;
         }
+
+        public override IValueConverter Converter => ByteSizeToSizeConverter.StaticInstance;
     }
 
     [Export(typeof(IPartitionMetaDataProvider))]

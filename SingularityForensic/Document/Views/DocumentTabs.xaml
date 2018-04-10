@@ -38,8 +38,7 @@
             </Style>
         </TabControl.ItemContainerStyle>
     </controls:TabControlEx>-->
-    <ad:DockingManager DocumentsSource="{Binding Documents}" x:Name="dockMan"  
-                       ActiveContent="{Binding SelectedDocument,Mode=OneWay}">
+    <ad:DockingManager DocumentsSource="{Binding Documents}" x:Name="dockMan"  >
         <ad:DockingManager.LayoutItemTemplate>
             <DataTemplate>
                 <Grid>
@@ -56,7 +55,7 @@
             <Style TargetType="{x:Type ad:LayoutItem}">
                 <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                 <Setter Property="Title" Value="{Binding Model.Title, Mode=OneWay}" />
-                
+                <Setter Property="IsActive" Value="{Binding Model.IsActive,Mode=TwoWay}"/>
                 <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
                 
                 <!--<Setter Property="IconSource" Value="{Binding Model.IconSource, Converter={StaticResource NullableValueConverter}}" />-->

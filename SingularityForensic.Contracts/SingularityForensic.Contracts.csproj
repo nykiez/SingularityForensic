@@ -129,8 +129,10 @@
     <Compile Include="Common\CommandItem.cs" />
     <Compile Include="Common\Commands\OpenPathCommand.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\ExtensibleBindableBase.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
     <Compile Include="Common\EmptyServiceProvider.cs" />
+    <Compile Include="Common\IExtensible.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
     <Compile Include="Common\IUIObjectProvider.cs" />
     <Compile Include="Common\PracticeServiceProvider.cs" />
@@ -139,7 +141,6 @@
     <Compile Include="Common\ServiceProvider.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
     <Compile Include="Controls\CustomTypedListSource.cs" />
-    <Compile Include="Controls\DataGridExViewModel.cs" />
     <Compile Include="Controls\GridViewAutoGeneratingColumnEventArgs.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
     <Compile Include="Document\Constants.cs" />
@@ -155,12 +156,16 @@
     <Compile Include="Document\IDocument.cs" />
     <Compile Include="Dummy.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
+    <Compile Include="FileExplorer\Events\FilterSettingsChangedEvent.cs" />
     <Compile Include="FileExplorer\Events\FocusedFileChangedEvent.cs" />
+    <Compile Include="FileExplorer\Events\FocusedPartChangedEvent.cs" />
+    <Compile Include="FileExplorer\Events\PartitionDoubleClickedEvent.cs" />
     <Compile Include="FileExplorer\FileExplorerHelper.cs" />
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />
     <Compile Include="FileExplorer\IFileBrowserDataContext.cs" />
     <Compile Include="FileExplorer\IFolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IFolderManager.cs" />
+    <Compile Include="FileExplorer\IPartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileExplorer\IStorageTreeUnit.cs" />
     <Compile Include="FileSystem\BlockDeviceFile.cs" />

@@ -13,9 +13,6 @@
              d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/DataGrid.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <!--<controls:BindingProxy x:Key="dataElement" Data="{Binding}" />-->
             <Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource TransparentButton}">
                 <Setter Property='DockPanel.Dock' Value="Right"/>
@@ -61,7 +58,10 @@
             <TextBlock Text="{DynamicResource IsRecursivelyBrowsing}" Foreground="Black"
                        Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
         </StackPanel>-->
-        <gv:RadGridViewEx Grid.Row="1" ShowGroupPanel="False" x:Name="dg" SelectedItem="{Binding SelectedRow}" AutoGeneratingColumn="RadGridViewEx_AutoGeneratingColumn"  IsReadOnly="True"                  >
+        <gv:RadGridViewEx Grid.Row="1" ShowGroupPanel="False" 
+                          SelectedItem="{Binding SelectedRow}" 
+                          MouseDoubleClick="RadGridViewEx_MouseDoubleClick"
+                          AutoGeneratingColumn="RadGridViewEx_AutoGeneratingColumn"  IsReadOnly="True"                  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="AutoGeneratingColumn" >
                     <prism:InvokeCommandAction Command="{Binding AutoGeneratingColumnCommand}" />

@@ -15,7 +15,7 @@ namespace SingularityForensic.Document.Models {
                 throw new ArgumentNullException(nameof(tab));
             }
             this.Document = tab;
-
+            
             this.Content = tab.UIObject;
             this.Title = tab.Title;
             
@@ -52,6 +52,10 @@ namespace SingularityForensic.Document.Models {
                 CommandName = LanguageService.Current?.FindResourceString("CloseAllTabs")
             }
         );
+
+
+
+        
 
         public ObservableCollection<CommandItem> CommandItems { get; set; } = new ObservableCollection<CommandItem>();
     }

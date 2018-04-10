@@ -40,8 +40,7 @@ namespace SingularityForensic.Test.Casing {
 
             var unit = _nodeService.CurrentUnits.First();
             Assert.AreEqual(unit.Children.Count, 1);
-            Assert.AreEqual(unit.Tag, Contracts.Casing.CaseService.Current.CurrentCase);
-            
+            Assert.AreEqual(unit.GetIntance<Case>(Contracts.Casing.Constants.TreeUnitType_Case), Contracts.Casing.CaseService.Current.CurrentCase);
         }
 
         [TestMethod]

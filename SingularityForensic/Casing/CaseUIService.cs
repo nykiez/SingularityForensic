@@ -57,9 +57,10 @@ namespace SingularityForensic.Casing {
             }
 
             //加入案件节点;
-            var csUnit = new TreeUnit(Constants.CaseEvidenceUnitType, cs) {
+            var csUnit = new TreeUnit(Constants.CaseEvidenceUnitType) {
                 Label = cs.CaseName
             };
+            csUnit.SetInstance(cs,Contracts.Casing.Constants.TreeUnitType_Case);
 
             //打开案件位置命令;
             csUnit.AddCommandItem(new OpenCasePathCommandItem(cs));
@@ -77,7 +78,10 @@ namespace SingularityForensic.Casing {
                 return;
             }
 
-            var unit = new TreeUnit(Contracts.Casing.Constants.CaseEvidenceUnit, evidence) { Label = evidence.Name };
+            var unit = new TreeUnit(Contracts.Casing.Constants.CaseEvidenceUnit) {
+                Label = evidence.Name
+            };
+            unit.SetInstance(evidence, Contracts.FileExplorer.Constants.TreeUnitType_CaseEvidence);
             try {
                 //设定上下文菜单;
                 unit.ContextCommands.Add(

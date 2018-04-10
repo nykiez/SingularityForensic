@@ -70,18 +70,22 @@ namespace SingularityForensic.Drive.ViewModels {
 
             //遍历添加子节点;
             foreach (var hdd in _comObject.LocalHdds) {
-                var hddUnit = new TreeUnit(Constants.DriveType_LocalHDD, hdd) {
+                var hddUnit = new TreeUnit(Constants.DriveType_LocalHDD) {
                     Label = hdd.SerialNumber
                 };
+
+                hddUnit.SetInstance(hdd, Constants.TreeUnitTag_LocalHDD);
                 if (hdd.Volumes == null) {
                     LoggerService.Current?.WriteCallerLine($"{nameof(hdd.Volumes)} can't be null.");
                     continue;
                 }
 
                 foreach (var volume in hdd.Volumes) {
-                    var volUnit = new TreeUnit(Constants.DriveType_LocalVolume, volume) {
+                    var volUnit = new TreeUnit(Constants.DriveType_LocalVolume) {
                         Label = $"{volume.Sign}:"
                     };
+
+                    volUnit.SetInstance(volume, Constants.TreeUnitTag_LocalVolume);
                     hddUnit.Children.Add(volUnit);
                 }
 
@@ -127,7 +131,13 @@ namespace SingularityForensic.Drive.ViewModels {
         public DelegateCommand ConfirmCommand => _confirmCommand ??
             (_confirmCommand = new DelegateCommand(
                 () => {
-                    SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.Tag);
+                    if(SelectedUnit.TypeGuid == Constants.DriveType_LocalHDD) {
+                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetIntance<LocalHDD>(Constants.TreeUnitTag_LocalHDD));
+                    }
+                    else if(SelectedUnit.TypeGuid == Constants.TreeUnitTag_LocalVolume) {
+                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetIntance<LocalVolume>(Constants.TreeUnitTag_LocalVolume));
+                    }
+                    
                     _confirmed = true;
                     CloseRequest.Raise(new Notification());
                 },

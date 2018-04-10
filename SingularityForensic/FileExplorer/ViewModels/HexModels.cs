@@ -84,6 +84,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public void Dispose() {
             
         }
+
+        public TInstance GetIntance<TInstance>(string extName) {
+            throw new NotImplementedException();
+        }
+
+        public void SetInstance<TInstance>(TInstance instance, string extName) {
+            throw new NotImplementedException();
+        }
     }
 
 }

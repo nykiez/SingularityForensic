@@ -53,7 +53,7 @@ namespace DemoUI {
                 dev.SetStartLBA(part , i * 200);
             }
 
-            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit, dev);
+            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
             NodeService.Current?.AddUnit(null, unit);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
@@ -63,7 +63,8 @@ namespace DemoUI {
 
         static void TestPartitionNodeClick() {
             var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null);
-            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit, file);
+            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
+            unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
             PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);

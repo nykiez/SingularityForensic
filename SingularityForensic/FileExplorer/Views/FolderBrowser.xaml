@@ -62,7 +62,7 @@
             </ItemsControl>
             <TextBlock Text="{DynamicResource IsRecursivelyBrowsing}"  DockPanel.Dock="Left" Foreground="Black"
                        Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
-            <Button DockPanel.Dock="Right" Command="{Binding SwitchFilteringCommand}" Height="14">
+            <Button DockPanel.Dock="Right" Command="{Binding CancelFilteringCommand}" Height="14">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource TransparentButton}" >
                         <Style.Triggers>

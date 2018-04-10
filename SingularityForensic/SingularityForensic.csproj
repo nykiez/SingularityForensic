@@ -177,7 +177,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.1\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.2\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +300,7 @@
     <Compile Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DataGridExViewModel.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
     <Compile Include="Controls\GridView\GridViewExtensions.cs" />
     <Compile Include="Controls\GridView\RadGridViewEx.cs" />
@@ -406,6 +407,8 @@
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
     <Compile Include="FileExplorer\FileExplorerUIService.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIServiceForDevice.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIServiceForPartition.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />

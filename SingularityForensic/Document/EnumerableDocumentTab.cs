@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.Document {
-    class EnumerableDocument : IEnumerableDocument {
+    class EnumerableDocument : Document,IEnumerableDocument {
         public EnumerableDocument() {
             _uiObject = ServiceProvider.Current.GetInstance<FrameworkElement>(Constants.EnumerableTabView);
             if (_uiObject == null) {
@@ -30,16 +30,12 @@ namespace SingularityForensic.Document {
 
         public IEnumerable<IDocument> Children => _vm.DocumentTabs.Select(p => p);
         private void OnSelectedTabChanged(object sender, IDocument e) {
-            PubEventHelper.GetEvent<SelectedTabChangedEvent>().Publish((e, this));
+            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((e, this));
         }
 
-        public string Title { get; set; }
-
-        private ObservableCollection<CommandItem> _customCommands = new ObservableCollection<CommandItem>();
-        public IList<CommandItem> CustomCommands => _customCommands;
-
+        
         private FrameworkElement _uiObject;
-        public object UIObject {
+        public override object UIObject {
             get => _uiObject;
             set => throw new InvalidOperationException($"The UIObject of {nameof(EnumerableDocument)} can't be set.");
         }
@@ -49,9 +45,7 @@ namespace SingularityForensic.Document {
             get => _vm.MainView;
             set => _vm.MainView = value;
         }
-
-        public object Tag { get; set; }
-
+        
         public IEnumerable<IDocument> CurrentDocuments => _vm.DocumentTabs.Select(p => p);
 
         public IDocument SelectedDocument {
@@ -59,7 +53,7 @@ namespace SingularityForensic.Document {
             set => _vm.SelectedDocument = value;
         }
 
-        public void Dispose() {
+        public override void Dispose() {
             _vm.SelectedDocumentChanged -= OnSelectedTabChanged;
         }
 
@@ -79,11 +73,11 @@ namespace SingularityForensic.Document {
             _vm.DocumentTabs.Remove(tab);
         }
 
-        public IDocument CreateNewDocument() {
+        public IDocument AddNewDocument() {
             return new Document();
         }
 
-        public IEnumerableDocument CreateEnumerableDocument() {
+        public IEnumerableDocument AddNewEnumerableDocument() {
             return new EnumerableDocument();
         }
 

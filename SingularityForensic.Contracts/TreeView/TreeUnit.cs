@@ -9,13 +9,10 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Contracts.TreeView {
-    public sealed class TreeUnit : BindableBase {
-        public TreeUnit(
-            string typeGuid,
-            object tag = null) {
+    public sealed class TreeUnit : ExtensibleBindableBase {
+        public TreeUnit(string typeGuid) {
             
             this.TypeGuid = typeGuid;
-            this.Tag = tag;
         }
         
         //类型GUID;
@@ -41,10 +38,7 @@ namespace SingularityForensic.Contracts.TreeView {
                 return level.Value;
             }
         }
-
-        //数据实体;
-        public object Tag { get;  }
-
+        
         //子节点;
         public ObservableCollection<TreeUnit> Children { get; set; } = new ObservableCollection<TreeUnit>();
 

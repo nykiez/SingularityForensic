@@ -16,16 +16,16 @@ namespace SingularityForensic.Contracts.Document {
         void AddDocument(IDocument tab);
 
         /// <summary>
-        /// 创建一个Tab;
+        /// 创建并添加一个Tab;
         /// </summary>
         /// <returns></returns>
-        IDocument CreateNewDocument();
+        IDocument AddNewDocument();
 
         /// <summary>
         /// 创建一个多级的Tab;
         /// </summary>
         /// <returns></returns>
-        IEnumerableDocument CreateEnumerableDocument();
+        IEnumerableDocument AddNewEnumerableDocument();
 
         /// <summary>
         /// 当前所有的文档;

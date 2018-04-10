@@ -1,8 +1,5 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Converters;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
@@ -12,15 +9,16 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using Telerik.Windows.Controls;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Contracts.Controls;
+using SingularityForensic.Controls;
+using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
     /// 磁盘-分区列表视图模型;
     /// </summary>
-    public class PartitionsBrowserViewModel : DataGridExViewModel {
+    public partial class PartitionsBrowserViewModel : DataGridExViewModel,IPartitionsBrowserViewModel {
         public PartitionsBrowserViewModel(Device device)  {
             if(device == null) {
                 throw new ArgumentNullException(nameof(device));
@@ -96,11 +94,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
                 
                 SelectedPart = SelectedRow.File;
-                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((SelectedPart, Device));
+                PubEventHelper.GetEvent<FocusedPartitionChangedEvent>().Publish((this, SelectedPart));
             }
         }
 
-        public FileBase SelectedPart { get; private set; }
+        public Partition SelectedPart {
+            get;
+            private set;
+        }
         
         private IList<CommandItem> _contextCommands;
         public override IList<CommandItem> ContextCommands {
@@ -119,29 +120,32 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             set => _contextCommands = value;
         }
 
-        //GridViewAutoGeneratingColumnEventArgs
-        private DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs> _autoGeneratingColumnCommand;
-        public DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs> AutoGeneratingColumnCommand =>
-            _autoGeneratingColumnCommand ??
-            (_autoGeneratingColumnCommand = new DelegateCommand<Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs>(
-                e => {
-                    if (e == null) {
-                        return;
-                    }
+       
+    }
 
-                    if (e.ItemPropertyInfo.Name == Constants.PartMetaDataName_Partition) {
-                        e.Cancel = true;
-                    }
+    public partial class PartitionsBrowserViewModel {
+        public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
+            var descriptor = PartitionRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            if (!(descriptor is PartitionRow.FileRowPropertyDescriptor partRowPropDescriptor)) {
+                return;
+            }
 
-                    if (e.Column is GridViewDataColumn dataColumn
-                    && e.ItemPropertyInfo.PropertyType == typeof(long)) {
-                        if (dataColumn.DataMemberBinding != null) {
-                            dataColumn.DataMemberBinding.Converter = ByteSizeToSizeConverter.StaticInstance;
-                        }
-                    }
-                }
-            ));
-        
-        
+            e.CellTemplate = partRowPropDescriptor.FileMetaDataProvider.CellTemplate;
+            e.Converter = partRowPropDescriptor.FileMetaDataProvider.Converter;
+        }
+
+        public override void NotifyDoubleClickOnRow(object row) {
+            if (!(row is PartitionRow partRow)) {
+                return;
+            }
+
+            try {
+                var part = partRow.File;
+                PubEventHelper.GetEvent<PartitionDoubleClickedEvent>().Publish((this,part));
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+        }
     }
 }

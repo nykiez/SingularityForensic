@@ -21,7 +21,7 @@ namespace SingularityForensic.Test.Documents {
     
         [TestMethod]
         public void TestAddTab() {
-            var doc = _documentService.CreateNewDocument();
+            var doc = _documentService.AddNewDocument();
             doc.Title = "Test Title";
             doc.UIObject = 1;
             _documentService.AddDocument(doc);
@@ -40,7 +40,7 @@ namespace SingularityForensic.Test.Documents {
 
         [TestMethod]
         public void TestEnum() {
-            var enumDoc = _documentService.CreateEnumerableDocument();
+            var enumDoc = _documentService.AddNewEnumerableDocument();
             enumDoc.AddDocument(new DocumentTabMocker());
 
             Assert.AreEqual(enumDoc.CurrentDocuments.Count(), 1);
@@ -58,6 +58,14 @@ namespace SingularityForensic.Test.Documents {
             public object Tag { get ; set ; }
 
             public void Dispose() {
+                throw new NotImplementedException();
+            }
+
+            public TInstance GetIntance<TInstance>(string extName) {
+                throw new NotImplementedException();
+            }
+
+            public void SetInstance<TInstance>(TInstance instance, string extName) {
                 throw new NotImplementedException();
             }
         }

@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Hex;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Hex.ViewModels;
 using SingularityForensic.Hex.Views;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
-    class HexDataContext : IHexDataContext {
+    class HexDataContext : ExtensibleBindableBase,IHexDataContext {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
             _view = new InterceptHex {

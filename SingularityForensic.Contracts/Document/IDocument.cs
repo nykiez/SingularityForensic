@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Document {
     //文档实体结构;
-    public interface IDocument : IUIObjectProvider2,IDisposable {
+    public interface IDocument : IUIObjectProvider,IDisposable,IExtensible {
         string Title { get; set; }
         IList<CommandItem> CustomCommands { get; }
         object UIObject { get; set; }
+
     }
     
 }

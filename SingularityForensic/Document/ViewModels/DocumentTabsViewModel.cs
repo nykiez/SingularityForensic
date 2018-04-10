@@ -24,6 +24,7 @@ namespace SingularityForensic.Document.ViewModels {
             //订阅添加tab的UI响应;
             PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(OnDocumentAdded);
             PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(OnDocumentClosed);
+            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Subscribe(OnSelectedDocumentChanged);
             //订阅关闭的UI响应;
             //_tabService.TabClosed += (sender,tab) => {
             //    if(tab == null) {
@@ -43,15 +44,23 @@ namespace SingularityForensic.Document.ViewModels {
             //    Documents.Clear();
             //};
 
-            ////订阅选择选择文档变更事件;
-            //_tabService.SelectedTabChanged += (sender, tab) => {
-            //    var tabModel = Documents.FirstOrDefault(p => p.DocumentTab == tab);
-            //    if(tabModel == null) {
-            //        return;
-            //    }
+           
+           
+        }
 
-            //    SelectedDocument = tabModel;
-            //};
+        /// <summary>
+        /// 订阅选择选择文档变更事件;
+        /// </summary>
+        /// <param name="tuple"></param>
+        private void OnSelectedDocumentChanged((IDocument tab, IDocumentService owner) tuple) {
+            if(tuple.owner != _documentService) {
+                return; 
+            }
+
+            var model = Documents.FirstOrDefault(p => p.Document == tuple.tab);
+            if (model != null) {
+                SelectedDocument = model;
+            }
         }
 
         private void OnDocumentClosed((IDocument tab, IDocumentService owner) tuple) {
@@ -96,7 +105,13 @@ namespace SingularityForensic.Document.ViewModels {
         private DocumentModel _selectedDocument;
         public DocumentModel SelectedDocument {
             get => _selectedDocument;
-            set => SetProperty(ref _selectedDocument, value);
+            set {
+                if(_selectedDocument != null) {
+                    _selectedDocument.IsActive = false;
+                }
+                SetProperty(ref _selectedDocument, value);
+                _selectedDocument.IsActive = true;
+            }
         }
 
     }

@@ -86,7 +86,7 @@ namespace SingularityForensic.Document {
             
         }
 
-        public IDocument CreateNewDocument() => new Document();
+        public IDocument AddNewDocument() => new Document();
 
         private IDocument _selectedTab;
         
@@ -102,7 +102,7 @@ namespace SingularityForensic.Document {
                 }
 
                 _selectedTab = value;
-                PubEventHelper.GetEvent<SelectedTabChangedEvent>().Publish((_selectedTab,this));
+                PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((_selectedTab,this));
                 //SelectedTabChanged?.Invoke(this, _selectedTab);
             }
         }
@@ -111,7 +111,7 @@ namespace SingularityForensic.Document {
         /// 创建一个多级的Tab;
         /// </summary>
         /// <returns></returns>
-        public IEnumerableDocument CreateEnumerableDocument() {
+        public IEnumerableDocument AddNewEnumerableDocument() {
             return new EnumerableDocument();
         }
     }

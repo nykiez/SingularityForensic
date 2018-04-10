@@ -9,8 +9,4 @@ namespace SingularityForensic.Contracts.Common {
     public interface IUIObjectProvider {
         object UIObject { get; }    
     }
-
-    public interface IUIObjectProvider2:IUIObjectProvider {
-        object Tag { get; set; }
-    }
 }

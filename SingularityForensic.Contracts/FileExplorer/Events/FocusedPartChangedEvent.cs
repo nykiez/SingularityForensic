@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer.Events {
     /// <summary>
-    /// 聚焦文件(行)变化时发生;
+    /// 聚焦分区(行)变化时发生;
     /// </summary>
-    public class FocusedFileChangedEvent:PubSubEvent<(object sender,FileBase file)> {
+    public class FocusedPartitionChangedEvent : PubSubEvent<(object sender, Partition part)> {
     }
-
-
 }

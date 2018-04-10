@@ -33,14 +33,14 @@ namespace DemoUI {
                 SingularityForensic.Contracts.MainPage.Constants.MainPageDocumentRegion,
                 Constants.DocumentTabsView
             );
-            var doc = DocumentService.MainDocumentService.CreateNewDocument();
+            var doc = DocumentService.MainDocumentService.AddNewDocument();
             doc.Title = "Test Title";
             DocumentService.MainDocumentService.AddDocument(doc);
 
-            var enumDoc = DocumentService.MainDocumentService.CreateEnumerableDocument();
+            var enumDoc = DocumentService.MainDocumentService.AddNewEnumerableDocument();
             enumDoc.Title = "Enum Doc";
 
-            var innerDoc = enumDoc.CreateNewDocument();
+            var innerDoc = enumDoc.AddNewDocument();
             innerDoc.Title = "Inner Doc";
             innerDoc.UIObject = "313";
             enumDoc.AddDocument(innerDoc);
