@@ -10,8 +10,8 @@ using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Info {
     public interface ICommonForensicService {
-        void AddForensicUnit(CaseEvidence cFile);
-        ITreeUnit GetForensicInfoUnit(CaseEvidence cFile);
+        void AddForensicUnit(ICaseEvidence cFile);
+        ITreeUnit GetForensicInfoUnit(ICaseEvidence cFile);
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace SingularityForensic.Info {
         /// 添加取证信息节点;
         /// </summary>
         /// <param name="cFile"></param>
-        public void AddForensicUnit(CaseEvidence cFile)  {
+        public void AddForensicUnit(ICaseEvidence cFile)  {
             ITreeUnit fUnit = null;
             var caseService = ServiceProvider.Current.GetInstance<ICaseService>();
             if(caseService == null) {
@@ -50,7 +50,7 @@ namespace SingularityForensic.Info {
         /// <typeparam name="TCaseFile">案件文件类型</typeparam>
         /// <param name="cFile">案件文件</param>
         /// <returns></returns>
-        public ITreeUnit GetCaseFileUnit(CaseEvidence cFile){
+        public ITreeUnit GetCaseFileUnit(ICaseEvidence cFile){
             if (MainTreeService.Current == null) {
                 return null;
             }
@@ -69,7 +69,7 @@ namespace SingularityForensic.Info {
         /// </summary>
         /// <param name="csFile"></param>
         /// <returns></returns>
-        public ITreeUnit GetForensicInfoUnit(CaseEvidence csFile)  {
+        public ITreeUnit GetForensicInfoUnit(ICaseEvidence csFile)  {
             var caseService = ServiceProvider.Current.GetInstance<ICaseService>();
 
             if (caseService != null) {

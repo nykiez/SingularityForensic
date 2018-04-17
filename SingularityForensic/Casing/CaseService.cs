@@ -10,6 +10,7 @@ using SingularityForensic.Contracts.App;
 using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace SingularityForensic.Casing {
     [Export(typeof(ICaseService))]
@@ -121,11 +122,11 @@ namespace SingularityForensic.Casing {
                 };
 
                 //证据项元素;
-                var evidenceElems = cs.XDoc.Root.Elements(CaseEvidence.RootElemName);
+                var evidenceElems = cs.XDoc.Root.Elements(Contracts.Casing.Constants.CaseEvidenceRootElemName);
 
                 foreach (var elem in evidenceElems) {
                     try {
-                        var csEvidence = new CaseEvidence(elem);
+                        var csEvidence = LoadCaseEvidenceFromXElem(elem);
                         
                         //加载证据项;
                         CurrentCase.LoadCaseEvidence(csEvidence,reporter);
@@ -182,10 +183,19 @@ namespace SingularityForensic.Casing {
             
         }
         
-        public void ShowCaseFileProperty(CaseEvidence csFile) {
+        public void ShowCaseFileProperty(ICaseEvidence csFile) {
             throw new NotImplementedException();
         }
 
-        
+        public ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem) {
+            if(xelem == null) {
+                throw new ArgumentNullException(nameof(xelem));
+            }
+            return new CaseEvidence(xelem);
+        }
+
+        public ICaseEvidence CreateNewCaseEvidence(string[] typeGuids, string name, string interLabel) {
+            return new CaseEvidence(typeGuids, name, interLabel);
+        }
     }
 }

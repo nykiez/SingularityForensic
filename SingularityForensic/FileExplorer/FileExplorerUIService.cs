@@ -6,6 +6,7 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -29,18 +30,22 @@ namespace SingularityForensic.FileExplorer {
 
         private void RegisterEvents() {
             //加入文件系统节点响应(左键);
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Subscribe(OnOnFileSystemUnitSelectedChanged);
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Subscribe(OnFileSystemUnitSelectedChanged);
             //为设备/分区案件文件节点加入文件系统子节点;
-            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAdded);
+            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnFileSystemUnit);
+            //为设备/分区案件文件节点加入文件系统子节点;
+            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnContextCommands);
             //为设备/分区节点加入时加入右键菜单;
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnBlockStreamedFile);
         }
+
+       
 
         /// <summary>
         /// 点击了文件系统节点时响应;
         /// </summary>
         /// <param name="unit"></param>
-        private void OnOnFileSystemUnitSelectedChanged((ITreeUnit unit, ITreeService treeService) tuple) {
+        private void OnFileSystemUnitSelectedChanged((ITreeUnit unit, ITreeService treeService) tuple) {
             if (tuple.unit == null) {
                 return;
             }
@@ -59,7 +64,7 @@ namespace SingularityForensic.FileExplorer {
         /// 案件文件节点加入时加入文件系统节点;
         /// </summary>
         /// <param name="unit"></param>
-        private void OnTreeUnitAdded((ITreeUnit unit, ITreeService treeService) tuple) {
+        private void OnTreeUnitAddedOnFileSystemUnit((ITreeUnit unit, ITreeService treeService) tuple) {
             if (tuple.unit == null) {
                 return;
             }
@@ -68,13 +73,13 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var csFile = tuple.unit.GetIntance<CaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
+            var csFile = tuple.unit.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
             if(csFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(csFile)} can't be null.");
                 return;
             }
 
-            var fileTuple = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(CaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+            var fileTuple = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;
@@ -137,13 +142,13 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var csFile = tuple.unit.GetIntance<CaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
+            var csFile = tuple.unit.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
             if (csFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(csFile)} can't be null.");
                 return;
             }
 
-            var fileTuple = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(CaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+            var fileTuple = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;
@@ -152,6 +157,14 @@ namespace SingularityForensic.FileExplorer {
             if(fileTuple.Value.file is IBlockedStream blockedStream) {
                 
             }
+        }
+
+        /// <summary>
+        /// 为设备/分区案件文件加入右键菜单;
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnTreeUnitAddedOnContextCommands((ITreeUnit unit, ITreeService treeService) obj) {
+            throw new NotImplementedException();
         }
     }
 

@@ -11,7 +11,7 @@ namespace SingularityForensic.Contracts.Casing.Events {
     /// 案件正在加载事件;
     /// </summary>
     /// <typeparam name="CaseEvidence"></typeparam>
-    public class CaseEvidenceLoadingEvent:PubSubEvent<(CaseEvidence csEvidence,IProgressReporter reporter)> {
+    public class CaseEvidenceLoadingEvent:PubSubEvent<(ICaseEvidence csEvidence,IProgressReporter reporter)> {
 
     }
 }

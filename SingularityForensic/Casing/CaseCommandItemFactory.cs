@@ -53,7 +53,7 @@ namespace SingularityForensic.Casing {
         /// </summary>
         /// <param name="evidence"></param>
         /// <returns></returns>
-        public static ICommandItem CreateShowCaseEvidencePropertyCommandItem(CaseEvidence evidence) {
+        public static ICommandItem CreateShowCaseEvidencePropertyCommandItem(ICaseEvidence evidence) {
             var cmi = CommandItemFactory.CreateNew(null);
             cmi.Name = LanguageService.Current?.FindResourceString("Properties");
             return cmi;

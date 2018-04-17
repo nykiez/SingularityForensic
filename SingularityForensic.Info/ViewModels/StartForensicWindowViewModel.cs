@@ -59,8 +59,8 @@ namespace SingularityForensic.Info.ViewModels {
             
         }
 
-        private CaseEvidence _deviceFile;
-        public CaseEvidence DeviceFile {
+        private ICaseEvidence _deviceFile;
+        public ICaseEvidence DeviceFile {
             get => _deviceFile;
             set {
                 _deviceFile = value;

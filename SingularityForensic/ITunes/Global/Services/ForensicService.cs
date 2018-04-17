@@ -9,7 +9,7 @@ namespace SingularityForensic.Controls.ITunes.Global.Services {
         /// 开始对某个案件文件取证;
         /// </summary>
         /// <param name="cFile"></param>
-        public void StartForensic(CaseEvidence csFile) {
+        public void StartForensic(ICaseEvidence csFile) {
             //var window = new StartForensicWindow();
             //var vm = ServiceProvider.Current.GetInstance<ITunesStartForensicWindowViewModel>();
 
@@ -27,7 +27,7 @@ namespace SingularityForensic.Controls.ITunes.Global.Services {
         /// 加载取证信息节点;
         /// </summary>
         /// <param name="adCFile"></param>
-        public void LoadForensicUnit(CaseEvidence adCFile) {
+        public void LoadForensicUnit(ICaseEvidence adCFile) {
             //var frService = ServiceProvider.Current.GetInstance<ICommonForensicService>();
             ////加载取证分析节点;
             //var fUnit = frService?.AddForensicUnit(adCFile);

@@ -7,14 +7,14 @@ namespace SingularityForensic.Casing.MessageBoxes {
         //    //ServiceLocator.Current.GetInstance<>
         //}
 
-        public static CaseEvidence Show(CaseEvidence caseFile) {
+        public static ICaseEvidence Show(ICaseEvidence caseFile) {
             var window = new ShowCaseFilePropertyWindow(caseFile);
             var res = window.ShowDialog();
             if (res == true) {
                 return caseFile;
                 //return window.CFile;
             }
-            return default(CaseEvidence);
+            return default(ICaseEvidence);
         }
     }
 }

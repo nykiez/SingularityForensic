@@ -128,6 +128,7 @@
     <Compile Include="Common\Commands\OpenPathCommand.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ExtensibleBindableBase.cs" />
+    <Compile Include="Common\ExtensibleObject.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
     <Compile Include="Common\EmptyServiceProvider.cs" />
     <Compile Include="Common\IInstanceExtensible.cs" />
@@ -189,7 +190,7 @@
     <Compile Include="FileSystem\ISymbolLink.cs" />
     <Compile Include="FileSystem\IFile.cs" />
     <Compile Include="FileSystem\Constants.cs" />
-    <Compile Include="Casing\CaseEvidence.cs" />
+    <Compile Include="Casing\ICaseEvidence.cs" />
     <Compile Include="Casing\ICase.cs" />
     <Compile Include="Casing\ICaseService.cs" />
     <Compile Include="Converters\BooleanReverseConverter.cs" />

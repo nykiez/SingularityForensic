@@ -113,7 +113,7 @@ namespace SingularityForensic.Info.Models {
         /// </summary>
         public abstract void Free();
 
-        public CaseEvidence CaseFile { get; protected set; }
+        public ICaseEvidence CaseFile { get; protected set; }
     }
 
    

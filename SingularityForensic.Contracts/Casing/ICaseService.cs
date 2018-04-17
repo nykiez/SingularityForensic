@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.Contracts.Common;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.Casing {
     //案件服务契约;
@@ -9,6 +10,22 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <returns></returns>
         ICase CreateNewCase();
+
+        /// <summary>
+        /// 从XElem中加载证据项;
+        /// </summary>
+        /// <param name="xelem"></param>
+        /// <returns></returns>
+        ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem);
+
+        /// <summary>
+        /// 新建一个证据项;
+        /// </summary>
+        /// <param name="typeGuids"></param>
+        /// <param name="name"></param>
+        /// <param name="interLabel"></param>
+        /// <returns></returns>
+        ICaseEvidence CreateNewCaseEvidence(string[] typeGuids, string name, string interLabel);
 
         //确认案件是否被加载;
         bool ConfirmCaseLoaded();
@@ -57,6 +74,6 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <typeparam name="TCaseFile"></typeparam>
         /// <param name="csFile"></param>
-        void ShowCaseFileProperty(CaseEvidence csFile);
+        void ShowCaseFileProperty(ICaseEvidence csFile);
     }
 }

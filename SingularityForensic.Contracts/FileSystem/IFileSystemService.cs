@@ -50,7 +50,7 @@ namespace SingularityForensic.Contracts.FileSystem {
 
             foreach (var (file, xElem) in fsService.MountedFiles) {
                 
-                if(xElem.Element(nameof(CaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
+                if(xElem.Element(nameof(ICaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
                     if(file is IDevice device) {
                         return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
                     }

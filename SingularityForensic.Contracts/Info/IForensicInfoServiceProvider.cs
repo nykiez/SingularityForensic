@@ -21,7 +21,7 @@ namespace SingularityForensic.Contracts.Info {
         /// <param name="extractingHandler">取证中进度回调(需引用System.ValueTuple,下同)</param>
         /// <param name="errHandler">错误回调,返回是否重试;</param>
         /// <param name="isCanceld">是否取消</param>
-        void StartForensic(CaseEvidence csEvidence,IEnumerable<string> itemsGuids,
+        void StartForensic(ICaseEvidence csEvidence,IEnumerable<string> itemsGuids,
             Action<(string guid,int percentage,string word)> extractingHandler = null,
             Func<bool> isCanceld = null,
             Func<(string errCode,string errWord, bool needRetry),bool> errHandler = null);
@@ -29,10 +29,10 @@ namespace SingularityForensic.Contracts.Info {
         /// <summary>
         /// 获得取证信息结果节点;
         /// </summary>
-        IEnumerable<ForensicTreeUnit> GetInfoesUnit(CaseEvidence csEvidence);
+        IEnumerable<ForensicTreeUnit> GetInfoesUnit(ICaseEvidence csEvidence);
 
         //加载案件信息,针对关闭案件后,重新进行加载;
-        void Load(CaseEvidence caseEvidence);
+        void Load(ICaseEvidence caseEvidence);
 
         //清除所有内存中的信息,关闭案件时将会使用;
         void Uninstall();

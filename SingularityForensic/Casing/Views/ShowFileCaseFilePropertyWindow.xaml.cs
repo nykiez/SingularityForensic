@@ -12,8 +12,8 @@ namespace SingularityForensic.Casing.Views {
     /// Interaction logic for IFilePropertyWindow.xaml
     /// </summary>
     public partial class ShowCaseFilePropertyWindow : CorneredWindow {
-        public CaseEvidence CFile { get; }
-        public ShowCaseFilePropertyWindow(CaseEvidence cFile) {
+        public ICaseEvidence CFile { get; }
+        public ShowCaseFilePropertyWindow(ICaseEvidence cFile) {
             InitializeComponent();
             this.CFile = cFile ?? throw new ArgumentNullException();
 

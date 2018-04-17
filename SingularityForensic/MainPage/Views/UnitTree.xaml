@@ -85,28 +85,9 @@
             </Menu>-->
 
         <telerik:RadTreeView BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown" 
-            ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single"
+            ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single" 
                              SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
-            <!--<telerik:RadContextMenu.ContextMenu>
-                <telerik:RadContextMenu DataContext="{Binding ElementName=CaseTreeList,Path=SelectedItem,Mode=OneWay}"
-                                        ItemsSource="{Binding ContextCommands}">
-                    <telerik:RadContextMenu.ItemContainerStyle>
-                        <Style TargetType="{x:Type telerik:RadMenuItem}">
-                            <Setter Property="Header" Value="{Binding CommandName}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                            <Setter Property="IconTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <Image Source="{Binding Icon}" Stretch="None"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </telerik:RadContextMenu.ItemContainerStyle>
-                </telerik:RadContextMenu>
-            </telerik:RadContextMenu.ContextMenu>-->
             
             <telerik:RadTreeView.ItemContainerStyle >
                 <Style TargetType="{x:Type telerik:RadTreeViewItem}">

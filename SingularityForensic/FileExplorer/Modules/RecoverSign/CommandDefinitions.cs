@@ -34,7 +34,7 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
         /// </summary>
         /// <param name="blDevice"></param>
         /// <param name="isReComposite"></param>
-        private static void RecoverSign(CaseEvidence caseFile, bool isReComposite = false) {
+        private static void RecoverSign(ICaseEvidence caseFile, bool isReComposite = false) {
             //Device device = null;
             //long startLBA = 0;
             //long endLBA = 0;

@@ -45,7 +45,7 @@ namespace SingularityForensic.Imaging {
         /// 加载案件文件若为镜像,则响应镜像解析;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnCaseEvidenceLoading((CaseEvidence csEvidence, IProgressReporter reporter) tuple) {
+        private void OnCaseEvidenceLoading((ICaseEvidence csEvidence, IProgressReporter reporter) tuple) {
             var csEvidence = tuple.csEvidence;
             var reporter = tuple.reporter;
 
@@ -76,7 +76,7 @@ namespace SingularityForensic.Imaging {
         /// 移除文件若为镜像,则进行卸载;
         /// </summary>
         /// <param name="evidence"></param>
-        private void OnCaseEvidenceRemoved(CaseEvidence evidence) {
+        private void OnCaseEvidenceRemoved(ICaseEvidence evidence) {
             if (evidence == null) {
                 return;
             }
@@ -156,7 +156,7 @@ namespace SingularityForensic.Imaging {
                 throw;
             }
 
-            var csEvidence = new CaseEvidence(new string[] {
+            var csEvidence = CaseService.Current.CreateNewCaseEvidence(new string[] {
                 EvidenceType_Img
             }, Path.GetFileName(path), path);
 
@@ -175,13 +175,13 @@ namespace SingularityForensic.Imaging {
         /// </summary>
         /// <param name="csEvidence">案件文件</param>
         /// <param name="reporter">进度通知报告器</param>
-        private void MountImg(CaseEvidence csEvidence, IProgressReporter reporter) {
+        private void MountImg(ICaseEvidence csEvidence, IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }
 
             if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
-                throw new InvalidOperationException($"{nameof(CaseEvidence.EvidenceTypeGuids)} doesn't contain {EvidenceType_Img}");
+                throw new InvalidOperationException($"{nameof(ICaseEvidence.EvidenceTypeGuids)} doesn't contain {EvidenceType_Img}");
             }
 
             try {
@@ -202,13 +202,13 @@ namespace SingularityForensic.Imaging {
         }
         
         //获得镜像的可用挂载器;
-        private IImgMounter GetImgMounter(CaseEvidence csEvidence) {
+        private IImgMounter GetImgMounter(ICaseEvidence csEvidence) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }
 
             if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_Img) ?? false)) {
-                throw new InvalidOperationException($"{nameof(CaseEvidence.EvidenceTypeGuids)} doesn't contain {EvidenceType_Img}");
+                throw new InvalidOperationException($"{nameof(ICaseEvidence.EvidenceTypeGuids)} doesn't contain {EvidenceType_Img}");
             }
 
             try {
@@ -294,9 +294,9 @@ namespace SingularityForensic.Imaging {
             
         }
 
-        private List<(IImgMounter mounter,CaseEvidence csEvidence)> _mounterTuples =
-            new List<(IImgMounter mounter, CaseEvidence csEvidence)>();
+        private List<(IImgMounter mounter,ICaseEvidence csEvidence)> _mounterTuples =
+            new List<(IImgMounter mounter, ICaseEvidence csEvidence)>();
 
-        public IEnumerable<(IImgMounter mounter, CaseEvidence csEvidence)> MounterTuples => _mounterTuples;
+        public IEnumerable<(IImgMounter mounter, ICaseEvidence csEvidence)> MounterTuples => _mounterTuples;
     }
 }

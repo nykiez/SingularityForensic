@@ -39,7 +39,7 @@ namespace SingularityForensic.Test.Casing {
         }
 
         public void AddNewCaseEvidence() {
-            _csEvidence = new CaseEvidence(
+            _csEvidence = new ICaseEvidence(
                 new string[] {
                     TestEvidenceTypeGuid
                 },
@@ -140,7 +140,7 @@ namespace SingularityForensic.Test.Casing {
         const string TestEvidenceTypeGuid = nameof(TestEvidenceTypeGuid);
         const string TestInterLabel = nameof(TestInterLabel);
         const string TestEvidenceName = nameof(TestEvidenceName);
-        private CaseEvidence _csEvidence;
+        private ICaseEvidence _csEvidence;
         //断言案件文件是否准确;
         private void AssertEvidenceMatched() {
             Assert.IsFalse(string.IsNullOrEmpty(_csEvidence.EvidenceGUID));

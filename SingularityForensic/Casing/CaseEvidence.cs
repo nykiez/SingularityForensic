@@ -1,25 +1,26 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Casing;
+using SingularityForensic.Contracts.Common;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Authentication;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace SingularityForensic.Contracts.Casing {
-    
-    //标准案件文件类别;(特征为Xelement成员);
-    public sealed class CaseEvidence {
+namespace SingularityForensic.Casing {
+    /// <summary>
+    /// 标准案件文件类别;
+    /// </summary>
+    public sealed class CaseEvidence : ExtensibleObject, ICaseEvidence {
         public CaseEvidence(XElement xElem) {
             if (xElem == null) {
                 throw new ArgumentNullException($"{nameof(xElem)} can't be null!");
             }
-            if (xElem.Name != RootElemName) {
+            if (xElem.Name != SingularityForensic.Contracts.Casing.Constants.CaseEvidenceRootElemName) {
                 throw new ArgumentException("The xElem name should be caseFile!");
             }
             XElem = xElem;
         }
-
-        private const string Key = nameof(Key);
 
         //针对新建案件文件;
         public CaseEvidence(string[] typeGuids, string name, string interLabel) :
@@ -34,7 +35,7 @@ namespace SingularityForensic.Contracts.Casing {
 
         //通过案件文件信息创建
         private static XElement CreateXElemByInfoes(string[] typeGuids, string name, string interLabel) {
-            var elem = new XElement(RootElemName);
+            var elem = new XElement(SingularityForensic.Contracts.Casing.Constants.CaseEvidenceRootElemName);
 
             var typeElems = elem.GetOrCreateXElem(nameof(EvidenceTypeGuids));
             foreach (var guid in typeGuids) {
@@ -49,6 +50,7 @@ namespace SingularityForensic.Contracts.Casing {
         }
 
         private string[] _evidenceTypeGuids;
+
         /// <summary>
         /// 得到数据存储位置;
         /// </summary>
@@ -106,7 +108,6 @@ namespace SingularityForensic.Contracts.Casing {
         //证据GUID
         public string EvidenceGUID => XElem.GetXElemValue();
 
-        public const string RootElemName = nameof(CaseEvidence);
 
         /// <summary>
         /// 拓展元素;
@@ -127,10 +128,7 @@ namespace SingularityForensic.Contracts.Casing {
             set => XElem.GetOrCreateXElem(extendElemName)?.SetAttributeValue(extendAttriName, value);
         }
 
-        
+
 
     }
-
-
-    
 }

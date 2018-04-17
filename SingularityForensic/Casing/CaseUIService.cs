@@ -40,7 +40,7 @@ namespace SingularityForensic.Casing {
         /// 案件文件被移除时发生;
         /// </summary>
         /// <param name="obj"></param>
-        private void OnCaseEvidenceRemoved(CaseEvidence obj) {
+        private void OnCaseEvidenceRemoved(ICaseEvidence obj) {
             
         }
 
@@ -77,7 +77,7 @@ namespace SingularityForensic.Casing {
         }
 
         //证据项被加载完成时发生;
-        private void OnEvidenceLoaded(CaseEvidence evidence) {
+        private void OnEvidenceLoaded(ICaseEvidence evidence) {
             var nodeService = MainTreeService.Current;
             if (nodeService == null) {
                 LoggerService.WriteCallerLine($"{nameof(nodeService)} can't be null.");

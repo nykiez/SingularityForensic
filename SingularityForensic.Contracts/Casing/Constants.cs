@@ -24,5 +24,10 @@ namespace SingularityForensic.Contracts.Casing {
         /// 案件文件节点;
         /// </summary>
         public const string TreeUnitTag_CaseEvidence = nameof(TreeUnitTag_CaseEvidence);
+
+        /// <summary>
+        /// 证据项根元素名;
+        /// </summary>
+        public const string CaseEvidenceRootElemName = nameof(ICaseEvidence);
     }
 }

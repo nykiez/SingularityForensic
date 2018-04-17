@@ -23,16 +23,15 @@ namespace DemoUI {
         public TestPartitionsBrowser() {
             InitializeComponent();
             this.Loaded += delegate {
-                var devStoken = new DeviceStoken {
-
-                };
-                var dev = new IDevice(string.Empty, devStoken);
+                var dev = FileFactory.CreateDevice(string.Empty);
+                
                 var rand = new Random();
                 for (int i = 0; i < 24; i++) {
-                    dev.Children.Add(new IPartition(string.Empty, new PartitionStoken {
-                        Name = "Dada",
-                        Size = rand.Next(25535)
-                    }));
+                    var part = FileFactory.CreatePartition(string.Empty);
+                    var partStoken = part.GetStoken(string.Empty);
+                    partStoken.Name = "Dada";
+                    partStoken.Size = rand.Next(25535);
+                    dev.Children.Add(part);
                 }
                 _vm = new PartitionsBrowserViewModel(dev);
                 pv.DataContext = _vm;

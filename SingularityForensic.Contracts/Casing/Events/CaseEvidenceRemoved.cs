@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Casing.Events {
     //案件文件被移除时发生;
-    public class CaseEvidenceRemovedEvent:PubSubEvent<CaseEvidence> {
+    public class CaseEvidenceRemovedEvent:PubSubEvent<ICaseEvidence> {
 
     }
 }

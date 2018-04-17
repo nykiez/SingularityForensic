@@ -24,8 +24,8 @@ namespace SingularityForensic.Drive {
                 throw new ArgumentNullException(nameof(volume));
             }
 
-            var csEvidence = new
-                CaseEvidence(
+            var csEvidence = CaseService.Current.
+                CreateNewCaseEvidence(
                     new string[] {
                         EvidenceType_LocalVolume
                     },
@@ -49,8 +49,8 @@ namespace SingularityForensic.Drive {
                 throw new ArgumentNullException(nameof(hdd));
             }
 
-            var csEvidence = new 
-                CaseEvidence(
+            var csEvidence = CaseService.Current.
+                CreateNewCaseEvidence(
                     new string[] {
                         EvidenceType_LocalHDD
                     }, 
@@ -125,7 +125,7 @@ namespace SingularityForensic.Drive {
         /// </summary>
         /// <param name="csEvidence"></param>
         /// <param name="reporter"></param>
-        public void MountHdd(CaseEvidence csEvidence, IProgressReporter reporter) {
+        public void MountHdd(ICaseEvidence csEvidence, IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }
@@ -158,7 +158,7 @@ namespace SingularityForensic.Drive {
         /// </summary>
         /// <param name="csEvidence"></param>
         /// <param name="reporter"></param>
-        public void MountVolume(CaseEvidence csEvidence,IProgressReporter reporter) {
+        public void MountVolume(ICaseEvidence csEvidence,IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }

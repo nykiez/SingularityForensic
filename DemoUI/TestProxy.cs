@@ -27,32 +27,32 @@ namespace DemoUI {
                 Name = "mmp"
             };
 
-            for (int i = 0; i < 24; i++) {
-                var partEnStoken = new PartitionEntryStoken {
-                    StartLBA = i * 16,
-                    Size = 16
-                };
-                devStoken.PartitionEntries.Add(
-                    new IPartitionEntry(string.Empty, partEnStoken)
-                );
-            }
+            //for (int i = 0; i < 24; i++) {
+            //    var partEnStoken = new PartitionEntryStoken {
+            //        StartLBA = i * 16,
+            //        Size = 16
+            //    };
+            //    devStoken.PartitionEntries.Add(
+            //        PartitionEntryFactory.CreatePartitionEntry(string.Empty)
+            //    );
+            //}
 
 
-            var dev = new IDevice(string.Empty, devStoken);
-            var rand = new Random();
-            for (int i = 0; i < 24; i++) {
-                var part = new IPartition(string.Empty, new PartitionStoken {
-                    Name = "Dada",
-                    Size = rand.Next(25535),
-                    BaseStream = MulPeriodsStream.CreateFromStream(devStoken.BaseStream,
-                    new(long StartIndex, long Size)[] {
-                        (25535 * i,1024)
-                    })
-                });
+            //var dev = new IDevice(string.Empty, devStoken);
+            //var rand = new Random();
+            //for (int i = 0; i < 24; i++) {
+            //    var part = new IPartition(string.Empty, new PartitionStoken {
+            //        Name = "Dada",
+            //        Size = rand.Next(25535),
+            //        BaseStream = MulPeriodsStream.CreateFromStream(devStoken.BaseStream,
+            //        new(long StartIndex, long Size)[] {
+            //            (25535 * i,1024)
+            //        })
+            //    });
 
-                dev.Children.Add(part);
-                dev.SetStartLBA(part, i * 200);
-            }
+            //    dev.Children.Add(part);
+            //    dev.SetStartLBA(part, i * 200);
+            //}
 
             var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
             MainTreeService.Current?.AddUnit(null, unit);

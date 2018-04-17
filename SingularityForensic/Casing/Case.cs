@@ -88,15 +88,15 @@ namespace SingularityForensic.Casing {
         public XDocument XDoc { get; private set; }
 
         //案件所关联的设备文件(外部不可访问);
-        private List<CaseEvidence> caseFiles = new List<CaseEvidence>();
+        private List<ICaseEvidence> caseFiles = new List<ICaseEvidence>();
         //案件所关联的设备文件(外部可访问);
-        public IEnumerable<CaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
+        public IEnumerable<ICaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
 
         /// <summary>
         /// 载入案件文件;(适用于的单独加载,针对案件中已经写入的证据);
         /// </summary>
         /// <param name="csEvidence">已经写入的证据</param>
-        public void LoadCaseEvidence(CaseEvidence csEvidence) {
+        public void LoadCaseEvidence(ICaseEvidence csEvidence) {
             if (csEvidence == null) {
                 LoggerService.Current?.WriteCallerLine($"{nameof(csEvidence)} can't be null");
                 return;
@@ -130,7 +130,7 @@ namespace SingularityForensic.Casing {
         /// </summary>
         /// <param name="csEvidence">已经写入的案件文件</param>
         /// <param name="reporter">进度回调器</param>
-        public void LoadCaseEvidence(CaseEvidence csEvidence, IProgressReporter reporter) {
+        public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
                 //案件中加入文件;
@@ -145,10 +145,10 @@ namespace SingularityForensic.Casing {
         }
 
         /// <summary>
-        /// 写入案件文件到案件中,注意,不自行加载,需手动调用<see cref="LoadCaseEvidence(CaseEvidence)"/>
+        /// 写入案件文件到案件中,注意,不自行加载,需手动调用<see cref="LoadCaseEvidence(ICaseEvidence)"/>
         /// </summary>
         /// <param name="csFile"></param>
-        public void AddNewCaseEvidence(CaseEvidence csEvidence) {
+        public void AddNewCaseEvidence(ICaseEvidence csEvidence) {
             if (csEvidence == null) {
                 LoggerService.Current?.WriteCallerLine($"{nameof(ICase)}->{nameof(AddNewCaseEvidence)}:cFile can't be null");
                 return;
@@ -190,7 +190,7 @@ namespace SingularityForensic.Casing {
         /// <summary>
         /// 为标准案件文件创建仓储目录;
         /// </summary>
-        private void CreateBasePath(CaseEvidence stdCFile) {
+        private void CreateBasePath(ICaseEvidence stdCFile) {
             var basePath = $"{stdCFile.EvidenceGUID}";
             try {
                 var abBasePath = $"{Path}/{basePath}";

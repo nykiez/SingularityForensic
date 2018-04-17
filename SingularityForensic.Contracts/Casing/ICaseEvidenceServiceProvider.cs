@@ -6,7 +6,7 @@ namespace SingularityForensic.Contracts.Casing {
     //文件系统服务提供者契约;
     public interface ICaseEvidenceServiceProvider : IServiceProvider {
         //是否为可用的案件文件;
-        bool CheckIsValid(CaseEvidence file);
+        bool CheckIsValid(ICaseEvidence file);
 
         /// <summary>
         /// //向案件中加入文件;

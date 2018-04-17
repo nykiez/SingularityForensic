@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SingularityForensic.Contracts.FileSystem {
     public static class FileSystemHelper {
-        public static ICaseEvidenceServiceProvider GetFileSystemServiceProvider(CaseEvidence caseFile) {
+        public static ICaseEvidenceServiceProvider GetFileSystemServiceProvider(ICaseEvidence caseFile) {
             var providers = ServiceProvider.Current.GetAllInstances<ICaseEvidenceServiceProvider>();
             try {
                 return providers.FirstOrDefault(p => p.CheckIsValid(caseFile));

@@ -19,7 +19,7 @@ namespace SingularityForensic.Android.FileSystem.Services {
 
         }
 
-        public bool CheckIsValid(CaseEvidence file) => file.Data is AndroidDevice;
+        public bool CheckIsValid(ICaseEvidence file) => file.Data is AndroidDevice;
 
         public override object GetInstance(Type serviceType) {
             if (serviceType == typeof(IFileDetailInfoProvider)) {

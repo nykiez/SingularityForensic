@@ -13,12 +13,12 @@ namespace SingularityForensic.Contracts.Casing {
         string CaseDes { get; }
         string CaseInfo { get; }
         XDocument XDoc { get; }
-        IEnumerable<CaseEvidence> CaseEvidences {get;}
+        IEnumerable<ICaseEvidence> CaseEvidences {get;}
         string Path { get; }
         string CaseName { get; }
-        void AddNewCaseEvidence(CaseEvidence csEvidence);
-        void LoadCaseEvidence(CaseEvidence csEvidence);
-        void LoadCaseEvidence(CaseEvidence csEvidence, IProgressReporter reporter);
+        void AddNewCaseEvidence(ICaseEvidence csEvidence);
+        void LoadCaseEvidence(ICaseEvidence csEvidence);
+        void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter);
         void Save();
     }
     
