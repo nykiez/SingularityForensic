@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SingularityForensic.MainPage.Views"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -81,28 +83,42 @@
                 <Separator  Background="#66000000" Style="{DynamicResource SeparatorStyle1}"    />
                 <MenuItem Header="{DynamicResource Edit}"/>
             </Menu>-->
-        
-        <controls:TreeViewEx BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown" 
-            Style="{DynamicResource TreeViewExStyle}"
-            DockPanel.Dock="Top" ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" 
+
+        <telerik:RadTreeView BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown" 
+            ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single"
+                             SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                    <Setter Property="Padding" Value="{Binding Level,Converter={x:Static local:LevelToMarginConverter.StaticInstance}}"/>
-                    <!--<Setter Property="i:Interaction.Triggers">
+            <!--<telerik:RadContextMenu.ContextMenu>
+                <telerik:RadContextMenu DataContext="{Binding ElementName=CaseTreeList,Path=SelectedItem,Mode=OneWay}"
+                                        ItemsSource="{Binding ContextCommands}">
+                    <telerik:RadContextMenu.ItemContainerStyle>
+                        <Style TargetType="{x:Type telerik:RadMenuItem}">
+                            <Setter Property="Header" Value="{Binding CommandName}"/>
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                            <Setter Property="IconTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Icon}" Stretch="None"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </telerik:RadContextMenu.ItemContainerStyle>
+                </telerik:RadContextMenu>
+            </telerik:RadContextMenu.ContextMenu>-->
+            
+            <telerik:RadTreeView.ItemContainerStyle >
+                <Style TargetType="{x:Type telerik:RadTreeViewItem}">
+                    <Setter Property="ContextMenu" Value="{x:Null}"/>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
+                    <Setter Property="telerik:RadContextMenu.ContextMenu">
                         <Setter.Value>
-                            <i:EventTrigger EventName="RightMouseDown">
-                                <i:InvokeCommandAction Command="{Binding RightClickCommand}"/>
-                            </i:EventTrigger>
-                        </Setter.Value>
-                    </Setter>-->
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu ItemsSource="{Binding ContextCommands}">
-                                <ContextMenu.ItemContainerStyle>
-                                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <telerik:RadContextMenu ItemsSource="{Binding ContextCommands}">
+                                <telerik:RadContextMenu.ItemContainerStyle>
+                                    <Style TargetType="telerik:RadMenuItem" BasedOn="{StaticResource {x:Type telerik:RadMenuItem}}">
                                         <Setter Property="Command" Value="{Binding Command}"/>
-                                        <Setter Property="Header" Value="{Binding CommandName}"/>
+                                        <Setter Property="Header" Value="{Binding Name}"/>
                                         <Setter Property="ItemsSource" Value="{Binding Children}"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
@@ -110,8 +126,8 @@
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </ContextMenu.ItemContainerStyle>
-                            </ContextMenu>
+                                </telerik:RadContextMenu.ItemContainerStyle>
+                            </telerik:RadContextMenu>
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>
@@ -120,7 +136,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </TreeView.ItemContainerStyle>
-        </controls:TreeViewEx>
+            </telerik:RadTreeView.ItemContainerStyle>
+        </telerik:RadTreeView>
     </DockPanel>
 </UserControl>

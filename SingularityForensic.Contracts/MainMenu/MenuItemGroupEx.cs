@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SingularityForensic.Contracts.Contracts.MainMenu {
+namespace SingularityForensic.Contracts.MainMenu {
     public class MenuItemGroupEx:MenuItemGroup,INotifyPropertyChanged {
         public MenuItemGroupEx(string guid,int sortOrder = 32):base(guid,sortOrder) {
 

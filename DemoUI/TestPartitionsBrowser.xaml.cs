@@ -26,10 +26,10 @@ namespace DemoUI {
                 var devStoken = new DeviceStoken {
 
                 };
-                var dev = new Device(string.Empty, devStoken);
+                var dev = new IDevice(string.Empty, devStoken);
                 var rand = new Random();
                 for (int i = 0; i < 24; i++) {
-                    dev.Children.Add(new Partition(string.Empty, new PartitionStoken {
+                    dev.Children.Add(new IPartition(string.Empty, new PartitionStoken {
                         Name = "Dada",
                         Size = rand.Next(25535)
                     }));

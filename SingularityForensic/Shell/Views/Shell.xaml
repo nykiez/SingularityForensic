@@ -10,7 +10,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
             xmlns:sviews="clr-namespace:SingularityForensic.Shell.Views"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-        xmlns:shell="clr-namespace:SingularityForensic.Shell"
+        xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts"  x:Name="shell"
         WindowStartupLocation="CenterScreen" d:DesignWidth="1440"
         mc:Ignorable="d" Style="{DynamicResource DefaultMWindow}" 
                     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -26,22 +26,10 @@
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedCommand}"/>
         </i:EventTrigger>
-        <!--<prism:InteractionRequestTrigger SourceObject="{Binding }"-->
+        <prism:InteractionRequestTrigger SourceObject="{Binding FocusRequest}">
+            <ei:CallMethodAction MethodName="Focus" TargetObject="{Binding ElementName=shell}"/>
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="ContentRendered">
-            <commands:EventToCommand Command="{Binding LoadedCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
-    <Window.InputBindings>
-        <!--<KeyBinding Key="G" Modifiers="Alt" Command="{Binding GoToOffsetCommand}"/>
-        <KeyBinding Key="X" Modifiers="Ctrl+Alt" Command="{Binding FindHexValueCommand}"/>
-        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding FindTextCommand}"/>
-        <KeyBinding Key="O" Modifiers="Ctrl+Shift" Command="{Binding OpenCaseCommand}"/>
-        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding AddImgCommand}"/>
-        <KeyBinding Key="N" Modifiers="Ctrl+Shift" Command="{Binding CreateCaseCommand}"/>
-        <KeyBinding Key="F3" Command="{Binding FindNextCommand}"/>-->
-    </Window.InputBindings>
     <metros:MetroWindow.TitleTemplate>
         <DataTemplate>
             <StackPanel Margin="10 -1 0 0" Orientation="Horizontal" VerticalAlignment="Center">
@@ -69,8 +57,8 @@
                 <RowDefinition />
                 <RowDefinition Height="12"/>
             </Grid.RowDefinitions>
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:RegionNames.MenuRegion}" Grid.ColumnSpan="2"/>
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:RegionNames.MainRegion}" Grid.Row="1" Grid.ColumnSpan="2" />
+            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MenuRegion}" Grid.ColumnSpan="2"/>
+            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MainRegion}" Grid.Row="1" Grid.ColumnSpan="2" />
         </Grid>
         
         <sviews:LoadingMask Grid.Column="1" Grid.ColumnSpan="3" 

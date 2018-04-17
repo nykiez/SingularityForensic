@@ -2,12 +2,15 @@
 using System;
 using System.Windows.Input;
 
-namespace SingularityForensic.Contracts.Contracts.MainMenu {
+namespace SingularityForensic.Contracts.MainMenu {
     public class MenuObjectItem : IUIObjectProvider {
         public object UIObject { get; set; }
+        public string GUID { get; set; }
     }
 
-    //上下文菜单模型;
+    /// <summary>
+    /// 上下文菜单模型;
+    /// </summary>
     public class MenuButtonItem:MenuObjectItem {
         public MenuButtonItem(string groupId , string text, int sortOrder = 32) {
             this.Text = text;

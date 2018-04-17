@@ -45,7 +45,7 @@ namespace SingularityForensic.Imaging {
         /// 加载案件文件若为镜像,则响应镜像解析;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnCaseEvidenceLoading((CaseEvidence csEvidence, ProgressReporter reporter) tuple) {
+        private void OnCaseEvidenceLoading((CaseEvidence csEvidence, IProgressReporter reporter) tuple) {
             var csEvidence = tuple.csEvidence;
             var reporter = tuple.reporter;
 
@@ -175,7 +175,7 @@ namespace SingularityForensic.Imaging {
         /// </summary>
         /// <param name="csEvidence">案件文件</param>
         /// <param name="reporter">进度通知报告器</param>
-        private void MountImg(CaseEvidence csEvidence, ProgressReporter reporter) {
+        private void MountImg(CaseEvidence csEvidence, IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }

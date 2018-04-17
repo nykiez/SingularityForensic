@@ -30,8 +30,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public IFileDetailInfoProvider Provider => _provider;
             //?? (_provider = FSProvider.CaseEvidenceServiceProvider.GetInstance<IFileDetailInfoProvider>());
 
-        private FileBase _file;
-        public FileBase File {
+        private IFile _file;
+        public IFile File {
             get {
                 return _file;
             }

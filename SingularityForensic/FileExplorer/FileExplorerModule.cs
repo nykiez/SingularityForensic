@@ -22,11 +22,11 @@ namespace SingularityForensic.FileExplorer {
             PubEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
 
-            _fileExplorerUIService = ServiceProvider.Current?.GetInstance<FileExplorerUIService>();
-            _fileExplorerUIService?.RegisterEvents();
+            _fileExplorerUIService = ServiceProvider.Current?.GetInstance<IFileExplorerUIReactService>();
+            _fileExplorerUIService.Initialize();
         }
 
-        private FileExplorerUIService _fileExplorerUIService;
+        private IFileExplorerUIReactService _fileExplorerUIService;
         
 
         private void ViewFile(ViewerProgramMessage e) {

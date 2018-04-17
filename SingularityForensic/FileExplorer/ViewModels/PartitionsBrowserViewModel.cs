@@ -1,87 +1,92 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Converters;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Controls.ViewModels;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using Telerik.Windows.Controls;
+using SingularityForensic.FileExplorer.Models;
+using SingularityForensic.Contracts.Controls;
+using SingularityForensic.Controls;
+using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
     /// 磁盘-分区列表视图模型;
     /// </summary>
-    public class PartitionsBrowserViewModel : DataGridExViewModel {
-        public PartitionsBrowserViewModel(Device device)  {
+    public partial class PartitionsBrowserViewModel : DataGridExViewModel,IPartitionsBrowserViewModel {
+        public PartitionsBrowserViewModel(IDevice device)  {
             if(device == null) {
                 throw new ArgumentNullException(nameof(device));
             }
             this.Device = device;
-            _partMetaDataProviders = ServiceProvider.Current?.
-                GetAllInstances<IFileMetaDataProvider>().
-                Where(p => p.MetaDataTypeFor == Contracts.FileExplorer.Constants.FileMetaDataType_Partition).
-                OrderBy(p => p.Order);
-            InitializeDT();
-            FillRows(device.Children);
+
+            InitializePartRowDescriptors();
+            InitializeColumns();
+            FillRows(device.Children.Select(p => p as IPartition));
         }
 
-        public Device Device { get; }
+        public IDevice Device { get; }
 
         /// <summary>
         /// 分区数据绑定源;
         /// </summary>
-        public DataTable Partitions { get; private set; }
-
-        private IEnumerable<IFileMetaDataProvider> _partMetaDataProviders;
+        public CustomTypedListSource<IPartitionRow> Partitions { get; set; } 
+            = new CustomTypedListSource<IPartitionRow>();
         
         /// <summary>
-        /// 初始化DataTable;
+        /// 初始化行元数据提供器;
         /// </summary>
-        private void InitializeDT() {
-            Partitions = new DataTable();
-            Partitions.Columns.Add(new DataColumn(Constants.PartMetaDataName_Partition, typeof(FileBase)));
-
-            if (_partMetaDataProviders == null) {
+        private void InitializePartRowDescriptors() {
+            if (PartitionRow.DescriptorsInitialized) {
                 return;
             }
-            
-            foreach (var mProvider in _partMetaDataProviders) {
-                Partitions.Columns.Add(new DataColumn(mProvider.MetaDataName, mProvider.MetaDataType));
+
+            var partMetaDataProviders = ServiceProvider.Current?.
+                GetAllInstances<IPartitionMetaDataProvider>().OrderBy(p => p.Order);
+            if (partMetaDataProviders == null) {
+                LoggerService.WriteCallerLine($"{nameof(partMetaDataProviders)} can't be null.");
+                return;
             }
-            
+
+            PartitionRow.InitializeDescriptors(partMetaDataProviders);
         }
-        
+
+        /// <summary>
+        /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
+        /// </summary>
+        private void InitializeColumns() {
+            foreach (var descripter in PartitionRow.PropertyDescriptors) {
+                Partitions.PropertyDescriptorList.Add(descripter);
+            }
+        }
+
+
         /// <summary>
         /// 填充Rows;
         /// </summary>
         /// <param name="files"></param>
-        private void FillRows(IEnumerable<FileBase> files) {
-            if(files == null) {
+        private void FillRows(IEnumerable<IPartition> parts) {
+            if(parts == null) {
                 return;
             }
 
-            foreach (var file in files) {
-                var newRow = Partitions.NewRow();
-                foreach (var mProvider in _partMetaDataProviders) {
-                    newRow[mProvider.MetaDataName] = mProvider.GetDataObject(file);
+            Partitions.Clear();
+
+            foreach (var part in parts) {
+                if(part == null) {
+                    continue;
                 }
-
-                newRow[Constants.PartMetaDataName_Partition] = file;
-
-                Partitions.Rows.Add(newRow);
+                Partitions.Add(new PartitionRow(part));
             }
         }
         
-        private DataRow _selectedRow;
-        public DataRow SelectedRow {
+        private IPartitionRow _selectedRow;
+        public IPartitionRow SelectedRow {
             get => _selectedRow;
             set  {
                 SetProperty(ref _selectedRow, value);
@@ -89,19 +94,18 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     return;
                 }
 
-                if(_selectedRow[Constants.PartMetaDataName_Partition] is FileBase file) {
-                    SelectedFile = file;
-                    PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((file, Device));
-                }
+                SelectedPart = _selectedRow;
+                PubEventHelper.GetEvent<FocusedPartitionChangedEvent>().Publish((this, SelectedPart));
             }
         }
 
-        public FileBase SelectedFile { get; private set; }
-
-        public FileBase SelectedFileBase { get; private set; }
-
-        private ObservableCollection<CommandItem> _contextCommands;
-        public override ObservableCollection<CommandItem> ContextCommands {
+        public IPartitionRow SelectedPart {
+            get;
+            private set;
+        }
+        
+        private IEnumerable<ICommandItem> _contextCommands;
+        public override IEnumerable<ICommandItem> ContextCommands {
             get {
                 //if (_contextCommands == null) {
                 //    var mainViewerCommandItem = new CommandItem {  CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
@@ -116,30 +120,31 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
             set => _contextCommands = value;
         }
+    }
 
-        //GridViewAutoGeneratingColumnEventArgs
-        private DelegateCommand<GridViewAutoGeneratingColumnEventArgs> _autoGeneratingColumnCommand;
-        public DelegateCommand<GridViewAutoGeneratingColumnEventArgs> AutoGeneratingColumnCommand =>
-            _autoGeneratingColumnCommand ??
-            (_autoGeneratingColumnCommand = new DelegateCommand<GridViewAutoGeneratingColumnEventArgs>(
-                e => {
-                    if (e == null) {
-                        return;
-                    }
+    public partial class PartitionsBrowserViewModel {
+        public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
+            var descriptor = PartitionRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            if (!(descriptor is PartitionRow.FileRowPropertyDescriptor partRowPropDescriptor)) {
+                return;
+            }
 
-                    if (e.ItemPropertyInfo.Name == Constants.PartMetaDataName_Partition) {
-                        e.Cancel = true;
-                    }
+            e.CellTemplate = partRowPropDescriptor.FileMetaDataProvider.CellTemplate;
+            e.Converter = partRowPropDescriptor.FileMetaDataProvider.Converter;
+        }
 
-                    if (e.Column is GridViewDataColumn dataColumn
-                    && e.ItemPropertyInfo.PropertyType == typeof(long)) {
-                        if (dataColumn.DataMemberBinding != null) {
-                            dataColumn.DataMemberBinding.Converter = ByteSizeToSizeConverter.StaticInstance;
-                        }
-                    }
-                }
-            ));
-        
-        
+        public override void NotifyDoubleClickOnRow(object row) {
+            if (!(row is PartitionRow partRow)) {
+                return;
+            }
+
+            try {
+                var part = partRow.File;
+                PubEventHelper.GetEvent<PartitionDoubleClickedEvent>().Publish((this,part));
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+        }
     }
 }

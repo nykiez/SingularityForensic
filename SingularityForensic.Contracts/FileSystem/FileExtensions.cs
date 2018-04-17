@@ -18,7 +18,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     //}
 
     public static class FileExtensions {
-        public static TFile GetParent<TFile>(this FileBase file) where TFile:class {
+        public static TFile GetParent<TFile>(this IFile file) where TFile:class {
             while (file != null && file.Parent != null) {
                 file = file.Parent;
                 if (file is TFile) {
@@ -33,7 +33,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static string GetFilePath(this FileBase file) {
+        public static string GetFilePath(this IFile file) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
             }
@@ -50,41 +50,6 @@ namespace SingularityForensic.Contracts.FileSystem {
             return sb.ToString();
         }
 
-        /// <summary>
-        /// 得到文件流;
-        /// </summary>
-        /// <param name="groupedFile">块组文件</param>
-        /// <returns></returns>
-        public static Stream GetInputStream<TFile> (this TFile groupedFile) where TFile:FileBase,IBlockGroupedFile {
-            if(groupedFile == null) {
-                throw new ArgumentNullException(nameof(groupedFile));
-            }
-
-            var streamFile = groupedFile.GetParent<IBlockedStream>();
-            if (streamFile == null) {
-                LoggerService.Current?.WriteCallerLine($"{nameof(streamFile)} can't be null!");
-                return null;
-            }
-
-            if (groupedFile.BlockGroups == null) {
-                return null;
-            }
-
-            //若块组不为空,则取所有的块字段流;
-            var blockSize = streamFile.BlockSize;
-            var baseStream = streamFile.BaseStream;
-            //若块组不为空,则遍历块组组成虚拟流;
-
-            var ranges = groupedFile.BlockGroups.Select(p =>
-                ValueTuple.Create(
-                    p.BlockAddress * blockSize,
-                    p.Count * blockSize)).ToArray();
-
-            var blockSub = ranges.Sum(p => p.Item2) - groupedFile.Size;
-            if (ranges?.Count() > 0 && 0 < blockSub && blockSub < blockSize) {
-                ranges[ranges.Count() - 1].Item2 -= blockSub;
-            }
-            return MulPeriodsStream.CreateFromStream(baseStream, ranges);
-        }
+        
     }
 }

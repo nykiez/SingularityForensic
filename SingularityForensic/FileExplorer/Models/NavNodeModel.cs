@@ -2,16 +2,16 @@
 using SingularityForensic.Contracts.FileSystem;
 using System;
 
-namespace SingularityForensic.Controls.FileExplorer.Models {
+namespace SingularityForensic.FileExplorer.Models {
     //路径节点;
     public class NavNodeModel {
-        public NavNodeModel(FileBase file) {
+        public NavNodeModel(IFile file) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
             this.File = file;
         }
-        public FileBase File { get; private set; }
+        public IFile File { get; private set; }
 
         public string Name {
             get {
@@ -30,6 +30,6 @@ namespace SingularityForensic.Controls.FileExplorer.Models {
             }
         }
         //跳转事件;
-        public event EventHandler<FileBase> EscapeRequired;
+        public event EventHandler<IFile> EscapeRequired;
     }
 }

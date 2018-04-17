@@ -14,7 +14,15 @@ namespace SingularityForensic.Contracts.Casing {
 
         //ITunes案件文件(夹)类型;
         public const string ITunesBackUpFolder = nameof(ITunesBackUpFolder);
-        
 
+        /// <summary>
+        /// 案件节点类型;
+        /// </summary>
+        public const string TreeUnitType_Case = nameof(TreeUnitType_Case);
+
+        /// <summary>
+        /// 案件文件节点;
+        /// </summary>
+        public const string TreeUnitTag_CaseEvidence = nameof(TreeUnitTag_CaseEvidence);
     }
 }

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Hex {
     static class Constants {
-        public const string HexView = nameof(HexView);
-
-        
+        public const string GoToOffsetToolBarText = nameof(GoToOffsetToolBarText);
     }
 }

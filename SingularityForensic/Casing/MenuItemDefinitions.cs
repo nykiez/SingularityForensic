@@ -3,51 +3,28 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainMenu;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Casing {
     public static class MenuItemDefinitions {
-        static MenuItemDefinitions() {
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(cs => {
-                CloseCaseCommand.RaiseCanExecuteChanged();
-            });
-            PubEventHelper.Subscribe<CaseUnloadedEvent>(() => {
-                CloseCaseCommand.RaiseCanExecuteChanged();
-            });
-        }
-
-        //[ImportMany]
-        //static IEnumerable<Lazy<ICaseManager>> CaseManagers;
-
-        //加载案件菜单;
         [Export]
         public static readonly MenuButtonItem OpenCaseMenuItem = new MenuButtonItem(
             MenuConstants.MenuMainGroup,
             LanguageService.Current?.FindResourceString("OpenCase")) {
-            Command = new DelegateCommand(() => {
-                Contracts.Casing.CaseService.Current?.OpenExistingCase();
-            }),
+            Command = CsUIService.OpenCaseCommand,
             IconSource = IconSources.OpenCaseIcon
         };
 
-        private static readonly DelegateCommand CloseCaseCommand = new DelegateCommand(
-            () => {
-                if (MsgBoxService.Current.Show(LanguageService.FindResourceString("ConfirmToCloseCase"), MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                    ServiceProvider.Current.GetInstance<ICaseService>()?.CloseCurrentCase();
-                }
-            },
-            () =>
-            Contracts.Casing.CaseService.Current != null);
+       
 
         //关闭案件菜单;
         [Export]
         public static MenuButtonItem CloseCaseMenuItem = new MenuButtonItem(
                         MenuConstants.MenuMainGroup,
                        LanguageService.Current?.FindResourceString("CloseCase")) {
-            Command = CloseCaseCommand,
+            Command = CsUIService.CloseCaseCommand,
             IconSource = IconSources.CloseCaseIcon
         };
         
@@ -57,11 +34,11 @@ namespace SingularityForensic.Casing {
             new MenuButtonItem(
                 MenuConstants.MenuMainGroup,
                LanguageService.Current?.FindResourceString("CreateNewCase"), 0) {
-                    Command = new DelegateCommand(() => {
-                        ServiceProvider.Current.GetInstance<ICaseService>()?.CreateNewCase();
-                    }),
+                    Command = CsUIService.CreateCaseCommand,
                     IconSource = IconSources.CreateCaseIcon
             };
-        
+
+        private static CaseUIService _csUIService;
+        public static CaseUIService CsUIService => _csUIService ?? (_csUIService = ServiceProvider.GetInstance<CaseUIService>());
     }
 }

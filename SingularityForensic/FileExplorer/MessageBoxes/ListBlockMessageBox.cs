@@ -19,7 +19,7 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
 
         public IEnumerable<BlockGroup> Groups { get; private set; }                //描述的快组;
 
-        public ListBlockMessageBox(IEnumerable<BlockGroup> groups, FileBase file) {
+        public ListBlockMessageBox(IEnumerable<BlockGroup> groups) {
             if (groups == null) {
                 throw new ArgumentNullException(nameof(groups));
             }
@@ -30,11 +30,9 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
             _vm.SelectedAdrressChanged += (sender, e) => {
                 SelectedAddressChanged?.Invoke(this, e);
             };
-
-            File = file;
-
+            
             _window = new ListBlocksWindow();
-            _window.Title = file.Name;
+            
             _window.Closed += (sender, e) => {
                 windowClosed = true;
             };
@@ -43,7 +41,7 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
             _window.DataContext = _vm;
         }
 
-        public FileBase File { get; }
+        public IFile File { get; }
         public void Show() {
             try {
                 _window.Show();

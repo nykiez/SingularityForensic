@@ -18,7 +18,7 @@ namespace SingularityForensic.Contracts.Casing {
         string CaseName { get; }
         void AddNewCaseEvidence(CaseEvidence csEvidence);
         void LoadCaseEvidence(CaseEvidence csEvidence);
-        void LoadCaseEvidence(CaseEvidence csEvidence, ProgressReporter reporter);
+        void LoadCaseEvidence(CaseEvidence csEvidence, IProgressReporter reporter);
         void Save();
     }
     

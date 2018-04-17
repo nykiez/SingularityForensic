@@ -22,7 +22,7 @@
                 <!--Language Setting-->
                 <app:ResourceDictionaryEx Name="{x:Static app:Constants.LanguageDict}" >
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Languages/zh_CN/SingularityForensic.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/App/Languages/zh_CN/SingularityForensic.App.xaml"/>
 
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Info;component/Languages/zh_CN/SingularityForensic.Info.xaml"/>
 

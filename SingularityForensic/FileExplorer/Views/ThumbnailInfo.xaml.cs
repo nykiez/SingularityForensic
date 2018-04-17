@@ -24,11 +24,6 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
             if(e.ClickCount == 2) {
                 if (this.DataContext is ThumbnailViewModel vm) {
                     var elem = VisualHelper.GetVisualParent<FrameworkElement>(e.OriginalSource as DependencyObject);
-                    if (elem != null) {
-                        if (elem.DataContext is IFileRow row) {
-                            vm.EnterRow(row);
-                        }
-                    }
                 }
                 e.Handled = true;
             }

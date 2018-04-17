@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Previewers.Models;
+﻿using SingularityForensic.Contracts.TreeView;
+using SingularityForensic.Previewers.Models;
 using SingularityForensic.Previewers.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,9 +26,8 @@ namespace SingularityForensic.Previewers.Views {
 
         private void TreeViewEx_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
             if(e.ClickCount == 1 && VM != null) {
-                var element = e.OriginalSource as FrameworkElement;
-                if(element != null) {
-                    if (element.DataContext is DBUnit unit) {
+                if(e.OriginalSource is FrameworkElement element) {
+                    if (element.DataContext is ITreeUnit unit) {
                         VM.NotifySelectedUnitChanged(unit);
                     }
                 }

@@ -28,9 +28,8 @@ namespace SingularityForensic.App {
         private List<LanguageProvider> _allProviders = new List<LanguageProvider>();
         public IEnumerable<LanguageProvider> AllProviders => _allProviders.Select(p => p);
         
-        private ResourceDictionaryEx _languageDict;
+        private ILanguageDict _languageDict;
         public string FindResourceString(string keyName) {
-            
             if (string.IsNullOrEmpty(keyName)) {
                 throw new ArgumentNullException(nameof(keyName));
             }
@@ -49,7 +48,9 @@ namespace SingularityForensic.App {
         }
 
         private string ConfigFileName => $"{Environment.CurrentDirectory}/{Constants.LanguageConfigName}";
-        //初始化配置文档;
+        /// <summary>
+        /// 初始化/读取配置文档;
+        /// </summary>
         private void InitializeDocument() {
             //因异常原因还原覆盖语言文件;
             void ResetDoc() {
@@ -73,7 +74,7 @@ namespace SingularityForensic.App {
         private XDocument _xDoc;
 
         /// <summary>
-        /// 初始化语言提供者;
+        /// 初始化所有语言提供者;
         /// </summary>
         private void InitilizeProviders() {
             if(_xDoc == null) {
@@ -125,29 +126,29 @@ namespace SingularityForensic.App {
         /// 初始化语言,操作字典等;
         /// </summary>
         private void InitializeLanguageDict() {
-            try {
-                var languageDict = new DirectoryInfo($"{Environment.CurrentDirectory}/Languages");
-                foreach (var direct in languageDict.GetDirectories()) {
-                    //_ direct.Name
-                } 
-            }
-            catch(Exception ex) {
-                Contracts.App.LoggerService.WriteCallerLine(ex.Message);
+            //try {
+            //    var languageDict = new DirectoryInfo($"{Environment.CurrentDirectory}/Languages");
+            //    foreach (var direct in languageDict.GetDirectories()) {
+            //        //_ direct.Name
+            //    } 
+            //}
+            //catch(Exception ex) {
+            //    Contracts.App.LoggerService.WriteCallerLine(ex.Message);
                 
-            }
+            //}
 
             if(CurrentProvider == null) {
                 return;
             }
 
 
-            _languageDict = ServiceProvider.Current.GetInstance<ILanguageDictObject>()?.LanguageDict;
+            _languageDict = ServiceProvider.Current.GetInstance<ILanguageDict>();
 
             if (_languageDict == null) {
                 return;
             }
 
-            _languageDict.MergedDictionaries.Clear();
+            _languageDict.ClearMergedDictionaries();
             var dicts = new List<ResourceDictionary>();
             var providerDirect = $"{Environment.CurrentDirectory}/{Constants.LanguageDirect}/{CurrentProvider.Type}";
             if (!Directory.Exists(providerDirect)) {
@@ -158,10 +159,7 @@ namespace SingularityForensic.App {
             //遍历添加语言文件;
             foreach (var file in di.GetFiles()) {
                 try {
-                    using (var rs = File.OpenRead($"{providerDirect}/{file.Name}")) {
-                        var res = XamlReader.Load(rs) as ResourceDictionary;
-                        _languageDict.MergedDictionaries.Add(res);
-                    }
+                    _languageDict.AddMergedDictionaryFromPath($"{providerDirect}/{file.Name}");
                 }
                 catch(Exception ex) {
                     Contracts.App.LoggerService.WriteCallerLine(ex.Message);
@@ -170,24 +168,35 @@ namespace SingularityForensic.App {
         }
     }
 
-    //由于测试项目中无Application.Current对象,故单独抽象出一个接口提供被操作的语言资源字典;
-    //被操作的语言相关资源字典对象;
-    public interface ILanguageDictObject {
-        ResourceDictionaryEx LanguageDict { get; }
-    }
 
-    [Export(typeof(ILanguageDictObject))]
-    public class AppLanguageDictProvider : ILanguageDictObject {
-        public ResourceDictionaryEx LanguageDict {
+    [Export(typeof(ILanguageDict))]
+    public class AppLanguageDictProvider : ILanguageDict {
+        public string this[string keyName] => LanguageDict[keyName] as string;
+
+        private ResourceDictionaryEx _languageDict;
+        private ResourceDictionaryEx LanguageDict {
             get {
-                return Application.Current.Resources.MergedDictionaries.FirstOrDefault(p => {
-                    if (p is ResourceDictionaryEx rsEx) {
-                        return rsEx.Name == Constants.LanguageDict;
-                    }
-                    return false;
-                }) as ResourceDictionaryEx;
+                if(_languageDict == null) {
+                    _languageDict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(p => {
+                        if (p is ResourceDictionaryEx rsEx) {
+                            return rsEx.Name == Constants.LanguageDict;
+                        }
+                        return false;
+                    }) as ResourceDictionaryEx;
+                }
+                return _languageDict;
             }
         }
-        
+
+        public void AddMergedDictionaryFromPath(string path) {
+            using (var rs = File.OpenRead(path)) {
+                var res = XamlReader.Load(rs) as ResourceDictionary;
+                LanguageDict.MergedDictionaries.Add(res);
+            }
+        }
+
+        public void ClearMergedDictionaries() {
+            LanguageDict.MergedDictionaries.Clear();
+        }
     }
 }

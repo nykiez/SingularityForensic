@@ -29,7 +29,7 @@
             <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CopyToClipBoardCommand}" />
         </Grid.InputBindings>
         <hex:DrawedHexEditor CellMargin="0,2" CellPadding="2" Stream="{Binding Stream,IsAsync=True}" FocusPosition ="{Binding FocusPosition}"
-                        Position="{Binding Position,Mode=TwoWay}" SelectionLength="{Binding SelectionLength}" 
+                        Position="{Binding Position}" SelectionLength="{Binding SelectionLength}" 
                              HoverPosition="{Binding HoverPosition}" x:Name="HexEditor" SelectionStart="{Binding SelectionStart,Mode=TwoWay}"  >
             <hex:DrawedHexEditor.ContextMenu>
                 <ContextMenu>
@@ -70,7 +70,7 @@
                             </MenuItem.CommandParameter>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="{StaticResource LocateTheFilePosition}" Command="{Binding FindFSPositionCommand}">
+                    <MenuItem Header="{DynamicResource LocateTheFilePosition}" Command="{Binding FindFSPositionCommand}">
                         <MenuItem.Style>
                             <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                                 <Style.Triggers>

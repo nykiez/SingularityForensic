@@ -33,8 +33,7 @@ namespace SingularityForensic.Adb.Views {
             if (e.ClickCount == 1 && vm != null) {
                 var element = e.OriginalSource as FrameworkElement;
                 if (element != null) {
-                    var unit = element.DataContext as TreeUnit;
-                    if (unit != null) {
+                    if (element.DataContext is ITreeUnit unit) {
                         if (e.LeftButton == MouseButtonState.Pressed) {
                             vm.NotifySelectionUnitChanged(unit);
                         }

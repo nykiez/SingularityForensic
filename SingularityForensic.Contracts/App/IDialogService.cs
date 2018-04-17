@@ -29,7 +29,7 @@ namespace SingularityForensic.Contracts.App {
         /// 获得保存文件路径;
         /// </summary>
         /// <returns></returns>
-        string SaveFile();
+        string GetSaveFilePath(string defaultFileName = null);
 
         /// <summary>
         /// 获得目录;
@@ -40,35 +40,56 @@ namespace SingularityForensic.Contracts.App {
         ILoadingDialog CreateLoadingDialog();
         IDoubleLoadingDialog CreateDoubleLoadingDialog();
     }
-    
-    //进度报告器,便于在调用同一个动作时,便于使用不同的展示方式;
-    public class ProgressReporter {
-        public void ReportProgress(int percentProgress) {
-            ReportProgress(percentProgress, string.Empty, string.Empty);
-        }
-        public void ReportProgress(int percentProgress, string text, string descrip) {
-            ProgressReported?.Invoke(this,(percentProgress, text, descrip));
-        }
 
-        public event EventHandler<(int pro, string text, string descrip)> ProgressReported;
 
-        public void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
-            DoubleProgressReported?.Invoke(this,(totalPer, detailPer, desc, detail));
-        }
+    /// <summary>
+    /// 进度报告器,便于在调用同一个动作时,便于使用不同的展示方式;
+    /// </summary>
+    public interface IProgressReporter {
+        /// <summary>
+        /// 通知进度;
+        /// </summary>
+        /// <param name="percentProgress"></param>
+        void ReportProgress(int percentProgress);
+        void ReportProgress(int percentProgress, string text, string descrip);
+        void ReportProgress(int totalPer, int detailPer, string desc, string detail);
 
-        public event EventHandler<(int totalPer, int detailPer, string desc, string detail)> DoubleProgressReported;
+        /// <summary>
+        /// 通知事件;
+        /// </summary>
+        event EventHandler<(int pro, string text, string descrip)> ProgressReported;
+        event EventHandler<(int totalPer, int detailPer, string desc, string detail)> DoubleProgressReported;
 
-        public string Title { set => TitleChanged?.Invoke(this, value); }
-        public event EventHandler<string> TitleChanged;
-
-        //取消工作;
-        public void Cancel() {
-            CancelPending = true;
-        }
-
-        //是否正在取消;
-        public bool CancelPending { get; private set; }
+        /// <summary>
+        /// 是否已经取消;
+        /// </summary>
+        bool CancelPending { get; }
+        /// <summary>
+        /// 取消;
+        /// </summary>
+        void Cancel();
+        /// <summary>
+        /// 标题;
+        /// </summary>
+        string Title { get; set; }
+        /// <summary>
+        /// 标题变更事件;
+        /// </summary>
+        event EventHandler<string> TitleChanged;
     }
+
+    /// <summary>
+    /// 进度报告器工厂;
+    /// </summary>
+    public interface IProgessReporterFactory {
+        IProgressReporter CreateNew();
+    }
+
+    public class ProgessReporterFactory : GenericServiceStaticInstance<IProgessReporterFactory> {
+        public static IProgressReporter CreateNew() => Current?.CreateNew();
+    }
+
+    
     
     public class DialogService: GenericServiceStaticInstance<IDialogService>{
 
@@ -86,7 +107,7 @@ namespace SingularityForensic.Contracts.App {
 
         void ReportProgress(int percentProgress);
         void ReportProgress(int percentProgress, string text, string descrip);
-        void ShowDialog();
+        void ShowDialog(object owner = null);
         void Show();
     }
 

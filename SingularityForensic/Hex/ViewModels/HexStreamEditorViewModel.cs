@@ -191,7 +191,7 @@ namespace SingularityForensic.Hex.ViewModels {
                                     return;
                                 }
 
-                                var path = dialogService.SaveFile();
+                                var path = dialogService.GetSaveFilePath();
                                 if (path != null) {
 
                                     var dialog = dialogService.CreateLoadingDialog();

@@ -11,5 +11,8 @@ namespace SingularityForensic.FileExplorer {
         public static readonly Uri RegFileUnitIcon = new Uri("/SingularityForensic;component/FileExplorer/Images/Type_RegularFile.png", UriKind.RelativeOrAbsolute);
         public static readonly Uri UnknownIcon = new Uri("/SingularityForensic;component/FileExplorer/Images/Type_Unknown.ico", UriKind.RelativeOrAbsolute);
         public static readonly Uri FileSystemIcon = new Uri("/SingularityForensic;component/FileExplorer/Images/Type_FileSystem.png", UriKind.RelativeOrAbsolute);
+
+        public static readonly Uri DirectoryRowIcon = new Uri("/SingularityForensic;component/FileExplorer/Images/Type_Directory.png", UriKind.RelativeOrAbsolute);
+        public static readonly Uri RegFileRowIcon = new Uri("/SingularityForensic;component/FileExplorer/Images/Type_RegularFile.png", UriKind.RelativeOrAbsolute);
     }
 }

@@ -7,7 +7,7 @@
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mainPage="clr-namespace:SingularityForensic.Contracts.MainPage;assembly=SingularityForensic.Contracts"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="300">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
@@ -49,21 +50,22 @@ namespace SingularityForensic.FileSystem {
 
 
 
-        private List<(FileBase file, XElement xElem)> _enumFiles = new List<(FileBase file, XElement xElem)>();
+        private List<(IFile file, XElement xElem)> _enumFiles = new List<(IFile file, XElement xElem)>();
 
-        public IEnumerable<(FileBase file, XElement xElem)> MountedFiles => _enumFiles.Select(p => p);
+        public IEnumerable<(IFile file, XElement xElem)> MountedFiles => _enumFiles.Select(p => p);
         
-        public FileBase MountStream(Stream stream,string name,XElement xElem, ProgressReporter reporter) {
+        public IFile MountStream(Stream stream,string name,XElement xElem, IProgressReporter reporter) {
+            IFile file = null;
+
             foreach (var provider in _parsingProvider) {
                 try {
                     if (!provider.CheckIsValidStream(stream)) {
                         continue;   
                     }
+                    file = provider.ParseStream(stream, name, xElem, reporter);
 
-                    var file = provider.ParseStream(stream, name, xElem, reporter);
-                    if (file != null) {
-                        _enumFiles.Add((file, xElem));
-                        return file;
+                    if(file != null) {
+                        break;
                     }
                 }
                 catch(Exception ex) {
@@ -71,11 +73,21 @@ namespace SingularityForensic.FileSystem {
                 }   
             }
 
-            return null;
+            if(file == null) {
+                file = ServiceProvider.Current?.GetInstance<IUnknownDeviceParsingProvider>()?.
+                    ParseStream(stream, name, xElem);
+            }
+
+            if (file != null) {
+                _enumFiles.Add((file, xElem));
+                return file;
+            }
+
+            return file;
         }
 
         //卸载文件;
-        public void UnMountFile(FileBase file) {
+        public void UnMountFile(IFile file) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
             }

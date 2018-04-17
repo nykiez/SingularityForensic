@@ -2,12 +2,11 @@
 using Prism.Mef;
 using Prism.Modularity;
 using Prism.Mvvm;
+using SingularityForensic.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,9 +54,9 @@ namespace DemoUI {
 
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
+            ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
             ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
-
-            return this.Container.GetExportedValue<MainWindow>() as DependencyObject;
+            return ServiceProvider.GetInstance<MainWindow>();
         }
 
         protected override void InitializeModules() {
@@ -69,7 +68,6 @@ namespace DemoUI {
         }
 
         protected override void InitializeShell() {
-            base.InitializeShell();
             Application.Current.MainWindow = this.Shell as Window;
             Application.Current.MainWindow.Show();
         }

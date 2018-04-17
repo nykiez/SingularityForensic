@@ -1,6 +1,6 @@
 ﻿using System;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
-using static CDFCCultures.Managers.ManagerLocator;
+using static SingularityForensic.Contracts.App.LanguageService;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.Common;
@@ -11,7 +11,7 @@ using SingularityForensic.Contracts.App;
 namespace SingularityForensic.Info {
     public interface ICommonForensicService {
         void AddForensicUnit(CaseEvidence cFile);
-        TreeUnit GetForensicInfoUnit(CaseEvidence cFile);
+        ITreeUnit GetForensicInfoUnit(CaseEvidence cFile);
     }
 
     /// <summary>
@@ -20,19 +20,13 @@ namespace SingularityForensic.Info {
     [Export(typeof(ICommonForensicService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CommonForensicService:ICommonForensicService {
-#pragma warning disable 0169
-
-        [Import]
-        private Lazy<INodeService> nodeService;
-
-#pragma warning restore 0169
 
         /// <summary>
         /// 添加取证信息节点;
         /// </summary>
         /// <param name="cFile"></param>
         public void AddForensicUnit(CaseEvidence cFile)  {
-            TreeUnit fUnit = null;
+            ITreeUnit fUnit = null;
             var caseService = ServiceProvider.Current.GetInstance<ICaseService>();
             if(caseService == null) {
                 LoggerService.Current?.WriteCallerLine($"{nameof(caseService)} can't be null!");
@@ -41,14 +35,11 @@ namespace SingularityForensic.Info {
             AppInvoke(() => {
                 var tUnit = GetCaseFileUnit(cFile);
                 if(tUnit != null) {
-                    fUnit = new TreeUnit(Constants.ForensicInfoUnit , null) {
-                        Label = FindResourceString((string)"ForensicInfo")
-                    };
+                    fUnit = TreeUnitFactory.Current.CreateNew(Constants.ForensicInfoUnit);
+                    fUnit.Label = FindResourceString("ForensicInfo");
                     tUnit.Children.Add(fUnit);
                 }
             });
-
-            
         }
 
 
@@ -59,12 +50,12 @@ namespace SingularityForensic.Info {
         /// <typeparam name="TCaseFile">案件文件类型</typeparam>
         /// <param name="cFile">案件文件</param>
         /// <returns></returns>
-        public TreeUnit GetCaseFileUnit(CaseEvidence cFile){
-            if (nodeService?.Value == null) {
+        public ITreeUnit GetCaseFileUnit(CaseEvidence cFile){
+            if (MainTreeService.Current == null) {
                 return null;
             }
 
-            foreach (var theUnit in nodeService.Value.CurrentUnits) {
+            foreach (var theUnit in MainTreeService.Current.CurrentUnits) {
                 
                 //if (theUnit is CaseEvidenceUnit<TCaseFile> csUnit && csUnit.Evidence == cFile) {
                 //    return csUnit;
@@ -78,7 +69,7 @@ namespace SingularityForensic.Info {
         /// </summary>
         /// <param name="csFile"></param>
         /// <returns></returns>
-        public TreeUnit GetForensicInfoUnit(CaseEvidence csFile)  {
+        public ITreeUnit GetForensicInfoUnit(CaseEvidence csFile)  {
             var caseService = ServiceProvider.Current.GetInstance<ICaseService>();
 
             if (caseService != null) {

@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Hex;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Hex.ViewModels;
 using SingularityForensic.Hex.Views;
 using System;
@@ -8,15 +9,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
-    class HexDataContext : IHexDataContext {
+    class HexDataContext : ExtensibleBindableBase,IHexDataContext {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
-            _view = new InterceptHex {
-                DataContext = _vm
-            };
+            _view = ViewProvider.GetView(Contracts.Hex.Constants.HexView) as FrameworkElement;
+            if(_view != null) {
+                _view.DataContext = _vm;
+            }
         }
         private HexStreamEditorViewModel _vm = new HexStreamEditorViewModel();
         public bool ReadOnlyMode { get; set; }
@@ -51,7 +54,7 @@ namespace SingularityForensic.Hex {
 
         public object Tag { get ; set ; }
 
-        private InterceptHex _view;
+        private FrameworkElement _view;
         public object UIObject => _view;
     }
 }

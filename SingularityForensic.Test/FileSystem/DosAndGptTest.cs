@@ -16,7 +16,7 @@ namespace SingularityForensic.Test.FileSystem {
         public void Initialize() {
             TestCommon.InitializeTest();
             _streamParser = ServiceProvider.Current.GetAllInstances<IStreamParsingProvider>().
-                FirstOrDefault(p => p.GUID == SingularityForensic.FileSystem.Constants.StreamParser_BaseDevice);
+                FirstOrDefault(p => p.GUID == BaseDevice.Constants.StreamParser_BaseDevice);
             //_fsService = ServiceProvider.Current.GetInstance<IFileSystemService>();
 
             //Assert.AreNotEqual(_parsingProviders.Count(), 0);
@@ -46,9 +46,9 @@ namespace SingularityForensic.Test.FileSystem {
             var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
 
             //检查"签名";
-            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.FileSystem.Constants.DeviceType_DOS));
+            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.BaseDevice.Constants.DeviceType_DOS));
 
-            if (file is Device device) {
+            if (file is IDevice device) {
                 Assert.AreEqual(device.PartitionEntries.Count(), DOSPartEntryCount);
                 Assert.AreEqual(device.Children.Count, DOSPartCount);
                 foreach (var entry in device.PartitionEntries) {
@@ -57,7 +57,7 @@ namespace SingularityForensic.Test.FileSystem {
                 device.Dispose();
             }
             else {
-                Assert.Fail($"The {nameof(file)} should be a {nameof(Device)}.");
+                Assert.Fail($"The {nameof(file)} should be a {nameof(IDevice)}.");
             }
 
             _stream.Dispose();   
@@ -80,9 +80,9 @@ namespace SingularityForensic.Test.FileSystem {
             var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
 
             //检查"签名";
-            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.FileSystem.Constants.DeviceType_GPT));
+            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.BaseDevice.Constants.DeviceType_GPT));
 
-            if(file is Device device) {
+            if(file is IDevice device) {
                 Assert.AreEqual(GPTPartCount,device.PartitionEntries.Count());
 
                 foreach (var entry in device.PartitionEntries) {

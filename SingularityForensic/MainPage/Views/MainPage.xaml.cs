@@ -1,5 +1,4 @@
-﻿using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
 namespace SingularityForensic.MainPage.Views {
@@ -8,10 +7,8 @@ namespace SingularityForensic.MainPage.Views {
     /// </summary>
     [Export]
     public partial class MainPage : UserControl{
-        [ImportingConstructor]
-        public MainPage(MainPageViewModel vm) {
+        public MainPage() {
             InitializeComponent();
-            this.DataContext = vm;
         }
         
     }

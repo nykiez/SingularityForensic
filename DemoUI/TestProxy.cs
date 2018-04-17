@@ -4,6 +4,7 @@ using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.TreeView;
+using SingularityForensic.Contracts.TreeView.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,15 +33,15 @@ namespace DemoUI {
                     Size = 16
                 };
                 devStoken.PartitionEntries.Add(
-                    new PartitionEntry(string.Empty,partEnStoken)
+                    new IPartitionEntry(string.Empty, partEnStoken)
                 );
             }
 
-            
-            var dev = new Device(string.Empty, devStoken);
+
+            var dev = new IDevice(string.Empty, devStoken);
             var rand = new Random();
             for (int i = 0; i < 24; i++) {
-                var part = new Partition(string.Empty, new PartitionStoken {
+                var part = new IPartition(string.Empty, new PartitionStoken {
                     Name = "Dada",
                     Size = rand.Next(25535),
                     BaseStream = MulPeriodsStream.CreateFromStream(devStoken.BaseStream,
@@ -48,25 +49,26 @@ namespace DemoUI {
                         (25535 * i,1024)
                     })
                 });
-                
+
                 dev.Children.Add(part);
-                part.SetStartLBA(dev, i * 200);
+                dev.SetStartLBA(part, i * 200);
             }
 
-            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit, dev);
-            NodeService.Current?.AddUnit(null, unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
+            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
+            MainTreeService.Current?.AddUnit(null, unit);
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
         }
 
         static void TestPartitionNodeClick() {
-            var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/FAT32.img"), "mmp", null, null);
-            var unit = new TreeUnit(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit, file);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
-            PubEventHelper.GetEvent<TreeNodeClickEvent>().Publish(unit);
+            var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null);
+            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
+            unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
         }
     }
 }

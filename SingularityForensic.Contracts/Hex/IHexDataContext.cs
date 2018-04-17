@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.Hex {
     }
     
 
-    public interface IHexDataContext:IUIObjectProvider2 {
+    public interface IHexDataContext:IUIObjectProvider,IInstanceExtensible {
         bool ReadOnlyMode { get; set; }
         Stream Stream { get; set; }
         long SelectionStart { get; set; }
@@ -24,7 +24,6 @@ namespace SingularityForensic.Contracts.Hex {
         long Position { get; set; }
         long FocusPosition { get; set; }
         IList<(long index, long length, Brush background)> CustomBackgroundBlocks { get; }
-        object Tag { get; set; }
     }
 
     

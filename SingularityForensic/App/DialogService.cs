@@ -14,8 +14,10 @@ namespace SingularityForensic.App {
     /// </summary>
     [Export(typeof(IDialogService))]
     class DialogService : IDialogService {
-        public string SaveFile() {
-            var dialog = new VistaSaveFileDialog();
+        public string GetSaveFilePath(string defaultFileName = null) {
+            var dialog = new VistaSaveFileDialog {
+                FileName = defaultFileName
+            };
             if (dialog.ShowDialog() == true) {
                 return dialog.FileName;
             }
@@ -87,17 +89,19 @@ namespace SingularityForensic.App {
             _msgBox.ReportProgress(percentProgress, text, descrip);
         }
 
-        public void ShowDialog(Window owner = null) {
-            
-        }
+        
+        public void ShowDialog(object owner = null) {
+            if(owner is Window window && window.IsVisible) {
 
-        public void ShowDialog() {
-            
-            _msgBox.ShowDialog();
+                _msgBox.ShowDialog(window);
+            }
+            else {
+                _msgBox.ShowDialog();
+            }
         }
 
         public void Show() {
-            throw new NotImplementedException();
+            _msgBox.ShowDialog();
         }
     }
 

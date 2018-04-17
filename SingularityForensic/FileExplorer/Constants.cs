@@ -16,6 +16,15 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
         public const string FolderBrowserView = nameof(FolderBrowserView);
         
+        public const string HexDataContext_PartitionBrowser_Device = nameof(HexDataContext_PartitionBrowser_Device);
+
+        public const string HexDataContext_PartitionBrowser_Partition = nameof(HexDataContext_PartitionBrowser_Partition);
+
+        public const string PreviewerContext_PartitionBrowser = nameof(PreviewerContext_PartitionBrowser);
+
+        public const string Document_FilePreviewer = nameof(Document_FilePreviewer);
+
+        public const string Prefix_Partition = nameof(Prefix_Partition);
     }
 
     /// <summary>
@@ -91,7 +100,22 @@ namespace SingularityForensic.FileExplorer {
         public const string DocumentTitle_HexFile = nameof(DocumentTitle_HexFile);
         public const string DocumentTitle_FilePreview = nameof(DocumentTitle_FilePreview);
 
+        public const string TreeUnitLabel_FileSystem = nameof(TreeUnitLabel_FileSystem);
+
         public const string TempDirectoryName = "Temp";
+
+        public const string ContextCommandName_SaveAs = nameof(ContextCommandName_SaveAs);
+        public const string ContextCommandName_ViewFile = nameof(ContextCommandName_ViewFile);
+        public const string ContextCommandName_OpenFileWith = nameof(ContextCommandName_OpenFileWith);
+        public const string ContextCommandName_Navigate = nameof(ContextCommandName_Navigate);
+        public const string ContextCommandName_ListBlock = nameof(ContextCommandName_ListBlock);
+        public const string ContextCommandName_ComputeHash = nameof(ContextCommandName_ComputeHash);
+
+        public const string ContextCommandName_CustomSignSearch = nameof(ContextCommandName_CustomSignSearch);
+
+        public const string MsgText_FileSaveDone = nameof(MsgText_FileSaveDone);
+        public const string MsgText_FailedToCreateDirectory = nameof(MsgText_FailedToCreateDirectory);
+
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

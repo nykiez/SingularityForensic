@@ -6,8 +6,8 @@ namespace SingularityForensic.Contracts.FileSystem.Tests {
         //测试文件是否能够被正常添加并移除;
         [TestMethod]
         public void TestAddAndRemove() {
-            var regFile = new RegularFile(string.Empty, null);
-            var direct = new Directory(string.Empty, null);
+            var regFile = FileFactory.CreateRegularFile(string.Empty);
+            var direct = FileFactory.CreateDirectory(string.Empty);
 
             direct.Children.Add(regFile);
 

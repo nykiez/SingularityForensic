@@ -33,8 +33,10 @@ namespace SingularityForensic.Casing {
             try {
                 //创建案件文件夹;
                 if (!SysIO.Directory.Exists(this.Path)) {
-                    SysIO.Directory.CreateDirectory(direct);
+                    SysIO.Directory.CreateDirectory(this.Path);
                 }
+
+                XDoc.Save($"{this.Path}/{CaseName}{Constants.CaseFileExtention}");
             }
             catch (Exception ex) {
                 LoggerService.WriteLine($"{nameof(ICase)}->{nameof(ICase)}:{ex.Message}");
@@ -80,8 +82,7 @@ namespace SingularityForensic.Casing {
             set => XDoc.SetXElemValue(value);
         }
 
-        //案件文件物理后缀;
-        public const string CaseFileExtention = ".sfproj";
+        
 
         //设备文档;
         public XDocument XDoc { get; private set; }
@@ -108,7 +109,7 @@ namespace SingularityForensic.Casing {
                 return;
             }
 
-            var reporter = new ProgressReporter();
+            var reporter = ProgessReporterFactory.CreateNew();
             reporter.DoubleProgressReported += (sender, e) => {
                 dialog.ReportProgress(e.totalPer, e.detailPer, e.desc, e.detail);
             };
@@ -129,7 +130,7 @@ namespace SingularityForensic.Casing {
         /// </summary>
         /// <param name="csEvidence">已经写入的案件文件</param>
         /// <param name="reporter">进度回调器</param>
-        public void LoadCaseEvidence(CaseEvidence csEvidence, ProgressReporter reporter) {
+        public void LoadCaseEvidence(CaseEvidence csEvidence, IProgressReporter reporter) {
             try {
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
                 //案件中加入文件;
@@ -222,7 +223,7 @@ namespace SingularityForensic.Casing {
 
         //保存;
         public void Save() {
-            SaveAs($"{Path}/{CaseName}{CaseFileExtention}");
+            SaveAs($"{Path}/{CaseName}{Constants.CaseFileExtention}");
         }
 
         //案件文件所在路径;

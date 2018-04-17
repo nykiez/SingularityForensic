@@ -18,7 +18,7 @@ namespace SingularityForensic.Contracts.Imaging {
         //添加镜像(到案件上);
         void AddImg(string path);
 
-        //添加镜像案件;
+        //添加镜像;
         void AddImg();
 
         //案件挂载的组合,mounter为挂载器,csEvidence为案件单元;

@@ -1,5 +1,5 @@
 ﻿using Prism.Events;
-using SingularityForensic.Contracts.Contracts.MainMenu;
+using SingularityForensic.Contracts.MainMenu;
 
 namespace SingularityForensic.MainMenu.Events {
     /// <summary>

@@ -13,7 +13,7 @@ namespace SingularityForensic.Controls.MessageBoxes.MessageBoxes {
         /// 显示对象;
         /// </summary>
         /// <param name="file"></param>
-        public static void Show(FileBase file) {
+        public static void Show(IFile file) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 

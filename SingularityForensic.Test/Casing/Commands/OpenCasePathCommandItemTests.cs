@@ -13,7 +13,7 @@ namespace SingularityForensic.Casing.Commands.Tests {
         [TestMethod()]
         public void OpenCasePathCommandItemTest() {
             var cs = new Case(CaseMockers.CaseFolder,CaseMockers.CaseName); 
-            var comm = new OpenCasePathCommandItem(cs);
+            var comm = CaseCommandItemFactory.CreateOpenCasePathCommandItem(cs);
             comm.Command.Execute(null);
         }
     }

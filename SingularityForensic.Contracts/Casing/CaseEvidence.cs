@@ -6,7 +6,7 @@ using System.Security.Authentication;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.Casing {
-
+    
     //标准案件文件类别;(特征为Xelement成员);
     public sealed class CaseEvidence {
         public CaseEvidence(XElement xElem) {

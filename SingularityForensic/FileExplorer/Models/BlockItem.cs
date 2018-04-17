@@ -58,6 +58,7 @@ namespace SingularityForensic.FileExplorer.Models {
             this.Text = $"{Cons_AddressSuffix}{Comma}{blockAddress}";
         }
         public long BlockAddress { get; private set; }
+        
     }
 
     public class TotalCountItem : BlockItem {

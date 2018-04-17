@@ -575,8 +575,9 @@ VOID DoCloseFile(HWND hWnd,HWND viewerHWND)
 	{
 		SendMessage(viewerHWND, SCCVW_CLOSEFILE, 0, 0L);
 		InvalidateRect(viewerHWND, NULL, TRUE);
+		DestroyWindow(viewerHWND);
 	}
-
+	
 	/* Reset the index cnt on Secondary info so only the data for the current file is displayed */
 	secInfoLastIndex = 0;
 }

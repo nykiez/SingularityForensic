@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.Casing;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.MainPage;
+using SingularityForensic.Contracts.TreeView;
 using System.Linq;
 
 namespace SingularityForensic.Test.Casing {
@@ -14,16 +14,16 @@ namespace SingularityForensic.Test.Casing {
             _csUIService = ServiceProvider.Current?.GetInstance<CaseUIService>();
             Assert.IsNotNull(_csUIService);
             
-            _nodeService = ServiceProvider.Current?.GetInstance<INodeService>();
+            _nodeService = ServiceProvider.Current?.GetInstance<ITreeService>();
             Assert.IsNotNull(_nodeService);
 
-            _csUIService.RegisterEvents();
+            _csUIService.Initialize();
             
         }
 
         private CaseServiceTest _csServiceTest;
         private CaseUIService _csUIService;
-        private INodeService _nodeService;
+        private ITreeService _nodeService;
 
         [TestMethod()]
         public void TestLoadCase() {
@@ -40,8 +40,7 @@ namespace SingularityForensic.Test.Casing {
 
             var unit = _nodeService.CurrentUnits.First();
             Assert.AreEqual(unit.Children.Count, 1);
-            Assert.AreEqual(unit.Tag, Contracts.Casing.CaseService.Current.CurrentCase);
-            
+            Assert.AreEqual(unit.GetIntance<Case>(Contracts.Casing.Constants.TreeUnitType_Case), Contracts.Casing.CaseService.Current.CurrentCase);
         }
 
         [TestMethod]

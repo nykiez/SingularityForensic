@@ -52,7 +52,7 @@ namespace SingularityForensic.Test.Imaging {
         //测试从案件中加载镜像;
         [TestMethod]
         public void TestLoadImgFromCase() {
-            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Case.CaseFileExtention}");
+            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Constants.CaseFileExtention}");
             Assert.IsNotNull(_csService.CurrentCase);
 
             Assert.AreNotEqual(_imgService.MounterTuples.Count(),0);

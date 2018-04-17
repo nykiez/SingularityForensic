@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:prism="http://www.codeplex.com/prism"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
@@ -14,54 +14,121 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <!--<controls:TabControlEx
-                 SelectedItem="{Binding SelectedBrowserItem}"
-        ItemsSource="{Binding BrowserItems}">
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <ContentControl Content="{Binding Content}" />
-            </DataTemplate>
-        </TabControl.ContentTemplate>
-        <TabControl.ItemContainerStyle>
-            <Style TargetType="TabItem" BasedOn="{StaticResource DefaultTabItem}">
-                <Setter Property="Header" Value="{Binding Model.Title}"/>
-                <Setter Property="ContextMenu">
+            <Style x:Key="CloseButton"
+         TargetType="{x:Type Button}">
+                <Setter Property="Template">
                     <Setter.Value>
-                        <ContextMenu>
-                            <MenuItem Header="{DynamicResource Close}" Command="{Binding CloseThisCommand}"/>
-                            <MenuItem Header="{DynamicResource CloseAll}" Command="{Binding CloseAllCommand}"/>
-                        </ContextMenu>
+                        <ControlTemplate TargetType="Button">
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                     Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="MouseOverBeginStoryboard">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusEllipse"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ColorAnimation Duration="0"
+                                    Storyboard.TargetName="FocusEllipse"
+                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                    To="LightGray" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="MouseOverBeginStoryboard" />
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger Property="IsPressed"
+                     Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="IsPressedBeginStoryboard">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusEllipse"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ColorAnimation Duration="0"
+                                    Storyboard.TargetName="FocusEllipse"
+                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                    To="DarkGray" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="IsPressedBeginStoryboard" />
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                            <Grid Width="14"
+                Height="14"
+                Background="Transparent">
+                                <Ellipse x:Name="FocusEllipse"
+                     Fill="#FFF13535"
+                     Visibility="Collapsed" />
+                                <ContentPresenter x:Name="ContentPresenter"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-        </TabControl.ItemContainerStyle>
-    </controls:TabControlEx>-->
-    <ad:DockingManager DocumentsSource="{Binding Documents}" x:Name="dockMan"  
-                       ActiveContent="{Binding SelectedDocument,Mode=OneWay}">
-        <ad:DockingManager.LayoutItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!--<toolbarcontrols:ToolPaneToolBar ItemsSource="{Binding ToolBar}" />-->
-                    <ContentControl Grid.Row="1" IsTabStop="False" Content="{Binding Content.Content}" />
-                </Grid>
+            <DataTemplate x:Key="TabItemTemplate">
+                <StackPanel VerticalAlignment="Center"
+                Orientation="Horizontal">
+                    <TextBlock Text="{Binding Title}" />
+                    <Button Margin="10,0,0,0"
+              Command="{Binding CloseCommand}"
+              Style="{StaticResource CloseButton}"
+              ToolTipService.ToolTip="Remove item">
+                        <Button.Content>
+                            <Path Data="M0,0 L6,6 M6, 0 L0,6"
+                SnapsToDevicePixels="True"
+                Stroke="Black"
+                StrokeThickness="1" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
             </DataTemplate>
-        </ad:DockingManager.LayoutItemTemplate>
-        <ad:DockingManager.LayoutItemContainerStyle>
-            <Style TargetType="{x:Type ad:LayoutItem}">
-                <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
-                <Setter Property="Title" Value="{Binding Model.Title, Mode=OneWay}" />
-                
-                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
-                
-                <!--<Setter Property="IconSource" Value="{Binding Model.IconSource, Converter={StaticResource NullableValueConverter}}" />-->
-                <!--<Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />-->
+            <DataTemplate x:Key="ContentTemplate">
+                <Grid />
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+
+
+    
+    <telerik:RadTabControl ItemsSource="{Binding Documents}" 
+                           SelectedItem="{Binding SelectedDocument}" IsContentPreserved="False"
+                           DropDownDisplayMode="Visible" ItemTemplate="{StaticResource TabItemTemplate}"
+                           ScrollMode="Viewport">
+        <telerik:RadTabControl.ContentTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding UIObject}"/>
+            </DataTemplate>
+        </telerik:RadTabControl.ContentTemplate>
+        <telerik:RadTabControl.ItemDropDownContentTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Title}"/>
+            </DataTemplate>
+        </telerik:RadTabControl.ItemDropDownContentTemplate>
+        <telerik:RadTabControl.ItemContainerStyle>
+            <Style TargetType="telerik:RadTabItem" >
+                <Setter Property="DropDownContent" Value="{Binding Title}"/>
             </Style>
-        </ad:DockingManager.LayoutItemContainerStyle>
-    </ad:DockingManager>
+        </telerik:RadTabControl.ItemContainerStyle>
+    </telerik:RadTabControl>
+   
 </UserControl>

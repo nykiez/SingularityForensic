@@ -105,31 +105,31 @@ namespace DllInvoker {
         }
 
         static void Main(string[] args) {
-            var _fs = File.OpenRead("E://anli/dos.img");
-            //"G:\\MobileImgs\\Honor\\mmcblk0");
-            //"J://anli/noname");
-            var _unManagedStreamAdapter = new UnmanagedStreamAdapter(_fs);
+            //var _fs = File.OpenRead("E://anli/dos.img");
+            ////"G:\\MobileImgs\\Honor\\mmcblk0");
+            ////"J://anli/noname");
+            //var _unManagedStreamAdapter = new UnmanagedStreamAdapter(_fs);
             
-            var _partPtr = Partition_Init(_unManagedStreamAdapter.StreamPtr);
-            var stPart = _partPtr.GetStructure<StPartition>();
-            var stPTable = stPart.stPTable.GetStructure<StPTable>();
-            var isDos = Partition_B_Dos(_partPtr);
-            var isGPT = Partition_B_Gpt(_partPtr);
+            //var _partPtr = Partition_Init(_unManagedStreamAdapter.StreamPtr);
+            //var stPart = _partPtr.GetStructure<StPartition>();
+            //var stPTable = stPart.stPTable.GetStructure<StPTable>();
+            //var isDos = Partition_B_Dos(_partPtr);
+            //var isGPT = Partition_B_Gpt(_partPtr);
 
-            var streamWriter = new StreamWriter(File.Create($"{Environment.CurrentDirectory}/1.json"));
-            var model = new SmsDbModel {
-                delete_status = 1
-            };
-            var tp = typeof(SmsDbModel);
-            foreach (var prop in tp.GetProperties()) {
-                streamWriter.WriteLine($"{ prop.Name} {prop.PropertyType.Name}");
-            }
+            //var streamWriter = new StreamWriter(File.Create($"{Environment.CurrentDirectory}/1.json"));
+            //var model = new SmsDbModel {
+            //    delete_status = 1
+            //};
+            //var tp = typeof(SmsDbModel);
+            //foreach (var prop in tp.GetProperties()) {
+            //    streamWriter.WriteLine($"{ prop.Name} {prop.PropertyType.Name}");
+            //}
             
-            var writer = new JsonTextWriter(streamWriter);
-            var serilizer = new JsonSerializer();
-            serilizer.Serialize(writer, model);
-            writer.Close();
-            streamWriter.Close();
+            //var writer = new JsonTextWriter(streamWriter);
+            //var serilizer = new JsonSerializer();
+            //serilizer.Serialize(writer, model);
+            //writer.Close();
+            //streamWriter.Close();
 
             
             //try {

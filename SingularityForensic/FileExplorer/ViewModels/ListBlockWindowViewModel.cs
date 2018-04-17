@@ -46,8 +46,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
             set {
                 if (value != null && value.BlockItemType == BlockItemType.Address) {
-                    var addresItem = value as AddressItem;
-                    if (addresItem != null) {
+                    if (value is AddressItem addresItem) {
                         SelectedAdrressChanged?.Invoke(this, addresItem.BlockAddress);
                     }
                 }

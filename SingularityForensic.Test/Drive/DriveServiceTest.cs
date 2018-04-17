@@ -4,7 +4,7 @@ using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Drive;
-using SingularityForensic.Test.App;
+using SingularityForensic.Test.Common;
 using static SingularityForensic.Drive.Constants;
 
 namespace SingularityForensic.Test.Drive {

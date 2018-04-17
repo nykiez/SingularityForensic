@@ -8,8 +8,8 @@ using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Android {
     internal static class CommandDefinitions {
-        private static INodeService _nodeService;
-        private static INodeService NodeService => _nodeService ?? (_nodeService = ServiceProvider.Current?.GetInstance<INodeService>());
+        private static ITreeService _nodeService;
+        private static ITreeService NodeService => _nodeService ?? (_nodeService = ServiceProvider.Current?.GetInstance<ITreeService>());
 
         //显示文件系统信息;
         public static readonly DelegateCommand ShowFileSystemInfoCommand = new DelegateCommand(() => {

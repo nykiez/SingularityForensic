@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer {
     interface IGridViewDataContext {
-        void NotifyDoubliClickOnRow(object row);
+        void NotifyDoubleClickOnRow(object row);
         
     }
 }

@@ -46,7 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Hasher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll</HintPath>
@@ -55,13 +55,13 @@
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.8\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -149,15 +149,23 @@
     <Reference Include="Telerik.Windows.Controls, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.Docking.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="Vlc.DotNet.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
       <HintPath>..\packages\Vlc.DotNet.Core.2.2.1\lib\net45\Vlc.DotNet.Core.dll</HintPath>
     </Reference>
@@ -172,7 +180,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.1\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.3\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +264,7 @@
     <Compile Include="Adb\Views\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\ProgressReporter.cs" />
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\DialogService.cs" />
     <Compile Include="App\ResourceDictionaryEx.cs" />
@@ -275,11 +284,11 @@
     <Compile Include="App\Views\RemainingMessageBoxWindow.xaml.cs">
       <DependentUpon>RemainingMessageBoxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseDevice\Constants.cs" />
     <Compile Include="Casing\Case.cs" />
     <Compile Include="Casing\CaseDialogService.cs" />
     <Compile Include="Casing\CaseModule.cs" />
-    <Compile Include="Casing\Commands\OpenCasePathCommandItem.cs" />
-    <Compile Include="Casing\Commands\ShowCasePropertyCommandItem.cs" />
+    <Compile Include="Casing\CaseCommandItemFactory.cs" />
     <Compile Include="Casing\Constants.cs" />
     <Compile Include="Casing\MenuItemDefinitions.cs" />
     <Compile Include="Casing\MessageBoxes\CreateCaseMessageBox.cs" />
@@ -295,6 +304,10 @@
     <Compile Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml.cs">
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\CommandItem.cs" />
+    <Compile Include="Common\ServiceProviderViewProvider.cs" />
+    <Compile Include="Common\PracticeServiceProvider.cs" />
+    <Compile Include="Controls\DataGridExViewModel.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
     <Compile Include="Controls\GridView\GridViewExtensions.cs" />
     <Compile Include="Controls\GridView\RadGridViewEx.cs" />
@@ -309,9 +322,31 @@
     <Compile Include="Controls\MessageBoxes\Filtering\FilterDTMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
-    <Compile Include="Controls\MessageBoxes\FindHexValueMessageBox.cs" />
-    <Compile Include="Controls\MessageBoxes\FindTextMessageBox.cs" />
-    <Compile Include="Controls\MessageBoxes\GoToOffsetMessageBox.cs" />
+    <Compile Include="Document\DocumentModule.cs" />
+    <Compile Include="Document\Models\DocumentModel.cs" />
+    <Compile Include="FAT\FATFileInfo.cs" />
+    <Compile Include="FAT\FATPartInfo.cs" />
+    <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
+    <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
+    <Compile Include="FileExplorer\PartitionsBrowserViewModelFactory.cs" />
+    <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
+    <Compile Include="FileExplorer\FolderBrowserViewModelFactory.cs" />
+    <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
+    <Compile Include="FileSystem\BlockedStreamFileBase.cs" />
+    <Compile Include="FileSystem\FileFactoryImpl.cs" />
+    <Compile Include="FileSystem\PartitionEntryFactoryImpl.cs" />
+    <Compile Include="FileSystem\SymbolLink.cs" />
+    <Compile Include="FileSystem\Directory.cs" />
+    <Compile Include="FileSystem\RegularFile.cs" />
+    <Compile Include="FileSystem\FileBaseCollection.cs" />
+    <Compile Include="FileSystem\PartitionEntry.cs" />
+    <Compile Include="FileSystem\Device.cs" />
+    <Compile Include="FileSystem\FileBase.cs" />
+    <Compile Include="FileSystem\Partition.cs" />
+    <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
+    <Compile Include="Hex\Controls\FindTextMessageBox.cs" />
+    <Compile Include="Hex\Controls\GoToOffsetMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\InputValueMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\ReComPreSettingMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\SignSearchMessageBox.cs" />
@@ -321,7 +356,6 @@
     <Compile Include="Controls\Models\Filtering\FilterStringModel.cs" />
     <Compile Include="Controls\Models\Filtering\IFilterModel.cs" />
     <Compile Include="Controls\Models\SignSearchSetting.cs" />
-    <Compile Include="Controls\ViewModels\DataGridExViewModel.cs" />
     <Compile Include="Controls\ViewModels\InfoBasicViewModel.cs" />
     <Compile Include="Controls\ViewModels\TalkViewModel.cs" />
     <Compile Include="Controls\Views\ActiveOrNotView.xaml.cs">
@@ -357,7 +391,8 @@
     <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
       <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Windows\GoToOffsetWindow.xaml.cs">
+    <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
+    <Compile Include="Hex\Views\GoToOffsetWindow.xaml.cs">
       <DependentUpon>GoToOffsetWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Windows\InputStringWindow.xaml.cs">
@@ -369,14 +404,10 @@
     <Compile Include="Controls\Windows\SignSearchWindow.xaml.cs">
       <DependentUpon>SignSearchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\NotifybleDataTable.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Document.cs" />
-    <Compile Include="Document\DocumentTabService.cs" />
+    <Compile Include="Document\DocumentService.cs" />
     <Compile Include="Document\EnumerableDocumentTab.cs" />
-    <Compile Include="Document\Models\DocumentModel.cs" />
     <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
     <Compile Include="Document\ViewModels\EnumerableTabViewModel.cs" />
     <Compile Include="Document\Views\DocumentTab.xaml.cs">
@@ -402,19 +433,26 @@
     <Compile Include="Drive\Views\DrivesItemsWindow.xaml.cs">
       <DependentUpon>DrivesItemsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FAT\Constants.cs" />
+    <Compile Include="FAT\FATPartitionType.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIHelper.cs" />
+    <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
     <Compile Include="FileExplorer\FileExplorerUIService.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIServiceForDevice.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIServiceForPartition.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
-    <Compile Include="FileExplorer\Helpers\FileRowHelper.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
     <Compile Include="FileExplorer\MenuDefinitions.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
     <Compile Include="FileExplorer\MessageBoxes\ListBlockMessageBox.cs" />
     <Compile Include="FileExplorer\Models\BlockItem.cs" />
+    <Compile Include="FileExplorer\Models\FileRow.cs" />
     <Compile Include="FileExplorer\Models\FileSystemUnit.cs" />
     <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
+    <Compile Include="FileExplorer\Models\PartitionRow.cs" />
     <Compile Include="FileExplorer\Models\StorageTreeUnit.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgram.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgramModel.cs" />
@@ -423,12 +461,7 @@
     <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
     <Compile Include="FileExplorer\UnknownFileExplorerServiceProvider.cs" />
-    <Compile Include="FileExplorer\ViewModels\DirectoriesBrowserViewModel.cs" />
-    <Compile Include="FileExplorer\ViewModels\FileBrowserTabModel.cs" />
-    <Compile Include="FileExplorer\ViewModels\FileBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
-    <Compile Include="FileExplorer\ViewModels\HexModels.cs" />
-    <Compile Include="FileExplorer\ViewModels\FilePreviewerViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IGridViewDataContext.cs" />
     <Compile Include="FileExplorer\ViewModels\ListBlockWindowViewModel.cs" />
@@ -459,18 +492,18 @@
       <DependentUpon>ThumbnailInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileSystem\Constants.cs" />
-    <Compile Include="FileSystem\BaseDeviceStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\FatStreamParsingProvider.cs" />
+    <Compile Include="BaseDevice\BaseDeviceStreamParsingProvider.cs" />
+    <Compile Include="FAT\UnmanagedFATManager.cs" />
+    <Compile Include="FAT\FatStreamParsingProvider.cs" />
     <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
     <Compile Include="FileSystem\IconSources.cs" />
-    <Compile Include="FileSystem\NativeBasicDeviceStructs.cs" />
-    <Compile Include="FileSystem\NativeManagers.cs" />
-    <Compile Include="FileSystem\NativeFATStructs.cs" />
+    <Compile Include="BaseDevice\NativeBasicDeviceStructs.cs" />
+    <Compile Include="BaseDevice\UnmanagedBasicDeviceManager.cs" />
+    <Compile Include="FAT\NativeFATStructs.cs" />
     <Compile Include="FileSystem\NTFSStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\UnknownDeviceStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\UnmanagedFATPartManager.cs" />
+    <Compile Include="FileSystem\UnknownStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />
     <Compile Include="About\IconSources.cs" />
@@ -519,15 +552,15 @@
     <Compile Include="Drive\Design\DriveItemsWindowDesignViewModel.cs" />
     <Compile Include="MainPage\Constants.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
-    <Compile Include="MainPage\NodeService.cs" />
+    <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
-    <Compile Include="MainPage\ViewModels\NodeTreeViewModel.cs" />
+    <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
+    <Compile Include="Previewers\Constants.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
     <Compile Include="Previewers\DefaultPreviewProvider.cs" />
-    <Compile Include="Previewers\Models\DBUnit.cs" />
     <Compile Include="Previewers\Models\Player.cs" />
     <Compile Include="Previewers\ImagePreviewer.cs" />
     <Compile Include="Previewers\OutsideInPreviewer.cs" />
@@ -579,6 +612,9 @@
     <Compile Include="About\Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TreeView\TreeUnit.cs" />
+    <Compile Include="TreeView\TreeUnitFactory.cs" />
+    <Compile Include="Update\Useless.cs" />
     <Page Include="Adb\Languages\zh_CN\SingularityForensic.Adb.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -736,7 +772,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Windows\GoToOffsetWindow.xaml">
+    <Page Include="Hex\Views\GoToOffsetWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -823,10 +859,6 @@
     <Page Include="ITunes\Views\StartForensicWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Languages\zh_CN\SingularityForensic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainMenu\Views\MainMenu.xaml">
       <SubType>Designer</SubType>
@@ -966,6 +998,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FAT\Languages\zh_CN\SingularityForensic.FAT.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -1011,7 +1047,6 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="Languages\en_US\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
     <Folder Include="StatusBar\" />
@@ -1263,9 +1298,6 @@
     <Resource Include="FileExplorer\Images\Type_PartitionActive.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="FileExplorer\Images\Type_RegularFile.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="FileExplorer\Images\Type_Unknown.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -1370,9 +1402,10 @@
     <Resource Include="Controls\Images\TalkLog_Right.png" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Drive\DevManager.dll" />
-    <Content Include="FileSystem\fat.h" />
-    <Content Include="FileSystem\FatRecover.dll" />
-    <Content Include="FileSystem\PartitionManager.dll" />
+    <Content Include="FAT\fat.h" />
+    <Content Include="FAT\FatRecover.dll" />
+    <Content Include="BaseDevice\PartitionManager.dll" />
+    <Resource Include="FileExplorer\Images\Type_RegularFile.png" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1604,9 +1637,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCopy "$(ProjectDir)Languages" "$(TargetDir)Languages\" /E /Y
-
-XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /E /Y
+    <PostBuildEvent>XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FileSystem\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Drive\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
@@ -1618,6 +1649,7 @@ XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />

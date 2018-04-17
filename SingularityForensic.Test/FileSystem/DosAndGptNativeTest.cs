@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using CDFC.Util.PInvoke;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SingularityForensic.BaseDevice;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileSystem;
 

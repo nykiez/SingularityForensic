@@ -12,7 +12,7 @@ namespace SingularityForensic.Contracts.Common {
     }
 
     public interface IHaveStoken<out TStoken> where TStoken : SecurityStoken, new() {
-
+        TStoken GetStoken(string key);
     }
 
     public abstract class HaveStokenBase<TStoken> where TStoken : SecurityStoken, new() {

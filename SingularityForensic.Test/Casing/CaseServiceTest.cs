@@ -57,7 +57,7 @@ namespace SingularityForensic.Test.Casing {
         }
 
         public void LoadCase() {
-            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Case.CaseFileExtention}");
+            _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Constants.CaseFileExtention}");
         }
 
         [TestMethod]

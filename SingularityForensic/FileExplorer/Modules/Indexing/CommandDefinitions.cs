@@ -1,17 +1,15 @@
 ﻿using Prism.Commands;
 using System.ComponentModel.Composition;
+using SingularityForensic.Contracts;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Controls.Models;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.TreeView;
 
-namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {
+namespace SingularityForensic.Controls.FileExplorer.Indexing {
     public static class CommandDefinitions {
-        private static INodeService _nodeService;
-        private static INodeService NodeService => _nodeService ?? (_nodeService = ServiceProvider.Current.GetInstance<INodeService>());
-
         public static readonly DelegateCommand CustomSSearchCommand = new DelegateCommand(
                 () => {
                     //ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, string.Empty);
@@ -38,11 +36,10 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.Indexing {
                 
             );
         
-        [Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
-        public static readonly CommandItem CustomSSearchMI = new CommandItem {
-            Command = CustomSSearchCommand,
-            CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("CustomSignSearch")
-        };
+        //[Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
+        //public static readonly ICommandItem CustomSSearchMI = CommandItemFactory.CreateNew(CustomSSearchCommand) {
+        //    Name = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("CustomSignSearch")
+        //};
 
         /// <summary>
         /// 签名搜索;

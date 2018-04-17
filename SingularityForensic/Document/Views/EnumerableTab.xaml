@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:SingularityForensic.Document.Views"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -18,16 +18,16 @@
             <ContentControl Content="{Binding MainView}"/>
         </Border>
         <GridSplitter  ShowsPreview="True" Height="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
-        
-        <TabControl Grid.Row="1" 
-                                 ItemsSource="{Binding DocumentTabs}"
+        <!--ItemsSource="{Binding DocumentTabs}"-->
+        <telerik:RadTabControl Grid.Row="1" ItemsSource="{Binding DocumentTabs}" 
                                SelectedItem="{Binding SelectedDocument}" >
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="TabItem" BasedOn="{StaticResource InnerBrowserTabItem}">
+            <telerik:RadTabControl.ItemContainerStyle>
+                <Style TargetType="telerik:RadTabItem" >
                     <Setter Property="Header" Value="{Binding Title}"/>
                     <Setter Property="Content" Value="{Binding UIObject,Mode=OneWay}"/>
                 </Style>
-            </TabControl.ItemContainerStyle>
+            </telerik:RadTabControl.ItemContainerStyle>
+            
             <!--<TabControl.ItemTemplate>
                 <DataTemplate>
                     <Border>
@@ -58,6 +58,6 @@
                     </Border>
                 </DataTemplate>
             </TabControl.Resources>-->
-        </TabControl>
+        </telerik:RadTabControl>
     </Grid>
 </UserControl>

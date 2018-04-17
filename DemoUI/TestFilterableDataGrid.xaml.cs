@@ -70,7 +70,7 @@ namespace DemoUI {
             else {
 
             }
-            
+
             textBlock.Text = (this.DataControl.Items.IndexOf(dataItem) + 1).ToString();
             //textBlock.Text = ((this.DataControl.ItemsSource as IList).IndexOf(dataItem) + 1).ToString();
 
@@ -84,15 +84,15 @@ namespace DemoUI {
     public partial class TestFilterableDataGrid : UserControl {
         public TestFilterableDataGrid() {
             //Telerik.Windows.Controls.RadGridView
-            
+
             InitializeComponent();
-            
+
             //InitilalizeWithObjects();
             InitiliazeWithDT();
             this.DataContext = new VM();
             LocalizationManager.Manager = new CustomLocalizationManager();
         }
-        
+
 
         private void InitilalizeWithObjects() {
             var dgColumns = new DataGridCloumnsCollection();
@@ -102,7 +102,7 @@ namespace DemoUI {
             };
 
             provider.ObjectType = typeof(DGModel);
-            
+
             provider.MethodParameters.Add("Da");
             dgColumns.Add(new DataGridTextColumn {
                 Header = "你好啊",
@@ -137,7 +137,7 @@ namespace DemoUI {
                 Binding = new Binding {
                     Path = new PropertyPath(Extender.AttachedTextProperty)
                 },
-                
+
                 //GetObjectFunc = ob => {
                 //    if(ob is DGModel dg) {
                 //        return dg.Name;
@@ -145,7 +145,7 @@ namespace DemoUI {
                 //    return null;
                 //}
             };
-            
+
 
             dgColumns.Add(exCol);
 
@@ -154,29 +154,29 @@ namespace DemoUI {
             this.DataContext = new VM();
         }
 
-        
+
         private void InitiliazeWithDT() {
-            
+
         }
 
         private void dgg_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
-            
+
         }
 
         private void dgg_FieldFilterEditorCreated(object sender, Telerik.Windows.Controls.GridView.EditorCreatedEventArgs e) {
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            
-            
+
+
             //dgg2.FilterDescriptors.AddRange(dgg.FilterDescriptors);
         }
 
-        
+
 
         private void dgg2_SelectedCellsChanged(object sender, GridViewSelectedCellsChangedEventArgs e) {
-            
+
         }
 
         private void dgg2_SelectionChanged(object sender, SelectionChangeEventArgs e) {
@@ -184,11 +184,11 @@ namespace DemoUI {
         }
 
         private void dgg_Copying(object sender, GridViewClipboardEventArgs e) {
-            
+
         }
 
         private void dgg_CurrentCellChanged(object sender, GridViewCurrentCellChangedEventArgs e) {
-            
+
         }
 
         private void dgg_Filtered(object sender, GridViewFilteredEventArgs e) {
@@ -200,11 +200,11 @@ namespace DemoUI {
         }
 
         private void dgg2_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
-            
+
         }
 
         private void dgg_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
-            
+
         }
 
         private void dgg_AutoGeneratingColumn_1(object sender, GridViewAutoGeneratingColumnEventArgs e) {
@@ -228,19 +228,19 @@ namespace DemoUI {
 
     }
 
-    public class VM:BindableBase {
+    public class VM : BindableBase {
         public VM() {
             InitiliazeItems();
             InitilaizeDt();
-            Commands.Add(new CommandItem {
-                CommandName = "你好"
-            });
+            var helloCm = CommandItemFactory.CreateNew(null);
+            helloCm.Name = "你好";
+            Commands.Add(helloCm);
         }
 
-        public ObservableCollection<CommandItem> Commands { get; set; } = new ObservableCollection<CommandItem>();
+        public ObservableCollection<ICommandItem> Commands { get; set; } = new ObservableCollection<ICommandItem>();
         private List<DGModel> items = new List<DGModel>();
         public DataTable Items {
-            get;private set;
+            get; private set;
         }
 
 
@@ -274,7 +274,7 @@ namespace DemoUI {
                     new DataColumn(col6, typeof(abDGModel))
         }
             );
-            
+
             var rand = new Random();
             foreach (var item in items) {
                 var row = Items.NewRow();
@@ -287,7 +287,7 @@ namespace DemoUI {
             }
 
 
-            
+
         }
         private void InitiliazeItems() {
             for (int i = 0; i < 200000; i++) {
@@ -325,14 +325,14 @@ namespace DemoUI {
                 }
             ));
     }
-    
+
     public enum Depart {
         dasd,
         dasd1,
         dasd2,
         dasd3
     }
-    
+
 
     public static class Extender {
         public static readonly DependencyProperty AttachedTextProperty =

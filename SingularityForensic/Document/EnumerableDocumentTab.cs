@@ -4,42 +4,33 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Document.ViewModels;
-using SingularityForensic.Document.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.Document {
-    class EnumerableDocument : IEnumerableDocument {
+    class EnumerableDocument : Document,IEnumerableDocument {
         public EnumerableDocument() {
-            _uiObject = ServiceProvider.Current.GetInstance<FrameworkElement>(Constants.EnumerableTabView);
-            if (_uiObject == null) {
-                throw new AggregateException($"No export has been found:{nameof(_uiObject)}.");
-            }
-
             _vm = new EnumerableTabViewModel();
-
             _vm.SelectedDocumentChanged += OnSelectedTabChanged;
-            _uiObject.DataContext = _vm;
+
+            _uiObject = ViewProvider.GetView(Constants.EnumerableTabView) as FrameworkElement;
+
+            if (_uiObject != null) {
+                _uiObject.DataContext = _vm;
+            }
         }
 
         public IEnumerable<IDocument> Children => _vm.DocumentTabs.Select(p => p);
         private void OnSelectedTabChanged(object sender, IDocument e) {
-            PubEventHelper.GetEvent<SelectedTabChangedEvent>().Publish((e, this));
+            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((e, this));
         }
 
-        public string Title { get; set; }
-
-        private ObservableCollection<CommandItem> _customCommands = new ObservableCollection<CommandItem>();
-        public IList<CommandItem> CustomCommands => _customCommands;
-
+        
         private FrameworkElement _uiObject;
-        public object UIObject {
+        public override object UIObject {
             get => _uiObject;
             set => throw new InvalidOperationException($"The UIObject of {nameof(EnumerableDocument)} can't be set.");
         }
@@ -49,9 +40,7 @@ namespace SingularityForensic.Document {
             get => _vm.MainView;
             set => _vm.MainView = value;
         }
-
-        public object Tag { get; set; }
-
+        
         public IEnumerable<IDocument> CurrentDocuments => _vm.DocumentTabs.Select(p => p);
 
         public IDocument SelectedDocument {
@@ -59,7 +48,7 @@ namespace SingularityForensic.Document {
             set => _vm.SelectedDocument = value;
         }
 
-        public void Dispose() {
+        public override void Dispose() {
             _vm.SelectedDocumentChanged -= OnSelectedTabChanged;
         }
 
@@ -68,7 +57,9 @@ namespace SingularityForensic.Document {
                 throw new ArgumentNullException(nameof(tab));
             }
 
+            PubEventHelper.GetEvent<DocumentAddingEvent>().Publish((tab, this));
             _vm.DocumentTabs.Add(tab);
+            PubEventHelper.GetEvent<DocumentAddedEvent>().Publish((tab, this));
         }
 
         public void RemoveDocument(IDocument tab) {
@@ -76,19 +67,45 @@ namespace SingularityForensic.Document {
                 throw new ArgumentNullException(nameof(tab));
             }
 
+            var cEvg = new CancelEventArgs();
+            PubEventHelper.GetEvent<DocumentClosingEvent>().Publish((tab, cEvg, this));
+            if (cEvg.Cancel) {
+                return;
+            }
             _vm.DocumentTabs.Remove(tab);
+            PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((tab, this));
+
+            if(_vm.DocumentTabs.Count == 0) {
+                PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
+            }
         }
 
         public IDocument CreateNewDocument() {
             return new Document();
         }
 
-        public IEnumerableDocument CreateEnumerableDocument() {
+        public IEnumerableDocument CreateNewEnumerableDocument() {
             return new EnumerableDocument();
         }
 
         public void CloseAllDocuments() {
+            var cEvg = new CancelEventArgs();
+            PubEventHelper.GetEvent<DocumentsClearingEvent>().Publish((cEvg, this));
+            if (cEvg.Cancel) {
+                return;
+            }
+
+            foreach (var doc in _vm.DocumentTabs) {
+                try {
+                    PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
+                }
+                catch (Exception ex) {
+                    LoggerService.WriteCallerLine(ex.Message);
+                }
+            }
+
             _vm.DocumentTabs.Clear();
+            PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
         }
     }
        

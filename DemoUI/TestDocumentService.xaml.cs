@@ -37,7 +37,7 @@ namespace DemoUI {
             doc.Title = "Test Title";
             DocumentService.MainDocumentService.AddDocument(doc);
 
-            var enumDoc = DocumentService.MainDocumentService.CreateEnumerableDocument();
+            var enumDoc = DocumentService.MainDocumentService.CreateNewEnumerableDocument();
             enumDoc.Title = "Enum Doc";
 
             var innerDoc = enumDoc.CreateNewDocument();

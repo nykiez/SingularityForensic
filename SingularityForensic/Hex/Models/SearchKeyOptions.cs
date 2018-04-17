@@ -1,7 +1,7 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 
-namespace SingularityForensic.Controls.Hex.Models {
+namespace SingularityForensic.Hex.Models {
     /// <summary>
     /// 搜索方式;
     /// </summary>

@@ -19,9 +19,7 @@
     </i:Interaction.Triggers>
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Singularity.UI.Themes;component/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+            
             <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
         </ResourceDictionary>
     </Window.Resources>
@@ -31,7 +29,7 @@
                 <Button DataContext="{Binding Data,Source={StaticResource dataElement}}" Style="{StaticResource TransparentButton}"
                         Visibility="{Binding CanGoBack,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance}}"
                         Command="{Binding GoBackCommand}" Height="15" Margin="0,3,0,0"  VerticalAlignment="Top">
-                    <Image  Source="/Singularity.UI.MessageBoxes;component/Images/Btn_GoBack.png"/>
+                    <Image  />
                 </Button>
                 <TextBlock Text="{DynamicResource ConnectToDevice}" FontSize="14" FontFamily="Microsoft YaHei UI Light"  HorizontalAlignment="Left"
                              Margin="12,0,0,0" />

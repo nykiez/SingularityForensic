@@ -7,7 +7,7 @@ namespace SingularityForensic.Test.App {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _languageService = Contracts.App.LanguageService.Current;
+            _languageService = LanguageService.Current;
             Assert.IsNotNull(_languageService);
             _languageService.Initialize();
             Assert.IsNotNull(_languageService.CurrentProvider);

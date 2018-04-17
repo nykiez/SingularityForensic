@@ -2,12 +2,16 @@
 using Prism.Mef;
 using Prism.Modularity;
 using Prism.Mvvm;
+using Prism.Regions;
+using SingularityForensic.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Splash;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -45,32 +49,29 @@ namespace SingularityShell {
                 }
             });
         }
-
-
+        
         protected override IModuleCatalog CreateModuleCatalog() {
             return new ConfigurationModuleCatalog();
         }
 
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
-            return this.Container.GetExportedValue<IShell>() as DependencyObject;
+            ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
+            return ViewProvider.GetView(SingularityForensic.Contracts.Shell.Constants.ShellView) as DependencyObject;
         }
 
         protected override void InitializeModules() {
-            var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
-            splashService.ShowSplash();
-            //初始化语言;
+            //var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
+            //splashService.ShowSplash();
+            //因为各个模块都可能用到语言服务,必须先初始化语言服务;
             ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
             base.InitializeModules();
-            splashService.CloseSplash();
+            //splashService.CloseSplash();
         }
 
         protected override void InitializeShell() {
-            base.InitializeShell();
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
         }
-
-
     }
 }

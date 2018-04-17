@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.FileSystem;
+using SingularityForensic.FAT;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +28,7 @@ namespace SingularityForensic.Test.FileSystem {
             _fatStream = File.OpenRead(FAT32ImgPath);
             _streamParsingProvider = ServiceProvider.Current.GetAllInstances<IStreamParsingProvider>().
                 FirstOrDefault(p => 
-                    p.GUID == SingularityForensic.FileSystem.Constants.StreamParser_FAT
+                    p.GUID == SingularityForensic.FAT.Constants.StreamParser_FAT
                 );
 
             Assert.IsNotNull(_streamParsingProvider);
@@ -54,6 +54,9 @@ namespace SingularityForensic.Test.FileSystem {
         [TestMethod()]
         public void ParseStreamTest() {
             var file = _streamParsingProvider.ParseStream(_fatStream, string.Empty, null, null);
+            var part = file as IPartition;
+            Assert.IsNotNull(part);
+            Assert.AreEqual(part.PartType.GUID , FAT.Constants.PartitionType_FAT32);
         }
 
         [TestMethod]

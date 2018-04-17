@@ -1,5 +1,4 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using SingularityForensic.Contracts.Hex;
+﻿using SingularityForensic.Contracts.Hex;
 using System;
 using System.ComponentModel.Composition;
 using WpfHexaEditor.Core.Bytes;
@@ -39,11 +38,12 @@ namespace SingularityForensic.Hex {
             }
 
             long pos = (hex.FocusPosition == -1 ? 0 : hex.FocusPosition) + 1;
-            var dialog = new ProgressMessageBox {
-                WindowTitle = findMethod == FindMethod.Text ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForText") : 
-                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForHex")
-            };
 
+            var dialog = DialogService.Current.CreateLoadingDialog();
+            dialog.WindowTitle = findMethod == FindMethod.Text ? 
+                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForText") :
+                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchingForHex");
+            
             dialog.DoWork += (sender, e) => {
                 if (isBlockSearch) {
                     pos = hex.Stream.SearchBlock(pos, blockSize, blockOffset, findBytes, index => {
@@ -66,7 +66,8 @@ namespace SingularityForensic.Hex {
                         hex.FocusPosition = pos;
                     }
                     else {
-                        CDFCMessageBox.Show(LanguageService.FindResourceString("CannotFindTheContent"));
+                        
+                        MsgBoxService.Show(LanguageService.FindResourceString("CannotFindTheContent"));
                     }
                 }
             };

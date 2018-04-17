@@ -12,7 +12,7 @@ namespace SingularityForensic.Contracts.Helpers {
         //    => Aggregator?.GetEvent<TEvent>()?.Publish(payload);
 
         public static void Publish<TEvent>() where TEvent : PubSubEvent, new() => Aggregator?.GetEvent<TEvent>()?.Publish();
-        public static void Publish<TEvent, TPayload>(TPayload payload) where TEvent : PubSubEvent<TPayload>,new() => 
+        public static void Publish<TEvent, TPayload>(TPayload payload) where TEvent : PubSubEvent<TPayload>,new () => 
             Aggregator?.GetEvent<TEvent>()?.Publish(payload);
 
         public static TEventType GetEvent<TEventType>() where TEventType : EventBase, new() => Aggregator?.GetEvent<TEventType>();

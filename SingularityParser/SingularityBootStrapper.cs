@@ -3,7 +3,6 @@ using Prism.Mef;
 using Prism.Modularity;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Previewers;
-using SingularityForensic.Controls.Hex;
 using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 using SingularityForensic.Contracts.Shell;
@@ -25,7 +24,7 @@ namespace SingularityParser {
             //////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(RelevanceModule).Assembly));
 
             //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ITunesModule).Assembly));
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(HexModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(HexModule).Assembly));
 
             //////默认预览器模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DefaultPreviewerModule).Assembly));
@@ -48,7 +47,7 @@ namespace SingularityParser {
         }
 
         protected override void InitializeShell() {
-            ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
+            ServiceProvider.SetServiceProvider(new SingularityForensic.Common.PracticeServiceProvider(ServiceLocator.Current));
             base.InitializeShell();
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();

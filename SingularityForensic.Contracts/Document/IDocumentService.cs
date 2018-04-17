@@ -13,7 +13,7 @@ namespace SingularityForensic.Contracts.Document {
         /// 添加文档页;
         /// </summary>
         /// <param name="tab"></param>
-        void AddDocument(IDocument tab);
+        void AddDocument(IDocument doc);
 
         /// <summary>
         /// 创建一个Tab;
@@ -25,7 +25,7 @@ namespace SingularityForensic.Contracts.Document {
         /// 创建一个多级的Tab;
         /// </summary>
         /// <returns></returns>
-        IEnumerableDocument CreateEnumerableDocument();
+        IEnumerableDocument CreateNewEnumerableDocument();
 
         /// <summary>
         /// 当前所有的文档;
@@ -46,7 +46,7 @@ namespace SingularityForensic.Contracts.Document {
         /// 移除Tab;
         /// </summary>
         /// <param name="tab"></param>
-        void RemoveDocument(IDocument tab);
+        void RemoveDocument(IDocument doc);
 
         ////正在清除事件;
         //event EventHandler<CancelEventArgs> TabsClearing;

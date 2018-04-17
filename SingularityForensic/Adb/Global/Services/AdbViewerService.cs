@@ -4,10 +4,10 @@ using EventLogger;
 using Prism.Events;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.MainPage;
 using System;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Adb.Global.Services {
     [Export]
@@ -21,11 +21,6 @@ namespace SingularityForensic.Adb.Global.Services {
 
         private ICaseService _csService;
        
-
-        [Import]
-        private Lazy<INodeService> mNodeManagerService;
-
-        
         /// <summary>
         /// 加载ADB节点;在连接手机并获得了信息后处理获得的结果;
         /// </summary>

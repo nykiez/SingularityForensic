@@ -97,7 +97,16 @@ namespace SingularityForensic.Controls.Previewers.Views {
             DoCloseFile(panel.Handle, viewerHandle);
             panel.SizeChanged -= panel_SizeChanged;
             panel.Dispose();
+            
+            grid.Children.Remove(host);
+            host.Dispose();
         }
+
+#if DEBUG
+        ~OutsideInPreviewer() {
+
+        }
+#endif
     }
     public partial class OutsideInPreviewer {
         #region constants

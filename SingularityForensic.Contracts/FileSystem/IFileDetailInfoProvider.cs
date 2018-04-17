@@ -5,9 +5,9 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// </summary>
     public interface IFileDetailInfoProvider {
         //获取文件详细信息;
-        string GetAttachedInfo(FileBase file);
+        string GetAttachedInfo(IFile file);
 
         //确认是否为可用文件;
-        bool CheckIsValidFile(FileBase file);
+        bool CheckIsValidFile(IFile file);
     } 
 }

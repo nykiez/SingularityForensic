@@ -4,7 +4,7 @@ using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 
-namespace SingularityForensic.Controls.FileExplorer.Models {
+namespace SingularityForensic.FileExplorer.Models {
     //查看程序模型;
     public class ViewerProgramModel:BindableBase {
         public ViewerProgramModel(ViewerProgram program) {

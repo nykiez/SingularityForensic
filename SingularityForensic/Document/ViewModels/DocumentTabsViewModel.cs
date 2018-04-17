@@ -1,8 +1,4 @@
 ﻿using Prism.Mvvm;
-using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.Document.Events;
-using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Document.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -13,92 +9,21 @@ namespace SingularityForensic.Document.ViewModels {
     [Export]
     public partial class DocumentTabsViewModel : BindableBase {
         public DocumentTabsViewModel() {
-            this._documentService = DocumentService.MainDocumentService;
-            RegisterEvents();
+            
         }
-
-        IDocumentService _documentService;
         
-        //事件订阅;
-        private void RegisterEvents() {
-            //订阅添加tab的UI响应;
-            PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(OnDocumentAdded);
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(OnDocumentClosed);
-            //订阅关闭的UI响应;
-            //_tabService.TabClosed += (sender,tab) => {
-            //    if(tab == null) {
-            //        return;
-            //    }
+        public ObservableCollection<Document> Documents { get; set; } = new ObservableCollection<Document>();
 
-            //    var preModel = Documents.FirstOrDefault(p => p.DocumentTab == tab);
-            //    if(preModel == null) {
-            //        return;
-            //    }
 
-            //    Documents.Remove(preModel);
-            //};
-
-            //订阅清除的UI响应;
-            //_tabService.TabsCleared += (sender, tab) => {
-            //    Documents.Clear();
-            //};
-
-            ////订阅选择选择文档变更事件;
-            //_tabService.SelectedTabChanged += (sender, tab) => {
-            //    var tabModel = Documents.FirstOrDefault(p => p.DocumentTab == tab);
-            //    if(tabModel == null) {
-            //        return;
-            //    }
-
-            //    SelectedDocument = tabModel;
-            //};
-        }
-
-        private void OnDocumentClosed((IDocument tab, IDocumentService owner) tuple) {
-            if (tuple.tab == null) {
-                return;
-            }
-
-            if (tuple.owner != _documentService) {
-                return;
-            }
-
-            DocumentModel model = Documents.FirstOrDefault(p => p.Document == tuple.tab);
-            if(model != null) {
-                Documents.Remove(model);
-            }
-        }
-
-        private void OnDocumentAdded((IDocument tab,IDocumentService owner) tuple) {
-            if (tuple.tab == null) {
-                return;
-            }
-
-            if(tuple.owner != _documentService) {
-                return;
-            }
-
-            var preModel = Documents.FirstOrDefault(p => p.Document == tuple.tab);
-            if (preModel != null) {
-                SelectedDocument = preModel;
-                return;
-            }
-
-            var doc = new DocumentModel(tuple.tab);
-            doc.CloseRequest += delegate {
-                _documentService.RemoveDocument(doc.Document);
-            };
-            Documents.Add(doc);
-        }
-
-        public ObservableCollection<DocumentModel> Documents { get; set; } = new ObservableCollection<DocumentModel>();
-
-        private DocumentModel _selectedDocument;
-        public DocumentModel SelectedDocument {
+        private Document _selectedDocument;
+        public Document SelectedDocument {
             get => _selectedDocument;
-            set => SetProperty(ref _selectedDocument, value);
+            set {
+                SetProperty(ref _selectedDocument, value);
+                SelectedDocumentChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
-
+        public event EventHandler SelectedDocumentChanged;
     }
 
     

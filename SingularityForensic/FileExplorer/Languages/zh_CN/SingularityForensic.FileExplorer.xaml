@@ -8,7 +8,7 @@
   <sys:String x:Key="MobileRecompositeBySign">文件重组扫描</sys:String>
   <sys:String x:Key="FileSystemInfo">显示文件系统信息</sys:String>
   <sys:String x:Key="CustomSignSearch">自定义签名搜索</sys:String>
-  <sys:String x:Key="PartitionUnitLabel">分区</sys:String>
+  <sys:String x:Key="Prefix_Partition">分区</sys:String>
   <sys:String x:Key="FileExploerLoading">正在加载</sys:String>
   <sys:String x:Key="FileMetaDataName_Name">名称</sys:String>
   <sys:String x:Key="FileMetaDataName_Size">大小</sys:String>
@@ -32,4 +32,14 @@
   <sys:String x:Key="FileDeleted_No">否</sys:String>
   <sys:String x:Key="FileDeleted_Unknown">未知</sys:String>
   <sys:String x:Key="DocumentTitle_FilePreview">预览</sys:String>
+  <sys:String x:Key="TreeUnitLabel_FileSystem">文件系统</sys:String>
+  <sys:String x:Key="ContextCommandName_SaveAs">另存为</sys:String>
+  <sys:String x:Key="ContextCommandName_ViewFile">查看</sys:String>
+  <sys:String x:Key="ContextCommandName_OpenFileWith">打开方式</sys:String>
+  <sys:String x:Key="MsgText_FailedToCreateDirectory ">创建目录失败</sys:String>
+  <sys:String x:Key="MsgText_FileSaveDone">文件保存完成</sys:String>
+  <sys:String x:Key="ContextCommandName_Navigate">导航</sys:String>
+  <sys:String x:Key="ContextCommandName_ListBlock">列出簇</sys:String>
+  <sys:String x:Key="ContextCommandName_ComputeHash">计算哈希</sys:String>
+  <sys:String x:Key="ContextCommandName_CustomSignSearch">自定义签名扫描</sys:String>
 </ResourceDictionary>

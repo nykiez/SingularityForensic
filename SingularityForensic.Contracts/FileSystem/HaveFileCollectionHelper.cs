@@ -9,36 +9,11 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.FileSystem {
     public static class HaveFileCollectionHelper {
         /// <summary>
-        /// 判定是否为备用文件;(.)
-        /// </summary>
-        /// <param name="dir"></param>
-        /// <returns></returns>
-        public static bool IsBackUpDir(this Directory dir) {
-            if (dir == null)
-                return false;
-
-            return dir.Name == ".";
-        }
-
-        /// <summary>
-        /// 判定是否为上级文件(..);
-        /// </summary>
-        /// <param name="dir"></param>
-        /// <returns></returns>
-        public static bool IsBackDir(this Directory dir) {
-            if (dir == null)
-                return false;
-
-            return dir.Name == "..";
-
-        }
-
-        /// <summary>
         /// 查找索引号;
         /// </summary>
         /// <param name="itrFile"></param>
         /// <returns></returns>
-        public static int IndexOf(this IHaveFileCollection itrFile, FileBase file) {
+        public static int IndexOf(this IHaveFileCollection itrFile, IFile file) {
             if (itrFile == null && itrFile.Children == null) {
                 return -1;
             }
@@ -108,7 +83,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static FileBase GetFileByUrl(this Device file, string url) {
+        public static IFile GetFileByUrl(this IDevice file, string url) {
             if (string.IsNullOrEmpty(url)) {
                 return file;
             }
@@ -123,7 +98,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 var partArgs = args.ToList().GetRange(1, args.Length - 1);
 
                 var partIndex = int.Parse(args[0]);
-                return (file.Children.ElementAt(partIndex) as Partition).GetFileByUrl(partArgs.ToArray());
+                return (file.Children.ElementAt(partIndex) as IPartition).GetFileByUrl(partArgs.ToArray());
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);
@@ -136,7 +111,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static FileBase GetFileByUrl(this IHaveFileCollection part, string url) {
+        public static IFile GetFileByUrl(this IHaveFileCollection part, string url) {
             try {
                 url = url.Replace('\\', '/');
                 var urlArgs = url.Split('/');
@@ -155,12 +130,12 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="enumFile"></param>
         /// <param name="urlArgs"></param>
         /// <returns></returns>
-        public static FileBase GetFileByUrl(this IHaveFileCollection enumFile, string[] urlArgs) {
+        public static IFile GetFileByUrl(this IHaveFileCollection enumFile, string[] urlArgs) {
             if (urlArgs == null) {
                 return null;
             }
             if (urlArgs.Length == 1 && string.IsNullOrEmpty(urlArgs[0])) {
-                return enumFile as FileBase;
+                return enumFile as IFile;
             }
 
             IHaveFileCollection fileNode = enumFile;

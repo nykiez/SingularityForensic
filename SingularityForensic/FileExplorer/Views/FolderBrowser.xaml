@@ -11,6 +11,11 @@
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1400">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnLoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -62,7 +67,7 @@
             </ItemsControl>
             <TextBlock Text="{DynamicResource IsRecursivelyBrowsing}"  DockPanel.Dock="Left" Foreground="Black"
                        Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
-            <Button DockPanel.Dock="Right" Command="{Binding SwitchFilteringCommand}" Height="14">
+            <Button DockPanel.Dock="Right" Command="{Binding CancelFilteringCommand}" Height="14">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource TransparentButton}" >
                         <Style.Triggers>
@@ -88,6 +93,7 @@
             
             <Border/>
         </DockPanel>
+
         <gv:RadGridViewEx  ItemsSource="{Binding Files}" SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedRow}" ShowGroupPanel="False" IsReadOnly="True"
                              Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                              >
@@ -96,7 +102,7 @@
                     <ContextMenu.ItemContainerStyle>
                         <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                             <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="Header" Value="{Binding CommandName}"/>
+                            <Setter Property="Header" Value="{Binding Name}"/>
                             <Setter Property="ItemsSource" Value="{Binding Children}"/>
                         </Style>
                     </ContextMenu.ItemContainerStyle>

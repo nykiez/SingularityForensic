@@ -68,7 +68,6 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -94,12 +93,13 @@
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdbAquirTest.cs" />
     <Compile Include="App\AppMockers.cs" />
-    <Compile Include="App\ExportProviderServiceProviderMocker.cs" />
+    <Compile Include="Common\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
     <Compile Include="App\LanguageServiceTests.cs" />
     <Compile Include="Casing\CaseEvidenceTests.cs" />
@@ -108,14 +108,19 @@
     <Compile Include="Casing\CaseUIServiceTests.cs" />
     <Compile Include="Casing\Commands\OpenCasePathCommandItemTests.cs" />
     <Compile Include="Common\CommonMockers.cs" />
-    <Compile Include="Data\NotifybleDataTableTest.cs" />
+    <Compile Include="Common\GenericServiceStaticInstance2Tests.cs" />
+    <Compile Include="Common\TestExtensibleObject.cs" />
+    <Compile Include="Common\ViewProviderTests.cs" />
     <Compile Include="Documents\DocumentServiceTest.cs" />
+    <Compile Include="Document\DocumentServiceTests.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="FileExplorer\FolderBrowserViewModelFactoryTests.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
+    <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
     <Compile Include="FileSystem\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
@@ -123,8 +128,11 @@
     <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
+    <Compile Include="Hex\HexUIServiceTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />
+    <Compile Include="MainPage\TestMainTreeService.cs" />
+    <Compile Include="Shell\ShellMockers.cs" />
     <Compile Include="TestDos.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="TestPInvoke.cs" />
@@ -152,6 +160,9 @@
     </Content>
     <Content Include="DiskManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -167,8 +178,8 @@
 Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
-Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)FatRecover.dll" 
+Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
+Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y

@@ -23,14 +23,14 @@ namespace SingularityForensic.FileSystem {
             }
 
             try {
-                var unManagedManager = new UnmanagedBasicDeviceManager(stream);
-                if(unManagedManager.BasicDevicePtr == IntPtr.Zero) {
-                    return false;
-                }
+                //var unManagedManager = new UnmanagedBasicDeviceManager(stream);
+                //if(unManagedManager.BasicDevicePtr == IntPtr.Zero) {
+                //    return false;
+                //}
 
-                var isFat = Partition_B_Ntfs(unManagedManager.BasicDevicePtr);
-                unManagedManager.Dispose();
-                return isFat;
+                //var isFat = Partition_B_Ntfs(unManagedManager.BasicDevicePtr);
+                //unManagedManager.Dispose();
+                return false;
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -38,7 +38,7 @@ namespace SingularityForensic.FileSystem {
             }
         }
 
-        public FileBase ParseStream(Stream stream, string name, XElement xElem, ProgressReporter reporter) {
+        public IFile ParseStream(Stream stream, string name, XElement xElem, IProgressReporter reporter) {
             throw new NotImplementedException();
         }
     }

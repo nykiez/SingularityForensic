@@ -6,9 +6,9 @@ using System.Windows.Input;
 using System.Globalization;
 using System.ComponentModel.Composition;
 using CDFCUIContracts.Helpers;
-using SingularityForensic.ViewModels.Modules.MainPage.ViewModels;
 using CDFC.Util;
 using SingularityForensic.Contracts.TreeView;
+using SingularityForensic.MainPage.ViewModels;
 
 namespace SingularityForensic.MainPage.Views {
     /// <summary>
@@ -20,23 +20,9 @@ namespace SingularityForensic.MainPage.Views {
             InitializeComponent();
         }
 
-        [Import]
-        private NodeTreeViewModel vm {
-            set {
-                this.DataContext = value;
-                
-                value.NotifyUnitExpanded += (d, unit) => {
-                    var ti = CaseTreeList.GetContainerFromItemEx(unit);
-                    if (ti != null) {
-                        ti.IsExpanded = true;
-                        ti.UpdateLayout();
-                    }
-                };
-            }
-        }
         
         private void CaseTreeList_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
-            if (e.ClickCount == 1 && DataContext is NodeTreeViewModel vm) {
+            if (e.ClickCount == 1 && DataContext is UnitTreeViewModel vm) {
                 if (e.OriginalSource is DependencyObject dpo) {
                     object dt = null;
                     if (dpo is FrameworkElement element) {
@@ -46,15 +32,9 @@ namespace SingularityForensic.MainPage.Views {
                         dt = VisualHelper.GetVisualParent<FrameworkElement>(dpo)?.DataContext;
                     }
 
-                    if (dt is TreeUnit unit) {
-                        if (e.LeftButton == MouseButtonState.Pressed) {
-                            vm.NotifyUnitClick(unit);
-                        }
-                        else {
-                            vm.SelectedUnit = unit;
-                        }
-                        if (unit is TreeUnit tUnit) {
-                            //右键展开显示;
+                    if (dt is ITreeUnit unit) {
+                        if (unit is ITreeUnit tUnit) {
+                            //通知右键点击;
                             if (e.RightButton == MouseButtonState.Pressed) {
                                 vm.NotifyRightClick(tUnit);
                             }

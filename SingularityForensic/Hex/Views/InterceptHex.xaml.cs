@@ -10,13 +10,14 @@ namespace SingularityForensic.Hex.Views {
     /// </summary>
     [
         Export(
-            Constants.HexView,
+            Contracts.Hex.Constants.HexView,
             typeof(FrameworkElement)
         ),
         PartCreationPolicy(
             CreationPolicy.NonShared
         )
     ]
+
     public partial class InterceptHex : UserControl {
         public InterceptHex() {
             InitializeComponent();

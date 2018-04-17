@@ -2,6 +2,7 @@
 using SingularityForensic.Test.App;
 using SingularityForensic.Test.Casing;
 using SingularityForensic.Test.Common;
+using SingularityForensic.Test.Shell;
 using System.ComponentModel.Composition.Hosting;
 
 namespace SingularityForensic.Test {
@@ -9,9 +10,9 @@ namespace SingularityForensic.Test {
     /// //业务逻辑测试时必须调用这个类的InitializeTest方法;
     /// </summary>
     public static class TestCommon {
-        
-
-        //初始化ServiceProvider等;
+        /// <summary>
+        /// 初始化ServiceProvider等;
+        /// </summary>
         public static void InitializeTest() {
             ServiceProvider.SetServiceProvider(ExportProviderServiceProviderMocker.StaticInstance);
             var catalog = new AggregateCatalog();
@@ -28,12 +29,17 @@ namespace SingularityForensic.Test {
 
             //设定事件聚合器;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(CommonMockers.AggregatorMocker);
-            
+
+            //设定视图查找器;
+            ViewProvider.SetViewProvider(CommonMockers.ViewProviderMocker);
+
             //App相关Mocker;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.MsgBoxMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.ThreadInvokerMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.DialogMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.LanguageDictObjectMocker);
+
+            
         }
     }
 }

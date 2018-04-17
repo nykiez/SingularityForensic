@@ -12,7 +12,8 @@ namespace SingularityForensic.Hex {
                 GetEvent<Contracts.Splash.Events.SplashMessageEvent>().
                 Publish("HexModule being loaded");
 
-            _uiService = new HexUIService();
+            _uiService = ServiceProvider.Current.GetInstance<HexUIService>();
+            
             _uiService.Initialize();
         }
 

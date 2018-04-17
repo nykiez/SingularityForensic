@@ -27,9 +27,10 @@ namespace SingularityForensic.Casing {
         private ICase _currentCase;
 
         /// <summary>
-        /// 创建一个空案件,注意,并不加载;
+        /// 创建一个空案件;
         /// </summary>
         /// <returns></returns>
+        /// <param name="load">是否加载</param>
         public ICase CreateNewCase() {
             if (CurrentCase != null) {
                 if(MsgBoxService.Current?.Show(
@@ -49,7 +50,7 @@ namespace SingularityForensic.Casing {
                     MsgBoxService.Show($"{ex.Message}");
                 }
             }
-
+            
             return sCase;
         }
         
@@ -114,7 +115,7 @@ namespace SingularityForensic.Casing {
             
             msg.DoWork += delegate {
                 //构建进度回调器;
-                var reporter = new ProgressReporter();
+                var reporter = ProgessReporterFactory.CreateNew();
                 reporter.DoubleProgressReported += (sender, e) => {
                     msg.ReportProgress(e.totalPer, e.detailPer, e.desc, e.detail);
                 };
@@ -185,33 +186,6 @@ namespace SingularityForensic.Casing {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 打开现有案件文件;
-        /// </summary>
-        public void OpenExistingCase() {
-            //若已经存在打开的案件;
-            if (CurrentCase != null) {
-                //询问是否关闭;
-                if (
-                    MsgBoxService.Current.Show(
-                    $"{LanguageService.FindResourceString(ConfirmToCloseAndOpen)}",
-                    MessageBoxButton.YesNo
-                    ) != MessageBoxResult.Yes) {
-                    return;
-                }
-            }
-
-            var filter =
-                $"({LanguageService.FindResourceString(SupportedCaseFileType)})|*.sfproj |" +
-                $"({LanguageService.FindResourceString("AllFiles")})| *.* ";
-
-            var fileName = DialogService.Current.OpenFile(filter);
-
-            if (string.IsNullOrEmpty(fileName)) {
-                return;
-            }
-            
-            LoadCase(fileName);  
-        }
+        
     }
 }

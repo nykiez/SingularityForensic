@@ -50,7 +50,9 @@ namespace SingularityForensic.Test.App {
             ShowDialog();
         }
 
-        public void ShowDialog() {
+        public void ShowDialog() => ShowDialog(null);
+
+        public void ShowDialog(object owner = null) {
             DoWork?.Invoke(this, new DoWorkEventArgs(null));
             RunWorkerCompleted?.Invoke(this, new RunWorkerCompletedEventArgs(null, null, false));
         }

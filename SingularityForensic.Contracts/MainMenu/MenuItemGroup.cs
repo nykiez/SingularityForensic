@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace SingularityForensic.Contracts.Contracts.MainMenu {
+namespace SingularityForensic.Contracts.MainMenu {
     public class MenuItemGroup {
         public MenuItemGroup(string guid, int sortOrder = 32) {
             this.SortOrder = sortOrder;

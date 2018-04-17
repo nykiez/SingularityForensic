@@ -39,12 +39,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="cFile"></param>
         void LoadCase(ICase cFile);
-
-        /// <summary>
-        /// 打开现有案件文件;
-        /// </summary>
-        void OpenExistingCase();
-
+        
         //当前的案件;
         ICase CurrentCase { get; }
 

@@ -7,7 +7,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         //建立索引;
         bool BuildIndexFiles(Action<BuildPeriod, long, long?> notify = null, Func<bool> isCanceld = null);
         //搜索索引;
-        List<FileBase > IndexSearchKey(string[] content, string path = null);
+        List<IFile > IndexSearchKey(string[] content, string path = null);
         //是否建立了索引;
         bool HasIndexes { get; }
     }

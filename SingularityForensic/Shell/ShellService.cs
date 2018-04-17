@@ -1,9 +1,9 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Shell.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SingularityForensic.Shell {
@@ -11,40 +11,27 @@ namespace SingularityForensic.Shell {
     /// 主窗体服务;
     /// </summary>
     [Export(typeof(IShellService))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public class ShellService:IShellService
     {
-        
-        public ShellService() {
-            //PubEventHelper.Subscribe<ShellLoadedEvent, IShell>(shell => {
-            //    while(_inputBindings.Count != 0) {
-            //        shell?.AddInputBinding(_inputBindings.Dequeue());
-            //    }
-            //});
+        [ImportingConstructor]
+        public ShellService(ShellViewModel shellVM) {
+            this._shellVM = shellVM;
+            _shellView = ViewProvider.GetView(Contracts.Shell.Constants.ShellView);
+                
         }
 
-        [Import]
-        Lazy<ShellViewModel> ShellVM;
+        
+        private ShellViewModel _shellVM;
+        private object _shellView;
 
         //更改标题栏文字;
         public void SetTitle(string word,bool saveBrandName = true) {
-            if(ShellVM?.Value != null) {
-                ShellVM.Value.SetTitle(word,saveBrandName);
-            }
+            _shellVM.SetTitle(word,saveBrandName);
+            
         }
 
         public void Focus() {
-            try {
-                var ss = new List<IShell>(ServiceProvider.Current.GetAllInstances<IShell>());
-                foreach (var s in ss) {
-                    s.Focus();
-                }
-            }
-            catch {
-
-            }
-            
-            //ServiceProvider.Current.GetInstance<IShell>()?.Focus();
+            _shellVM.Focus();
         }
 
         /// <summary>
@@ -53,11 +40,11 @@ namespace SingularityForensic.Shell {
         /// <param name="isLoading"></param>
         /// <param name="word"></param>
         public void ChangeLoadState(bool isLoading, string word = null) {
-            ShellVM.Value.IsLoading = isLoading;
-            ShellVM.Value.LoadingWord = word;
+            _shellVM.IsLoading = isLoading;
+            _shellVM.LoadingWord = word;
         }
 
-        private Queue<InputBinding> _inputBindings = new Queue<InputBinding>();
+        
         /// <summary>
         /// /// 添加快捷键绑定;
         /// </summary>
@@ -65,15 +52,17 @@ namespace SingularityForensic.Shell {
         /// <param name="key">案件</param>
         /// <param name="modifier">修饰键</param>
         /// <param name="commandPara">命令参数</param>
-        public void AddKeyGestrue(ICommand command,Key key,ModifierKeys modifier = ModifierKeys.None,object commandPara = null) {
+        public void AddKeyBinding(ICommand command,Key key,ModifierKeys modifier = ModifierKeys.None,object commandPara = null) {
             var kb = new KeyBinding {
                 Modifiers = modifier,
                 Key = key,
                 CommandParameter = commandPara,
                 Command = command
             };
-            _inputBindings.Enqueue(kb);
-            //Shell?.InputBindings.Add(kb);
+            
+            if(_shellView is UIElement uiElem) {
+                uiElem.InputBindings.Add(kb);
+            }
         }
     }
 }

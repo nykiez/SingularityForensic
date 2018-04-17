@@ -1,6 +1,7 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Splash.Events;
@@ -12,11 +13,11 @@ namespace SingularityForensic.Casing {
             PubEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.CaseModuleBeingLoaded));
 
-            _caseUiService = ServiceProvider.Current?.GetInstance<CaseUIService>();
-            _caseUiService?.RegisterEvents();
+            _caseUiService = ServiceProvider.Current?.GetInstance<ICaseUIService>();
+            _caseUiService?.Initialize();
         }
         
-        private CaseUIService _caseUiService;
+        private ICaseUIService _caseUiService;
         
     }
 

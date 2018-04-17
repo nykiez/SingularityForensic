@@ -35,22 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\AvalonDock.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
-    <Reference Include="CDFCHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCHexaEditor.dll</HintPath>
-    </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.0.5\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -108,9 +105,14 @@
     <Reference Include="Telerik.Windows.Controls.Input, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -154,6 +156,9 @@
     </Compile>
     <Compile Include="TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestRadTreeView.xaml.cs">
+      <DependentUpon>TestRadTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestSqlitePreviewer.xaml.cs">
       <DependentUpon>TestSqlitePreviewer.xaml</DependentUpon>
@@ -217,6 +222,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TestRadTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TestSqlitePreviewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -274,15 +283,19 @@ xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x86
 xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
 
 
+
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml"
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)FatRecover.dll"
+Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
+Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"</PostBuildEvent>
+Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
+
+
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Telerik.Windows.Controls.Navigation.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

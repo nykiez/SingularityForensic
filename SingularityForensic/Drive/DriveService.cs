@@ -120,8 +120,12 @@ namespace SingularityForensic.Drive {
 
         }
 
-        //挂载本地硬盘到设备上;
-        public void MountHdd(CaseEvidence csEvidence, ProgressReporter reporter) {
+        /// <summary>
+        /// 挂载本地硬盘到设备上;
+        /// </summary>
+        /// <param name="csEvidence"></param>
+        /// <param name="reporter"></param>
+        public void MountHdd(CaseEvidence csEvidence, IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }
@@ -149,8 +153,12 @@ namespace SingularityForensic.Drive {
             
         }
 
-        //挂载本地卷到设备上;
-        public void MountVolume(CaseEvidence csEvidence,ProgressReporter reporter) {
+        /// <summary>
+        /// 挂载本地卷到设备上;
+        /// </summary>
+        /// <param name="csEvidence"></param>
+        /// <param name="reporter"></param>
+        public void MountVolume(CaseEvidence csEvidence,IProgressReporter reporter) {
             if (csEvidence == null) {
                 throw new ArgumentNullException(nameof(csEvidence));
             }

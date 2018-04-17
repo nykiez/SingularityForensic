@@ -103,4 +103,30 @@ namespace SingularityForensic.Contracts.Common {
         //     if there is are errors resolving the service instance.
         TService GetInstance<TService>(string key);
     }
+
+    public static class ServiceProvider {
+        public static IServiceProvider Current => _serviceProvider;
+        
+        private static IServiceProvider _serviceProvider;
+
+        public static void SetServiceProvider(IServiceProvider serviceProvider) {
+            _serviceProvider = serviceProvider;
+        }
+
+        public static TService GetInstance<TService>() where TService : class {
+            if (Current == null) {
+                throw new InvalidOperationException("ServiceProvidder has not been set!");
+            }
+
+            return Current.GetInstance<TService>();
+        }
+
+        public static TService GetInstance<TService>(string key) where TService : class {
+            if (Current == null) {
+                throw new InvalidOperationException("ServiceProvidder has not been set!");
+            }
+
+            return Current.GetInstance<TService>(key);
+        }
+    }
 }

@@ -1,16 +1,12 @@
 ﻿using Prism.Commands;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
     public static class CommandDefinitions {
-        private static INodeService _nodeService;
-        private static INodeService NodeService => _nodeService ?? (_nodeService = ServiceProvider.Current.GetInstance<INodeService>());
-
-
         public static readonly DelegateCommand RecoverSignCommand = new DelegateCommand(
                 () => {
                     //ServiceProvider.Current.GetInstance<IShellService>()?.ChangeLoadState(true, string.Empty);
@@ -27,11 +23,11 @@ namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
                 //(NodeService?.SelectedNode is ICaseEvidenceUnit<CaseEvidence> csFUnit) && (csFUnit.Evidence is IHaveData<Device>
                 );
 
-        [Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
-        public static readonly CommandItem RecompositeSignCMI = new CommandItem {
-            Command = RecoverSignCommand,
-            CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MobileRecompositeBySign")
-        };
+        //[Export(SingularityForensic.FileExplorer.Constants.DeviceNodeContextCommand)]
+        //public static readonly ICommandItem RecompositeSignCMI = new CommandItem {
+        //    Command = RecoverSignCommand,
+        //    Name = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("MobileRecompositeBySign")
+        //};
 
         /// <summary>
         /// 重组;

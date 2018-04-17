@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Contracts.Contracts.MainMenu;
+﻿using SingularityForensic.Contracts.MainMenu;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;

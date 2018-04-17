@@ -8,7 +8,7 @@
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid x:Name="grid">
         <wfi:WindowsFormsHost x:Name="host" Grid.Row="1" >
             <wf:Panel x:Name="panel" SizeChanged="panel_SizeChanged"></wf:Panel>
         </wfi:WindowsFormsHost>

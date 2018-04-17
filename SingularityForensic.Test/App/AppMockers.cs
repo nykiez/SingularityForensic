@@ -1,7 +1,10 @@
-﻿using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using SingularityForensic.App;
 using SingularityForensic.Contracts.App;
 using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace SingularityForensic.Test.App {
     static class AppMockers {
@@ -51,7 +54,7 @@ namespace SingularityForensic.Test.App {
                     var mocker = new Mock<IDialogService>();
                     mocker.Setup(p => p.OpenFile()).Returns(() => OpenFileName);
                     mocker.Setup(p => p.OpenFile(It.IsAny<string>())).Returns(() => OpenFileName);
-                    mocker.Setup(p => p.SaveFile()).Returns(() => SaveFileName);
+                    mocker.Setup(p => p.GetSaveFilePath(It.IsAny<string>())).Returns(() => SaveFileName);
                     mocker.Setup(p => p.CreateDoubleLoadingDialog()).Returns(() => new DoubleLoadingDialogMocker());
                     mocker.Setup(p => p.CreateLoadingDialog()).Returns(() => new LoadingDialogMocker());
                     _dialogMocker = mocker.Object;
@@ -61,21 +64,31 @@ namespace SingularityForensic.Test.App {
             }
         }
 
-        private static ILanguageDictObject _languageDictObjectMocker;
-        public static ILanguageDictObject LanguageDictObjectMocker {
+        private static List<(string key, string value)> lanList = new List<(string key, string value)>();
+        private static ILanguageDict _languageDictObjectMocker;
+        public static ILanguageDict LanguageDictObjectMocker {
             get {
                 if(_languageDictObjectMocker == null) {
-                    var mocker = new Mock<ILanguageDictObject>();
-                    var resource = new ResourceDictionaryEx();
-                    mocker.Setup(p => p.LanguageDict).Returns(resource);
+                    var mocker = new Mock<ILanguageDict>();
+                    mocker.Setup(p => p.AddMergedDictionaryFromPath(It.IsAny<string>())).Callback<string>(path => {
+                        try {
+                            var doc = XDocument.Load(path);
+                            foreach (var elem in doc.Root.Elements()) {
+                                //var s = elem.Attribute("sys:")
+                            } 
+                        }
+                        catch(Exception ex) {
+                            Assert.Fail();
+                        }
+                    });
                     _languageDictObjectMocker = mocker.Object;
                 }
 
                 return _languageDictObjectMocker;
             }
         }
-        
 
+        
         internal static string OpenFileName { get; set; }
         internal static string SaveFileName { get; set; }
     }

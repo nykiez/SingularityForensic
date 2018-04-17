@@ -144,7 +144,7 @@ copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  
 
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb"
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll"
-copy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.1.0\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll"
+copy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.1.1.3\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll"
 copy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll"
 Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll"
 
@@ -156,11 +156,10 @@ Copy "$(SolutionDir)EWF.NET\ewf.net.dll" "$(TargetDir)Entities\ewf.net.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Entities\cdfc_device.dll"
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"
 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
+Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
+Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
-Copy "$(SolutionDir)SingularityForensic\FileSystem\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll" 
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 
@@ -179,6 +178,7 @@ Copy "$(SolutionDir)packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.GridView.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll"
 
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"

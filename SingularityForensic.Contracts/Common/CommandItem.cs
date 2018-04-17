@@ -21,37 +21,43 @@ namespace SingularityForensic.Contracts.Common {
     //    int SortOrder { get; set; }
     //}
 
-    
+    public interface IHaveSort {
+        /// <summary>
+        /// 排序;
+        /// </summary>
+        int Sort { get; set; }
+    }
 
     /// <summary>
-    /// 命令绑定项,可用于MenuItem等的绑定等;
+    /// 命令项;
     /// </summary>
-    public class CommandItem : BindableBase {
-        public ICommand Command { get; set; }
+    public interface ICommandItem:IInstanceExtensible,IHaveSort {
+        /// <summary>
+        /// 命令;
+        /// </summary>
+        ICommand Command { get; }
+        /// <summary>
+        /// 名称;
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
+        /// ICon;
+        /// </summary>
+        Uri Icon { get; set; }
+        bool IsEnabled { get; set; }
         
-        private string _commandName;
-        public virtual string CommandName {
-            get => _commandName;
-            set => SetProperty(ref _commandName, value);
-        }
+        ICollection<ICommandItem> Children { get; }
+    }
 
-        private Uri _icon;
-        public Uri Icon {
-            get => _icon;
-            set => SetProperty(ref _icon, value);
-        }
+    /// <summary>
+    /// 命令项工厂;
+    /// </summary>
+    public interface ICommandItemFactory {
+        ICommandItem CreateNew(ICommand command);
+    }
 
-        public List<CommandItem> Children { get; } = new List<CommandItem>();
-
-
-        private bool _isEnabled;
-        public bool IsEnabled {
-            get => _isEnabled;
-            set => SetProperty(ref _isEnabled, value);
-        }
-
-        //排列顺序;
-        public int Sort { get; set; }
+    public class CommandItemFactory:GenericServiceStaticInstance<ICommandItemFactory> {
+        public static ICommandItem CreateNew(ICommand command) => Current?.CreateNew(command);
     }
 
     //public interface ICommandItem<TData> : ICommandItem {

@@ -4,7 +4,6 @@ using Prism.Commands;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.Controls.ITunes.Resources;
 using System.ComponentModel.Composition;

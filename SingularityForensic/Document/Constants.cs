@@ -5,8 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Document {
-    static class Constants {
+    public static partial class Constants {
         public const string EnumerableTabView = nameof(EnumerableTabView);
         
+    }
+
+    /// <summary>
+    /// 语言部分;
+    /// </summary>
+    public static partial class Constants {
+        public const string CloseAllTabs = nameof(CloseAllTabs);
     }
 }

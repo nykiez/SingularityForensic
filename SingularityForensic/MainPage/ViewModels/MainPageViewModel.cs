@@ -2,17 +2,14 @@
 using Prism.Regions;
 using Prism.Mvvm;
 using SingularityForensic.MainMenu.Events;
-using SingularityForensic.MainPage;
 using Prism.Commands;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage.Events;
-using SingularityForensic.Contracts.Contracts.MainMenu;
 using SingularityForensic.MainMenu;
-using SingularityForensic.Document.ViewModels;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
+using SingularityForensic.Contracts.MainMenu;
 
-namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
+namespace SingularityForensic.MainPage.ViewModels {
     [Export]
     public partial class MainPageViewModel : BindableBase {
         [ImportingConstructor]
@@ -29,7 +26,7 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
             PubEventHelper.Subscribe<MenuSelectedGroupChangedEvent, MenuItemGroup>(group => {
                 if (group == MenuGroupDefinitions.MainPageMenuGroup) {
                     RegionManager.RequestNavigate(
-                        SingularityForensic.Shell.RegionNames.MainRegion,
+                        SingularityForensic.Contracts.Shell.Constants.MainRegion,
                         SingularityForensic.MainPage.Constants.MainPageView);
                 }
 
@@ -69,16 +66,16 @@ namespace SingularityForensic.ViewModels.Modules.MainPage.ViewModels {
     }
     
     public partial class MainPageViewModel {
-        [Import]                        //浏览器tab页;
-        private DocumentTabsViewModel browserTabViewModel {
-            set {
-                if (value != null) {
+        //[Import]                        //浏览器tab页;
+        //private DocumentTabsViewModel browserTabViewModel {
+        //    set {
+        //        if (value != null) {
                     
-                    BrowserTabViewModel = value;
-                }
-            }
-        }
-        public DocumentTabsViewModel BrowserTabViewModel { get; private set; }
+        //            BrowserTabViewModel = value;
+        //        }
+        //    }
+        //}
+        //public DocumentTabsViewModel BrowserTabViewModel { get; private set; }
     }
 
     

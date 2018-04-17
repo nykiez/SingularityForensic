@@ -21,7 +21,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="xElem">可拓展描述内容</param>
         /// <param name="reporter">进度通知单位</param>
         /// <returns></returns>
-        FileBase ParseStream(Stream stream,string name,XElement xElem, ProgressReporter reporter);
+        IFile ParseStream(Stream stream,string name,XElement xElem, IProgressReporter reporter);
 
         int Order { get; }
 
@@ -31,4 +31,17 @@ namespace SingularityForensic.Contracts.FileSystem {
         string GUID { get; }
     }
 
+    /// <summary>
+    /// 不可解析的设备处理契约;此单位唯一;
+    /// </summary>
+    public interface IUnknownDeviceParsingProvider {
+        IDevice ParseStream(Stream stream, string name, XElement xElem);
+    }
+
+    /// <summary>
+    /// 不可解析的分区处理契约;此单位唯一;
+    /// </summary>
+    public interface IUnknownPartitionParsingProvider  {
+        IPartition ParseStream(Stream stream, string name, XElement xElem);
+    }
 }

@@ -7,10 +7,10 @@ using System.ComponentModel.Composition;
 namespace SingularityForensic.Adb.ViewModels {
     [Export]
     public class InfoTreeModel {
-        public ObservableCollection<TreeUnit> TreeUnits { get; set; } = new ObservableCollection<TreeUnit>();
+        public ObservableCollection<ITreeUnit> TreeUnits { get; set; } = new ObservableCollection<ITreeUnit>();
 
-        private TreeUnit _selectedUnit;
-        public TreeUnit SelectedUnit {
+        private ITreeUnit _selectedUnit;
+        public ITreeUnit SelectedUnit {
             get {
                 return _selectedUnit;
             }
@@ -40,15 +40,15 @@ namespace SingularityForensic.Adb.ViewModels {
         }
         
         //通知节点展开;
-        public event EventHandler<TreeUnit> NotifyUnitExpanded;
+        public event EventHandler<ITreeUnit> NotifyUnitExpanded;
         //通知节点选中;
-        public event EventHandler<TreeUnit> SelectedUnitChanged;
+        public event EventHandler<ITreeUnit> SelectedUnitChanged;
 
-        protected void NotifyUnitExpand(TreeUnit unit) {
+        protected void NotifyUnitExpand(ITreeUnit unit) {
             NotifyUnitExpanded?.Invoke(this, unit);
         }
 
-        public void NotifySelectionUnitChanged(TreeUnit unit) {
+        public void NotifySelectionUnitChanged(ITreeUnit unit) {
             SelectedUnit = unit;
             SelectedUnitChanged?.Invoke(this, unit);
             
