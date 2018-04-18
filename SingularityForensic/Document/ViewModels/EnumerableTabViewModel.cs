@@ -21,11 +21,11 @@ namespace SingularityForensic.Document.ViewModels {
             set => SetProperty(ref _mainView, value);
         }
 
-        public ObservableCollection<IDocument> DocumentTabs { get; set; } = 
-            new ObservableCollection<IDocument>();
+        public ObservableCollection<IDocumentBase> DocumentTabs { get; set; } = 
+            new ObservableCollection<IDocumentBase>();
         
-        private IDocument _selectedDocument;
-        public IDocument SelectedDocument {
+        private IDocumentBase _selectedDocument;
+        public IDocumentBase SelectedDocument {
             get => _selectedDocument;
             set {
                 SetProperty(ref _selectedDocument, value);
@@ -33,6 +33,6 @@ namespace SingularityForensic.Document.ViewModels {
             } 
         }
 
-        public event EventHandler<IDocument> SelectedDocumentChanged;
+        public event EventHandler<IDocumentBase> SelectedDocumentChanged;
     }
 }

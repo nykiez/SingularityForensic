@@ -11,12 +11,12 @@ namespace SingularityForensic.FileSystem {
     
 
     /// <summary>
-    /// 块-流文件类型;可用作描述分区,磁盘等的基类;
+    /// 流文件类型;可用作描述分区,磁盘等的基类;
     /// </summary>
     /// <typeparam name="TStoken"></typeparam>
-    public abstract class BlockedStreamFileBase<TStoken> : FileBase<TStoken>,
-        IBlockedStreamFile<TStoken> where TStoken : BlockedStreamFileStoken,new() {
-        public BlockedStreamFileBase(string key,TStoken stoken = null):base(key,stoken){
+    public abstract class StreamFileBase<TStoken> : FileBase<TStoken>,
+        IStreamFile<TStoken> where TStoken : StreamFileStoken,new() {
+        public StreamFileBase(string key,TStoken stoken = null):base(key,stoken){
 
         }
         

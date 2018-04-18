@@ -1,6 +1,6 @@
-﻿using SingularityForensic.Controls.Windows;
+﻿using SingularityForensic.App.Views;
 
-namespace SingularityForensic.Controls.MessageBoxes {
+namespace SingularityForensic.App.MessaggeBoxes {
     /// <summary>
     /// 输入字符串对话框;
     /// </summary>
@@ -15,6 +15,7 @@ namespace SingularityForensic.Controls.MessageBoxes {
             var window = new InputStringWindow(title, des);
             window.Val = val;
             window.ShowDialog();
+            
             if(window.InputResult == true) {
                 return window.Val;
             }

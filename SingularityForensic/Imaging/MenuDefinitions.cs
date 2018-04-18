@@ -10,11 +10,7 @@ namespace SingularityForensic.Imaging {
         private static DelegateCommand _addImgCommand;
 
         public static DelegateCommand AddImgCommand => _addImgCommand ??
-            (_addImgCommand = new DelegateCommand(
-                () => {
-                    ImgService.Current?.AddImg();
-                }
-            ));
+            (_addImgCommand = new DelegateCommand(() => ImgService.Current?.AddImg()));
 
         [Export]
         public static readonly MenuButtonItem AddImgMenuItem = new MenuButtonItem(

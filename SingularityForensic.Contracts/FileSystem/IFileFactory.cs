@@ -6,10 +6,33 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
+    /// <summary>
+    /// 文件创建工厂;
+    /// </summary>
     public interface IFileFactory {
+        /// <summary>
+        /// 创建一个分区;
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         IPartition CreatePartition(string key);
+        /// <summary>
+        /// 创建一个目录;
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         IDirectory CreateDirectory(string key);
+        /// <summary>
+        /// 创建一个文件;
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         IRegularFile CreateRegularFile(string key);
+        /// <summary>
+        /// 创建一个设备;
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         IDevice CreateDevice(string key);
     }
 

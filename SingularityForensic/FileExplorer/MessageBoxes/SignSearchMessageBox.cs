@@ -1,7 +1,7 @@
-﻿using SingularityForensic.Controls.Models;
-using SingularityForensic.Controls.Windows;
+﻿using SingularityForensic.FileExplorer.Models;
+using SingularityForensic.FileExplorer.Views;
 
-namespace SingularityForensic.Controls.MessageBoxes {
+namespace SingularityForensic.FileExplorer.MessageBoxes {
     public class SignSearchMessageBox {
         public SignSearchSetting Show() {
             var setting = new SignSearchSetting();

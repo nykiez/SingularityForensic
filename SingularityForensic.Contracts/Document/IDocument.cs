@@ -7,12 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Document {
-    //文档实体结构;
-    public interface IDocument : IUIObjectProvider,IInstanceExtensible {
+    /// <summary>
+    /// 文档实体结构契约基类;
+    /// </summary>
+    public interface IDocumentBase:IUIObjectProvider,IInstanceExtensible {
         string Title { get; set; }
         IList<ICommandItem> CustomCommands { get; }
-        object UIObject { get; set; }
+    }
 
+    /// <summary>
+    /// 文档实体结构;(UIObject可更改);
+    /// </summary>
+    public interface IDocument : IDocumentBase {
+        object UIObject { get; set; }
     }
     
 }

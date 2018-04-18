@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public class BlockedStreamFileStoken : FileStokenBase {
+    public class StreamFileStoken : FileStokenBase {
         public Stream BaseStream { get; set; }
 
         public int BlockSize { get; set; }

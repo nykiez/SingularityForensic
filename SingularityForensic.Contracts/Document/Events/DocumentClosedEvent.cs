@@ -6,6 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Document.Events {
-    public class DocumentClosedEvent:PubSubEvent<(IDocument tab,IDocumentService owner)> {
+    public class DocumentClosedEvent:PubSubEvent<(IDocumentBase tab,IDocumentService owner)> {
     }
 }

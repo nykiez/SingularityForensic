@@ -15,7 +15,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 添加块/簇组;
         /// </summary>
         /// <param name="group">需添加的块组</param>
-        public void AddGroup(BlockGroup group) {
+        public void AddGroup(IBlockGroup group) {
             if (group != null) {
                 Groups.Add(group);
                 for (int i = 0; i < group.Count; i++) {
@@ -35,7 +35,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             Items.Add(new FragmentCountItem { Text = $"{sFrags}{comma}{Groups.Count}" });
         }
 
-        public List<BlockGroup> Groups { get; set; } = new List<BlockGroup>();
+        public List<IBlockGroup> Groups { get; set; } = new List<IBlockGroup>();
 
         public ObservableCollection<BlockItem> Items { get; set; } = new ObservableCollection<BlockItem>();
 

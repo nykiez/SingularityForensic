@@ -1,5 +1,6 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using Ookii.Dialogs.Wpf;
+using SingularityForensic.App.MessaggeBoxes;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Controls.Windows;
 using System;
@@ -50,6 +51,10 @@ namespace SingularityForensic.App {
             }
 
             return string.Empty;
+        }
+
+        public string GetInputValue(string title = "", string desc = "", string val = "") {
+            return InputValueMessageBox.Show(title, desc,val);
         }
     }
 

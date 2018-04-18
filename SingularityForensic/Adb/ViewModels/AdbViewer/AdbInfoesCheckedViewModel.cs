@@ -19,7 +19,6 @@ using SingularityForensic.Adb.Helpers;
 using SingularityForensic.Contracts.Info;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.ViewModels.AdbViewer {
@@ -213,7 +212,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                              notCorrect => {
                                                 string pwd = null;
                                                 AppInvoke(() => {
-                                                    pwd = InputValueMessageBox.Show(LanguageService.FindResourceString("PleaseInputBackUpPass"),
+                                                    pwd = DialogService.Current.GetInputValue(LanguageService.FindResourceString("PleaseInputBackUpPass"),
                                                             notCorrect ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbBPPwdNotCorrect") : string.Empty);
                                                 });
 

@@ -10,6 +10,10 @@ namespace SingularityForensic.FAT {
 
         internal const string DirectoryKey_FAT = "14A3C48B-6A23-4434-AD2F-492CD1BADE23";
         internal const string RegularFileKey_FAT = "8E74D7D4-7118-4745-9E78-0ABDCAEE8B8F";
+
+        public const string PartitionStokenTag_FATPartInfo = nameof(PartitionStokenTag_FATPartInfo);
+        public const string FileStokenTag_FATFileInfo = nameof(FileStokenTag_FATFileInfo);
+
     }
 
     public static partial class Constants {

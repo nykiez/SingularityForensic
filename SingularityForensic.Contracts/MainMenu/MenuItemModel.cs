@@ -3,6 +3,12 @@ using System;
 using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.MainMenu {
+    public interface IMenu : IUIObjectProvider {
+        object UIObject { get; set; }
+        string GUID { get; }
+        string Header { get; }
+    }
+
     public class MenuObjectItem : IUIObjectProvider {
         public object UIObject { get; set; }
         public string GUID { get; set; }

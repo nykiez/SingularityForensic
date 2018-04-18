@@ -108,8 +108,8 @@ namespace SingularityForensic.Hex.ViewModels {
         }
 
         private void InitializeToolTips() {
-            _positionToolTip.KeyName = LanguageService.Current?.FindResourceString("OffsetTag");
-            _valToolTip.KeyName = LanguageService.Current?.FindResourceString("ValueTag");
+            _positionToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset); 
+            _valToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Value);
 
             DataToolTips.Add(_positionToolTip);
             DataToolTips.Add(_valToolTip);

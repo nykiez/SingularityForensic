@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public class DeviceStoken : BlockedStreamFileStoken {
+    public class DeviceStoken : StreamFileStoken {
         public string PartsType { get; set; }                    //分区表类型;
         public IList<IPartitionEntry> PartitionEntries { get; } = new List<IPartitionEntry>(); //分区表项集合;
     }

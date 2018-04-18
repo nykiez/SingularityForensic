@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Hex {
+    public interface ICodeLanguageFormarter {
+
+    }
+
     public enum CodeLanguage {
         C,
         CSharp,

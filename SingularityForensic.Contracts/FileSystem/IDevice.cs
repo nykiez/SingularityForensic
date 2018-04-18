@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public interface IDevice : IBlockedStreamFile<DeviceStoken>{
+    public interface IDevice : IStreamFile<DeviceStoken>{
         IEnumerable<IPartitionEntry> PartitionEntries { get; }
         void SetStartLBA(IPartition part, long startLBA);
         long GetStartLBA(IPartition part);

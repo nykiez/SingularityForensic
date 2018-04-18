@@ -72,7 +72,7 @@ namespace SingularityForensic.FileExplorer {
         /// 展现设备及分区十六进制;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnDocumentAddedEventOnDeviceHex((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentAddedEventOnDeviceHex((IDocumentBase tab, IDocumentService owner) tuple) {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }
@@ -125,7 +125,7 @@ namespace SingularityForensic.FileExplorer {
         /// 设备加入文档时,呈现主视图;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnDocumentAddedEventOnDevice((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentAddedEventOnDevice((IDocumentBase tab, IDocumentService owner) tuple) {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }

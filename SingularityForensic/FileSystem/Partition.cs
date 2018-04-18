@@ -9,7 +9,7 @@ namespace SingularityForensic.FileSystem {
     /// <summary>
     /// 分区类型;
     /// </summary>
-    public class Partition : BlockedStreamFileBase<PartitionStoken>,IPartition {
+    public class Partition : StreamFileBase<PartitionStoken>,IPartition {
         public Partition(string key) : base(key) {
 
         }

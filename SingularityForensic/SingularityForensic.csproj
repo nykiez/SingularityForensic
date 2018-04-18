@@ -328,13 +328,15 @@
     <Compile Include="FAT\FATFileInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
     <Compile Include="FileExplorer\PartitionsBrowserViewModelFactory.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FolderBrowserViewModelFactory.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
-    <Compile Include="FileSystem\BlockedStreamFileBase.cs" />
+    <Compile Include="FileSystem\BlockGroup.cs" />
+    <Compile Include="FileSystem\StreamFileBase.cs" />
     <Compile Include="FileSystem\FileFactoryImpl.cs" />
     <Compile Include="FileSystem\PartitionEntryFactoryImpl.cs" />
     <Compile Include="FileSystem\SymbolLink.cs" />
@@ -345,18 +347,25 @@
     <Compile Include="FileSystem\Device.cs" />
     <Compile Include="FileSystem\FileBase.cs" />
     <Compile Include="FileSystem\Partition.cs" />
+    <Compile Include="Hash\SHA256Hasher.cs" />
+    <Compile Include="Hash\SHA512Hasher.cs" />
+    <Compile Include="Hash\Constants.cs" />
+    <Compile Include="Hash\HasherBase.cs" />
+    <Compile Include="Hash\IHashAlgorithmProvider.cs" />
+    <Compile Include="Hash\MD5Hasher.cs" />
+    <Compile Include="Hash\SHA1Hasher.cs" />
     <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
     <Compile Include="Hex\Controls\FindTextMessageBox.cs" />
     <Compile Include="Hex\Controls\GoToOffsetMessageBox.cs" />
-    <Compile Include="Controls\MessageBoxes\InputValueMessageBox.cs" />
+    <Compile Include="App\MessageBoxes\InputValueMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\ReComPreSettingMessageBox.cs" />
-    <Compile Include="Controls\MessageBoxes\SignSearchMessageBox.cs" />
+    <Compile Include="FileExplorer\MessageBoxes\SignSearchMessageBox.cs" />
     <Compile Include="Controls\Models\Filtering\FilterAllModel.cs" />
     <Compile Include="Controls\Models\Filtering\FilterDateModel.cs" />
     <Compile Include="Controls\Models\Filtering\FilterSizeModel.cs" />
     <Compile Include="Controls\Models\Filtering\FilterStringModel.cs" />
     <Compile Include="Controls\Models\Filtering\IFilterModel.cs" />
-    <Compile Include="Controls\Models\SignSearchSetting.cs" />
+    <Compile Include="FileExplorer\Models\SignSearchSetting.cs" />
     <Compile Include="Controls\ViewModels\InfoBasicViewModel.cs" />
     <Compile Include="Controls\ViewModels\TalkViewModel.cs" />
     <Compile Include="Controls\Views\ActiveOrNotView.xaml.cs">
@@ -396,13 +405,13 @@
     <Compile Include="Hex\Views\GoToOffsetWindow.xaml.cs">
       <DependentUpon>GoToOffsetWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Windows\InputStringWindow.xaml.cs">
+    <Compile Include="App\Views\InputStringWindow.xaml.cs">
       <DependentUpon>InputStringWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Windows\ReComPreSettingWindow.xaml.cs">
       <DependentUpon>ReComPreSettingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Windows\SignSearchWindow.xaml.cs">
+    <Compile Include="FileExplorer\Views\SignSearchWindow.xaml.cs">
       <DependentUpon>SignSearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\Constants.cs" />
@@ -446,7 +455,6 @@
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
-    <Compile Include="FileExplorer\MenuDefinitions.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
     <Compile Include="FileExplorer\MessageBoxes\ListBlockMessageBox.cs" />
     <Compile Include="FileExplorer\Models\BlockItem.cs" />
@@ -461,7 +469,6 @@
     <Compile Include="FileExplorer\Modules\Indexing\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
-    <Compile Include="FileExplorer\UnknownFileExplorerServiceProvider.cs" />
     <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IGridViewDataContext.cs" />
@@ -773,11 +780,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Hash\Languages\zh_CN\SingularityForensic.Hash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Hex\Views\GoToOffsetWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Windows\InputStringWindow.xaml">
+    <Page Include="App\Views\InputStringWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -785,7 +796,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Windows\SignSearchWindow.xaml">
+    <Page Include="FileExplorer\Views\SignSearchWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1651,7 +1662,7 @@ XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
-</PostBuildEvent>
+XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

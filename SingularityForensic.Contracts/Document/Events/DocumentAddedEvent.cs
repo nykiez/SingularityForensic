@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Document.Events {
     //Tab已经添加事件;
-    public class DocumentAddedEvent:PubSubEvent<(IDocument tab,IDocumentService owner)> {
+    public class DocumentAddedEvent:PubSubEvent<(IDocumentBase tab,IDocumentService owner)> {
     }
 }

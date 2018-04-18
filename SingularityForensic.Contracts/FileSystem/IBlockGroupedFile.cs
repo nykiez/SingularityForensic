@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,21 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
     //具有快组连续的特性的实体契约;
-    public interface IBlockGroupedFile {
-        IEnumerable<BlockGroup> BlockGroups { get; }
+    public interface IBlockGroupedFile:IFile {
+        IEnumerable<IBlockGroup> BlockGroups { get; }
     }
-    
-    /// <summary>
-    /// 块组;
-    /// </summary>
-    public class BlockGroup {
 
-    //块(l.................. {
+    public interface IBlockGroup {
+        long BlockAddress { get; }
+        long BlockSize { get; }
+        long Offset { get; }
+        long Count { get; }
+    }
+
+    /// <summary>
+    /// 块组创建工厂类契约;
+    /// </summary>
+    public interface IBlockGroupFactory {
         /// <summary>
         /// 块组(连续)实体;的构造方法；
         /// </summary>
@@ -23,37 +29,12 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="count">块数目</param>
         /// <param name="offset">块起始偏移</param>
         /// <param name="blockSize">块大小</param>
-        public BlockGroup(
-            long blockAddress,
-            long count, 
-            int blockSize, 
-            long offset = 0) {
-
-            this.BlockAddress = blockAddress;
-            this.Count = count;
-            this.Offset = offset;
-            this.BlockSize = blockSize;
-        }
-
-        /// <summary>
-        /// //块地址;
-        /// </summary>
-        public long BlockAddress { get; }
-
-        /// <summary>
-        /// 单个块大小
-        /// </summary>
-        public int BlockSize { get; }
-
-        /// <summary>
-        /// 块起始偏移
-        /// </summary>
-        public long Offset { get; }
-
-      
-        /// <summary>
-        /// //连续的大小;
-        /// </summary>
-        public long Count { get; set; }
+        IBlockGroup CreateNewBlockGroup(long blockAddress,long count,long blockSize,long offset = 0);
     }
+
+    public class BlockGroupFactory : GenericServiceStaticInstance<IBlockGroupFactory> {
+        public static IBlockGroup CreateNewBlockGroup(long blockAddress, long count, long blockSize, long offset = 0) =>
+            Current.CreateNewBlockGroup(blockAddress, count, blockSize, offset);
+    }
+
 }

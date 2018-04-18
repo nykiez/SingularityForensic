@@ -6,16 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
-    //安全使用句柄;
-    public class SecurityStoken {
-        public object Tag { get; set; }               //拓展数据;
-    }
-
-    public interface IHaveStoken<out TStoken> where TStoken : SecurityStoken, new() {
+    public interface IHaveStoken<out TStoken> where TStoken : ExtensibleObject, new() {
         TStoken GetStoken(string key);
     }
 
-    public abstract class HaveStokenBase<TStoken> where TStoken : SecurityStoken, new() {
+    public abstract class HaveStokenBase<TStoken> where TStoken : ExtensibleObject, new() {
         public HaveStokenBase(string key, TStoken stoken = null) {
             this._key = key;
             _stoken = stoken ?? new TStoken();
@@ -29,8 +24,7 @@ namespace SingularityForensic.Contracts.Common {
 
             return _stoken;
         }
-
-        public object Tag => _stoken?.Tag;
+        
     }
 
     

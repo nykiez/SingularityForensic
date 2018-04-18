@@ -1,12 +1,11 @@
 ﻿using CDFCControls.Controls;
 using System.Windows;
 
-namespace SingularityForensic.Controls.Windows {
+namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for InputStringWindow.xaml
     /// </summary>
     public partial class InputStringWindow : CorneredWindow {
-
         public InputStringWindow(string title = "",string desc = "") {
             InitializeComponent();
             this.Title = title;

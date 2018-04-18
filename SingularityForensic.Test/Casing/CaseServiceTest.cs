@@ -39,7 +39,7 @@ namespace SingularityForensic.Test.Casing {
         }
 
         public void AddNewCaseEvidence() {
-            _csEvidence = new ICaseEvidence(
+            _csEvidence = CaseService.Current.CreateNewCaseEvidence(
                 new string[] {
                     TestEvidenceTypeGuid
                 },

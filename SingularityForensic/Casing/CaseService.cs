@@ -41,7 +41,7 @@ namespace SingularityForensic.Casing {
                 }
             }
 
-            var sCase = CsDialogService.Current?.CreateCase();
+            var sCase = CaseDialogService.Current?.CreateCase();
             if (sCase != null) {
                 try {
                     sCase.Save();

@@ -124,7 +124,7 @@ namespace SingularityForensic.BaseDevice {
                 EditDosPartEntries(dosDeviceInfo, deviceStoken);
 
                 //编辑拓展;
-                deviceStoken.Tag = dosDeviceInfo;
+                deviceStoken.SetInstance(dosDeviceInfo,Constants.DeviceStokenTag_DOS);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -183,7 +183,7 @@ namespace SingularityForensic.BaseDevice {
                 entryStoken.PartStartLBA = partStartLBA;
                 entryStoken.PartSize = partSize;
 
-                entryStoken.Tag = dosPartInfo;
+                entryStoken.SetInstance(dosPartInfo,Constants.PartitionEntryStokenTag_DOS);
                 
                 deviceStoken.PartitionEntries.Add(entry);
             });
@@ -240,7 +240,7 @@ namespace SingularityForensic.BaseDevice {
                 EditGptPartEntries(gptDeviceInfo, deviceStoken);
 
                 //编辑拓展;
-                deviceStoken.Tag = gptDeviceInfo;
+                deviceStoken.SetInstance(gptDeviceInfo,Constants.DeviceStokenTag_GPT);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -292,13 +292,17 @@ namespace SingularityForensic.BaseDevice {
             }
 
             DeviceStoken deviceStoken = null;
+            BaseDeviceInfo deviceInfo = null;
+
             //验证类型,尝试获取凭据;
             try {
                 if (device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
                     deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
+                    deviceInfo = deviceStoken.GetIntance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOS);
                 }
                 else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
+                    deviceInfo = deviceStoken.GetIntance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPT);
                 }
             }
             catch (Exception ex) {
@@ -310,7 +314,7 @@ namespace SingularityForensic.BaseDevice {
                 return;
             }
 
-            if (!(deviceStoken.Tag is BaseDeviceInfo deviceInfo)) {
+            if(deviceInfo == null) {
                 return;
             }
 

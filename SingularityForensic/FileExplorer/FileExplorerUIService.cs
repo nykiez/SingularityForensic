@@ -65,6 +65,10 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
         /// <param name="unit"></param>
         private void OnTreeUnitAddedOnFileSystemUnit((ITreeUnit unit, ITreeService treeService) tuple) {
+            if(tuple.treeService != Contracts.MainPage.MainTreeService.Current) {
+                return;
+            }
+
             if (tuple.unit == null) {
                 return;
             }
@@ -114,7 +118,7 @@ namespace SingularityForensic.FileExplorer {
                     }
 
                     TraverseAddChildren(cUnit, cHaveCollection);
-                    tUnit.Children.Add(cUnit);
+                    tuple.treeService.AddUnit(tUnit, cUnit);
                     
                     if (file is IPartition part) {
                         cUnit.Label = FileExtensions.GetPartFixAndName(part);
@@ -154,7 +158,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            if(fileTuple.Value.file is IBlockedStream blockedStream) {
+            if(fileTuple.Value.file is IStreamFile blockedStream) {
                 
             }
         }
@@ -163,8 +167,32 @@ namespace SingularityForensic.FileExplorer {
         /// 为设备/分区案件文件加入右键菜单;
         /// </summary>
         /// <param name="obj"></param>
-        private void OnTreeUnitAddedOnContextCommands((ITreeUnit unit, ITreeService treeService) obj) {
-            throw new NotImplementedException();
+        private void OnTreeUnitAddedOnContextCommands((ITreeUnit unit, ITreeService treeService) tuple) {
+            if (tuple.treeService != Contracts.MainPage.MainTreeService.Current) {
+                return;
+            }
+            
+            if (tuple.unit == null) {
+                return;
+            }
+            
+            var csFile = tuple.unit.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
+            if (csFile == null) {
+                LoggerService.WriteCallerLine($"{nameof(csFile)} can't be null.");
+                return;
+            }
+
+            var fileTuple = FSService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+            if (fileTuple == null) {
+                LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
+                return;
+            }
+
+            if(!(fileTuple.Value.file is IStreamFile streamFile)) {
+                return;
+            }
+
+            tuple.unit.AddContextCommand(FileExplorerTreeUnitCommandItemFactory.CreateCustomSignSearchCommandItem(streamFile));
         }
     }
 

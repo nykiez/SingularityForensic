@@ -10,5 +10,6 @@ namespace SingularityForensic.Contracts.Shell {
 
         public const string MenuRegion = "MenuRegion";
         public const string MainRegion = "MainRegion";
+        
     }
 }

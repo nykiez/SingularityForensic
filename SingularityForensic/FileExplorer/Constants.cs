@@ -25,6 +25,16 @@ namespace SingularityForensic.FileExplorer {
         public const string Document_FilePreviewer = nameof(Document_FilePreviewer);
 
         public const string Prefix_Partition = nameof(Prefix_Partition);
+
+        public const string PartitionKey_CustomSignSearch = nameof(PartitionKey_CustomSignSearch);
+
+        public const string RegularFileKey_CustomSignSearch = nameof(RegularFileKey_CustomSignSearch);
+
+        public const string DocumentTitle_CustomSignSearch = nameof(DocumentTitle_CustomSignSearch);
+
+        public const string RegularFileName_CustomSignSearch = nameof(RegularFileName_CustomSignSearch);
+
+        public const string DefaultFileExtension_CustomSignSearch = nameof(DefaultFileExtension_CustomSignSearch);
     }
 
     /// <summary>
@@ -116,6 +126,12 @@ namespace SingularityForensic.FileExplorer {
         public const string MsgText_FileSaveDone = nameof(MsgText_FileSaveDone);
         public const string MsgText_FailedToCreateDirectory = nameof(MsgText_FailedToCreateDirectory);
 
+        public const string WindowTitle_ListBlock = nameof(WindowTitle_ListBlock);
+
+        public const string WindowTitle_ComputeHash = nameof(WindowTitle_ComputeHash);
+        public const string WindowTitle_CustomSignSearch = nameof(WindowTitle_CustomSignSearch);
+
+        
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

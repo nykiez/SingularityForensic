@@ -4,7 +4,7 @@ using SingularityForensic.Contracts.Common;
 using System;
 using System.Windows;
 using static CDFCCultures.Helpers.StringHelpers;
-namespace SingularityForensic.Controls.Windows {
+namespace SingularityForensic.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for SignSearchWindow.xaml
     /// </summary>

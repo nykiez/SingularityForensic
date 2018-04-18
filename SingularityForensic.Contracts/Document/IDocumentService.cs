@@ -10,12 +10,6 @@ namespace SingularityForensic.Contracts.Document {
     //文档tab服务契约;
     public interface IDocumentService {
         /// <summary>
-        /// 添加文档页;
-        /// </summary>
-        /// <param name="tab"></param>
-        void AddDocument(IDocument doc);
-
-        /// <summary>
         /// 创建一个Tab;
         /// </summary>
         /// <returns></returns>
@@ -30,37 +24,30 @@ namespace SingularityForensic.Contracts.Document {
         /// <summary>
         /// 当前所有的文档;
         /// </summary>
-        IEnumerable<IDocument> CurrentDocuments { get; }
+        IEnumerable<IDocumentBase> CurrentDocuments { get; }
 
         /// <summary>
-        /// 关闭所有Tab;
+        /// 关闭所有文档;
         /// </summary>
         void CloseAllDocuments();
 
         /// <summary>
-        /// 选定的Tab;
+        /// 选定的文档;
         /// </summary>
-        IDocument SelectedDocument { get; set; }
+        IDocumentBase SelectedDocument { get; set; }
 
         /// <summary>
         /// 移除Tab;
         /// </summary>
         /// <param name="tab"></param>
-        void RemoveDocument(IDocument doc);
+        void RemoveDocument(IDocumentBase doc);
 
-        ////正在清除事件;
-        //event EventHandler<CancelEventArgs> TabsClearing;
-        ////已经清除事件;
-        //event EventHandler TabsCleared;
-        
-        ////正在关闭事件;
-        //event EventHandler<(IDocumentTab tab,CancelEventArgs e)> TabClosing;
 
-        ////已经关闭事件;
-        //event EventHandler<IDocumentTab> TabClosed;
-        
-        ////活跃文档变更事件;
-        //event EventHandler<IDocumentTab> SelectedTabChanged;
+        /// <summary>
+        /// 添加文档页;
+        /// </summary>
+        /// <param name="tab"></param>
+        void AddDocument(IDocumentBase doc);
     }
 
     public static class DocumentService {

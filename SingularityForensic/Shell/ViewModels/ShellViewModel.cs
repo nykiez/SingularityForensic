@@ -16,7 +16,7 @@ namespace SingularityForensic.Shell.ViewModels {
         
         private string BrandName {
             get {
-                return  ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SoftWareName") + ConfigState.VersionNum;
+                return  LanguageService.FindResourceString(Contracts.App.Constants.WindowTile_AppName);
             }
         }
         

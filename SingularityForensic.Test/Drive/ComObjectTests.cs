@@ -32,26 +32,25 @@ namespace SingularityForensic.Drive.DeviceObjects.Tests {
             
         }
 
+        //测试是否能够正常读取;
+        void TestReadLength(int testLength, Stream testStream, bool resetPos = true) {
+            if (resetPos) {
+                testStream.Position = 0;
+            }
+            var buffer = new byte[testLength];
+            var read = testStream.Read(buffer, 0, testLength);
+            Assert.AreEqual(testLength, read);
+            //Trace.WriteLine($"{nameof(TestReadLength)}:{nameof(testLength)}-{testLength}");
+        }
+
+        //测试跳转;
+        void TestSeek(long pos, Stream testStream) {
+            testStream.Position = pos;
+            Assert.AreEqual(testStream.Position, pos);
+        }
+
         [TestMethod]
         public void TestStream() {
-            //测试是否能够正常读取;
-            void TestReadLength(int testLength, Stream testStream,bool resetPos = true) {
-                if (resetPos) {
-                    testStream.Position = 0;
-                }
-                var buffer = new byte[testLength];
-                var read = testStream.Read(buffer, 0, testLength);
-                Assert.AreEqual(testLength, read);
-                //Trace.WriteLine($"{nameof(TestReadLength)}:{nameof(testLength)}-{testLength}");
-            }
-
-            //测试跳转;
-            void TestSeek(long pos,Stream testStream) {
-                testStream.Position = pos;
-                Assert.AreEqual(testStream.Position, pos);
-            }
-
-
             var driveInfo = new DriveInfo("C");
             var vol = _comObject.LocalHdds.First().Volumes.First(p => p.Sign == 'C');
 

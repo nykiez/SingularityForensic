@@ -32,7 +32,7 @@ namespace SingularityForensic.Document {
         /// 增加Tab;
         /// </summary>
         /// <param name="doc"></param>
-        public void AddDocument(IDocument doc) {
+        public void AddDocument(IDocumentBase doc) {
             if (doc == null) {
                 throw new ArgumentNullException(nameof(doc));
             }
@@ -59,7 +59,7 @@ namespace SingularityForensic.Document {
         /// <summary>
         /// 所有的Tab;
         /// </summary>
-        public IEnumerable<IDocument> CurrentDocuments => VM.Documents.Select(p => p);
+        public IEnumerable<IDocumentBase> CurrentDocuments => VM.Documents.Select(p => p);
 
         //关闭所有Tab;
         public void CloseAllDocuments() {
@@ -86,7 +86,7 @@ namespace SingularityForensic.Document {
         /// 移除Tab;
         /// </summary>
         /// <param name="doc"></param>
-        public void RemoveDocument(IDocument doc) {
+        public void RemoveDocument(IDocumentBase doc) {
             if( doc == null) {
                 throw new ArgumentNullException(nameof(doc));
             }
@@ -122,7 +122,7 @@ namespace SingularityForensic.Document {
 
         public IDocument CreateNewDocument() => new Document();
         
-        public IDocument SelectedDocument {
+        public IDocumentBase SelectedDocument {
             get => VM.SelectedDocument;
             set {
                 if(!(value is Document document)) {

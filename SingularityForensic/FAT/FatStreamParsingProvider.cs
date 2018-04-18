@@ -115,7 +115,7 @@ namespace SingularityForensic.FAT {
             var partInfo = new FATPartInfo {
                 UnmanagedFATManager = unmanagedManager
             };
-            stoken.Tag = partInfo;
+            stoken.SetInstance(partInfo,Constants.PartitionStokenTag_FATPartInfo);
 
             if(unmanagedManager.FATManagerPtr == IntPtr.Zero) {
                 unmanagedManager.Dispose();
@@ -156,8 +156,9 @@ namespace SingularityForensic.FAT {
             if(stoken == null) {
                 return;
             }
-            
-            if(!(stoken.Tag is FATPartInfo partInfo)) {
+
+            var partInfo = stoken.GetIntance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
+            if(partInfo == null) {
                 return;
             }
 
@@ -244,7 +245,7 @@ namespace SingularityForensic.FAT {
             IProgressReporter reporter) {
 
             var partStoken = part.GetStoken(Constants.PartitionKey_FAT);
-            var partInfo = partStoken?.Tag as FATPartInfo;
+            var partInfo = partStoken.GetIntance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
             var partManager = partInfo.UnmanagedFATManager;
             if(partManager.FATManagerPtr == IntPtr.Zero) {
                 LoggerService.WriteCallerLine($"{nameof(partManager.FATManagerPtr)} can't be nullptr.");
@@ -391,7 +392,7 @@ namespace SingularityForensic.FAT {
                 throw new ArgumentNullException(nameof(partInfo));
             }
 
-            fileStoken2.Tag = fatFileInfo;
+            fileStoken2.SetInstance(fatFileInfo,Constants.FileStokenTag_FATFileInfo);
 
             fileStoken2.Name = fatFileInfo.StFileNode.Value.Name;
             fileStoken2.Size = fatFileInfo.StFileNode.Value.FileSize;
@@ -496,7 +497,7 @@ namespace SingularityForensic.FAT {
                 }
 
                 fileStoken2.BlockGroups.Add(
-                    new BlockGroup((long)lastCluster.Value.nClusterNum, blockCount, clusterSize, firstClusterLBA)
+                    BlockGroupFactory.CreateNewBlockGroup((long)lastCluster.Value.nClusterNum, blockCount, clusterSize, firstClusterLBA)
                 );
             }
             
@@ -539,7 +540,7 @@ namespace SingularityForensic.FAT {
             Func<bool> isCancel) {
 
             var dirStoken = direct.GetStoken(Constants.DirectoryKey_FAT);
-            var fatFileInfo = dirStoken.Tag as FATFileInfo;
+            var fatFileInfo = dirStoken.GetIntance<FATFileInfo>(Constants.FileStokenTag_FATFileInfo) as FATFileInfo;
 
             var filePtr = Fat_Parse_Dir(partInfo.UnmanagedFATManager.FATManagerPtr, fatFileInfo.StFileNode.Value.stClusterList);
 

@@ -36,10 +36,12 @@ namespace SingularityForensic.App {
         }
 
         public event EventHandler<string> TitleChanged;
+        public event EventHandler Canceld;
 
         //取消工作;
         public void Cancel() {
             CancelPending = true;
+            Canceld?.Invoke(this, EventArgs.Empty);
         }
 
         //是否正在取消;

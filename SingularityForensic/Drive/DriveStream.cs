@@ -142,7 +142,7 @@ namespace SingularityForensic.Drive {
 
         [DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private extern static long DevManager_write(SafeFileHandle hDisk, ulong nPosition, byte[] szBuffer, long nSize, ref int nRetSize);
-
+        
         //[DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         //private extern static bool DevManager_SetPosition(HANDLE hDisk, unsigned __int64 nPosition );
 
@@ -190,6 +190,8 @@ namespace SingularityForensic.Drive {
 
         //读写锁;
         private AutoResetEvent evt = new AutoResetEvent(true);
+        //缓冲区锁,当读写并未来自数组首时,启用此临时缓冲区,并进行内存拷贝;
+        private byte[] tempBuffer;
 
         /// <summary>
         /// 读取核心;
@@ -220,6 +222,7 @@ namespace SingularityForensic.Drive {
             return retSize;
         }
         
+        
         /// <summary>
         /// 读取;
         /// </summary>
@@ -231,11 +234,11 @@ namespace SingularityForensic.Drive {
             if(array == null) {
                 throw new ArgumentNullException(nameof(array));
             }
-
-
+            
             //若偏移不为零,则开辟临时缓冲区,进行读写并拷贝;
             if (offset != 0) {
                 var tempBuffer = new byte[count];
+                
                 ReadCore(tempBuffer , count);
                 Buffer.BlockCopy(tempBuffer, 0, array, offset, count);
             }

@@ -1,4 +1,4 @@
-﻿<controls:CorneredWindow x:Class="SingularityForensic.Controls.Windows.SignSearchWindow"
+﻿<controls:CorneredWindow x:Class="SingularityForensic.FileExplorer.Views.SignSearchWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
         WindowStartupLocation="CenterScreen" KeyDown="CorneredWindow_KeyDown"
         mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height"
-        Title="{StaticResource SignSearch}"  Width="600" Style="{DynamicResource MsgWindowStyle}">
+        Title="{DynamicResource SignSearch}"  Width="600" Style="{DynamicResource MsgWindowStyle}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -127,39 +127,39 @@
             </Style>
         </Grid.Resources>
         
-        <TextBlock TextAlignment="Right" VerticalAlignment="Center"><Run Text="{StaticResource SignHead}"/>:</TextBlock>
+        <TextBlock TextAlignment="Right" VerticalAlignment="Center"><Run Text="{DynamicResource SignHead}"/>:</TextBlock>
         <TextBox x:Name="txbHex"  Grid.Column="1"/>
-        <TextBlock x:Name="txbSignError" Style="{StaticResource ErrorTxb}" Grid.Column="2"/>
+        <TextBlock x:Name="txbSignError" Style="{DynamicResource ErrorTxb}" Grid.Column="2"/>
         
-        <TextBlock TextAlignment="Right" Grid.Row="1"><Run Text="{StaticResource SectorSize}"/>:</TextBlock>
+        <TextBlock TextAlignment="Right" Grid.Row="1"><Run Text="{DynamicResource SectorSize}"/>:</TextBlock>
         <TextBox x:Name="txbSecSize" Grid.Column="1" Grid.Row="1" />
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
             <CheckBox x:Name="chbSecAlign" IsChecked="True" Grid.Row="1" Grid.Column="2" Content="{DynamicResource AlignToSector}" />
-            <TextBlock x:Name="txbSecSizeError" Style="{StaticResource ErrorTxb}" />
+            <TextBlock x:Name="txbSecSizeError" Style="{DynamicResource ErrorTxb}" />
         </StackPanel>
         
         
-        <TextBlock  Grid.Row="2" TextAlignment="Right"><Run Text="{StaticResource SecStartSpace}"/>:</TextBlock>
+        <TextBlock  Grid.Row="2" TextAlignment="Right"><Run Text="{DynamicResource SecStartSpace}"/>:</TextBlock>
         <TextBox x:Name="txbStartLBA" Grid.Row="2" Grid.Column="1"/>
         <TextBlock x:Name="txbStartLBAError" Style="{StaticResource ErrorTxb}" Grid.Column="2" Grid.Row="2" />
         <!--
         <TextBlock  Grid.Row="3" TextAlignment="Right"><Run Text="{StaticResource EndLBA}"/>:</TextBlock>
         <TextBox x:Name="txbEndLBA" Grid.Row="3" Grid.Column="1"/>-->
-        <TextBlock HorizontalAlignment="Right" Grid.Row="4"><Run Text="{StaticResource FileExtension}" />:</TextBlock>
+        <TextBlock HorizontalAlignment="Right" Grid.Row="4"><Run Text="{DynamicResource FileExtension}" />:</TextBlock>
         <TextBox Grid.Row="4" Grid.Column="1" x:Name="txbExt"></TextBox>
 
-        <TextBlock HorizontalAlignment="Right" Grid.Row="5"><Run Text="{StaticResource MaxSize}" />:</TextBlock>
+        <TextBlock HorizontalAlignment="Right" Grid.Row="5"><Run Text="{DynamicResource MaxSize}" />:</TextBlock>
         <TextBox Grid.Row="5" Grid.Column="1" x:Name="txbMaxSize"></TextBox>
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="5">
             <TextBlock >MB</TextBlock>
-            <TextBlock x:Name="txbMaxSizeError" Style="{StaticResource ErrorTxb}"></TextBlock>
+            <TextBlock x:Name="txbMaxSizeError" Style="{DynamicResource ErrorTxb}"></TextBlock>
         </StackPanel>
         
         
         <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Margin="0,3">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Margin="12,0" Content="{StaticResource Confirm}" x:Name="btnConfirm" Click="btnConfirm_Click" />
-                <Button Margin="12,0" Style="{DynamicResource DenyBtnStyle}" Content="{StaticResource Cancel}"  x:Name="btnCancel" Click="btnCancel_Click"/>
+                <Button Margin="12,0" Content="{DynamicResource Confirm}" x:Name="btnConfirm" Click="btnConfirm_Click" />
+                <Button Margin="12,0" Style="{DynamicResource DenyBtnStyle}" Content="{DynamicResource Cancel}"  x:Name="btnCancel" Click="btnCancel_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

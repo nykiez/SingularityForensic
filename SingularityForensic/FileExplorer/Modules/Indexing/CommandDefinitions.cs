@@ -46,7 +46,7 @@ namespace SingularityForensic.Controls.FileExplorer.Indexing {
         /// </summary>
         /// <param name="blDevice"></param>
         /// <param name="setting"></param>
-        private static void SignSearch(IBlockedStream blDevice, SignSearchSetting setting, IFileExplorerServiceProvider fsProvider) {
+        private static void SignSearch(IStreamFile blDevice, ICustomSignSearchSetting setting) {
             //Device device = null;
             //long startLBA = 0;
             //long endLBA = 0;

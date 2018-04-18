@@ -62,7 +62,7 @@ namespace DemoUI {
         protected override void InitializeModules() {
             
             base.InitializeModules();
-
+            
             TestProxy.Test();
             //splashService.CloseSplash();
         }

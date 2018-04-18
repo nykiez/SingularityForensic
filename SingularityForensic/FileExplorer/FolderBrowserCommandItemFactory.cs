@@ -8,13 +8,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using SysIO = System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using CDFCCultures.Helpers;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Hex;
-using CDFC.Util.IO;
+using SingularityForensic.Contracts.Hash;
+using System.IO;
 
 namespace SingularityForensic.FileExplorer {
     public static partial class FolderBrowserCommandItemFactory {
@@ -206,6 +205,11 @@ namespace SingularityForensic.FileExplorer {
     }
 
     public static partial class FolderBrowserCommandItemFactory {
+        /// <summary>
+        /// 查看文件功能;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
         public static ICommandItem CreateViewFileCommandItem(IFolderBrowserViewModel vm) {
             var comm = CreateViewFileCommand(vm);
             var cmi = CommandItemFactory.CreateNew(comm);
@@ -220,34 +224,16 @@ namespace SingularityForensic.FileExplorer {
                         return;
                     }
 
-                    if (!(vm.SelectedFile.File is IRegularFile regFile)) {
+                    if (!(vm.SelectedFile.File is IBlockGroupedFile blockFile)) {
+                        return;
+                    }
+                    
+                    var tempFileName = SaveFileToTempPath(blockFile);
+                    if (string.IsNullOrEmpty(tempFileName)) {
                         return;
                     }
 
-                    var inputStream = regFile.GetInputStream();
-                    if (inputStream == null) {
-                        return;
-                    }
-
-                    var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
-                    var tempFileName = tempDirectory + $"{regFile.Name}";
-
-                    try {
-                        //创建临时文件夹;
-                        if (!System.IO.Directory.Exists(tempDirectory)) {
-                            System.IO.Directory.CreateDirectory(tempDirectory);
-                        }
-
-                        using (var tempFs = SysIO.File.Create(tempFileName)) {
-                            inputStream.CopyTo(tempFs);
-                        }
-
-                        ExplorerHelper.OpenFile(tempFileName);
-                    }
-                    catch (Exception ex) {
-                        LoggerService.WriteCallerLine(ex.Message);
-                        MsgBoxService.ShowError(ex.Message);
-                    }
+                    ExplorerHelper.OpenFile(tempFileName);
                 },
 
                 () => {
@@ -264,9 +250,48 @@ namespace SingularityForensic.FileExplorer {
 
             return comm;
         }
+
+        /// <summary>
+        /// 保存文件到临时目录;
+        /// </summary>
+        /// <param name="blockFile"></param>
+        /// <returns>保存的路径</returns>
+        private static string SaveFileToTempPath(IBlockGroupedFile blockFile) {
+            var inputStream = blockFile.GetInputStream();
+            if (inputStream == null) {
+                return string.Empty;
+            }
+
+            var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
+            var tempFileName = tempDirectory + $"{blockFile.Name}";
+
+            try {
+                //创建临时文件夹;
+                if (!System.IO.Directory.Exists(tempDirectory)) {
+                    System.IO.Directory.CreateDirectory(tempDirectory);
+                }
+
+                using (var tempFs = SysIO.File.Create(tempFileName)) {
+                    inputStream.CopyTo(tempFs);
+                }
+
+                return tempFileName;
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+                MsgBoxService.ShowError(ex.Message);
+            }
+
+            return string.Empty;
+        }
     }
 
     public static partial class FolderBrowserCommandItemFactory {
+        /// <summary>
+        /// 打开方式功能;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
         public static ICommandItem CreateOpenFileWithCommandItem(IFolderBrowserViewModel vm) {
             var comm = CreateOpenFileWithCommand(vm);
             var cmi = CommandItemFactory.CreateNew(comm);
@@ -314,7 +339,7 @@ namespace SingularityForensic.FileExplorer {
                     return;
                 }
 
-                var lb = new ListBlockMessageBox(blockGrouped.BlockGroups);
+                var lb = new ListBlockMessageBox(blockGrouped);
                 lb.SelectedAddressChanged += (sender, e) => {
                     var tab = DocumentService.MainDocumentService.CurrentDocuments.
                         FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.Part);
@@ -353,7 +378,76 @@ namespace SingularityForensic.FileExplorer {
         }
 
         private static IEnumerable<ICommandItem> CreateComputeHashCommandItems(IFolderBrowserViewModel vm) {
-            return Enumerable.Empty<ICommandItem>();
+            var hashers = ServiceProvider.GetAllInstances<IHasher>();
+            foreach (var hasher in hashers) {
+                var comm = CreateComputeHashCommand(vm, hasher);
+                var cmi = CommandItemFactory.CreateNew(comm);
+                cmi.Name = hasher.HashTypeName;
+                yield return cmi;
+            }
         }
+
+        private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IHasher hasher) {
+            var comm = new DelegateCommand(() => {
+                if(vm.SelectedFile == null) {
+                    return;
+                }
+
+                if(!(vm.SelectedFile.File is IBlockGroupedFile blockFile)) {
+                    return;
+                }
+
+                var stream = blockFile.GetInputStream();
+                if(stream == null) {
+                    return;
+                }
+
+                
+                var loadingDialog = DialogService.Current.CreateLoadingDialog();
+                byte[] result = null;
+
+                loadingDialog.DoWork += delegate {
+                    result = ComputeHashOnDialog(loadingDialog, hasher,stream);
+                };
+
+                loadingDialog.RunWorkerCompleted += delegate {
+                    if(result == null) {
+                        return;
+                    }
+
+                    DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.ConvertToHexFormat());
+                };
+
+                loadingDialog.Show();
+            });
+            return comm;
+        }
+
+        /// <summary>
+        /// 在进度窗体当中计算哈希;
+        /// </summary>
+        /// <param name="loadingDialog"></param>
+        /// <param name="hasher"></param>
+        /// <param name="inputStream"></param>
+        /// <returns></returns>
+        private static byte[] ComputeHashOnDialog(ILoadingDialog loadingDialog,IHasher hasher,Stream inputStream) {
+            var latestPro = 0;
+
+            var reporter = ProgessReporterFactory.CreateNew();
+            reporter.ProgressReported += (sender, e) => {
+                if (latestPro < e.pro) {
+                    latestPro = e.pro;
+                    loadingDialog.ReportProgress(latestPro);
+                }
+            };
+
+            loadingDialog.Canceld += delegate {
+                reporter.Cancel();
+            };
+
+            return hasher.ComputeHash(inputStream, reporter);
+        }
+
+        
     }
 }

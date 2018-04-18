@@ -14,6 +14,11 @@ namespace SingularityForensic.BaseDevice {
 
         internal const string PartEntryKey_Dos = "B96EDB68-2F5C-4711-B7C0-2187C69D9C27";
         internal const string PartEntryKey_GPT = "0EB0D4E8-0313-4849-9803-1E327411525B";
+
+        public const string DeviceStokenTag_DOS = nameof(DeviceStokenTag_DOS);
+        public const string DeviceStokenTag_GPT = nameof(DeviceStokenTag_GPT);
+
+        public const string PartitionEntryStokenTag_DOS = nameof(PartitionEntryStokenTag_DOS);
     }
 
     public static partial class Constants {

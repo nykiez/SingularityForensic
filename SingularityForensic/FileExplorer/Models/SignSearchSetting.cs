@@ -1,5 +1,7 @@
-﻿namespace SingularityForensic.Controls.Models {
-    public class SignSearchSetting {
+﻿using SingularityForensic.Contracts.FileExplorer;
+
+namespace SingularityForensic.FileExplorer.Models {
+    public class SignSearchSetting: ICustomSignSearchSetting {
         public int MaxSize { get; set; }
         public byte[] KeyWord { get; set; }
 

@@ -13,7 +13,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// 用于某块内部使用的文件信息(Tag可自定义,外部需要根据Key拿到所需数据);
     /// </summary>
     [Serializable]
-    public abstract class FileStokenBase : SecurityStoken, IHaveExtendTime {
+    public abstract class FileStokenBase : ExtensibleObject, IHaveExtendTime {
         public IEnumerable<string> TypeGuids { get; set; }          //文件类型;
         public string Name { get; set; }                //文件名;
         public long Size { get; set; }                  //文件大小;
@@ -45,7 +45,7 @@ namespace SingularityForensic.Contracts.FileSystem {
 
         public DateTime? CreateTime { get; set; }
 
-        public IList<BlockGroup> BlockGroups { get; } = new List<BlockGroup>();
+        public ICollection<IBlockGroup> BlockGroups { get; } = new List<IBlockGroup>();
 
         //是否被删除;
         public bool? Deleted { get; set; }                      //是否被删除;
@@ -68,7 +68,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         long Size { get; }
     }
     
-    public interface IFile<TStoken> : IHaveStoken<TStoken>, IFile where TStoken : FileStokenBase, new() {
+    public interface IFile<TStoken> : IHaveStoken<TStoken>,IFile where TStoken : FileStokenBase, new() {
         DateTime? GetExtensionTime(string timeLabel);
     }
     
@@ -100,7 +100,7 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
 
             
-            var blockedFile = file.GetParent<IBlockedStream>();
+            var blockedFile = file.GetParent<IStreamFile>();
             if (blockedFile == null) {
                 LoggerService.Current?.WriteCallerLine($"{nameof(blockedFile)} can't be null!");
                 return null;

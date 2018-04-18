@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 
 namespace SingularityShell {
@@ -57,16 +58,17 @@ namespace SingularityShell {
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
             ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
+            //因为各个模块都可能用到语言服务,必须先初始化语言服务;
+            LanguageService.Current.Initialize();
             return ViewProvider.GetView(SingularityForensic.Contracts.Shell.Constants.ShellView) as DependencyObject;
         }
 
         protected override void InitializeModules() {
-            //var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
-            //splashService.ShowSplash();
-            //因为各个模块都可能用到语言服务,必须先初始化语言服务;
-            ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
+            var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
+            splashService.ShowSplash();
+            Thread.Sleep(3000);
             base.InitializeModules();
-            //splashService.CloseSplash();
+            splashService.CloseSplash();
         }
 
         protected override void InitializeShell() {

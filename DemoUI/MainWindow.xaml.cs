@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using Microsoft.Practices.ServiceLocation;
+using System.ComponentModel.Composition;
 using System.Windows;
 
 namespace DemoUI {
@@ -9,10 +10,12 @@ namespace DemoUI {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-
-            //var win = new DrivesItemsWindow();
-            //win.Show();
+            this.Loaded += delegate {
+                ServiceLocator.Current.GetInstance<MainWindow>();
+            };
         }
+
+        
     }
     
          

@@ -9,7 +9,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
     /// //分区表项信息;
     /// </summary>
-    public class PartitionEntryStoken : SecurityStoken {
+    public class PartitionEntryStoken : ExtensibleObject {
         /// <summary>
         /// //分区表起始偏移;
         /// </summary>

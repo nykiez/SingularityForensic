@@ -151,7 +151,7 @@ namespace SingularityForensic.FileExplorer {
         /// 分区加入文档时呈现预览;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnDocumentAddedEventOnPartPreview((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentAddedEventOnPartPreview((IDocumentBase tab, IDocumentService owner) tuple) {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }
@@ -205,7 +205,7 @@ namespace SingularityForensic.FileExplorer {
         /// 分区加入文档时呈现十六进制;
         /// </summary>
         /// <param name="obj"></param>
-        private void OnDocumentAddedEventOnPartHex((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentAddedEventOnPartHex((IDocumentBase tab, IDocumentService owner) tuple) {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }
@@ -245,7 +245,7 @@ namespace SingularityForensic.FileExplorer {
         /// 分区加入文档时的呈现主视图;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnDocumentAddedEventOnPartition((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentAddedEventOnPartition((IDocumentBase tab, IDocumentService owner) tuple) {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }
@@ -272,7 +272,7 @@ namespace SingularityForensic.FileExplorer {
         /// 文档关闭时,释放操作;
         /// </summary>
         /// <param name="tuple"></param>
-        private void OnDocumentClosed((IDocument tab, IDocumentService owner) tuple) {
+        private void OnDocumentClosed((IDocumentBase tab, IDocumentService owner) tuple) {
             //释放预览器;
             var previewerDoc = tuple.tab.GetIntance<IDocument>(Constants.Document_FilePreviewer);
             if(previewerDoc == null) {

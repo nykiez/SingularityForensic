@@ -117,6 +117,7 @@
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />
     <Compile Include="FileExplorer\FolderBrowserViewModelFactoryTests.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
+    <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hex\HexUIServiceTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />

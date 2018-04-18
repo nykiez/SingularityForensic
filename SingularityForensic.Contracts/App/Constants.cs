@@ -8,5 +8,7 @@ namespace SingularityForensic.Contracts.App {
     public static class Constants {
         //对话框服务未找到;
         public const string MsgBoxServiceNotFound = nameof(MsgBoxServiceNotFound);
+
+        public const string WindowTile_AppName = nameof(WindowTile_AppName);
     }
 }

@@ -37,6 +37,15 @@ namespace SingularityForensic.Contracts.App {
         /// <returns></returns>
         string GetDirect();
 
+        /// <summary>
+        /// 单行输入框;
+        /// </summary>
+        /// <param name="title">窗体标题</param>
+        /// <param name="desc">详细</param>
+        /// <param name="val">初始值</param>
+        /// <returns>输入值</returns>
+        string GetInputValue(string title = null, string desc = null, string val = null);
+
         ILoadingDialog CreateLoadingDialog();
         IDoubleLoadingDialog CreateDoubleLoadingDialog();
     }
@@ -68,6 +77,12 @@ namespace SingularityForensic.Contracts.App {
         /// 取消;
         /// </summary>
         void Cancel();
+
+        /// <summary>
+        /// 取消事件;
+        /// </summary>
+        event EventHandler Canceld;
+
         /// <summary>
         /// 标题;
         /// </summary>

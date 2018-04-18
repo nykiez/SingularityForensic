@@ -47,7 +47,7 @@ namespace SingularityForensic.Imaging {
 
         private bool _disposed;
         public void Dispose() {
-            if (!_disposed) {
+            if (_disposed) {
                 throw new ObjectDisposedException(nameof(DDImgMounter));
             }
 

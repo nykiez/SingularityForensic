@@ -6,8 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public interface IBlockedStream {
+    public interface IStreamFile : IFile, IDisposable {
         Stream BaseStream { get; }
         int BlockSize { get; }
+    }
+    public interface IStreamFile<TStoken> :IFile<TStoken>,IStreamFile, IDisposable,
+         IHaveFileCollection where TStoken : StreamFileStoken, new() {
+        event EventHandler Disposing;
     }
 }

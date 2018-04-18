@@ -85,7 +85,7 @@ namespace SingularityForensic.FileSystem {
 
         public DateTime? CreateTime => _stoken?.CreateTime;
 
-        public IEnumerable<BlockGroup> BlockGroups => _stoken?.BlockGroups?.Select(p => p);
+        public IEnumerable<IBlockGroup> BlockGroups => _stoken?.BlockGroups?.Select(p => p);
 
         public bool? Deleted => _stoken?.Deleted;
 

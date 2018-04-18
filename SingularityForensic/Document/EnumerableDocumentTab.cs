@@ -23,8 +23,8 @@ namespace SingularityForensic.Document {
             }
         }
 
-        public IEnumerable<IDocument> Children => _vm.DocumentTabs.Select(p => p);
-        private void OnSelectedTabChanged(object sender, IDocument e) {
+        public IEnumerable<IDocumentBase> Children => _vm.DocumentTabs.Select(p => p);
+        private void OnSelectedTabChanged(object sender, IDocumentBase e) {
             PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((e, this));
         }
 
@@ -41,9 +41,9 @@ namespace SingularityForensic.Document {
             set => _vm.MainView = value;
         }
         
-        public IEnumerable<IDocument> CurrentDocuments => _vm.DocumentTabs.Select(p => p);
+        public IEnumerable<IDocumentBase> CurrentDocuments => _vm.DocumentTabs.Select(p => p);
 
-        public IDocument SelectedDocument {
+        public IDocumentBase SelectedDocument {
             get => _vm.SelectedDocument;
             set => _vm.SelectedDocument = value;
         }
@@ -52,7 +52,7 @@ namespace SingularityForensic.Document {
             _vm.SelectedDocumentChanged -= OnSelectedTabChanged;
         }
 
-        public void AddDocument(IDocument tab) {
+        public void AddDocument(IDocumentBase tab) {
             if(tab == null) {
                 throw new ArgumentNullException(nameof(tab));
             }
@@ -62,7 +62,7 @@ namespace SingularityForensic.Document {
             PubEventHelper.GetEvent<DocumentAddedEvent>().Publish((tab, this));
         }
 
-        public void RemoveDocument(IDocument tab) {
+        public void RemoveDocument(IDocumentBase tab) {
             if(tab == null) {
                 throw new ArgumentNullException(nameof(tab));
             }

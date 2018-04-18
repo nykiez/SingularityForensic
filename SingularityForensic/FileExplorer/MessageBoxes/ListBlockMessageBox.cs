@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Windows;
 using System;
@@ -17,14 +18,14 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
         private ListBlocksWindow _window;
         public bool windowClosed { get; set; }                            //窗体是否已经关闭;
 
-        public IEnumerable<BlockGroup> Groups { get; private set; }                //描述的快组;
+        public IEnumerable<IBlockGroup> Groups { get; private set; }                //描述的快组;
 
-        public ListBlockMessageBox(IEnumerable<BlockGroup> groups) {
-            if (groups == null) {
-                throw new ArgumentNullException(nameof(groups));
+        public ListBlockMessageBox(IBlockGroupedFile blockFile) {
+            if (blockFile == null) {
+                throw new ArgumentNullException(nameof(blockFile));
             }
             
-            this.Groups = groups;
+            this.Groups = blockFile.BlockGroups;
 
             _vm = new ListBlockWindowViewModel();
             _vm.SelectedAdrressChanged += (sender, e) => {
@@ -32,7 +33,7 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
             };
             
             _window = new ListBlocksWindow();
-            
+            _window.Title = $"{blockFile.Name}-{LanguageService.FindResourceString(Constants.WindowTitle_ListBlock)}";
             _window.Closed += (sender, e) => {
                 windowClosed = true;
             };

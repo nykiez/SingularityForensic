@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
-    public class Device : BlockedStreamFileBase<DeviceStoken>, IDevice {
+    public class Device : StreamFileBase<DeviceStoken>, IDevice {
         public Device(string key, DeviceStoken stoken = null) : base(key, stoken) {
 
         }

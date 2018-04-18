@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Casing {
-    public interface ICaseUIService {
-        void Initialize();
+    public interface ICaseUIService:IUIReactService {
     }
 }

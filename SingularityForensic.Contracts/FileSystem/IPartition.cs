@@ -15,11 +15,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         string GUID { get; }
     }
 
-    public class PartitionStoken : BlockedStreamFileStoken {
+    public class PartitionStoken : StreamFileStoken {
         public IPartitionType PartType { get; set; }
     }
     
-    public interface IPartition: IBlockedStreamFile<PartitionStoken>{
+    public interface IPartition: IStreamFile<PartitionStoken>{
         IPartitionType PartType { get; }
     }
 }
