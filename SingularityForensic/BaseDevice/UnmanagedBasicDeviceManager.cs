@@ -80,8 +80,8 @@ namespace SingularityForensic.BaseDevice {
         public UnmanagedStreamAdapter StreamAdpater { get; }
     }
 
-    [Export(typeof(IUnmanagedBasicDeviceManagerProvider))]
-    internal class UnmanagedBasicDeviceManagerProvider : IUnmanagedBasicDeviceManagerProvider {
+    [Export(typeof(IUnmanagedBasicDeviceManagerFactory))]
+    internal class UnmanagedBasicDeviceManagerFactoryImpl : IUnmanagedBasicDeviceManagerFactory {
         public IUnmanagedBasicDeviceManager Create(Stream stream) {
             if(stream == null) {
                 throw new ArgumentNullException(nameof(stream));

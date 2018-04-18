@@ -16,13 +16,13 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     /// <summary>
-    /// 提供单元契约,此契约是为了防止各个文件系统模块可能共用的深度耦合;
+    /// 提供单元契约,某个程序设计人员所有解析模块需要依赖同种行为,此工厂是为防止各个文件系统模块可能共用的深度耦合;
     /// </summary>
-    public interface IUnmanagedBasicDeviceManagerProvider {
+    public interface IUnmanagedBasicDeviceManagerFactory {
         IUnmanagedBasicDeviceManager Create(Stream stream);
     }
 
-    public class UnMgdBasicDeviceManagerProvider: GenericServiceStaticInstance<IUnmanagedBasicDeviceManagerProvider> {
+    public class UnMgdBasicDeviceManagerFactory: GenericServiceStaticInstance<IUnmanagedBasicDeviceManagerFactory> {
         public static IUnmanagedBasicDeviceManager Create(Stream stream) => Current?.Create(stream);
     }
 

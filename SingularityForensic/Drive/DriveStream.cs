@@ -138,11 +138,11 @@ namespace SingularityForensic.Drive {
         private extern static bool cdfc_devices_init();
 
         [DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private extern static long DevManager_read(SafeFileHandle hDisk, ulong nPosition, byte[] szBuffer, long nSize, ref int nRetSize);
+        private extern static long DevManager_read(SafeFileHandle hDisk, ulong nPosition, IntPtr szBuffer, long nSize, ref int nRetSize);
 
         [DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private extern static long DevManager_write(SafeFileHandle hDisk, ulong nPosition, byte[] szBuffer, long nSize, ref int nRetSize);
-        
+        private extern static long DevManager_write(SafeFileHandle hDisk, ulong nPosition, IntPtr szBuffer, long nSize, ref int nRetSize);
+
         //[DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         //private extern static bool DevManager_SetPosition(HANDLE hDisk, unsigned __int64 nPosition );
 
@@ -155,7 +155,7 @@ namespace SingularityForensic.Drive {
             if (sectorSize == 0) {
                 throw new ArgumentException($"Invalid parameter {nameof(sectorSize)}-{sectorSize}");
             }
-            
+
             SectorSize = sectorSize;
             _position = base.Position;
         }
@@ -185,35 +185,32 @@ namespace SingularityForensic.Drive {
             }
         }
 
-        //返回大小;
-        private int retSize = 0;
-
         //读写锁;
         private AutoResetEvent evt = new AutoResetEvent(true);
-        //缓冲区锁,当读写并未来自数组首时,启用此临时缓冲区,并进行内存拷贝;
-        private byte[] tempBuffer;
-
+        
         /// <summary>
         /// 读取核心;
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="buffer"></param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        private int ReadCore(byte[] array, int count) {
-            if (array == null) {
-                throw new ArgumentNullException(nameof(array));
+        private int ReadCore(IntPtr buffer, int count) {
+            if (buffer == IntPtr.Zero) {
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             var timeOut = !evt.WaitOne(TimeSpan.FromMilliseconds(4000));
+            var retSize = 0;
+
             if (timeOut) {
                 throw new TimeoutException($"Read operation has been time out due to the {nameof(evt.WaitOne)}");
             }
-            
+
             try {
-                DevManager_read(this.SafeFileHandle, (ulong)this.Position, array, count, ref retSize);
+                DevManager_read(this.SafeFileHandle, (ulong)this.Position, buffer, count, ref retSize);
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
             }
 
@@ -221,8 +218,8 @@ namespace SingularityForensic.Drive {
             this.Position += retSize;
             return retSize;
         }
-        
-        
+
+
         /// <summary>
         /// 读取;
         /// </summary>
@@ -231,29 +228,46 @@ namespace SingularityForensic.Drive {
         /// <param name="count"></param>
         /// <returns></returns>
         public override int Read(byte[] array, int offset, int count) {
-            if(array == null) {
+            if (array == null) {
                 throw new ArgumentNullException(nameof(array));
             }
-            
-            //若偏移不为零,则开辟临时缓冲区,进行读写并拷贝;
-            if (offset != 0) {
-                var tempBuffer = new byte[count];
-                
-                ReadCore(tempBuffer , count);
-                Buffer.BlockCopy(tempBuffer, 0, array, offset, count);
+
+            var handle = GCHandle.Alloc(array, GCHandleType.Pinned);
+
+            try {
+                var buffer = Marshal.UnsafeAddrOfPinnedArrayElement(array, offset);
+                if (buffer == null) {
+                    throw new InvalidDataException($"{nameof(buffer)} is null.");
+                }
+
+                return ReadCore(buffer, count);
             }
-            else {
-                ReadCore(array , count);
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
             }
-            return retSize;
-           
+            finally {
+                handle.Free();
+            }
+
+            return 0;
         }
 
         //ReadByte并未调用Read(ReadCore),需单独重写;
         public override int ReadByte() {
-            var bts = new byte[1];
-            Read(bts, 0, 1);
-            return bts[0];
+            byte bt = 0;
+            var handle = GCHandle.Alloc(bt, GCHandleType.Pinned);
+            var addr = handle.AddrOfPinnedObject();
+            try {
+                ReadCore(addr, 1);
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+            finally {
+                handle.Free();
+            }
+            
+            return bt;
         }
 
         //WriteByte并未调用Write(WriteCore),需单独重写;
@@ -265,23 +279,25 @@ namespace SingularityForensic.Drive {
         /// <summary>
         /// 写入核心;
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="buffer"></param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
-        private void WriteCore(byte[] array , int count) {
-            if (array == null) {
-                throw new ArgumentNullException(nameof(array));
+        private void WriteCore(IntPtr buffer, int count) {
+            if (buffer == null) {
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             var timeOut = !evt.WaitOne(TimeSpan.FromMilliseconds(4000));
+            var retSize = 0;
+
             if (timeOut) {
                 throw new TimeoutException($"Write operation has been time out due to the {nameof(evt.WaitOne)}");
             }
 
             try {
-                DevManager_write(SafeFileHandle,(ulong) this.Position, array, count, ref retSize);
+                DevManager_write(SafeFileHandle, (ulong)this.Position, buffer, count, ref retSize);
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
             }
 
@@ -291,20 +307,26 @@ namespace SingularityForensic.Drive {
         }
         //按照扇区整数倍写入;
         public override void Write(byte[] array, int offset, int count) {
-            if(array == null) {
+            if (array == null) {
                 throw new ArgumentNullException(nameof(array));
             }
-            
-            //若偏移不为零,则拷贝缓冲区后再写入;
-            if(offset != 0) {
-                var tempBuffer = new byte[count];
-                Buffer.BlockCopy(array, offset, tempBuffer, 0, count);
-                WriteCore(tempBuffer, count);
-            }
-            else {
-                WriteCore(array, count);
-            }
 
+            var handle = GCHandle.Alloc(array, GCHandleType.Pinned);
+
+            try {
+                var buffer = Marshal.UnsafeAddrOfPinnedArrayElement(array, offset);
+                if (buffer == null) {
+                    throw new InvalidDataException($"{nameof(buffer)} is null.");
+                }
+
+                WriteCore(buffer, count);
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+            finally {
+                handle.Free();
+            }
         }
 
         //临时内存,用作存储读取/写入时间接跳转的存储;

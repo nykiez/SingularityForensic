@@ -41,7 +41,7 @@ namespace SingularityForensic.BaseDevice {
 
             IDevice device = null;
             DeviceStoken deviceStoken = null;
-            var unEntity = UnMgdBasicDeviceManagerProvider.Create(stream);
+            var unEntity = UnMgdBasicDeviceManagerFactory.Create(stream);
             
             //编辑Stoken;
             void EditStoken() {
@@ -341,7 +341,7 @@ namespace SingularityForensic.BaseDevice {
             IUnmanagedBasicDeviceManager unManagedManager = null;
 
             try {
-                unManagedManager = UnMgdBasicDeviceManagerProvider.Create(stream);
+                unManagedManager = UnMgdBasicDeviceManagerFactory.Create(stream);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

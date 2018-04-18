@@ -130,7 +130,7 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
         }
 
-        //所有实例必须保存在本列表中,以防止垃圾回收机制回收了委托实例后;
+        //所有实例必须依托在GCHandle
         //非托管环境意外进行了调用,引发了非法访问内存的错误;
         //只有在调用Dispose方法后,才可解除引用,使得垃圾回收按照预期正常执行;
         private static List<UnmanagedStreamAdapter> _instances = new List<UnmanagedStreamAdapter>();

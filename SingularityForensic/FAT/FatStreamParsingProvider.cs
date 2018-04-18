@@ -63,7 +63,7 @@ namespace SingularityForensic.FAT {
                 throw new ArgumentNullException(nameof(stream));
             }
             
-            var unManagedManager = UnMgdBasicDeviceManagerProvider.Create(stream);
+            var unManagedManager = UnMgdBasicDeviceManagerFactory.Create(stream);
             if(unManagedManager == null) {
                 return null;
             }
