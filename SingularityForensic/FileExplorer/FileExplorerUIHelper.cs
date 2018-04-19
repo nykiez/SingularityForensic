@@ -13,7 +13,7 @@ namespace SingularityForensic.FileExplorer {
         /// <param name="blockedStream"></param>
         /// <returns></returns>
         internal static (IDocument doc, IHexDataContext hexDataContext)?
-            GetBlockedStreamHexDocument(IStreamFile blockedStream) {
+            GetStreamHexDocument(IStreamFile blockedStream) {
 
             var mainDocService = DocumentService.MainDocumentService;
             if (mainDocService == null) {

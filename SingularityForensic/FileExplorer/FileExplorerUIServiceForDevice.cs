@@ -82,7 +82,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var hexDeviceTuple = FileExplorerUIHelper.GetBlockedStreamHexDocument(device);
+            var hexDeviceTuple = FileExplorerUIHelper.GetStreamHexDocument(device);
             if (hexDeviceTuple == null) {
                 return;
             }
@@ -104,7 +104,7 @@ namespace SingularityForensic.FileExplorer {
                 }
             }
 
-            var hexPartTuple = FileExplorerUIHelper.GetBlockedStreamHexDocument(null);
+            var hexPartTuple = FileExplorerUIHelper.GetStreamHexDocument(null);
             if (hexPartTuple == null) {
                 return;
             }

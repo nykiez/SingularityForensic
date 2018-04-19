@@ -88,7 +88,6 @@ namespace SingularityForensic.FileExplorer {
         /// <returns></returns>
         private IEnumerable<(long index, long size)> SearchWithoutAlignment(Stream stream, ICustomSignSearchSetting setting, IProgressReporter reporter) {
             stream.Position = setting.SecStartLBA * setting.SectorSize;
-
             
             var pinLen = setting.KeyWord.Length;						//获得标识长度;
             var readLen = 0;
@@ -110,7 +109,6 @@ namespace SingularityForensic.FileExplorer {
                     }
                 }
             }
-
             
             while ((readLen = stream.Read(buffer, pinLen - 1, bufferLen - pinLen + 1)) != 0) {
                 //轮询缓冲区pin剩余长度以后的内容;

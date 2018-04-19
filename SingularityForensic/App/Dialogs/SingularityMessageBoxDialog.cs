@@ -3,8 +3,8 @@ using SingularityForensic.App.Views;
 using System;
 using System.Windows;
 
-namespace SingularityForensic.App.MessageBoxes {
-    public static class CDFCMessageBox {
+namespace SingularityForensic.App.Dialogs {
+    public static class SingularityMessageBoxDialog {
         public static MessageBoxResult Show(string msgText) {
             return Show(msgText, Contracts.App.LanguageService.FindResourceString("Tip"), MessageBoxButton.OK);
         }
@@ -13,8 +13,8 @@ namespace SingularityForensic.App.MessageBoxes {
         }
 
         public static MessageBoxResult Show(string msgText, string caption, MessageBoxButton button) {
-            var vm = new CDFCMessageBoxViewModel(button, msgText, caption);
-            var msg = new CDFCMessageBoxWindow(vm);
+            var vm = new SingularityMessageBoxDialogViewModel(button, msgText, caption);
+            var msg = new Views.SingularityMessageBoxDialog(vm);
             msg.Owner = Application.Current.MainWindow;
             msg.ShowInTaskbar = false;
             var res = msg.ShowDialog();

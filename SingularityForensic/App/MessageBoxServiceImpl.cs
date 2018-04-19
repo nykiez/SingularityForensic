@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 
 namespace SingularityForensic.App {
     [Export(typeof(IMessageBoxService))]
-    class MessageBoxService : IMessageBoxService {
+    class MessageBoxServiceImpl : IMessageBoxService {
         //从Windows.Result转为契约Result;
         private static MessageBoxResult ConvertFromWindowsMsgResToLocalRes(System.Windows.MessageBoxResult res) {
             switch (res) {

@@ -17,11 +17,11 @@ namespace SingularityForensic.Test.FileExplorer {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _factory = ServiceProvider.GetInstance<IFolderBrowserViewModelFactory>();
+            _factory = ServiceProvider.GetInstance<IFileExplorerViewModelFactory>();
             Assert.IsNotNull(_factory);
         }
 
-        IFolderBrowserViewModelFactory _factory;
+        IFileExplorerViewModelFactory _factory;
 
         [TestMethod()]
         public void CreateNewTest() {
@@ -34,7 +34,7 @@ namespace SingularityForensic.Test.FileExplorer {
                 areEqual = tuple.Part == part;
             });
 
-            _factory.CreateNew(part);
+            _factory.CreateFolderBrowserViewModel(part);
 
             Assert.IsTrue(createCatched);
             Assert.IsTrue(areEqual);

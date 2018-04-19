@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace SingularityForensic.App {
     [Export(typeof(ILoggerService))]
-    class LoggerService : ILoggerService {
+    class LoggerServiceImpl : ILoggerService {
         public void WriteCallerLine(string msg,[CallerMemberName] string callerName = null) {
             Logger.WriteCallerLine(msg, callerName);
         }

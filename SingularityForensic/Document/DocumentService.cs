@@ -125,6 +125,12 @@ namespace SingularityForensic.Document {
         public IDocumentBase SelectedDocument {
             get => VM.SelectedDocument;
             set {
+                if(value == null) {
+                    PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((null, this));
+                    VM.SelectedDocument = null;
+                    return;
+                }
+
                 if(!(value is Document document)) {
                     throw new InvalidOperationException($"{value.GetType()} is not a valid type,please use ${nameof(IDocumentService.CreateNewDocument)} instead.");
                 }

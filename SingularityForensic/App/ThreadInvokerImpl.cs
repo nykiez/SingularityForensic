@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace SingularityForensic.App {
     [Export(typeof(IThreadInvoker))]
-    class ThreadInvoker : IThreadInvoker {
+    class ThreadInvokerImpl : IThreadInvoker {
         public void BackInvoke(Action act) {
             if(act == null) {
                 throw new ArgumentNullException(nameof(act));

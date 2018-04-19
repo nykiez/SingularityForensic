@@ -1,10 +1,10 @@
 ﻿using SingularityForensic.App.Views;
 
-namespace SingularityForensic.App.MessaggeBoxes {
+namespace SingularityForensic.App.Dialogs {
     /// <summary>
     /// 输入字符串对话框;
     /// </summary>
-    public class InputValueMessageBox {
+    public class InputValueDialog {
         /// <summary>
         /// 请求输入;
         /// </summary>

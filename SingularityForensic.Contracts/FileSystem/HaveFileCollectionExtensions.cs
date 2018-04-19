@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    public static class HaveFileCollectionHelper {
+    public static class HaveFileCollectionExtensions {
         /// <summary>
         /// 查找索引号;
         /// </summary>
@@ -148,28 +148,13 @@ namespace SingularityForensic.Contracts.FileSystem {
             return fileNode.Children.FirstOrDefault(p => p.Name == urlArgs[urlArgs.Length - 1]);
         }
 
-        //通过起始位置找到内部文件;
-        //public static IFile GetInnerFileByPosition(this IIterable iterable, long pos) {
-        //    if (iterable == null || iterable.Children == null)
-        //        return null;
-
-        //    foreach (var item in iterable.Children) {
-        //        if (item is RegularFile) {
-        //            if ((item as RegularFile).StartLBA == pos) {
-        //                return item;
-        //            }
-        //        }
-        //        else if (item is IIterable) {
-        //            var itera = (item as IIterable);
-        //            if (!(itera.IsBackFile() || itera.IsBackUpFile())) {
-        //                IFile innerFile = null;
-        //                if ((innerFile = GetInnerFileByPosition(itera, pos)) != null) {
-        //                    return innerFile;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return null;
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="haveFileCollection"></param>
+        /// <returns></returns>
+        public static IEnumerable<IFile> GetInnerFiles(this IHaveFileCollection haveFileCollection,bool backOrBackUpDirIncluded) {
+            return null;
+        }
     }
 }

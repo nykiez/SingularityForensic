@@ -23,14 +23,29 @@ namespace SingularityForensic.Contracts.FileExplorer {
         IFileRow SelectedFile { get; }
 
         ICollection<IFileRow> Files { get;}
-
-        IEnumerable<ICommandItem> ContextCommands { get; }
     }
 
     /// <summary>
-    /// 目录/资源浏览器模型契约工厂类;
+    /// 文件系统资源管理器视图模型契约工厂类;
     /// </summary>
-    public interface IFolderBrowserViewModelFactory {
-        IFolderBrowserViewModel CreateNew(IPartition part);
+    public interface IFileExplorerViewModelFactory {
+        /// <summary>
+        /// 创建分区-文件资源管理器视图模型;
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        IFolderBrowserViewModel CreateFolderBrowserViewModel(IPartition part);
+
+        /// <summary>
+        /// 创建设备-分区资源管理器视图模型;
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device);
+    }
+
+    public class FileExplorerViewModelFactory : GenericServiceStaticInstance<IFileExplorerViewModelFactory> {
+        public static IFolderBrowserViewModel CreateNew(IPartition part) => Current?.CreateFolderBrowserViewModel(part);
+        public static IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device) => Current?.CreatePartitionsBrowserViewModel(device);
     }
 }

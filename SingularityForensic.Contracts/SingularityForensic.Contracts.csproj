@@ -115,14 +115,11 @@
     <Compile Include="Casing\Events\CaseUnloadedEvent.cs" />
     <Compile Include="Casing\Events\CaseUnloadingEvent.cs" />
     <Compile Include="Casing\ICaseDialogService.cs" />
-    <Compile Include="Casing\ICaseFactory.cs" />
-    <Compile Include="Casing\ICaseManager.cs" />
     <Compile Include="Casing\Constants.cs" />
     <Compile Include="Casing\Events\CaseEvidenceLoadingEvent.cs" />
     <Compile Include="Casing\Events\CaseLoadedEvent.cs" />
     <Compile Include="Casing\Events\CaseEvidenceLoadedEvent.cs" />
     <Compile Include="Casing\Events\CaseEvidenceAddedEvent.cs" />
-    <Compile Include="Casing\ICaseFileUnit.cs" />
     <Compile Include="Common\BytesExtensions.cs" />
     <Compile Include="Common\CommandItem.cs" />
     <Compile Include="Common\Commands\OpenPathCommand.cs" />
@@ -137,7 +134,7 @@
     <Compile Include="Common\IUIReactService.cs" />
     <Compile Include="Common\IViewProvider.cs" />
     <Compile Include="Common\XElemExtensions.cs" />
-    <Compile Include="Common\SecurityStoken.cs" />
+    <Compile Include="Common\IHaveStoken.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
     <Compile Include="Controls\CustomTypedListSource.cs" />
     <Compile Include="Controls\GridViewAutoGeneratingColumnEventArgs.cs" />
@@ -171,7 +168,7 @@
     <Compile Include="FileSystem\BlockedStreamFileStoken.cs" />
     <Compile Include="FileSystem\IStreamFile.cs" />
     <Compile Include="FileSystem\IDevice.cs" />
-    <Compile Include="FileSystem\HaveFileCollectionHelper.cs" />
+    <Compile Include="FileSystem\HaveFileCollectionExtensions.cs" />
     <Compile Include="FileSystem\DeviceStoken.cs" />
     <Compile Include="FileExplorer\IFileRow.cs" />
     <Compile Include="FileSystem\IFileFactory.cs" />
@@ -181,7 +178,6 @@
     <Compile Include="FileSystem\FileExtensions.cs" />
     <Compile Include="FileExplorer\IFileMetaDataProvider.cs" />
     <Compile Include="FileSystem\IHaveFileCollection.cs" />
-    <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="FileSystem\IFileSystemService.cs" />
     <Compile Include="FileSystem\IHaveTime.cs" />
     <Compile Include="FileSystem\IUnmanagedBasicDeviceManager.cs" />
@@ -205,7 +201,6 @@
     <Compile Include="FileSystem\IIndexable.cs" />
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
-    <Compile Include="Casing\ICaseEvidenceServiceProvider.cs" />
     <Compile Include="Hash\IHasher.cs" />
     <Compile Include="Hex\IToolTipItem.cs" />
     <Compile Include="Hex\CodeLanguage.cs" />

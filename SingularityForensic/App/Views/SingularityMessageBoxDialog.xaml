@@ -1,4 +1,4 @@
-﻿<controls:CorneredWindow x:Class="SingularityForensic.App.Views.CDFCMessageBoxWindow"
+﻿<controls:CorneredWindow x:Class="SingularityForensic.App.Views.SingularityMessageBoxDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

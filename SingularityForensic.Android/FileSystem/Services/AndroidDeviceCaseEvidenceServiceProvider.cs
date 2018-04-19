@@ -6,34 +6,34 @@ using SingularityForensic.Android.FileSystem.Models;
 using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Android.FileSystem.Services {
-    [Export(typeof(ICaseEvidenceServiceProvider))]
-    public class AndroidDeviceCaseEvidenceServiceProvider : EmptyServiceProvider<AndroidDeviceCaseEvidenceServiceProvider>
-        , ICaseEvidenceServiceProvider {
-        public IImgParser StreamFileParser => AndroidDeviceStreamParser.StaticInstance;
+    //[Export(typeof(ICaseEvidenceServiceProvider))]
+    //public class AndroidDeviceCaseEvidenceServiceProvider : EmptyServiceProvider<AndroidDeviceCaseEvidenceServiceProvider>
+    //    , ICaseEvidenceServiceProvider {
+    //    public IImgParser StreamFileParser => AndroidDeviceStreamParser.StaticInstance;
 
-        public void AddNewCaseFile(IFilefile, string interLabel) {
-            //if (file is AndroidDevice adDevice) {
-            //    ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(
-            //        new CaseEvidence(adDevice, interLabel, DateTime.Now));
-            //}
+    //    public void AddNewCaseFile(IFile file, string interLabel) {
+    //        //if (file is AndroidDevice adDevice) {
+    //        //    ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(
+    //        //        new CaseEvidence(adDevice, interLabel, DateTime.Now));
+    //        //}
 
-        }
+    //    }
 
-        public bool CheckIsValid(ICaseEvidence file) => file.Data is AndroidDevice;
+    //    public bool CheckIsValid(ICaseEvidence file) => file.Data is AndroidDevice;
 
-        public override object GetInstance(Type serviceType) {
-            if (serviceType == typeof(IFileDetailInfoProvider)) {
-                return Ext4NodeDetailProvider.StaticInstance;
-            }
-            return null;
-        }
+    //    public override object GetInstance(Type serviceType) {
+    //        if (serviceType == typeof(IFileDetailInfoProvider)) {
+    //            return Ext4NodeDetailProvider.StaticInstance;
+    //        }
+    //        return null;
+    //    }
 
-        public override object GetInstance(Type serviceType, string key) {
-            throw new NotImplementedException();
-        }
+    //    public override object GetInstance(Type serviceType, string key) {
+    //        throw new NotImplementedException();
+    //    }
 
 
-        //public static readonly AndroidDeviceFileExplorerServiceProvider Ins = AndroidDeviceFileExplorerServiceProvider.StaticInstance;
-    }
+    //    //public static readonly AndroidDeviceFileExplorerServiceProvider Ins = AndroidDeviceFileExplorerServiceProvider.StaticInstance;
+    //}
 
 }

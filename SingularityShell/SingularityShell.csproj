@@ -34,6 +34,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
@@ -104,6 +110,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,6 +193,7 @@ Copy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Docking.for.Wpf.45.Xaml.2015.3.930\lib\net45" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Docking.dll"
 
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"
@@ -200,6 +208,12 @@ XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn" "$(TargetDir)OutS
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll"
 Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
 
-Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll"</PostBuildEvent>
+Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll"
+
+Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(TargetDir)Entities\System.Data.SQLite.dll"
+Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(TargetDir)Entities\System.Data.SQLite.EF6.dll"
+Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(TargetDir)Entities\System.Data.SQLite.Linq.dll"
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(TargetDir)x86" /E /Y
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(TargetDir)x64" /E /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

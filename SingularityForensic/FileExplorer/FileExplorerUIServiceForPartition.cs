@@ -32,6 +32,8 @@ namespace SingularityForensic.FileExplorer {
         private void RegisterEvents() {
             //文档被添加时的响应;
             PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(tuple => {
+                //分区加入文档时呈现主视图;
+                OnDocumentAddedEventOnPartition(tuple);
                 //分区加入文档时呈现十六进制;
                 OnDocumentAddedEventOnPartHex(tuple);
                 //分区加入文档时呈现预览;
@@ -45,13 +47,7 @@ namespace SingularityForensic.FileExplorer {
                 //分区选中行发生变更时,更新预览;
                 OnFocusedFileChangedOnPartPreview(tuple);
             });
-
-            //文档被添加时的响应;
-            PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(tuple => {
-                //分区加入文档时呈现主视图;
-                OnDocumentAddedEventOnPartition(tuple);
-            });
-
+            
             //文档关闭时释放预览器;
             PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(OnDocumentClosed);
 
@@ -215,14 +211,14 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var hexPartTuple = FileExplorerUIHelper.GetBlockedStreamHexDocument(part);
+            var hexPartTuple = FileExplorerUIHelper.GetStreamHexDocument(part);
             if (hexPartTuple == null) {
                 return;
             }
 
             hexPartTuple.Value.doc.Title = LanguageService.FindResourceString(Constants.DocumentTitle_HexPartition);
 
-            var hexFileTuple = FileExplorerUIHelper.GetBlockedStreamHexDocument(null);
+            var hexFileTuple = FileExplorerUIHelper.GetStreamHexDocument(null);
             if (hexFileTuple == null) {
                 return;
             }
@@ -255,16 +251,17 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var folderBrowser = ServiceProvider.Current?.
-                GetInstance<FrameworkElement>(Constants.FolderBrowserView);
+            var vm = FileExplorerViewModelFactory.CreateNew(part);
 
+            var folderBrowser = ViewProvider.GetView(Constants.FolderBrowserView);
             if (folderBrowser == null) {
                 LoggerService.WriteCallerLine($"{nameof(folderBrowser)} can't be null.");
                 return;
             }
-
-            var vm = ServiceProvider.Current.GetInstance<IFolderBrowserViewModelFactory>().CreateNew(part);
-            folderBrowser.DataContext = vm;
+            if(folderBrowser is FrameworkElement elem) {
+                elem.DataContext = vm;
+            }
+            
             enumDoc.MainUIObject = folderBrowser;
         }
 

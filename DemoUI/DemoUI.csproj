@@ -122,12 +122,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App\TestProgressService.xaml.cs">
+      <DependentUpon>TestProgressService.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DemoBootStrapper.cs" />
     <Compile Include="Document\Documents.xaml.cs">
       <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileExplorer\TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestApp.xaml.cs">
+      <DependentUpon>TestApp.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestProxy.cs" />
     <Compile Include="TestDataGrid.xaml.cs">
@@ -166,6 +172,10 @@
     <Compile Include="TestTreeView.xaml.cs">
       <DependentUpon>TestTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="App\TestProgressService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Document\Documents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +196,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TestApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TestDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +285,9 @@
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
       <Name>SingularityForensic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hex\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

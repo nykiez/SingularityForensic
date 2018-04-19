@@ -1,10 +1,10 @@
-﻿using CDFCUIContracts.Commands;
-using Prism.Commands;
+﻿using Prism.Commands;
 using SingularityForensic.Android.FileSystem.MessageBoxes.MessageBoxes;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Android {
     internal static class CommandDefinitions {
@@ -13,8 +13,8 @@ namespace SingularityForensic.Android {
 
         //显示文件系统信息;
         public static readonly DelegateCommand ShowFileSystemInfoCommand = new DelegateCommand(() => {
-            var device = NodeService?.SelectedUnit.Tag as AndroidDevice;
-            BlockDeviceFSInfoMessageBox.Show(device);
+            //var device = NodeService?.SelectedUnit.SetInstance.Tag as AndroidDevice;
+            //BlockDeviceFSInfoMessageBox.Show(device);
         },
             () => NodeService?.SelectedUnit.TypeGuid == Constants.AndroidDeviceNodeContextCommand);
         

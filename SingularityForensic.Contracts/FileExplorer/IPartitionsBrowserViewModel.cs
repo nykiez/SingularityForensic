@@ -24,10 +24,5 @@ namespace SingularityForensic.Contracts.FileExplorer {
         IEnumerable<ICommandItem> ContextCommands { get; }
     }
 
-    /// <summary>
-    /// 设备-分区视图模型工厂契约;
-    /// </summary>
-    public interface IPartitionsBrowserViewModelFactory {
-        IPartitionsBrowserViewModel CreateNew(IDevice device);
-    }
+    
 }

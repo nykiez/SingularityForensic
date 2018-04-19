@@ -126,7 +126,7 @@ namespace SingularityForensic.Adb.Global.Services {
         }
         
         private SubscriptionToken closeCaseToken;
-        private SubscriptionToken caseLoadedToken;
+        //private SubscriptionToken caseLoadedToken;
         //注册事件;
         private void RegisterEvents() {
             //注册关闭案件事件;

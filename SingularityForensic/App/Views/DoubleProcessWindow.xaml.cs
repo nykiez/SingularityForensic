@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace SingularityForensic.Controls.Windows {
+namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for LoadCaseWindow.xaml
     /// </summary>

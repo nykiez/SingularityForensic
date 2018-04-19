@@ -26,5 +26,8 @@
         public const string ProviderName = "Name";
         //语言类型;
         public const string ProviderType = "Type";
+
+        //正在取消工作;
+        public const string WindowDescrip_CancelingProcess = nameof(WindowDescrip_CancelingProcess);
     }
 }

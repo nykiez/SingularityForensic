@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace SingularityForensic.App {
     [Export(typeof(ILanguageService))]
-    public class LanguageService : ILanguageService {
+    public class LanguageServiceImpl : ILanguageService {
         private LanguageProvider _currentProvider;
         public LanguageProvider CurrentProvider {
             get => _currentProvider;

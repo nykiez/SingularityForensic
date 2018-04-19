@@ -5,8 +5,8 @@ using System.ComponentModel;
 using System.Windows;
 
 namespace SingularityForensic.App.ViewModels {
-    public partial class CDFCMessageBoxViewModel : INotifyPropertyChanged {
-        public CDFCMessageBoxViewModel(MessageBoxButton button,string warnWords,string titleWords) {
+    public partial class SingularityMessageBoxDialogViewModel : INotifyPropertyChanged {
+        public SingularityMessageBoxDialogViewModel(MessageBoxButton button,string warnWords,string titleWords) {
             if(button == MessageBoxButton.OKCancel || button == MessageBoxButton.OK) {
                 AddButton(MessageButtonModel.OK, ConfirmCommand);
                 if(button == MessageBoxButton.OKCancel) {
@@ -53,7 +53,7 @@ namespace SingularityForensic.App.ViewModels {
             }
         }
     }
-    public partial class CDFCMessageBoxViewModel  {
+    public partial class SingularityMessageBoxDialogViewModel  {
        public RelayCommand ConfirmCommand {
             get {
                 return new RelayCommand(() => {

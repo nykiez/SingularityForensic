@@ -49,7 +49,7 @@ namespace SingularityForensic.App {
     }
 
     [Export(typeof(IProgessReporterFactory))]
-    public class ProgressReporterFactory : IProgessReporterFactory {
+    public class ProgressReporterFactoryImpl : IProgessReporterFactory {
         public IProgressReporter CreateNew() => new ProgressReporter();
     }
 }

@@ -11,8 +11,8 @@
     
     <Grid>
         <Grid.Resources>
-            <ImageBrush x:Key="LeftTalkBack" Stretch="Fill" ImageSource="/SingularityForensic.Controls;component/Images/TalkLog_Left.png"/>
-            <ImageBrush x:Key="RightTalkBack" Stretch="Fill" ImageSource="/SingularityForensic.Controls;component/Images/TalkLog_Right.png"/>
+            <ImageBrush x:Key="LeftTalkBack" Stretch="Fill" ImageSource="/SingularityForensic;component/Controls/Images/TalkLog_Left.png"/>
+            <ImageBrush x:Key="RightTalkBack" Stretch="Fill" ImageSource="/SingularityForensic;component/Controls/Images/TalkLog_Right.png"/>
         </Grid.Resources>
         <Border BorderThickness="1,0,1,1" BorderBrush="Black">
             <ListView ItemsSource="{Binding TalkLogs}" >

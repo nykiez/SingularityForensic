@@ -1,7 +1,8 @@
-﻿using CDFCControls.Controls;
-using System.Windows.Media.Animation;
+﻿using System.Windows.Media.Animation;
 using System.Windows;
 using System;
+using SingularityForensic.Contracts.App;
+using CDFCControls.Controls;
 
 namespace SingularityForensic.App.Views {
     /// <summary>
@@ -19,10 +20,15 @@ namespace SingularityForensic.App.Views {
             get {
                 return _cancellationPending;
             }
-            set {
-                Word = this.TryFindResource("CancelingProcess") as string;
-                ProBar.IsIndeterminate = value;
-                _cancellationPending = value;
+            private set {
+                if (value) {
+                    Word = LanguageService.FindResourceString(Constants.WindowDescrip_CancelingProcess);
+                    ProBar.IsIndeterminate = value;
+                    _cancellationPending = value;
+                }
+                else {
+                    
+                }
             }
         }
 
@@ -62,7 +68,9 @@ namespace SingularityForensic.App.Views {
 
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
             this.CancellationPending = true;
+            Canceld?.Invoke(this, EventArgs.Empty);
         }
+        public event EventHandler Canceld;
     }
     
 }

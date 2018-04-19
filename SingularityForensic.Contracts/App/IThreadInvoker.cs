@@ -10,9 +10,15 @@ namespace SingularityForensic.Contracts.App {
     /// 线程调用器契约,此契约能够帮助在逻辑中存在进行多线程后台操作时,替换后可以方便地进行单元测试;
     /// </summary>
     public interface IThreadInvoker {
-        //后台调用;
+        /// <summary>
+        /// 后台调用;
+        /// </summary>
+        /// <param name="act"></param>
         void BackInvoke(Action act);
-        //UI调用;
+        /// <summary>
+        /// 从UI线程调用;
+        /// </summary>
+        /// <param name="act"></param>
         void UIInvoke(Action act);
     }
 

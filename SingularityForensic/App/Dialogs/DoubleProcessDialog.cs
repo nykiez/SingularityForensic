@@ -1,15 +1,21 @@
-﻿using SingularityForensic.Controls.Windows;
+﻿using SingularityForensic.App.Views;
+using SingularityForensic.Contracts.App;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
-namespace SingularityForensic.Controls.MessageBoxes {
-    public class DoubleProcessMessageBox {
+namespace SingularityForensic.App.Dialogs {
+    public class DoubleProcessDialog : IDoubleLoadingDialog {
         public event DoWorkEventHandler DoWork;
         public event RunWorkerCompletedEventHandler RunWorkerCompleted;
+        public event EventHandler Canceld;
+
         private readonly DoubleProcessWindow window = new DoubleProcessWindow();
-        public void ReportProgress(int totalPer,int detailPer,string desc,string detail) {
+        public void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
             window.Dispatcher.Invoke(() => {
                 window.ProCap = totalPer;
                 window.ProDetail = detailPer;
@@ -23,15 +29,18 @@ namespace SingularityForensic.Controls.MessageBoxes {
                 return window.CancellationPending;
             }
         }
-        
-        public void ShowDialog(Window owner = null) {
-            ThreadPool.QueueUserWorkItem(cb => {
+
+        public void ShowDialog() {
+            RunTask();
+            window.ShowDialog();
+        }
+        private void RunTask() {
+            ThreadInvoker.BackInvoke(() => {
                 try {
                     DoWork?.Invoke(this, new DoWorkEventArgs(this));
                     window.Dispatcher.Invoke(() => {
                         window.Close();
                         RunWorkerCompleted?.Invoke(this, new RunWorkerCompletedEventArgs(null, null, CancellationPending));
-                        
                     });
                 }
                 catch (Exception ex) {
@@ -41,14 +50,13 @@ namespace SingularityForensic.Controls.MessageBoxes {
                     });
                 }
             });
-            if (owner != null) {
-                window.Owner = owner;
-            }
-            else {
-                window.Owner = Application.Current.MainWindow;
-            }
+            window.Owner = Application.Current.MainWindow;
+            window.ShowInTaskbar = false;
+        }
 
-            window.ShowDialog();
+        public void Show() {
+            RunTask();
+            window.Show();
         }
 
         public string Title {

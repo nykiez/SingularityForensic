@@ -21,7 +21,7 @@ namespace SingularityForensic.FileExplorer {
             if(blockedStream == null) {
                 throw new ArgumentNullException(nameof(blockedStream));
             }
-
+            
             var cmi = CommandItemFactory.CreateNew(CreateCustomSignSearchCommand(blockedStream));
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CustomSignSearch);
             cmi.Sort = 12;

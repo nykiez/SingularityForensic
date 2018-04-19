@@ -26,10 +26,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         /// <param name="part">模型所属主文件</param>
         public FolderBrowserViewModel(IPartition part) {
-            if (part == null) {
-                throw new ArgumentNullException(nameof(part));
-            }
-            this.Part = part;
+            this.Part = part ?? throw new ArgumentNullException(nameof(part));
 
             InitializeFileRowDescriptors();
             InitializeColumns();
@@ -90,7 +87,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         public IFileRow SelectedFile { get; private set; }
         
-
         /// <summary>
         /// 填充行;
         /// </summary>
@@ -99,12 +95,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             if (fileCollection == null) {
                 return;
             }
-
-            Files.Clear();
-
+            
             FillRows(fileCollection.Children);
-
-            this.CurrentFileCollection = fileCollection;
         }
 
 
@@ -116,6 +108,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             if (files == null) {
                 return;
             }
+
+            Files.Clear();
 
             foreach (var file in files) {
                 Files.Add(new FileRow(file));
@@ -146,25 +140,12 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public void Exit() {
             NavNodes.Clear();
         }
-
-        /// <summary>
-        /// 当前展开的文件;
-        /// </summary>
-        /// <param name="_fileCollection"></param>
-        private IHaveFileCollection _currentFileCollection;
         
-        public IHaveFileCollection CurrentFileCollection {
-            get => _currentFileCollection;
-            set {
-                _currentFileCollection = value;
-            }
-        }
-        
-        public static ICommandItem CreateViewerProgramCommandItem(ViewerProgramModel viewerProgramModel) {
-            var commandItem = CommandItemFactory.CreateNew(viewerProgramModel.WatchCommand);
-            commandItem.Name = viewerProgramModel.Name;
-            return commandItem;
-        }
+        //public static ICommandItem CreateViewerProgramCommandItem(ViewerProgramModel viewerProgramModel) {
+        //    var commandItem = CommandItemFactory.CreateNew(viewerProgramModel.WatchCommand);
+        //    commandItem.Name = viewerProgramModel.Name;
+        //    return commandItem;
+        //}
 
 #if DEBUG
         ~FolderBrowserViewModel() {

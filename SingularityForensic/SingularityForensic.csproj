@@ -118,14 +118,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.SQLite, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.107.0\lib\net451\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.107.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.107.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
@@ -264,19 +264,21 @@
     <Compile Include="Adb\Views\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
+    <Compile Include="App\Dialogs\ProgressDialog.cs" />
     <Compile Include="App\ProgressReporter.cs" />
     <Compile Include="App\Constants.cs" />
-    <Compile Include="App\DialogService.cs" />
+    <Compile Include="App\DialogServiceImpl.cs" />
     <Compile Include="App\ResourceDictionaryEx.cs" />
-    <Compile Include="App\ThreadInvoker.cs" />
-    <Compile Include="App\LanguageService.cs" />
-    <Compile Include="App\LoggerService.cs" />
-    <Compile Include="App\MessageBoxes\CDFCMessageBox.cs" />
-    <Compile Include="App\MessageBoxService.cs" />
+    <Compile Include="App\ThreadInvokerImpl.cs" />
+    <Compile Include="App\LanguageServiceImpl.cs" />
+    <Compile Include="App\LoggerServiceImpl.cs" />
+    <Compile Include="App\Dialogs\SingularityMessageBoxDialog.cs" />
+    <Compile Include="App\MessageBoxServiceImpl.cs" />
     <Compile Include="App\Models\MessageButtonModel.cs" />
-    <Compile Include="App\ViewModels\CDFCMessageBoxViewModel.cs" />
-    <Compile Include="App\Views\CDFCMessageBoxWindow.xaml.cs">
-      <DependentUpon>CDFCMessageBoxWindow.xaml</DependentUpon>
+    <Compile Include="App\ViewModels\SingularityMessageBoxDialogViewModel.cs" />
+    <Compile Include="App\Views\SingularityMessageBoxDialog.xaml.cs">
+      <DependentUpon>SingularityMessageBoxDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="App\Views\ProgressWindow.xaml.cs">
       <DependentUpon>ProgressWindow.xaml</DependentUpon>
@@ -319,7 +321,6 @@
     <Compile Include="Controls\FilterableDataGrid\FilterHeader.xaml.cs">
       <DependentUpon>FilterHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MessageBoxes\DoubleProcessMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterDTMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
@@ -331,9 +332,8 @@
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
-    <Compile Include="FileExplorer\PartitionsBrowserViewModelFactory.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
-    <Compile Include="FileExplorer\FolderBrowserViewModelFactory.cs" />
+    <Compile Include="FileExplorer\FileExplorerViewModelFactoryImpl.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileSystem\BlockGroup.cs" />
     <Compile Include="FileSystem\StreamFileBase.cs" />
@@ -357,7 +357,7 @@
     <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
     <Compile Include="Hex\Controls\FindTextMessageBox.cs" />
     <Compile Include="Hex\Controls\GoToOffsetMessageBox.cs" />
-    <Compile Include="App\MessageBoxes\InputValueMessageBox.cs" />
+    <Compile Include="App\Dialogs\InputValueDialog.cs" />
     <Compile Include="Controls\MessageBoxes\ReComPreSettingMessageBox.cs" />
     <Compile Include="FileExplorer\MessageBoxes\SignSearchMessageBox.cs" />
     <Compile Include="Controls\Models\Filtering\FilterAllModel.cs" />
@@ -377,7 +377,7 @@
     <Compile Include="Controls\Views\TalkView.xaml.cs">
       <DependentUpon>TalkView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Windows\DoubleProcessWindow.xaml.cs">
+    <Compile Include="App\Views\DoubleProcessWindow.xaml.cs">
       <DependentUpon>DoubleProcessWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Windows\FileDetailWindow.xaml.cs">
@@ -683,7 +683,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="App\Views\CDFCMessageBoxWindow.xaml">
+    <Page Include="App\Views\SingularityMessageBoxDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -748,7 +748,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Windows\DoubleProcessWindow.xaml">
+    <Page Include="App\Views\DoubleProcessWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1664,12 +1664,12 @@ XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

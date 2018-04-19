@@ -5,12 +5,5 @@ using SingularityForensic.Android.FileSystem.Models;
 using SingularityForensic.Contracts.Casing;
 
 namespace SingularityForensic.Android.FileSystem.Services {
-    [Export(typeof(IFileExplorerServiceProvider))]
-    public class AndroidExt4FileExplorerServiceProvider :
-        EmptyServiceProvider<AndroidExt4FileExplorerServiceProvider>,
-        IFileExplorerServiceProvider {
-        public ICaseEvidenceServiceProvider CaseEvidenceServiceProvider => AndroidDeviceCaseEvidenceServiceProvider.StaticInstance;
-
-        public IRowBuilder RowBuilder => AndroidExt4RowBuilder.StaticInstance;
-    }
+   
 }
