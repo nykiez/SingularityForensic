@@ -132,8 +132,14 @@
     <Compile Include="FileExplorer\TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hex\TestLoadHex.xaml.cs">
+      <DependentUpon>TestLoadHex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestApp.xaml.cs">
       <DependentUpon>TestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestHex.xaml.cs">
+      <DependentUpon>TestHex.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestProxy.cs" />
     <Compile Include="TestDataGrid.xaml.cs">
@@ -184,6 +190,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Hex\TestLoadHex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -223,6 +233,10 @@
     <Page Include="TestFilterableDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestHex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestInteractionRequest.xaml">
       <SubType>Designer</SubType>
@@ -286,9 +300,7 @@
       <Name>SingularityForensic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hex\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"

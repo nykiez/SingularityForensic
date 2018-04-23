@@ -107,6 +107,10 @@ namespace SingularityForensic.Document {
             _vm.DocumentTabs.Clear();
             PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
         }
+
+        public void Initialize() {
+            
+        }
     }
        
 }

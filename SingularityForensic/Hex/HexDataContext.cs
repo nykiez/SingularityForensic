@@ -10,18 +10,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
-    class HexDataContext : ExtensibleBindableBase,IHexDataContext {
+    partial class HexDataContext : ExtensibleBindableBase, IHexDataContext {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
             _view = ViewProvider.GetView(Contracts.Hex.Constants.HexView) as FrameworkElement;
-            if(_view != null) {
+            if (_view != null) {
                 _view.DataContext = _vm;
             }
+
+            _vm.SelectionStateChanged += delegate {
+                SelectionStateChanged?.Invoke(this, EventArgs.Empty);
+            };
         }
-        private HexStreamEditorViewModel _vm = new HexStreamEditorViewModel();
+
         public bool ReadOnlyMode { get; set; }
 
         public Stream Stream {
@@ -38,6 +43,9 @@ namespace SingularityForensic.Hex {
             get => _vm.SelectionLength;
             set => _vm.SelectionLength = value;
         }
+
+        public event EventHandler SelectionStateChanged;
+
         public long Position {
             get => _vm.Position;
             set => _vm.Position = value;
@@ -48,13 +56,26 @@ namespace SingularityForensic.Hex {
             set => _vm.FocusPosition = value;
         }
 
-        public IList<(long index, long length, Brush background)> CustomBackgroundBlocks {
+        public ICollection<(long index, long length, Brush background)> CustomBackgroundBlocks {
             get => _vm.CustomBackgroundBlocks;
         }
 
-        public object Tag { get ; set ; }
-
+        private HexViewViewModel _vm = new HexViewViewModel();
         private FrameworkElement _view;
+        
         public object UIObject => _view;
+    }
+
+    partial class HexDataContext {
+        public IEnumerable<ICommandItem> ContextCommands => _vm.ContextCommands;
+
+        public ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems => _vm.CustomDataToolTipItems;
+
+        public ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems =>
+            _vm.CustomObjectToolTipItems;
+
+        public void AddContextCommand(ICommandItem commandItem) => _vm.ContextCommands.AddOrderBy(commandItem,ci => ci.Sort);
+
+        public void RemoveContextCommand(ICommandItem commandItem) => _vm.ContextCommands.Remove(commandItem);
     }
 }

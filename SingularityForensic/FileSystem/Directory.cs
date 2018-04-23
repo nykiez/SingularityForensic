@@ -9,7 +9,7 @@ namespace SingularityForensic.FileSystem {
 
     [Serializable]
     public class Directory : BlockGroupedFileBase<DirectoryStoken>, IDirectory {
-        public Directory(string key, DirectoryStoken stoken = null) : base(key, stoken) {
+        public Directory(string key) : base(key) {
             Children = new FileBaseCollection(this);
         }
 

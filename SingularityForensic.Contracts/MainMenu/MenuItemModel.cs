@@ -35,6 +35,5 @@ namespace SingularityForensic.Contracts.MainMenu {
         public bool IsVisible { get; set; }
         public Key Key { get; set; }
         public ModifierKeys Modifier { get; set; }
-        public object CommandParameter { get; set; }
     }
 }

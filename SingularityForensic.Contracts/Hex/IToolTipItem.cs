@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Contracts.Hex {
     /// <summary>
-    /// 上下文;
+    /// This is designed for more extensibility for ToolTip;
     /// </summary>
-    public interface IToolTipItem {
-
+    public interface IToolTipItem:IUIObjectProvider {
+        
     }
 }

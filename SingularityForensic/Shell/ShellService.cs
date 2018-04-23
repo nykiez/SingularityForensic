@@ -11,10 +11,10 @@ namespace SingularityForensic.Shell {
     /// 主窗体服务;
     /// </summary>
     [Export(typeof(IShellService))]
-    public class ShellService:IShellService
+    public class ShellServiceImpl:IShellService
     {
         [ImportingConstructor]
-        public ShellService(ShellViewModel shellVM) {
+        public ShellServiceImpl(ShellViewModel shellVM) {
             this._shellVM = shellVM;
             _shellView = ViewProvider.GetView(Contracts.Shell.Constants.ShellView);
                 
@@ -52,11 +52,10 @@ namespace SingularityForensic.Shell {
         /// <param name="key">案件</param>
         /// <param name="modifier">修饰键</param>
         /// <param name="commandPara">命令参数</param>
-        public void AddKeyBinding(ICommand command,Key key,ModifierKeys modifier = ModifierKeys.None,object commandPara = null) {
+        public void AddKeyBinding(ICommand command,Key key,ModifierKeys modifier = ModifierKeys.None) {
             var kb = new KeyBinding {
                 Modifiers = modifier,
                 Key = key,
-                CommandParameter = commandPara,
                 Command = command
             };
             

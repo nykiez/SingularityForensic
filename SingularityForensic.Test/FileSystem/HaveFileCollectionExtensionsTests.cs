@@ -1,0 +1,43 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SingularityForensic.Contracts.FileSystem;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SingularityForensic.Test.FileSystem {
+    [TestClass()]
+    public class HaveFileCollectionExtensionsTests {
+        [TestInitialize]
+        public void TestInitialize() {
+            TestCommon.InitializeTest();
+        }
+        [TestMethod()]
+        public void GetInnerFilesTest() {
+            var device = FileSystemService.Current.
+                MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null) as IDevice;
+
+            var innerFiles = device.GetInnerFiles();
+            var count = 0;
+            Trace.WriteLine($"Dir not included");
+            
+            foreach (var file in innerFiles) {
+                Trace.WriteLine(file.Name);
+                count++;
+            }
+
+            Trace.WriteLine($"{count}");
+
+            count = 0;
+            Trace.WriteLine($"Dir included");
+            innerFiles = device.GetInnerFiles(true);
+            foreach (var file in innerFiles) {
+                Trace.WriteLine(file.Name);
+                count++;
+            }
+            Trace.WriteLine($"{count}");
+        }
+    }
+}

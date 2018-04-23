@@ -2,4 +2,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
   <sys:String x:Key="ToolTipKey_Offset">偏移</sys:String>
   <sys:String x:Key="ToolTipKey_Value">值</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyKey">拷贝键</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyValue">拷贝值</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyExpression">拷贝键值对</sys:String>
+  <sys:String x:Key="ContextCommandName_SetAsStart">设为选择起始</sys:String>
+  <sys:String x:Key="ContextCommandName_SetAsEnd">设为选择终止</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyToClipBoard">拷贝至剪切板</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyHexToCBoard">拷贝十六进制</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyASCIIToCBoard">拷贝为ASCII码</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyToNewFile">拷贝为新文件</sys:String>
+  <sys:String x:Key="ContextCommandName_CopyAsProgramCode">拷贝为代码</sys:String>
+  <sys:String x:Key="WindowTitle_DataCopying">数据正在拷贝中</sys:String>
+  <sys:String x:Key="WindowTitle_DataCopyDone">拷贝完成</sys:String>
+  <sys:String x:Key="ToolBarText_SearchForHex">搜索十六进制</sys:String>
+  <sys:String x:Key="SplashText_HexModuleBeingLoaded">正在加载十六进制模块</sys:String>
 </ResourceDictionary>

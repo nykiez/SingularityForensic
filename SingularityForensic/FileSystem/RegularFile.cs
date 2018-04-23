@@ -15,7 +15,7 @@ namespace SingularityForensic.FileSystem {
         /// 常规文件构造方法;
         /// </summary>
         /// <param name="parent"></param>
-        public RegularFile(string key, RegularFileStoken stoken = null) : base(key, stoken) {
+        public RegularFile(string key) : base(key) {
 
         }
     }

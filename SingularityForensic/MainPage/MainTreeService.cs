@@ -1,5 +1,6 @@
 ﻿using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
@@ -28,14 +29,56 @@ namespace SingularityForensic.MainPage {
         }
 
         private void RegisterEvents() {
-            VM.SelectedUnitChanged += vm_SelectedUnitChanged;
+            VM.SelectedUnitChanged += VM_SelectedUnitChanged;
+            VM.UnitRightClicked += VM_UnitRightClicked;
         }
 
-        private void vm_SelectedUnitChanged(object sender, EventArgs e) {
+        private IEnumerable<ITreeUnitRightClickedEventHandler> _treeUnitRightClickeEventHandlers;
+        public IEnumerable<ITreeUnitRightClickedEventHandler> TreeUnitRightClickeEventHandlers {
+            get {
+                if(_treeUnitRightClickeEventHandlers == null) {
+                    _treeUnitRightClickeEventHandlers = ServiceProvider.
+                        GetAllInstances<ITreeUnitRightClickedEventHandler>().
+                        OrderBy(p => p.Sort).ToArray();
+                }
+                return _treeUnitRightClickeEventHandlers;
+            }
+        }
+
+        private void VM_UnitRightClicked(object sender, ITreeUnit e) {
             if(sender != VM) {
                 return;
             }
 
+            PubEventHelper.PublishEventToHandlers<ITreeUnitRightClickedEventHandler,
+                (ITreeUnit unit, ITreeService treeService)>((e, this), TreeUnitRightClickeEventHandlers);
+        }
+
+        private IEnumerable<ITreeUnitSelectedChangedEventHandler> _selectedTreeUnitEventHandlers;
+        private IEnumerable<ITreeUnitSelectedChangedEventHandler> SelectedTreeUnitEventHandlers {
+            get {
+                if(_selectedTreeUnitEventHandlers == null) {
+                    //To arrary将会阻止ServiceProvider.GetAllInstances的反复执行;
+                    _selectedTreeUnitEventHandlers = ServiceProvider.
+                        GetAllInstances<ITreeUnitSelectedChangedEventHandler>().
+                        OrderBy(p => p.Sort).ToArray();
+                }
+                return _selectedTreeUnitEventHandlers;
+            }
+        }
+
+        /// <summary>
+        /// 视图模型选定单元发生变化时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VM_SelectedUnitChanged(object sender, EventArgs e) {
+            if(sender != VM) {
+                return;
+            }
+
+            PubEventHelper.PublishEventToHandlers<ITreeUnitSelectedChangedEventHandler,
+                (ITreeUnit unit, ITreeService treeService)>((VM.SelectedUnit, this), SelectedTreeUnitEventHandlers);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
         }
 

@@ -16,7 +16,7 @@ namespace SingularityForensic.FileSystem {
     /// <typeparam name="TStoken"></typeparam>
     public abstract class StreamFileBase<TStoken> : FileBase<TStoken>,
         IStreamFile<TStoken> where TStoken : StreamFileStoken,new() {
-        public StreamFileBase(string key,TStoken stoken = null):base(key,stoken){
+        public StreamFileBase(string key):base(key){
 
         }
         

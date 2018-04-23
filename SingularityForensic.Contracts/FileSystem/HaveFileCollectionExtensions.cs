@@ -149,12 +149,35 @@ namespace SingularityForensic.Contracts.FileSystem {
         }
 
         /// <summary>
-        /// 
+        /// 得到内部所有文件的迭代;
         /// </summary>
         /// <param name="haveFileCollection"></param>
+        /// <param name="backOrBackUpDirIncluded">文件夹是否包含</param>
         /// <returns></returns>
-        public static IEnumerable<IFile> GetInnerFiles(this IHaveFileCollection haveFileCollection,bool backOrBackUpDirIncluded) {
-            return null;
+        public static IEnumerable<IFile> GetInnerFiles(this IHaveFileCollection haveFileCollection,bool isDirIncluded = false) {
+            if(haveFileCollection == null) {
+                throw new ArgumentNullException(nameof(haveFileCollection));
+            }
+
+            foreach (var file in haveFileCollection.Children) {
+                if(file is IHaveFileCollection innerCollection) {
+                    if(file is IDirectory dir) {
+                        if (!dir.IsBack && !dir.IsLocalBackUp && isDirIncluded) {
+                            yield return file;
+                        }
+                    }
+                    
+                    foreach (var innerFile in innerCollection.GetInnerFiles(isDirIncluded)) {
+                        yield return innerFile;
+                    }
+
+                    
+                }
+                else {
+                    yield return file;
+                }
+            }
+            
         }
     }
 }

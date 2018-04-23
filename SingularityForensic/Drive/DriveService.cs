@@ -144,7 +144,7 @@ namespace SingularityForensic.Drive {
 
             try {
                 //尝试将数据流挂载到文件系统上;
-                FSService.Current.MountStream(hdd.GetStream(), csEvidence.Name, csEvidence.XElem, reporter);
+                FileSystemService.Current.MountStream(hdd.GetStream(), csEvidence.Name, csEvidence.XElem, reporter);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);   
@@ -195,7 +195,7 @@ namespace SingularityForensic.Drive {
                 return;
             }
 
-            FSService.Current?.MountStream(volume.GetStream(), volume.Sign.ToString(), csEvidence.XElem, reporter);
+            FileSystemService.Current?.MountStream(volume.GetStream(), volume.Sign.ToString(), csEvidence.XElem, reporter);
         }
     }
 }

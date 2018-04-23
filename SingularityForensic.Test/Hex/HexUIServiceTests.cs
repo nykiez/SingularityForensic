@@ -15,7 +15,7 @@ namespace SingularityForensic.Test.Hex {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _hexUIService = ServiceProvider.Current.GetInstance<HexUIService>();
+            _hexUIService = ServiceProvider.Current.GetInstance<HexUIReactService>();
             Assert.IsNotNull(_hexUIService);
             _hexUIService.Initialize();
 
@@ -26,7 +26,7 @@ namespace SingularityForensic.Test.Hex {
             Assert.IsNotNull(_hexService);
         }
 
-        HexUIService _hexUIService;
+        HexUIReactService _hexUIService;
         IDocumentService _mainDocService;
         IHexService _hexService;
 
@@ -40,13 +40,13 @@ namespace SingularityForensic.Test.Hex {
             var context = _hexService.CreateNewHexDataContext(null);
             hexDoc.SetInstance(context, Contracts.Hex.Constants.Tag_HexDataContext);
 
-            _hexUIService.FindHexValueCommand.CanExecuteChanged += (sender, e) => {
+            ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand.CanExecuteChanged += (sender, e) => {
                 canExecuteCatched = true;
             };
             
             
             _mainDocService.AddDocument(enumDoc);
-            Assert.IsTrue(_hexUIService.CanHexOperatable);
+            Assert.IsTrue(ServiceProvider.GetInstance<HexUIServiceImpl>().CanHexOperatable);
 
             Assert.IsTrue(canExecuteCatched);
         }

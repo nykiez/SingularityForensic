@@ -10,10 +10,10 @@ namespace SingularityForensic.FileExplorer {
         /// <summary>
         /// 根据流文件创建一个十六进制Tab;
         /// </summary>
-        /// <param name="blockedStream"></param>
+        /// <param name="streamFile"></param>
         /// <returns></returns>
         internal static (IDocument doc, IHexDataContext hexDataContext)?
-            GetStreamHexDocument(IStreamFile blockedStream) {
+            GetStreamHexDocument(IStreamFile streamFile) {
 
             var mainDocService = DocumentService.MainDocumentService;
             if (mainDocService == null) {
@@ -22,35 +22,39 @@ namespace SingularityForensic.FileExplorer {
             }
 
             var hexDoc = mainDocService.CreateNewDocument();
-            hexDoc.SetInstance(blockedStream,
-                Contracts.FileExplorer.Constants.HexDataContextTag_BlockedStream);
-
+            
             var hexService = ServiceProvider.Current.GetInstance<IHexService>();
             if (hexService == null) {
                 LoggerService.WriteCallerLine($"{nameof(hexService)} can't be null.");
                 return null;
             }
 
-            var hexDataContext = hexService.CreateNewHexDataContext(blockedStream?.BaseStream);
+            var hexDataContext = hexService.CreateNewHexDataContext(streamFile?.BaseStream);
             hexDoc.SetInstance(hexDataContext, Contracts.Hex.Constants.Tag_HexDataContext);
             hexDoc.UIObject = hexDataContext.UIObject;
+            hexDataContext.SetInstance<IFile>(streamFile,
+                Contracts.FileExplorer.Constants.HexDataContextTag_StreamFile);
+            //加载十六进制;
+            hexService.LoadHexDataContext(hexDataContext);
+
             return (hexDoc, hexDataContext);
         }
 
         /// <summary>
-        /// 添加文件(设备/分区)显示到文档区域中;
+        /// 添加/获取文件(设备/分区)文档;
         /// </summary>
         /// <param name="device"></param>
-        internal static void AddFileToDocument(IFile file) {
+        internal static IDocumentBase GetOrAddFileDocument(IFile file) {
             //检查文档区域是否已经被添加了相关文件;
-            if (CheckTagAddedToDocument(file)) {
-                return;
+            var preDocument = CheckTagAddedToDocument(file);
+            if (preDocument != null) {
+                return preDocument;
             }
 
             var mainDocService = DocumentService.MainDocumentService;
             if (mainDocService == null) {
                 LoggerService.WriteCallerLine($"{nameof(mainDocService)} can't be null.");
-                return;
+                return null;
             }
 
             var enumDoc = mainDocService.CreateNewEnumerableDocument();
@@ -64,17 +68,18 @@ namespace SingularityForensic.FileExplorer {
 
             mainDocService.AddDocument(enumDoc);
             mainDocService.SelectedDocument = enumDoc;
+            return enumDoc;
         }
 
         /// <summary>
         /// 查找文档区域是否已经添加了File相关文档;
         /// </summary>
         /// <param name="tag"></param>
-        internal static bool CheckTagAddedToDocument(IFile file) {
+        internal static IDocumentBase CheckTagAddedToDocument(IFile file) {
             var mainDocService = DocumentService.MainDocumentService;
             if (mainDocService == null) {
                 LoggerService.WriteCallerLine($"{nameof(mainDocService)} can't be null.");
-                return true;
+                return null;
             }
 
             var doc = mainDocService.CurrentDocuments.FirstOrDefault(p =>
@@ -82,10 +87,10 @@ namespace SingularityForensic.FileExplorer {
 
             if (doc != null) {
                 mainDocService.SelectedDocument = doc;
-                return true;
+                return doc;
             }
 
-            return false;
+            return null;
         }
     }
 }

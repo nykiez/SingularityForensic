@@ -12,7 +12,7 @@ namespace SingularityForensic.FileSystem {
         //private IEnumerable<ICommandItem> DeviceNodeCommandItems;
         
         public void Initialize() {
-            FSService.Current?.Initialize();
+            Contracts.FileSystem.FileSystemService.Current?.Initialize();
         }
         
         ///// <summary>

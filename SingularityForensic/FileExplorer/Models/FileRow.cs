@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace SingularityForensic.FileExplorer.Models {
         public override PropertyDescriptorCollection GetProperties() {
             return _filePropDescriptorCollection;
         }
-        
+
         public class FileRowPropertyDescriptor : PropertyDescriptor {
             public override string DisplayName => FileMetaDataProvider.MetaDataName;
             public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID, new Attribute[0]) {
@@ -111,4 +112,9 @@ namespace SingularityForensic.FileExplorer.Models {
         }
     }
     
+   
+    
+    
+
+
 }

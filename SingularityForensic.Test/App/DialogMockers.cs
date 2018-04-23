@@ -28,7 +28,7 @@ namespace SingularityForensic.Test.App {
     }
 
     public class LoadingDialogMocker : ILoadingDialog {
-        public bool CancellationPending => throw new NotImplementedException();
+        public bool CancellationPending => false;
 
         public string Word { get; set; }
         public string Description { get; set; }

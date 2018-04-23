@@ -43,8 +43,13 @@ namespace SingularityForensic.Contracts.Common {
             }
             return labelElem;
         }
-        
-        //获得属性组单元;
+
+        /// <summary>
+        /// 获得属性组单元;
+        /// </summary>
+        /// <param name="xElem"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
         public static XItemsGroup GetGroup(this XElement xElem,string groupName = null) {
             var groupElem = xElem.Element(groupName);
             if(groupElem == null) {

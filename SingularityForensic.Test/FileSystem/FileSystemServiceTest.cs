@@ -7,7 +7,7 @@ namespace SingularityForensic.Test.FileSystem {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _fsService = FSService.Current;
+            _fsService = FileSystemService.Current;
             Assert.IsNotNull(_fsService);
 
         }

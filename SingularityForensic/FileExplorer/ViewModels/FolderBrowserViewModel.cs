@@ -15,6 +15,8 @@ using SingularityForensic.Contracts.Controls;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Controls.GridView;
 using SingularityForensic.Controls;
+using SingularityForensic.Contracts.FileExplorer.Models;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -30,14 +32,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
             InitializeFileRowDescriptors();
             InitializeColumns();
-            FillWithCollection(part);
+            this.FillWithCollection(part);
         }
 
         /// <summary>
         /// 初始化行元数据提供器;
         /// </summary>
         private void InitializeFileRowDescriptors() {
-            if (FileRow.DescriptorsInitialized) {
+            if (FileRowFactory.Current.DescriptorsInitialized) {
                 return;
             }
 
@@ -50,14 +52,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 #if DEBUG
             //var arr = fileMetaDataProviders.ToArray();
 #endif
-            FileRow.InitializeDescriptors(fileMetaDataProviders);
+            FileRowFactory.Current.InitializeDescriptors(fileMetaDataProviders);
         }
 
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
-            foreach (var descripter in FileRow.PropertyDescriptors) {
+            foreach (var descripter in FileRowFactory.Current.PropertyDescriptors) {
                 _files.PropertyDescriptorList.Add(descripter);
             }
         }
@@ -81,30 +83,17 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
 
                 SelectedFile = _selectedRow;
-                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((this,SelectedFile));
+                PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
             }
         }
 
         public IFileRow SelectedFile { get; private set; }
-        
-        /// <summary>
-        /// 填充行;
-        /// </summary>
-        ///<param name="fileCollection">母文件</param>
-        private void FillWithCollection(IHaveFileCollection fileCollection) {
-            if (fileCollection == null) {
-                return;
-            }
-            
-            FillRows(fileCollection.Children);
-        }
-
 
         /// <summary>
         /// 填充行;
         /// </summary>
         /// <param name="files"></param>
-        private void FillRows(IEnumerable<IFile> files) {
+        public void FillRows(IEnumerable<IFile> files) {
             if (files == null) {
                 return;
             }
@@ -112,13 +101,18 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             Files.Clear();
 
             foreach (var file in files) {
-                Files.Add(new FileRow(file));
+                Files.Add(FileRowFactory.Current.CreateFileRow(file));
             }
         }
-
-
-        public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
         
+        private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();
+        
+        public ICollection<INavNodeModel> NavNodes {
+            get => NavNodeModels;
+            set {
+                NavNodeModels = value as ObservableCollection<INavNodeModel>;
+            }
+        }
         
         private ObservableCollection<ICommandItem> _viewersCommands;
         public virtual ObservableCollection<ICommandItem> ViewersCommands {
@@ -138,7 +132,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         
 
         public void Exit() {
-            NavNodes.Clear();
+            NavNodeModels.Clear();
         }
         
         //public static ICommandItem CreateViewerProgramCommandItem(ViewerProgramModel viewerProgramModel) {
@@ -163,7 +157,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         /// <param name="row"></param>
         public override void NotifyDoubleClickOnRow(object row) {
-            if (!(row is FileRow fileRow)) {
+            if (!(row is IFileRow fileRow)) {
                 return;
             }
 
@@ -176,12 +170,12 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     if (direct.IsBack) {
                         if (direct.Parent is IHaveFileCollection parentCollection
                             && (parentCollection as IFile)?.Parent is IHaveFileCollection grandCollection) {
-                            FillWithCollection(grandCollection);
+                            this.FillWithCollection(grandCollection);
 
                         }
                     }
                     else if (!direct.IsLocalBackUp) {
-                        FillWithCollection(haveFileCollection);
+                        this.FillWithCollection(haveFileCollection);
                     }
 
                 }
@@ -196,7 +190,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         /// <param name="e"></param>
         public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
-            var descriptor = FileRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            var descriptor = FileRowFactory.Current.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
             if (!(descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor)) {
                 return;
             }
@@ -216,19 +210,5 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }));
     }
 
-
-    //递归展开视图部分;
-    public partial class FolderBrowserViewModel {
-            //是否展开(递归浏览);
-            private bool _isExpanded;
-            public bool IsExpanded {
-                get {
-                    return _isExpanded;
-                }
-                set {
-                    SetProperty(ref _isExpanded, value);
-                }
-            }
-        }
-
+    
 }

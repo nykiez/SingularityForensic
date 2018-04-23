@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
@@ -11,11 +12,10 @@ using System.Linq;
 
 namespace SingularityForensic.Document {
     [Export(Contracts.Document.Constants.MainDocumentService,typeof(IDocumentService))]
-    public partial class DocumentService : IDocumentService {
+    public partial class MainDocumentService : IDocumentService {
         [ImportingConstructor]
-        public DocumentService(DocumentTabsViewModel vm) {
+        public MainDocumentService(DocumentTabsViewModel vm) {
             this.VM = vm;
-            VM.SelectedDocumentChanged += VM_SelectedDocumentChanged;
         }
 
         private void VM_SelectedDocumentChanged(object sender, EventArgs e) {
@@ -27,6 +27,9 @@ namespace SingularityForensic.Document {
         }
 
         public DocumentTabsViewModel VM { get; }
+
+
+        private IEnumerable<IDocumentAddedEventHandler> _documentAddedEventHandlers;
 
         /// <summary>
         /// 增加Tab;
@@ -51,6 +54,9 @@ namespace SingularityForensic.Document {
             document.CloseRequest += Document_CloseRequest;
 
             VM.Documents.Add(document);
+
+            PubEventHelper.PublishEventToHandlers< IDocumentAddedEventHandler,(IDocumentBase tab, IDocumentService owner)>(
+                (doc, this),_documentAddedEventHandlers);
             PubEventHelper.GetEvent<DocumentAddedEvent>().Publish((doc, this));
 
             SelectedDocument = document;
@@ -148,9 +154,21 @@ namespace SingularityForensic.Document {
         public IEnumerableDocument CreateNewEnumerableDocument() {
             return new EnumerableDocument();
         }
+
+        public void Initialize() {
+            RegisterEvents();
+            _documentAddedEventHandlers = ServiceProvider.
+                 GetAllInstances<IDocumentAddedEventHandler>().
+                 OrderBy(p => p.Sort).
+                 ToArray();
+        }
+
+        private void RegisterEvents() {
+            VM.SelectedDocumentChanged += VM_SelectedDocumentChanged;
+        }
     }
 
-    public partial class DocumentService {
+    public partial class MainDocumentService {
         /// <summary>
         /// VM中文档发生变化时;
         /// </summary>

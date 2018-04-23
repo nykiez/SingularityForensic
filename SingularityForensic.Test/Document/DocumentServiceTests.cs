@@ -20,11 +20,11 @@ namespace SingularityForensic.Test.Document {
             Assert.IsNotNull( _documentService = 
                 ServiceProvider.Current.GetInstance<IDocumentService>(
                     Contracts.Document.Constants.MainDocumentService
-                ) as SingularityForensic.Document.DocumentService
+                ) as SingularityForensic.Document.MainDocumentService
             );
         }
 
-        private SingularityForensic.Document.DocumentService _documentService;
+        private SingularityForensic.Document.MainDocumentService _documentService;
         [TestMethod()]
         public void DocumentServiceTest() {
             Assert.Fail();

@@ -91,7 +91,7 @@ namespace SingularityForensic.Test.MainPage {
                 selectedCatched = true;
                 areEqual = tuple.unit == slUnit;
             });
-
+            
             _treeService.VM.SelectedUnit = slUnit;
             Assert.IsTrue(selectedCatched);
             Assert.IsTrue(areEqual);

@@ -5,7 +5,7 @@ using SingularityForensic.Hex.ViewModels;
 using System.IO;
 
 namespace SingularityForensic.Adb.ViewModels.AdbGrid {
-    public class AdbFileHexStreamTabViewModel : HexStreamEditorViewModel, ITabModel {
+    public class AdbFileHexStreamTabViewModel : HexViewViewModel, ITabModel {
         public AdbFileHexStreamTabViewModel(Stream stream = null)  {
             this.Stream = stream;
         }

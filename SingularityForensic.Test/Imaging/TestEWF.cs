@@ -120,14 +120,14 @@ namespace SingularityForensic.Test.Imaging {
 
         [TestMethod]
         public void TestNativeSig() {
-            Assert.IsTrue(libewf_check_file_signature_wide(_fileName, IntPtr.Zero) == 1);
+            Assert.IsTrue(EWFCheckFileSignature(_fileName, IntPtr.Zero) == 1);
         }
 
         const string ewfAsm = "libewf.dll";
         
         
-        [DllImport(ewfAsm, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private extern static int libewf_check_file_signature_wide(
+        [DllImport(ewfAsm, CharSet = CharSet.Auto,EntryPoint = "libewf_check_file_signature_wide",CallingConvention = CallingConvention.Cdecl)]
+        private extern static int EWFCheckFileSignature(
             [MarshalAs(UnmanagedType.LPWStr)]string filename,
             IntPtr err);
     }

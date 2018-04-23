@@ -13,9 +13,13 @@ namespace SingularityForensic.Contracts.App {
             this.LanguageName = languageName;
             Type = lanType;
         }
-        //语言名称(比如简体中文);
+        /// <summary>
+        /// 语言名称(比如简体中文);
+        /// </summary>
         public string LanguageName { get; }
-        //类型;比如(zh_CN,en_US)
+        /// <summary>
+        /// 类型;比如(zh_CN,en_US)
+        /// </summary>
         public string Type { get; }
     }
 

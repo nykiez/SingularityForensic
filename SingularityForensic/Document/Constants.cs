@@ -14,6 +14,8 @@ namespace SingularityForensic.Document {
     /// 语言部分;
     /// </summary>
     public static partial class Constants {
-        public const string CloseAllTabs = nameof(CloseAllTabs);
+        public const string CloseAllDocuments = nameof(CloseAllDocuments);
+
+        public const string DocumentModule_BeingLoaded = nameof(DocumentModule_BeingLoaded);
     }
 }

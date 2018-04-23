@@ -16,13 +16,11 @@ namespace SingularityShell {
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
                 LoggerService.Current?.WriteCallerLine("工作线程错误:" + ((Exception)e.ExceptionObject).Message);
                 LoggerService.Current?.WriteCallerLine("工作线程错误:" + ((Exception)e.ExceptionObject).StackTrace);
-                var ex = e.ExceptionObject as Exception;
-                if (ex != null && ex.InnerException != null) {
+                if (e.ExceptionObject is Exception ex && ex.InnerException != null) {
                     LoggerService.Current?.WriteLine("工作线程错误:" + ex.InnerException.StackTrace);
                     LoggerService.Current?.WriteLine("工作线程错误: " + ex.InnerException.Message);
                 }
-                var nullex = e.ExceptionObject as NullReferenceException;
-                if (nullex != null) {
+                if (e.ExceptionObject is NullReferenceException nullex) {
                     LoggerService.Current?.WriteLine("Source:" + nullex.Source);
                     var enumrator = nullex.Data.GetEnumerator();
                     while (enumrator.MoveNext()) {

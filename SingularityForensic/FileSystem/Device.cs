@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
     public class Device : StreamFileBase<DeviceStoken>, IDevice {
-        public Device(string key, DeviceStoken stoken = null) : base(key, stoken) {
+        public Device(string key) : base(key) {
 
         }
 

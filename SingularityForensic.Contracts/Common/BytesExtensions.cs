@@ -50,5 +50,78 @@ namespace SingularityForensic.Contracts.Common {
             }
             return true;
         }
+
+        /// <summary>
+        /// Convert Byte to Char (can be used as visible text)
+        /// </summary>
+        /// <remarks>
+        /// Code from : https://github.com/pleonex/tinke/blob/master/Be.Windows.Forms.HexBox/ByteCharConverters.cs
+        /// </remarks>
+        public static char ByteToChar(byte val) => val > 0x1F && !(val > 0x7E && val < 0xA0) ? (char)val : '.';
+
+        /// <summary>
+        /// Convert byte to ASCII string
+        /// </summary>
+        public static string BytesToString(byte[] buffer) {
+            if (buffer == null) return string.Empty;
+
+            var builder = new StringBuilder();
+
+            foreach (var @byte in buffer)
+                builder.Append(ByteToChar(@byte));
+
+            return builder.ToString();
+        }
+
+        //Convert a byte to Hex char,i.e,10 = 'A'
+        public static char ByteToHexChar(int val) {
+            if (val < 10)
+                return (char)(48 + val);
+
+            switch (val) {
+                case 10: return 'A';
+                case 11: return 'B';
+                case 12: return 'C';
+                case 13: return 'D';
+                case 14: return 'E';
+                case 15: return 'F';
+                default: return 's';
+            }
+        }
+
+        /// <summary>
+        /// Converts a byte array to a hex string. For example: {10,11} = "0A 0B"
+        /// </summary>
+        public static string BytesToHexString(byte[] data) {
+            if (data == null) return string.Empty;
+
+            var sb = new StringBuilder();
+
+            foreach (var b in data) {
+                sb.Append(ByteToHexChar(b / 16));
+                sb.Append(ByteToHexChar(b % 16));
+                sb.Append(" ");
+            }
+
+            if (sb.Length > 0)
+                sb.Remove(sb.Length - 1, 1);
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Convert Char to Byte
+        /// </summary>
+        public static byte CharToByte(char val) {
+            if(val > (char)byte.MaxValue) {
+                return 0;
+            }
+            return (byte)val;
+        }
+
+        /// <summary>
+        /// Convert string to byte array
+        /// </summary>
+        public static byte[] StringToByte(string str) => str.Select(CharToByte).ToArray();
     }
 }

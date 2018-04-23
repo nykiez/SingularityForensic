@@ -27,7 +27,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         IEnumerable<(IFile file,XElement xElem)> MountedFiles { get; }
     }
 
-    public class FSService :GenericServiceStaticInstance<IFileSystemService> {
+    public class FileSystemService :GenericServiceStaticInstance<IFileSystemService> {
 
     }
 

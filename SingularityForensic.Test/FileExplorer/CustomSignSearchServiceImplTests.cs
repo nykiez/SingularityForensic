@@ -4,6 +4,7 @@ using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.FileExplorer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,17 +28,17 @@ namespace SingularityForensic.FileExplorer.Tests {
             var settingMocker = new Mock<ICustomSignSearchSetting>();
             var keyWord = new byte[] { 0x4d, 0x5a, 0x90, 0x00 };
             //4D5A9000
-            settingMocker.Setup(p => p.KeyWord).Returns(
+            settingMocker.SetupGet(p => p.KeyWord).Returns(
                 () => keyWord
-                );
+            );
             settingMocker.Setup(p => p.AlignToSec).Returns(true);
             settingMocker.Setup(p => p.SectorSize).Returns(512);
 
             using(var fs = File.OpenRead("E://anli/FAT32.img")) {
 
                 var blocks = _signSearchService.Search(fs, settingMocker.Object, null);
-                foreach (var block in blocks) {
-
+                foreach (var (index, size) in blocks) {
+                    Trace.WriteLine($"{index}-{size}");
                 }
             }
             

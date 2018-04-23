@@ -1,8 +1,9 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
-using System.ComponentModel.Composition;
+using SingularityForensic.Contracts.Hex;
 
 namespace SingularityForensic.Hex {
     [ModuleExport(typeof(HexModule))]
@@ -10,13 +11,15 @@ namespace SingularityForensic.Hex {
         public void Initialize() {
             PubEventHelper.
                 GetEvent<Contracts.Splash.Events.SplashMessageEvent>().
-                Publish("HexModule being loaded");
+                Publish(LanguageService.FindResourceString(Constants.SplashText_HexModuleBeingLoaded));
 
-            _uiService = ServiceProvider.Current.GetInstance<HexUIService>();
+            _uiReactService = ServiceProvider.Current.GetInstance<HexUIReactService>();
             
-            _uiService.Initialize();
+            _uiReactService.Initialize();
+            HexUIService.Current.Initialize();
         }
 
-        private HexUIService _uiService;
+        private HexUIReactService _uiReactService;
+        private IHexUIService _hexUIService;
     }
 }

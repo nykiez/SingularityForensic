@@ -85,7 +85,7 @@ namespace SingularityForensic.Imaging {
                 return;
             }
 
-            var fsService = FSService.Current;
+            var fsService = FileSystemService.Current;
             if (fsService == null) {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
@@ -109,7 +109,7 @@ namespace SingularityForensic.Imaging {
         /// 案件卸载时响应;
         /// </summary>
         private void OnCaseUnloaded() {
-            var fsService = FSService.Current;
+            var fsService = FileSystemService.Current;
             if (fsService == null) {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
@@ -193,7 +193,7 @@ namespace SingularityForensic.Imaging {
                 _mounterTuples.Add((imgMounter,csEvidence));
 
                 //尝试将数据流挂载到文件系统上;
-                FSService.Current.MountStream(imgMounter.RawStream,csEvidence.Name,csEvidence.XElem, reporter);
+                FileSystemService.Current.MountStream(imgMounter.RawStream,csEvidence.Name,csEvidence.XElem, reporter);
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);

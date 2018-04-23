@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Document;
 using SingularityForensic.Test.App;
 using SingularityForensic.Test.Casing;
 using SingularityForensic.Test.Common;
@@ -38,8 +39,10 @@ namespace SingularityForensic.Test {
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.ThreadInvokerMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.DialogMocker);
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.LanguageDictObjectMocker);
+            ExportProviderServiceProviderMocker.StaticInstance.SetInstance(AppMockers.LocalExplorerServiceMocker);
 
-            
+            DocumentService.MainDocumentService.Initialize();
+
         }
     }
 }

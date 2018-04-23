@@ -58,7 +58,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         bool? Deleted { get; }
     }
     
-    public interface IFile  {
+    public interface IFile : IInstanceReadOnlyExtensible {
         IEnumerable<string> TypeGuids { get; }
 
         IFile Parent { get; }

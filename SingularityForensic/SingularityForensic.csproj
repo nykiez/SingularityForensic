@@ -180,7 +180,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.3\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.4\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +264,8 @@
     <Compile Include="Adb\Views\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\ClipBoardServiceImpl.cs" />
+    <Compile Include="App\LocalExplorerServiceImpl.cs" />
     <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
     <Compile Include="App\Dialogs\ProgressDialog.cs" />
     <Compile Include="App\ProgressReporter.cs" />
@@ -329,11 +331,15 @@
     <Compile Include="FAT\FATFileInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedShowFolderBrowserEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedEventHandler.cs" />
+    <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
-    <Compile Include="FileExplorer\FileExplorerViewModelFactoryImpl.cs" />
+    <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
     <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileSystem\BlockGroup.cs" />
     <Compile Include="FileSystem\StreamFileBase.cs" />
@@ -354,6 +360,7 @@
     <Compile Include="Hash\IHashAlgorithmProvider.cs" />
     <Compile Include="Hash\MD5Hasher.cs" />
     <Compile Include="Hash\SHA1Hasher.cs" />
+    <Compile Include="Hex\BufferToProCodeFormatters.cs" />
     <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
     <Compile Include="Hex\Controls\FindTextMessageBox.cs" />
     <Compile Include="Hex\Controls\GoToOffsetMessageBox.cs" />
@@ -401,7 +408,13 @@
     <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
       <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hex\HexDataContextCommandItemFactory.cs" />
+    <Compile Include="Hex\HexUIServiceImpl.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
+    <Compile Include="Hex\ToolTipDataItem.cs" />
+    <Compile Include="Hex\ToolTipItemFactoryImpl.cs" />
+    <Compile Include="Hex\ToolTipObjectItem.cs" />
+    <Compile Include="Hex\ViewModels\ToolTipDataItemViewModel.cs" />
     <Compile Include="Hex\Views\GoToOffsetWindow.xaml.cs">
       <DependentUpon>GoToOffsetWindow.xaml</DependentUpon>
     </Compile>
@@ -449,9 +462,9 @@
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIService.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIServiceForDevice.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIServiceForPartition.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIReactServiceImpl.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIReactServiceForDevice.cs" />
+    <Compile Include="FileExplorer\FileExplorerUIReactServiceForPartition.cs" />
     <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
@@ -459,10 +472,7 @@
     <Compile Include="FileExplorer\MessageBoxes\ListBlockMessageBox.cs" />
     <Compile Include="FileExplorer\Models\BlockItem.cs" />
     <Compile Include="FileExplorer\Models\FileRow.cs" />
-    <Compile Include="FileExplorer\Models\FileSystemUnit.cs" />
     <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
-    <Compile Include="FileExplorer\Models\PartitionRow.cs" />
-    <Compile Include="FileExplorer\Models\StorageTreeUnit.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgram.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgramModel.cs" />
     <Compile Include="FileExplorer\Modules\Hash\ComputeHashCommandItem.cs" />
@@ -503,7 +513,7 @@
     <Compile Include="BaseDevice\BaseDeviceStreamParsingProvider.cs" />
     <Compile Include="FAT\UnmanagedFATManager.cs" />
     <Compile Include="FAT\FatStreamParsingProvider.cs" />
-    <Compile Include="FileSystem\FileSystemService.cs" />
+    <Compile Include="FileSystem\FileSystemServiceImpl.cs" />
     <Compile Include="FileSystem\FileSystemModule.cs" />
     <Compile Include="FileSystem\Helpers\FsConfigHelper.cs" />
     <Compile Include="FileSystem\IconSources.cs" />
@@ -518,14 +528,17 @@
     <Compile Include="Hex\Constants.cs" />
     <Compile Include="Hex\HexDataContext.cs" />
     <Compile Include="Hex\HexModule.cs" />
-    <Compile Include="Hex\HexUIService.cs" />
+    <Compile Include="Hex\HexUIReactService.cs" />
     <Compile Include="Hex\MenuItemDefinitions.cs" />
     <Compile Include="Hex\Models\SearchKeyOptions.cs" />
     <Compile Include="Hex\IconSources.cs" />
-    <Compile Include="Hex\HexService.cs" />
-    <Compile Include="Hex\ViewModels\HexStreamEditorViewModel.cs" />
-    <Compile Include="Hex\Views\InterceptHex.xaml.cs">
-      <DependentUpon>InterceptHex.xaml</DependentUpon>
+    <Compile Include="Hex\HexServiceImpl.cs" />
+    <Compile Include="Hex\ViewModels\HexViewViewModel.cs" />
+    <Compile Include="Hex\Views\HexView.xaml.cs">
+      <DependentUpon>HexView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hex\Views\ToolTipDataItem.xaml.cs">
+      <DependentUpon>ToolTipDataItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Imaging\Constants.cs" />
     <Compile Include="Imaging\DDImageMounter.cs" />
@@ -852,13 +865,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Hex\Themes\Generic.xaml">
+    <Page Include="Hex\Views\HexView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Hex\Views\InterceptHex.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Hex\Views\ToolTipDataItem.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ITunes\Languages\zh_CN\SingularityForensic.ITunes.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1011,6 +1024,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="FAT\Languages\zh_CN\SingularityForensic.FAT.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Document\Languages\zh_CN\SingularityForensic.Document.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1662,7 +1679,8 @@ XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

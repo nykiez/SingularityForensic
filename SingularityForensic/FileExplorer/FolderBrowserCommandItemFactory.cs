@@ -14,6 +14,7 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hash;
 using System.IO;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer {
     public static partial class FolderBrowserCommandItemFactory {
@@ -312,7 +313,7 @@ namespace SingularityForensic.FileExplorer {
         /// <returns></returns>
         public static ICommandItem CreateNavigateCommandItem(IFolderBrowserViewModel vm) {
             var cmi = CommandItemFactory.CreateNew(null);
-            cmi.Children.Add(CreateListBlockCommandItem(vm));
+            cmi.AddChild(CreateListBlockCommandItem(vm));
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_Navigate);
             return cmi;
         }
@@ -372,7 +373,7 @@ namespace SingularityForensic.FileExplorer {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ComputeHash);
             var commandItems = CreateComputeHashCommandItems(vm);
             foreach (var cm in commandItems) {
-                cmi.Children.Add(cm);
+                cmi.AddChild(cm);
             }
             return cmi;
         }

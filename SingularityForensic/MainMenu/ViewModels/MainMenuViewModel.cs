@@ -48,7 +48,7 @@ namespace SingularityForensic.MainMenu.ViewModels {
             var shellService = ServiceProvider.Current.GetInstance<IShellService>();
             foreach (var item in menuItems) {
                 if (item.Key != Key.None) {
-                    shellService?.AddKeyBinding(item.Command, item.Key, item.Modifier, item.CommandParameter);
+                    shellService?.AddKeyBinding(item.Command, item.Key, item.Modifier);
                 }
             }
         }

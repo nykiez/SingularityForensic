@@ -50,21 +50,28 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
         /// <param name="blDevice"></param>
         /// <param name="setting"></param>
-        private static void SignSearch(IStreamFile blockedStream,ICustomSignSearchSetting setting) {
+        private static void SignSearch(IStreamFile streamFile,ICustomSignSearchSetting setting) {
             var loadingDialog = DialogService.Current.CreateLoadingDialog();
             loadingDialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_CustomSignSearch);
 
             var part = FileFactory.CreatePartition(Constants.PartitionKey_CustomSignSearch);
 
             var partStoken = part.GetStoken(Constants.PartitionKey_CustomSignSearch);
-            partStoken.BaseStream = blockedStream.BaseStream;
-            partStoken.Name = $"{blockedStream.Name}-{LanguageService.FindResourceString(Constants.DocumentTitle_CustomSignSearch)}"+
+            partStoken.BaseStream = streamFile.BaseStream;
+            if(streamFile is IPartition streamPart) {
+                partStoken.Name = $"{FileExtensions.GetPartFixAndName(streamPart)}-{LanguageService.FindResourceString(Constants.DocumentTitle_CustomSignSearch)}" +
                 $"({CDFCCultures.Helpers.ByteConverterHelper.ConvertToHexFormat(setting.KeyWord)})";
+            }
+            else {
+                partStoken.Name = $"{streamFile.Name}-{LanguageService.FindResourceString(Constants.DocumentTitle_CustomSignSearch)}" +
+                $"({CDFCCultures.Helpers.ByteConverterHelper.ConvertToHexFormat(setting.KeyWord)})";
+            }
+            
 
             (long position, long size)[] fileBlocks = null;
             
             loadingDialog.DoWork += (sender, e) => {
-                fileBlocks = CustomSignSearchServiceOnDialog(loadingDialog, setting, blockedStream.BaseStream).ToArray();
+                fileBlocks = CustomSignSearchServiceOnDialog(loadingDialog, setting, streamFile.BaseStream).ToArray();
             };
             loadingDialog.RunWorkerCompleted += (sender, e) => {
                 if(fileBlocks == null) {
@@ -86,8 +93,7 @@ namespace SingularityForensic.FileExplorer {
                     index++;
                 }
 
-                FileExplorerUIHelper.AddFileToDocument(part);
-
+                FileExplorerUIHelper.GetOrAddFileDocument(part);
             };
             loadingDialog.ShowDialog();
         }

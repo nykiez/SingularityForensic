@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
@@ -30,8 +31,16 @@ namespace SingularityForensic.Common {
             set => SetProperty(ref _icon, value);
         }
 
-        public ICollection<ICommandItem> Children => _children;
-        private List<ICommandItem> _children { get; } = new List<ICommandItem>();
+        public IEnumerable<ICommandItem> Children {
+            get => _children;
+            set {
+                if(value is ObservableCollection<ICommandItem> obCommandItems) {
+                    _children = obCommandItems;
+                }
+            }
+        }
+            
+        private ObservableCollection<ICommandItem> _children { get; set; } = new ObservableCollection<ICommandItem>();
 
 
         private bool _isEnabled;
@@ -42,6 +51,10 @@ namespace SingularityForensic.Common {
 
         //排列顺序;
         public int Sort { get; set; }
+
+        public void AddChild(ICommandItem commandItem) => _children.AddOrderBy(commandItem, p => p.Sort);
+
+        public void RemoveChild(ICommandItem commandItem) => _children.Remove(commandItem);
     }
 
     [Export(typeof(ICommandItemFactory))]

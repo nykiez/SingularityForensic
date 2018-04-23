@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SingularityForensic.App;
 using SingularityForensic.Contracts.App;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Test.App {
@@ -88,6 +88,22 @@ namespace SingularityForensic.Test.App {
             }
         }
 
+        private static ILocalExplorerService _localExplorerServiceMocker;
+        public static ILocalExplorerService LocalExplorerServiceMocker {
+            get {
+                if(_localExplorerServiceMocker == null) {
+                    var mocker = new Mock<ILocalExplorerService>();
+                    mocker.Setup(p => p.OpenFolderAndSelectFile(It.IsAny<string>())).Callback<string>(p => {
+                        Trace.WriteLine($"We are gonna select file : {p}");
+                    });
+
+                    mocker.Setup(p => p.OpenFile(It.IsAny<string>())).Callback<string>(p => {
+                        Trace.WriteLine($"We are gonna open file : {p}");
+                    });
+                }
+                return _localExplorerServiceMocker;
+            }
+        }
         
         internal static string OpenFileName { get; set; }
         internal static string SaveFileName { get; set; }
