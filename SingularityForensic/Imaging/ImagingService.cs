@@ -123,8 +123,9 @@ namespace SingularityForensic.Imaging {
                 }
 
                 tuple.mounter.Dispose();
-                _mounterTuples.Remove(tuple);
             }
+
+            _mounterTuples.Clear();
         }
 
         /// <summary>

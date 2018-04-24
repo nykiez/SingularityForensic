@@ -35,7 +35,7 @@ namespace SingularityForensic.Contracts.App {
         /// 获得目录;
         /// </summary>
         /// <returns></returns>
-        string GetDirect();
+        string OpenDirect();
 
         /// <summary>
         /// 单行输入框;

@@ -18,6 +18,8 @@
         public const string TreeUnitTag_LocalHDD = nameof(TreeUnitTag_LocalHDD);
 
         public const string TreeUnitTag_LocalVolume = nameof(TreeUnitTag_LocalVolume);
+
+        public const string TBButtonGUID__AddDrive = nameof(TBButtonGUID__AddDrive);
     }
 
     //语言部分;
@@ -25,6 +27,10 @@
         public const string NoHddMatchedFound = nameof(NoHddMatchedFound);
         public const string NoVolumeMatchedFound = nameof(NoVolumeMatchedFound);
 
-        public const string AddDriveMenuText = nameof(AddDriveMenuText);
+        public const string MenuItemText_AddDrive = nameof(MenuItemText_AddDrive);
+        
+        public const string TBButtonToolTip_AddDrive = nameof(TBButtonToolTip_AddDrive);
+
+
     }
 }

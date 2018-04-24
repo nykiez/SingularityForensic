@@ -10,16 +10,7 @@ namespace SingularityForensic.Contracts.MainMenu {
 
         //帮助/关于菜单项;
         public const string AboutGroup = "13553745-A910-42F4-974F-91AF614A92EA";
-
-        //public const string 
-        //public const string 
-        //public const string 
-        //public const string
-        //public const string
-        //public const string
-        //public const string
-        //public const string
-        //public const string
+        
         /// <summary>Guid of context menu</summary>
 		public const string CTX_MENU_GUID = "CB53CCAF-9EE3-411E-A03A-561E7D8470EC";
 

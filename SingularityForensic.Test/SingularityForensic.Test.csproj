@@ -137,6 +137,7 @@
     <Compile Include="Hex\HexUIServiceTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />
+    <Compile Include="ITunes\ITunesBackUpServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="Shell\ShellMockers.cs" />
     <Compile Include="TestDos.cs" />

@@ -36,14 +36,13 @@ namespace SingularityForensic.App {
 
         public string OpenFile(string filter) {
             var dialog = new VistaOpenFileDialog();
-            dialog.Filter = filter;
             if (dialog.ShowDialog() == true) {
                 return dialog.FileName;
             }
             return null;
         }
 
-        public string GetDirect() {
+        public string OpenDirect() {
             var dialog = new VistaFolderBrowserDialog();
             if(dialog.ShowDialog() == true) {
                 return dialog.SelectedPath;

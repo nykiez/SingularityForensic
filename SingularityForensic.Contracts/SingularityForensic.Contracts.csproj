@@ -243,7 +243,10 @@
     <Compile Include="Shell\Constants.cs" />
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
-    <Compile Include="ToolBar\ToolBarObjectItem.cs" />
+    <Compile Include="StatusBar\IStatusBarItem.cs" />
+    <Compile Include="ToolBar\IToolBarButtonItem.cs" />
+    <Compile Include="ToolBar\IToolBarService.cs" />
+    <Compile Include="ToolBar\IToolBarObjectItem.cs" />
     <Compile Include="TreeView\Events\TreeUnitRemovedEvent.cs" />
     <Compile Include="TreeView\ITreeUnitFactory.cs" />
     <Compile Include="TreeView\Events\TreeUnitsClearingEvent.cs" />
@@ -267,7 +270,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Shell\Events\ShellRenderedEvent.cs" />
     <Compile Include="Shell\IShellService.cs" />
     <Compile Include="TreeView\ViewModels\ITreeViewViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -664,6 +666,8 @@
     <Resource Include="Themes\Images\TextBox\Search_Field.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Shell\Events\" />
+    <Folder Include="StatusBar\Events\" />
     <Folder Include="Themes\Images\RadioButton\" />
   </ItemGroup>
   <ItemGroup>

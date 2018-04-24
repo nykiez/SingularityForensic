@@ -15,6 +15,7 @@ using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.ToolBar;
 
 namespace SingularityForensic.Hex {
     
@@ -33,7 +34,22 @@ namespace SingularityForensic.Hex {
                 return _searchKeyMenuItem;
             }
         }
-        
+
+        private static IToolBarButtonItem _findTextToolBarButtonItem;
+        [Export]
+        public static IToolBarButtonItem FindTextToolBarButtonItem {
+            get {
+                if(_findTextToolBarButtonItem == null) {
+                    _findTextToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                        ServiceProvider.GetInstance<HexUIServiceImpl>().FindTextCommand, Constants.TBButtonGUID_FindText);
+                    _findTextToolBarButtonItem.Icon = IconSources.FindTextIcon;
+                    _findTextToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_FindText);
+                    _findTextToolBarButtonItem.Sort = 4;
+                }
+
+                return _findTextToolBarButtonItem;
+            }
+        }
 
         private static MenuButtonItem _findTextMenuItem;
         [Export]
@@ -45,6 +61,49 @@ namespace SingularityForensic.Hex {
                   Modifier = ModifierKeys.Control,
                   Key = Key.F
               });
+
+        private static IToolBarButtonItem _findHexToolBarButtonItem;
+        [Export]
+        public static IToolBarButtonItem FindHexToolBarButtonItem {
+            get {
+                if (_findHexToolBarButtonItem == null) {
+                    _findHexToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                        ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand, Constants.TBButtonGUID_FindHex);
+                    _findHexToolBarButtonItem.Icon = IconSources.FindHexIcon;
+                    _findHexToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_FindHex);
+                    _findHexToolBarButtonItem.Sort = 4;
+                }
+
+                return _findHexToolBarButtonItem;
+            }
+        }
+
+        private static MenuButtonItem _findHexMenuItem;
+        [Export]
+        public static MenuButtonItem FindHexMenuItem
+            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
+                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString(Constants.ToolBarText_SearchForHex)) {
+                Command = ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand,
+                IconSource = IconSources.FindHexIcon,
+                Modifier = ModifierKeys.Alt | ModifierKeys.Control,
+                Key = Key.X
+            });
+
+        private static IToolBarButtonItem _goToOffsetToolBarButtonItem;
+        [Export]
+        public static IToolBarButtonItem GoToOffsetToolBarButtonItem {
+            get {
+                if (_goToOffsetToolBarButtonItem == null) {
+                    _goToOffsetToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                        ServiceProvider.GetInstance<HexUIServiceImpl>().GoToOffsetCommand, Constants.TBButtonGUID_GoToOffset);
+                    _goToOffsetToolBarButtonItem.Icon = IconSources.GotoOffsetIcon;
+                    _goToOffsetToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_GoToOffset);
+                    _goToOffsetToolBarButtonItem.Sort = 4;
+                }
+
+                return _goToOffsetToolBarButtonItem;
+            }
+        }
 
         private static MenuButtonItem _goToOffsetMenuItem;
         [Export]
@@ -58,16 +117,7 @@ namespace SingularityForensic.Hex {
                Key = Key.G
            });
 
-        private static MenuButtonItem _findHexMenuItem;
-        [Export]
-        public static MenuButtonItem FindHexMenuItem
-            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
-                ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString(Constants.ToolBarText_SearchForHex)) {
-                Command = ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand,
-                IconSource = IconSources.FindHexIcon,
-                Modifier = ModifierKeys.Alt | ModifierKeys.Control,
-                Key = Key.X
-            });
+        
 
         private static HexUIReactService _hexUIService;
         private static HexUIReactService HexUIService => 

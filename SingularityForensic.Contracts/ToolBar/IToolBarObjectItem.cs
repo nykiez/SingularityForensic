@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.ToolBar {
-    public interface IToolBarObject : IUIObjectProvider {
-
+    public interface IToolBarObjectItem : IUIObjectProvider {
+        string GUID { get; }
+        /// <summary>
+        /// 排序;
+        /// </summary>
+        int Sort { get; set; }
     }
-
-    public class ToolBarObjectItem : IUIObjectProvider {
-        public object UIObject { get; set; }
-    }
+    
 }

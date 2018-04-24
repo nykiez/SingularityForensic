@@ -6,7 +6,7 @@ namespace SingularityForensic.ToolBar {
     [ModuleExport(typeof(ToolBarModule))]
     public class ToolBarModule : IModule {
         public void Initialize() {
-            RegionHelper.RegisterViewWithRegion(Contracts.MainPage.Constants.ToolBarRegion, typeof(Views.ToolBar));
+            RegionHelper.RegisterViewWithRegion(Contracts.Shell.Constants.ToolBarRegion, typeof(Views.ToolBar));
         }
 
 

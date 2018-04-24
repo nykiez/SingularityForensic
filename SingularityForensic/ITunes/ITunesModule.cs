@@ -1,12 +1,15 @@
 ﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
+using SingularityForensic.Contracts.Common;
 
-namespace SingularityForensic.Controls.ITunes {
+namespace SingularityForensic.ITunes {
     [ModuleExport(typeof(ITunesModule))]
     public class ITunesModule : IModule {
         public void Initialize() {
-            RegisterEvents();
+            _iTunesBackUpService = ServiceProvider.GetInstance<ITunesBackUpService>();
+            _iTunesBackUpService.Initialize();
         }
+        private ITunesBackUpService _iTunesBackUpService;
 
         private void RegisterEvents() {
             //PubEventHelper.GetEvent<CaseEvidenceAddedEvent<ITunesBackUpCaseFile>>()?.Subscribe(csFile => {

@@ -64,11 +64,17 @@ namespace SingularityShell {
         }
 
         protected override void InitializeModules() {
+#if RELEASE
             var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
+
             splashService.ShowSplash();
+
             Thread.Sleep(3000);
+#endif
             base.InitializeModules();
+#if RELEASE
             splashService.CloseSplash();
+#endif
         }
 
         protected override void InitializeShell() {

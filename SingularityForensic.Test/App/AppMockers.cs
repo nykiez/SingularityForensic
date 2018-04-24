@@ -55,6 +55,7 @@ namespace SingularityForensic.Test.App {
                     mocker.Setup(p => p.OpenFile()).Returns(() => OpenFileName);
                     mocker.Setup(p => p.OpenFile(It.IsAny<string>())).Returns(() => OpenFileName);
                     mocker.Setup(p => p.GetSaveFilePath(It.IsAny<string>())).Returns(() => SaveFileName);
+                    mocker.Setup(p => p.OpenDirect()).Returns(() => OpenDirName);
                     mocker.Setup(p => p.CreateDoubleLoadingDialog()).Returns(() => new DoubleLoadingDialogMocker());
                     mocker.Setup(p => p.CreateLoadingDialog()).Returns(() => new LoadingDialogMocker());
                     _dialogMocker = mocker.Object;
@@ -107,5 +108,6 @@ namespace SingularityForensic.Test.App {
         
         internal static string OpenFileName { get; set; }
         internal static string SaveFileName { get; set; }
+        internal static string OpenDirName { get; set; }
     }
 }

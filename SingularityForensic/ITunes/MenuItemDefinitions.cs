@@ -1,92 +1,41 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using Ookii.Dialogs.Wpf;
-using Prism.Commands;
+﻿using Prism.Commands;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainMenu;
+using SingularityForensic.Contracts.ToolBar;
 using SingularityForensic.Controls.ITunes.Resources;
 using System.ComponentModel.Composition;
 
-namespace SingularityForensic.Controls.ITunes {
+namespace SingularityForensic.ITunes {
     public static class MenuItemDefinitions {
+        private static IToolBarButtonItem _addITunesBackUpToolBarItem;
+        [Export]
+        public static IToolBarButtonItem AddITunesBackUpToolBarItem {
+            get {
+                if (_addITunesBackUpToolBarItem == null) {
+                    _addITunesBackUpToolBarItem = ToolBarService.CreateToolBarButtonItem(
+                        new DelegateCommand(() => {
+                            
+                        }), Constants.TBButtonGUID_AddITuneBackupDir);
+                    _addITunesBackUpToolBarItem.Icon = IconResources.AddITunesIcon;
+                    _addITunesBackUpToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_AddITunesBackupDir);
+                    _addITunesBackUpToolBarItem.Sort = 4;
+                }
+                return _addITunesBackUpToolBarItem;
+            }
+        }
+
         [Export]
         public static readonly MenuButtonItem AddItunesBackUpMI = new MenuButtonItem(MenuConstants.MenuMainGroup,
-            ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AddITunesBackUp"), 5) {
+            ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString(Constants.MenuItemText_AddITunesBackupDir), 5) {
             IconSource = IconResources.AddITunesIcon,
             //进行Itnues备份文件检索;
             Command = new DelegateCommand(() => {
-                if (ServiceProvider.Current.GetInstance<ICaseService>()?.ConfirmCaseLoaded() != true) {
-                    return;
-                }
-                
-                //路径
-                var dialog = new VistaFolderBrowserDialog();
-
-                while (true) {    
-                    if (dialog.ShowDialog() == true) {
-                        if (dialog.SelectedPath?.WordsIScn() == true) {
-                            CDFCMessageBox.Show(LanguageService.FindResourceString("InvalidItunesBPath"));
-                            continue;
-                        }
-                    }
-
-                    break;
-                }
-                
-                if((!string.IsNullOrWhiteSpace(dialog.SelectedPath) )
-                &&(dialog.SelectedPath?.WordsIScn() != true)) {
-                    //var bPath = dialog.SelectedPath;
-
-                    //var frService = ServiceProvider.Current.GetInstance<ForensicService>();
-                    //var cFile = new ITunesBackUpCaseFile(IOPathHelper.GetFileNameFromUrl(bPath), bPath, DateTime.Now);
-                    //ServiceProvider.Current.GetInstance<ICaseService>()?.AddNewCaseFile(cFile);
-
-                    ////加入取证信息节点;
-                    //var fUnit = ServiceProvider.Current.GetInstance<ICommonForensicService>()?.AddForensicUnit(cFile);
-
-                    //foreach (var infoKind in PinKindsDefinitions.ForensicClassTypes) {
-                    //    if (fUnit.Children.FirstOrDefault(p => p is PinTreeUnit pinUnit && pinUnit.ContentId == infoKind) == null) {
-                    //        if(infoKind == PinKindsDefinitions.ForensicClassBasic) {
-                    //            fUnit.Children.Add(
-                    //                new ExtTreeUnit<IOSBasicStruct?>(null, fUnit, infoKind) {
-                    //                    Label = PinKindsDefinitions.GetClassLabel(infoKind)
-                    //                }
-                    //            );
-                    //        }
-                    //        else {
-                    //            fUnit.Children.Add(
-                    //                new PinTreeUnit(infoKind, fUnit) {
-                    //                    Label = PinKindsDefinitions.GetClassLabel(infoKind)
-                    //                }
-                    //            );
-                    //        }
-                            
-                    //    }
-                    //}
-
-                    //ServiceProvider.Current.GetInstance<ICaseService>()?.AddCaseFile(cFile);
-                    //pubeventhelper
-                }
+                ServiceProvider.Current.GetInstance<ITunesBackUpService>()?.AddITunesBackUpDir();
             })
         };
 
-        /// <summary>
-        /// 判断是否含有非ASCII码;
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        private static bool WordsIScn(this string str) {
-            if(str == null) {
-                return false;
-            }
-            var sa = str.ToCharArray();
-            foreach (var ch in sa) {
-                if(ch > 127) {
-                    return true;
-                }
-            }
-            return false;
-        }
+        
     } 
 }

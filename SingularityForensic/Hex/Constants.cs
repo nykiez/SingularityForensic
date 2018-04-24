@@ -11,6 +11,13 @@ namespace SingularityForensic.Hex {
         public const string BufferToProCodeFormatterGUID_C = nameof(BufferToProCodeFormatterGUID_C);
         public const string BufferToProCodeFormatterGUID_JAVA = nameof(BufferToProCodeFormatterGUID_JAVA);
         public const string BufferToProCodeFormatterGUID_VBNET = nameof(BufferToProCodeFormatterGUID_VBNET);
+
+
+        public const string TBButtonGUID_FindText = nameof(TBButtonGUID_FindText);
+        public const string TBButtonGUID_FindHex = nameof(TBButtonGUID_FindHex);
+
+        public const string TBButtonGUID_GoToOffset = nameof(TBButtonGUID_GoToOffset);
+        
     }
 
     static partial class Constants {
@@ -41,5 +48,12 @@ namespace SingularityForensic.Hex {
         public const string SplashText_HexModuleBeingLoaded = nameof(SplashText_HexModuleBeingLoaded);
         //public const string ContextCommandName_ = nameof(ContextCommandName_);
 
+        public const string TBButtonToolTip_FindText = nameof(TBButtonToolTip_FindText);
+        public const string TBButtonToolTip_FindHex = nameof(TBButtonToolTip_FindHex);
+        public const string TBButtonToolTip_GoToOffset = nameof(TBButtonToolTip_GoToOffset);
+
+        public const string MenuItemText_FindText = nameof(MenuItemText_FindText);
+        public const string MenuItemText_FindHex = nameof(MenuItemText_FindHex);
+        public const string MenuItemText_GoToOffset = nameof(MenuItemText_GoToOffset);
     }
 }

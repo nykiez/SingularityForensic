@@ -184,6 +184,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About\Constants.cs" />
     <Compile Include="Adb\AdbModels.cs" />
     <Compile Include="Adb\AdbViewerModule.cs" />
     <Compile Include="Adb\Constants.cs" />
@@ -546,9 +547,11 @@
     <Compile Include="Imaging\ImagingModule.cs" />
     <Compile Include="Imaging\ImagingService.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
+    <Compile Include="ITunes\Constants.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
+    <Compile Include="ITunes\ITunesBackUpService.cs" />
     <Compile Include="ITunes\MenuItemDefinitions.cs" />
     <Compile Include="ITunes\Models\CheckTreeItems.cs" />
     <Compile Include="ITunes\Models\ITunesBackUpCaseFile.cs" />
@@ -632,6 +635,14 @@
     </Compile>
     <Compile Include="About\Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolBar\Constants.cs" />
+    <Compile Include="ToolBar\ToolBarButtonItem.cs" />
+    <Compile Include="ToolBar\ToolBarObjectItem.cs" />
+    <Compile Include="ToolBar\ToolBarService.cs" />
+    <Compile Include="ToolBar\ViewModels\ToolBarButtonViewModel.cs" />
+    <Compile Include="ToolBar\Views\ToolBarButton.xaml.cs">
+      <DependentUpon>ToolBarButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="TreeView\TreeUnit.cs" />
     <Compile Include="TreeView\TreeUnitFactory.cs" />
@@ -980,6 +991,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ToolBar\Views\ToolBarButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Splash\SplashService.cs" />
@@ -1009,6 +1024,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Page Include="About\Languages\zh_CN\SingularityForensic.About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="Adb\app.config" />
     <None Include="app.manifest" />
     <Page Include="Imaging\Languages\zh_CN\SingularityForensic.Imaging.xaml">
@@ -1667,6 +1686,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)About\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FileSystem\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Drive\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y

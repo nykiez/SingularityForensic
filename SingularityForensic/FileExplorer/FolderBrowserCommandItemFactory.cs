@@ -133,7 +133,7 @@ namespace SingularityForensic.FileExplorer {
 
             }
             else {
-                var drPath = DialogService.Current.GetDirect();
+                var drPath = DialogService.Current.OpenDirect();
                 if (string.IsNullOrEmpty(drPath)) {
                     return;
                 }
