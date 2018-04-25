@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.Previewers {
         /// </summary>
         /// <param name="stream">流</param>
         /// <returns>若失败则返回为空</returns>
-        IPreviewer CreatePreviewer(Stream stream);
+        IPreviewer CreatePreviewer(Stream stream,string originName);
 
         /// <summary>
         /// 创建预览器;
@@ -42,6 +42,5 @@ namespace SingularityForensic.Contracts.Previewers {
         /// UI元素;
         /// </summary>
         FrameworkElement View { get; }
-        
     }
 }

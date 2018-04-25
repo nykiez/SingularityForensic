@@ -10,18 +10,18 @@ namespace SingularityForensic.Previewers {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            this.Stream = stream;
+            this.BaseStream = stream;
         }
 
-        private Stream stream;
-        public Stream Stream {
+        private Stream _baseStream;
+        public Stream BaseStream {
             get {
-                return stream;
+                return _baseStream;
             }
             private set {
-                stream = value;
-                if (stream != null) {
-                    var sr = new StreamReader(stream,Encoding.UTF8);
+                _baseStream = value;
+                if (_baseStream != null) {
+                    var sr = new StreamReader(_baseStream,Encoding.UTF8);
                     var txt= sr.ReadToEnd();
                     (View as views.PlainTextPreviewer).LoadString(txt);
                 }
@@ -38,8 +38,8 @@ namespace SingularityForensic.Previewers {
         FrameworkElement IPreviewer.View => throw new NotImplementedException();
 
         public void Dispose() {
-            Stream?.Close();
-            Stream = null;
+            BaseStream?.Close();
+            BaseStream = null;
         }
     }
 }

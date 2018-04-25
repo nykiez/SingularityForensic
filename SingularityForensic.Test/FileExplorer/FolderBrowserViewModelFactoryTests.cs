@@ -31,7 +31,7 @@ namespace SingularityForensic.Test.FileExplorer {
             var areEqual = false;
             PubEventHelper.GetEvent<FolderBrowserViewModelCreatedEvent>().Subscribe(tuple => {
                 createCatched = true;
-                areEqual = tuple.Part == part;
+                areEqual = tuple.HaveFileCollection == part;
             });
 
             _factory.CreateFolderBrowserViewModel(part);

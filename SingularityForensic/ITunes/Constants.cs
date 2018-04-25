@@ -13,6 +13,9 @@ namespace SingularityForensic.ITunes {
 
         public const string TBButtonGUID_AddITuneBackupDir = nameof(TBButtonGUID_AddITuneBackupDir);
 
+        public const string PartitionKey_ITunes = nameof(PartitionKey_ITunes);
+
+        public const string RegularFileKey_ITunes = nameof(RegularFileKey_ITunes);
     }
 
     /// <summary>

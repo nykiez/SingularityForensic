@@ -234,7 +234,13 @@ namespace SingularityForensic.FileExplorer {
                         return;
                     }
 
-                    ExplorerHelper.OpenFile(tempFileName);
+                    try {
+                        ExplorerHelper.OpenFile(tempFileName);
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                        MsgBoxService.Show(ex.Message);
+                    }
                 },
 
                 () => {
@@ -248,6 +254,8 @@ namespace SingularityForensic.FileExplorer {
 
                     return true;
                 }).ObservesProperty(() => vm.SelectedFile);
+
+            vm.SelectedFileChanged += delegate { comm.RaiseCanExecuteChanged(); };
 
             return comm;
         }
@@ -282,7 +290,9 @@ namespace SingularityForensic.FileExplorer {
                 LoggerService.WriteCallerLine(ex.Message);
                 MsgBoxService.ShowError(ex.Message);
             }
-
+            finally {
+                inputStream.Dispose();
+            }
             return string.Empty;
         }
     }
@@ -343,7 +353,7 @@ namespace SingularityForensic.FileExplorer {
                 var lb = new ListBlockMessageBox(blockGrouped);
                 lb.SelectedAddressChanged += (sender, e) => {
                     var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                        FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.Part);
+                        FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.HaveFileCollection);
                     if (tab == null) {
                         return;
                     }
@@ -417,8 +427,9 @@ namespace SingularityForensic.FileExplorer {
                     }
 
                     DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.ConvertToHexFormat());
+                    stream.Dispose();
                 };
-
+                
                 loadingDialog.Show();
             });
             return comm;

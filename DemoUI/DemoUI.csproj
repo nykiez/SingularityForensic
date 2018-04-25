@@ -303,13 +303,15 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"
-Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"
+    <PostBuildEvent>Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"
 Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.SqlServer.dll"
-Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
-Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"  /E /Y
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
+
+Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
+Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
+xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"  /E /Y
+xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
+Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"
+
 
 
 

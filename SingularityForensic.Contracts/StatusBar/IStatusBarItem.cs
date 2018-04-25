@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.StatusBar {
     /// <summary>
-    /// 
+    /// 状态栏;
     /// </summary>
     public interface IStatusBarItem:IUIObjectProvider {
 

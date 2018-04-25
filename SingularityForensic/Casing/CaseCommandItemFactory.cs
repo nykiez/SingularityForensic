@@ -24,14 +24,14 @@ namespace SingularityForensic.Casing {
             var command = new OpenPathCommand(cs.Path);
 
             var cmi = CommandItemFactory.CreateNew(command);
-            cmi.Name = LanguageService.FindResourceString(Constants.OpenCasePathFolder);
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_OpenCasePathFolder);
             cmi.Sort = 128;
 
             return cmi;
         }
 
         /// <summary>
-        /// 创建显示案件树形命令;
+        /// 创建显示案件属性命令;
         /// </summary>
         /// <param name="cs"></param>
         /// <returns></returns>
@@ -56,6 +56,28 @@ namespace SingularityForensic.Casing {
         public static ICommandItem CreateShowCaseEvidencePropertyCommandItem(ICaseEvidence evidence) {
             var cmi = CommandItemFactory.CreateNew(CreateShowCaseEvidencePropertyCommand(evidence));
             cmi.Name = LanguageService.Current?.FindResourceString("Properties");
+            cmi.Sort = 128;
+            return cmi;
+        }
+
+        public static ICommandItem CreateRemoveCaseEvidencePropertyCommandItem(ICaseEvidence evidence) {
+            if(evidence == null) {
+                throw new ArgumentNullException(nameof(evidence));
+            }
+
+            var comm = new DelegateCommand(() => {
+                var cs = CaseService.Current?.CurrentCase;
+                if(cs == null) {
+                    LoggerService.WriteCallerLine($"{nameof(cs)} can't be null.");
+                    return;
+                }
+
+                cs.RemoveCaseEvidence(evidence);
+            });
+
+            var cmi = CommandItemFactory.CreateNew(comm);
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RemoveCaseEvidence);
+            cmi.Sort = 64;
             return cmi;
         }
 
@@ -68,5 +90,7 @@ namespace SingularityForensic.Casing {
 
             return comm;
         }
+
+
     }
 }

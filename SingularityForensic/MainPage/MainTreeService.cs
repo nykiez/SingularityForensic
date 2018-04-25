@@ -26,46 +26,32 @@ namespace SingularityForensic.MainPage {
         
         private void Initialize() {
             RegisterEvents();
+
+            //To arrary将会阻止ServiceProvider.GetAllInstances的反复执行;
+            _treeUnitRightClickeEventHandlers = ServiceProvider.
+                        GetAllInstances<ITreeUnitRightClickedEventHandler>().
+                        OrderBy(p => p.Sort).ToArray();
+            _selectedTreeUnitEventHandlers = ServiceProvider.
+                GetAllInstances<ITreeUnitSelectedChangedEventHandler>().
+                OrderBy(p => p.Sort).ToArray();
         }
 
         private void RegisterEvents() {
             VM.SelectedUnitChanged += VM_SelectedUnitChanged;
             VM.UnitRightClicked += VM_UnitRightClicked;
         }
-
-        private IEnumerable<ITreeUnitRightClickedEventHandler> _treeUnitRightClickeEventHandlers;
-        public IEnumerable<ITreeUnitRightClickedEventHandler> TreeUnitRightClickeEventHandlers {
-            get {
-                if(_treeUnitRightClickeEventHandlers == null) {
-                    _treeUnitRightClickeEventHandlers = ServiceProvider.
-                        GetAllInstances<ITreeUnitRightClickedEventHandler>().
-                        OrderBy(p => p.Sort).ToArray();
-                }
-                return _treeUnitRightClickeEventHandlers;
-            }
-        }
+        
+        public IEnumerable<ITreeUnitRightClickedEventHandler> _treeUnitRightClickeEventHandlers;
 
         private void VM_UnitRightClicked(object sender, ITreeUnit e) {
             if(sender != VM) {
                 return;
             }
 
-            PubEventHelper.PublishEventToHandlers<ITreeUnitRightClickedEventHandler,
-                (ITreeUnit unit, ITreeService treeService)>((e, this), TreeUnitRightClickeEventHandlers);
+            PubEventHelper.PublishEventToHandlers((e, this as ITreeService), _treeUnitRightClickeEventHandlers);
         }
-
+        
         private IEnumerable<ITreeUnitSelectedChangedEventHandler> _selectedTreeUnitEventHandlers;
-        private IEnumerable<ITreeUnitSelectedChangedEventHandler> SelectedTreeUnitEventHandlers {
-            get {
-                if(_selectedTreeUnitEventHandlers == null) {
-                    //To arrary将会阻止ServiceProvider.GetAllInstances的反复执行;
-                    _selectedTreeUnitEventHandlers = ServiceProvider.
-                        GetAllInstances<ITreeUnitSelectedChangedEventHandler>().
-                        OrderBy(p => p.Sort).ToArray();
-                }
-                return _selectedTreeUnitEventHandlers;
-            }
-        }
 
         /// <summary>
         /// 视图模型选定单元发生变化时;
@@ -77,8 +63,7 @@ namespace SingularityForensic.MainPage {
                 return;
             }
 
-            PubEventHelper.PublishEventToHandlers<ITreeUnitSelectedChangedEventHandler,
-                (ITreeUnit unit, ITreeService treeService)>((VM.SelectedUnit, this), SelectedTreeUnitEventHandlers);
+            PubEventHelper.PublishEventToHandlers((VM.SelectedUnit, this as ITreeService), _selectedTreeUnitEventHandlers);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
         }
 
@@ -87,7 +72,7 @@ namespace SingularityForensic.MainPage {
             if(unit == null) {
                 throw new ArgumentNullException(nameof(unit));
             }
-
+            
             if(unit.Parent != null) {
                 unit.Parent.Children.Remove(unit);
             }

@@ -18,7 +18,6 @@ namespace SingularityForensic.Hex {
     [Export(typeof(IHexUIService)),Export]
     public partial class HexUIServiceImpl : ExtensibleBindableBase,IHexUIService {
         public void Initialize() {
-            AddKeyBindings();
             RegisterEvents();
         }
 
@@ -97,14 +96,6 @@ namespace SingularityForensic.Hex {
     }
 
     public partial class HexUIServiceImpl {
-        /// <summary>
-        /// 加入快捷键绑定;
-        /// </summary>
-        private void AddKeyBindings() {
-
-        }
-
-
         /// <summary>
         /// 获得当前所关注的十六进制实例;
         /// </summary>

@@ -2,13 +2,9 @@
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
 using SingularityForensic.Contracts.Helpers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SingularityForensic.ITunes.Constants;
 
 namespace SingularityForensic.ITunes {
@@ -65,17 +61,25 @@ namespace SingularityForensic.ITunes {
 
                 break;
             }
+
+            AddITunesBackUpDirCore(backUpPath);
+        }
+
+        private void AddITunesBackUpDirCore(string backUpPath) {
+            var di = new DirectoryInfo(backUpPath);
+            if (!di.Exists) {
+                throw new DirectoryNotFoundException($"{backUpPath}");
+            }
             
             var csEvidence = CaseService.Current.CreateNewCaseEvidence(new string[] {
                 EvidenceType_ITunesBackUpDir
             }, Path.GetDirectoryName(backUpPath), backUpPath);
-            
+
             csEvidence[ITunesBackUpDir_Path] = Path.GetFullPath(ITunesBackUpDir_Path);
-            
+
             CaseService.Current.CurrentCase.AddNewCaseEvidence(csEvidence);
 
             CaseService.Current.CurrentCase.LoadCaseEvidence(csEvidence);
-
         }
 
         /// <summary>

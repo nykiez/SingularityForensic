@@ -180,7 +180,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.4\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.8\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -301,7 +301,7 @@
     <Compile Include="Casing\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
     <Compile Include="Casing\Models\TreeUnits.cs" />
     <Compile Include="Casing\IconSources.cs" />
-    <Compile Include="Casing\CaseService.cs" />
+    <Compile Include="Casing\CaseServiceImpl.cs" />
     <Compile Include="Casing\CaseUIService.cs" />
     <Compile Include="Casing\ViewModels\CreateCaseWindowViewModel.cs" />
     <Compile Include="Casing\Views\CreateCaseWindow.xaml.cs">
@@ -332,9 +332,16 @@
     <Compile Include="FAT\FATFileInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
-    <Compile Include="FileExplorer\Events\OnDocumentAddedShowFolderBrowserEventHandler.cs" />
-    <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandler.cs" />
-    <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedOnFileHexHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedOnPartHexHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedOnPartPreviewHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedShowFolderBrowserHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentClosedOnPreivewerDisposeHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFocusedFileChangedOnPartHexHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFocusedFileChangedOnPartPreviewHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedHandler.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
@@ -430,7 +437,7 @@
     </Compile>
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Document.cs" />
-    <Compile Include="Document\DocumentService.cs" />
+    <Compile Include="Document\MainDocumentService.cs" />
     <Compile Include="Document\EnumerableDocumentTab.cs" />
     <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
     <Compile Include="Document\ViewModels\EnumerableTabViewModel.cs" />
@@ -465,8 +472,6 @@
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
     <Compile Include="FileExplorer\FileExplorerUIReactServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerUIReactServiceForDevice.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIReactServiceForPartition.cs" />
-    <Compile Include="FileExplorer\FSNodeManagerService.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />
@@ -545,19 +550,21 @@
     <Compile Include="Imaging\DDImageMounter.cs" />
     <Compile Include="Imaging\IconSources.cs" />
     <Compile Include="Imaging\ImagingModule.cs" />
-    <Compile Include="Imaging\ImagingService.cs" />
+    <Compile Include="Imaging\ImagingServiceImpl.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Constants.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
+    <Compile Include="ITunes\IOSBackUpParser.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
     <Compile Include="ITunes\ITunesBackUpService.cs" />
     <Compile Include="ITunes\MenuItemDefinitions.cs" />
-    <Compile Include="ITunes\Models\CheckTreeItems.cs" />
-    <Compile Include="ITunes\Models\ITunesBackUpCaseFile.cs" />
     <Compile Include="ITunes\Resources\IconResources.cs" />
+    <Compile Include="ITunes\Structs.cs" />
     <Compile Include="ITunes\TabModels\ITunesGridTabModel.cs" />
-    <Compile Include="ITunes\ViewModels\ITunesStartForensicWindowViewModel.cs" />
+    <Compile Include="ITunes\Views\ITunesFolderBrowser.xaml.cs">
+      <DependentUpon>ITunesFolderBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ITunes\Views\ITunesGrid.xaml.cs">
       <DependentUpon>ITunesGrid.xaml</DependentUpon>
     </Compile>
@@ -888,6 +895,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ITunes\Views\ITunesFolderBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ITunes\Views\ITunesGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1050,6 +1061,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="ITunes\DLLS\Common.lib" />
+    <None Include="ITunes\DLLS\CrossPlatformDefine.lib" />
+    <None Include="ITunes\DLLS\cryptopp.lib" />
+    <None Include="ITunes\DLLS\IOSMonitor.lib" />
+    <None Include="ITunes\DLLS\Sqlite3.lib" />
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -1095,6 +1111,8 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
+    <Folder Include="ITunes\Models\" />
+    <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
     <Folder Include="StatusBar\" />
@@ -1457,6 +1475,11 @@
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ITunes\DLLS\iosparse.dll" />
+    <Content Include="ITunes\DLLS\msvcp120d.dll" />
+    <Content Include="ITunes\DLLS\msvcr120d.dll" />
+    <Content Include="ITunes\DLLS\PListCpp.dll" />
+    <Content Include="ITunes\DLLS\vccorlib120d.dll" />
     <Content Include="Previewers\OutSideIn\debmp.dll" />
     <Content Include="Previewers\OutSideIn\dehex.dll" />
     <Content Include="Previewers\OutSideIn\dess.dll" />

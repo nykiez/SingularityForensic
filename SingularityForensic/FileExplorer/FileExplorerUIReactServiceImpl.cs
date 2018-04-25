@@ -18,22 +18,18 @@ namespace SingularityForensic.FileExplorer {
     class FileExplorerUIReactServiceImpl : IFileExplorerUIReactService {
         public void Initialize() {
             _uiServiceForDevice.Initialize();
-            _uiServiceForPartition.Initialize();
             RegisterEvents();
         }
         
         [Import]
         private FileExplorerUIReactServiceForDevice _uiServiceForDevice;
-
-        [Import]
-        private FileExplorerUIReactServiceForPartition _uiServiceForPartition;
-
+        
         private void RegisterEvents() {
             //加入文件系统节点响应(左键);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Subscribe(OnFileSystemUnitSelectedChanged);
             //为设备/分区案件文件节点加入文件系统子节点;
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedToAddFileSystemUnit);
-            //为设备/分区案件文件节点加入文件系统子节点;
+            //为设备/分区案件文件节点加入右键菜单;
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnContextCommands);
             //为设备/分区节点加入时加入右键菜单;
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnBlockStreamedFile);
@@ -78,7 +74,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            if (!(tuple.unit.TypeGuid == Contracts.Casing.Constants.CaseEvidenceUnit)) {
+            if (!(tuple.unit.TypeGuid == Contracts.Casing.Constants.TreeUnitType_CaseEvidence)) {
                 return;
             }
 

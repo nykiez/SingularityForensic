@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,10 @@ namespace SingularityForensic.Contracts.FileExplorer.Events {
     /// </summary>
     public class FolderBrowserViewModelCreatedEvent : 
         PubSubEvent<IFolderBrowserViewModel> {
+        
+    }
+
+    public interface IFolderBrowserViewModelCreatedEventHandler : IEventHandler<IFolderBrowserViewModel> {
+
     }
 }

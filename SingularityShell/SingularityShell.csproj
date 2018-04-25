@@ -148,6 +148,7 @@
     <PostBuildEvent>XCopy "$(SolutionDir)\packages\CDFC.Common.0.1.3.8\lib\NET451" "$(TargetDir)Common\"  /E /Y
 XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.0.8\lib\NET451" "$(TargetDir)Controls\"  /E /Y
 
+
 copy "$(SolutionDir)\packages\Prism.Core.6.3.0\lib\net45\Prism.dll" "$(TargetDir)Common\Prism.dll"
 copy "$(SolutionDir)\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll" "$(TargetDir)Common\Prism.Mef.Wpf.dll"
 copy "$(SolutionDir)\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll" "$(TargetDir)Common\Prism.Wpf.dll"
@@ -202,6 +203,8 @@ Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(Ta
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.dll" "$(TargetDir)Entities\Chloe.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll"
 XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Tools" "$(TargetDir)Tools"  /E /Y
+
+XCopy "$(SolutionDir)SingularityForensic\ITunes\DLLS" "$(TargetDir)Entities\"  /E /Y
 
 XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn" "$(TargetDir)OutSideIn" /E /Y
 

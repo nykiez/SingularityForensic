@@ -14,8 +14,16 @@ using System.Threading.Tasks;
 namespace SingularityForensic.FileExplorer.ViewModel {
     [Export(typeof(IFileExplorerViewModelFactory))]
     public class FileExplorerViewModelFactoryImpl : IFileExplorerViewModelFactory {
-        public IFolderBrowserViewModel CreateFolderBrowserViewModel(IPartition part) {
-            var vm = new FolderBrowserViewModel(part);
+        [ImportingConstructor]
+        public FileExplorerViewModelFactoryImpl([ImportMany]IEnumerable<IFolderBrowserViewModelCreatedEventHandler> folderBrowserViewModelCreatedEventHandlers) {
+            _folderBrowserViewModelCreatedEventHandlers = folderBrowserViewModelCreatedEventHandlers;
+        }
+
+        private IEnumerable<IFolderBrowserViewModelCreatedEventHandler> _folderBrowserViewModelCreatedEventHandlers;
+
+        public IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection haveFileCollection) {
+            var vm = new FolderBrowserViewModel(haveFileCollection);
+            PubEventHelper.PublishEventToHandlers(vm as IFolderBrowserViewModel, _folderBrowserViewModelCreatedEventHandlers);
             PubEventHelper.GetEvent<FolderBrowserViewModelCreatedEvent>().Publish(vm);
             return vm;
         }

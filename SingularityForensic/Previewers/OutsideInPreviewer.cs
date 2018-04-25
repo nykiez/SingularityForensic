@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Previewers;
+using System.IO;
 using System.Windows;
 
 namespace SingularityForensic.Controls.Previewers {

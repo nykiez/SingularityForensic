@@ -19,6 +19,12 @@ namespace SingularityForensic.Contracts.Casing {
         void AddNewCaseEvidence(ICaseEvidence csEvidence);
         void LoadCaseEvidence(ICaseEvidence csEvidence);
         void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter);
+        /// <summary>
+        /// 移除证据项;
+        /// </summary>
+        /// <param name="evidence"></param>
+        void RemoveCaseEvidence(ICaseEvidence evidence);
+
         void Save();
     }
     

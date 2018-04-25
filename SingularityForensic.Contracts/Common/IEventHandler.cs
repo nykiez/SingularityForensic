@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
     /// <summary>
-    /// 事件处理器,在使用事件模式时,使事件的订阅动作按照排序进行;
+    /// 事件处理器,在使用事件驱动模式时,使事件的订阅者所订阅动作按照排序进行;
     /// </summary>
     /// <typeparam name="TEventArgs"></typeparam>
     public interface IEventHandler<TEventArgs> {

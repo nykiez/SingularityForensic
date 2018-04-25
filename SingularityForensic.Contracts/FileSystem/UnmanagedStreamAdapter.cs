@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
     /// 非托管流适配器，可映射任意流至非托管环境下的一个UnmanagedStream对象;
-    /// <!--本类实现了IDisposable,实例对象同时保存在Static队列中,当且仅当在调用了Dispose()后实例才可能被回收-->
+    /// <!--本类实现了IDisposable,实例对象保存在Static队列中,当且仅当在调用了Dispose()后实例才可能被回收-->
     /// </summary>
     public partial class UnmanagedStreamAdapter : IDisposable {
         public UnmanagedStreamAdapter(Stream stream) {

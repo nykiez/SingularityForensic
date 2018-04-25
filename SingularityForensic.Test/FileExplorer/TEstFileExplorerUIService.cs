@@ -43,7 +43,7 @@ namespace SingularityForensic.Test.FileExplorer {
 
         [TestMethod]
         public void TestOnTreeUnitAdded() {
-            var csUnit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.CaseEvidenceUnit);
+            var csUnit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.TreeUnitType_CaseEvidence);
             var csEvidence = CaseService.Current.CreateNewCaseEvidence(new string[] { }, string.Empty, string.Empty);
             var file = _fsService.MountStream(File.OpenRead(AppMockers.OpenFileName), csEvidence.Name, csEvidence.XElem, null);
             csUnit.SetInstance(csEvidence, Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);

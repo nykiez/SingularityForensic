@@ -1,5 +1,6 @@
 ﻿using CDFC.Util.IO;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +34,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static string GetFilePath(this IFile file) {
+        public static string GetTotalFilePath(this IFile file) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
             }
@@ -50,6 +51,27 @@ namespace SingularityForensic.Contracts.FileSystem {
             return sb.ToString();
         }
 
-        
+
+        /// <summary>
+        /// 获取输入文件的输入流;
+        /// </summary>
+        /// <param name="blockGrouped"></param>
+        /// <returns></returns>
+        public static Stream GetInputStream(this IFile file) {
+            var streamProviders = ServiceProvider.GetAllInstances<IFileInputStreamProvider>();
+            foreach (var provider in streamProviders) {
+                try {
+                    var stream = provider.GetInputStream(file);
+                    if (stream != null) {
+                        return stream;
+                    }
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteCallerLine(ex.Message);
+                }
+            }
+
+            return null;
+        }
     }
 }

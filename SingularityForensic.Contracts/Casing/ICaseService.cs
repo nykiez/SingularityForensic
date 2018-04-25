@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="xelem"></param>
         /// <returns></returns>
-        ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem);
+        //ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem);
 
         /// <summary>
         /// 新建一个证据项;

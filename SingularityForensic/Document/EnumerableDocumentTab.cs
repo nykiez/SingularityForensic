@@ -73,6 +73,8 @@ namespace SingularityForensic.Document {
                 return;
             }
             _vm.DocumentTabs.Remove(tab);
+            PubEventHelper.PublishEventToHandlers((tab, this as IDocumentService),
+                ServiceProvider.GetAllInstances<IDocumentClosedEventHandler>().OrderBy(p => p.Sort));
             PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((tab, this));
 
             if(_vm.DocumentTabs.Count == 0) {
@@ -95,8 +97,12 @@ namespace SingularityForensic.Document {
                 return;
             }
 
+
+
             foreach (var doc in _vm.DocumentTabs) {
                 try {
+                    PubEventHelper.PublishEventToHandlers((doc, this as IDocumentService),
+                        ServiceProvider.GetAllInstances<IDocumentClosedEventHandler>().OrderBy(p => p.Sort));
                     PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
                 }
                 catch (Exception ex) {

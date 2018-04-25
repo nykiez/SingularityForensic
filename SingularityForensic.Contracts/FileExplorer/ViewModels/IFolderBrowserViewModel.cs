@@ -16,15 +16,17 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// <summary>
         /// 所属分区;
         /// </summary>
-        IPartition Part { get; }
+        IHaveFileCollection HaveFileCollection { get; }
 
         /// <summary>
         /// 当前选定的文件;
         /// </summary>
         IFileRow SelectedFile { get; }
 
+        event EventHandler SelectedFileChanged;
+        
         ICollection<IFileRow> Files { get; }
-
+        
         void FillRows(IEnumerable<IFile> files);
 
         ICollection<INavNodeModel> NavNodes{get;}
@@ -35,11 +37,11 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     /// </summary>
     public interface IFileExplorerViewModelFactory {
         /// <summary>
-        /// 创建分区-文件资源管理器视图模型;
+        /// 创建目录-文件资源管理器视图模型;
         /// </summary>
         /// <param name="part"></param>
         /// <returns></returns>
-        IFolderBrowserViewModel CreateFolderBrowserViewModel(IPartition part);
+        IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection haveFileCollection);
 
         /// <summary>
         /// 创建设备-分区资源管理器视图模型;
@@ -50,7 +52,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     }
 
     public class FileExplorerViewModelFactory : GenericServiceStaticInstance<IFileExplorerViewModelFactory> {
-        public static IFolderBrowserViewModel CreateFolderBrowserViewModel(IPartition part) => Current?.CreateFolderBrowserViewModel(part);
+        public static IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection part) => Current?.CreateFolderBrowserViewModel(part);
         public static IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device) => Current?.CreatePartitionsBrowserViewModel(device);
     }
 

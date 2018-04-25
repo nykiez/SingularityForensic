@@ -21,7 +21,10 @@
     /// </summary>
     public static partial class Constants {
         //打开案件文件路径;
-        public const string OpenCasePathFolder = nameof(OpenCasePathFolder);
+        public const string ContextCommandName_OpenCasePathFolder = nameof(ContextCommandName_OpenCasePathFolder);
+
+        //打开案件文件路径;
+        public const string ContextCommandName_RemoveCaseEvidence = nameof(ContextCommandName_RemoveCaseEvidence);
 
         //显示案件属性;
         public const string ShowCaseProperty = nameof(ShowCaseProperty);

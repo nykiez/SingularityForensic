@@ -43,7 +43,7 @@ namespace SingularityForensic.Contracts.Helpers {
         public static void Subscribe<TEvent>(Action act) where TEvent : PubSubEvent, new() {
             Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
         }
-
+        
         /// <summary>
         /// 向事件处理器发布事件;
         /// </summary>
@@ -56,6 +56,7 @@ namespace SingularityForensic.Contracts.Helpers {
             if (eventHandlers == null) {
                 return;
             }
+            
 
             foreach (var handler in eventHandlers) {
                 if (!handler.IsEnabled) {
@@ -66,7 +67,7 @@ namespace SingularityForensic.Contracts.Helpers {
                     handler.Handle(args);
                 }
                 catch (Exception ex) {
-
+                    
                 }
             }
         }

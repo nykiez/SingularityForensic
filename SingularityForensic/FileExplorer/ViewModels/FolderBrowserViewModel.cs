@@ -27,12 +27,23 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
         /// <param name="part">模型所属主文件</param>
-        public FolderBrowserViewModel(IPartition part) {
-            this.Part = part ?? throw new ArgumentNullException(nameof(part));
+        public FolderBrowserViewModel(IHaveFileCollection part) {
+            this.HaveFileCollection = part ?? throw new ArgumentNullException(nameof(part));
+            Initialize();
+            this.FillWithCollection(part);
+        }
 
+        private void Initialize() {
             InitializeFileRowDescriptors();
             InitializeColumns();
-            this.FillWithCollection(part);
+            InitializeEventHandlers();
+        }
+
+        private void InitializeEventHandlers() {
+            _focusedFileRowChangedEventHandlers = 
+                ServiceProvider.GetAllInstances<IFocusedFileRowChangedEventHandler>().
+                OrderBy(p => p.Sort).
+                ToArray();
         }
 
         /// <summary>
@@ -64,30 +75,31 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
 
-        public IPartition Part { get; }                                        //浏览器所属主文件（分区，设备等);
+        public IHaveFileCollection HaveFileCollection { get; }                                        //浏览器所属主文件（分区，设备等);
 
         private CustomTypedListSource<IFileRow> _files = new CustomTypedListSource<IFileRow>();
         public ICollection<IFileRow> Files {
             get => _files;
             set => _files = value as CustomTypedListSource<IFileRow>;
-        } 
-        
+        }
 
-        private IFileRow _selectedRow;
-        public IFileRow SelectedRow {
-            get => _selectedRow;
+
+        IEnumerable<IFocusedFileRowChangedEventHandler> _focusedFileRowChangedEventHandlers;
+        private IFileRow _selectedFile;
+        public IFileRow SelectedFile {
+            get => _selectedFile;
             set {
-                SetProperty(ref _selectedRow, value);
-                if (_selectedRow == null) {
+                SetProperty(ref _selectedFile, value);
+                if (_selectedFile == null) {
                     return;
                 }
-
-                SelectedFile = _selectedRow;
+                SelectedFileChanged?.Invoke(this, EventArgs.Empty);
+                PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), _focusedFileRowChangedEventHandlers);
                 PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
             }
         }
 
-        public IFileRow SelectedFile { get; private set; }
+        
 
         /// <summary>
         /// 填充行;
@@ -129,17 +141,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
         
         private bool viewerEverLoaded;
-        
+
+        public event EventHandler SelectedFileChanged;
 
         public void Exit() {
             NavNodeModels.Clear();
         }
         
-        //public static ICommandItem CreateViewerProgramCommandItem(ViewerProgramModel viewerProgramModel) {
-        //    var commandItem = CommandItemFactory.CreateNew(viewerProgramModel.WatchCommand);
-        //    commandItem.Name = viewerProgramModel.Name;
-        //    return commandItem;
-        //}
+        
 
 #if DEBUG
         ~FolderBrowserViewModel() {

@@ -35,6 +35,10 @@ namespace SingularityForensic.FileExplorer {
         public const string RegularFileName_CustomSignSearch = nameof(RegularFileName_CustomSignSearch);
 
         public const string DefaultFileExtension_CustomSignSearch = nameof(DefaultFileExtension_CustomSignSearch);
+
+
+        public const string DocumentTag_FilePreviewer = nameof(DocumentTag_FilePreviewer);
+
     }
 
     /// <summary>
