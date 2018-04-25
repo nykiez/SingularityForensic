@@ -7,8 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.ITunes {
     /// <summary>
@@ -25,6 +23,7 @@ namespace SingularityForensic.ITunes {
     public static partial class IOSBackUpParser {  
         private const string MBDBName = "Manifest.mbdb";
         private const string DBName = "Manifest.db";
+        private const string InfoPlistName = "Info.plist";
 
         //开始解析备份文件;
         [HandleProcessCorruptedStateExceptions]
@@ -36,8 +35,18 @@ namespace SingularityForensic.ITunes {
 
 
             var manager = new ITunesBackUpManager();
-            var fileList = new List<IOSFileStruct>();
+            manager.Directory = GetDirectory(di);
+            manager.BasicInfo = GetBasicInfo(di);
+            
+            return manager;
+        }
 
+        /// <summary>
+        /// 获取文件列表;
+        /// </summary>
+        /// <param name="di"></param>
+        /// <returns></returns>
+        private static IDirectory GetDirectory(DirectoryInfo di) {
             var szPtr = Marshal.StringToHGlobalAnsi(di.FullName);
             try {
                 var ptr = IntPtr.Zero;
@@ -47,53 +56,86 @@ namespace SingularityForensic.ITunes {
                 else if (di.GetFiles().FirstOrDefault(p => p.Name == DBName) != null) {
                     ptr = parse(szPtr, 1000);
                 }
-
+                var direct = FileFactory.CreateDirectory(Constants.DirectoryKey_ITunesBackup);
+                var dirStoken = direct.GetStoken(Constants.DirectoryKey_ITunesBackup);
+                dirStoken.TypeGuids = new string[] {
+                    Constants.DirectoryType_ITunesBackUpDir
+                };
+#if DEBUG
+                int index = 0;
+#endif
                 while (ptr != IntPtr.Zero) {
                     var st = ptr.GetStructure<IOSFileStruct>();
+
+                    var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_ITunesBackUp);
+                    var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_ITunesBackUp);
+                    regFileStoken.SetInstance<IOSFileStruct?>(st, Constants.RegularFileTag_ITunesBackUp);
+
+                    try {
+                        regFileStoken.Name = Path.GetFileName(st.PhonePath);
+                    }
+                    catch (Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                    }
+
+                    direct.Children.Add(regFile);
                     ptr = st.next;
-                    fileList.Add(st);
+
+#if DEBUG
+                    index++;
+                    if(index >= 20) {
+                        break;
+                    }
+#endif
                 }
-                //manager.Files = fileList;
+
+                return direct;
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
+                return null;
             }
             finally {
                 parse_exit();
                 Marshal.FreeHGlobal(szPtr);
             }
-
-            return manager;
         }
-
+         
         /// <summary>
         /// 获得基本信息结构体;
         /// </summary>
         /// <returns></returns>
         [HandleProcessCorruptedStateExceptions]
-        public static IOSBasicStruct? GetBasicInfo(DirectoryInfo diInfo) {
+        private static IOSBasicStruct? GetBasicInfo(DirectoryInfo diInfo) {
             try {
                 //查看是否存在所需文件;
-                if (diInfo.GetFiles().FirstOrDefault(p => p.Name == "Info.plist") != null) {
-                    var infoListPath = $"{diInfo.FullName}\\Info.plist";
-                    var szFilePtr = Marshal.StringToHGlobalAnsi(infoListPath);
-                    var plPtr = GetPlist(szFilePtr);
-                    var pList = plPtr.GetStructure<IOSBasicStruct>();
-
-                    Marshal.FreeHGlobal(szFilePtr);
-                    DeletePlist(plPtr);
-                    return pList;
+                if (diInfo.GetFiles().FirstOrDefault(p => p.Name == InfoPlistName) == null) {
+                    LoggerService.WriteCallerLine($"{InfoPlistName} is null.");
+                    return null;
                 }
+
+                var infoListPath = $"{diInfo.FullName}\\Info.plist";
+                var szFilePtr = Marshal.StringToHGlobalAnsi(infoListPath);
+                var plPtr = GetPlist(szFilePtr);
+                if(plPtr == IntPtr.Zero) {
+                    return null;
+                }
+
+                var pList = plPtr.GetStructure<IOSBasicStruct>();
+
+                Marshal.FreeHGlobal(szFilePtr);
+                DeletePlist(plPtr);
+                return pList;
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
+                return null;
             }
 
-            return null;
         }
     }
 
-    public partial class IOSBackUpParser {
+    public static partial class IOSBackUpParser {
         [DllImport("iosparse.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr parse(IntPtr szDir, int nType);
 

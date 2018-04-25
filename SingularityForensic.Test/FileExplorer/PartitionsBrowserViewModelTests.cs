@@ -4,11 +4,6 @@ using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.FileExplorer.ViewModels;
 using SingularityForensic.Test;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer.Tests {
     [TestClass()]

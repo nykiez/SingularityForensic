@@ -8,8 +8,6 @@ using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace DemoUI {

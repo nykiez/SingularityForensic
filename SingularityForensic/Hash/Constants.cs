@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Hash {
+﻿namespace SingularityForensic.Hash {
     public static partial class Constants {
         public const string HashTypeGUID_MD5 = nameof(HashTypeGUID_MD5);
         public const string HashTypeGUID_SHA1 = nameof(HashTypeGUID_SHA1);

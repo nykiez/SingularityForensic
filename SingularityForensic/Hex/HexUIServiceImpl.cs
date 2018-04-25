@@ -5,7 +5,6 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex;
-using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Hex.Controls;
 using SingularityForensic.Hex.Models;
 using System;

@@ -1,14 +1,10 @@
 ﻿using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
-    
+
 
     /// <summary>
     /// 流文件类型;可用作描述分区,磁盘等的基类;

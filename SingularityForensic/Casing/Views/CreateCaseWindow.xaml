@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
-                <ResourceDictionary Source="/SingularityForensic.Controls;component/Languages/zh_CN/SingularityForensic.Controls.xaml" />
                 <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
                 <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>

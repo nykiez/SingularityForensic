@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace SingularityForensic.Document.ViewModels {
     //文件/资源浏览器相关;

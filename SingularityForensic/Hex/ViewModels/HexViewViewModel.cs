@@ -1,6 +1,4 @@
-﻿using CDFC.Util.IO;
-using CDFCCultures.Helpers;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
@@ -9,10 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using WpfHexaEditor.Core.Bytes;
 
 namespace SingularityForensic.Hex.ViewModels {
     public partial class HexViewViewModel : BindableBase {

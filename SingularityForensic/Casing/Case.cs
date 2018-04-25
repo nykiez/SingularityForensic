@@ -42,6 +42,8 @@ namespace SingularityForensic.Casing {
                 LoggerService.WriteLine($"{nameof(ICase)}->{nameof(ICase)}:{ex.Message}");
                 throw;
             }
+
+            Initialize();
         }
 
         private Case(XDocument doc, string path) {
@@ -49,9 +51,20 @@ namespace SingularityForensic.Casing {
             var rootElem = doc.Root;
             this.CaseName = rootElem.Attribute(nameof(CaseName))?.Value;
             this.Path = path;
+            Initialize();
+        }
+        
+        private void Initialize() {
+            InitializeEventHandlers();
+        }
+        private void InitializeEventHandlers() {
+            _caseEvidenceLoadingEventHandlers = ServiceProvider.
+                GetAllInstances<ICaseEvidenceLoadingEventHandler>().
+                OrderBy(p => p.Sort).
+                ToArray();
         }
 
-
+        private IEnumerable<ICaseEvidenceLoadingEventHandler> _caseEvidenceLoadingEventHandlers;
         //案件时间;
         public string CaseTime {
             get => XDoc.GetXElemValue();
@@ -89,7 +102,7 @@ namespace SingularityForensic.Casing {
         private List<ICaseEvidence> _caseEvidences = new List<ICaseEvidence>();
         //案件所关联的设备文件(外部可访问);
         public IEnumerable<ICaseEvidence> CaseEvidences => _caseEvidences?.Select(p => p);
-
+        
         /// <summary>
         /// 载入案件文件;(适用于单独的加载,针对案件中已经写入的证据);
         /// </summary>
@@ -130,6 +143,7 @@ namespace SingularityForensic.Casing {
         /// <param name="reporter">进度回调器</param>
         public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
+                PubEventHelper.PublishEventToHandlers((csEvidence, reporter), _caseEvidenceLoadingEventHandlers);
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
                 //案件中加入文件;
                 _caseEvidences.Add(csEvidence);

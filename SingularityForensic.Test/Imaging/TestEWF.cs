@@ -30,8 +30,9 @@ namespace SingularityForensic.Test.Imaging {
 
         [TestMethod]
         public void TestRead() {
-            var data = new byte[512];
-            _handle.ReadBuffer(data, 512);
+            var data = new byte[120];
+            _handle.SeekOffset(0, System.IO.SeekOrigin.Begin);
+            _handle.ReadBuffer(data, data.Length);
             Assert.AreEqual(data[0], 0xeb);
             Assert.AreEqual(data[1], 0x58);
 

@@ -1,11 +1,8 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Hex {
     [Export(typeof(IBufferToCodeFormatter))]
@@ -86,7 +83,7 @@ namespace SingularityForensic.Hex {
     class CBufferToCodeFormatter : BufferToCodeFormatterBase {
         public override string GUID => Constants.BufferToProCodeFormatterGUID_C;
 
-        public override string CodeLanguageName => "C#";
+        public override string CodeLanguageName => "C";
 
         public override int Sort => 12;
 

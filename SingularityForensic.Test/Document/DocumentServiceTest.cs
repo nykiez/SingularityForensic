@@ -54,7 +54,7 @@ namespace SingularityForensic.Test.Documents {
             var doc = _documentService.CurrentDocuments.First();
             PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
                 closedCatched = true;
-                Assert.AreEqual(tuple.tab, doc);
+                Assert.AreEqual(tuple.doc, doc);
             });
             PubEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
                 closingCatched = true;

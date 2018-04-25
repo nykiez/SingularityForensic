@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Hex {
+﻿namespace SingularityForensic.Hex {
     static partial class Constants {
         public const string BufferToProCodeFormatterGUID_CSharp = nameof(BufferToProCodeFormatterGUID_CSharp);
         public const string BufferToProCodeFormatterGUID_FSharp = nameof(BufferToProCodeFormatterGUID_FSharp);

@@ -553,11 +553,13 @@
     <Compile Include="Imaging\ImagingServiceImpl.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Constants.cs" />
+    <Compile Include="ITunes\Events\OnCaseEvidenceLoadingOnITunesBackupHandler.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\IOSBackUpParser.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
     <Compile Include="ITunes\ITunesBackUpService.cs" />
+    <Compile Include="ITunes\ITunesRegularFileInputStreamProvider.cs" />
     <Compile Include="ITunes\MenuItemDefinitions.cs" />
     <Compile Include="ITunes\Resources\IconResources.cs" />
     <Compile Include="ITunes\Structs.cs" />
@@ -1106,6 +1108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adb\Languages\en_US\" />
+    <Folder Include="Casing\Events\" />
     <Folder Include="Casing\Languages\en_US\" />
     <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />

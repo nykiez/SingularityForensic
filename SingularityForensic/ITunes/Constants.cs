@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.ITunes {
+﻿namespace SingularityForensic.ITunes {
     public static partial class Constants {
         public const string EvidenceType_ITunesBackUpDir = nameof(EvidenceType_ITunesBackUpDir);
 
@@ -13,9 +7,18 @@ namespace SingularityForensic.ITunes {
 
         public const string TBButtonGUID_AddITuneBackupDir = nameof(TBButtonGUID_AddITuneBackupDir);
 
-        public const string PartitionKey_ITunes = nameof(PartitionKey_ITunes);
+        public const string DirectoryKey_ITunesBackup = nameof(DirectoryKey_ITunesBackup);
 
-        public const string RegularFileKey_ITunes = nameof(RegularFileKey_ITunes);
+        public const string RegularFileKey_ITunesBackUp = nameof(RegularFileKey_ITunesBackUp);
+
+        public const string DirectoryType_ITunesBackUpDir = nameof(DirectoryType_ITunesBackUpDir);
+        
+        public const string RegularFileType_ITunesBackUp = nameof(RegularFileType_ITunesBackUp);
+
+
+
+        public const string RegularFileTag_ITunesBackUp = nameof(RegularFileTag_ITunesBackUp);
+
     }
 
     /// <summary>

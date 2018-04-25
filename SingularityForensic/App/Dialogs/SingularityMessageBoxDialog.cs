@@ -1,5 +1,4 @@
 ﻿using SingularityForensic.App.ViewModels;
-using SingularityForensic.App.Views;
 using System;
 using System.Windows;
 

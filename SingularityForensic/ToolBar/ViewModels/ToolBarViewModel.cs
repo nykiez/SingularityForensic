@@ -1,5 +1,4 @@
-﻿using SingularityForensic.Contracts.MainMenu;
-using SingularityForensic.Contracts.ToolBar;
+﻿using SingularityForensic.Contracts.ToolBar;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;

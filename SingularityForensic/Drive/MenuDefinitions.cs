@@ -3,12 +3,7 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.Contracts.ToolBar;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Drive {
     static class ToolBarDefinitions {

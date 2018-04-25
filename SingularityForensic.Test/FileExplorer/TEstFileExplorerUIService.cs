@@ -9,12 +9,7 @@ using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.Test.App;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.FileExplorer {
     [TestClass]

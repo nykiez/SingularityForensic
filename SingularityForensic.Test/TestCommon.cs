@@ -3,7 +3,6 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Test.App;
 using SingularityForensic.Test.Casing;
 using SingularityForensic.Test.Common;
-using SingularityForensic.Test.Shell;
 using System.ComponentModel.Composition.Hosting;
 
 namespace SingularityForensic.Test {

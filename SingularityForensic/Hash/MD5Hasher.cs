@@ -1,13 +1,8 @@
 ﻿using CDFC.Util;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Hash;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Hash {
     [Export(typeof(IHasher))]

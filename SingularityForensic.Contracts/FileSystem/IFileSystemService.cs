@@ -13,17 +13,37 @@ using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.FileSystem {
     public interface IFileSystemService {
-        //初始化;
+        /// <summary>
+        /// 初始化;
+        /// </summary>
         void Initialize();
 
-        //挂载流;
+        /// <summary>
+        /// 挂载流;
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="name"></param>
+        /// <param name="xElem"></param>
+        /// <param name="reporter"></param>
+        /// <returns></returns>
         IFile MountStream(Stream stream, string name, XElement xElem, IProgressReporter reporter);
 
-        //卸载文件;
-        void UnMountFile(IFile file);
+        /// <summary>
+        /// 挂载现有的文件;
+        /// </summary>
+        /// <param name="file">在外部构建的文件</param>
+        void MountFile(IFile file, XElement xElem);
 
-        //所有文件;
-        //file为对应的文件管理单元,xElem为信息项,为了避免与案件耦合(试用xElem作为信息媒介);
+        /// <summary>
+        /// 卸载文件;
+        /// </summary>
+        /// <param name="file"></param>
+        void UnMountFile(IFile file);
+        
+        /// <summary>
+        /// 所有文件;
+        /// file为对应的文件管理单元,xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
+        /// </summary>
         IEnumerable<(IFile file,XElement xElem)> MountedFiles { get; }
     }
 
@@ -32,7 +52,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     public static class FileSystemServiceExtensions {
-        public static IFile OpenFile(this IFileSystemService fsService,string url) {
+        public static IFile GetFile(this IFileSystemService fsService,string url) {
             if (string.IsNullOrEmpty(url)) {
                 return null;
             }

@@ -1,9 +1,4 @@
-﻿using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.Common;
-using System.Collections.Generic;
-using SingularityForensic.Controls.Info.ViewModels;
-
-namespace SingularityForensic.Info.TabModels {
+﻿namespace SingularityForensic.Info.TabModels {
 
     //public class BasicTextTabModel:IDocumentTab {
     //    public BasicTextTabModel(string pinKind,string text) {

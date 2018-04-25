@@ -106,7 +106,7 @@ namespace SingularityForensic.Imaging {
         }
 
         /// <summary>
-        /// 案件卸载时响应;
+        /// 案件卸载时,卸载所有镜像挂载器;
         /// </summary>
         private void OnCaseUnloaded() {
             var fsService = FileSystemService.Current;
@@ -122,7 +122,12 @@ namespace SingularityForensic.Imaging {
                     fsService.UnMountFile(file.file);
                 }
 
-                tuple.mounter.Dispose();
+                try {
+                    tuple.mounter.Dispose();
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteCallerLine(ex.Message);
+                }
             }
 
             _mounterTuples.Clear();
@@ -133,6 +138,10 @@ namespace SingularityForensic.Imaging {
         /// </summary>
         /// <param name="path"></param>
         public void AddImg(string path) {
+            if (!(CaseService.Current?.ConfirmCaseLoaded() ?? false)) {
+                return;
+            }
+
             InternalAddImg(path, FileAccess.ReadWrite, FileShare.Read);
         }
 

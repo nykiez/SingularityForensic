@@ -2,11 +2,7 @@
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.ITunes;
 using SingularityForensic.Test.App;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.ITunes {
     [TestClass()]
@@ -15,7 +11,6 @@ namespace SingularityForensic.Test.ITunes {
         public void Initialize() {
             TestCommon.InitializeTest();
             _iTunesBackUpService = ServiceProvider.GetInstance<ITunesBackUpService>();
-            _iTunesBackUpService.Initialize();
         }
         private ITunesBackUpService _iTunesBackUpService;
 
@@ -28,6 +23,9 @@ namespace SingularityForensic.Test.ITunes {
         public void AddITunesBackUpDirTest() {
             AppMockers.OpenDirName =  "H://iosb";
             _iTunesBackUpService.AddITunesBackUpDir();
+            Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedFiles.Count(), 1);
+            var file = Contracts.FileSystem.FileSystemService.Current.MountedFiles.ElementAt(0);
+
         }
     }
 }

@@ -3,13 +3,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Document;
-using SingularityForensic.Test;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Document {
     [TestClass()]
@@ -73,7 +67,7 @@ namespace SingularityForensic.Test.Document {
             });
 
             PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
-                Assert.AreEqual(tuple.tab, removedDoc);
+                Assert.AreEqual(tuple.doc, removedDoc);
             });
             
             _documentService.RemoveDocument(_documentService.CurrentDocuments.First());

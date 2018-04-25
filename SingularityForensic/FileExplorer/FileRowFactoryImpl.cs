@@ -1,7 +1,6 @@
 ﻿using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileExplorer.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;

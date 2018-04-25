@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.BaseDevice {
+﻿namespace SingularityForensic.BaseDevice {
     /// <summary>
     /// 模块内部使用的"密码";
     /// </summary>

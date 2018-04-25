@@ -1,11 +1,7 @@
 ﻿using SingularityForensic.App.Views;
 using SingularityForensic.Contracts.App;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.App.Dialogs {

@@ -2,7 +2,6 @@
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Shell.ViewModels;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 

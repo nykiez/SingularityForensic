@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
-using Telerik.Windows.Data;
 
 namespace SingularityForensic.Controls.GridView {
     public class RadGridViewEx:RadGridView

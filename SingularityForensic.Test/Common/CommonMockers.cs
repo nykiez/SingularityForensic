@@ -2,7 +2,6 @@
 using Prism.Events;
 using Prism.Mef.Events;
 using SingularityForensic.Contracts.Common;
-using System.Windows;
 
 namespace SingularityForensic.Test.Common {
     public static class CommonMockers {

@@ -18,38 +18,9 @@ namespace SingularityForensic.FileSystem {
         IEnumerable<IStreamParsingProvider> _parsingProvider;
 
         public void Initialize() {
-            RegisterEvents();
-        }
-
-        public void RegisterEvents() {
             
         }
-
-        ////内部挂载,将镜像加载到案件中;
-        //private IFile LoadFromPath(string path,IImgParser streamParser,Func<bool> isCancel) {
-        //    if(path == null) {
-        //        throw new ArgumentNullException(nameof(path));
-        //    }
-
-        //    if(streamParser == null) {
-        //        throw new ArgumentNullException(nameof(streamParser));
-        //    }
-
-        //    if (!File.Exists(path)) {
-        //        throw new FileNotFoundException(nameof(path));
-        //    }
-
-
-        //    return streamParser.ParseStream(
-        //                    path,
-        //                    tuple => {
-        //                        PubEventHelper.GetEvent<EvidenceLoadingProgressChanged>().Publish((tuple.totalPro, tuple.detailPro));
-        //                    },
-        //                    isCancel);
-        //}
-
-
-
+        
         private List<(IFile file, XElement xElem)> _enumFiles = new List<(IFile file, XElement xElem)>();
 
         public IEnumerable<(IFile file, XElement xElem)> MountedFiles => _enumFiles.Select(p => p);
@@ -86,7 +57,10 @@ namespace SingularityForensic.FileSystem {
             return file;
         }
 
-        //卸载文件;
+        /// <summary>
+        /// 卸载文件;
+        /// </summary>
+        /// <param name="file"></param>
         public void UnMountFile(IFile file) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
@@ -105,9 +79,21 @@ namespace SingularityForensic.FileSystem {
                 finally {
                     _enumFiles.Remove(tuple);
                 }
-                
-                
             }
         }
+
+        /// <summary>
+        /// 挂载现有文件文件;
+        /// </summary>
+        /// <param name="file"></param>
+        public void MountFile(IFile file,XElement xElem) {
+            if(file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            _enumFiles.Add((file, xElem));
+        }
+
+        
     }
 }

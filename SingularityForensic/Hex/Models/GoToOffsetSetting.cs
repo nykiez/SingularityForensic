@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Hex.Models {
+﻿namespace SingularityForensic.Hex.Models {
     public class GoToOffsetSetting {
         public EscapteMethod EscapteMethod { get; set; }
         public long Offset { get; set; }

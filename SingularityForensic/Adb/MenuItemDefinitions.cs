@@ -1,14 +1,4 @@
-﻿using EventLogger;
-using Prism.Commands;
-using SingularityForensic.Adb.MessageBoxes;
-using System.ComponentModel.Composition;
-using SingularityForensic.Adb.Global.Services;
-using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.MainMenu;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.App;
-
-namespace SingularityForensic.Adb {
+﻿namespace SingularityForensic.Adb {
     public static class MenuItemDefinitions {
         //[Export]
         //public static MenuButtonItem ConnectToDeviceMenuItem {

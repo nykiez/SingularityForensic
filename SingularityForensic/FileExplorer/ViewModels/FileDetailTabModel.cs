@@ -1,13 +1,4 @@
-﻿using CDFCUIContracts.Abstracts;
-using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileSystem;
-using System;
-using System.Text;
-
-namespace SingularityForensic.FileExplorer.ViewModels {
+﻿namespace SingularityForensic.FileExplorer.ViewModels {
     //public class FileDetailTabModel : BindableBase,ITabModel {
     //    public FileDetailTabModel(IFileExplorerServiceProvider fsProvider) {
     //        if(fsProvider == null) {
@@ -43,7 +34,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     //                sb.AppendLine($"{LanguageService.FindResourceString("FileName")}{comma}{value.Name}");
     //                sb.AppendLine($"{LanguageService.FindResourceString("FileSize")}{comma}{value.Size}{LanguageService.FindResourceString("Byte")}");
     //                sb.AppendLine();
-                    
+
     //                if(Provider != null) {
     //                    sb.Append(Provider.GetAttachedInfo(File));
     //                }

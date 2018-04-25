@@ -1,9 +1,5 @@
 ﻿using Prism.Commands;
-using System.ComponentModel.Composition;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Controls.FileExplorer.Modules.RecoverSign {
     public static class CommandDefinitions {

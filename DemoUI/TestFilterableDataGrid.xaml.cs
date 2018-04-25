@@ -1,9 +1,7 @@
 ﻿using CDFCControls.Controls;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Controls.FilterableDataGrid;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -11,10 +9,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
-using Telerik.Windows.Data;
 
 namespace DemoUI {
 

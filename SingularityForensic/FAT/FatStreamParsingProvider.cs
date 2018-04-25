@@ -8,8 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using fsContracts = SingularityForensic.Contracts.FileSystem;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using SingularityForensic.Contracts.Common;
 
@@ -162,6 +160,7 @@ namespace SingularityForensic.FAT {
                 return;
             }
 
+            //释放非托管流;
             try {
                 partInfo.UnmanagedFATManager?.Dispose();
             }

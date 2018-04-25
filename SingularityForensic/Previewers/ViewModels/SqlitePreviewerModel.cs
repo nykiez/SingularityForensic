@@ -1,6 +1,4 @@
-﻿using SingularityForensic.Previewers.Models;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;

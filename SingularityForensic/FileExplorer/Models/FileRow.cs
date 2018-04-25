@@ -1,12 +1,9 @@
-﻿using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
+﻿using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer.Models {
     public class FileRow:FileRowProxy<IFile> , IFileRow{

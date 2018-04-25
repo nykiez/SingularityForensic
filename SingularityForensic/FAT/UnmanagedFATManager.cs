@@ -1,12 +1,8 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FAT {
     /// <summary>

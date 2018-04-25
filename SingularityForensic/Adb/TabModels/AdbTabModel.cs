@@ -1,30 +1,14 @@
-﻿using Cflab.DataTransport.Modules.Transport.Model;
-using EventLogger;
-using SingularityForensic.Adb.Helpers;
-using SingularityForensic.Adb.ViewModels;
-using SingularityForensic.Adb.ViewModels.AdbGrid;
-using SingularityForensic.Adb.Views;
-using SingularityForensic.Adb.Views.AdbGrid;
-using SingularityForensic.Controls.Info.ViewModels;
-using SingularityForensic.Controls.Info.Views;
-using System;
-using System.Text;
-using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.Common;
-using System.Collections.Generic;
-using SingularityForensic.Contracts.App;
-
-namespace SingularityForensic.Adb.TabModels {
+﻿namespace SingularityForensic.Adb.TabModels {
     //public class AdbTabModel : IDocumentTab {
     //    public AdbTabModel(AdbTabViewModel vm) {
     //        _adbTab = new AdbTab { DataContext = vm };
     //        this.AdbTabViewModel = vm;
-            
+
     //        Title = $"{AdbTabViewModel.Device?.Disply}-{MInfoTypeHelper.GetInfoTypeWord(AdbTabViewModel.Container.InfoType)}"; 
     //    }
-        
+
     //    public AdbTabViewModel AdbTabViewModel { get; }
-        
+
     //    public string Title { get; set; }
 
     //    public IList<CommandItem> CustomCommands => null;
@@ -35,7 +19,7 @@ namespace SingularityForensic.Adb.TabModels {
     //    public object Tag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     //    public void Dispose() {
-            
+
     //    }
     //}
 
@@ -59,9 +43,9 @@ namespace SingularityForensic.Adb.TabModels {
     //        };
     //        this.Basic = basic;
     //    }
-        
+
     //    public Basic Basic { get; }
-        
+
     //    public string Title { get; set; }
 
     //    public List<CommandItem> CustomCommands => null;

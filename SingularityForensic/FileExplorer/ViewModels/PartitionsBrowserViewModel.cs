@@ -7,12 +7,10 @@ using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Controls;
-using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>

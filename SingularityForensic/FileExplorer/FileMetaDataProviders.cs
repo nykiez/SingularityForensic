@@ -9,10 +9,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media.Imaging;
 
 namespace SingularityForensic.FileExplorer {
-   
+
     abstract class FileNameMetaDataProviderBase : FileMetaDataProvider {
         public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Name);

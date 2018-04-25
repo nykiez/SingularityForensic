@@ -1,12 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.ToolBar;
 using SingularityForensic.ToolBar.ViewModels;
-using SingularityForensic.ToolBar.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 

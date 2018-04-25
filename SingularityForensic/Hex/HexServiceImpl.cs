@@ -1,9 +1,6 @@
 ﻿using SingularityForensic.Contracts.Hex;
 using System;
 using System.ComponentModel.Composition;
-using WpfHexaEditor.Core.Bytes;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.App;
 using System.IO;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex.Events;

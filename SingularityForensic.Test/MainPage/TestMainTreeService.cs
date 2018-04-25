@@ -1,14 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.MainPage {
     [TestClass]

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.FAT {
+﻿namespace SingularityForensic.FAT {
     enum FATPartType {
         FAT32,
         FAT16

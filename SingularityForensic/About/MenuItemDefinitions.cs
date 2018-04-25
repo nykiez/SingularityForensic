@@ -1,5 +1,4 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using Prism.Commands;
+﻿using Prism.Commands;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.About.MessageBoxes;
 using SingularityForensic.About.Resources;

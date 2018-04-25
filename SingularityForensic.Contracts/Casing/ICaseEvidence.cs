@@ -9,7 +9,7 @@ namespace SingularityForensic.Contracts.Casing {
     /// <summary>
     /// 案件证据项契约;
     /// </summary>
-    public interface ICaseEvidence:IInstanceExtensible {
+    public interface ICaseEvidence {
         string[] EvidenceTypeGuids { get; }
         DateTime DateAdded { get; }
         string InterLabel { get; }

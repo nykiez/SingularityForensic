@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
             <Grid Height="42">
                 <Grid.Background>
-                    <ImageBrush ImageSource="/SingularityForensic.Controls;component/Images/Desc_Back.png" />
+                    <ImageBrush ImageSource="/SingularityForensic;component/Controls/Images/Desc_Back.png" />
                 </Grid.Background>
                 <TextBlock x:Name="txblDesc" Text="正在搜索文件" VerticalAlignment="Center" Margin="12,0" FontFamily="Microsoft YaHei" />
             </Grid>

@@ -1,24 +1,12 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using CDFCUIContracts.Abstracts;
-using Prism.Commands;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.ComponentModel.Composition;
 using System.Windows.Input;
-using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainMenu;
-using SingularityForensic.Contracts.FileExplorer.Events;
-using SingularityForensic.Contracts.Hex;
-using SingularityForensic.Controls.MessageBoxes;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.ToolBar;
 
 namespace SingularityForensic.Hex {
-    
+
     public static partial class MenuItemDefinitions {
         private static MenuButtonItem _searchKeyMenuItem;
         [Export]

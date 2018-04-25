@@ -1,17 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hash;
 using SingularityForensic.Hash;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Hash {
     [TestClass()]

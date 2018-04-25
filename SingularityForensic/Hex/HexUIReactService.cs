@@ -1,5 +1,4 @@
 ﻿using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;

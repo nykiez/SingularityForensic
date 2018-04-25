@@ -135,6 +135,7 @@
     <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactoryTests.cs" />
     <Compile Include="Hex\HexUIServiceTests.cs" />
+    <Compile Include="Imaging\EWFStreamTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />
     <Compile Include="ITunes\IOSBackUpParserTests.cs" />

@@ -1,14 +1,9 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Document {
     /// <summary>

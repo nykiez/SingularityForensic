@@ -1,8 +1,6 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.MainPage.ViewModels;

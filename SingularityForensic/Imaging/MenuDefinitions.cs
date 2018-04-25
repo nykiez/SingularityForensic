@@ -1,6 +1,5 @@
 ﻿using Prism.Commands;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Imaging;
 using SingularityForensic.Contracts.MainMenu;
 using SingularityForensic.Contracts.ToolBar;

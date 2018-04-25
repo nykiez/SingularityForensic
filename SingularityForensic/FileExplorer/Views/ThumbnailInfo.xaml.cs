@@ -1,5 +1,4 @@
 ﻿using CDFCUIContracts.Helpers;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.FileExplorer.ViewModels;
 using System.Windows;
 using System.Windows.Controls;

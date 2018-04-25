@@ -1,42 +1,12 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Casing.Events;
-using SingularityForensic.Contracts.Helpers;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
 using static SingularityForensic.ITunes.Constants;
 
 namespace SingularityForensic.ITunes {
     [Export]
     public class ITunesBackUpService {
-        public void Initialize() {
-            RegisterEvents();
-        }
-
-        private void RegisterEvents() {
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
-        }
-
-        /// <summary>
-        /// 加载案件文件若为ITunes备份文件夹,则响应镜像解析;
-        /// </summary>
-        /// <param name="tuple"></param>
-        private void OnCaseEvidenceLoading((ICaseEvidence csEvidence, IProgressReporter reporter) tuple) {
-            var csEvidence = tuple.csEvidence;
-            var reporter = tuple.reporter;
-
-            if (csEvidence == null) {
-                return;
-            }
-
-            if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_ITunesBackUpDir) ?? false)) {
-                return;
-            }
-
-            
-        }
-
         /// <summary>
         /// 添加ITunes备份文件夹;
         /// </summary>
@@ -62,10 +32,10 @@ namespace SingularityForensic.ITunes {
                 break;
             }
 
-            AddITunesBackUpDirCore(backUpPath);
+            AddITunesBackUpDir(backUpPath);
         }
 
-        private void AddITunesBackUpDirCore(string backUpPath) {
+        public void AddITunesBackUpDir(string backUpPath) {
             var di = new DirectoryInfo(backUpPath);
             if (!di.Exists) {
                 throw new DirectoryNotFoundException($"{backUpPath}");
@@ -74,8 +44,8 @@ namespace SingularityForensic.ITunes {
             var csEvidence = CaseService.Current.CreateNewCaseEvidence(new string[] {
                 EvidenceType_ITunesBackUpDir
             }, Path.GetDirectoryName(backUpPath), backUpPath);
-
-            csEvidence[ITunesBackUpDir_Path] = Path.GetFullPath(ITunesBackUpDir_Path);
+            
+            csEvidence[ITunesBackUpDir_Path] = Path.GetFullPath(backUpPath);
 
             CaseService.Current.CurrentCase.AddNewCaseEvidence(csEvidence);
 
@@ -99,5 +69,7 @@ namespace SingularityForensic.ITunes {
             }
             return false;
         }
+
+        
     }
 }
