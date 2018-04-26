@@ -80,10 +80,10 @@ namespace SingularityForensic.FileExplorer {
             proDialog.WindowTitle = $"{LanguageService.FindResourceString("FilesBeingCopied")}";
 
             void saveFileFunc(IRegularFile rFile, string drPath, string fileName) {
+                FileStream fs = null;
                 try {
-                    var fs = System.IO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
+                    fs = System.IO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
                     int read;
-
                     using (var mulS = rFile.GetInputStream()) {
                         var buffer = new byte[10485760];
                         mulS.Position = 0;
@@ -96,13 +96,16 @@ namespace SingularityForensic.FileExplorer {
                                 $"{LanguageService.FindResourceString("CurExtractingFile")}:{fileName}");
                         }
                     }
-                    fs.Close();
+                    
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
                     ThreadInvoker.UIInvoke(() => {
                         MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToExtractFile")}:{ex.Message}");
                     });
+                }
+                finally {
+                    fs?.Close();
                 }
             }
 
@@ -458,7 +461,5 @@ namespace SingularityForensic.FileExplorer {
 
             return hasher.ComputeHash(inputStream, reporter);
         }
-
-        
     }
 }

@@ -35,10 +35,10 @@ namespace SingularityForensic.Imaging {
             PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
 
 
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnImaging);
 
 
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnImaging);
         }
 
         /// <summary>
@@ -73,10 +73,10 @@ namespace SingularityForensic.Imaging {
         }
 
         /// <summary>
-        /// 移除文件若为镜像,则进行卸载;
+        /// 移除证据项若为镜像,则进行卸载;
         /// </summary>
         /// <param name="evidence"></param>
-        private void OnCaseEvidenceRemoved(ICaseEvidence evidence) {
+        private void OnCaseEvidenceRemovedOnImaging(ICaseEvidence evidence) {
             if (evidence == null) {
                 return;
             }
@@ -91,16 +91,16 @@ namespace SingularityForensic.Imaging {
                 return;
             }
 
-            var tuples = _mounterTuples.Where(p => p.csEvidence == evidence).ToArray();
+            var tuples = MounterEntities.Where(p => p.csEvidence == evidence).ToArray();
             foreach (var tuple in tuples) {
                 //文件系统卸载文件;
-                var files = fsService.MountedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+                var files = fsService.MountedEntities.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
                 foreach (var fileTuple in files) {
                     fsService.UnMountFile(fileTuple.file);
                 }
 
                 tuple.mounter.Dispose();
-                _mounterTuples.Remove(tuple);
+                _mounterEntities.Remove(tuple);
             }
 
         }
@@ -108,16 +108,16 @@ namespace SingularityForensic.Imaging {
         /// <summary>
         /// 案件卸载时,卸载所有镜像挂载器;
         /// </summary>
-        private void OnCaseUnloaded() {
+        private void OnCaseUnloadedOnImaging() {
             var fsService = FileSystemService.Current;
             if (fsService == null) {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
             }
 
-            foreach (var tuple in _mounterTuples) {
-                //文件系统卸载文件;
-                var files = fsService.MountedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+            foreach (var tuple in MounterEntities) {
+                //文件系统卸载镜像文件;
+                var files = fsService.MountedEntities.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
                 foreach (var file in files) {
                     fsService.UnMountFile(file.file);
                 }
@@ -130,7 +130,7 @@ namespace SingularityForensic.Imaging {
                 }
             }
 
-            _mounterTuples.Clear();
+            _mounterEntities.Clear();
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace SingularityForensic.Imaging {
                     throw new Exception($"Valid {nameof(imgMounter)} not found.");
                 }
                 //加入挂载流;
-                _mounterTuples.Add((imgMounter,csEvidence));
+                _mounterEntities.Add((imgMounter,csEvidence));
 
                 //尝试将数据流挂载到文件系统上;
                 FileSystemService.Current.MountStream(imgMounter.RawStream,csEvidence.Name,csEvidence.XElem, reporter);
@@ -304,9 +304,9 @@ namespace SingularityForensic.Imaging {
             
         }
 
-        private List<(IImgMounter mounter,ICaseEvidence csEvidence)> _mounterTuples =
-            new List<(IImgMounter mounter, ICaseEvidence csEvidence)>();
+        private List<ITextInstanceExtensible> _mounterEntities =
+            new List<ITextInstanceExtensible>();
 
-        public IEnumerable<(IImgMounter mounter, ICaseEvidence csEvidence)> MounterTuples => _mounterTuples;
+        public IEnumerable<ITextInstanceExtensible> MounterEntities => _mounterEntities.Select(p => p);
     }
 }

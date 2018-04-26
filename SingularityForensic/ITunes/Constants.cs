@@ -31,5 +31,7 @@
 
         public const string TBButtonToolTip_AddITunesBackupDir = nameof(TBButtonToolTip_AddITunesBackupDir);
 
+        public const string ProgressWord_ITunesBeingParsed = nameof(ProgressWord_ITunesBeingParsed);
+
     }
 }

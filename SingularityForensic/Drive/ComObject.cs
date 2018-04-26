@@ -200,8 +200,13 @@ namespace SingularityForensic.Drive {
 
         //释放;
         private void ReleaseHandle() {
-            cdfc_devices_exit();
-            exit_hdd_vender();
+            try {
+                cdfc_devices_exit();
+                exit_hdd_vender();
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }   
         }
 
         public IEnumerable<LocalHDD> LocalHdds => _localHdds.Select(p => p);

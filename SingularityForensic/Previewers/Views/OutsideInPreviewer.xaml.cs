@@ -24,7 +24,7 @@ namespace SingularityForensic.Controls.Previewers.Views {
         /// <param name="hInstance"></param>
         /// <param name="lpParam"></param>
         /// <returns></returns>
-        [DllImport("Entities/DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static IntPtr MyCreateWindow(
                                     IntPtr lpClassName,
                                     IntPtr lpWindowName,
@@ -37,11 +37,11 @@ namespace SingularityForensic.Controls.Previewers.Views {
                                     IntPtr hMenu,
                                     IntPtr hInstance,
                                     IntPtr lpParam);
-        [DllImport("Entities/DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoOpenFile(IntPtr mainIntPtr, IntPtr szFileName);
-        [DllImport("Entities/DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoCloseFile(IntPtr IntPtr, IntPtr viewerIntPtr);
-        [DllImport("Entities/DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoSize(IntPtr IntPtr, IntPtr viewHND, uint wWidth, uint wHeight);
         public OutsideInPreviewer() {
             InitializeComponent();

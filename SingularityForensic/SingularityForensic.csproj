@@ -553,7 +553,6 @@
     <Compile Include="Imaging\ImagingServiceImpl.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Constants.cs" />
-    <Compile Include="ITunes\Events\OnCaseEvidenceLoadingOnITunesBackupHandler.cs" />
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\IOSBackUpParser.cs" />
@@ -1114,6 +1113,7 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
+    <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
     <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />

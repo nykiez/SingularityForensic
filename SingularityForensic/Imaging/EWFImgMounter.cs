@@ -169,22 +169,36 @@ namespace SingularityForensic.Imaging {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 临时偏移缓冲区;
+        /// </summary>
+        private byte[] tempBuffer = new byte[512];
         public override int Read(byte[] buffer, int offset, int count) {
-            
             if (buffer == null) {
                 throw new ArgumentNullException(nameof(buffer));
             }
+
+            Handle.SeekOffset(Position, SeekOrigin.Begin);
             //因为EWF尚未提供针对byte[] + offset的方法,在不使用非安全代码的情况下,此处将做特殊处理;
-            //即读取前将起始位置至偏移量的位置的缓冲区保存至临时区域,读取完成后,还原改区域的数据;
-            Handle.SeekOffset(Position , SeekOrigin.Begin);
-            var preBuffer = new byte[offset];
-            Buffer.BlockCopy(buffer, 0, preBuffer, 0, offset);
+            //即读取前将起始位置至偏移量的位置的缓冲区保存至临时区域,读取完成后,还原该区域的数据;
+            if(tempBuffer.Length < offset) {
+                tempBuffer = new byte[offset];
+            }
 
+            Buffer.BlockCopy(buffer, 0, tempBuffer, 0, offset);
+            
             var readCount = Handle.ReadBuffer(buffer, count + offset);
+            
+            Buffer.BlockCopy(tempBuffer, 0, buffer, 0, offset);
+#if DEBUG
+            if (count != readCount - offset) {
 
-            Buffer.BlockCopy(preBuffer, 0, buffer, 0, offset);
-
-            return readCount;
+            }
+#endif
+            if(readCount > offset) {
+                return readCount - offset;
+            }
+            return 0;
         }
 
         public override long Seek(long offset, SeekOrigin origin) {

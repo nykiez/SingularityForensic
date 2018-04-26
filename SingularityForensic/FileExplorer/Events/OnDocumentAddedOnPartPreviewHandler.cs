@@ -19,12 +19,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var part = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IPartition;
-            if (part == null) {
-                LoggerService.WriteCallerLine($"{nameof(part)} can't be null.");
-                return;
-            }
-
+           
             var doc = enumDoc.CreateNewDocument();
             doc.Title = LanguageService.FindResourceString(Constants.DocumentTitle_FilePreview);
             enumDoc.AddDocument(doc);

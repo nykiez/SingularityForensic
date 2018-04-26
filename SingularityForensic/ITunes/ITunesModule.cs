@@ -5,8 +5,9 @@ using SingularityForensic.Contracts.Common;
 namespace SingularityForensic.ITunes {
     [ModuleExport(typeof(ITunesModule))]
     public class ITunesModule : IModule {
+        
         public void Initialize() {
-            
+            ServiceProvider.GetInstance<ITunesBackUpService>()?.Initialize();
         }
 
         private void RegisterEvents() {

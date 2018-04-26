@@ -76,7 +76,7 @@ namespace SingularityForensic.App.Dialogs {
         }
 
         private void ShowCore(Window owner = null, bool showAsDialog = true) {
-            if (owner != null) {
+            if (owner != null && owner.IsVisible) {
                 window.Owner = owner;
             }
             else {

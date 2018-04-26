@@ -1,5 +1,4 @@
 ﻿using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System;
@@ -26,7 +25,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="xElem"></param>
         /// <param name="reporter"></param>
         /// <returns></returns>
-        IFile MountStream(Stream stream, string name, XElement xElem, IProgressReporter reporter);
+        IFile MountStream(Stream stream, string name, ITextInstanceExtensible ext, IProgressReporter reporter);
 
         /// <summary>
         /// 挂载现有的文件;
@@ -44,7 +43,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 所有文件;
         /// file为对应的文件管理单元,xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
         /// </summary>
-        IEnumerable<(IFile file,XElement xElem)> MountedFiles { get; }
+        IEnumerable<ITextInstanceExtensible> MountedEntities { get; }
     }
 
     public class FileSystemService :GenericServiceStaticInstance<IFileSystemService> {
@@ -68,19 +67,18 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return null;
             }
 
-            foreach (var (file, xElem) in fsService.MountedFiles) {
-                
-                if(xElem.Element(nameof(ICaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
-                    if(file is IDevice device) {
-                        return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
-                    }
-
-                    if(file is IHaveFileCollection enumFile)  {
-                        return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
-                    }
-                    
+            foreach (var ext in fsService.MountedEntities) {
+                if (ext[Contracts.Common.Constants.EvidenceGUID] != args.FirstOrDefault()) {
+                    continue;
                 }
                 
+                if (file is IDevice device) {
+                    return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
+                }
+
+                if (file is IHaveFileCollection enumFile) {
+                    return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
+                }
             }
 
             return null;

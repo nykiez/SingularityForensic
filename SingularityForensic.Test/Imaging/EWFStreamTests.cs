@@ -28,7 +28,11 @@ namespace SingularityForensic.Test.Imaging {
 
         [TestMethod()]
         public void ReadTest() {
-            Assert.Fail();
+            var bts = new byte[1024];
+            var pos = 512;
+            var rReadCount = bts.Length - pos;
+            var readCount = _stream.Read(bts, pos, rReadCount);
+            Assert.AreEqual(rReadCount, readCount);
         }
 
         [TestMethod()]

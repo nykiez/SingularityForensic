@@ -83,7 +83,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var fileTuple = FileSystemService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
+            var fileTuple = FileSystemService.Current.MountedEntities?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;
@@ -175,7 +175,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var fileTuple = FileSystemService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+            var fileTuple = FileSystemService.Current.MountedEntities?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;

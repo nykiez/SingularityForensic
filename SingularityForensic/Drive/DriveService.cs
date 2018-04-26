@@ -5,6 +5,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using static SingularityForensic.Drive.Constants;
@@ -71,28 +72,104 @@ namespace SingularityForensic.Drive {
             RegisterEvents();
         }
 
-        //注册事件;
+        /// <summary>
+        /// 注册事件;
+        /// </summary>
         private void RegisterEvents() {
             //订阅HDD/卷案件加载事件;
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(tuple => {
-                var evidence = tuple.csEvidence;
-                var reporter = tuple.reporter;
-                if(evidence == null) {
-                    return;
-                }
+            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseLoadingOnDrive);
 
-                //挂载HDD;
-                if (evidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalHDD) ?? false) {
-                    MountHdd(evidence , reporter);
-                }
-                //挂载卷;
-                else if(evidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalVolume) ?? false) {
-                    MountVolume(evidence, reporter);
-                }
-            });
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnDrive);
+
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnDrive);
         }
 
-        //添加设备;
+        private List<ICaseEvidence> _driveEvidences = new List<ICaseEvidence>();
+        public IEnumerable<ICaseEvidence> DriveEvidences => _driveEvidences.Select(p => p);
+
+        /// <summary>
+        /// 当卸载案件时;
+        /// </summary>
+        private void OnCaseUnloadedOnDrive() {
+            var fsService = FileSystemService.Current;
+            if (fsService == null) {
+                LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
+                return;
+            }
+
+            foreach (var evidence in DriveEvidences) {
+                //文件系统卸载镜像文件;
+                var files = fsService.MountedEntities.Where(p => evidence.XElem == p.xElem).ToArray();
+                foreach (var file in files) {
+                    fsService.UnMountFile(file.file);
+                }
+            }
+
+            _driveEvidences.Clear();
+        }
+
+        /// <summary>
+        /// 当加载案件为本地驱动器时,进行加载;
+        /// </summary>
+        /// <param name="tuple"></param>
+        private void OnCaseLoadingOnDrive((ICaseEvidence csEvidence, IProgressReporter reporter) tuple) {
+            var evidence = tuple.csEvidence;
+            var reporter = tuple.reporter;
+            if (evidence == null) {
+                return;
+            }
+
+            //挂载HDD;
+            if (evidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalHDD) ?? false) {
+                MountHdd(evidence, reporter);
+            }
+            //挂载卷;
+            else if (evidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalVolume) ?? false) {
+                MountVolume(evidence, reporter);
+            }
+        }
+
+        private void OnCaseEvidenceRemovedOnDrive(ICaseEvidence evidence) {
+            if(evidence == null) {
+                return;
+            }
+
+            if(evidence.EvidenceTypeGuids == null) {
+                return;
+            }
+
+            if (!DriveEvidences.Contains(evidence)) {
+
+            }
+
+            if (!(evidence.EvidenceTypeGuids.Contains(EvidenceType_LocalVolume) ||
+                evidence.EvidenceTypeGuids.Contains(EvidenceType_LocalHDD))) {
+                return;
+            }
+
+            var fsService = FileSystemService.Current;
+            if (fsService == null) {
+                LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
+                return;
+            }
+
+            if(DriveEvidences)
+            var tuples = DriveEvidences.Where(p => p == evidence).ToArray();
+            foreach (var tuple in tuples) {
+                //文件系统卸载文件;
+                var files = fsService.MountedEntities.Where(p => tuple.XElem == p.xElem).ToArray();
+                foreach (var fileTuple in files) {
+                    fsService.UnMountFile(fileTuple.file);
+                }
+
+                tuple.mounter.Dispose();
+                _mounterTuples.Remove(tuple);
+            }
+        }
+
+        /// <summary>
+        /// 添加设备;
+        /// </summary>
         public void AddDrive() {
             if (!(CaseService.Current?.ConfirmCaseLoaded() ?? false)) {
                 return;

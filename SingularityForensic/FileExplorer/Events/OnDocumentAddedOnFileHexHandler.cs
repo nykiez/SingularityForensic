@@ -22,10 +22,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var part = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IPartition;
-            if (part == null) {
-                return;
-            }
+          
 
             var hexFileTuple = FileExplorerUIHelper.GetStreamHexDocument(null);
             if (hexFileTuple == null) {

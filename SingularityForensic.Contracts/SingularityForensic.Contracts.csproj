@@ -167,6 +167,7 @@
     <Compile Include="Casing\ICaseUIService.cs" />
     <Compile Include="FileExplorer\ICustomSignSearchService.cs" />
     <Compile Include="FileExplorer\IFileExplorerUIReactService.cs" />
+    <Compile Include="FileExplorer\ViewModels\IFolderBrowserCommandProvider.cs" />
     <Compile Include="FileExplorer\ViewModels\IFolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IPartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\Models\INavNodeModel.cs" />

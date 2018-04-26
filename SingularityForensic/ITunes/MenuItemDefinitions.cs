@@ -15,7 +15,7 @@ namespace SingularityForensic.ITunes {
                 if (_addITunesBackUpToolBarItem == null) {
                     _addITunesBackUpToolBarItem = ToolBarService.CreateToolBarButtonItem(
                         new DelegateCommand(() => {
-                            
+                            ServiceProvider.Current.GetInstance<ITunesBackUpService>()?.AddITunesBackUpDir();
                         }), Constants.TBButtonGUID_AddITuneBackupDir);
                     _addITunesBackUpToolBarItem.Icon = IconResources.AddITunesIcon;
                     _addITunesBackUpToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_AddITunesBackupDir);

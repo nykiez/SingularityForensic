@@ -64,7 +64,7 @@ namespace DemoUI {
             
             ImgService.Current.AddImg("I://test.E01");
 
-            var file = FileSystemService.Current.MountedFiles.First().file;
+            var file = FileSystemService.Current.MountedEntities.First().file;
 
             var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
             unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);

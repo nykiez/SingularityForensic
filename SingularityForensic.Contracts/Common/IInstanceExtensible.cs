@@ -25,4 +25,27 @@ namespace SingularityForensic.Contracts.Common {
         /// <returns></returns>
         TInstance GetIntance<TInstance>(string extName);
     }
+
+    public interface ITextExtensible {
+        /// <summary>
+        /// 拓展元素;
+        /// </summary>
+        string this[string extendElemName] { get; set; }
+
+        /// <summary>
+        /// 拓展元素属性;
+        /// </summary>
+        /// <param name="extendElemName"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        string this[string extendElemName, string extendAttriName] { get; set; }
+    }
+
+    public interface ITextInstanceExtensible : ITextExtensible, IInstanceExtensible {
+
+    }
+
+    public interface IGroupExtensible {
+        IExtItemsGroup GetGroup(string groupName);
+    }
 }

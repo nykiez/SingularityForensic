@@ -18,13 +18,24 @@ namespace SingularityForensic.ITunes {
 
         public string PhonePath => strPhonePath;
         public string LocalPath => strLocalPath;
+
+        public DateTime? ModifiedTime => GetTime(nLastModifyTime);
+
+        public DateTime? AccessTime => GetTime(nLastAccessTime);
+
+        public DateTime? CreateTime => GetTime(nCreateTime);
+
+        private static readonly DateTime _startTime = new DateTime(1970, 1, 1, 0, 0, 0);
+        private static DateTime? GetTime(ulong timeStamp) {
+            return _startTime.AddSeconds(timeStamp);
+        }
     }
 
     /// <summary>
     /// IOS基本信息结构体;
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
-    public struct IOSBasicStruct {
+    public struct StIOSBasicInfo {
         [MarshalAs(UnmanagedType.LPStr)]
         public string DeviceName;            //设备名称
         [MarshalAs(UnmanagedType.LPStr)]

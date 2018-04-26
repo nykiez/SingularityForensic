@@ -17,7 +17,7 @@ namespace SingularityForensic.ITunes {
         /// 实际存储的内容;
         /// </summary>
         public IDirectory Directory { get; internal set; }
-        public IOSBasicStruct? BasicInfo { get; internal set; }
+        public StIOSBasicInfo? BasicInfo { get; internal set; }
     }
     
     public static partial class IOSBackUpParser {  
@@ -61,18 +61,22 @@ namespace SingularityForensic.ITunes {
                 dirStoken.TypeGuids = new string[] {
                     Constants.DirectoryType_ITunesBackUpDir
                 };
+                dirStoken.Name = di.Name;
 #if DEBUG
                 int index = 0;
 #endif
                 while (ptr != IntPtr.Zero) {
                     var st = ptr.GetStructure<IOSFileStruct>();
-
+                    
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_ITunesBackUp);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_ITunesBackUp);
                     regFileStoken.SetInstance<IOSFileStruct?>(st, Constants.RegularFileTag_ITunesBackUp);
 
                     try {
                         regFileStoken.Name = Path.GetFileName(st.PhonePath);
+                        regFileStoken.CreateTime = st.CreateTime;
+                        regFileStoken.ModifiedTime = st.ModifiedTime;
+                        regFileStoken.AccessedTime = st.AccessTime;
                     }
                     catch (Exception ex) {
                         LoggerService.WriteCallerLine(ex.Message);
@@ -84,7 +88,7 @@ namespace SingularityForensic.ITunes {
 #if DEBUG
                     index++;
                     if(index >= 20) {
-                        break;
+                        //break;
                     }
 #endif
                 }
@@ -106,7 +110,7 @@ namespace SingularityForensic.ITunes {
         /// </summary>
         /// <returns></returns>
         [HandleProcessCorruptedStateExceptions]
-        private static IOSBasicStruct? GetBasicInfo(DirectoryInfo diInfo) {
+        private static StIOSBasicInfo? GetBasicInfo(DirectoryInfo diInfo) {
             try {
                 //查看是否存在所需文件;
                 if (diInfo.GetFiles().FirstOrDefault(p => p.Name == InfoPlistName) == null) {
@@ -121,7 +125,7 @@ namespace SingularityForensic.ITunes {
                     return null;
                 }
 
-                var pList = plPtr.GetStructure<IOSBasicStruct>();
+                var pList = plPtr.GetStructure<StIOSBasicInfo>();
 
                 Marshal.FreeHGlobal(szFilePtr);
                 DeletePlist(plPtr);
