@@ -21,8 +21,8 @@ namespace SingularityForensic.Contracts.Imaging {
         //添加镜像;
         void AddImg();
 
-        //案件挂载的组合,mounter为挂载器,csEvidence为案件单元;
-        IEnumerable<(IImgMounter mounter, ICaseEvidence csEvidence)> MounterTuples { get; }
+        
+        IEnumerable<ITextInstanceExtensible> MounterEntities { get; }
     }
 
     public class ImgService: GenericServiceStaticInstance<IImagingService> {
