@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using SingularityForensic.Previewers.ViewModels;
 using SingularityForensic.Previewers.Models;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.Previewers;
 using System;
 

@@ -2,7 +2,7 @@
 
 namespace SingularityForensic.FileExplorer {
     public static partial class Constants {
-        public const string FileSystemTreeUnit = nameof(FileSystemTreeUnit);
+        public const string TreeUnitGUID_FileSystem = nameof(TreeUnitGUID_FileSystem);
 
         public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
         
@@ -35,6 +35,10 @@ namespace SingularityForensic.FileExplorer {
         public const string RegularFileName_CustomSignSearch = nameof(RegularFileName_CustomSignSearch);
 
         public const string DefaultFileExtension_CustomSignSearch = nameof(DefaultFileExtension_CustomSignSearch);
+
+
+        public const string DocumentTag_FilePreviewer = nameof(DocumentTag_FilePreviewer);
+
     }
 
     /// <summary>

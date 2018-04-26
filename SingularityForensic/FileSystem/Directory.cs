@@ -1,15 +1,11 @@
 ﻿using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
 
     [Serializable]
     public class Directory : BlockGroupedFileBase<DirectoryStoken>, IDirectory {
-        public Directory(string key, DirectoryStoken stoken = null) : base(key, stoken) {
+        public Directory(string key) : base(key) {
             Children = new FileBaseCollection(this);
         }
 

@@ -2,18 +2,12 @@
 using Prism.Mef;
 using Prism.Modularity;
 using Prism.Mvvm;
-using Prism.Regions;
 using SingularityForensic.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Shell;
-using SingularityForensic.Contracts.Splash;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 
 namespace SingularityShell {
@@ -64,11 +58,17 @@ namespace SingularityShell {
         }
 
         protected override void InitializeModules() {
+#if RELEASE
             var splashService = ServiceProvider.Current.GetInstance<ISplashService>();
+
             splashService.ShowSplash();
+
             Thread.Sleep(3000);
+#endif
             base.InitializeModules();
+#if RELEASE
             splashService.CloseSplash();
+#endif
         }
 
         protected override void InitializeShell() {

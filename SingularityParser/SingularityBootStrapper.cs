@@ -5,7 +5,6 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Previewers;
 using System.ComponentModel.Composition.Hosting;
 using System.Windows;
-using SingularityForensic.Contracts.Shell;
 
 namespace SingularityParser {
     public class SingularityBootStrapper : MefBootstrapper {

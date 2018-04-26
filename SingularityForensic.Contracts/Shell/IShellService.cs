@@ -7,7 +7,7 @@ namespace SingularityForensic.Contracts.Shell {
         void SetTitle(string word, bool saveBrandName = true);
         void Focus();
         void ChangeLoadState(bool isLoading, string word = null);
-        void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None, object commandPara = null);
+        void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None);
     }
 
     public class ShellService : GenericServiceStaticInstance<IShellService> {

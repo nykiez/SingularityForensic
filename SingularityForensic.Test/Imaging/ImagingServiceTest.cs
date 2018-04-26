@@ -21,7 +21,7 @@ namespace SingularityForensic.Test.Imaging {
             TestCommon.InitializeTest();
             AppMockers.OpenFileName = OpenFileName;
             _imgService = ImgService.Current;
-            _fsService = FSService.Current;
+            _fsService = FileSystemService.Current;
             _csService = CaseService.Current;
 
             Assert.IsNotNull(_imgService);

@@ -1,10 +1,7 @@
 ﻿using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Casing {
@@ -16,7 +13,7 @@ namespace SingularityForensic.Casing {
             if (xElem == null) {
                 throw new ArgumentNullException($"{nameof(xElem)} can't be null!");
             }
-            if (xElem.Name != SingularityForensic.Contracts.Casing.Constants.CaseEvidenceRootElemName) {
+            if (xElem.Name != Contracts.Casing.Constants.CaseEvidenceRootElemName) {
                 throw new ArgumentException("The xElem name should be caseFile!");
             }
             XElem = xElem;
@@ -29,8 +26,11 @@ namespace SingularityForensic.Casing {
                 throw new ArgumentNullException(nameof(typeGuids));
             }
 
+            var newGuid = Guid.NewGuid().ToString("N").ToUpper();
             //首次创建需摇号;
-            XElem.SetXElemValue(Guid.NewGuid().ToString("N").ToUpper(), nameof(EvidenceGUID));
+            XElem.SetXElemValue(newGuid , Contracts.Common.Constants.EvidenceGUID);
+
+            SetInstance(EvidenceGUID , Contracts.Common.Constants.EvidenceGUID);
         }
 
         //通过案件文件信息创建
@@ -106,7 +106,7 @@ namespace SingularityForensic.Casing {
         public XElement XElem { get; }
 
         //证据GUID
-        public string EvidenceGUID => XElem.GetXElemValue();
+        public string EvidenceGUID => XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID);
 
 
         /// <summary>

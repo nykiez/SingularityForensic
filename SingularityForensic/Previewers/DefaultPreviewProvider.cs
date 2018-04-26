@@ -34,7 +34,7 @@ namespace SingularityForensic.Previewers {
             return previewer;
         }
 
-        public IPreviewer CreatePreviewer(Stream stream) {
+        public IPreviewer CreatePreviewer(Stream stream, string originName) {
             throw new System.NotImplementedException();
         }
 

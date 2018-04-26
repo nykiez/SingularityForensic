@@ -71,6 +71,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         public abstract object GetMetaData(IFile file);
     }
 
+
     /// <summary>
     /// 用于设备/分区浏览器的元数据提供器;
     /// </summary>

@@ -1,7 +1,8 @@
-﻿using SingularityForensic.Contracts.MainMenu;
+﻿using SingularityForensic.Contracts.ToolBar;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace SingularityForensic.ToolBar.ViewModels {
     [Export]
@@ -9,8 +10,10 @@ namespace SingularityForensic.ToolBar.ViewModels {
     {
         [ImportingConstructor]
         public ToolBarViewModel(
-            [ImportMany]IEnumerable<MenuButtonItem> menuItems) {
-            this._menuItems = menuItems;
+            [ImportMany]IEnumerable<IToolBarObjectItem> toolBarObjectItems,
+            [ImportMany]IEnumerable<IToolBarButtonItem> toolBarButtonItems) {
+            this._toolBarObjectItems = toolBarObjectItems;
+            this._toolBarButtonItems = toolBarButtonItems;
             BuildBasicToolBars();
         }
 
@@ -18,12 +21,21 @@ namespace SingularityForensic.ToolBar.ViewModels {
         /// 建立基本工具栏;
         /// </summary>
         private void BuildBasicToolBars() {
-            foreach (var item in _menuItems) {
-                Tools.Add(item);
-            }
-            
+            ToolBarItems.AddRange(GetAllToolBarObjectItems().OrderBy(p => p.Sort));
         }
-        public ObservableCollection<MenuButtonItem> Tools { get; set; } = new ObservableCollection<MenuButtonItem>();
-        private IEnumerable<MenuButtonItem> _menuItems;
+
+        private IEnumerable<IToolBarObjectItem> GetAllToolBarObjectItems() {
+            foreach (var btnItem in _toolBarButtonItems) {
+                yield return btnItem;
+            }
+
+            foreach (var objectItem in _toolBarObjectItems) {
+                yield return objectItem;
+            }
+        }
+
+        public ObservableCollection<IToolBarObjectItem> ToolBarItems { get; set; } = new ObservableCollection<IToolBarObjectItem>();
+        private IEnumerable<IToolBarObjectItem> _toolBarObjectItems;
+        private IEnumerable<IToolBarButtonItem> _toolBarButtonItems;
     }
 }

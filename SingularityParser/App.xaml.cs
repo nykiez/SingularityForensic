@@ -17,13 +17,11 @@ namespace SingularityParser {
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
                 LoggerService.Current?.WriteCallerLine("工作线程错误:" + ((Exception)e.ExceptionObject).Message);
                 LoggerService.Current?.WriteCallerLine("工作线程错误:" + ((Exception)e.ExceptionObject).StackTrace);
-                var ex = e.ExceptionObject as Exception;
-                if (ex != null && ex.InnerException != null) {
+                if (e.ExceptionObject is Exception ex && ex.InnerException != null) {
                     Logger.WriteLine("工作线程错误:" + ex.InnerException.StackTrace);
                     Logger.WriteLine("工作线程错误: " + ex.InnerException.Message);
                 }
-                var nullex = e.ExceptionObject as NullReferenceException;
-                if (nullex != null) {
+                if (e.ExceptionObject is NullReferenceException nullex) {
                     Logger.WriteLine("Source:" + nullex.Source);
                     var enumrator = nullex.Data.GetEnumerator();
                     while (enumrator.MoveNext()) {

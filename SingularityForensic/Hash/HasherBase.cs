@@ -2,12 +2,7 @@
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Hash;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Hash {
     public abstract class HasherBase : IHasher {

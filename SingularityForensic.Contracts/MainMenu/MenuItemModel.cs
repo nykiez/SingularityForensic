@@ -1,14 +1,23 @@
 ﻿using SingularityForensic.Contracts.Common;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.MainMenu {
-    public interface IMenu : IUIObjectProvider {
-        object UIObject { get; set; }
+    /// <summary>
+    /// 菜单项;
+    /// </summary>
+    public interface IMenu  {
+        /// <summary>See <see cref="ExportMenuAttribute.Guid"/></summary>
         string GUID { get; }
+        /// <summary>See <see cref="ExportMenuAttribute.Order"/></summary>
+        double Order { get; }
+        /// <summary>See <see cref="ExportMenuAttribute.Header"/></summary>
         string Header { get; }
     }
-
+    
+    
+    
     public class MenuObjectItem : IUIObjectProvider {
         public object UIObject { get; set; }
         public string GUID { get; set; }
@@ -35,6 +44,5 @@ namespace SingularityForensic.Contracts.MainMenu {
         public bool IsVisible { get; set; }
         public Key Key { get; set; }
         public ModifierKeys Modifier { get; set; }
-        public object CommandParameter { get; set; }
     }
 }

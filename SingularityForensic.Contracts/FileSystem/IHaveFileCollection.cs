@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    //具有子级的可迭代文件;
-    public interface IHaveFileCollection  {
+    /// <summary>
+    /// 具有子级的可迭代文件;
+    /// </summary>
+    public interface IHaveFileCollection : IFile {
         IFileCollection Children { get; }
     }
 

@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Prism.Mvvm;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Helpers;
-using System.Windows.Input;
 using Prism.Interactivity.InteractionRequest;
 
 namespace SingularityForensic.Shell.ViewModels {

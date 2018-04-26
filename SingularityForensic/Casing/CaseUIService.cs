@@ -37,11 +37,31 @@ namespace SingularityForensic.Casing {
         }
 
         /// <summary>
-        /// 案件文件被移除时发生;
+        /// 案件文件被移除时,移除案件文件节点;
         /// </summary>
-        /// <param name="obj"></param>
-        private void OnCaseEvidenceRemoved(ICaseEvidence obj) {
-            
+        /// <param name="evidence"></param>
+        private void OnCaseEvidenceRemoved(ICaseEvidence evidence) {
+            var treeService = MainTreeService.Current;
+            if (treeService == null) {
+                LoggerService.WriteCallerLine($"{nameof(treeService)} can't be null.");
+                return;
+            }
+
+            var caseUnit = treeService.CurrentUnits.FirstOrDefault();
+            if(caseUnit == null) {
+                LoggerService.WriteCallerLine($"{nameof(caseUnit)} can't be null.");
+                return;
+            }
+
+            var evidenceUnit = caseUnit.Children.FirstOrDefault(p => p.TypeGuid == Contracts.Casing.Constants.TreeUnitType_CaseEvidence
+            && p.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence) == evidence);
+
+            if(evidenceUnit == null) {
+                LoggerService.WriteCallerLine($"{nameof(evidenceUnit)} can't be null.");
+                return;
+            }
+
+            treeService.RemoveUnit(evidenceUnit);
         }
 
         /// <summary>
@@ -84,16 +104,15 @@ namespace SingularityForensic.Casing {
                 return;
             }
 
-            var unit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.CaseEvidenceUnit);
+            var unit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.TreeUnitType_CaseEvidence);
             unit.Label = evidence.Name;
 
             unit.SetInstance(evidence, Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
             try {
-                //设定上下文菜单;
-                unit.AddContextCommand(
-                    //显示案件文件属性;
-                    CaseCommandItemFactory.CreateShowCaseEvidencePropertyCommandItem(evidence)
-                );
+                //显示案件文件属性;
+                unit.AddContextCommand(CaseCommandItemFactory.CreateShowCaseEvidencePropertyCommandItem(evidence));
+                //移除案件;
+                unit.AddContextCommand(CaseCommandItemFactory.CreateRemoveCaseEvidencePropertyCommandItem(evidence));
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

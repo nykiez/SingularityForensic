@@ -15,6 +15,8 @@ using SingularityForensic.Contracts.Controls;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Controls.GridView;
 using SingularityForensic.Controls;
+using SingularityForensic.Contracts.FileExplorer.Models;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -25,19 +27,30 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
         /// <param name="part">模型所属主文件</param>
-        public FolderBrowserViewModel(IPartition part) {
-            this.Part = part ?? throw new ArgumentNullException(nameof(part));
+        public FolderBrowserViewModel(IHaveFileCollection part) {
+            this.HaveFileCollection = part ?? throw new ArgumentNullException(nameof(part));
+            Initialize();
+            this.FillWithCollection(part);
+        }
 
+        private void Initialize() {
             InitializeFileRowDescriptors();
             InitializeColumns();
-            FillWithCollection(part);
+            InitializeEventHandlers();
+        }
+
+        private void InitializeEventHandlers() {
+            _focusedFileRowChangedEventHandlers = 
+                ServiceProvider.GetAllInstances<IFocusedFileRowChangedEventHandler>().
+                OrderBy(p => p.Sort).
+                ToArray();
         }
 
         /// <summary>
         /// 初始化行元数据提供器;
         /// </summary>
         private void InitializeFileRowDescriptors() {
-            if (FileRow.DescriptorsInitialized) {
+            if (FileRowFactory.Current.DescriptorsInitialized) {
                 return;
             }
 
@@ -50,61 +63,49 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 #if DEBUG
             //var arr = fileMetaDataProviders.ToArray();
 #endif
-            FileRow.InitializeDescriptors(fileMetaDataProviders);
+            FileRowFactory.Current.InitializeDescriptors(fileMetaDataProviders);
         }
 
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
-            foreach (var descripter in FileRow.PropertyDescriptors) {
+            foreach (var descripter in FileRowFactory.Current.PropertyDescriptors) {
                 _files.PropertyDescriptorList.Add(descripter);
             }
         }
 
-        public IPartition Part { get; }                                        //浏览器所属主文件（分区，设备等);
+        public IHaveFileCollection HaveFileCollection { get; }                                        //浏览器所属主文件（分区，设备等);
 
         private CustomTypedListSource<IFileRow> _files = new CustomTypedListSource<IFileRow>();
         public ICollection<IFileRow> Files {
             get => _files;
             set => _files = value as CustomTypedListSource<IFileRow>;
-        } 
-        
+        }
 
-        private IFileRow _selectedRow;
-        public IFileRow SelectedRow {
-            get => _selectedRow;
+
+        IEnumerable<IFocusedFileRowChangedEventHandler> _focusedFileRowChangedEventHandlers;
+        private IFileRow _selectedFile;
+        public IFileRow SelectedFile {
+            get => _selectedFile;
             set {
-                SetProperty(ref _selectedRow, value);
-                if (_selectedRow == null) {
+                SetProperty(ref _selectedFile, value);
+                if (_selectedFile == null) {
                     return;
                 }
-
-                SelectedFile = _selectedRow;
-                PubEventHelper.GetEvent<FocusedFileChangedEvent>().Publish((this,SelectedFile));
+                SelectedFileChanged?.Invoke(this, EventArgs.Empty);
+                PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), _focusedFileRowChangedEventHandlers);
+                PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
             }
         }
 
-        public IFileRow SelectedFile { get; private set; }
         
-        /// <summary>
-        /// 填充行;
-        /// </summary>
-        ///<param name="fileCollection">母文件</param>
-        private void FillWithCollection(IHaveFileCollection fileCollection) {
-            if (fileCollection == null) {
-                return;
-            }
-            
-            FillRows(fileCollection.Children);
-        }
-
 
         /// <summary>
         /// 填充行;
         /// </summary>
         /// <param name="files"></param>
-        private void FillRows(IEnumerable<IFile> files) {
+        public void FillRows(IEnumerable<IFile> files) {
             if (files == null) {
                 return;
             }
@@ -112,13 +113,18 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             Files.Clear();
 
             foreach (var file in files) {
-                Files.Add(new FileRow(file));
+                Files.Add(FileRowFactory.Current.CreateFileRow(file));
             }
         }
-
-
-        public ObservableCollection<NavNodeModel> NavNodes { get; set; } = new ObservableCollection<NavNodeModel>();
         
+        private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();
+        
+        public ICollection<INavNodeModel> NavNodes {
+            get => NavNodeModels;
+            set {
+                NavNodeModels = value as ObservableCollection<INavNodeModel>;
+            }
+        }
         
         private ObservableCollection<ICommandItem> _viewersCommands;
         public virtual ObservableCollection<ICommandItem> ViewersCommands {
@@ -135,17 +141,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
         
         private bool viewerEverLoaded;
-        
+
+        public event EventHandler SelectedFileChanged;
 
         public void Exit() {
-            NavNodes.Clear();
+            NavNodeModels.Clear();
         }
         
-        //public static ICommandItem CreateViewerProgramCommandItem(ViewerProgramModel viewerProgramModel) {
-        //    var commandItem = CommandItemFactory.CreateNew(viewerProgramModel.WatchCommand);
-        //    commandItem.Name = viewerProgramModel.Name;
-        //    return commandItem;
-        //}
+        
 
 #if DEBUG
         ~FolderBrowserViewModel() {
@@ -163,7 +166,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         /// <param name="row"></param>
         public override void NotifyDoubleClickOnRow(object row) {
-            if (!(row is FileRow fileRow)) {
+            if (!(row is IFileRow fileRow)) {
                 return;
             }
 
@@ -176,12 +179,12 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     if (direct.IsBack) {
                         if (direct.Parent is IHaveFileCollection parentCollection
                             && (parentCollection as IFile)?.Parent is IHaveFileCollection grandCollection) {
-                            FillWithCollection(grandCollection);
+                            this.FillWithCollection(grandCollection);
 
                         }
                     }
                     else if (!direct.IsLocalBackUp) {
-                        FillWithCollection(haveFileCollection);
+                        this.FillWithCollection(haveFileCollection);
                     }
 
                 }
@@ -196,7 +199,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         /// <param name="e"></param>
         public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
-            var descriptor = FileRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            var descriptor = FileRowFactory.Current.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
             if (!(descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor)) {
                 return;
             }
@@ -216,19 +219,5 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }));
     }
 
-
-    //递归展开视图部分;
-    public partial class FolderBrowserViewModel {
-            //是否展开(递归浏览);
-            private bool _isExpanded;
-            public bool IsExpanded {
-                get {
-                    return _isExpanded;
-                }
-                set {
-                    SetProperty(ref _isExpanded, value);
-                }
-            }
-        }
-
+    
 }

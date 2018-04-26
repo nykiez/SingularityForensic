@@ -10,8 +10,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                
-                
+
                 <!--Custom Theme Setting-->
                 
                 <!--<ResourceDictionary Source="pack://application:,,,/CDFCControls;component/Themes/Generic.xaml"/>-->
@@ -35,7 +34,7 @@
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/ITunes/Languages/zh_CN/SingularityForensic.ITunes.xaml"/>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileExplorer/Languages/zh_CN/SingularityForensic.FileExplorer.xaml"/>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileSystem/Languages/zh_CN/SingularityForensic.FileSystem.xaml"/>
-
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Hex/Languages/zh_CN/SingularityForensic.Hex.xaml"/>
                         <!--<ResourceDictionary Source="pack://application:,,,/SingularityShell;component/Languages/zh_CN/SingularityShell.xaml"/>-->
 
                         <!--<ResourceDictionary Source="pack://application:,,,/SingularityForensic.Controls;component/Languages/zh_CN/SingularityForensic.Controls.xaml"/>

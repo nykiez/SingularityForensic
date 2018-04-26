@@ -1,10 +1,11 @@
 ﻿using Prism.Commands;
+using SingularityForensic.Contracts.FileExplorer.Models;
 using SingularityForensic.Contracts.FileSystem;
 using System;
+using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Models {
-    //路径节点;
-    public class NavNodeModel {
+    public class NavNodeModel:INavNodeModel {
         public NavNodeModel(IFile file) {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
@@ -13,9 +14,18 @@ namespace SingularityForensic.FileExplorer.Models {
         }
         public IFile File { get; private set; }
 
+        private string _name;
         public string Name {
             get {
-                return File.Name;
+                if(_name == null) {
+                    if(File is IPartition part) {
+                        _name = FileExtensions.GetPartFixAndName(part);
+                    }
+                    else {
+                        _name = File.Name;
+                    }
+                }
+                return _name;
             }
         }
 
@@ -31,5 +41,17 @@ namespace SingularityForensic.FileExplorer.Models {
         }
         //跳转事件;
         public event EventHandler<IFile> EscapeRequired;
+
+        ~NavNodeModel() {
+
+        }
     }
+
+    [Export(typeof(INavNodeModelFactory))]
+    public class NavNodeModelFactoryImpl : INavNodeModelFactory {
+        public INavNodeModel CreateNew(IFile file) => new NavNodeModel(file);
+
+
+    }
+
 }

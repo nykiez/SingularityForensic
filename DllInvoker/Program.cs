@@ -1,9 +1,4 @@
-﻿using CDFC.Util.PInvoke;
-using Newtonsoft.Json;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.FileSystem;
-using SingularityForensic.Info.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;

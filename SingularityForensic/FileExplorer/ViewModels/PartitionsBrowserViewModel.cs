@@ -7,12 +7,10 @@ using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Controls;
-using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -42,7 +40,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 初始化行元数据提供器;
         /// </summary>
         private void InitializePartRowDescriptors() {
-            if (PartitionRow.DescriptorsInitialized) {
+            if (PartitionRowFactory.Current.DescriptorsInitialized) {
                 return;
             }
 
@@ -53,14 +51,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 return;
             }
 
-            PartitionRow.InitializeDescriptors(partMetaDataProviders);
+            PartitionRowFactory.Current.InitializeDescriptors(partMetaDataProviders);
         }
 
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
-            foreach (var descripter in PartitionRow.PropertyDescriptors) {
+            foreach (var descripter in PartitionRowFactory.Current.PropertyDescriptors) {
                 Partitions.PropertyDescriptorList.Add(descripter);
             }
         }
@@ -81,7 +79,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 if(part == null) {
                     continue;
                 }
-                Partitions.Add(new PartitionRow(part));
+                Partitions.Add(PartitionRowFactory.Current.CreateFileRow(part));
             }
         }
         
@@ -124,7 +122,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
     public partial class PartitionsBrowserViewModel {
         public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
-            var descriptor = PartitionRow.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
+            var descriptor = PartitionRowFactory.Current.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
             if (!(descriptor is PartitionRow.FileRowPropertyDescriptor partRowPropDescriptor)) {
                 return;
             }
@@ -134,7 +132,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
         public override void NotifyDoubleClickOnRow(object row) {
-            if (!(row is PartitionRow partRow)) {
+            if (!(row is IPartitionRow partRow)) {
                 return;
             }
 

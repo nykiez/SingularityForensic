@@ -54,11 +54,13 @@
         <Grid Grid.Column="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="12"/>
             </Grid.RowDefinitions>
             <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MenuRegion}" Grid.ColumnSpan="2"/>
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MainRegion}" Grid.Row="1" Grid.ColumnSpan="2" />
+            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.ToolBarRegion}" Grid.Row="1" />
+            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MainRegion}" Grid.Row="2" Grid.ColumnSpan="2" />
         </Grid>
         
         <sviews:LoadingMask Grid.Column="1" Grid.ColumnSpan="3" 

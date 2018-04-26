@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SingularityForensic.Hex.Views.HexView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SingularityForensic.Controls.Views"
+             xmlns:hex="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+             xmlns:vms="clr-namespace:SingularityForensic.Contracts.Hex;assembly=SingularityForensic.Contracts"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate x:Key="DataToolTipTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding KeyName}"/>
+                <TextBlock Text=":"/>
+                <TextBlock Text="{Binding Value}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <ContextMenu x:Key="DataLayerContextMenu">
+            <MenuItem Header="{DynamicResource ContextCommandName_CopyKey}" Command="{Binding CopyKeyCommand}"/>
+            <MenuItem Header="{DynamicResource ContextCommandName_CopyValue}" Command="{Binding CopyValueCommand}"/>
+            <MenuItem Header="{DynamicResource ContextCommandName_CopyExpression}" Command="{Binding CopyExpressionCommand}"/>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Grid>
+        <hex:DrawedHexEditor CellMargin="0,2" CellPadding="2" Stream="{Binding Stream,IsAsync=True}" FocusPosition ="{Binding FocusPosition}"
+                        Position="{Binding Position}" SelectionLength="{Binding SelectionLength}" 
+                             HoverPosition="{Binding HoverPosition}" x:Name="HexEditor" SelectionStart="{Binding SelectionStart,Mode=TwoWay}"  >
+            <hex:DrawedHexEditor.ContextMenu>
+                <ContextMenu ItemsSource="{Binding ContextCommands}">
+                    <ContextMenu.ItemContainerStyle>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="Header" Value="{Binding Name}"/>
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                        </Style>
+                    </ContextMenu.ItemContainerStyle>
+                </ContextMenu>
+            </hex:DrawedHexEditor.ContextMenu>
+            <hex:DrawedHexEditor.HexDataToolTip>
+                <ListBox ItemsSource="{Binding DataToolTips}" FontSize="14" SelectedItem="{Binding SelectedToolTipItem}" Style="{x:Null}"
+                         ItemTemplate="{StaticResource DataToolTipTemplate}" ContextMenu="{StaticResource DataLayerContextMenu}" />
+            </hex:DrawedHexEditor.HexDataToolTip>
+            <hex:DrawedHexEditor.StringDataToolTip>
+                <ListBox ItemsSource="{Binding DataToolTips}" FontSize="14" SelectedItem="{Binding SelectedToolTipItem}" Style="{x:Null}"
+                         ItemTemplate="{StaticResource DataToolTipTemplate}" ContextMenu="{StaticResource DataLayerContextMenu}" />
+            </hex:DrawedHexEditor.StringDataToolTip>
+        </hex:DrawedHexEditor>
+    </Grid>
+</UserControl>

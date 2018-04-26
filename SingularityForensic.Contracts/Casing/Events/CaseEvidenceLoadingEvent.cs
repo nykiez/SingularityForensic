@@ -1,5 +1,6 @@
 ﻿using Prism.Events;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace SingularityForensic.Contracts.Casing.Events {
     /// </summary>
     /// <typeparam name="CaseEvidence"></typeparam>
     public class CaseEvidenceLoadingEvent:PubSubEvent<(ICaseEvidence csEvidence,IProgressReporter reporter)> {
+
+    }
+
+    public interface ICaseEvidenceLoadingEventHandler:IEventHandler<(ICaseEvidence csEvidence, IProgressReporter reporter)> {
 
     }
 }

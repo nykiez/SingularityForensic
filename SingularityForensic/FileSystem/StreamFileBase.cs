@@ -1,14 +1,10 @@
 ﻿using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
-    
+
 
     /// <summary>
     /// 流文件类型;可用作描述分区,磁盘等的基类;
@@ -16,7 +12,7 @@ namespace SingularityForensic.FileSystem {
     /// <typeparam name="TStoken"></typeparam>
     public abstract class StreamFileBase<TStoken> : FileBase<TStoken>,
         IStreamFile<TStoken> where TStoken : StreamFileStoken,new() {
-        public StreamFileBase(string key,TStoken stoken = null):base(key,stoken){
+        public StreamFileBase(string key):base(key){
 
         }
         

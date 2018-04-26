@@ -55,6 +55,10 @@
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
     </Reference>
+    <Reference Include="ewf.net, Version=1.0.6630.32560, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EWF.NET\ewf.net.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -132,8 +136,14 @@
     <Compile Include="FileExplorer\TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hex\TestLoadHex.xaml.cs">
+      <DependentUpon>TestLoadHex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestApp.xaml.cs">
       <DependentUpon>TestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestHex.xaml.cs">
+      <DependentUpon>TestHex.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestProxy.cs" />
     <Compile Include="TestDataGrid.xaml.cs">
@@ -184,6 +194,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Hex\TestLoadHex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -223,6 +237,10 @@
     <Page Include="TestFilterableDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestHex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestInteractionRequest.xaml">
       <SubType>Designer</SubType>
@@ -286,19 +304,20 @@
       <Name>SingularityForensic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hex\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"
-Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"
+    <PostBuildEvent>Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"
 Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.SqlServer.dll"
-Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
-Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"  /E /Y
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.105.2\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
 
+Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
+Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
+xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"  /E /Y
+xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
+Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"
+
+Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"
+Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
 
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y

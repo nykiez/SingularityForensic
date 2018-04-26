@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.TreeView {
     public class TreeUnit : ExtensibleBindableBase, ITreeUnit, IInternalNode<ITreeUnit> {
@@ -57,7 +54,9 @@ namespace SingularityForensic.TreeView {
         }
 
         private ObservableCollection<ICommandItem> _contextCommands = new ObservableCollection<ICommandItem>();
-        //上下文命令菜单;
+        /// <summary>
+        /// 上下文命令菜单;
+        /// </summary>
         public IEnumerable<ICommandItem> ContextCommands {
             get => _contextCommands;
             set {
@@ -74,33 +73,9 @@ namespace SingularityForensic.TreeView {
             set => SetProperty(ref _isExpanded, value);
         }
 
-        public void AddContextCommand(ICommandItem commandItem) {
-            if (commandItem == null) {
-                throw new ArgumentNullException(nameof(commandItem));
-            }
+        public void AddContextCommand(ICommandItem commandItem) => _contextCommands.AddOrderBy(commandItem, p => p.Sort);
 
-            var index = 0;
-
-            foreach (var ci in ContextCommands) {
-                if (ci.Sort > commandItem.Sort) {
-                    break;
-                }
-                index++;
-            }
-
-            _contextCommands.Insert(index, commandItem);
-        }
-
-        public void RemoveCommandItem(ICommandItem commandItem) {
-            if(commandItem == null) {
-                throw new ArgumentNullException(nameof(commandItem));
-            }
-
-            if (_contextCommands.Contains(commandItem)) {
-                _contextCommands.Remove(commandItem);
-            }
-
-        }
+        public void RemoveContextCommand(ICommandItem commandItem) => _contextCommands.Remove(commandItem);
     }
 
     interface IInternalNode<TNode> {

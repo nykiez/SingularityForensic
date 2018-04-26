@@ -1,13 +1,9 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// 非托管的各种状态封装,例如分区/设备管理;

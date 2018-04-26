@@ -1,5 +1,4 @@
 ﻿using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Previewers.Models;
 using SingularityForensic.Previewers.ViewModels;
 using System.Windows;
 using System.Windows.Controls;

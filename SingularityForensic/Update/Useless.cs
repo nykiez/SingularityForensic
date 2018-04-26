@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Update {
+﻿namespace SingularityForensic.Update {
     //查找，搜索相关;
     public partial class ShellViewModel {
         ////搜寻关键字;

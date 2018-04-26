@@ -1,11 +1,8 @@
-﻿using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileSystem {
     /// <summary>
@@ -22,6 +19,8 @@ namespace SingularityForensic.FileSystem {
         public abstract long Size { get; }
 
         internal IFile InternalParent { get; set; }
+
+        public abstract TInstance GetIntance<TInstance>(string extName);
 
         internal void ChangeParent(IFile parent) {
             InternalParent = parent;
@@ -47,9 +46,9 @@ namespace SingularityForensic.FileSystem {
             return _stoken;
         }
 
-        public FileBase(string key, TStoken stoken = null) {
+        public FileBase(string key) {
             this._key = key;
-            this._stoken = stoken ?? new TStoken();
+            this._stoken = new TStoken();
         }
 
         public override IEnumerable<string> TypeGuids => _stoken?.TypeGuids;
@@ -66,6 +65,10 @@ namespace SingularityForensic.FileSystem {
         /// <param name="timeLabel"></param>
         /// <returns></returns>
         public DateTime? GetExtensionTime(string timeLabel) => _stoken.GetExtensionTime(timeLabel);
+
+        public override TInstance GetIntance<TInstance>(string extName) {
+            return _stoken.GetIntance<TInstance>(extName);
+        }
     }
     
     /// <summary>
@@ -75,7 +78,7 @@ namespace SingularityForensic.FileSystem {
     [Serializable]
     public abstract class BlockGroupedFileBase<TStoken> : FileBase<TStoken>,
         IHaveFileTime, IBlockGroupedFile, IDeletable where TStoken : FileStokenBase2, new() {
-        public BlockGroupedFileBase(string key, TStoken stoken = null) : base(key, stoken) {
+        public BlockGroupedFileBase(string key) : base(key) {
 
         }
 

@@ -1,12 +1,6 @@
 ﻿using Prism.Commands;
-using System.ComponentModel.Composition;
-using SingularityForensic.Contracts;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Controls.Models;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Controls.FileExplorer.Indexing {
     public static class CommandDefinitions {

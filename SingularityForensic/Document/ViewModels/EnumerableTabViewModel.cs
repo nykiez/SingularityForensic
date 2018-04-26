@@ -1,13 +1,8 @@
 ﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.Document;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SingularityForensic.Document.ViewModels {
     [Export]

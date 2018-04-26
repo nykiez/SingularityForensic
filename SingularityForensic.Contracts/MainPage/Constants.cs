@@ -2,7 +2,7 @@
     public static class Constants {
         public const string MainTreeService = nameof(MainTreeService);
 
-        public const string ToolBarRegion = nameof(ToolBarRegion);
+        
         public const string MainPageDocumentRegion = nameof(MainPageDocumentRegion);
         public const string NodeTreeRegion = nameof(NodeTreeRegion);
 

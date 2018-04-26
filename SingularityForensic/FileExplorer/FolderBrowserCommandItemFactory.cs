@@ -1,7 +1,6 @@
 ﻿using Prism.Commands;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hash;
 using System.IO;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer {
     public static partial class FolderBrowserCommandItemFactory {
@@ -80,10 +80,10 @@ namespace SingularityForensic.FileExplorer {
             proDialog.WindowTitle = $"{LanguageService.FindResourceString("FilesBeingCopied")}";
 
             void saveFileFunc(IRegularFile rFile, string drPath, string fileName) {
+                FileStream fs = null;
                 try {
-                    var fs = System.IO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
+                    fs = System.IO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
                     int read;
-
                     using (var mulS = rFile.GetInputStream()) {
                         var buffer = new byte[10485760];
                         mulS.Position = 0;
@@ -96,13 +96,16 @@ namespace SingularityForensic.FileExplorer {
                                 $"{LanguageService.FindResourceString("CurExtractingFile")}:{fileName}");
                         }
                     }
-                    fs.Close();
+                    
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
                     ThreadInvoker.UIInvoke(() => {
                         MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToExtractFile")}:{ex.Message}");
                     });
+                }
+                finally {
+                    fs?.Close();
                 }
             }
 
@@ -132,7 +135,7 @@ namespace SingularityForensic.FileExplorer {
 
             }
             else {
-                var drPath = DialogService.Current.GetDirect();
+                var drPath = DialogService.Current.OpenDirect();
                 if (string.IsNullOrEmpty(drPath)) {
                     return;
                 }
@@ -233,7 +236,13 @@ namespace SingularityForensic.FileExplorer {
                         return;
                     }
 
-                    ExplorerHelper.OpenFile(tempFileName);
+                    try {
+                        ExplorerHelper.OpenFile(tempFileName);
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                        MsgBoxService.Show(ex.Message);
+                    }
                 },
 
                 () => {
@@ -247,6 +256,8 @@ namespace SingularityForensic.FileExplorer {
 
                     return true;
                 }).ObservesProperty(() => vm.SelectedFile);
+
+            vm.SelectedFileChanged += delegate { comm.RaiseCanExecuteChanged(); };
 
             return comm;
         }
@@ -281,7 +292,9 @@ namespace SingularityForensic.FileExplorer {
                 LoggerService.WriteCallerLine(ex.Message);
                 MsgBoxService.ShowError(ex.Message);
             }
-
+            finally {
+                inputStream.Dispose();
+            }
             return string.Empty;
         }
     }
@@ -312,7 +325,7 @@ namespace SingularityForensic.FileExplorer {
         /// <returns></returns>
         public static ICommandItem CreateNavigateCommandItem(IFolderBrowserViewModel vm) {
             var cmi = CommandItemFactory.CreateNew(null);
-            cmi.Children.Add(CreateListBlockCommandItem(vm));
+            cmi.AddChild(CreateListBlockCommandItem(vm));
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_Navigate);
             return cmi;
         }
@@ -342,7 +355,7 @@ namespace SingularityForensic.FileExplorer {
                 var lb = new ListBlockMessageBox(blockGrouped);
                 lb.SelectedAddressChanged += (sender, e) => {
                     var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                        FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.Part);
+                        FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.HaveFileCollection);
                     if (tab == null) {
                         return;
                     }
@@ -372,7 +385,7 @@ namespace SingularityForensic.FileExplorer {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ComputeHash);
             var commandItems = CreateComputeHashCommandItems(vm);
             foreach (var cm in commandItems) {
-                cmi.Children.Add(cm);
+                cmi.AddChild(cm);
             }
             return cmi;
         }
@@ -416,8 +429,9 @@ namespace SingularityForensic.FileExplorer {
                     }
 
                     DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.ConvertToHexFormat());
+                    stream.Dispose();
                 };
-
+                
                 loadingDialog.Show();
             });
             return comm;
@@ -447,7 +461,5 @@ namespace SingularityForensic.FileExplorer {
 
             return hasher.ComputeHash(inputStream, reporter);
         }
-
-        
     }
 }

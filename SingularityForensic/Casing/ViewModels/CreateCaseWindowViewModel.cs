@@ -167,7 +167,7 @@ namespace SingularityForensic.Casing.ViewModels {
                 return queryPathCommand ??
                     (queryPathCommand = new DelegateCommand(
                         () => {
-                            var direct = DialogService.Current?.GetDirect();
+                            var direct = DialogService.Current?.OpenDirect();
                             if (string.IsNullOrEmpty(direct)) {
                                 return;
                             }

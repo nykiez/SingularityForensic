@@ -9,6 +9,10 @@ namespace SingularityForensic.Contracts.Common {
     /// UI元素提供者;
     /// </summary>
     public interface IUIObjectProvider {
-        object UIObject { get; }    
+        /// <summary>
+        /// UI元素;
+        /// </summary>
+        object UIObject { get; }
+        
     }
 }

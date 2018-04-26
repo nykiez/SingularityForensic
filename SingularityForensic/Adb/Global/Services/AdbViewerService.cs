@@ -7,7 +7,6 @@ using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.TreeView;
 
 namespace SingularityForensic.Adb.Global.Services {
     [Export]

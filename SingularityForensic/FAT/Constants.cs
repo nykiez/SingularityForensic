@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.FAT {
+﻿namespace SingularityForensic.FAT {
     public static partial class Constants {
         internal const string PartitionKey_FAT = "D2C19FB9-E98C-498C-B0F2-3AE4EA62BD00";
 

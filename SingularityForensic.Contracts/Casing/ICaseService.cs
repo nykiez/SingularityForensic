@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="xelem"></param>
         /// <returns></returns>
-        ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem);
+        //ICaseEvidence LoadCaseEvidenceFromXElem(XElement xelem);
 
         /// <summary>
         /// 新建一个证据项;
@@ -50,7 +50,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="fileName">案件文件名</param>
         void LoadCase(string fileName);
-
+        
         /// <summary>
         /// 加载案件;
         /// </summary>
@@ -65,7 +65,7 @@ namespace SingularityForensic.Contracts.Casing {
     }
 
     public class CaseService: GenericServiceStaticInstance<ICaseService> {
-
+        public static bool ConfirmCaseLoaded() => Current?.ConfirmCaseLoaded() ?? false;
     }
 
     public interface ICaseViewService{

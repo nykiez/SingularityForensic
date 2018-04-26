@@ -9,18 +9,18 @@ namespace SingularityForensic.Previewers {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            this.Stream = stream;
+            this.BaseStream = stream;
         }
 
-        private Stream stream;
-        public Stream Stream {
+        private Stream _baseStream;
+        public Stream BaseStream {
             get {
-                return stream;
+                return _baseStream;
             }
             private set {
-                stream = value;
-                if (stream != null) {
-                    (View as Views.ImagePreviewer).LoadStream(stream);
+                _baseStream = value;
+                if (_baseStream != null) {
+                    (View as Views.ImagePreviewer).LoadStream(_baseStream);
                 }
                 else {
                     (View as Views.ImagePreviewer).LoadStream(null); 
@@ -33,8 +33,8 @@ namespace SingularityForensic.Previewers {
         public FrameworkElement View => view ?? (view = new Views.ImagePreviewer());
 
         public void Dispose() {
-            Stream?.Close();
-            Stream = null;
+            BaseStream?.Dispose();
+            BaseStream = null;
         }
     }
 }

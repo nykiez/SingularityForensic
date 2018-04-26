@@ -8,8 +8,6 @@ using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace DemoUI {
@@ -60,18 +58,14 @@ namespace DemoUI {
         }
 
         protected override void InitializeModules() {
-            
             base.InitializeModules();
-            
+            Application.Current.MainWindow.Show();
             TestProxy.Test();
             //splashService.CloseSplash();
         }
-
         protected override void InitializeShell() {
-            Application.Current.MainWindow = this.Shell as Window;
-            Application.Current.MainWindow.Show();
+            
         }
 
-       
     }
 }

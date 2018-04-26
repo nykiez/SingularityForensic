@@ -111,13 +111,15 @@
     <Compile Include="Common\GenericServiceStaticInstance2Tests.cs" />
     <Compile Include="Common\TestExtensibleObject.cs" />
     <Compile Include="Common\ViewProviderTests.cs" />
-    <Compile Include="Documents\DocumentServiceTest.cs" />
+    <Compile Include="Document\DocumentServiceTest.cs" />
     <Compile Include="Document\DocumentServiceTests.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />
+    <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandlerTests.cs" />
+    <Compile Include="FileExplorer\FileExplorerTestCommon.cs" />
     <Compile Include="FileExplorer\FolderBrowserViewModelFactoryTests.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
@@ -127,12 +129,17 @@
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
+    <Compile Include="FileSystem\HaveFileCollectionExtensionsTests.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Hash\HasherTests.cs" />
+    <Compile Include="Hex\HexDataContextCommandItemFactoryTests.cs" />
     <Compile Include="Hex\HexUIServiceTests.cs" />
+    <Compile Include="Imaging\EWFStreamTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />
+    <Compile Include="ITunes\IOSBackUpParserTests.cs" />
+    <Compile Include="ITunes\ITunesBackUpServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="Shell\ShellMockers.cs" />
     <Compile Include="TestDos.cs" />
@@ -189,6 +196,8 @@ XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Langu
 Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Microsoft.Expression.Interactions.dll"
 
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)StreamExtension.dll"</PostBuildEvent>
+Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)StreamExtension.dll"
+
+XCopy "$(SolutionDir)SingularityForensic\ITunes\DLLS" "$(TargetDir)"  /E /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

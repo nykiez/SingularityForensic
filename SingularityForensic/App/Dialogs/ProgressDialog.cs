@@ -1,11 +1,7 @@
 ﻿using SingularityForensic.App.Views;
 using SingularityForensic.Contracts.App;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.App.Dialogs {
@@ -80,7 +76,7 @@ namespace SingularityForensic.App.Dialogs {
         }
 
         private void ShowCore(Window owner = null, bool showAsDialog = true) {
-            if (owner != null) {
+            if (owner != null && owner.IsVisible) {
                 window.Owner = owner;
             }
             else {

@@ -52,7 +52,7 @@ namespace SingularityForensic.Contracts.TreeView {
 
         void AddContextCommand(ICommandItem commandItem);
 
-        void RemoveCommandItem(ICommandItem commandItem);
+        void RemoveContextCommand(ICommandItem commandItem);
     }
 
 }

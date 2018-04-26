@@ -1,7 +1,6 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.MainPage.ViewModels;
@@ -25,17 +24,44 @@ namespace SingularityForensic.MainPage {
         
         private void Initialize() {
             RegisterEvents();
+
+            //To arrary将会阻止ServiceProvider.GetAllInstances的反复执行;
+            _treeUnitRightClickeEventHandlers = ServiceProvider.
+                        GetAllInstances<ITreeUnitRightClickedEventHandler>().
+                        OrderBy(p => p.Sort).ToArray();
+            _selectedTreeUnitEventHandlers = ServiceProvider.
+                GetAllInstances<ITreeUnitSelectedChangedEventHandler>().
+                OrderBy(p => p.Sort).ToArray();
         }
 
         private void RegisterEvents() {
-            VM.SelectedUnitChanged += vm_SelectedUnitChanged;
+            VM.SelectedUnitChanged += VM_SelectedUnitChanged;
+            VM.UnitRightClicked += VM_UnitRightClicked;
         }
+        
+        public IEnumerable<ITreeUnitRightClickedEventHandler> _treeUnitRightClickeEventHandlers;
 
-        private void vm_SelectedUnitChanged(object sender, EventArgs e) {
+        private void VM_UnitRightClicked(object sender, ITreeUnit e) {
             if(sender != VM) {
                 return;
             }
 
+            PubEventHelper.PublishEventToHandlers((e, this as ITreeService), _treeUnitRightClickeEventHandlers);
+        }
+        
+        private IEnumerable<ITreeUnitSelectedChangedEventHandler> _selectedTreeUnitEventHandlers;
+
+        /// <summary>
+        /// 视图模型选定单元发生变化时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VM_SelectedUnitChanged(object sender, EventArgs e) {
+            if(sender != VM) {
+                return;
+            }
+
+            PubEventHelper.PublishEventToHandlers((VM.SelectedUnit, this as ITreeService), _selectedTreeUnitEventHandlers);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
         }
 
@@ -44,7 +70,7 @@ namespace SingularityForensic.MainPage {
             if(unit == null) {
                 throw new ArgumentNullException(nameof(unit));
             }
-
+            
             if(unit.Parent != null) {
                 unit.Parent.Children.Remove(unit);
             }

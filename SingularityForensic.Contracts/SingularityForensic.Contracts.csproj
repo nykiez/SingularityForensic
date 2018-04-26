@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
-    <LangVersion>7</LangVersion>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Constants.cs" />
+    <Compile Include="App\IClipBoardService.cs" />
     <Compile Include="App\IThreadInvoker.cs" />
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
@@ -121,18 +122,21 @@
     <Compile Include="Casing\Events\CaseEvidenceLoadedEvent.cs" />
     <Compile Include="Casing\Events\CaseEvidenceAddedEvent.cs" />
     <Compile Include="Common\BytesExtensions.cs" />
-    <Compile Include="Common\CommandItem.cs" />
+    <Compile Include="Common\ICommandItem.cs" />
     <Compile Include="Common\Commands\OpenPathCommand.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ExtensibleBindableBase.cs" />
     <Compile Include="Common\ExtensibleObject.cs" />
+    <Compile Include="Common\GenericCollectionExtension.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
-    <Compile Include="Common\EmptyServiceProvider.cs" />
+    <Compile Include="App\EmptyServiceProvider.cs" />
+    <Compile Include="Common\IEventHandler.cs" />
     <Compile Include="Common\IInstanceExtensible.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
     <Compile Include="Common\IUIObjectProvider.cs" />
     <Compile Include="Common\IUIReactService.cs" />
     <Compile Include="Common\IViewProvider.cs" />
+    <Compile Include="Common\UIObjectProviderExtensions.cs" />
     <Compile Include="Common\XElemExtensions.cs" />
     <Compile Include="Common\IHaveStoken.cs" />
     <Compile Include="Common\StreamExtensions.cs" />
@@ -163,9 +167,13 @@
     <Compile Include="Casing\ICaseUIService.cs" />
     <Compile Include="FileExplorer\ICustomSignSearchService.cs" />
     <Compile Include="FileExplorer\IFileExplorerUIReactService.cs" />
-    <Compile Include="FileExplorer\IFolderBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\IFolderBrowserCommandProvider.cs" />
+    <Compile Include="FileExplorer\ViewModels\IFolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\IPartitionsBrowserViewModel.cs" />
-    <Compile Include="FileSystem\BlockedStreamFileStoken.cs" />
+    <Compile Include="FileExplorer\Models\INavNodeModel.cs" />
+    <Compile Include="FileSystem\BlockGroupedFileInputStreamProvider.cs" />
+    <Compile Include="FileSystem\StreamFileStoken.cs" />
+    <Compile Include="FileSystem\IFileInputStreamProvider.cs" />
     <Compile Include="FileSystem\IStreamFile.cs" />
     <Compile Include="FileSystem\IDevice.cs" />
     <Compile Include="FileSystem\HaveFileCollectionExtensions.cs" />
@@ -202,10 +210,15 @@
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\IHasher.cs" />
+    <Compile Include="App\ILocalExplorerService.cs" />
+    <Compile Include="Hex\IHexUIService.cs" />
+    <Compile Include="Hex\IToolTipDataItem.cs" />
     <Compile Include="Hex\IToolTipItem.cs" />
-    <Compile Include="Hex\CodeLanguage.cs" />
+    <Compile Include="Hex\IBufferToProCodeFormatter.cs" />
     <Compile Include="Hex\Constants.cs" />
     <Compile Include="Hex\IHexSetting.cs" />
+    <Compile Include="Hex\IToolTipItemFactory.cs" />
+    <Compile Include="Hex\IToolTipObjectItem.cs" />
     <Compile Include="Imaging\Constants.cs" />
     <Compile Include="Imaging\IImagingService.cs" />
     <Compile Include="Imaging\IImgMounter.cs" />
@@ -216,7 +229,7 @@
     <Compile Include="Info\ForensicTreeUnit.cs" />
     <Compile Include="Helpers\PubEventHelper.cs" />
     <Compile Include="Helpers\RegionHelper.cs" />
-    <Compile Include="Hex\Events\HexEditorLoadedEvent.cs" />
+    <Compile Include="Hex\Events\HexDataContextLoadedEvent.cs" />
     <Compile Include="Hex\IHexDataContext.cs" />
     <Compile Include="Hex\IHexService.cs" />
     <Compile Include="Info\IHaveTalkLogs.cs" />
@@ -233,7 +246,10 @@
     <Compile Include="Shell\Constants.cs" />
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
-    <Compile Include="ToolBar\ToolBarObjectItem.cs" />
+    <Compile Include="StatusBar\IStatusBarItem.cs" />
+    <Compile Include="ToolBar\IToolBarButtonItem.cs" />
+    <Compile Include="ToolBar\IToolBarService.cs" />
+    <Compile Include="ToolBar\IToolBarObjectItem.cs" />
     <Compile Include="TreeView\Events\TreeUnitRemovedEvent.cs" />
     <Compile Include="TreeView\ITreeUnitFactory.cs" />
     <Compile Include="TreeView\Events\TreeUnitsClearingEvent.cs" />
@@ -257,8 +273,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Shell\Events\ShellRenderedEvent.cs" />
     <Compile Include="Shell\IShellService.cs" />
+    <Compile Include="TreeView\ViewModels\ITreeViewViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -653,6 +669,8 @@
     <Resource Include="Themes\Images\TextBox\Search_Field.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Shell\Events\" />
+    <Folder Include="StatusBar\Events\" />
     <Folder Include="Themes\Images\RadioButton\" />
   </ItemGroup>
   <ItemGroup>

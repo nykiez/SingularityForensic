@@ -6,7 +6,6 @@ using CDFC.Util.PInvoke;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.BaseDevice;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.FileSystem;
 
 namespace SingularityForensic.Test.FileSystem {
     /// <summary>

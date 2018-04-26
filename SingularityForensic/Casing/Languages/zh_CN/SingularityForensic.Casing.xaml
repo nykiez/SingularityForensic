@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
   <sys:String x:Key="DefaultCaseName">案件名</sys:String>
-  <sys:String x:Key="OpenCasePathFolder">打开案件所在路径</sys:String>
+  <sys:String x:Key="ContextCommandName_OpenCasePathFolder">打开案件所在路径</sys:String>
   <sys:String x:Key="ShowCaseProperty">显示案件属性</sys:String>
   <sys:String x:Key="CaseModuleBeingLoaded">案件模块正在被加载</sys:String>
   <sys:String x:Key="CaseConstructingFailed">案件创建失败</sys:String>
@@ -10,4 +9,11 @@
   <sys:String x:Key="ConfirmToCloseAndOpen">确定关闭当前案件以打开案件吗?</sys:String>
   <sys:String x:Key="FailedToOpenCase">打开案件失败</sys:String>
   <sys:String x:Key="LoadingCase">正在加载案件</sys:String>
+  <sys:String x:Key="TBButtonToolTip_OpenCase">打开案件</sys:String>
+  <sys:String x:Key="MenuItemText_OpenCase">打开案件</sys:String>
+  <sys:String x:Key="TBButtonToolTip_CloseCase">关闭案件</sys:String>
+  <sys:String x:Key="MenuItemText_CloseCase">关闭案件</sys:String>
+  <sys:String x:Key="TBButtonToolTip__CreateCase">创建案件</sys:String>
+  <sys:String x:Key="MenuItemText_CreateCase">创建案件</sys:String>
+  <sys:String x:Key="ContextCommandName_RemoveCaseEvidence">移除</sys:String>
 </ResourceDictionary>

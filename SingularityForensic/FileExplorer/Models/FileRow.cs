@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer.Models {
     public class FileRow:FileRowProxy<IFile> , IFileRow{
@@ -74,7 +72,7 @@ namespace SingularityForensic.FileExplorer.Models {
         public override PropertyDescriptorCollection GetProperties() {
             return _filePropDescriptorCollection;
         }
-        
+
         public class FileRowPropertyDescriptor : PropertyDescriptor {
             public override string DisplayName => FileMetaDataProvider.MetaDataName;
             public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID, new Attribute[0]) {
@@ -111,4 +109,9 @@ namespace SingularityForensic.FileExplorer.Models {
         }
     }
     
+   
+    
+    
+
+
 }

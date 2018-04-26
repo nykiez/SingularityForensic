@@ -42,6 +42,8 @@ namespace SingularityForensic.Casing {
                 LoggerService.WriteLine($"{nameof(ICase)}->{nameof(ICase)}:{ex.Message}");
                 throw;
             }
+
+            Initialize();
         }
 
         private Case(XDocument doc, string path) {
@@ -49,9 +51,20 @@ namespace SingularityForensic.Casing {
             var rootElem = doc.Root;
             this.CaseName = rootElem.Attribute(nameof(CaseName))?.Value;
             this.Path = path;
+            Initialize();
+        }
+        
+        private void Initialize() {
+            InitializeEventHandlers();
+        }
+        private void InitializeEventHandlers() {
+            _caseEvidenceLoadingEventHandlers = ServiceProvider.
+                GetAllInstances<ICaseEvidenceLoadingEventHandler>().
+                OrderBy(p => p.Sort).
+                ToArray();
         }
 
-
+        private IEnumerable<ICaseEvidenceLoadingEventHandler> _caseEvidenceLoadingEventHandlers;
         //案件时间;
         public string CaseTime {
             get => XDoc.GetXElemValue();
@@ -81,19 +94,17 @@ namespace SingularityForensic.Casing {
             get => XDoc.GetXElemValue();
             set => XDoc.SetXElemValue(value);
         }
-
         
-
         //设备文档;
         public XDocument XDoc { get; private set; }
 
         //案件所关联的设备文件(外部不可访问);
-        private List<ICaseEvidence> caseFiles = new List<ICaseEvidence>();
+        private List<ICaseEvidence> _caseEvidences = new List<ICaseEvidence>();
         //案件所关联的设备文件(外部可访问);
-        public IEnumerable<ICaseEvidence> CaseEvidences => caseFiles?.Select(p => p);
-
+        public IEnumerable<ICaseEvidence> CaseEvidences => _caseEvidences?.Select(p => p);
+        
         /// <summary>
-        /// 载入案件文件;(适用于的单独加载,针对案件中已经写入的证据);
+        /// 载入案件文件;(适用于单独的加载,针对案件中已经写入的证据);
         /// </summary>
         /// <param name="csEvidence">已经写入的证据</param>
         public void LoadCaseEvidence(ICaseEvidence csEvidence) {
@@ -132,9 +143,10 @@ namespace SingularityForensic.Casing {
         /// <param name="reporter">进度回调器</param>
         public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
+                PubEventHelper.PublishEventToHandlers((csEvidence, reporter), _caseEvidenceLoadingEventHandlers);
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
                 //案件中加入文件;
-                caseFiles.Add(csEvidence);
+                _caseEvidences.Add(csEvidence);
                 PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
             }
             catch (Exception ex) {
@@ -261,6 +273,24 @@ namespace SingularityForensic.Casing {
             finally {
                 stream?.Close();
             }
+        }
+
+        /// <summary>
+        /// 移除证据项;
+        /// </summary>
+        /// <param name="evidence"></param>
+        public void RemoveCaseEvidence(ICaseEvidence evidence) {
+            if(evidence == null) {
+                throw new ArgumentNullException(nameof(evidence));
+            }
+
+            if (!_caseEvidences.Contains(evidence)) {
+                LoggerService.WriteCallerLine($"{nameof(_caseEvidences)} doesn't contain the evidence.");
+                return;
+            }
+
+            _caseEvidences.Remove(evidence);
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Publish(evidence);
         }
     }
 }

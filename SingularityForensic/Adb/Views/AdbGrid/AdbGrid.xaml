@@ -45,7 +45,7 @@
                     <gridviews:AdbInfoDetailTab/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type gridvms:AdbFileHexStreamTabViewModel}">
-                    <hexviews:InterceptHex/>
+                    <hexviews:HexView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type gridvms:AdbPreviewViewModel}">
                     <ContentControl DataContext="{Binding Previewer}" Content="{Binding View}" />

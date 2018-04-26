@@ -1,9 +1,5 @@
 ﻿using Prism.Modularity;
 using Prism.Mef.Modularity;
-using System.ComponentModel.Composition;
-using System.Collections.Generic;
-using CDFCUIContracts.Commands;
-using SingularityForensic.Contracts.FileSystem;
 
 namespace SingularityForensic.FileSystem {
     [ModuleExport(typeof(FileSystemModule))]
@@ -12,7 +8,7 @@ namespace SingularityForensic.FileSystem {
         //private IEnumerable<ICommandItem> DeviceNodeCommandItems;
         
         public void Initialize() {
-            FSService.Current?.Initialize();
+            Contracts.FileSystem.FileSystemService.Current?.Initialize();
         }
         
         ///// <summary>

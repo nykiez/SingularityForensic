@@ -1,14 +1,9 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Document {
     /// <summary>
@@ -44,27 +39,7 @@ namespace SingularityForensic.Document {
 
         //关闭请求;
         public event EventHandler CloseRequest;
-
-        private DelegateCommand _closeAllCommand;
-        public DelegateCommand CloseAllCommand => _closeAllCommand ??
-            (_closeAllCommand = new DelegateCommand(() => {
-                CloseAllRequest?.Invoke(this, EventArgs.Empty);
-
-            }));
-
-        //清除请求;
-        public event EventHandler CloseAllRequest;
-
-        private ICommandItem _closeAllCmItem;
-        public ICommandItem CloseAllCmItem {
-            get {
-                if(_closeAllCmItem == null) {
-                    _closeAllCmItem = CommandItemFactory.CreateNew(CloseAllCommand);
-                    _closeAllCmItem.Name = LanguageService.FindResourceString(Constants.CloseAllTabs);
-                }
-                return _closeAllCmItem;
-            }
-        }
+     
 
         public ObservableCollection<ICommandItem> CommandItems { get; set; } =
             new ObservableCollection<ICommandItem>();

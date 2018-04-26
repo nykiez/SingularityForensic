@@ -1,14 +1,6 @@
-﻿using CDFC.Info.Adb;
-using Prism.Events;
-using Prism.Mef.Modularity;
+﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Adb.Contracts;
-using SingularityForensic.Adb.TabModels;
-using SingularityForensic.Adb.ViewModels;
-using System;
-using System.ComponentModel.Composition;
-using System.Linq;
-using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Adb {
     [ModuleExport(typeof(AdbViewerModule))]

@@ -1,15 +1,11 @@
-﻿using CDFC.Util.IO;
+﻿using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
+using SingularityForensic.Contracts.Imaging;
 using SingularityForensic.Contracts.MainPage;
-using SingularityForensic.Contracts.MainPage.Events;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoUI {
     /// <summary>
@@ -54,7 +50,7 @@ namespace DemoUI {
             //    dev.SetStartLBA(part, i * 200);
             //}
 
-            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
+            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
             MainTreeService.Current?.AddUnit(null, unit);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
@@ -63,8 +59,14 @@ namespace DemoUI {
         }
 
         static void TestPartitionNodeClick() {
-            var file = FSService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null);
-            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.FileSystemTreeUnit);
+            //var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/Fat32_Test.img"), "mmp", null, null);
+            
+            
+            ImgService.Current.AddImg("I://test.E01");
+
+            var file = FileSystemService.Current.MountedFiles.First().file;
+
+            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
             unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));

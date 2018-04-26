@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.Document {
     //文档tab服务契约;
     public interface IDocumentService {
+        void Initialize();
+
         /// <summary>
         /// 创建一个Tab;
         /// </summary>

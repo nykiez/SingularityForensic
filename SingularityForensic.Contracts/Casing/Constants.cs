@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.Casing {
     public static class Constants {
         //案件节点类型;
-        public const string CaseEvidenceUnit = nameof(CaseEvidenceUnit);
+        public const string TreeUnitType_CaseEvidence = nameof(TreeUnitType_CaseEvidence);
 
         //未知镜像案件文件类型;
         public const string UnKnownDeviceImg = nameof(UnKnownDeviceImg);

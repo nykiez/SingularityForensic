@@ -2,6 +2,7 @@
 using Prism.Events;
 using SingularityForensic.Contracts.Common;
 using System;
+using System.Collections.Generic;
 
 namespace SingularityForensic.Contracts.Helpers {
     public static class PubEventHelper {
@@ -41,6 +42,34 @@ namespace SingularityForensic.Contracts.Helpers {
 
         public static void Subscribe<TEvent>(Action act) where TEvent : PubSubEvent, new() {
             Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
+        }
+        
+        /// <summary>
+        /// 向事件处理器发布事件;
+        /// </summary>
+        /// <typeparam name="TEventHandler"></typeparam>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="args"></param>
+        /// <param name="eventHandlers"></param>
+        public static void PublishEventToHandlers<TEventHandler, TEventArgs>(TEventArgs args, IEnumerable<TEventHandler> eventHandlers)
+            where TEventHandler : IEventHandler<TEventArgs> {
+            if (eventHandlers == null) {
+                return;
+            }
+            
+
+            foreach (var handler in eventHandlers) {
+                if (!handler.IsEnabled) {
+                    continue;
+                }
+
+                try {
+                    handler.Handle(args);
+                }
+                catch (Exception ex) {
+                    
+                }
+            }
         }
     }
 }

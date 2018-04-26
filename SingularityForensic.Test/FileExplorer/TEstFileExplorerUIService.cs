@@ -9,12 +9,7 @@ using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.Test.App;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.FileExplorer {
     [TestClass]
@@ -43,7 +38,7 @@ namespace SingularityForensic.Test.FileExplorer {
 
         [TestMethod]
         public void TestOnTreeUnitAdded() {
-            var csUnit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.CaseEvidenceUnit);
+            var csUnit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.TreeUnitType_CaseEvidence);
             var csEvidence = CaseService.Current.CreateNewCaseEvidence(new string[] { }, string.Empty, string.Empty);
             var file = _fsService.MountStream(File.OpenRead(AppMockers.OpenFileName), csEvidence.Name, csEvidence.XElem, null);
             csUnit.SetInstance(csEvidence, Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
