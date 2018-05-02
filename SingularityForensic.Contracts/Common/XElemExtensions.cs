@@ -132,8 +132,5 @@ namespace SingularityForensic.Contracts.Common {
         }
     }
 
-    public interface IExtItemsGroup {
-        string this[string itemName] { get;set; }
-
-    }
+   
 }

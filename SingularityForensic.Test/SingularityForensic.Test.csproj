@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -117,6 +118,8 @@
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandlerTests.cs" />
+    <Compile Include="FAT\FatMockers.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandlerTests.cs" />
     <Compile Include="FileExplorer\FileExplorerTestCommon.cs" />
@@ -125,7 +128,7 @@
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
-    <Compile Include="FileSystem\FatStreamParsingProviderTest.cs" />
+    <Compile Include="FAT\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="FileSystem\DosAndGptNativeTest.cs" />
@@ -134,7 +137,7 @@
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactoryTests.cs" />
-    <Compile Include="Hex\HexUIServiceTests.cs" />
+    <Compile Include="Hex\HexServiceTests.cs" />
     <Compile Include="Imaging\EWFStreamTests.cs" />
     <Compile Include="Imaging\ImagingServiceTest.cs" />
     <Compile Include="ITunesTest.cs" />

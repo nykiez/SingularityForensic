@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:SingularityForensic.Controls.Languages.zh_CN">
+  <String x:Key="Hide" xmlns="clr-namespace:System;assembly=mscorlib">隐藏</String>
+  <String x:Key="Auto_hide" xmlns="clr-namespace:System;assembly=mscorlib">自动隐藏</String>
+  <String x:Key="Floating" xmlns="clr-namespace:System;assembly=mscorlib">浮动</String>
+  <String x:Key="Dockable" xmlns="clr-namespace:System;assembly=mscorlib">可悬停</String>
+  <String x:Key="Tabbed_document" xmlns="clr-namespace:System;assembly=mscorlib">停靠文档</String>
+</ResourceDictionary>

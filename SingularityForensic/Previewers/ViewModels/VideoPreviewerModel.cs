@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Previewers.Models;
 using System;
 using System.Collections.ObjectModel;

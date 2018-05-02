@@ -18,7 +18,7 @@
         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Colors.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Fonts.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Thickness.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/AvalonDock.xaml"/>
+        
                                                                                           
         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/MetroWindow.xaml"/>
     </ResourceDictionary.MergedDictionaries>

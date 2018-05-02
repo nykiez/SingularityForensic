@@ -6,14 +6,11 @@ using SingularityForensic.Hex;
 
 namespace SingularityForensic.Test.Hex {
     [TestClass()]
-    public class HexUIServiceTests {
+    public class HexServiceTests {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _hexUIService = ServiceProvider.Current.GetInstance<HexUIReactService>();
-            Assert.IsNotNull(_hexUIService);
-            _hexUIService.Initialize();
-
+            
             _mainDocService = DocumentService.MainDocumentService;
             Assert.IsNotNull(_mainDocService);
 
@@ -21,7 +18,7 @@ namespace SingularityForensic.Test.Hex {
             Assert.IsNotNull(_hexService);
         }
 
-        HexUIReactService _hexUIService;
+        
         IDocumentService _mainDocService;
         IHexService _hexService;
 

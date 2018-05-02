@@ -62,7 +62,7 @@ namespace SingularityForensic.App {
                     _xDoc = XDocument.Load(ConfigFileName);
                 }
                 catch (Exception ex) {
-                    Contracts.App.LoggerService.WriteCallerLine(ex.Message);
+                    LoggerService.WriteCallerLine(ex.Message);
                     ResetDoc();
                 }
             }
@@ -162,7 +162,7 @@ namespace SingularityForensic.App {
                     _languageDict.AddMergedDictionaryFromPath($"{providerDirect}/{file.Name}");
                 }
                 catch(Exception ex) {
-                    Contracts.App.LoggerService.WriteCallerLine(ex.Message);
+                    LoggerService.WriteCallerLine(ex.Message);
                 }
             }
         }

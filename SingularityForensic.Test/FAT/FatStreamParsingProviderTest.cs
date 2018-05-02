@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace SingularityForensic.Test.FileSystem {
+namespace SingularityForensic.Test.FAT {
     [TestClass()]
     public class FatStreamParsingProviderTests {
         private const string FAT32ImgPath = "E://anli//FAT32.img";
@@ -23,7 +23,7 @@ namespace SingularityForensic.Test.FileSystem {
             _fatStream = File.OpenRead(FAT32ImgPath);
             _streamParsingProvider = ServiceProvider.Current.GetAllInstances<IStreamParsingProvider>().
                 FirstOrDefault(p => 
-                    p.GUID == SingularityForensic.FAT.Constants.StreamParser_FAT
+                    p.GUID == SingularityForensic.FAT.Constants.StreamParserGUID_FAT
                 );
 
             Assert.IsNotNull(_streamParsingProvider);
@@ -51,7 +51,7 @@ namespace SingularityForensic.Test.FileSystem {
             var file = _streamParsingProvider.ParseStream(_fatStream, string.Empty, null, null);
             var part = file as IPartition;
             Assert.IsNotNull(part);
-            Assert.AreEqual(part.PartType.GUID , FAT.Constants.PartitionType_FAT32);
+            Assert.AreEqual(part.PartType.GUID , SingularityForensic.FAT.Constants.PartitionType_FAT32);
         }
 
         [TestMethod]

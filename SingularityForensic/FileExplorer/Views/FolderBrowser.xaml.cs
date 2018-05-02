@@ -47,5 +47,7 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
 
         }
 #endif
+
+        
     }
 }

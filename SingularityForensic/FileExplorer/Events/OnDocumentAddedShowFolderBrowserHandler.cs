@@ -4,7 +4,6 @@ using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using System.ComponentModel.Composition;
-using System.Windows;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
@@ -35,10 +34,7 @@ namespace SingularityForensic.FileExplorer.Events {
 
             var vm = FileExplorerViewModelFactory.CreateFolderBrowserViewModel(haveFileCollection);
 
-            var folderBrowser = ViewProvider.GetView(Constants.FolderBrowserView);
-            if (folderBrowser is FrameworkElement elem) {
-                elem.DataContext = vm;
-            }
+            var folderBrowser = ViewProvider.CreateView(Constants.FolderBrowserView,vm);
 
             //设定文件资源管理器模型关联实体;
             enumDoc.SetInstance(vm, Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);

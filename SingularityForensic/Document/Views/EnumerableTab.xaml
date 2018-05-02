@@ -22,7 +22,7 @@
         <telerik:RadTabControl Grid.Row="1" ItemsSource="{Binding DocumentTabs}" 
                                SelectedItem="{Binding SelectedDocument}" >
             <telerik:RadTabControl.ItemContainerStyle>
-                <Style TargetType="telerik:RadTabItem" >
+                <Style TargetType="telerik:RadTabItem" BasedOn="{StaticResource {x:Type telerik:RadTabItem}}" >
                     <Setter Property="Header" Value="{Binding Title}"/>
                     <Setter Property="Content" Value="{Binding UIObject,Mode=OneWay}"/>
                 </Style>

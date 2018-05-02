@@ -52,7 +52,7 @@ namespace DemoUI {
 
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
-            ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
+            ViewProvider.SetViewProvider(new ViewProviderImpl(ServiceProvider.Current));
             ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
             return ServiceProvider.GetInstance<MainWindow>();
         }

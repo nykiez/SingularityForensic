@@ -34,7 +34,7 @@
         </ResourceDictionary>-->
         
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="gd">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
@@ -112,8 +112,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </gv:RadGridViewEx>
-
-
     </Grid>
 
 </UserControl>

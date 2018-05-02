@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -108,33 +110,34 @@ namespace SingularityForensic.FAT {
             return Encoding.Unicode.GetString(bts,index,count);
         }
     };
-    
+
     /// <summary>
     /// //文件系统引导扇区DBR
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct StFatDBR {
+    public struct StFatDBR  {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public byte[] ignored;               //跳转指令
+        public byte[] ignored;                //跳转指令
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] system_id;             //文件系统标志（ASCII码）	
+        public byte[] system_id;               //文件系统标志（ASCII码）	
         public ushort sector_size;             //每扇区字节数	
-        public byte sectors_per_cluster;      //每簇扇区数
+        public byte sectors_per_cluster;       //每簇扇区数
         public ushort reserved;                //保留扇区；//其FAT表紧跟在此之后
-        public byte fats;                     //fat表的个数 一般为2；
+        public byte fats;                      //fat表的个数 一般为2；
         public ushort dir_entries;             //根目录最多可容纳的目录项FAT32不用为0，FAT12，16一般为512；
         public ushort sectors;                 //整个分区的扇区总数  小于32MB放在此；
-        public byte media;                    //介质描述符一般为0xF8;
+        public byte media;                     //介质描述符一般为0xF8;
         public ushort fat_length;              //FAT32不用；每FAT表的大小扇区数/* 0x16 sectors/FAT */
         public ushort secs_track;              //每磁道扇区数
         public ushort heads;                   //磁头数；
         public uint hidden;                    //分区前的扇区数；
         public uint total_sect;                //文件系统的总扇区；
-                                        /* 以下字段只能使用FAT32的 */
+                                               /* 以下字段只能使用FAT32的 */
         public uint fat32_length;              //FAT表的扇区大小值
         public ushort flags;                   //确定FAT表的工作方式bit7设置为1表示只有一份FAT表是活动的 	/* 0x28 bit 8: fat mirroring, low 4: active fat */
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public byte[] version;               //文件系统的版本号；
+        public byte[] version;                 //文件系统的版本号；
         public uint root_cluster;              //根目录起始簇号 一般为2
         public ushort info_sector;             //FSINFO所在扇区号； 1号；
         public ushort backup_boot;             //备份扇区号；（6号扇区）

@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:filDgs ="clr-namespace:SingularityForensic.Controls.FilterableDataGrid"
                     xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-                    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:local="clr-namespace:SingularityForensic.Controls.Themes">
+                    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls">
     <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridColumnHeaderBase">
         <Setter Property="Foreground" Value="{DynamicResource BlackBrush}"/>
         <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>

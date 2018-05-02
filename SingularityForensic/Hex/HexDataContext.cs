@@ -11,10 +11,7 @@ namespace SingularityForensic.Hex {
     partial class HexDataContext : ExtensibleBindableBase, IHexDataContext {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
-            _view = ViewProvider.GetView(Contracts.Hex.Constants.HexView) as FrameworkElement;
-            if (_view != null) {
-                _view.DataContext = _vm;
-            }
+            UIObject = ViewProvider.CreateView(Contracts.Hex.Constants.HexView, _vm);
 
             _vm.SelectionStateChanged += delegate {
                 SelectionStateChanged?.Invoke(this, EventArgs.Empty);
@@ -55,9 +52,8 @@ namespace SingularityForensic.Hex {
         }
 
         private HexViewViewModel _vm = new HexViewViewModel();
-        private FrameworkElement _view;
         
-        public object UIObject => _view;
+        public object UIObject { get; }
     }
 
     partial class HexDataContext {

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.App {
+namespace SingularityForensic.Contracts.Common {
     public interface ILoggerService {
         void WriteLine(string msg);
         void WriteCallerLine(string msg,[CallerMemberName] string callerName = null);

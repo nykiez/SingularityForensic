@@ -15,7 +15,6 @@ namespace SingularityForensic.FileExplorer.Events {
         public void Handle(IFolderBrowserViewModel vm) {
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateSaveAsFileCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateViewFileCommandItem(vm));
-            vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateOpenFileWithCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateNavigateCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateComputeHashCommandItem(vm));
         }

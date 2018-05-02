@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
     public static class Constants {
-        public const string HexDataContextTag_StreamFile = nameof(HexDataContextTag_StreamFile);
+        public const string HexDataContextTag_File = nameof(HexDataContextTag_File);
 
         /// <summary>
         /// 文件系统节点类型;

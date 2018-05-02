@@ -8,7 +8,7 @@ namespace SingularityForensic.Test.Common {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
+            ViewProvider.SetViewProvider(new ViewProviderImpl(ServiceProvider.Current));
             Assert.IsNotNull(_viewProvider = ViewProvider.Current);
         }
         IViewProvider _viewProvider;

@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SingularityForensic.Controls.Views"
              xmlns:hex="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:vms="clr-namespace:SingularityForensic.Contracts.Hex;assembly=SingularityForensic.Contracts"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="1200">
     <UserControl.Resources>
         <DataTemplate x:Key="DataToolTipTemplate">
             <StackPanel Orientation="Horizontal">
@@ -24,6 +25,10 @@
         </ContextMenu>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <hex:DrawedHexEditor CellMargin="0,2" CellPadding="2" Stream="{Binding Stream,IsAsync=True}" FocusPosition ="{Binding FocusPosition}"
                         Position="{Binding Position}" SelectionLength="{Binding SelectionLength}" 
                              HoverPosition="{Binding HoverPosition}" x:Name="HexEditor" SelectionStart="{Binding SelectionStart,Mode=TwoWay}"  >
@@ -47,5 +52,6 @@
                          ItemTemplate="{StaticResource DataToolTipTemplate}" ContextMenu="{StaticResource DataLayerContextMenu}" />
             </hex:DrawedHexEditor.StringDataToolTip>
         </hex:DrawedHexEditor>
+        <Border Grid.Column="1"/>
     </Grid>
 </UserControl>

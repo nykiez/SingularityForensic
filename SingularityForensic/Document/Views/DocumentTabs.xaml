@@ -72,7 +72,7 @@
                             <Grid Width="14"
                 Height="14"
                 Background="Transparent">
-                                <Ellipse x:Name="FocusEllipse"
+                                <Rectangle x:Name="FocusEllipse"
                      Fill="#FFF13535"
                      Visibility="Collapsed" />
                                 <ContentPresenter x:Name="ContentPresenter"
@@ -125,7 +125,7 @@
             </DataTemplate>
         </telerik:RadTabControl.ItemDropDownContentTemplate>
         <telerik:RadTabControl.ItemContainerStyle>
-            <Style TargetType="telerik:RadTabItem" >
+            <Style TargetType="telerik:RadTabItem" BasedOn="{StaticResource {x:Type telerik:RadTabItem}}" >
                 <Setter Property="DropDownContent" Value="{Binding Title}"/>
             </Style>
         </telerik:RadTabControl.ItemContainerStyle>

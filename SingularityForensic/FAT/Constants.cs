@@ -11,7 +11,7 @@
     }
 
     public static partial class Constants {
-        public const string StreamParser_FAT = nameof(StreamParser_FAT);
+        public const string StreamParserGUID_FAT = nameof(StreamParserGUID_FAT);
 
         /// <summary>
         /// FAT分区类型;
@@ -23,5 +23,24 @@
         public const string DirectoryType_FAT32 = nameof(DirectoryType_FAT32);
 
         public const string RegularFileType_FAT32 = nameof(RegularFileType_FAT32);
+
+        
+        //FATDBR信息前缀;
+        public const string FATFieldPrefix_DBR = "FATDBR_";
+
+        //FATInfo信息前缀;
+        public const string FATFieldPrefix_Info = "FATInfo_";
+
+
+        public const string FAT_Owner = nameof(FAT_Owner);
+
+        public const string FAT_Owner_DBR = nameof(FAT_Owner_DBR);
+        public const string FAT_Owner_DBR_Backup = nameof(FAT_Owner_DBR_Backup);
+        
+        public const string FAT_Owner_Info = nameof(FAT_Owner_Info);
+
+
+        public const string FAT_Owner_Info_Backup = nameof(FAT_Owner_Info_Backup);
+
     }
 }

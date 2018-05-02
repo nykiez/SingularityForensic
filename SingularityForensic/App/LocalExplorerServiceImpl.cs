@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;

@@ -1,5 +1,6 @@
 ﻿using CDFC.Util.IO;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hash;
 using System;
 using System.IO;

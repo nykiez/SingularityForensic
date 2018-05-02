@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using System;

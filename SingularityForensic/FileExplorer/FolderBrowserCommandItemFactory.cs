@@ -14,6 +14,7 @@ using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hash;
 using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
+using SingularityForensic.FileExplorer.Helpers;
 
 namespace SingularityForensic.FileExplorer {
     public static partial class FolderBrowserCommandItemFactory {
@@ -231,7 +232,7 @@ namespace SingularityForensic.FileExplorer {
                         return;
                     }
                     
-                    var tempFileName = SaveFileToTempPath(blockFile);
+                    var tempFileName = FileExplorerUIHelper.SaveFileToTempPath(blockFile);
                     if (string.IsNullOrEmpty(tempFileName)) {
                         return;
                     }
@@ -261,62 +262,8 @@ namespace SingularityForensic.FileExplorer {
 
             return comm;
         }
-
-        /// <summary>
-        /// 保存文件到临时目录;
-        /// </summary>
-        /// <param name="blockFile"></param>
-        /// <returns>保存的路径</returns>
-        private static string SaveFileToTempPath(IBlockGroupedFile blockFile) {
-            var inputStream = blockFile.GetInputStream();
-            if (inputStream == null) {
-                return string.Empty;
-            }
-
-            var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
-            var tempFileName = tempDirectory + $"{blockFile.Name}";
-
-            try {
-                //创建临时文件夹;
-                if (!System.IO.Directory.Exists(tempDirectory)) {
-                    System.IO.Directory.CreateDirectory(tempDirectory);
-                }
-
-                using (var tempFs = SysIO.File.Create(tempFileName)) {
-                    inputStream.CopyTo(tempFs);
-                }
-
-                return tempFileName;
-            }
-            catch (Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
-                MsgBoxService.ShowError(ex.Message);
-            }
-            finally {
-                inputStream.Dispose();
-            }
-            return string.Empty;
-        }
     }
-
-    public static partial class FolderBrowserCommandItemFactory {
-        /// <summary>
-        /// 打开方式功能;
-        /// </summary>
-        /// <param name="vm"></param>
-        /// <returns></returns>
-        public static ICommandItem CreateOpenFileWithCommandItem(IFolderBrowserViewModel vm) {
-            var comm = CreateOpenFileWithCommand(vm);
-            var cmi = CommandItemFactory.CreateNew(comm);
-            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_OpenFileWith);
-            return cmi;
-        }
-
-        private static DelegateCommand CreateOpenFileWithCommand(IFolderBrowserViewModel vm) {
-            return null;
-        }
-    }
-
+    
     public static partial class FolderBrowserCommandItemFactory {
         /// <summary>
         /// 导航功能;

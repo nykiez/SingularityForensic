@@ -195,6 +195,8 @@ Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015
 Copy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll"
 Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Docking.for.Wpf.45.Xaml.2015.3.930\lib\net45" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Docking.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Themes.VisualStudio2013.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Themes.VisualStudio2013.dll" "$(TargetDir)Controls\Telerik.Windows.Themes.VisualStudio2013.dll"
+Copy "$(SolutionDir)packages\Telerik.Windows.Controls.Docking.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Docking.dll"
 
 copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll"
 Copy "$(SolutionDir)Cflab.DataTransport\$(OutDir)\Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll"

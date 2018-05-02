@@ -11,16 +11,12 @@ using System.Linq;
 using System.Windows;
 
 namespace SingularityForensic.Document {
-    class EnumerableDocument : Document,IEnumerableDocument {
+    class EnumerableDocument : DocumentBase,IEnumerableDocument {
         public EnumerableDocument() {
             _vm = new EnumerableTabViewModel();
             _vm.SelectedDocumentChanged += OnSelectedTabChanged;
 
-            _uiObject = ViewProvider.GetView(Constants.EnumerableTabView) as FrameworkElement;
-
-            if (_uiObject != null) {
-                _uiObject.DataContext = _vm;
-            }
+            UIObject = ViewProvider.CreateView(Constants.EnumerableTabView, _vm);
         }
 
         public IEnumerable<IDocumentBase> Children => _vm.DocumentTabs.Select(p => p);
@@ -29,10 +25,8 @@ namespace SingularityForensic.Document {
         }
 
         
-        private FrameworkElement _uiObject;
         public override object UIObject {
-            get => _uiObject;
-            set => throw new InvalidOperationException($"The UIObject of {nameof(EnumerableDocument)} can't be set.");
+            get;
         }
 
         private EnumerableTabViewModel _vm;

@@ -3,9 +3,11 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hex;
+using System;
 using System.Linq;
+using SysIO = System.IO;
 
-namespace SingularityForensic.FileExplorer {
+namespace SingularityForensic.FileExplorer.Helpers {
     public static class FileExplorerUIHelper {
         /// <summary>
         /// 根据流文件创建一个十六进制Tab;
@@ -32,8 +34,8 @@ namespace SingularityForensic.FileExplorer {
             var hexDataContext = hexService.CreateNewHexDataContext(streamFile?.BaseStream);
             hexDoc.SetInstance(hexDataContext, Contracts.Hex.Constants.Tag_HexDataContext);
             hexDoc.UIObject = hexDataContext.UIObject;
-            hexDataContext.SetInstance<IFile>(streamFile,
-                Contracts.FileExplorer.Constants.HexDataContextTag_StreamFile);
+            hexDataContext.SetInstance<IFile>(streamFile,Contracts.FileExplorer.Constants.HexDataContextTag_File);
+
             //加载十六进制;
             hexService.LoadHexDataContext(hexDataContext);
 
@@ -91,6 +93,42 @@ namespace SingularityForensic.FileExplorer {
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 保存文件到临时目录;
+        /// </summary>
+        /// <param name="blockFile"></param>
+        /// <returns>保存的路径</returns>
+        public static string SaveFileToTempPath(IFile blockFile) {
+            var inputStream = blockFile.GetInputStream();
+            if (inputStream == null) {
+                return string.Empty;
+            }
+
+            var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
+            var tempFileName = tempDirectory + $"{blockFile.Name}";
+
+            try {
+                //创建临时文件夹;
+                if (!System.IO.Directory.Exists(tempDirectory)) {
+                    System.IO.Directory.CreateDirectory(tempDirectory);
+                }
+
+                using (var tempFs = SysIO.File.Create(tempFileName)) {
+                    inputStream.CopyTo(tempFs);
+                }
+
+                return tempFileName;
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+                MsgBoxService.ShowError(ex.Message);
+            }
+            finally {
+                inputStream.Dispose();
+            }
+            return string.Empty;
         }
     }
 }

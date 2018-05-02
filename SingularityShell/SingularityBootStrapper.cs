@@ -51,7 +51,7 @@ namespace SingularityShell {
 
         protected override DependencyObject CreateShell() {
             ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
-            ViewProvider.SetViewProvider(new ServiceProviderViewProvider(ServiceProvider.Current));
+            ViewProvider.SetViewProvider(new ViewProviderImpl(ServiceProvider.Current));
             //因为各个模块都可能用到语言服务,必须先初始化语言服务;
             LanguageService.Current.Initialize();
             return ViewProvider.GetView(SingularityForensic.Contracts.Shell.Constants.ShellView) as DependencyObject;

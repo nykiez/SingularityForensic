@@ -44,8 +44,4 @@ namespace SingularityForensic.Contracts.Common {
     public interface ITextInstanceExtensible : ITextExtensible, IInstanceExtensible {
 
     }
-
-    public interface IGroupExtensible {
-        IExtItemsGroup GetGroup(string groupName);
-    }
 }

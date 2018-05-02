@@ -1,5 +1,6 @@
 ﻿using CDFC.Util.IO;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

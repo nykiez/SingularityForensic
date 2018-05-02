@@ -62,7 +62,7 @@ namespace SingularityForensic.Document {
                 throw new ArgumentNullException(nameof(doc));
             }
 
-            if (!(doc is Document document)) {
+            if (!(doc is DocumentBase document)) {
                 throw new InvalidOperationException($"{doc.GetType()} is not a valid type,please user ${nameof(IDocumentService.CreateNewDocument)} instead.");
             }
 
@@ -119,7 +119,7 @@ namespace SingularityForensic.Document {
                 throw new ArgumentNullException(nameof(doc));
             }
 
-            if (!(doc is Document document)) {
+            if (!(doc is DocumentBase document)) {
                 throw new InvalidOperationException($"{doc.GetType()} is not a valid type,please user ${nameof(IDocumentService.CreateNewDocument)} instead.");
             }
             
@@ -161,7 +161,7 @@ namespace SingularityForensic.Document {
                     return;
                 }
 
-                if(!(value is Document document)) {
+                if(!(value is DocumentBase document)) {
                     throw new InvalidOperationException($"{value.GetType()} is not a valid type,please use ${nameof(IDocumentService.CreateNewDocument)} instead.");
                 }
 
@@ -191,14 +191,14 @@ namespace SingularityForensic.Document {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Document_IsActiveChanged(object sender, bool e) {
-            if(!(sender is Document docModel)) {
+            if(!(sender is DocumentBase docModel)) {
                 return;
             }
             
         }
 
         private void Document_CloseRequest(object sender, EventArgs e) {
-            if(!(sender is Document document)) {
+            if(!(sender is DocumentBase document)) {
                 return;
             }
 

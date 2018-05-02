@@ -57,17 +57,20 @@ namespace SingularityForensic.Contracts.Helpers {
                 return;
             }
             
-
             foreach (var handler in eventHandlers) {
-                if (!handler.IsEnabled) {
+                if (handler == null) {
+                    LoggerService.WriteCallerLine($"{nameof(handler)} coudn't be null.");
                     continue;
                 }
 
                 try {
+                    if (!handler.IsEnabled) {
+                        continue;
+                    }
                     handler.Handle(args);
                 }
                 catch (Exception ex) {
-                    
+                    LoggerService.WriteCallerLine($"{handler.GetType()} ex.Message");
                 }
             }
         }

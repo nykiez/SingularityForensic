@@ -10,19 +10,19 @@
         /// <summary>
         /// 引导扇区
         /// </summary>
-        public (StFatFSDBR? fsDbr, StFatDBR? dbr) FatDBR { get; set; }
+        public FATDBR FatDBR { get; set; }
         /// <summary>
         /// 引导扇区备份;
         /// </summary>
-        public (StFatFSDBR? fsDbr, StFatDBR? dbr) FatDBR_BackUp { get; set; }
+        public FATDBR FatDBR_BackUp { get; set; }
         /// <summary>
         /// //FSINFO信息
         /// </summary>
-        public (StFatFSInfo fatFsInfo, StFatINFO? fsInfo)? FatInfo { get; set; }
+        public FATInfo FatInfo { get; set; }
         /// <summary>
         /// //FSINFO信息备份
         /// </summary>
-        public (StFatFSInfo fatFsInfo, StFatINFO? fsInfo)? FatInfo_BackUp { get; set; }
+        public FATInfo FatInfo_BackUp { get; set; }
 
 
         /// <summary>
@@ -32,11 +32,11 @@
         public int? ClusterSize {
             get {
                 if (_clusterSize == null) {
-                    if (FatDBR.dbr != null) {
-                        _clusterSize = FatDBR.dbr.Value.ClusterSize;
+                    if (FatDBR != null) {
+                        _clusterSize = FatDBR.StructInstance.ClusterSize;
                     }
-                    else if (FatDBR_BackUp.dbr != null) {
-                        _clusterSize = FatDBR.dbr.Value.ClusterSize;
+                    else if (FatDBR_BackUp != null) {
+                        _clusterSize = FatDBR.StructInstance.ClusterSize;
                     }
                 }
                 return _clusterSize;

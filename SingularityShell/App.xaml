@@ -10,14 +10,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-
+                
+                
                 <!--Custom Theme Setting-->
                 
                 <!--<ResourceDictionary Source="pack://application:,,,/CDFCControls;component/Themes/Generic.xaml"/>-->
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Generic.xaml"/>
-
-
-
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Controls/Themes/Generic.xaml"/>
                 <!--Language Setting-->
                 <app:ResourceDictionaryEx Name="{x:Static app:Constants.LanguageDict}" >
                     <ResourceDictionary.MergedDictionaries>
@@ -42,8 +41,6 @@
                         <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Info;component/Languages/zh_CN/Singularity.UI.Info.xaml"/>-->
                     </ResourceDictionary.MergedDictionaries>
                 </app:ResourceDictionaryEx>
-                
-
                 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

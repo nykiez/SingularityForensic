@@ -19,7 +19,7 @@ namespace SingularityForensic.FAT {
     partial class FatStreamParsingProvider : IStreamParsingProvider {
         public int Order => 32;
 
-        public string GUID => Constants.StreamParser_FAT;
+        public string GUID => Constants.StreamParserGUID_FAT;
 
         public bool CheckIsValidStream(Stream stream) {
             if(stream == null) {
@@ -113,6 +113,8 @@ namespace SingularityForensic.FAT {
             var partInfo = new FATPartInfo {
                 UnmanagedFATManager = unmanagedManager
             };
+            
+            //设定FAT分区详细信息;
             stoken.SetInstance(partInfo,Constants.PartitionStokenTag_FATPartInfo);
 
             if(unmanagedManager.FATManagerPtr == IntPtr.Zero) {
@@ -185,48 +187,81 @@ namespace SingularityForensic.FAT {
                 var dbrPtr = Fat_Get_FsDBR(info.UnmanagedFATManager.FATManagerPtr);
                 var dbrPtrBack = Fat_Get_BackupFsDBR(info.UnmanagedFATManager.FATManagerPtr);
 
-                //为避免多次编写重复的判断为空,赋值语句,减少错误率,使用泛型方法将逻辑统一;
+                //为避免多次编写重复的判断是否为空,赋值语句,减少错误率,使用泛型方法将逻辑统一,编辑DBR或者Info;
                 void SetFatDbrOrInfo<TFsEntity,TEntity>(
-                    IntPtr fsPtr,Func<TFsEntity,IntPtr> getEntity,Action<TFsEntity,TEntity?> setInfoOrDBR) 
+                    IntPtr fsPtr,Func<TFsEntity,IntPtr> getEntityPtr,
+                    Func<TFsEntity,long> getOffset,
+                    Action<TEntity,long> setInfoOrDBR) 
                     where TFsEntity : struct 
                     where TEntity : struct{
+
                     if(fsPtr == IntPtr.Zero) {
                         return;
                     }
 
                     TEntity? entity = null;
-                    var fsEntity = fsPtr.GetStructure<TFsEntity>();
-                    var entPtr = getEntity(fsEntity);
-                    if (entPtr != IntPtr.Zero) {
-                        LoggerService.WriteCallerLine($"{nameof(entPtr)} of {typeof(TFsEntity)} is nullptr.");
-                        entity = entPtr.GetStructure<TEntity>();
+                    TFsEntity? fsEntity = null;
+                    try {
+                        fsEntity = fsPtr.GetStructure<TFsEntity>();
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                        return;
                     }
                     
-                    setInfoOrDBR(fsEntity, entity);
+                    if(fsEntity == null) {
+                        return;
+                    }
+
+                    //获取实体指针;
+                    var entPtr = getEntityPtr(fsEntity.Value);
+                    if (entPtr == IntPtr.Zero) {
+                        LoggerService.WriteCallerLine($"{nameof(entPtr)} of {typeof(TFsEntity)} is nullptr.");
+                        return;
+                    }
+
+                    try {
+                        entity = entPtr.GetStructure<TEntity>();
+                        
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                        return;
+                    }
+
+                    if(entity == null) {
+                        return;
+                    }
+
+                    setInfoOrDBR(entity.Value, getOffset(fsEntity.Value));
                 }
 
                 SetFatDbrOrInfo<StFatFSInfo, StFatINFO>(
                     infoPtr, 
-                    fsInfo => fsInfo.stFatINFO, 
-                    (fatFsEnt, fatInfo) => info.FatInfo = (fatFsEnt, fatInfo)
+                    fsInfo => fsInfo.stFatINFO,
+                    fsInfo => (long)fsInfo.nOffset,
+                    (fatFsEnt, offset) => info.FatInfo = new FATInfo(fatFsEnt, offset)
                 );
 
                 SetFatDbrOrInfo<StFatFSInfo, StFatINFO>(
                     infoPtrBack,
                     fsInfo => fsInfo.stFatINFO,
-                    (fatFsEnt, fatInfo) => info.FatInfo_BackUp = (fatFsEnt, fatInfo)
+                    fsInfo => (long)fsInfo.nOffset,
+                    (fatFsEnt, fatInfo) => info.FatInfo_BackUp = new FATInfo(fatFsEnt, fatInfo)
                 );
 
                 SetFatDbrOrInfo<StFatFSDBR, StFatDBR>(
                     dbrPtr,
                     fsDbr => fsDbr.stFatDBR,
-                    (fatFsDbr,fatDbr) => info.FatDBR = (fatFsDbr,fatDbr)
+                    fsDbr => (long)fsDbr.nOffset,
+                    (fatFsDbr,fatDbr) => info.FatDBR = new FATDBR(fatFsDbr,fatDbr)
                 );
 
                 SetFatDbrOrInfo<StFatFSDBR, StFatDBR>(
                     dbrPtrBack,
                     fsDbr => fsDbr.stFatDBR,
-                    (fatFsDbr, fatDbr) => info.FatDBR_BackUp = (fatFsDbr, fatDbr)
+                    fsDbr => (long)fsDbr.nOffset,
+                    (fatFsDbr, fatDbr) => info.FatDBR_BackUp = new FATDBR(fatFsDbr, fatDbr)
                 );
             }
             catch(Exception ex) {

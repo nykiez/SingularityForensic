@@ -20,25 +20,6 @@
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TreeViewEx.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
-
-            <!--<ContextMenu x:Key="DeviceContextMenu" DataContext="{Binding Data, Source={StaticResource dataElement}}" >
-                <MenuItem Header="{DynamicResource Properties}" 
-                          Command="{Binding ShowPropertyCommand}"/>
-                <MenuItem Header="{DynamicResource FileSystemInfo}" Command="{Binding ShowFileSystemInfoCommand}" />
-                <MenuItem Header="{DynamicResource MobileRecompositeBySign}" Command="{Binding RecompositeSignCommand}"/>
-                <MenuItem Header="{DynamicResource CustomSignSearch}" Command="{Binding CustomSSearchCommand}"/>
-                <MenuItem Header="{DynamicResource RecoverFileSystemLog}" IsEnabled="False"/>
-                <MenuItem Header="{DynamicResource RecoverQQAndWechat}" IsEnabled="False"/>
-                <MenuItem Header="{DynamicResource RecoverSMSOrContancts}" IsEnabled="False"/>
-            </ContextMenu>
-            <ContextMenu x:Key="PartitionContextMenu" DataContext="{Binding Data, Source={StaticResource dataElement}}" >
-                <MenuItem Header="{DynamicResource Properties}" Command="{Binding ShowPropertyCommand}" />
-                <MenuItem Header="{DynamicResource ExploreRecursively}" Command="{Binding ExploreRsvCommand}" />
-                <MenuItem Header="{DynamicResource RecoverFileSystemLog}" IsEnabled="False"/>
-                <MenuItem Header="{DynamicResource RecoverQQAndWechat}" IsEnabled="False"/>
-                <MenuItem Header="{DynamicResource RecoverSMSOrContancts}" IsEnabled="False"/>
-            </ContextMenu>-->
-
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source="{Binding Icon}" Width="16" Margin="6,0" />
@@ -84,7 +65,8 @@
                 <MenuItem Header="{DynamicResource Edit}"/>
             </Menu>-->
 
-        <telerik:RadTreeView BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown" 
+        <telerik:RadTreeView BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
+                             IsLineEnabled="True"
             ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single" 
                              SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
@@ -93,13 +75,14 @@
                 <Style TargetType="{x:Type telerik:RadTreeViewItem}">
                     <Setter Property="ContextMenu" Value="{x:Null}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
-                    <Setter Property="telerik:RadContextMenu.ContextMenu">
+                    <Setter Property="ContextMenu">
                         <Setter.Value>
-                            <telerik:RadContextMenu ItemsSource="{Binding ContextCommands}">
-                                <telerik:RadContextMenu.ItemContainerStyle>
-                                    <Style TargetType="telerik:RadMenuItem" BasedOn="{StaticResource {x:Type telerik:RadMenuItem}}">
+                            <ContextMenu ItemsSource="{Binding ContextCommands}">
+                                <ContextMenu.ItemContainerStyle>
+                                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                                         <Setter Property="Command" Value="{Binding Command}"/>
                                         <Setter Property="Header" Value="{Binding Name}"/>
+                                        <Setter Property="Icon" Value="{Binding Icon}"/>
                                         <Setter Property="ItemsSource" Value="{Binding Children}"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
@@ -107,8 +90,8 @@
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </telerik:RadContextMenu.ItemContainerStyle>
-                            </telerik:RadContextMenu>
+                                </ContextMenu.ItemContainerStyle>
+                            </ContextMenu>
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>

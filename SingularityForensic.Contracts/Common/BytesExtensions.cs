@@ -33,7 +33,7 @@ namespace SingularityForensic.Contracts.Common {
         }
 
 
-        public static bool IsHeadSame(byte[] arr1, byte[] arr2, int len, int arr1Start = 0, int arr2Start = 0) {
+        public static bool IsHeadSame(this byte[] arr1, byte[] arr2, int len, int arr1Start = 0, int arr2Start = 0) {
             var min = Math.Min(arr1.Length - arr1Start, arr2.Length - arr2Start);
             min = Math.Min(min, len);
 
@@ -57,12 +57,12 @@ namespace SingularityForensic.Contracts.Common {
         /// <remarks>
         /// Code from : https://github.com/pleonex/tinke/blob/master/Be.Windows.Forms.HexBox/ByteCharConverters.cs
         /// </remarks>
-        public static char ByteToChar(byte val) => val > 0x1F && !(val > 0x7E && val < 0xA0) ? (char)val : '.';
+        public static char ByteToChar(this byte val) => val > 0x1F && !(val > 0x7E && val < 0xA0) ? (char)val : '.';
 
         /// <summary>
         /// Convert byte to ASCII string
         /// </summary>
-        public static string BytesToString(byte[] buffer) {
+        public static string BytesToString(this byte[] buffer) {
             if (buffer == null) return string.Empty;
 
             var builder = new StringBuilder();
@@ -74,7 +74,7 @@ namespace SingularityForensic.Contracts.Common {
         }
 
         //Convert a byte to Hex char,i.e,10 = 'A'
-        public static char ByteToHexChar(int val) {
+        public static char ByteToHexChar(this int val) {
             if (val < 10)
                 return (char)(48 + val);
 
@@ -92,7 +92,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <summary>
         /// Converts a byte array to a hex string. For example: {10,11} = "0A 0B"
         /// </summary>
-        public static string BytesToHexString(byte[] data) {
+        public static string BytesToHexString(this byte[] data) {
             if (data == null) return string.Empty;
 
             var sb = new StringBuilder();
@@ -112,7 +112,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <summary>
         /// Convert Char to Byte
         /// </summary>
-        public static byte CharToByte(char val) {
+        public static byte CharToByte(this char val) {
             if(val > (char)byte.MaxValue) {
                 return 0;
             }
@@ -122,6 +122,6 @@ namespace SingularityForensic.Contracts.Common {
         /// <summary>
         /// Convert string to byte array
         /// </summary>
-        public static byte[] StringToByte(string str) => str.Select(CharToByte).ToArray();
+        public static byte[] StringToByte(this string str) => str.Select(CharToByte).ToArray();
     }
 }

@@ -39,12 +39,17 @@ namespace SingularityForensic.FileExplorer {
 
         public const string DocumentTag_FilePreviewer = nameof(DocumentTag_FilePreviewer);
 
+
+        
     }
 
     /// <summary>
     /// 语言部分;
     /// </summary>
     public static partial class Constants {
+
+        public const string OpenFileFilter_Execute = nameof(OpenFileFilter_Execute);
+
         //文件系统资源管理器模块正在加载;
         public const string FileExploerLoading = nameof(FileExploerLoading);
 

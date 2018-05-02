@@ -106,7 +106,7 @@ namespace SingularityForensic.TreeView {
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    if (e.OldItems != null) {
+                    if (e.NewItems != null) {
                         foreach (var item in e.NewItems) {
                             if (item is TChildNode node) {
                                 node.InternalParent = default(TNode);

@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.Windows;
 
@@ -32,7 +33,7 @@ namespace SingularityShell {
 
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
-
+             
             
             try {
                 new SingularityBootStrapper().Run();

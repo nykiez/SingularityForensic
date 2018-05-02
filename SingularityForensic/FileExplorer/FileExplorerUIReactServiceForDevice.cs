@@ -7,6 +7,7 @@ using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex;
+using SingularityForensic.FileExplorer.Helpers;
 using SingularityForensic.FileExplorer.ViewModels;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -90,19 +91,6 @@ namespace SingularityForensic.FileExplorer {
             hexDeviceTuple.Value.doc.Title =
                 LanguageService.FindResourceString(Constants.DocumentTitle_HexDevice);
 
-            //分区表高亮;
-            if (device.PartitionEntries != null) {
-                int i = 0;
-                var hexDataContext = hexDeviceTuple.Value.hexDataContext;
-                foreach (var ti in device.PartitionEntries.OrderBy(p => p.StartLBA)) {
-                    hexDataContext.CustomBackgroundBlocks?.Add(
-                        (
-                            ti.StartLBA,
-                            ti.Size, i++ % 2 == 0 ? Brushes.LightBlue : Brushes.Chocolate
-                        )
-                    );
-                }
-            }
 
             var hexPartTuple = FileExplorerUIHelper.GetStreamHexDocument(null);
             if (hexPartTuple == null) {

@@ -45,9 +45,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\AvalonDock.dll</HintPath>
-    </Reference>
     <Reference Include="CDFC.Hasher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Hasher.0.1.0.1\lib\NET451\CDFC.Hasher.dll</HintPath>
     </Reference>
@@ -55,13 +52,13 @@
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.2\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
     </Reference>
     <Reference Include="CDFCMessageBoxes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.1.1\lib\NET451\CDFCMessageBoxes.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.2\lib\NET451\CDFCMessageBoxes.dll</HintPath>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
@@ -150,7 +147,7 @@
       <HintPath>..\packages\Telerik.Windows.Controls.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Docking, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Windows.Controls.Docking.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.Docking.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.GridView.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll</HintPath>
@@ -159,10 +156,13 @@
       <HintPath>..\packages\Telerik.Windows.Controls.Input.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Navigation, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.Xaml.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Themes.VisualStudio2013, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Themes.VisualStudio2013.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Themes.VisualStudio2013.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
@@ -180,7 +180,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.1.8\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.2.1\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +275,7 @@
     <Compile Include="App\ResourceDictionaryEx.cs" />
     <Compile Include="App\ThreadInvokerImpl.cs" />
     <Compile Include="App\LanguageServiceImpl.cs" />
-    <Compile Include="App\LoggerServiceImpl.cs" />
+    <Compile Include="Common\LoggerServiceImpl.cs" />
     <Compile Include="App\Dialogs\SingularityMessageBoxDialog.cs" />
     <Compile Include="App\MessageBoxServiceImpl.cs" />
     <Compile Include="App\Models\MessageButtonModel.cs" />
@@ -311,7 +311,7 @@
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CommandItem.cs" />
-    <Compile Include="Common\ServiceProviderViewProvider.cs" />
+    <Compile Include="Common\ViewProviderImpl.cs" />
     <Compile Include="Common\PracticeServiceProvider.cs" />
     <Compile Include="Controls\DataGridExViewModel.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
@@ -327,11 +327,16 @@
     <Compile Include="Controls\MessageBoxes\Filtering\FilterDTMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
+    <Compile Include="Document\DocumentBase.cs" />
     <Compile Include="Document\DocumentModule.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
+    <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandler.cs" />
+    <Compile Include="FAT\FATDBR.cs" />
     <Compile Include="FAT\FATFileInfo.cs" />
+    <Compile Include="FAT\FATInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler.cs" />
     <Compile Include="FileExplorer\Events\OnDocumentAddedOnFileHexHandler.cs" />
     <Compile Include="FileExplorer\Events\OnDocumentAddedOnPartHexHandler.cs" />
     <Compile Include="FileExplorer\Events\OnDocumentAddedOnPartPreviewHandler.cs" />
@@ -340,6 +345,7 @@
     <Compile Include="FileExplorer\Events\OnFocusedFileChangedOnPartHexHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFocusedFileChangedOnPartPreviewHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnHexDataContextLoadedOnDeviceHandler.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingHandler.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedHandler.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
@@ -348,7 +354,6 @@
     <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
-    <Compile Include="FileExplorer\ViewerProgramMessage.cs" />
     <Compile Include="FileSystem\BlockGroup.cs" />
     <Compile Include="FileSystem\StreamFileBase.cs" />
     <Compile Include="FileSystem\FileFactoryImpl.cs" />
@@ -416,6 +421,7 @@
     <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
       <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hex\Events\OnHexDataContextLoadedOnContextCommandsHandler.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactory.cs" />
     <Compile Include="Hex\HexUIServiceImpl.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
@@ -438,7 +444,7 @@
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Document.cs" />
     <Compile Include="Document\MainDocumentService.cs" />
-    <Compile Include="Document\EnumerableDocumentTab.cs" />
+    <Compile Include="Document\EnumerableDocument.cs" />
     <Compile Include="Document\ViewModels\DocumentTabsViewModel.cs" />
     <Compile Include="Document\ViewModels\EnumerableTabViewModel.cs" />
     <Compile Include="Document\Views\DocumentTab.xaml.cs">
@@ -466,7 +472,7 @@
     </Compile>
     <Compile Include="FAT\Constants.cs" />
     <Compile Include="FAT\FATPartitionType.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIHelper.cs" />
+    <Compile Include="FileExplorer\Helpers\FileExplorerUIHelper.cs" />
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
@@ -525,7 +531,7 @@
     <Compile Include="FileSystem\IconSources.cs" />
     <Compile Include="BaseDevice\NativeBasicDeviceStructs.cs" />
     <Compile Include="BaseDevice\UnmanagedBasicDeviceManager.cs" />
-    <Compile Include="FAT\NativeFATStructs.cs" />
+    <Compile Include="FAT\Structs.cs" />
     <Compile Include="FileSystem\NTFSStreamParsingProvider.cs" />
     <Compile Include="FileSystem\UnknownStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
@@ -534,7 +540,6 @@
     <Compile Include="Hex\Constants.cs" />
     <Compile Include="Hex\HexDataContext.cs" />
     <Compile Include="Hex\HexModule.cs" />
-    <Compile Include="Hex\HexUIReactService.cs" />
     <Compile Include="Hex\MenuItemDefinitions.cs" />
     <Compile Include="Hex\Models\SearchKeyOptions.cs" />
     <Compile Include="Hex\IconSources.cs" />
@@ -760,14 +765,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Themes\GridView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Themes\MetroWindow.xaml">
+    <Resource Include="Controls\Themes\MetroWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </Resource>
     <Page Include="Controls\Views\ActiveOrNotView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1059,6 +1060,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Document\Languages\zh_CN\SingularityForensic.Document.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.Docking.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1483,6 +1488,7 @@
     <Content Include="ITunes\DLLS\msvcr120d.dll" />
     <Content Include="ITunes\DLLS\PListCpp.dll" />
     <Content Include="ITunes\DLLS\vccorlib120d.dll" />
+    <Resource Include="ITunes\Images\TreeUnitIcon_ITunes.jpg" />
     <Content Include="Previewers\OutSideIn\debmp.dll" />
     <Content Include="Previewers\OutSideIn\dehex.dll" />
     <Content Include="Previewers\OutSideIn\dess.dll" />

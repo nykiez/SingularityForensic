@@ -7,7 +7,6 @@ using Prism.Commands;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.Controls;
@@ -209,7 +208,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
     }
     
-    ////目录试图资源管理器模型过滤命令部分;
+    ////目录视图资源管理器模型过滤命令部分;
     public partial class FolderBrowserViewModel {
         //一键取消所有的过滤;
         private DelegateCommand _cancelFilteringCommand;

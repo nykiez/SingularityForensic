@@ -1,48 +1,19 @@
-﻿using Prism.Commands;
-using SingularityForensic.Contracts.Common;
-using SingularityForensic.Contracts.Document;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using SingularityForensic.Contracts.Document;
 
 namespace SingularityForensic.Document {
     /// <summary>
     /// 默认文档页;
     /// </summary>
-    public class Document : ExtensibleBindableBase , IDocument {
-        private string _title;
-        public string Title {
-            get => _title;
-            set => SetProperty(ref _title, value);
+    public class Document : DocumentBase, IDocument {
+        private object _uiObject;
+        public override object UIObject {
+            get => _uiObject;
+
         }
 
-        private ObservableCollection<ICommandItem> _commandItem = new ObservableCollection<ICommandItem>();
-        public IList<ICommandItem> CustomCommands => _commandItem;
-        
-        private object _uiObject;
-        public virtual object UIObject {
+        object IDocument.UIObject {
             get => _uiObject;
             set => SetProperty(ref _uiObject, value);
         }
-        
-        public virtual void Dispose() {
-            
-        }
-
-
-        //The command will be executed while Close Button clicked ;
-        private DelegateCommand _closeCommand;
-        public DelegateCommand CloseCommand =>
-            _closeCommand ?? (_closeCommand = new DelegateCommand(() => {
-                CloseRequest?.Invoke(this, EventArgs.Empty);
-            }));
-
-        //关闭请求;
-        public event EventHandler CloseRequest;
-     
-
-        public ObservableCollection<ICommandItem> CommandItems { get; set; } =
-            new ObservableCollection<ICommandItem>();
-        
     }
 }

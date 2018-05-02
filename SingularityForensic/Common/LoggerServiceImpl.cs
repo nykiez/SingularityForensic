@@ -1,9 +1,9 @@
 ﻿using EventLogger;
-using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 
-namespace SingularityForensic.App {
+namespace SingularityForensic.Common {
     [Export(typeof(ILoggerService))]
     class LoggerServiceImpl : ILoggerService {
         public void WriteCallerLine(string msg,[CallerMemberName] string callerName = null) {

@@ -106,9 +106,6 @@ namespace SingularityForensic.Hex {
            });
 
         
-
-        private static HexUIReactService _hexUIService;
-        private static HexUIReactService HexUIService => 
-            _hexUIService ?? (_hexUIService = ServiceProvider.Current?.GetInstance<HexUIReactService>());
+        
     }
 }

@@ -13,6 +13,8 @@ namespace DemoUI {
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
                 
             };
+            
+            InitializeComponent();
         }
 
         protected override void OnStartup(StartupEventArgs e) {

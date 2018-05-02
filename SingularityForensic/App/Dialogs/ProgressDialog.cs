@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.App.Views;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel;
 using System.Windows;

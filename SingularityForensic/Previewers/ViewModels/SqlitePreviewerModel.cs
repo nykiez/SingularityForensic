@@ -9,6 +9,7 @@ using System.Data;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.TreeView;
 using CDFCCultures.Helpers;
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Previewers.ViewModels {
     public partial class SqlitePreviewerModel:BindableBase {

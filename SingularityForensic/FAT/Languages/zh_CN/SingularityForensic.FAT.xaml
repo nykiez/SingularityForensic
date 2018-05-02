@@ -1,6 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
   <sys:String x:Key="PartitionType_FAT32">FAT32</sys:String>
   <sys:String x:Key="PartitionType_FAT16">FAT16</sys:String>
+  <sys:String x:Key="FAT_Owner">FAT所属单位</sys:String>
+  <sys:String x:Key="FAT_Owner_DBR">DBR</sys:String>
+  <sys:String x:Key="FAT_Owner_DBR_Backup">DBR(备份)</sys:String>
+    <sys:String x:Key="FAT_Owner_Info">FATInfo</sys:String>
+    <sys:String x:Key="FAT_Owner_Info_Backup">FATInfo(备份)</sys:String>
+    <sys:String x:Key="FATDBR_ignored">跳转指令</sys:String>
+  <sys:String x:Key="FATDBR_system_id">文件系统标志（ASCII码）</sys:String>
+  <sys:String x:Key="FATDBR_sector_size">每扇区字节数</sys:String>
+  <sys:String x:Key="FATDBR_sectors_per_cluster">每簇扇区数</sys:String>
+  <sys:String x:Key="FATDBR_reserved">保留扇区(其FAT表紧跟在此之后)</sys:String>
+  <sys:String x:Key="FATDBR_fats">fat表的个数(一般为2)</sys:String>
+  <sys:String x:Key="FATDBR_dir_entries">根目录最多可容纳的目录项(FAT32为0，FAT12，16一般为512)</sys:String>
+  <sys:String x:Key="FATDBR_sectors">整个分区的扇区总数(小于32MB放在此)</sys:String>
+  <sys:String x:Key="FATDBR_media">介质描述符(一般为0xF8)</sys:String>
+  <sys:String x:Key="FATDBR_fat_length">FAT32不用；每FAT表的大小扇区数/* 0x16 sectors/FAT */</sys:String>
+  <sys:String x:Key="FATDBR_secs_track">每磁道扇区数</sys:String>
+  <sys:String x:Key="FATDBR_heads">磁头数</sys:String>
+  <sys:String x:Key="FATDBR_hidden">分区前的扇区数</sys:String>
+  <sys:String x:Key="FATDBR_total_sect">文件系统的总扇区</sys:String>
+  <sys:String x:Key="FATDBR_fat32_length">FAT表的扇区大小值</sys:String>
+  <sys:String x:Key="FATDBR_flags">确定FAT表的工作方式bit7设置为1表示只有一份FAT表是活动的</sys:String>
+  <sys:String x:Key="FATDBR_version">文件系统的版本号</sys:String>
+  <sys:String x:Key="FATDBR_root_cluster">根目录起始簇号 一般为2</sys:String>
+  <sys:String x:Key="FATDBR_info_sector">FSINFO所在扇区号(1号)</sys:String>
+  <sys:String x:Key="FATDBR_backup_boot">备份扇区号（6号扇区）</sys:String>
+  <sys:String x:Key="FATDBR_BPB_Reserved">0x34(未使用)</sys:String>
+  <sys:String x:Key="FATDBR_BS_DrvNum">0x40</sys:String>
+  <sys:String x:Key="FATDBR_BS_Reserved1">0x41</sys:String>
+  <sys:String x:Key="FATDBR_BS_BootSig">0x42</sys:String>
+  <sys:String x:Key="FATDBR_BS_VolID">0x43</sys:String>
+  <sys:String x:Key="FATDBR_BS_VolLab">0x47</sys:String>
+  <sys:String x:Key="FATDBR_BS_FilSysType">0x52</sys:String>
+  <sys:String x:Key="FATDBR_nothing">Unused</sys:String>
+  <sys:String x:Key="FATDBR_marker">0x5A</sys:String>
+  <sys:String x:Key="FATInfo_Flag">扩展引导标志('52 52 61 41')</sys:String>
+  <sys:String x:Key="FATInfo_Uable">未使用</sys:String>
+  <sys:String x:Key="FATInfo_FSINFO">FSINFO签名('72 71 41 61')</sys:String>
+  <sys:String x:Key="FATInfo_FreeCluster">空闲簇数量</sys:String>
+  <sys:String x:Key="FATInfo_NextFreeCluter">下一可用簇号</sys:String>
+  <sys:String x:Key="FATInfo_Uable2">未使用</sys:String>
+  <sys:String x:Key="FATInfo_End">55aa</sys:String>
+  
 </ResourceDictionary>

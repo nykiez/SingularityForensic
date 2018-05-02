@@ -40,11 +40,11 @@ namespace SingularityForensic.Test.Imaging {
             
             Assert.AreEqual(_csService.CurrentCase.CaseEvidences.Count(), 1);
 
-            Assert.AreEqual(_fsService.MountedEntities.Count(), 1);
+            Assert.AreEqual(_fsService.MountedFiles.Count(), 1);
 
-            Assert.AreEqual(_imgService.MounterEntities.Count(), 1);
+            Assert.AreEqual(_imgService.MounterTuples.Count(), 1);
 
-            var firstEvi = _imgService.MounterEntities.First().csEvidence;
+            var firstEvi = _imgService.MounterTuples.First().csEvidence;
 
             Assert.IsTrue(firstEvi.EvidenceTypeGuids.Contains(Contracts.Imaging.Constants.EvidenceType_Img));
         }
@@ -55,13 +55,13 @@ namespace SingularityForensic.Test.Imaging {
             _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Constants.CaseFileExtention}");
             Assert.IsNotNull(_csService.CurrentCase);
 
-            Assert.AreNotEqual(_imgService.MounterEntities.Count(),0);
+            Assert.AreNotEqual(_imgService.MounterTuples.Count(),0);
 
-            var imgPath = _imgService.MounterEntities.First().mounter.ImgPath;
+            var imgPath = _imgService.MounterTuples.First().mounter.ImgPath;
             
             Assert.AreEqual(Path.GetFullPath(imgPath), Path.GetFullPath(OpenFileName));
 
-            var stream = _imgService.MounterEntities.First().mounter.RawStream;
+            var stream = _imgService.MounterTuples.First().mounter.RawStream;
         }
     }
 }

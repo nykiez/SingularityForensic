@@ -11,11 +11,11 @@ namespace SingularityForensic.Document.ViewModels {
             
         }
         
-        public ObservableCollection<Document> Documents { get; set; } = new ObservableCollection<Document>();
+        public ObservableCollection<DocumentBase> Documents { get; set; } = new ObservableCollection<DocumentBase>();
 
 
-        private Document _selectedDocument;
-        public Document SelectedDocument {
+        private DocumentBase _selectedDocument;
+        public DocumentBase SelectedDocument {
             get => _selectedDocument;
             set {
                 SetProperty(ref _selectedDocument, value);

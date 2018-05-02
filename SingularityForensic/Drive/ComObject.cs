@@ -6,6 +6,7 @@ using CDFC.Util.PInvoke;
 using System.Runtime.InteropServices;
 using SingularityForensic.Contracts.App;
 using Microsoft.Win32.SafeHandles;
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Drive {
     public class ComObject : IDisposable{

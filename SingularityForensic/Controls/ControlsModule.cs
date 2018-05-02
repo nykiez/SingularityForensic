@@ -8,6 +8,11 @@ namespace SingularityForensic.Controls {
         public void Initialize() {
             LocalizationManager.Manager = new LanguageServiceToTelerikAdapter();
         }
+
+        public static void InitializeTheme() {
+
+            
+        }
     }
 
 

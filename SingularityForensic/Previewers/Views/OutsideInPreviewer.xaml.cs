@@ -9,6 +9,7 @@ namespace SingularityForensic.Controls.Previewers.Views {
     /// Interaction logic for OutsideInPreviewer.xaml
     /// </summary>
     public partial class OutsideInPreviewer : UserControl {
+        private const string AsmName = "DirectOutIn.dll";
         /// <summary>
         /// DirectOutIn.dll将由该项目通过生成脚本自动生成;
         /// </summary>
@@ -24,7 +25,7 @@ namespace SingularityForensic.Controls.Previewers.Views {
         /// <param name="hInstance"></param>
         /// <param name="lpParam"></param>
         /// <returns></returns>
-        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(AsmName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static IntPtr MyCreateWindow(
                                     IntPtr lpClassName,
                                     IntPtr lpWindowName,
@@ -37,11 +38,11 @@ namespace SingularityForensic.Controls.Previewers.Views {
                                     IntPtr hMenu,
                                     IntPtr hInstance,
                                     IntPtr lpParam);
-        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(AsmName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoOpenFile(IntPtr mainIntPtr, IntPtr szFileName);
-        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(AsmName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoCloseFile(IntPtr IntPtr, IntPtr viewerIntPtr);
-        [DllImport("DirectOutIn.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(AsmName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private extern static void DoSize(IntPtr IntPtr, IntPtr viewHND, uint wWidth, uint wHeight);
         public OutsideInPreviewer() {
             InitializeComponent();

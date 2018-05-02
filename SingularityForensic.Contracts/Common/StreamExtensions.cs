@@ -40,7 +40,7 @@ namespace SingularityForensic.Contracts.Common {
             //轮询查找;通过前后错位进行搜索;
             while ((readLen = stream.Read(buffer, pinLen - 1, buffer.Length - pinLen + 1)) != 0) {
                 for (int i = 0; i < readLen; i++) {
-                    if (IsHeadSame(buffer, key, pinLen, i)) {
+                    if (buffer.IsHeadSame(key, pinLen, i)) {
                         return beginPosition + readIndex + i - pinLen + 1;
                     }
                 }
@@ -74,7 +74,7 @@ namespace SingularityForensic.Contracts.Common {
                     var readTime = readLen / blockSize;
                     var readIndex = 0;
                     while (readIndex < readTime) {
-                        if (IsHeadSame(buffer, key, key.Length, readIndex * blockSize + blockOffset)) {
+                        if (buffer.IsHeadSame(key, key.Length, readIndex * blockSize + blockOffset)) {
                             return loc + readIndex * blockSize + blockOffset;
                         }
                         readIndex++;

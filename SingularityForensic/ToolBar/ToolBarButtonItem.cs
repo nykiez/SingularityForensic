@@ -39,10 +39,8 @@ namespace SingularityForensic.ToolBar {
             if (_uiObject != null) {
                 return;
             }
-            _uiObject = ViewProvider.GetView(Constants.ToolBarButtonView);
-            if(_uiObject is FrameworkElement elem) {
-                elem.DataContext = _vm;
-            }
+            _uiObject = ViewProvider.CreateView(Constants.ToolBarButtonView, _vm);
+            
         }
         
         private ToolBarButtonViewModel _vm;
