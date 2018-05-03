@@ -18,7 +18,10 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="TitlebarHeight" Value="38"/>
     </Style>
-    <Style TargetType="{x:Type metros:MetroWindow}" x:Key="DefaultMWindow" BasedOn="{StaticResource {x:Type metros:MetroWindow}}" />
+    
+    <Style TargetType="{x:Type metros:MetroWindow}"
+           x:Key="DefaultMWindow" 
+           BasedOn="{StaticResource {x:Type metros:MetroWindow}}" />
 
     <ControlTemplate x:Key="MsgWindowTemplateKey" TargetType="{x:Type metros:MetroWindow}">
         <Grid>
@@ -426,4 +429,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
 </ResourceDictionary>

@@ -1,6 +1,8 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Contracts.Shell.Events;
 using SingularityForensic.Shell.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
@@ -16,12 +18,42 @@ namespace SingularityForensic.Shell {
         public ShellServiceImpl(ShellViewModel shellVM) {
             this._shellVM = shellVM;
             _shellView = ViewProvider.GetView(Contracts.Shell.Constants.ShellView);
-                
+            Initialize();
         }
 
-        
+        private void Initialize() {
+            RegisterEvents();
+        }
+        private void RegisterEvents() {
+            _shellVM.ClosingRequest += ShellVM_ClosingRequest;
+        }
+
+        private void ShellVM_ClosingRequest(object sender, System.ComponentModel.CancelEventArgs e) {
+            if(ShellClosingEventHandlers == null) {
+                return;
+            }
+
+            var args = new ShellClosingEventArgs(e);
+            foreach (var handler in ShellClosingEventHandlers) {
+                handler.Handle(args);
+                if (args.Handled) {
+                    break;
+                }
+            }
+        }
+
         private ShellViewModel _shellVM;
         private object _shellView;
+
+        private IEnumerable<IShellClosingEventHandler> _shellClosingEventHandlers;
+        private IEnumerable<IShellClosingEventHandler> ShellClosingEventHandlers {
+            get {
+                if(_shellClosingEventHandlers == null) {
+                    _shellClosingEventHandlers = ServiceProvider.GetAllInstances<IShellClosingEventHandler>();
+                }
+                return _shellClosingEventHandlers;
+            }
+        }
 
         //更改标题栏文字;
         public void SetTitle(string word,bool saveBrandName = true) {
@@ -61,6 +93,10 @@ namespace SingularityForensic.Shell {
             if(_shellView is UIElement uiElem) {
                 uiElem.InputBindings.Add(kb);
             }
+        }
+
+        public void Show() {
+            (_shellView as Window).Show();
         }
     }
 }

@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:local="clr-namespace:SingularityForensic.ToolBar.Views"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    <ToolBar >
+    <telerik:RadToolBar BorderThickness="0" Margin="0">
         <ItemsControl ItemsSource="{Binding ToolBarItems}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -16,17 +17,10 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
-                <!--<DataTemplate>
-                        <Button Margin="3,1" Command="{Binding Command}" Padding="3,0"  Style="{DynamicResource TransparentButton}">
-                            <StackPanel>
-                                <Image Width="12" Source="{Binding IconSource}" Stretch="Fill" ToolTip="{Binding Text}"/>
-                            </StackPanel>
-                        </Button>
-                    </DataTemplate>-->
                 <DataTemplate>
                     <ContentControl Content="{Binding UIObject}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </ToolBar>
+    </telerik:RadToolBar>
 </UserControl>

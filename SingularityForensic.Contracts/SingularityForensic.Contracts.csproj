@@ -234,6 +234,8 @@
     <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="Previewers\IPreviewProvider.cs" />
     <Compile Include="Shell\Constants.cs" />
+    <Compile Include="Shell\Events\ShellClosedEvent.cs" />
+    <Compile Include="Shell\Events\ShellClosingEventHandler.cs" />
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
     <Compile Include="StatusBar\IStatusBarItem.cs" />
@@ -356,6 +358,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\TreeViewEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroWindow2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -655,7 +661,6 @@
     <Resource Include="Themes\Images\TextBox\Search_Field.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Shell\Events\" />
     <Folder Include="StatusBar\Events\" />
     <Folder Include="Themes\Images\RadioButton\" />
   </ItemGroup>

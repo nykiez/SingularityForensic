@@ -2,6 +2,9 @@
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using Prism.Interactivity.InteractionRequest;
+using Prism.Commands;
+using System.ComponentModel;
+using System;
 
 namespace SingularityForensic.Shell.ViewModels {
     //主模型;
@@ -54,8 +57,23 @@ namespace SingularityForensic.Shell.ViewModels {
             FocusRequest.Raise(new Notification());
         }
 
+
+        private DelegateCommand<CancelEventArgs> _closingCommand;
+        public DelegateCommand<CancelEventArgs> ClosingCommand => _closingCommand ??
+            (_closingCommand = new DelegateCommand<CancelEventArgs>(
+                e => {
+                    if(e == null) {
+                        return;
+                    }
+
+                    ClosingRequest?.Invoke(this, e);
+                }
+            ));
+
+        public event EventHandler<CancelEventArgs> ClosingRequest;
+
+
     }
-    
     
     public partial class ShellViewModel {
         private bool isLoading;

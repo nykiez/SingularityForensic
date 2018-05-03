@@ -6,25 +6,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:publicCvts="http://singularity/converters"
+                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
             xmlns:sviews="clr-namespace:SingularityForensic.Shell.Views"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-        xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts"  x:Name="shell"
+        xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts" 
+                   x:Name="shell"
         WindowStartupLocation="CenterScreen" d:DesignWidth="1440"
-        mc:Ignorable="d" Style="{DynamicResource DefaultMWindow}" 
+        mc:Ignorable="d" Icon="/SingularityForensic;component/Images/Shell/TitleIcon.png"
                     prism:ViewModelLocator.AutoWireViewModel="True"
-                    WindowCloseButtonStyle="{DynamicResource WindowCloseButtonStyle}"
+                    Style="{DynamicResource WindowStyle}"
+    
+    >
+    <!--WindowCloseButtonStyle="{DynamicResource WindowCloseButtonStyle}"
                     WindowMaxButtonStyle="{DynamicResource WindowMaxButtonStyle}"
-                    WindowMinButtonStyle="{DynamicResource WindowMinButtonStyle}" >
+                    WindowMinButtonStyle="{DynamicResource WindowMinButtonStyle}"-->
     <Window.Resources>
         <ResourceDictionary>
             <controls:BindingProxy x:Key="dataElement" Data="{Binding }" />
         </ResourceDictionary>
     </Window.Resources>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <prism:InvokeCommandAction Command="{Binding ClosingCommand}" />
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding FocusRequest}">
             <ei:CallMethodAction MethodName="Focus" TargetObject="{Binding ElementName=shell}"/>
@@ -32,39 +41,28 @@
     </i:Interaction.Triggers>
     <metros:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <StackPanel Margin="10 -1 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-                <Image  Margin="0,0,9,0" Source="/SingularityForensic;component/Images/Shell/TitleIcon.png" Width="24" Height="24"  />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <!--<Image  Margin="0,0,9,0" Source="" Width="24" Height="24"  />-->
                 <TextBlock VerticalAlignment="Center" FontSize="14" TextTrimming="CharacterEllipsis" DataContext="{Binding Data,Source={StaticResource dataElement}}"
-                           Text="{Binding Title}" FontWeight="Bold" FontFamily="Arial" >
-                <!--<Run FontSize="24" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial"  >X-WAYS</Run>-->
-                </TextBlock>
+                           Text="{Binding Title}" FontWeight="Bold" FontFamily="Arial" />
             </StackPanel>
         </DataTemplate>
     </metros:MetroWindow.TitleTemplate>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
+    
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-                <RowDefinition Height="12"/>
-            </Grid.RowDefinitions>
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MenuRegion}" Grid.ColumnSpan="2"/>
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.ToolBarRegion}" Grid.Row="1" />
-            <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MainRegion}" Grid.Row="2" Grid.ColumnSpan="2" />
-        </Grid>
-        
-        <sviews:LoadingMask Grid.Column="1" Grid.ColumnSpan="3" 
-                            Visibility="{Binding IsLoading,Converter={x:Static publicCvts:BoolToVisibilityConverter.StaticInstance},FallbackValue=Visible}"/>
-        <Rectangle Grid.Row="1" Fill="{DynamicResource Window.StatusBar.Back}" Height="16" VerticalAlignment="Bottom" Grid.ColumnSpan="3"/>
+        <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MenuRegion}" Grid.ColumnSpan="2"/>
+        <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.ToolBarRegion}" Grid.Row="1" />
+        <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.MainRegion}" Grid.Row="2"  />
+        <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.StatusBarRegion}" Grid.Row="3"/>
+        <!--<sviews:LoadingMask Grid.Column="1" Grid.ColumnSpan="3" 
+                            Visibility="{Binding IsLoading,Converter={x:Static publicCvts:BoolToVisibilityConverter.StaticInstance},FallbackValue=Visible}"/>-->
     </Grid>
+        
+    
 </metros:MetroWindow>

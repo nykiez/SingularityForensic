@@ -10,5 +10,7 @@ namespace SingularityForensic.Contracts.Common {
         public const string EvidenceProperties = "PropertyItems";
 
         public const string EvidenceGUID = nameof(EvidenceGUID);
+
+        public const string ResourceFolder = "Resources";
     }
 }

@@ -625,7 +625,6 @@
       <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\Models\IShell.cs" />
-    <Compile Include="Shell\RegionNames.cs" />
     <Compile Include="Shell\ShellService.cs" />
     <Compile Include="Shell\Models\ViewerProgramMessage.cs" />
     <Compile Include="HelpAbout\MenuDefinitions.cs" />
@@ -648,6 +647,11 @@
     </Compile>
     <Compile Include="About\Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatusBar\Constants.cs" />
+    <Compile Include="StatusBar\StatusBarModule.cs" />
+    <Compile Include="StatusBar\Views\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolBar\Constants.cs" />
     <Compile Include="ToolBar\ToolBarButtonItem.cs" />
@@ -1000,6 +1004,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="StatusBar\Views\StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ToolBar\Views\ToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1072,6 +1080,10 @@
     <None Include="ITunes\DLLS\cryptopp.lib" />
     <None Include="ITunes\DLLS\IOSMonitor.lib" />
     <None Include="ITunes\DLLS\Sqlite3.lib" />
+    <Page Include="MainPage\Languages\zh_CN\SingularityForensic.MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -1123,7 +1135,6 @@
     <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
-    <Folder Include="StatusBar\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">
@@ -1732,7 +1743,8 @@ XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)MainPage\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

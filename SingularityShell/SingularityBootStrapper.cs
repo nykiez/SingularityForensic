@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using SingularityForensic.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Shell;
 using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
@@ -72,8 +73,7 @@ namespace SingularityShell {
         }
 
         protected override void InitializeShell() {
-            Application.Current.MainWindow = (Window)this.Shell;
-            Application.Current.MainWindow.Show();
+            ShellService.Current.Show();
         }
     }
 }

@@ -9,7 +9,7 @@
     
     <SolidColorBrush x:Key="Window.TitleBrush" Color="#2a2e31"/>
     <SolidColorBrush x:Key="Window.NonActiveTitleBrush" Color="#808080"/>
-    <SolidColorBrush x:Key="Window.StatusBar.Back" Color="#2a2e31" />
+    <SolidColorBrush x:Key="Window.StatusBar.Back" Color="#007acc" />
     <SolidColorBrush x:Key="Window.Border" Color="Black"/>
 
     <SolidColorBrush x:Key="Window.Background" Color="#f5f6f8"/>

@@ -4,57 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://www.codeplex.com/prism" 
-             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mainPage="clr-namespace:SingularityForensic.Contracts.MainPage;assembly=SingularityForensic.Contracts"
-             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True" 
+             d:DesignHeight="300" d:DesignWidth="1000">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ContentRenderedCommand}"/>
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Border  >
 
-        <telerik:RadDocking HasDocumentHost="False" >
+    <telerik:RadDocking HasDocumentHost="False" x:Name="docking" BorderThickness="0" >
             <telerik:RadSplitContainer Padding="0" Orientation="Horizontal" InitialPosition="DockedLeft">
-                <telerik:RadPaneGroup  telerik:ProportionalStackPanel.RelativeSize="100, 600" >
+                <telerik:RadPaneGroup  telerik:ProportionalStackPanel.RelativeSize="50, 600" >
                     <telerik:RadPane  CanUserClose="False" Header="{DynamicResource CaseData}" CanDockInDocumentHost="False">
                         <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.NodeTreeRegion}"/>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
-                <telerik:RadPaneGroup  telerik:ProportionalStackPanel.RelativeSize="200, 600">
-                    <telerik:RadPane PaneHeaderVisibility="Collapsed" >
+            </telerik:RadSplitContainer>
+            <telerik:RadSplitContainer>
+                <telerik:RadPaneGroup  telerik:ProportionalStackPanel.RelativeSize="200, 600" >
+                    <telerik:RadPane CanUserClose="False" PaneHeaderVisibility="Collapsed"
+                                     Header="{DynamicResource Header_MainContent}" x:Name="mainContent"  >
                         <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}"/>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>
-          
         </telerik:RadDocking>
-        <!--<ad:DockingManager >
-            <ad:LayoutRoot >
-                <ad:LayoutPanel>
-                    <ad:LayoutAnchorablePane DockWidth="5*" DockMinWidth="240"  >
-                        <ad:LayoutAnchorable CanClose="False" CanHide="False" Title="{DynamicResource CaseData}" CanAutoHide="False" >
-                            
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutAnchorablePane>
-                    <ad:LayoutDocumentPane ShowHeader="False"  DockWidth="5*"  >
-                        <ad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" CanFloat="False">
-                            
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutDocumentPane>
-                </ad:LayoutPanel>
-            </ad:LayoutRoot>
-        </ad:DockingManager>-->
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="120" />
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
-        <ContentControl prism:RegionManager.RegionName="FSLeftRegion" />
-        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
-                          VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="Transparent"  Width="9"/>
-        <ContentControl prism:RegionManager.RegionName="FSMainRegion" Grid.Column="1" Margin="9,0,0,0"/>-->
-    </Border>
+    
 </UserControl>

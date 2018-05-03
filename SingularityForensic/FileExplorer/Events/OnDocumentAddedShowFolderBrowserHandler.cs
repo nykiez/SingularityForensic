@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
-    /// 分区加入文档时的呈现主视图;
+    /// 分区加入文档时呈现主视图;
     /// </summary>
     /// <param name="tuple"></param>
     [Export(typeof(IDocumentAddedEventHandler))]
@@ -27,7 +27,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            //若是设备,因设备有专门的视图,中止操作;
+            //因设备有专门的视图,中止操作;
             if (haveFileCollection is IDevice) {
                 return;
             }

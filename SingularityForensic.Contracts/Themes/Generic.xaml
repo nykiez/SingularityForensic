@@ -20,6 +20,6 @@
         <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Thickness.xaml"/>
         
                                                                                           
-        <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/MetroWindow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/MetroWindow2.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
