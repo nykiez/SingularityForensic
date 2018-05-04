@@ -11,6 +11,7 @@ using System.Data;
 using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Controls;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>

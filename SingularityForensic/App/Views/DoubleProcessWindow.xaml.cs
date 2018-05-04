@@ -1,8 +1,9 @@
 ﻿using CDFCControls.Controls;
+using SingularityForensic.Contracts.App;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Telerik.Windows.Controls;
 
 namespace SingularityForensic.App.Views {
     /// <summary>
@@ -36,7 +37,7 @@ namespace SingularityForensic.App.Views {
 
         private bool detailAnimating;
         
-        private void SetProValue(ProgressBar bar,double val,Func<bool> isAnimating,Action<bool> setAnimating) {
+        private void SetProValue(RadProgressBar bar,double val,Func<bool> isAnimating,Action<bool> setAnimating) {
             bar.Value = val;
             if (val > bar.Value && !isAnimating.Invoke()) {
                 setAnimating(true);
@@ -69,6 +70,11 @@ namespace SingularityForensic.App.Views {
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e) {
+            if (MsgBoxService.Show(
+                LanguageService.FindResourceString(Constants.MsgText_ConfirmToCancel), Contracts.App.MessageBoxButton.YesNo) != Contracts.App.MessageBoxResult.Yes) {
+                return;
+            }
+
             this.CancellationPending = true;
             this.Canceld?.Invoke(this, EventArgs.Empty);
         }

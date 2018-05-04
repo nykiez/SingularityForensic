@@ -23,8 +23,12 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var part = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IPartition;
-            if (part == null) {
+            var haveFileCollection = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
+            if (haveFileCollection == null) {
+                return;
+            }
+
+            if(haveFileCollection is IDevice) {
                 return;
             }
 

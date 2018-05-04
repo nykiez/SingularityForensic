@@ -39,8 +39,20 @@ namespace SingularityForensic.FileExplorer {
 
         public const string DocumentTag_FilePreviewer = nameof(DocumentTag_FilePreviewer);
 
+        /// <summary>
+        /// 打开方式,右键;
+        /// </summary>
+        public const string CommandItemGUID_OpenFileWith = nameof(CommandItemGUID_OpenFileWith);
 
+        public const string ViewerProgram_ConfigFile = "ViewerPrograms.xml";
+
+        public const string XmlElemName_Viewer_Root = "Programs";
+
+        public const string XmlElemName_Viewer_Pro = "ViewerProgram";
         
+        public const string XmlElemName_View_Pro_Path = "Path";
+
+        public const string XmlAttrName_View_Pro_Name = "Name";
     }
 
     /// <summary>
@@ -132,6 +144,8 @@ namespace SingularityForensic.FileExplorer {
 
         public const string ContextCommandName_CustomSignSearch = nameof(ContextCommandName_CustomSignSearch);
 
+        public const string ContextCommandName_OpenFileWithAnotherPro = nameof(ContextCommandName_OpenFileWithAnotherPro);
+
         public const string MsgText_FileSaveDone = nameof(MsgText_FileSaveDone);
         public const string MsgText_FailedToCreateDirectory = nameof(MsgText_FailedToCreateDirectory);
 
@@ -145,24 +159,6 @@ namespace SingularityForensic.FileExplorer {
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
-    }
-
-    /// <summary>
-    /// 类型部分;
-    /// </summary>
-    public static partial class Constants {
-        public static readonly TypeGenericStaticInstance<string> 
-            StringType = new TypeGenericStaticInstance<string>();
-        public static readonly TypeGenericStaticInstance<int>
-            IntType = new TypeGenericStaticInstance<int>();
-        public static readonly TypeGenericStaticInstance<long>
-            LongType = new TypeGenericStaticInstance<long>();
-        
-    }
-
-    public class TypeGenericStaticInstance<TType>{
-        private static Type _typeInstance;
-        public static Type TypeInstance => _typeInstance ?? (_typeInstance = typeof(TType));
     }
     
 }

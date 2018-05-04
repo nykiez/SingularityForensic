@@ -1,61 +1,49 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
+﻿using SingularityForensic.App.ViewModels;
+using SingularityForensic.App.Views;
 using SingularityForensic.Contracts.App;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.App {
+   
     [Export(typeof(IMessageBoxService))]
     class MessageBoxServiceImpl : IMessageBoxService {
-        //从Windows.Result转为契约Result;
-        private static MessageBoxResult ConvertFromWindowsMsgResToLocalRes(System.Windows.MessageBoxResult res) {
-            switch (res) {
-                case System.Windows.MessageBoxResult.None:
-                    return MessageBoxResult.None;
-                case System.Windows.MessageBoxResult.OK:
-                    return MessageBoxResult.OK;
-                case System.Windows.MessageBoxResult.Cancel:
-                    return MessageBoxResult.Cancel;
-                case System.Windows.MessageBoxResult.Yes:
-                    return MessageBoxResult.Yes;
-                case System.Windows.MessageBoxResult.No:
-                    return MessageBoxResult.No;
-                default:
-                    return MessageBoxResult.None;
-            }
-        }
-
-        //从契约Button转为WindowsButton;
-        private static System.Windows.MessageBoxButton ConvertFromLocalResToWindowsMsgBtn(MessageBoxButton btn) {
-            switch (btn) {
-                case MessageBoxButton.OK:
-                    return System.Windows.MessageBoxButton.OK;
-                case MessageBoxButton.OKCancel:
-                    return System.Windows.MessageBoxButton.OKCancel;
-                case MessageBoxButton.YesNoCancel:
-                    return System.Windows.MessageBoxButton.YesNoCancel;
-                case MessageBoxButton.YesNo:
-                    return System.Windows.MessageBoxButton.YesNo;
-                default:
-                    return System.Windows.MessageBoxButton.OK;
-            }
-        }
-
         public MessageBoxResult Show(string msg) {
-            var res = CDFCMessageBox.Show(msg);
-            return ConvertFromWindowsMsgResToLocalRes(res);
+            return Show(msg, LanguageService.FindResourceString(Constants.WindowTitle_Tip), MessageBoxButton.OK);
         }
 
         public void ShowError(string error) {
-            CDFCMessageBox.Show(error);
+            Show(error);
         }
 
         public MessageBoxResult Show(string msgText, MessageBoxButton button) {
-            var res = CDFCMessageBox.Show(msgText, ConvertFromLocalResToWindowsMsgBtn(button));
-            return ConvertFromWindowsMsgResToLocalRes(res);
+            var res = Show(msgText,LanguageService.FindResourceString(Constants.WindowTitle_Tip), button);
+            return res;
         }
 
         public MessageBoxResult Show(string msgText, string caption, MessageBoxButton button) {
-            var res = CDFCMessageBox.Show(msgText, caption,ConvertFromLocalResToWindowsMsgBtn(button));
-            return ConvertFromWindowsMsgResToLocalRes(res);
+            var vm = new MessageBoxWindowViewModel(button, msgText, caption);
+            var msg = new MessageBoxWindow();
+            msg.ShowInTaskbar = false;
+            msg.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            msg.DataContext = vm;
+            msg.Owner =  System.Windows.Application.Current.MainWindow;
+            var res = msg.ShowDialog();
+            switch (vm.DialogResult) {
+                case null:
+                    if (button == MessageBoxButton.YesNoCancel)
+                        return MessageBoxResult.Cancel;
+                    return MessageBoxResult.None;
+                case false:
+                    return MessageBoxResult.No;
+                case true:
+                    if (button == MessageBoxButton.OK)
+                        return MessageBoxResult.OK;
+                    return MessageBoxResult.Yes;
+                default:
+                    return MessageBoxResult.None;
+            }
+            
+            
         }
     }
 }

@@ -20,14 +20,6 @@ namespace SingularityForensic.MainMenu.ViewModels {
             
             BuildBasicMenus();
             AddGestures();
-            //PubEventHelper.GetEvent<RequireMenuGroupChangeEvent>().Subscribe(group => {
-            //    SelectedGroup = group;
-            //});
-            //PubEventHelper.GetEvent<MenuSelectedGroupChangedEvent>()?.Subscribe(group => {
-            //    if (group != MenuGroupDefinitions.HelpMenuGroup && group != MenuGroupDefinitions.OptionsMenuGroup) {
-            //        ServiceProvider.Current.GetInstance<IRegionManager>()?.RequestNavigate(RegionNames.MainRegion, "BlankPage");
-            //    }
-            //});
         }
         
         /// <summary>

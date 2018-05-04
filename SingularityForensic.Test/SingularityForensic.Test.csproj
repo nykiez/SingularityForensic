@@ -111,6 +111,7 @@
     <Compile Include="Common\CommonMockers.cs" />
     <Compile Include="Common\GenericServiceStaticInstance2Tests.cs" />
     <Compile Include="Common\TestExtensibleObject.cs" />
+    <Compile Include="Common\AppDataFolderTest.cs" />
     <Compile Include="Common\ViewProviderTests.cs" />
     <Compile Include="Document\DocumentServiceTest.cs" />
     <Compile Include="Document\DocumentServiceTests.cs" />
@@ -121,12 +122,14 @@
     <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandlerTests.cs" />
     <Compile Include="FAT\FatMockers.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />
+    <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandlerTests.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandlerTests.cs" />
     <Compile Include="FileExplorer\FileExplorerTestCommon.cs" />
     <Compile Include="FileExplorer\FolderBrowserViewModelFactoryTests.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
+    <Compile Include="FileExplorer\ViewerSeviceImplTests.cs" />
     <Compile Include="FileSystem\DosAndGptTest.cs" />
     <Compile Include="FAT\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
@@ -193,6 +196,7 @@ Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevMa
 Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
+Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 

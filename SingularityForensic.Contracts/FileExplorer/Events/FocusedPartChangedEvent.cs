@@ -1,5 +1,5 @@
 ﻿using Prism.Events;
-using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

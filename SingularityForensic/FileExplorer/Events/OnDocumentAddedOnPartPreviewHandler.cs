@@ -20,9 +20,13 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var part = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IPartition;
-            if (part == null) {
-                LoggerService.WriteCallerLine($"{nameof(part)} can't be null.");
+            var haveFileCollection = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
+            if (haveFileCollection == null) {
+                LoggerService.WriteCallerLine($"{nameof(haveFileCollection)} can't be null.");
+                return;
+            }
+
+            if(haveFileCollection is IDevice) {
                 return;
             }
 

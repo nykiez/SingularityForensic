@@ -4,12 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
-             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:local="clr-namespace:DemoUI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ad:DockingManager>
+        <!--<ad:DockingManager>
             <ad:LayoutRoot>
                 <ad:LayoutPanel >
                     <ad:LayoutDocumentPane ShowHeader="True" >
@@ -25,6 +24,6 @@
                     </ad:LayoutDocumentPane>
                 </ad:LayoutPanel>
             </ad:LayoutRoot>
-        </ad:DockingManager>
+        </ad:DockingManager>-->
     </Grid>
 </UserControl>

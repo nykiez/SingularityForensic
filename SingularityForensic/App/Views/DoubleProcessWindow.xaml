@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         mc:Ignorable="d" Style="{DynamicResource MsgWindowStyle}" ResizeMode="NoResize"
-        Title="案件加载" Height="240" WindowStartupLocation="CenterScreen" Width="420">
+        Title="案件加载"  SizeToContent="Height" WindowStartupLocation="CenterScreen" Width="420">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,14 +32,14 @@
                 <TextBlock x:Name="txblDetail"  DockPanel.Dock="Top" Margin="0,6"/>
                 <Grid >
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ProgressBar Style="{DynamicResource NormalProgressBar}" x:Name="ProDetailBar" MinHeight="24" />
-                    <ProgressBar Style="{DynamicResource NormalProgressBar}" x:Name="ProCapBar" Grid.Row="1" MinHeight="24" Value="10"/>
+                    <telerik:RadProgressBar x:Name="ProDetailBar" Margin="0,12" />
+                    <telerik:RadProgressBar x:Name="ProCapBar" Margin="0,12"  Grid.Row="1"  Value="10"/>
                     <DockPanel Grid.Row="2" Margin="0,12">
-                        <Button Content="{DynamicResource Cancel}" DockPanel.Dock="Right" Click="btnCancel_Click" Style="{DynamicResource DenyBtnStyle}" />
+                        <telerik:RadButton Content="{DynamicResource Cancel}" DockPanel.Dock="Right" Click="btnCancel_Click"  />
                         <Border/>
                     </DockPanel>
                 </Grid>

@@ -26,7 +26,8 @@ namespace SingularityForensic.Contracts.Common {
         /// </summary>
         Uri Icon { get; set; }
         bool IsEnabled { get; set; }
-        
+        string GUID { get; }
+
         IEnumerable<ICommandItem> Children { get; }
 
         void AddChild(ICommandItem commandItem);
@@ -43,11 +44,11 @@ namespace SingularityForensic.Contracts.Common {
     /// 命令项工厂;
     /// </summary>
     public interface ICommandItemFactory {
-        ICommandItem CreateNew(ICommand command);
+        ICommandItem CreateNew(ICommand command,string guid);
     }
 
     public class CommandItemFactory:GenericServiceStaticInstance<ICommandItemFactory> {
-        public static ICommandItem CreateNew(ICommand command) => Current?.CreateNew(command);
+        public static ICommandItem CreateNew(ICommand command,string guid = null) => Current?.CreateNew(command,guid);
     }
 
     //public interface ICommandItem<TData> : ICommandItem {

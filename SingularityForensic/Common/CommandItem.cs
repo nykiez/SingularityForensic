@@ -10,8 +10,9 @@ namespace SingularityForensic.Common {
     /// 命令绑定项,可用于MenuItem等的绑定等;
     /// </summary>
     class CommandItem : ExtensibleBindableBase, ICommandItem {
-        public CommandItem(ICommand command) {
+        public CommandItem(ICommand command,string guid) {
             this.Command = command;
+            this.GUID = guid;
         }
 
         public ICommand Command { get; }
@@ -49,6 +50,8 @@ namespace SingularityForensic.Common {
         //排列顺序;
         public int Sort { get; set; }
 
+        public string GUID { get; }
+
         public void AddChild(ICommandItem commandItem) => _children.AddOrderBy(commandItem, p => p.Sort);
 
         public void RemoveChild(ICommandItem commandItem) => _children.Remove(commandItem);
@@ -56,6 +59,6 @@ namespace SingularityForensic.Common {
 
     [Export(typeof(ICommandItemFactory))]
     class CommandItemFactory : ICommandItemFactory {
-        public ICommandItem CreateNew(ICommand command) => new CommandItem(command);
+        public ICommandItem CreateNew(ICommand command,string guid) => new CommandItem(command,guid);
     }
 }

@@ -19,4 +19,15 @@ namespace SingularityForensic.Contracts.FileExplorer.Events {
     public interface IFolderBrowserViewModelCreatedEventHandler : IEventHandler<IFolderBrowserViewModel> {
 
     }
+
+    ///// <summary>
+    ///// 被卸载事件;
+    ///// </summary>
+    //public class FolderBrowserViewModelUnLoadedEvent : PubSubEvent<IFolderBrowserViewModel> {
+
+    //}
+
+    //public interface IFolderBrowserViewModelUnLoadedEventHandler : IEventHandler<IFolderBrowserViewModel> {
+
+    //}
 }

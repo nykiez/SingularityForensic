@@ -52,7 +52,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     }
 
     public class FileExplorerViewModelFactory : GenericServiceStaticInstance<IFileExplorerViewModelFactory> {
-        public static IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection part) => Current?.CreateFolderBrowserViewModel(part);
+        public static IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection haveFileCollection) => Current?.CreateFolderBrowserViewModel(haveFileCollection);
         public static IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device) => Current?.CreatePartitionsBrowserViewModel(device);
     }
 

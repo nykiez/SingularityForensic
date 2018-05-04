@@ -14,8 +14,8 @@ namespace SingularityForensic.MainPage.Views {
     public partial class MainPage : UserControl{
         public MainPage() {
             InitializeComponent();
-            this.Loaded += MainPage_Loaded;
-            this.Loaded += MainPage_Loaded1;
+            //this.Loaded += MainPage_Loaded;
+            //this.Loaded += MainPage_Loaded1;
         }
 
         private void MainPage_Loaded1(object sender, RoutedEventArgs e) {

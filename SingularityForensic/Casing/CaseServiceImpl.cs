@@ -107,12 +107,12 @@ namespace SingularityForensic.Casing {
             
             //从文档中加载证据项;
             var msg = ServiceProvider.Current.GetInstance<IDialogService>()?.CreateDoubleLoadingDialog();
-            msg.Title = LanguageService.Current?.FindResourceString(LoadingCase);
-
             if (msg == null) {
                 LoggerService.Current?.WriteCallerLine($"{nameof(IDialogService)} can't be null.");
                 return;
             }
+
+            msg.Title = LanguageService.Current?.FindResourceString(LoadingCase);
             
             msg.DoWork += delegate {
                 //构建进度回调器;
@@ -149,17 +149,21 @@ namespace SingularityForensic.Casing {
         /// </summary>
         /// <returns></returns>
         public bool ConfirmCaseLoaded() {
-            if (CurrentCase == null) {
-                if (MsgBoxService.Current.Show(
-                    LanguageService.Current?.FindResourceString("ConfirmToCreateNewCase"), 
-                    MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
-                    return false;
-                }
-                else {
-                    var cs = CreateNewCase();
-                    LoadCase(cs);
-                }
+            if(CurrentCase != null) {
+                return true;
             }
+
+            if (MsgBoxService.Current.Show(
+                    LanguageService.Current?.FindResourceString("ConfirmToCreateNewCase"),
+                    MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
+                return false;
+            }
+
+            var cs = CreateNewCase();
+            if (cs == null) {
+                return false;
+            }
+            LoadCase(cs);
 
             return CurrentCase != null;
         }

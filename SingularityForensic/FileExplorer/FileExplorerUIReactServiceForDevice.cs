@@ -4,6 +4,7 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Hex;
@@ -12,7 +13,6 @@ using SingularityForensic.FileExplorer.ViewModels;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 
 namespace SingularityForensic.FileExplorer {
     [Export]

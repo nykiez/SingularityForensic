@@ -10,6 +10,8 @@ namespace SingularityForensic.FileExplorer.Models {
         public FileRow(IFile file):base(file) {
             
         }
+        
+
     }
 
     public class PartitionRow : FileRowProxy<IPartition>,IPartitionRow {
@@ -73,7 +75,7 @@ namespace SingularityForensic.FileExplorer.Models {
             return _filePropDescriptorCollection;
         }
 
-        public class FileRowPropertyDescriptor : PropertyDescriptor {
+        public class FileRowPropertyDescriptor  : PropertyDescriptor {
             public override string DisplayName => FileMetaDataProvider.MetaDataName;
             public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID, new Attribute[0]) {
                 FileMetaDataProvider = fileMetaDataProvider ?? throw new ArgumentNullException(nameof(fileMetaDataProvider));
@@ -107,6 +109,8 @@ namespace SingularityForensic.FileExplorer.Models {
                 return false;
             }
         }
+
+
     }
     
    

@@ -153,16 +153,16 @@ namespace SingularityForensic.FAT.Events {
             long offset) where TCustomFieldDescriptor:ICustomFieldDecriptor {
             var fieldDescriptors = customFieldDescriptor.GetDescriptors();
             var currentOffset = 0;
+
             foreach (var fieldDescriptor in fieldDescriptors) {
-                
                 hexDataContext.CustomDataToolTipItems.Add(
                     (offset + currentOffset, 
                     fieldDescriptor.FieldSize,
                     LanguageService.FindResourceString(fieldDescriptor.KeyName),
                     fieldDescriptor.Value));
-
                 currentOffset += fieldDescriptor.FieldSize;
             }
+
         }
         
         private void UpdateStructOwnerToolTips<TStruct>(

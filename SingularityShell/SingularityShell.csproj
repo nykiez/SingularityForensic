@@ -182,7 +182,7 @@ Copy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)\SingularityForensic.
 
 Copy "$(SolutionDir)SingularityForensic.Android\$(OutDir)\SingularityForensic.Android.dll" "$(TargetDir)Entities\SingularityForensic.Android.dll"
 
-Copy "$(SolutionDir)SingularityForensic.Controls\$(OutDir)\SingularityForensic.Controls.dll" "$(TargetDir)Controls\SingularityForensic.Controls.dll"
+Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
 
 Copy "$(SolutionDir)SingularityForensic.Info\$(OutDir)\SingularityForensic.Info.dll" "$(TargetDir)Entities\SingularityForensic.Info.dll"
 Copy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll"
@@ -219,6 +219,7 @@ Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System
 Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(TargetDir)Entities\System.Data.SQLite.EF6.dll"
 Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(TargetDir)Entities\System.Data.SQLite.Linq.dll"
 XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(TargetDir)x86" /E /Y
-XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(TargetDir)x64" /E /Y</PostBuildEvent>
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(TargetDir)x64" /E /Y
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

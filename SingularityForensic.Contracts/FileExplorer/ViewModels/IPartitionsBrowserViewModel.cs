@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.FileExplorer {
+namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     /// <summary>
     /// 设备-分区视图模型被创建事件;
     /// </summary>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowCloseButton="True"
-        Title="Input Value" SizeToContent="Height" Width="400" Style="{DynamicResource MsgWindowStyle}">
+       SizeToContent="Height" Width="400" Style="{DynamicResource MsgWindowStyle}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,9 +19,8 @@
             <TextBlock x:Name="txbDesc" />
             <TextBox x:Name="txbVal" Margin="0,12" />
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                
                 <Button  HorizontalAlignment="Center" Content="{DynamicResource Confirm}" Click="Button_Click" Margin="24,0" />
-                <Button HorizontalAlignment="Center" Style="{DynamicResource DenyBtnStyle}" 
+                <Button HorizontalAlignment="Center" 
                         Content="{DynamicResource Cancel}" x:Name="btnCancel" Click="BtnCancel_Click" Margin="24,0" />
             </StackPanel>
             

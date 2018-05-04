@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;

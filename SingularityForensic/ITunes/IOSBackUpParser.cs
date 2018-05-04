@@ -78,6 +78,11 @@ namespace SingularityForensic.ITunes {
                         regFileStoken.CreateTime = st.CreateTime;
                         regFileStoken.ModifiedTime = st.ModifiedTime;
                         regFileStoken.AccessedTime = st.AccessTime;
+                        //if (File.Exists(st.LocalPath)) {
+                        //    var fileInfo = new FileInfo(st.LocalPath);
+                        //    regFileStoken.Size = fileInfo.Length;
+                        //}
+                        
                     }
                     catch (Exception ex) {
                         LoggerService.WriteCallerLine(ex.Message);

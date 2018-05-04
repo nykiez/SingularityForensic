@@ -265,6 +265,7 @@
     <Compile Include="Adb\Views\InfoView.xaml.cs">
       <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\AppServiceImpl.cs" />
     <Compile Include="App\ClipBoardServiceImpl.cs" />
     <Compile Include="App\LocalExplorerServiceImpl.cs" />
     <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
@@ -275,6 +276,10 @@
     <Compile Include="App\ResourceDictionaryEx.cs" />
     <Compile Include="App\ThreadInvokerImpl.cs" />
     <Compile Include="App\LanguageServiceImpl.cs" />
+    <Compile Include="App\ViewModels\MessageBoxWindowViewModel.cs" />
+    <Compile Include="App\Views\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\LoggerServiceImpl.cs" />
     <Compile Include="App\Dialogs\SingularityMessageBoxDialog.cs" />
     <Compile Include="App\MessageBoxServiceImpl.cs" />
@@ -353,8 +358,10 @@
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
+    <Compile Include="FileExplorer\ViewerSeviceImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
     <Compile Include="FileSystem\BlockGroup.cs" />
+    <Compile Include="FileSystem\FileServiceImpl.cs" />
     <Compile Include="FileSystem\StreamFileBase.cs" />
     <Compile Include="FileSystem\FileFactoryImpl.cs" />
     <Compile Include="FileSystem\PartitionEntryFactoryImpl.cs" />
@@ -590,7 +597,6 @@
     <Compile Include="MainPage\Constants.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
     <Compile Include="MainPage\MainTreeService.cs" />
-    <Compile Include="MainPage\MenuGroupDefinitions.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
     <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
@@ -721,6 +727,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="App\Languages\zh_CN\SingularityForensic.App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="App\Views\MessageBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1491,6 +1501,7 @@
     <Content Include="FAT\FatRecover.dll" />
     <Content Include="BaseDevice\PartitionManager.dll" />
     <Resource Include="FileExplorer\Images\Type_RegularFile.png" />
+    <Content Include="FileExplorer\ViewerPrograms.xml" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

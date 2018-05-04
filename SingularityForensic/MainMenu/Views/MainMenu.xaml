@@ -199,60 +199,29 @@
 
             <ImageBrush x:Key="ToolBarBtnHover" Stretch="Fill" ImageSource="/SingularityForensic;component/Images/ToolBarButton_Hover.png"  />
             <ImageBrush x:Key="ToolBarBtnClick" Stretch="Fill" ImageSource="/SingularityForensic;component/Images/ToolBarButton_Click.png"  />
+            <Style TargetType="{x:Type telerik:RadMenuItem}" x:Key="BasicMenuItem"  BasedOn="{StaticResource  {x:Type telerik:RadMenuItem}}">
+                <Setter Property="Header" Value="{Binding Text}" />
+                <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                <Setter Property="Command" Value="{Binding Command}"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadMenu ItemsSource="{Binding MenuGroups}" BorderThickness="0">
         <telerik:RadMenu.ItemContainerStyle>
-            <Style TargetType="{x:Type telerik:RadMenuItem}" BasedOn="{StaticResource  {x:Type telerik:RadMenuItem}}">
-                <Setter Property="Header" Value="{Binding Text}" />
-                <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                <Setter Property="Command" Value="{Binding Command}"/>
-                <!--<Setter Property="ItemContainerStyle">
+            <Style TargetType="{x:Type telerik:RadMenuItem}" BasedOn="{StaticResource BasicMenuItem}">
+                <Setter Property="ItemContainerStyle">
                     <Setter.Value>
-                        <Style TargetType="{x:Type telerik:RadMenuItem}" >
-                            <Setter Property="Header" Value="{Binding Text}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
+                        <Style TargetType="{x:Type telerik:RadMenuItem}" BasedOn="{StaticResource BasicMenuItem}">
+                            <!--<Setter Property="Icon" >
+                                <Setter.Value>
+                                    <Image Source="{Binding IconSource}"/>
+                                </Setter.Value>
+                            </Setter>-->
                         </Style>
                     </Setter.Value>
-                </Setter>-->
+                </Setter>
             </Style>
         </telerik:RadMenu.ItemContainerStyle>
     </telerik:RadMenu>
-    <!--<Menu ItemsSource="{Binding MenuGroups}" >
-        <Menu.ItemContainerStyle>
-            <Style TargetType="MenuItem" >
-                
-            </Style>
-        </Menu.ItemContainerStyle>
-    </Menu>-->
-    <!--<controls:TabControlEx ItemsSource="{Binding MenuGroups}" SelectedItem="{Binding SelectedGroup}"  Style="{DynamicResource MainMenuTab}">
-        <TabControl.ItemContainerStyle>
-            <Style TargetType="TabItem" BasedOn="{StaticResource MainMenuItem}">
-                <Setter Property="Header" Value="{Binding Text}" />
-            </Style>
-        </TabControl.ItemContainerStyle>
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <DockPanel  Background="{StaticResource MainMenu.Background}" Visibility="Collapsed"  >
-                    <ItemsControl ItemsSource="{Binding Children}" Margin="0,3" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Margin="3,1" Command="{Binding Command}" Padding="3,0" >
-                                    <StackPanel>
-                                        <Image Width="12" Source="{Binding IconSource}" Stretch="Fill" ToolTip="{Binding Text}"/>
-                                    </StackPanel>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DockPanel>
-            </DataTemplate>
-        </TabControl.ContentTemplate>
-    </controls:TabControlEx>-->
     
 </UserControl>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs>
+  <ViewerProgram Name="Microsoft Internet Explorer">
+    <Path>iexplore</Path>
+  </ViewerProgram>
+  <ViewerProgram Name="Notepad">
+    <Path>notepad</Path>
+  </ViewerProgram>
+</Programs>
