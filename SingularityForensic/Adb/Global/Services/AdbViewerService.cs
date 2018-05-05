@@ -1,5 +1,4 @@
 ﻿using CDFC.Info.Adb;
-using CDFCMessageBoxes.MessageBoxes;
 using EventLogger;
 using Prism.Events;
 using SingularityForensic.Contracts.Casing;
@@ -31,8 +30,7 @@ namespace SingularityForensic.Adb.Global.Services {
             }
             catch (Exception ex) {
                 Logger.WriteLine($"{nameof(AdbViewerService)}->{nameof(LoadAdbPhoneContainer)}:{ex.Message}");
-
-                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FaileToLoadAdbInfo")}:{ex.Message}");
+                MsgBoxService.ShowError($"{LanguageService.FindResourceString("FaileToLoadAdbInfo")}:{ex.Message}");
             }
         }
 
@@ -70,7 +68,7 @@ namespace SingularityForensic.Adb.Global.Services {
             }
             catch (Exception ex) {
                 Logger.WriteLine($"{nameof(AdbViewerService)}->{nameof(AddAdbInfoNode)}:{ex.Message}");
-                RemainingMessageBox.Tell($"{ex.Message}");
+                MsgBoxService.ShowError(ex.Message);
             }
             finally {
                 ServiceProvider.Current?.GetInstance<ICaseService>().CurrentCase.Save();

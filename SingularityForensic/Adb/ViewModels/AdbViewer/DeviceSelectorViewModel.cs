@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
 using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
 using Prism.Commands;
 using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Tools.Adb.Devices;
@@ -81,7 +80,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
         }
 
         public void PopupDevices(List<Device> devices) {
-            AppInvoke(() => {
+            ThreadInvoker.UIInvoke(() => {
                 Devices.Clear();
                 try {
                     if (devices == null || devices.Count == 0) {
@@ -97,7 +96,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                 }
                 catch(Exception ex) {
                     Logger.WriteLine($"{nameof(DeviceSelectorViewModel)}->{ nameof(PopupDevices)}:{ ex.Message}");
-                    RemainingMessageBox.Tell($"{nameof(PopupDevices)}:{ex.Message}");
+                    MsgBoxService.ShowError($"{nameof(PopupDevices)}:{ex.Message}");
                 }
             });
         }

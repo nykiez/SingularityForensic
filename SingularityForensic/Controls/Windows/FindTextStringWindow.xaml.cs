@@ -1,5 +1,5 @@
 ﻿using CDFCControls.Controls;
-using CDFCMessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
 using System.Windows;
 using System.Windows.Input;
 using static CDFCCultures.Managers.ManagerLocator;
@@ -68,7 +68,7 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockSize() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockSize == null) {
-                    CDFCMessageBox.Show($"{FindResourceString("InvalidBlockSize")}");
+                    MsgBoxService.Show($"{FindResourceString("InvalidBlockSize")}");
                     return false;
                 }
                 return true;
@@ -78,11 +78,11 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockOffset() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockOffset == null) {
-                    CDFCMessageBox.Show($"{FindResourceString("InvalidBlockOffset")}");
+                    MsgBoxService.Show($"{FindResourceString("InvalidBlockOffset")}");
                     return false;
                 }
                 else if (SearchBlockOffset > (Text?.Length ?? 0) + SearchBlockSize) {
-                    CDFCMessageBox.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
+                    MsgBoxService.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
                     return false;
                 }
                 else {
@@ -97,7 +97,7 @@ namespace SingularityForensic.Controls.Windows {
 
         private void btnSure_Click(object sender, RoutedEventArgs e) {
             if(string.IsNullOrEmpty(Text)){
-                CDFCMessageBox.Show($"{FindResourceString("InvalidText")}");
+                MsgBoxService.Show($"{FindResourceString("InvalidText")}");
             }
             else if (CheckBlockSize() && CheckBlockOffset()) {
                 Canceld = false;

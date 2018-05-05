@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using EventLogger;
 using CDFCUIContracts.Events;
-using CDFCMessageBoxes.MessageBoxes;
 using System.IO;
 using Ookii.Dialogs.Wpf;
 using CDFCCultures.Helpers;
@@ -109,61 +108,62 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
         public DelegateCommand RecOrCopyCommand => _recOrCopyCommand ??
             (_recOrCopyCommand = new DelegateCommand(
                 () => {
-                    var dialog = new VistaSaveFileDialog();
                     var oriUrl = (SelectedAdbModel as IAdbInfoModel<UrlInfo>).Info.Url;
-                    dialog.FileName = IOPathHelper.GetFileNameFromUrl(oriUrl);
+                    var fileName = DialogService.Current.GetSaveFilePath(Path.GetFileName(oriUrl));
+                    if (string.IsNullOrEmpty(fileName)) {
+                        return;
+                    }
 
-                    if(dialog.ShowDialog() == true) {
-                        try {
-                            ProgressMessageBox msg = new ProgressMessageBox();
-                            msg.WindowTitle = LanguageService.Current?.FindResourceString("AdbFileBeingCopied");
-                            msg.Word = $"{LanguageService.FindResourceString("AdbFileBeingCopied")}:{IOPathHelper.GetFileNameFromUrl(oriUrl)}";
-                            var succeed = false;
-                            
-                            msg.DoWork += (sender, e) => {
-                                FileStream fs = null;
-                                FileStream desFs = null;
-                                try {
-                                    desFs = File.Create(dialog.FileName);
-                                    fs = File.OpenRead($"{ServiceProvider.Current?.GetInstance<ICaseService>()?.CurrentCase.Path}/AdbDevices/{Container.Parent.Device.Serial}/{(SelectedAdbModel as IAdbInfoModel<UrlInfo>).Info.Url}");
-                                    var buffer = new byte[81920];
-                                    var read = 0;
-                                    long readSize = 0;
+                    try {
+                        var msg = DialogService.Current.CreateLoadingDialog();
 
-                                    while((read = fs.Read(buffer,0,buffer.Length)) != 0) {
-                                        desFs.Write(buffer, 0, read);
+                        msg.WindowTitle = LanguageService.Current?.FindResourceString("AdbFileBeingCopied");
+                        msg.Word = $"{LanguageService.FindResourceString("AdbFileBeingCopied")}:{IOPathHelper.GetFileNameFromUrl(oriUrl)}";
+                        var succeed = false;
 
-                                        readSize += read;
-                                        var per = (int) (readSize * 100 / fs.Length);
-                                        msg.ReportProgress(per<=100?per:100);
-                                    }
-                                    succeed = true;
-                                }
-                                catch(Exception ex) {
-                                    Logger.WriteLine($"{nameof(AdbDataGridViewModel)}->{nameof(RecOrCopyCommand)}:{ex.Message}");
-                                    CDFCUIContracts.Helpers.ApplicationHelper.AppInvoke(() => {
-                                        RemainingMessageBox.Tell(ex.Message);
-                                    });
-                                    succeed = false;
-                                }
-                                finally {
-                                    fs?.Close();
-                                    desFs?.Close();
-                                }
-                            };
-                            msg.RunWorkerCompleted += (sender, e) => {
-                                if (succeed) {
-                                    CDFCMessageBox.Show($"导出文件{IOPathHelper.GetFileNameFromUrl(oriUrl)}成功!");
-                                }
-                            };
-                            msg.RunWorkerCompleted += delegate {
+                        msg.DoWork += (sender, e) => {
+                            FileStream fs = null;
+                            FileStream desFs = null;
+                            try {
+                                desFs = File.Create(fileName);
+                                fs = File.OpenRead($"{ServiceProvider.Current?.GetInstance<ICaseService>()?.CurrentCase.Path}/AdbDevices/{Container.Parent.Device.Serial}/{(SelectedAdbModel as IAdbInfoModel<UrlInfo>).Info.Url}");
+                                var buffer = new byte[81920];
+                                var read = 0;
+                                long readSize = 0;
 
-                            };
-                            msg.ShowDialog();
-                        }
-                        catch (Exception ex) {
-                            RemainingMessageBox.Tell($"{ex.Message}");
-                        }
+                                while ((read = fs.Read(buffer, 0, buffer.Length)) != 0) {
+                                    desFs.Write(buffer, 0, read);
+
+                                    readSize += read;
+                                    var per = (int)(readSize * 100 / fs.Length);
+                                    msg.ReportProgress(per <= 100 ? per : 100);
+                                }
+                                succeed = true;
+                            }
+                            catch (Exception ex) {
+                                Logger.WriteLine($"{nameof(AdbDataGridViewModel)}->{nameof(RecOrCopyCommand)}:{ex.Message}");
+                                CDFCUIContracts.Helpers.ApplicationHelper.AppInvoke(() => {
+                                    MsgBoxService.ShowError(ex.Message);
+                                });
+                                succeed = false;
+                            }
+                            finally {
+                                fs?.Close();
+                                desFs?.Close();
+                            }
+                        };
+                        msg.RunWorkerCompleted += (sender, e) => {
+                            if (succeed) {
+                                MsgBoxService.Show($"导出文件{IOPathHelper.GetFileNameFromUrl(oriUrl)}成功!");
+                            }
+                        };
+                        msg.RunWorkerCompleted += delegate {
+
+                        };
+                        msg.ShowDialog();
+                    }
+                    catch (Exception ex) {
+                        MsgBoxService.ShowError($"{ex.Message}");
                     }
                 },
                 () => SelectedAdbModel is IAdbInfoModel<UrlInfo>

@@ -1,5 +1,4 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using Prism.Mef.Modularity;
+﻿using Prism.Mef.Modularity;
 using Prism.Modularity;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Casing;

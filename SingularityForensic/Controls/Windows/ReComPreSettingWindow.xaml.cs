@@ -1,5 +1,5 @@
 ﻿using CDFCControls.Controls;
-using CDFCMessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -34,7 +34,7 @@ namespace SingularityForensic.Controls.Windows {
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e) {
             if(Extensions == null || Extensions.Length == 0) {
-                CDFCMessageBox.Show($"{FindResourceString("PleaseSpecifyType")}");
+                MsgBoxService.Show($"{FindResourceString("PleaseSpecifyType")}");
             }
             else {
                 this.FilterResult = true;

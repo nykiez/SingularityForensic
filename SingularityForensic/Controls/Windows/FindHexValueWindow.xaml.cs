@@ -1,5 +1,5 @@
 ﻿using CDFCControls.Controls;
-using CDFCMessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
 using System;
 using System.Globalization;
 using System.Text;
@@ -77,7 +77,7 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockSize() {
             if(chbSearchBlock.IsChecked == true) {
                 if (SearchBlockSize == null) {
-                    CDFCMessageBox.Show($"{FindResourceString("InvalidBlockSize")}");
+                    MsgBoxService.Show($"{FindResourceString("InvalidBlockSize")}");
                     return false;
                 }
                 return true;
@@ -87,11 +87,11 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockOffset() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockOffset == null) {
-                    CDFCMessageBox.Show($"{FindResourceString("InvalidBlockOffset")}");
+                    MsgBoxService.Show($"{FindResourceString("InvalidBlockOffset")}");
                     return false;
                 }
                 else if (SearchBlockOffset > (HexValue?.Length ?? 0) + SearchBlockSize) {
-                    CDFCMessageBox.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
+                    MsgBoxService.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
                     return false;
                 }
                 else {
@@ -106,7 +106,7 @@ namespace SingularityForensic.Controls.Windows {
         
         private void btnSure_Click(object sender, RoutedEventArgs e) {
             if(HexValue == null || HexValue.Length == 0) {
-                CDFCMessageBox.Show(FindResourceString("InvalidInput"));
+                MsgBoxService.Show(FindResourceString("InvalidInput"));
             }
             else if(CheckBlockSize() && CheckBlockOffset()){
                 Canceld = false;

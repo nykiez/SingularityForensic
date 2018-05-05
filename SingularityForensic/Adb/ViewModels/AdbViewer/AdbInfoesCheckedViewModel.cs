@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Cflab.DataTransport;
 using Cflab.DataTransport.Modules.Transport.Model;
-using CDFCMessageBoxes.MessageBoxes;
 using System.Threading;
 using System.IO;
 using static CDFCUIContracts.Helpers.ApplicationHelper;
@@ -110,7 +109,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
             _confirmCommand ?? (_confirmCommand = new DelegateCommand(
                 () => {
                     if (IsAquiring) {
-                        CDFCMessageBox.Show(LanguageService.FindResourceString("WaitUntilAuqiringDone"));
+                        MsgBoxService.Show(LanguageService.FindResourceString("WaitUntilAuqiringDone"));
                         return;
                     }
                     SetAuiqring(true);
@@ -128,10 +127,11 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
 
                         //确定是否选择了项;
                         if (slUnits.Count == 0) {
-                            AppInvoke(() => {
-                                CDFCMessageBox.Show(LanguageService.FindResourceString("PleaseSelectBeforeAquiring"));
+                            ThreadInvoker.UIInvoke(() => {
+                                MsgBoxService.ShowError(LanguageService.FindResourceString("PleaseSelectBeforeAquiring"));
                                 SetAuiqring(false);
                             });
+                            
                             return;
                         }
 
@@ -202,7 +202,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                             $"{ServiceProvider.Current?.GetInstance<ICaseService>().CurrentCase.Path}/{Device.Serial}/{dtString}/backup",
                                             err => {
                                                 EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)}:{err.Code}-{err.Message}");
-                                                AppInvoke(() => {
+                                                ThreadInvoker.UIInvoke(() => {
                                                     AppendLine($"{LanguageService.FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
                                                     MsgBoxService.Show($"{LanguageService.FindResourceString("FailedToBackup")}:{err.Code} Message - {err.Message}");
                                                 });
@@ -211,8 +211,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                         bRes = bParser.ParseAdbBackup(
                                              notCorrect => {
                                                 string pwd = null;
-                                                AppInvoke(() => {
-                                                    pwd = DialogService.Current.GetInputValue(LanguageService.FindResourceString("PleaseInputBackUpPass"),
+                                                 ThreadInvoker.UIInvoke(() => {
+                                                     pwd = DialogService.Current.GetInputValue(LanguageService.FindResourceString("PleaseInputBackUpPass"),
                                                             notCorrect ? ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbBPPwdNotCorrect") : string.Empty);
                                                 });
 
@@ -237,8 +237,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                 catch (Exception ex) {
                                     EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)}->{nameof(BackupParser)}:{ex.Message}");
                                     AppendLine(LanguageService.FindResourceString("FailedToBackup"));
-                                    AppInvoke(() => {
-                                        RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToBackup")}:{ex.Message}");
+                                    ThreadInvoker.UIInvoke(() => {
+                                        MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToBackup")}:{ex.Message}");
                                     });
                                 }
                                 finally {
@@ -285,8 +285,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                             //else if(p is adb)
                         });
 
-                        AppInvoke(() => {
-                            var msg = new ProgressMessageBox();
+                        ThreadInvoker.UIInvoke(() => {
+                            var msg = DialogService.Current.CreateLoadingDialog();
                             msg.WindowTitle = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("AdbFileDownloading");
                             //下载文件;
                             msg.DoWork += (sender, e) => {
@@ -346,7 +346,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                                                 $"{LanguageService.FindResourceString("AdbFileBeingDownloaded")}:{GetFileNameFromUrl(urlInfo.Url)}");
                                                             }
                                                             catch (Exception ex) {
-                                                                EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ProgressMessageBox)}({nameof(msg)}):{ex.Message}");
+                                                                LoggerService.WriteCallerLine(ex.Message);
                                                             }
                                                         }
                                                     );
@@ -356,14 +356,14 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                                                 }
                                             }
                                             else {
-                                                EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ProgressMessageBox)}({nameof(msg)}):CasePath{ServiceProvider.Current?.GetInstance<ICaseService>().CurrentCase?.Path} doesn't exist.");
+                                                LoggerService.WriteCallerLine($"{ ServiceProvider.Current?.GetInstance<ICaseService>().CurrentCase?.Path}doesn't exist.");
                                             }
                                             
                                         }
                                         catch (Exception ex) {
                                             EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(ConfirmCommand)} DownLoading Error:{ex.Message}");
-                                            AppInvoke(() => {
-                                                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("ErrorExportingAdbFile")}:{ex.Message}");
+                                            ThreadInvoker.UIInvoke(() => {
+                                                MsgBoxService.ShowError($"{LanguageService.FindResourceString("ErrorExportingAdbFile")}:{ex.Message}");
                                             });
                                         }
 
@@ -374,7 +374,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                             };
                             msg.RunWorkerCompleted += (sender, e) => {
                                 SetAuiqring(false);
-                                AppInvoke(() => {
+                                ThreadInvoker.UIInvoke(() => {
                                     if (!disposed && 
                                     MsgBoxService.Current.Show(LanguageService.FindResourceString("WhetherToShowInfoAquired"),
                                         MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
@@ -423,8 +423,8 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
             );
 
             if(!res) {
-                AppInvoke(() => {
-                    
+                ThreadInvoker.UIInvoke(() => {
+
                 });
                 //Logger.WriteLine($"{nameof(Adb)}")
             }
@@ -466,9 +466,9 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                 var err = res.Message;
                 EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetInfoToNode)} Socket OutPut:" +
                     $"{Environment.NewLine}OutType:{errCode},{err}");
-                
-                AppInvoke(() => {
-                    RemainingMessageBox.Tell(LanguageService.FindResourceString("ConfirmToConnectYourPhone"));
+
+                ThreadInvoker.UIInvoke(() => {
+                    MsgBoxService.ShowError(LanguageService.FindResourceString("ConfirmToConnectYourPhone"));
                 });
             });
             
@@ -491,16 +491,16 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                         err => {
                             EventLogger.Logger.WriteLine(
                                 $"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetAllFileToInfoNode)}:Code {err.Code} Message {err.Message}");
-                            AppInvoke(() => {
-                                RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToGetAllFiles")}:Code {err.Code} Message {err.Message}");
+                            ThreadInvoker.UIInvoke(() => {
+                                MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToGetAllFiles")}:Code {err.Code} Message {err.Message}");
                             });
                         }
                     );
                 }
                 catch(Exception ex) {
                     EventLogger.Logger.WriteLine($"{nameof(AdbInfoesCheckedViewModel)}->{nameof(GetAllFileToInfoNode)} Exception:{ex.Message}");
-                    AppInvoke(() => {
-                        RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToGetFileList")}:{ex.Message}");
+                    ThreadInvoker.UIInvoke(() => {
+                        MsgBoxService.ShowError($"{LanguageService.FindResourceString("FailedToGetFileList")}:{ex.Message}");
                     });
                 }
                 finally {

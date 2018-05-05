@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using CDFCMessageBoxes.MessageBoxes;
 using CDFCCultures.Helpers;
 using CDFCControls.Controls;
 using SingularityForensic.Contracts.Casing;
@@ -87,7 +86,7 @@ namespace SingularityForensic.Casing.Views {
 
         private bool CheckInput() {
             if (string.IsNullOrEmpty(ObjectTitleTxb.Text)) {
-                CDFCMessageBox.Show(LanguageService.FindResourceString("ObjectTitleOrNumberCannotBeNull"));
+                MsgBoxService.Show(LanguageService.FindResourceString("ObjectTitleOrNumberCannotBeNull"));
                 return false;
             }
             return true;

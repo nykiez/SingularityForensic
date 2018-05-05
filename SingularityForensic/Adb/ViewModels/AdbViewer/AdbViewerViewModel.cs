@@ -1,5 +1,4 @@
 ﻿using CDFC.Info.Adb;
-using CDFCMessageBoxes.MessageBoxes;
 using CDFCUIContracts.Abstracts;
 using Prism.Commands;
 using SingularityForensic.Contracts.App;
@@ -35,7 +34,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbViewer {
                             InfoCheckerViewModel.Device = e.Device;
                         }
                         else {
-                            CDFCMessageBox.Show("设备不可为空");
+                            MsgBoxService.Show("设备不可为空");
                         }
                     };
                 }

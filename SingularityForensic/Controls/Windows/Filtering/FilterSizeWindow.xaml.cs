@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
-using CDFCMessageBoxes.MessageBoxes;
 using static CDFCCultures.Managers.ManagerLocator;
 using CDFCControls.Controls;
 using SingularityForensic.Controls.Models.Filtering;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Controls.Windows.Filtering {
     /// <summary>
@@ -112,7 +111,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
         /// <returns></returns>
         private bool CheckInput(bool required = true) {
             if (required && chbLarger.IsChecked == false && chbfewer.IsChecked == false) {
-                CDFCMessageBox.Show(FindResourceString("InputCondiction"));
+                MsgBoxService.Show(FindResourceString("InputCondiction"));
                 return false;
             }
 
@@ -133,7 +132,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
                     return true;
                 }
                 else {
-                    CDFCMessageBox.Show(FindResourceString("InvalidMinSize"));
+                    MsgBoxService.Show(FindResourceString("InvalidMinSize"));
                     return false;
                 }
             }
@@ -144,7 +143,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
                     return true;
                 }
                 else {
-                    CDFCMessageBox.Show(FindResourceString("InvalidMaxSize"));
+                    MsgBoxService.Show(FindResourceString("InvalidMaxSize"));
                     return false;
                 }
             }
@@ -157,7 +156,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
 
                 if (maxOk && minOk) {
                     if(maxSize < minSize) {
-                        if(CDFCMessageBox.Show(FindResourceString("ConfirmWhenMaxLessThanMin"),MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                        if(MsgBoxService.Show(FindResourceString("ConfirmWhenMaxLessThanMin"),MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
                             applyAct();
                             return true;
                         }
@@ -171,11 +170,11 @@ namespace SingularityForensic.Controls.Windows.Filtering {
                     }
                 }
                 else if (!maxOk) {
-                    CDFCMessageBox.Show(FindResourceString("InvalidMaxSize"));
+                    MsgBoxService.Show(FindResourceString("InvalidMaxSize"));
                     return false;
                 }
                 else if(!minOk) {
-                    CDFCMessageBox.Show(FindResourceString("InvalidMinSize"));
+                    MsgBoxService.Show(FindResourceString("InvalidMinSize"));
                     return false;
                 }
                 return false;

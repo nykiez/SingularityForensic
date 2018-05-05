@@ -1,6 +1,6 @@
 ﻿using CDFC.Util.IO;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.FileSystem {
+namespace SingularityForensic.FileSystem {
     /// <summary>
     /// 基于文件块获取文件内容;
     /// </summary>

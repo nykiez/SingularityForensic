@@ -1,18 +1,15 @@
-﻿using CDFCMessageBoxes.MessageBoxes;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static CDFCCultures.Managers.ManagerLocator;
-using System.Windows;
 using System.Threading;
 using System.ComponentModel;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using SingularityForensic.Info.Models;
 using EventLogger;
 using SingularityForensic.Contracts.Casing;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Info.ViewModels {
     /// <summary>
@@ -85,7 +82,7 @@ namespace SingularityForensic.Info.ViewModels {
                         
                         //若无选中项,则提示退出;
                         if (checkedItems.Count == 0) {
-                            CDFCMessageBox.Show(FindResourceString("ConfirmToCheckForensicItem"));
+                            MsgBoxService.Show(LanguageService.FindResourceString("ConfirmToCheckForensicItem"));
                             return;
                         }
                         
@@ -112,8 +109,8 @@ namespace SingularityForensic.Info.ViewModels {
                                         }
                                         catch (Exception ex) {
                                             Logger.WriteLine($"{nameof(StartForensicWindowViewModel<TCaseEvidence>)} ->{nameof(ConfirmCommand)}({p.Name}):{ex.Message}");
-                                            AppInvoke(() => {
-                                                RemainingMessageBox.Tell(ex.Message);
+                                            ThreadInvoker.UIInvoke(() => {
+                                                MsgBoxService.ShowError(ex.Message);
                                             });
                                         }
                                         finally {
@@ -122,9 +119,9 @@ namespace SingularityForensic.Info.ViewModels {
                                     });
                                 });
                                 WaitHandle.WaitAll(handles);
-                                AppInvoke(() => {
+                                ThreadInvoker.UIInvoke(() => {
                                     isWorking = false;
-                                    if (!isCancel && CDFCMessageBox.Show(FindResourceString("ConfirmToShow"),
+                                    if (!isCancel && MsgBoxService.Show(LanguageService.FindResourceString("ConfirmToShow"),
                                         MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
                                         checkedItems.ForEach(p => p.Setup());
                                         CloseRequest?.Invoke(this, EventArgs.Empty);
@@ -174,7 +171,7 @@ namespace SingularityForensic.Info.ViewModels {
         //取消工作;
         private bool ConfirmCancelWork() {
             if (isWorking) {
-                if (CDFCMessageBox.Show(FindResourceString("SureToCancelForensic"),
+                if (MsgBoxService.Show(LanguageService.FindResourceString("SureToCancelForensic"),
                     MessageBoxButton.YesNo) == MessageBoxResult.No) {
                     return false;
                 }

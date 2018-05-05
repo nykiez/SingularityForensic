@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,32 +21,32 @@ namespace SingularityForensic.Contracts.Info {
         
     }
 
-    /// <summary>
-    /// 即时聊天选项组示例;
-    /// </summary>
-    [Export(typeof(IInfoProvider))]
-    public class InstantChatGroupExample : IInfoProvider {
-        public string Type => Constants.ForensicInfoGroup;
+    ///// <summary>
+    ///// 即时聊天选项组示例;
+    ///// </summary>
+    //[Export(typeof(IInfoProvider))]
+    //public class InstantChatGroupExample : IInfoProvider {
+    //    public string Type => Constants.ForensicInfoGroup;
 
-        public string GUID => Constants.ForensicInfoGroup_InstantChating;
+    //    public string GUID => Constants.ForensicInfoGroup_InstantChating;
 
-        public string GroupGUID => string.Empty;
+    //    public string GroupGUID => string.Empty;
 
-        public string Label => CDFCCultures.Managers.ManagerLocator.FindResourceString("InstanceChating");
-    }
+    //    public string Label => CDFCCultures.Managers.ManagerLocator.FindResourceString("InstanceChating");
+    //}
 
-    /// <summary>
-    /// 微信聊天选项示例;
-    /// </summary>
-    [Export(typeof(IInfoProvider))]
-    public class WeChatGroupExample : IInfoProvider {
-        public string Type => Constants.ForensicInfoItem;
+    ///// <summary>
+    ///// 微信聊天选项示例;
+    ///// </summary>
+    //[Export(typeof(IInfoProvider))]
+    //public class WeChatGroupExample : IInfoProvider {
+    //    public string Type => Constants.ForensicInfoItem;
 
-        public string GUID => Constants.ForensicInfoItem_Wechat;
+    //    public string GUID => Constants.ForensicInfoItem_Wechat;
 
-        public string GroupGUID => Constants.ForensicInfoGroup_InstantChating;
+    //    public string GroupGUID => Constants.ForensicInfoGroup_InstantChating;
 
-        public string Label => CDFCCultures.Managers.ManagerLocator.FindResourceString("WeChat");
-    }
+    //    public string Label => CDFCCultures.Managers.ManagerLocator.FindResourceString("WeChat");
+    //}
 
 }

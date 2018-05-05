@@ -2,7 +2,6 @@
 using System;
 using System.Text;
 using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.Info;
@@ -70,7 +69,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
                 }
                 catch (Exception ex) {
                     Logger.WriteLine($"{nameof(AdbInfoDetailTabViewModel)}->{nameof(InfoPropsText)}:{ex.Message}");
-                    RemainingMessageBox.Tell(ex.Message);
+                    MsgBoxService.ShowError(ex.Message);
                     return string.Empty;
                 }
             }

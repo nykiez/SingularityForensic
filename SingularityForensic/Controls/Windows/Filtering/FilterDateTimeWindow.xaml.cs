@@ -1,5 +1,5 @@
 ﻿using CDFCControls.Controls;
-using CDFCMessageBoxes.MessageBoxes;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Controls.Models.Filtering;
 using System;
 using static CDFCCultures.Managers.ManagerLocator;
@@ -63,7 +63,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
 
         private bool CheckInput(bool required = true) {
             if (required && chbLarger.IsChecked == false && chbfewer.IsChecked == false) {
-                CDFCMessageBox.Show(FindResourceString("InputCondiction"));
+                MsgBoxService.Show(FindResourceString("InputCondiction"));
                 return false;
             }
             
@@ -72,7 +72,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
             
             if (chbfewer.IsChecked == false) { 
                 if(minDT == null) {
-                    CDFCMessageBox.Show(FindResourceString("InputValidMinDT"));
+                    MsgBoxService.Show(FindResourceString("InputValidMinDT"));
                     return false;
                 }
                 else {
@@ -84,7 +84,7 @@ namespace SingularityForensic.Controls.Windows.Filtering {
             }
             else if(chbLarger.IsChecked == false) {
                 if (maxDT == null) {
-                    CDFCMessageBox.Show(FindResourceString("InputValidMaxDT"));
+                    MsgBoxService.Show(FindResourceString("InputValidMaxDT"));
                     return false;
                 }
                 else {
@@ -96,11 +96,11 @@ namespace SingularityForensic.Controls.Windows.Filtering {
             }
             else {
                 if(maxDT == null) {
-                    CDFCMessageBox.Show(FindResourceString("InputValidMaxDT"));
+                    MsgBoxService.Show(FindResourceString("InputValidMaxDT"));
                     return false;
                 }
                 else if (minDT == null){
-                    CDFCMessageBox.Show(FindResourceString("InputValidMinDT"));
+                    MsgBoxService.Show(FindResourceString("InputValidMinDT"));
                     return false;
                 }
                 else{

@@ -32,7 +32,7 @@ namespace SingularityForensic.Info {
                 LoggerService.Current?.WriteCallerLine($"{nameof(caseService)} can't be null!");
             }
 
-            AppInvoke(() => {
+            ThreadInvoker.UIInvoke(() => {
                 var tUnit = GetCaseFileUnit(cFile);
                 if(tUnit != null) {
                     fUnit = TreeUnitFactory.Current.CreateNew(Constants.ForensicInfoUnit);

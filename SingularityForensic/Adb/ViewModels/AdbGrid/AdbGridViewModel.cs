@@ -3,7 +3,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using EventLogger;
-using CDFCMessageBoxes.MessageBoxes;
 using Prism.Mvvm;
 using System.ComponentModel.Composition;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ using SingularityForensic.Controls.Previewers;
 using SingularityForensic.Contracts.Info;
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.Adb.ViewModels.AdbGrid {
     [Export]
@@ -84,7 +84,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
                             }
                             catch (Exception ex) {
                                 Logger.WriteLine($"{nameof(AdbGridViewModel)}->{nameof(AdbDataGridViewModel)}:{ex.Message}");
-                                RemainingMessageBox.Tell(ex.Message);
+                                MsgBoxService.ShowError(ex.Message);
                             }
 
                             //若为图像,则显示预览图;
@@ -114,7 +114,7 @@ namespace SingularityForensic.Adb.ViewModels.AdbGrid {
             }
             catch(Exception ex) {
                 Logger.WriteLine($"{nameof(AdbGridViewModel)}->{nameof(Close)}:{ex.Message}");
-                RemainingMessageBox.Tell(ex.Message);
+                MsgBoxService.ShowError(ex.Message);
             }
         }
     }

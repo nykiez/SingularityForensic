@@ -5,7 +5,6 @@
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     ResizeMode="NoResize"
-        xmlns:local="clr-namespace:CDFCMessageBoxes.Windows"
         mc:Ignorable="d" Style="{DynamicResource MsgWindowStyle}" ShowCloseButton="True"
         Title="{DynamicResource Tip}" Height="300" Width="300">
     <Grid>

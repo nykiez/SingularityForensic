@@ -1,5 +1,4 @@
 ﻿using CDFCControls.Controls;
-using CDFCMessageBoxes.MessageBoxes;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Hex.Models;
@@ -43,7 +42,7 @@ namespace SingularityForensic.Hex.Views {
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e) {
             if(Offset == null) {
-                CDFCMessageBox.Show( ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IncorrectPara"));
+                MsgBoxService.Show( ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IncorrectPara"));
                 return;
             }
             else {
