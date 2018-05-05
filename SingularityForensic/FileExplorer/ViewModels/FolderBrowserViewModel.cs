@@ -81,8 +81,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             get => _files;
             set => _files = value as CustomTypedListSource<IFileRow>;
         }
-
-
+        
         IEnumerable<IFocusedFileRowChangedEventHandler> _focusedFileRowChangedEventHandlers;
         private IFileRow _selectedFile;
         public IFileRow SelectedFile {
@@ -97,9 +96,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
             }
         }
-
         
-
         /// <summary>
         /// 填充行;
         /// </summary>
@@ -125,30 +122,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
         
-        private ObservableCollection<ICommandItem> _viewersCommands;
-        public virtual ObservableCollection<ICommandItem> ViewersCommands {
-            get {
-                if (_viewersCommands == null) {
-                    _viewersCommands = new ObservableCollection<ICommandItem>();
-                    
-                }
-                return _viewersCommands;
-            }
-            set {
-                _viewersCommands = value;
-            }
-        }
-        
-        private bool viewerEverLoaded;
-
         public event EventHandler SelectedFileChanged;
-
-        public void Exit() {
-            NavNodeModels.Clear();
-        }
         
-        
-
 #if DEBUG
         ~FolderBrowserViewModel() {
 

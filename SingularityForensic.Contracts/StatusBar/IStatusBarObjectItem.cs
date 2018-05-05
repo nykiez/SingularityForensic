@@ -9,7 +9,7 @@ namespace SingularityForensic.Contracts.StatusBar {
     /// <summary>
     /// 状态栏;
     /// </summary>
-    public interface IStatusBarItem:IUIObjectProvider {
+    public interface IStatusBarObjectItem:IUIObjectProvider {
 
     }
 }

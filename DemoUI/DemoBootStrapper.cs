@@ -60,7 +60,7 @@ namespace DemoUI {
         protected override void InitializeModules() {
             base.InitializeModules();
             Application.Current.MainWindow.Show();
-            TestProxy.Test();
+            //TestProxy.Test();
             //splashService.CloseSplash();
         }
         protected override void InitializeShell() {

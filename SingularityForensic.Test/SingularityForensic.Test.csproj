@@ -113,6 +113,7 @@
     <Compile Include="Common\TestExtensibleObject.cs" />
     <Compile Include="Common\AppDataFolderTest.cs" />
     <Compile Include="Common\ViewProviderTests.cs" />
+    <Compile Include="Controls\StackGridTests.cs" />
     <Compile Include="Document\DocumentServiceTest.cs" />
     <Compile Include="Document\DocumentServiceTests.cs" />
     <Compile Include="Drive\ComObjectTests.cs" />

@@ -318,6 +318,7 @@
     <Compile Include="Common\CommandItem.cs" />
     <Compile Include="Common\ViewProviderImpl.cs" />
     <Compile Include="Common\PracticeServiceProvider.cs" />
+    <Compile Include="Controls\Constants.cs" />
     <Compile Include="Controls\DataGridExViewModel.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
     <Compile Include="Controls\GridView\GridViewExtensions.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Controls\MessageBoxes\Filtering\FilterDTMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
+    <Compile Include="Controls\StackGrid.cs" />
     <Compile Include="Document\DocumentBase.cs" />
     <Compile Include="Document\DocumentModule.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
@@ -662,7 +664,8 @@
     <Compile Include="ToolBar\Constants.cs" />
     <Compile Include="ToolBar\ToolBarButtonItem.cs" />
     <Compile Include="ToolBar\ToolBarObjectItem.cs" />
-    <Compile Include="ToolBar\ToolBarService.cs" />
+    <Compile Include="ToolBar\ToolBarFactoryImpl.cs" />
+    <Compile Include="ToolBar\ToolBarServiceImpl.cs" />
     <Compile Include="ToolBar\ViewModels\ToolBarButtonViewModel.cs" />
     <Compile Include="ToolBar\Views\ToolBarButton.xaml.cs">
       <DependentUpon>ToolBarButton.xaml</DependentUpon>

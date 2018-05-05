@@ -4,34 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace SingularityForensic.Contracts.ToolBar {
-    /// <summary>
-    /// 工具栏服务契约;
-    /// </summary>
     public interface IToolBarService {
+        void Initialize();     
         /// <summary>
-        /// 创建一个工具栏按钮;
+        /// 所有工具栏项;
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        IToolBarButtonItem CreateToolBarButtonItem(ICommand command, string guid);
+        IEnumerable<IToolBarObjectItem> ToolBarItems { get; }
         /// <summary>
-        /// 创建工具栏自定义项;
+        /// 添加工具栏项;
         /// </summary>
-        /// <param name="uiObject"></param>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        IToolBarObjectItem CreateToolBarObjectItem(object uiObject, string guid);
+        /// <param name="item"></param>
+        void AddToolBarItem(IToolBarObjectItem item);
+        /// <summary>
+        /// 移除工具栏项;
+        /// </summary>
+        /// <param name="item"></param>
+        void RemoveToolBar(IToolBarObjectItem item);
+
     }
 
-    public class ToolBarService : GenericServiceStaticInstance<IToolBarService> {
-        public static IToolBarButtonItem CreateToolBarButtonItem(ICommand command, string guid) =>
-            Current.CreateToolBarButtonItem(command, guid);
-
-        public static IToolBarObjectItem CreateToolBarObjectItem(object uiObject, string guid) => 
-            Current.CreateToolBarObjectItem(uiObject, guid);
+    public class ToolBarService:GenericServiceStaticInstance<IToolBarService> {
+        public static void AddToolBarItem(IToolBarObjectItem item) => Current.AddToolBarItem(item);
+        public static void RemoveToolBarItem(IToolBarObjectItem item) => Current.RemoveToolBar(item);
     }
 }

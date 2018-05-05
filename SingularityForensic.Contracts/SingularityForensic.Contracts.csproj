@@ -123,7 +123,8 @@
     <Compile Include="Common\IEventHandler.cs" />
     <Compile Include="Common\IInstanceExtensible.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
-    <Compile Include="Common\IGridStack.cs" />
+    <Compile Include="Controls\GridChildLength.cs" />
+    <Compile Include="Controls\IStackGrid.cs" />
     <Compile Include="Common\IUIObjectProvider.cs" />
     <Compile Include="Common\IUIReactService.cs" />
     <Compile Include="Common\IViewProvider.cs" />
@@ -240,10 +241,12 @@
     <Compile Include="Shell\Events\ShellClosingEventHandler.cs" />
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
-    <Compile Include="StatusBar\IStatusBarItem.cs" />
+    <Compile Include="StatusBar\IStatusBarObjectItem.cs" />
+    <Compile Include="StatusBar\IStatusBarTextItem.cs" />
     <Compile Include="ToolBar\IToolBarButtonItem.cs" />
-    <Compile Include="ToolBar\IToolBarService.cs" />
+    <Compile Include="ToolBar\IToolBarItemFactory.cs" />
     <Compile Include="ToolBar\IToolBarObjectItem.cs" />
+    <Compile Include="ToolBar\IToolBarService.cs" />
     <Compile Include="TreeView\Events\TreeUnitRemovedEvent.cs" />
     <Compile Include="TreeView\ITreeUnitFactory.cs" />
     <Compile Include="TreeView\Events\TreeUnitsClearingEvent.cs" />

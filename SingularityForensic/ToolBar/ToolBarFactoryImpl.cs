@@ -3,8 +3,8 @@ using System.ComponentModel.Composition;
 using System.Windows.Input;
 
 namespace SingularityForensic.ToolBar {
-    [Export(typeof(IToolBarService))]
-    public class ToolBarServiceImpl : IToolBarService {
+    [Export(typeof(IToolBarItemFactory))]
+    public class ToolBarFactoryImpl : IToolBarItemFactory {
         public IToolBarButtonItem CreateToolBarButtonItem(ICommand command, string guid) {
             return new ToolBarButtonItem(command, guid);
         }

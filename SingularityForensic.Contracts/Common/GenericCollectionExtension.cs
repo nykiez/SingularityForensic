@@ -49,19 +49,5 @@ namespace SingularityForensic.Contracts.Common {
         }
     }
 
-    //public class AutoSortableObservableCollection<T> : ObservableCollection<T> {
-    //    public AutoSortableObservableCollection(Func<T,decimal> comparer) {
-    //        this._comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
-    //    }
-    //    private Func<T, decimal> _comparer;
-    //    protected override void InsertItem(int index, T item) {
-            
-    //        foreach (var item in Items) {
-    //            if(_comparer(item) > _comparer(item)) {
-                    
-    //            }
-    //        }
-    //        base.InsertItem(index, item);
-    //    }
-    //}
+
 }

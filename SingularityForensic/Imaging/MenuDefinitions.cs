@@ -17,7 +17,7 @@ namespace SingularityForensic.Imaging {
         public static IToolBarButtonItem AddImgToolBarItem {
             get {
                 if (_addImgToolBarItem == null) {
-                    _addImgToolBarItem = ToolBarService.CreateToolBarButtonItem(AddImgCommand, Constants.TBButtonGUID__AddImg);
+                    _addImgToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(AddImgCommand, Constants.TBButtonGUID__AddImg);
                     _addImgToolBarItem.Icon = IconSources.AddImgIcon;
                     _addImgToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_AddImg);
                     _addImgToolBarItem.Sort = 4;

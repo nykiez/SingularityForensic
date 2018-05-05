@@ -126,6 +126,9 @@
     <Compile Include="App\TestProgressService.xaml.cs">
       <DependentUpon>TestProgressService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\TestStackGrid.xaml.cs">
+      <DependentUpon>TestStackGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DemoBootStrapper.cs" />
     <Compile Include="Document\Documents.xaml.cs">
       <DependentUpon>Documents.xaml</DependentUpon>
@@ -138,6 +141,9 @@
     </Compile>
     <Compile Include="TestApp.xaml.cs">
       <DependentUpon>TestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestCommon.xaml.cs">
+      <DependentUpon>TestCommon.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestHex.xaml.cs">
       <DependentUpon>TestHex.xaml</DependentUpon>
@@ -183,6 +189,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Common\TestStackGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Document\Documents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +218,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TestApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestCommon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

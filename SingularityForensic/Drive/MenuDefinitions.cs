@@ -21,7 +21,7 @@ namespace SingularityForensic.Drive {
         public static IToolBarButtonItem AddDriveToolBarItem {
             get {
                 if (_addDriveToolBarItem == null) {
-                    _addDriveToolBarItem = ToolBarService.CreateToolBarButtonItem(AddImgCommand, Constants.TBButtonGUID__AddDrive);
+                    _addDriveToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(AddImgCommand, Constants.TBButtonGUID__AddDrive);
                     _addDriveToolBarItem.Icon = IconSources.AddDriveIcon;
                     _addDriveToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_AddDrive);
                     _addDriveToolBarItem.Sort = 4;

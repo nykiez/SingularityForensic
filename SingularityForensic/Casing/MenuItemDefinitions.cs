@@ -11,7 +11,7 @@ namespace SingularityForensic.Casing {
         public static IToolBarButtonItem OpenCaseToolBarItem {
             get {
                 if (_openCaseToolBarItem == null) {
-                    _openCaseToolBarItem = ToolBarService.CreateToolBarButtonItem(CsUIService.OpenCaseCommand, Constants.TBButtonGUID__OpenCase);
+                    _openCaseToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(CsUIService.OpenCaseCommand, Constants.TBButtonGUID__OpenCase);
                     _openCaseToolBarItem.Icon = IconSources.OpenCaseIcon;
                     _openCaseToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_OpenCase);
                     _openCaseToolBarItem.Sort = 4;
@@ -34,7 +34,7 @@ namespace SingularityForensic.Casing {
         public static IToolBarButtonItem CloseCaseToolBarItem {
             get {
                 if (_closeCaseToolBarItem == null) {
-                    _closeCaseToolBarItem = ToolBarService.CreateToolBarButtonItem(CsUIService.CloseCaseCommand, Constants.TBButtonGUID__CloseCase);
+                    _closeCaseToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(CsUIService.CloseCaseCommand, Constants.TBButtonGUID__CloseCase);
                     _closeCaseToolBarItem.Icon = IconSources.OpenCaseIcon;
                     _closeCaseToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_CloseCase);
                     _closeCaseToolBarItem.Sort = 12;
@@ -57,7 +57,7 @@ namespace SingularityForensic.Casing {
         public static IToolBarButtonItem CreateCaseToolBarItem {
             get {
                 if (_createCaseToolBarItem == null) {
-                    _createCaseToolBarItem = ToolBarService.CreateToolBarButtonItem(CsUIService.CloseCaseCommand, Constants.TBButtonGUID__CloseCase);
+                    _createCaseToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(CsUIService.CloseCaseCommand, Constants.TBButtonGUID__CloseCase);
                     _createCaseToolBarItem.Icon = IconSources.OpenCaseIcon;
                     _createCaseToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_CloseCase);
                     _createCaseToolBarItem.Sort = 0;

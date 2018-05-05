@@ -27,7 +27,7 @@ namespace SingularityForensic.About {
         public static IToolBarButtonItem CalcToolBarItem {
             get {
                 if (_calcToolBarItem == null) {
-                    _calcToolBarItem = ToolBarService.CreateToolBarButtonItem(
+                    _calcToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(
                         new DelegateCommand(OpenCalc), Constants.TBButtonGUID_Calc);
                     _calcToolBarItem.Icon = IconSources.CalcIcon;
                     _calcToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_Calc);

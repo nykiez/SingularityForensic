@@ -28,7 +28,7 @@ namespace SingularityForensic.Hex {
         public static IToolBarButtonItem FindTextToolBarButtonItem {
             get {
                 if(_findTextToolBarButtonItem == null) {
-                    _findTextToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                    _findTextToolBarButtonItem = ToolBarItemFactory.CreateToolBarButtonItem(
                         ServiceProvider.GetInstance<HexUIServiceImpl>().FindTextCommand, Constants.TBButtonGUID_FindText);
                     _findTextToolBarButtonItem.Icon = IconSources.FindTextIcon;
                     _findTextToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_FindText);
@@ -55,7 +55,7 @@ namespace SingularityForensic.Hex {
         public static IToolBarButtonItem FindHexToolBarButtonItem {
             get {
                 if (_findHexToolBarButtonItem == null) {
-                    _findHexToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                    _findHexToolBarButtonItem = ToolBarItemFactory.CreateToolBarButtonItem(
                         ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand, Constants.TBButtonGUID_FindHex);
                     _findHexToolBarButtonItem.Icon = IconSources.FindHexIcon;
                     _findHexToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_FindHex);
@@ -82,7 +82,7 @@ namespace SingularityForensic.Hex {
         public static IToolBarButtonItem GoToOffsetToolBarButtonItem {
             get {
                 if (_goToOffsetToolBarButtonItem == null) {
-                    _goToOffsetToolBarButtonItem = ToolBarService.CreateToolBarButtonItem(
+                    _goToOffsetToolBarButtonItem = ToolBarItemFactory.CreateToolBarButtonItem(
                         ServiceProvider.GetInstance<HexUIServiceImpl>().GoToOffsetCommand, Constants.TBButtonGUID_GoToOffset);
                     _goToOffsetToolBarButtonItem.Icon = IconSources.GotoOffsetIcon;
                     _goToOffsetToolBarButtonItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_GoToOffset);
