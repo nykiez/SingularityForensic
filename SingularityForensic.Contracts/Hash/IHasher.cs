@@ -25,7 +25,7 @@ namespace SingularityForensic.Contracts.Hash {
         /// <param name="inputStream"></param>
         /// <param name="reporter"></param>
         /// <returns></returns>
-        byte[] ComputeHash(Stream inputStream,IProgressReporter reporter);
+        byte[] ComputeHash(Stream inputStream);
         /// <summary>
         /// 排序;
         /// </summary>

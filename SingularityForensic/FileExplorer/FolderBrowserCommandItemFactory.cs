@@ -15,6 +15,7 @@ using SingularityForensic.Contracts.Hash;
 using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Helpers;
+using CDFC.Util.IO;
 
 namespace SingularityForensic.FileExplorer {
     public static partial class FolderBrowserCommandItemFactory {
@@ -361,7 +362,6 @@ namespace SingularityForensic.FileExplorer {
                 if(stream == null) {
                     return;
                 }
-
                 
                 var loadingDialog = DialogService.Current.CreateLoadingDialog();
                 byte[] result = null;
@@ -406,7 +406,25 @@ namespace SingularityForensic.FileExplorer {
                 reporter.Cancel();
             };
 
-            return hasher.ComputeHash(inputStream, reporter);
+            var opStream = new OperatebleStream(inputStream);
+            opStream.Position = 0;
+            if(reporter != null) {
+                //订阅取消事件;
+                reporter.Canceld += (sender, e) => {
+                    opStream.Break();
+                };
+                //订阅流位置变更事件,通知进度;
+                opStream.PositionChanged += (sender, e) => {
+                    reporter.ReportProgress((int)(e * 100 / opStream.Length));
+                };
+            }
+            
+            var bts = hasher.ComputeHash(inputStream);
+            //若被中止,则返回为空;
+            if (opStream.Broken || (reporter?.CancelPending ?? false)) {
+                return null;
+            }
+            return bts;
         }
     }
 }

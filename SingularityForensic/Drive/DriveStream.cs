@@ -234,7 +234,7 @@ namespace SingularityForensic.Drive {
             }
 
             var handle = GCHandle.Alloc(array, GCHandleType.Pinned);
-
+            
             try {
                 var buffer = Marshal.UnsafeAddrOfPinnedArrayElement(array, offset);
                 if (buffer == null) {
@@ -249,26 +249,29 @@ namespace SingularityForensic.Drive {
             finally {
                 handle.Free();
             }
-
+            
             return 0;
         }
-
+        
         //ReadByte并未调用Read(ReadCore),需单独重写;
         public override int ReadByte() {
-            byte bt = 0;
-            var handle = GCHandle.Alloc(bt, GCHandleType.Pinned);
-            var addr = handle.AddrOfPinnedObject();
+            var btPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(byte)));
+            if(btPtr == IntPtr.Zero) {
+                return 0;
+            }
+            Marshal.WriteByte(btPtr, 0);
             try {
-                ReadCore(addr, 1);
+                ReadCore(btPtr, 1);
+                var bt = Marshal.ReadByte(btPtr);
+                return bt;
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
+                return 0;
             }
             finally {
-                handle.Free();
+                Marshal.FreeHGlobal(btPtr);
             }
-            
-            return bt;
         }
 
         //WriteByte并未调用Write(WriteCore),需单独重写;
@@ -334,5 +337,7 @@ namespace SingularityForensic.Drive {
         private byte[] _tempBuffer;
         private byte[] TempBuffer => _tempBuffer ?? (_tempBuffer = new byte[SectorSize - 1]);
         public int SectorSize { get; }
+
+        
     }
 }

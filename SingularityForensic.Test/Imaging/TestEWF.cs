@@ -57,28 +57,32 @@ namespace SingularityForensic.Test.Imaging {
         [TestMethod]
         public void TestCreate() {
             var _hd = new Handle();
-            _hd.Open(new string[] { exFileName,"D:\\2" }, Handle.GetAccessFlagsWrite());
+            _hd.Open(new string[] { "H:\\E01Test\\1" }, Handle.GetAccessFlagsWrite());
             
             //_hd.SetBytesPerSector(512);
             //_hd.SetMediaSize(10240);
             
             var secSize = _hd.GetBytesPerSector();
             var chunkSize = _hd.GetChunkSize();
-            _hd.SetSectorsPerChunk(100);
-            
-            var bSize = 5120;
+            //_hd.SetMediaSize(1024 * 1024 * 30);
+            //var mediaSize = _hd.GetMediaSize();
+            //_hd.SetSectorsPerChunk(1024 * 100);
+
             //_hd.SetSectorsPerChunk(20);
             _hd.SetFormat(15);
-
-            var bts = new byte[chunkSize];
-            //var rand = new Random();
-            //rand.NextBytes(bts);
-            for (int i = 0; i < 10000; i++) {
-                _hd.WriteBuffer(bts, bSize);
-            }
+            //_hd.SetFormat(15);
             
+            var bts = new byte[chunkSize];
+            var rand = new Random();
+            rand.NextBytes(bts);
+            for (int i = 0; i < 10000; i++) {
+                _hd.WriteBuffer(bts, bts.Length);
+            }
+
+            var offset = _hd.GetOffset();
             _hd.Close();
             
+
             //_hd.Dispose();
         }
 

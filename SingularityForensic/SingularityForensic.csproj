@@ -631,7 +631,7 @@
       <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\Models\IShell.cs" />
-    <Compile Include="Shell\ShellService.cs" />
+    <Compile Include="Shell\ShellServiceImpl.cs" />
     <Compile Include="Shell\Models\ViewerProgramMessage.cs" />
     <Compile Include="HelpAbout\MenuDefinitions.cs" />
     <Compile Include="Shell\ViewModels\RecentCaseViewModel.cs" />

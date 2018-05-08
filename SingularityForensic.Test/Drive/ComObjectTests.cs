@@ -40,7 +40,8 @@ namespace SingularityForensic.Drive.DeviceObjects.Tests {
             var buffer = new byte[testLength];
             var read = testStream.Read(buffer, 0, testLength);
             Assert.AreEqual(testLength, read);
-            //Trace.WriteLine($"{nameof(TestReadLength)}:{nameof(testLength)}-{testLength}");
+            Trace.WriteLine($"{nameof(TestReadLength)}:{nameof(testLength)}-{testLength}"
+                +$"{nameof(read)}-{read}");
         }
 
         //测试跳转;
@@ -77,11 +78,16 @@ namespace SingularityForensic.Drive.DeviceObjects.Tests {
             //测试按照扇区整数倍读取;
             TestReadLength(512 , volStream);
             TestReadLength(512 , hddStream);
-
+            
             //测试不按照扇区整数倍读取;
             TestReadLength(123 , volStream );
+            TestReadLength(123, hddStream);
+
+            volStream.Position = 1;
+            hddStream.Position = 1;
+
             TestReadLength(123 , volStream , false);
-            TestReadLength(123 , hddStream);
+            TestReadLength(123 , hddStream, false);
 
             volStream.Position = 1;
             Assert.AreEqual(volStream.ReadByte(),0x52);
