@@ -24,9 +24,9 @@ namespace SingularityForensic.Contracts.FileExplorer {
         public const string TreeUnitType_InnerFile = nameof(TreeUnitType_InnerFile);
         
         /// <summary>
-        /// 案件文件节点类型;
+        /// 文件系统节点类型;
         /// </summary>
-        public const string TreeUnitType_CaseEvidence = nameof(TreeUnitType_CaseEvidence);
+        public const string TreeUnitType_FileSystem = nameof(TreeUnitType_FileSystem);
 
         /// <summary>
         /// 文件关联实体单位;

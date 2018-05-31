@@ -317,6 +317,7 @@
     <Compile Include="Common\PracticeServiceProvider.cs" />
     <Compile Include="Controls\Constants.cs" />
     <Compile Include="Controls\DataGridExViewModel.cs" />
+    <Compile Include="Controls\GridView\RowNumberColumn.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
     <Compile Include="Controls\GridView\GridViewExtensions.cs" />
     <Compile Include="Controls\GridView\RadGridViewEx.cs" />

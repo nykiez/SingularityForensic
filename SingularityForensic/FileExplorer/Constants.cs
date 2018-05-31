@@ -2,8 +2,6 @@
 
 namespace SingularityForensic.FileExplorer {
     public static partial class Constants {
-        public const string TreeUnitGUID_FileSystem = nameof(TreeUnitGUID_FileSystem);
-
         public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
         
         /// <summary>

@@ -32,7 +32,11 @@
             <sys:String x:Key="Filtering">/SingularityForensic;component/Images/Shell/FolderBrowser/FilterUsing.png</sys:String>
             
         </ResourceDictionary>-->
-        
+        <Style x:Key="style1"
+				   TargetType="telerik:GridViewCell"
+				   BasedOn="{StaticResource GridViewCellStyle}">
+            
+        </Style>
     </UserControl.Resources>
     <Grid x:Name="gd">
         <Grid.RowDefinitions>
@@ -96,6 +100,11 @@
                              Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
                              >
+            <gv:RadGridViewEx.Columns>
+                <gv:RowNumberColumn Header="#"
+								 Width="30"
+								 CellStyle="{StaticResource style1}" />
+            </gv:RadGridViewEx.Columns>
             <gv:RadGridViewEx.ScrollContentContextMenu>
                 <ContextMenu ItemsSource="{Binding ContextCommands}">
                     <ContextMenu.ItemContainerStyle>

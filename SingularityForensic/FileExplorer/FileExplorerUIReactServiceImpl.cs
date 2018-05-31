@@ -51,7 +51,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            if(tuple.unit.TypeGuid != Constants.TreeUnitGUID_FileSystem) {
+            if(tuple.unit.TypeGuid != Contracts.FileExplorer.Constants.TreeUnitType_FileSystem) {
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var fsUnit = TreeUnitFactory.CreateNew(Constants.TreeUnitGUID_FileSystem);
+            var fsUnit = TreeUnitFactory.CreateNew(Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
             fsUnit.Icon = IconResources.FileSystemIcon;
             fsUnit.Label = LanguageService.Current?.FindResourceString(Constants.TreeUnitLabel_FileSystem);
             fsUnit.SetInstance(fileTuple.Value.file, Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);

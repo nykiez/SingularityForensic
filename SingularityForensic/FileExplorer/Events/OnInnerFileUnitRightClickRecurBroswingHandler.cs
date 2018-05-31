@@ -21,12 +21,18 @@ namespace SingularityForensic.FileExplorer.Events {
             if (tuple.treeService != Contracts.MainPage.MainTreeService.Current) {
                 return;
             }
-            
-            if (tuple.unit.TypeGuid != Contracts.FileExplorer.Constants.TreeUnitType_InnerFile) {
-                return;
+
+            if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_InnerFile) {
+                HandleOnInnerFileUnit(tuple.unit);
             }
 
-            var innerFile = tuple.unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
+            if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_FileSystem) {
+                HandleOnFileSystemUnit(tuple.unit);
+            } 
+        }
+
+        public void HandleOnInnerFileUnit(ITreeUnit unit) {
+            var innerFile = unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
             if (innerFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(innerFile)} can't be null.");
                 return;
@@ -37,14 +43,27 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
+            HandleOnFileCollection(haveFileCollection);
+        }
+
+        public void HandleOnFileSystemUnit(ITreeUnit unit) {
+            var file = unit?.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            if(!(file is IHaveFileCollection haveFileCollection)) {
+                return;
+            }
+
+            HandleOnFileCollection(haveFileCollection);
+        }
+
+        private void HandleOnFileCollection(IHaveFileCollection haveFileCollection) {
             IStreamFile streamFile = null;
-            if(innerFile is IStreamFile) {
-                streamFile = innerFile as IStreamFile;
+            if (haveFileCollection is IStreamFile) {
+                streamFile = haveFileCollection as IStreamFile;
             }
             else {
-                streamFile = innerFile.GetParent<IStreamFile>();
+                streamFile = haveFileCollection.GetParent<IStreamFile>();
             }
-            
+
             if (streamFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(streamFile)} can't be null.");
                 return;
@@ -61,7 +80,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 LoggerService.WriteCallerLine($"{nameof(folderBrowseViewModel)} can't be null.");
                 return;
             }
-            
+
             folderBrowseViewModel.FillRows(haveFileCollection.GetInnerFiles());
         }
     }
