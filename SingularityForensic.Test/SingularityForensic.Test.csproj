@@ -140,6 +140,7 @@
     <Compile Include="FileSystem\UnmanagedStreamAdapterTests.cs" />
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Hash\HasherTests.cs" />
+    <Compile Include="Hex\Events\OnHexFocusPositionChangedOnStatusBarHandlerTests.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactoryTests.cs" />
     <Compile Include="Hex\HexServiceTests.cs" />
     <Compile Include="Imaging\EWFStreamTests.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="ITunes\ITunesBackUpServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="Shell\ShellMockers.cs" />
+    <Compile Include="StatusBar\StatusBarServiceTest.cs" />
     <Compile Include="TestDos.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="TestPInvoke.cs" />

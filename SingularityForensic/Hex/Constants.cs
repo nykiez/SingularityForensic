@@ -1,5 +1,5 @@
 ﻿namespace SingularityForensic.Hex {
-    static partial class Constants {
+    public static partial class Constants {
         public const string BufferToProCodeFormatterGUID_CSharp = nameof(BufferToProCodeFormatterGUID_CSharp);
         public const string BufferToProCodeFormatterGUID_FSharp = nameof(BufferToProCodeFormatterGUID_FSharp);
         public const string BufferToProCodeFormatterGUID_C = nameof(BufferToProCodeFormatterGUID_C);
@@ -11,10 +11,14 @@
         public const string TBButtonGUID_FindHex = nameof(TBButtonGUID_FindHex);
 
         public const string TBButtonGUID_GoToOffset = nameof(TBButtonGUID_GoToOffset);
+
+        public const string StatusBarItemGUID_Position = nameof(StatusBarItemGUID_Position);
         
+        public const string StatusBarItemGUID_CurCharValue = nameof(StatusBarItemGUID_CurCharValue);
+
     }
 
-    static partial class Constants {
+    public static partial class Constants {
         public const string GoToOffsetToolBarText = nameof(GoToOffsetToolBarText);
 
         public const string ToolTipKey_Offset = nameof(ToolTipKey_Offset);
@@ -49,5 +53,9 @@
         public const string MenuItemText_FindText = nameof(MenuItemText_FindText);
         public const string MenuItemText_FindHex = nameof(MenuItemText_FindHex);
         public const string MenuItemText_GoToOffset = nameof(MenuItemText_GoToOffset);
+
+        public const string StatusBarItemText_Position = nameof(StatusBarItemText_Position);
+
+        public const string StatusBarItemText_CurCharValue = nameof(StatusBarItemText_CurCharValue);
     }
 }

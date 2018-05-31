@@ -13,6 +13,10 @@ using System.Windows.Media;
 namespace SingularityForensic.Controls
 {
     class StackGrid<TStackItem> : IStackGrid<TStackItem> where TStackItem : IUIObjectProvider {
+        public StackGrid(Grid grid = null) {
+            this._grid = grid??new Grid();
+        }
+
         private readonly List<(TStackItem stackItem, GridChildLength gridChildLength)> _children = new List<(TStackItem stackItem, GridChildLength gridChildLength)>();
         public IEnumerable<(TStackItem stackItem, GridChildLength gridChildLength)> Children => _children.Select(p => p);
 
@@ -22,7 +26,7 @@ namespace SingularityForensic.Controls
             set {
                 if(_orientation != value) {
                     _orientation = value;
-
+                    UpdateGrid();
                 }
             }
         }
@@ -39,9 +43,21 @@ namespace SingularityForensic.Controls
                 _children.Add((child, gridChildLength));
             UpdateGrid();
         }
-        
+
         public void Remove(TStackItem child) {
-            throw new NotImplementedException();
+            (TStackItem stackItem, GridChildLength gridChildLength)? item = null;
+            foreach (var ch in _children) {
+                if (object.Equals(ch.stackItem, child)) {
+                    item = ch;
+                    break;
+                }
+            }
+
+            if (item != null) {
+                _children.Remove(item.Value);
+                UpdateGrid();
+            }
+            
         }
 
         public double SplitterLength {
@@ -91,7 +107,7 @@ namespace SingularityForensic.Controls
                     var uiel = GetUIElement(info.stackItem);
                     uiel.SetValue(Grid.RowProperty, rowCol);
                     uiel.ClearValue(Grid.ColumnProperty);
-                    
+
                     rowCol++;
                     d = -d;
                     needSplitter = !info.gridChildLength.GridLength.IsAuto;
@@ -153,12 +169,17 @@ namespace SingularityForensic.Controls
             _grid.Children.Add(uiel);
             return uiel;
         }
+
+        public void Clear() {
+            _children.Clear();
+            UpdateGrid();
+        }
     }
 
     [Export(typeof(IStackGridFactory))]
     class StackGridFactoryImpl : IStackGridFactory {
-        public IStackGrid<TStackItem> CreateNew<TStackItem>() where TStackItem : IUIObjectProvider {
-            return new StackGrid<TStackItem>() {
+        public IStackGrid<TStackItem> CreateNew<TStackItem>(Grid grid = null) where TStackItem : IUIObjectProvider {
+            return new StackGrid<TStackItem>(grid) {
                 SplitterLength = Constants.SpliterLength_Default
             };
         }

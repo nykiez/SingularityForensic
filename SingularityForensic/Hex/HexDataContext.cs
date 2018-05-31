@@ -12,9 +12,16 @@ namespace SingularityForensic.Hex {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
             UIObject = ViewProvider.CreateView(Contracts.Hex.Constants.HexView, _vm);
+            _vm.FocusPositionChanged += delegate {
+                FocusPositionChanged?.Invoke(this, EventArgs.Empty);
+            };
 
             _vm.SelectionStateChanged += delegate {
                 SelectionStateChanged?.Invoke(this, EventArgs.Empty);
+            };
+
+            _vm.FocusPositionChanged += delegate {
+                LostFocus?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -36,6 +43,8 @@ namespace SingularityForensic.Hex {
         }
 
         public event EventHandler SelectionStateChanged;
+        public event EventHandler FocusPositionChanged;
+        public event EventHandler LostFocus;
 
         public long Position {
             get => _vm.Position;

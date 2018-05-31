@@ -77,13 +77,26 @@ namespace SingularityForensic.Hex.ViewModels {
             }
             set {
                 SetProperty(ref _focusPosition, value);
+                FocusPositionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        public event EventHandler FocusPositionChanged;
 
         public ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; set; }
         = new ObservableCollection<(long index, long length, Brush background)>();
 
-        public object Tag { get; set; }
+
+        /// <summary>
+        /// 失去焦点命令;
+        /// </summary>
+        private DelegateCommand _lostFocusCommand;
+        public DelegateCommand LostFocusCommand => _lostFocusCommand ??
+            (_lostFocusCommand = new DelegateCommand(
+                () => {
+                    LostFocus?.Invoke(this, EventArgs.Empty);
+                }
+            ));
+        public event EventHandler LostFocus;
     }
 
     /// <summary>

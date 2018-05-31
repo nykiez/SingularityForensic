@@ -24,9 +24,14 @@ namespace SingularityForensic.Contracts.Hex {
         long SelectionStart { get; set; }
         long SelectionLength { get; set; }
         event EventHandler SelectionStateChanged;
-
+        
         long Position { get; set; }
         long FocusPosition { get; set; }
+        event EventHandler FocusPositionChanged;
+
+        //失去焦点时触发;
+        event EventHandler LostFocus;
+
         ICollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; }
 
         IEnumerable<ICommandItem> ContextCommands { get; }

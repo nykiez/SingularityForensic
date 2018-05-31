@@ -23,6 +23,7 @@ namespace SingularityForensic.Contracts.Controls {
         /// <param name="index">插入位置</param>
         void AddChild<TDefinition>(TStackItem child,GridChildLength gridChildLength, int index = -1);
         void Remove(TStackItem child);
+        void Clear();
         /// <summary>
         /// 朝向;
         /// </summary>
@@ -36,12 +37,12 @@ namespace SingularityForensic.Contracts.Controls {
         /// </summary>
         /// <param name="spliterLength">分割大小</param>
         /// <returns></returns>
-        IStackGrid<TStackItem> CreateNew<TStackItem>() where TStackItem:IUIObjectProvider;
+        IStackGrid<TStackItem> CreateNew<TStackItem>(Grid grid = null) where TStackItem:IUIObjectProvider;
     }
 
     public class StackGridFactory :GenericServiceStaticInstance<IStackGridFactory>{
-        public static IStackGrid<TStackItem> CreateNew<TStackItem>() where TStackItem : IUIObjectProvider {
-            return Current?.CreateNew<TStackItem>();
+        public static IStackGrid<TStackItem> CreateNew<TStackItem>(Grid grid = null) where TStackItem : IUIObjectProvider {
+            return Current?.CreateNew<TStackItem>(grid);
         }
     }
     

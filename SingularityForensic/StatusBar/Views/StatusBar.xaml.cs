@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.StatusBar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -19,12 +20,13 @@ namespace SingularityForensic.StatusBar.Views
     /// <summary>
     /// Interaction logic for StatusBarModule.xaml
     /// </summary>
-    [Export]
-    public partial class StatusBar : UserControl
-    {
+    [Export(typeof(IStatusBar))]
+    public partial class StatusBar : UserControl, IStatusBar {
         public StatusBar()
         {
             InitializeComponent();
         }
+
+        public Grid Grid => mainGrid;
     }
 }

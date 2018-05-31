@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SingularityForensic.StatusBar.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Height="24"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Rectangle Height="24" Fill="{DynamicResource Window.StatusBar.Back}" />
+    <Grid Background="{DynamicResource Window.StatusBar.Back}"  x:Name="mainGrid">
+        <TextBlock VerticalAlignment="Center">dada</TextBlock>
     </Grid>
 </UserControl>

@@ -40,7 +40,7 @@ namespace SingularityForensic.Test.Hash {
             
             //检查值是否正确;
             using (var fs = File.OpenRead("E://anli/FAT32.img")) {
-                var bts = _hasher.ComputeHash(fs, proMocker.Object);
+                var bts = _hasher.ComputeHash(fs);
                 var sb = new StringBuilder();
                 
                 foreach (var bt in bts) {
@@ -57,7 +57,7 @@ namespace SingularityForensic.Test.Hash {
             });
 
             using (var fs = File.OpenRead("E://anli/FAT32.img")) {
-                var bts = _hasher.ComputeHash(fs, proMocker.Object);
+                var bts = _hasher.ComputeHash(fs);
                 Assert.IsNull(bts);
             }
         }

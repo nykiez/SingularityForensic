@@ -167,16 +167,15 @@ namespace SingularityForensic.Drive {
 
         //对外所描述的指针位置;
         private long _position;
-        //由于调整位置时,若传入了非扇区整数倍的位置,会导致异常,Position在此须特殊处理;
         public override long Position {
             get => _position;
             set {
-                if (_position >= Length) {
+                if (value >= Length) {
                     throw new ArgumentOutOfRangeException(
                         "Position can't be greater than Length"
                         + $"{nameof(Length)}:{Length} {nameof(value)}{value}");
                 }
-                if (_position < 0) {
+                if (value < 0) {
                     throw new ArgumentOutOfRangeException(
                         "Position can't be less than zero"
                         + $"{nameof(value)}{value}");

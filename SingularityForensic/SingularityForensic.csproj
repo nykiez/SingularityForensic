@@ -429,6 +429,7 @@
       <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Hex\Events\OnHexDataContextLoadedOnContextCommandsHandler.cs" />
+    <Compile Include="Hex\Events\OnHexFocusPositionChangedOnStatusBarHandler.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactory.cs" />
     <Compile Include="Hex\HexUIServiceImpl.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
@@ -655,7 +656,11 @@
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatusBar\Constants.cs" />
+    <Compile Include="StatusBar\StatusBarItemFactory.cs" />
     <Compile Include="StatusBar\StatusBarModule.cs" />
+    <Compile Include="StatusBar\StatusBarObjectItem.cs" />
+    <Compile Include="StatusBar\StatusBarServiceImpl.cs" />
+    <Compile Include="StatusBar\StatusBarTextItem.cs" />
     <Compile Include="StatusBar\Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
