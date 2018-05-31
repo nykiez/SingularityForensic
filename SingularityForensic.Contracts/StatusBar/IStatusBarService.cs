@@ -33,9 +33,19 @@ namespace SingularityForensic.Contracts.StatusBar {
         /// 初始化;
         /// </summary>
         void Initialize();
+
+        IStatusBarObjectItem CreateStatusBarObjectItem(object content, string guid);
+        IStatusBarTextItem CreateStatusBarTextItem(string guid);
+        IStatusBarTextItem GetOrCreateStatusBarTextItem(string guid, GridChildLength gridChildLength, int sort);
     }
 
     public class StatusBarService : GenericServiceStaticInstance<IStatusBarService> {
         public static void Report(string text, string statusBarItemGUID = null) => Current.Report(text, statusBarItemGUID);
+        public static IStatusBarObjectItem CreateStatusBarObjectItem(object content, string guid) =>
+            Current.CreateStatusBarObjectItem(content, guid);
+        public static IStatusBarTextItem CreateStatusBarTextItem(string guid) =>
+            Current.CreateStatusBarTextItem(guid);
+        public static IStatusBarTextItem GetOrCreateStatusBarTextItem(string guid, GridChildLength gridChildLength, int sort) =>
+            Current.GetOrCreateStatusBarTextItem(guid, gridChildLength, sort);
     }
 }

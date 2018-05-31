@@ -24,7 +24,7 @@ namespace SingularityForensic.StatusBar {
             _stackGrid.Clear();
 
             //添加默认状态栏项;
-            var defaultItem = StatusBarItemFactory.CreateStatusBarTextItem(Constants.StatusBarItemGUID_Default);
+            var defaultItem = CreateStatusBarTextItem(Constants.StatusBarItemGUID_Default);
             defaultItem.Margin = new Thickness(3, 0, 3, 0);
             AddStatusBarItem(defaultItem,new GridChildLength(new GridLength(1, GridUnitType.Star)));
         }
@@ -77,6 +77,21 @@ namespace SingularityForensic.StatusBar {
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
             }
+        }
+
+        public IStatusBarObjectItem CreateStatusBarObjectItem(object content, string guid) => new StatusBarObjectItem(guid, content);
+
+        public IStatusBarTextItem CreateStatusBarTextItem(string guid) => new StatusBarTextItem(guid);
+
+        public IStatusBarTextItem GetOrCreateStatusBarTextItem(string guid, GridChildLength gridChildLength, int sort) {
+            var item = Children.FirstOrDefault(p => p.GUID == guid) as IStatusBarTextItem;
+            if (item == null) {
+                item = CreateStatusBarTextItem(guid);
+                StatusBarService.Current.AddStatusBarItem(item, gridChildLength, sort);
+                item.Margin = new Thickness(12, 0, 12, 0);
+            }
+
+            return item;
         }
     }
 }

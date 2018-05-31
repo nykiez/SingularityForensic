@@ -30,10 +30,10 @@ namespace SingularityForensic.Hex.Events {
         }
 
         private void HandleOnLostFocus(IHexDataContext hexContext) {
-            var positionItem = GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position, _positionChildLength, 4);
+            var positionItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position, _positionChildLength, 4);
             //RemoveItem(positionItem);
 
-            var curCharValueItem = GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_CurCharValue, _curCharValueChildLength, 8);
+            var curCharValueItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_CurCharValue, _curCharValueChildLength, 8);
             //RemoveItem(curCharValueItem);
         }
 
@@ -59,7 +59,7 @@ namespace SingularityForensic.Hex.Events {
         /// </summary>
         /// <param name="hexContext"></param>
         private void NotifyPosition(IHexDataContext hexContext) {
-            var positionItem = GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position,_positionChildLength,4);
+            var positionItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position,_positionChildLength,4);
 
             if (positionItem == null) {
                 return;
@@ -83,7 +83,7 @@ namespace SingularityForensic.Hex.Events {
         /// </summary>
         /// <param name="hexContext"></param>
         private void ShowChar(IHexDataContext hexContext) {
-            var curCharValueItem = GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_CurCharValue, _curCharValueChildLength, 8);
+            var curCharValueItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_CurCharValue, _curCharValueChildLength, 8);
             if (curCharValueItem == null) {
                 return;
             }
@@ -105,15 +105,6 @@ namespace SingularityForensic.Hex.Events {
             }
         }
 
-        private static IStatusBarTextItem GetOrCreateStatusBarTextItem(string guid,GridChildLength gridChildLength, int sort) {
-            var item = StatusBarService.Current.Children.FirstOrDefault(p => p.GUID == guid) as IStatusBarTextItem;
-            if (item == null) {
-                item = StatusBarItemFactory.CreateStatusBarTextItem(guid);
-                StatusBarService.Current.AddStatusBarItem(item, gridChildLength, sort);
-                item.Margin = new Thickness(12, 0, 12, 0);
-            }
-            
-            return item;
-        }
+        
     }
 }

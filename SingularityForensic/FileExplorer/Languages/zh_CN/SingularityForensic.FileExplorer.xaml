@@ -49,4 +49,7 @@
   <sys:String x:Key="DocumentTitle_CustomSignSearch">自定义签名扫描</sys:String>
   <sys:String x:Key="RegularFileName_CustomSignSearch">文件</sys:String>
   <sys:String x:Key="ContextCommandName_OpenFileWithAnotherPro">其它</sys:String>
+  <sys:String x:Key="StatusBarItemText_FileCount">总数量</sys:String>
+  <sys:String x:Key="StatusBarItemText_RegFileCount">文件数量</sys:String>
+  <sys:String x:Key="StatusBarItemText_DirectoryCount">目录数量</sys:String>
 </ResourceDictionary>

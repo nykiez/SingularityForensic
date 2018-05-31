@@ -234,7 +234,6 @@
     <Compile Include="Splash\Events\SplashMessageEvent.cs" />
     <Compile Include="Splash\ISplashService.cs" />
     <Compile Include="StatusBar\IStatusBar.cs" />
-    <Compile Include="StatusBar\IStatusBarItemFactory.cs" />
     <Compile Include="StatusBar\IStatusBarService.cs" />
     <Compile Include="StatusBar\IStatusBarObjectItem.cs" />
     <Compile Include="StatusBar\IStatusBarTextItem.cs" />

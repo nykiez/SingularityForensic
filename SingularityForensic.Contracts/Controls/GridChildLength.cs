@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.Contracts.Controls {
-    public struct GridChildLength {
+    public class GridChildLength {
         public GridLength GridLength { get; set; }
         public double MinLength { get; set; }
         public double MaxLength { get; set; }
@@ -16,6 +16,9 @@ namespace SingularityForensic.Contracts.Controls {
             MinLength = min;
             MaxLength = max;
         }
+
+        private static GridChildLength _auto;
+        public static GridChildLength Auto => _auto ?? (_auto = new GridChildLength(GridLength.Auto));
     }
 
 

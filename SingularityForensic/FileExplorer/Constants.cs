@@ -35,9 +35,17 @@ namespace SingularityForensic.FileExplorer {
         public const string RegularFileName_CustomSignSearch = nameof(RegularFileName_CustomSignSearch);
 
         public const string DefaultFileExtension_CustomSignSearch = nameof(DefaultFileExtension_CustomSignSearch);
-
-
+        
         public const string DocumentTag_FilePreviewer = nameof(DocumentTag_FilePreviewer);
+        
+
+        public const string StatusBarItemGUID_FilesCount = nameof(StatusBarItemGUID_FilesCount);
+        
+        public const string StatusBarItemGUID_RegFileCount = nameof(StatusBarItemGUID_RegFileCount);
+
+
+        public const string StatusBarItemGUID_DirectoryCount = nameof(StatusBarItemGUID_DirectoryCount);
+
 
         /// <summary>
         /// 打开方式,右键;
@@ -154,7 +162,12 @@ namespace SingularityForensic.FileExplorer {
         public const string WindowTitle_ComputeHash = nameof(WindowTitle_ComputeHash);
         public const string WindowTitle_CustomSignSearch = nameof(WindowTitle_CustomSignSearch);
 
+        public const string StatusBarItemText_FileCount = nameof(StatusBarItemText_FileCount);
+
+        public const string StatusBarItemText_RegFileCount = nameof(StatusBarItemText_RegFileCount);
         
+        public const string StatusBarItemText_DirectoryCount = nameof(StatusBarItemText_DirectoryCount);
+
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

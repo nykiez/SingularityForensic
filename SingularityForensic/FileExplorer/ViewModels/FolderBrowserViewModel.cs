@@ -111,7 +111,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             foreach (var file in files) {
                 Files.Add(FileRowFactory.Current.CreateFileRow(file));
             }
+            this.FilesChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        public event EventHandler FilesChanged;
         
         private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();
         

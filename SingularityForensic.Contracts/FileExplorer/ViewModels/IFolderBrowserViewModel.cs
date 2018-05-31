@@ -29,6 +29,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         
         void FillRows(IEnumerable<IFile> files);
 
+        event EventHandler FilesChanged;
         ICollection<INavNodeModel> NavNodes{get;}
     }
     
