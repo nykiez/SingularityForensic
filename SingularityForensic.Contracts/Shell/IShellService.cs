@@ -9,6 +9,10 @@ namespace SingularityForensic.Contracts.Shell {
         void ChangeLoadState(bool isLoading, string word = null);
         void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None);
         void Show();
+        /// <summary>
+        /// 窗体;
+        /// </summary>
+        object Shell { get; }
     }
 
     public class ShellService : GenericServiceStaticInstance<IShellService> {

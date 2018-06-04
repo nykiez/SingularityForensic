@@ -311,12 +311,12 @@ namespace SingularityForensic.FileExplorer {
                     var partHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_Partition);
                     var fileHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_File);
 
-                    var blockGroup = blockGrouped.BlockGroups.FirstOrDefault(p => e >= p.BlockAddress);
+                    var blockGroup = blockGrouped.BlockGroups.FirstOrDefault(p => e >= p.BlockAddress && e <= p.BlockAddress + p.Count);
                     if (blockGroup == null) {
                         return;
                     }
 
-                    partHexDataContext.Position = blockGroup.Offset;
+                    partHexDataContext.Position = blockGroup.Offset + (e - blockGroup.BlockAddress) * blockGroup.BlockSize;
 
 
                 };

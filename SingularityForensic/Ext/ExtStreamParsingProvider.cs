@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Ext {
-    [Export(typeof(IStreamParsingProvider))]
+    //[Export(typeof(IStreamParsingProvider))]
     public partial class ExtStreamParsingProvider : IStreamParsingProvider {
         public int Order => 33;
 

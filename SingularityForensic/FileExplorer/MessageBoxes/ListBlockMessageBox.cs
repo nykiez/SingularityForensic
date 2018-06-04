@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.Shell;
 using SingularityForensic.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Windows;
 using System;
@@ -45,6 +46,11 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
         public IFile File { get; }
         public void Show() {
             try {
+                if(ShellService.Current.Shell is Window owner) {
+                    _window.Owner = owner;
+                    _window.ShowInTaskbar = false;
+                }
+                    
                 _window.Show();
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (sender, e) => {

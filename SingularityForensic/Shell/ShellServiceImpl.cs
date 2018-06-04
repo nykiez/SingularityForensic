@@ -98,5 +98,7 @@ namespace SingularityForensic.Shell {
         public void Show() {
             (_shellView as Window).Show();
         }
+
+        public object Shell => ViewProvider.GetView(Contracts.Shell.Constants.ShellView);
     }
 }

@@ -172,6 +172,7 @@ Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entit
 
 Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll"
+Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)Entities\ExtRecover.dll"
 
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 
