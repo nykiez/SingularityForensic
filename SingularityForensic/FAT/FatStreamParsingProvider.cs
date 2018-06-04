@@ -16,7 +16,7 @@ namespace SingularityForensic.FAT {
     /// FAT分区表解析装置;
     /// </summary>
     [Export(typeof(IStreamParsingProvider))]
-    partial class FatStreamParsingProvider : IStreamParsingProvider {
+    public partial class FatStreamParsingProvider : IStreamParsingProvider {
         public int Order => 32;
 
         public string GUID => Constants.StreamParserGUID_FAT;
@@ -87,6 +87,7 @@ namespace SingularityForensic.FAT {
             if(stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
+
             var fatPartType = GetFatType(stream);
             if (fatPartType == null) {
                 LoggerService.WriteCallerLine($"{nameof(FATPartType)} can't be null.");
@@ -122,8 +123,6 @@ namespace SingularityForensic.FAT {
                 throw new InvalidOperationException($"{nameof(unmanagedManager.FATManagerPtr)} can't be nullptr.");
             }
             
-            
-
             LoadPartInfo(partInfo);
             LoadPartContent(part, reporter);
             
@@ -336,9 +335,10 @@ namespace SingularityForensic.FAT {
             Func<bool> isCancel) {
 
             while (filePtr != IntPtr.Zero) {
-                var stFileNode = filePtr.GetStructure<StFatFileNode>();
                 IFile file = null;
                 FileStokenBase2 fileStoken2 = null;
+
+                var stFileNode = filePtr.GetStructure<StFatFileNode>();
                 var fatFileInfo = new FATFileInfo {
                     StFileNode = stFileNode
                 };
@@ -359,7 +359,7 @@ namespace SingularityForensic.FAT {
                     EditFileStoken2(fileStoken2, partInfo, fatFileInfo);
 
                     //非备份/同级备份目录名不会以'.'开头;
-                    if (stFileNode.NameBuffer[0] != 46) {
+                    if (stFileNode.NameBuffer[0] != '.') {
                         LoadDirectoryContent(
                             dir,
                             partInfo,
@@ -367,7 +367,7 @@ namespace SingularityForensic.FAT {
                             isCancel
                         );
                     }
-                    else if (stFileNode.NameBuffer[2] == 46) {
+                    else if (stFileNode.NameBuffer[2] == '.') {
                         dirStoken.IsBack = true;
                     }
                     else {
@@ -380,13 +380,17 @@ namespace SingularityForensic.FAT {
 
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_FAT);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_FAT);
-                    file = regFile;
+                    
                     regFileStoken.TypeGuids = new string[] {
                         Constants.RegularFileType_FAT32
                     };
-                    
+
+                    file = regFile;
                     fileStoken2 = regFileStoken;
+                    
                     EditFileStoken2(fileStoken2, partInfo, fatFileInfo);
+
+                    ntfSzAct?.Invoke(fileStoken2.Size);
                 }
                 
                 if (file != null) {
@@ -463,8 +467,8 @@ namespace SingularityForensic.FAT {
 
             //编辑时间;
             fileStoken2.ModifiedTime = fatFileInfo.StFileNode.Value.ModifiedTime;
+            fileStoken2.AccessedTime = fatFileInfo.StFileNode.Value.AccessTime;
             fileStoken2.CreateTime = fatFileInfo.StFileNode.Value.CreateTime;
-            fileStoken2.Deleted = fatFileInfo.StFileNode.Value.Deleted;
         }
 
         /// <summary>
@@ -503,7 +507,7 @@ namespace SingularityForensic.FAT {
                 return;
             }
 
-            var clusters = GetStructs<StFatClusterNode>(fatFileInfo.StFileNode.Value.stClusterList, stCluster => stCluster.Next);
+            var clusters = MarshalExtensions.GetStructs<StFatClusterNode>(fatFileInfo.StFileNode.Value.stClusterList, stCluster => stCluster.Next);
             int clusterSize = partInfo.ClusterSize.Value;
 
             //遍历,粘合,将连续的簇列表并入为一个块组;
@@ -568,30 +572,19 @@ namespace SingularityForensic.FAT {
         /// </summary>
         /// <param name="fatFileInfo"></param>
         private static void LoadDirectoryContent(
-            fsContracts.IDirectory direct,
+            IDirectory direct,
             FATPartInfo partInfo,
             Action<long> ntfSzAct,
             Func<bool> isCancel) {
 
             var dirStoken = direct.GetStoken(Constants.DirectoryKey_FAT);
             var fatFileInfo = dirStoken.GetIntance<FATFileInfo>(Constants.FileStokenTag_FATFileInfo) as FATFileInfo;
-
             var filePtr = Fat_Parse_Dir(partInfo.UnmanagedFATManager.FATManagerPtr, fatFileInfo.StFileNode.Value.stClusterList);
 
             DealWithFileNode(direct, partInfo , filePtr, ntfSzAct, isCancel);
         }
 
-        private static IEnumerable<TStruct> GetStructs<TStruct>(
-            IntPtr ptr,Func<TStruct,IntPtr> getNext)
-            where TStruct:struct
-            {
-            while(ptr != IntPtr.Zero) {
-                var tStruct = ptr.GetStructure<TStruct>();
-                ptr = getNext(tStruct);
-                yield return tStruct;
-            }
-            
-        }
+       
     }
     
     partial class FatStreamParsingProvider {

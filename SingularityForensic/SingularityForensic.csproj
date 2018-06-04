@@ -335,6 +335,16 @@
     <Compile Include="Document\DocumentBase.cs" />
     <Compile Include="Document\DocumentModule.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
+    <Compile Include="Ext\Constants.cs" />
+    <Compile Include="Ext\ExtFileInfo.cs" />
+    <Compile Include="Ext\ExtPartInfo.cs" />
+    <Compile Include="Ext\ExtStreamParsingProvider.cs" />
+    <Compile Include="Ext\ExtUnmanagedManager.cs" />
+    <Compile Include="Ext\ReadOnlyCompatibleFeatures.cs" />
+    <Compile Include="Ext\IncompatibleFeatures.cs" />
+    <Compile Include="Ext\CompatibleFeatures.cs" />
+    <Compile Include="Ext\Structs.cs" />
+    <Compile Include="Ext\SuperBlock.cs" />
     <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandler.cs" />
     <Compile Include="FAT\FATDBR.cs" />
     <Compile Include="FAT\FATFileInfo.cs" />
@@ -1156,7 +1166,6 @@
     <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
-    <Folder Include="Ext\" />
     <Folder Include="FileExplorer\Design\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
@@ -1515,6 +1524,7 @@
     <Resource Include="Controls\Images\TalkLog_Right.png" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Drive\DevManager.dll" />
+    <Content Include="Ext\ExtRecover.dll" />
     <Content Include="FAT\fat.h" />
     <Content Include="FAT\FatRecover.dll" />
     <Content Include="BaseDevice\PartitionManager.dll" />

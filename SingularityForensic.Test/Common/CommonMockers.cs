@@ -15,7 +15,21 @@ namespace SingularityForensic.Test.Common {
                 return _aggregator;
             }
         }
-        
+
+        private static ILoggerService _loggerService;
+        public static ILoggerService LoggerServiceMocker {
+            get {
+                if(_loggerService == null) {
+                    var logService = new Mock<ILoggerService>();
+                    //logService.Setup(p => p.WriteCallerLine(It.IsAny<string>(),It.IsAny<string>())).Throws(new System.Exception());
+                    //logService.Setup(p => p.WriteLine(It.IsAny<string>())).Throws(new System.Exception());
+                    _loggerService = logService.Object;
+                }
+
+                return _loggerService;
+            }
+        }
+
         private static IViewProvider _viewProvider;
         public static IViewProvider ViewProviderMocker {
             get {

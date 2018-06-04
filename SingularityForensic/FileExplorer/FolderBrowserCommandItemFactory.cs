@@ -316,7 +316,7 @@ namespace SingularityForensic.FileExplorer {
                         return;
                     }
 
-                    partHexDataContext.Position = (blockGroup.BlockSize * e) + blockGroup.Offset;
+                    partHexDataContext.Position = blockGroup.Offset;
 
 
                 };

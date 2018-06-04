@@ -82,7 +82,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="blockGrouped"></param>
         /// <returns></returns>
         public static long? GetStartLBA(this IBlockGroupedFile blockGrouped) {
-            var firstBlock = blockGrouped.BlockGroups.FirstOrDefault();
+            var firstBlock = blockGrouped.BlockGroups?.FirstOrDefault();
             if (firstBlock != null) {
                 return firstBlock.Offset;
             }

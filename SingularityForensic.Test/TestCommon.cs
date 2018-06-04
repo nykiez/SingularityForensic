@@ -30,6 +30,8 @@ namespace SingularityForensic.Test {
             //设定事件聚合器;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(CommonMockers.AggregatorMocker);
 
+            
+
             //设定视图查找器;
             ViewProvider.SetViewProvider(CommonMockers.ViewProviderMocker);
 

@@ -120,6 +120,7 @@
     <Compile Include="Drive\DriveMockers.cs" />
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
+    <Compile Include="Ext\ExtStreamParsingProviderTests.cs" />
     <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandlerTests.cs" />
     <Compile Include="FAT\FatMockers.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />
@@ -199,6 +200,7 @@ Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc
 Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
 Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
+Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
 
