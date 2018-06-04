@@ -20,6 +20,7 @@ namespace SingularityForensic.Test.FileSystem {
         }
         private IStreamParsingProvider _streamParser;
 
+        //private const string GPTImgPath = "E://1MBLocalPyhsic.img";
         private const string GPTImgPath = "E://anli/gpt.img";
         private const string DOSImgPath = "E://anli/dos.img";
         private const string InvalidImgPath = "E://anli/FAT16.img";

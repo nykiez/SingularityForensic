@@ -604,6 +604,8 @@
     <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
+    <Compile Include="NTFS\StBPB.cs" />
+    <Compile Include="NTFS\Structs.cs" />
     <Compile Include="Previewers\Constants.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
     <Compile Include="Previewers\DefaultPreviewProvider.cs" />
@@ -782,6 +784,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Themes\Docking.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -790,6 +796,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="Controls\Themes\TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Views\ActiveOrNotView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1146,6 +1156,7 @@
     <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
+    <Folder Include="Ext\" />
     <Folder Include="FileExplorer\Design\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />

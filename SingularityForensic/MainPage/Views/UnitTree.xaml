@@ -10,16 +10,15 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" BorderThickness="1"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Menu.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/GroupBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TreeViewEx.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
+            
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source="{Binding Icon}" Width="16" Margin="6,0" />
@@ -46,30 +45,11 @@
 
     <DockPanel >
         <FrameworkElement x:Name="dataElment" Visibility="Collapsed" />
-        <!--<Menu  Background="Transparent" DockPanel.Dock="Top">
-                <Menu.Resources>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="FontSize" Value="14"/>
-                        <Setter Property="FontFamily" Value="{StaticResource Adobe-Heiti-Std-R}"/>
-                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
-                        <Setter Property="Padding" Value="12,3,12,3"/>
-                    </Style>
-                </Menu.Resources>
-                <MenuItem Header="{DynamicResource ManageCase}" Margin="3,0,0,0" >
-                    <MenuItem Header="{DynamicResource CreateNewCase}" Command="{Binding CreateCaseCommand}" />
-                    <MenuItem Header="{DynamicResource OpenCase}" Command="{Binding OpenCaseCommand}"/>
-                    <MenuItem Header="{DynamicResource CloseCase}" Command="{Binding CloseCaseCommand}"/>
-                </MenuItem>
-                <Separator  Background="#66000000" Style="{DynamicResource SeparatorStyle1}"    />
-                <MenuItem Header="{DynamicResource Edit}"/>
-            </Menu>-->
-
-        <telerik:RadTreeView BorderThickness="0" Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
+        <telerik:RadTreeView Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
                              IsLineEnabled="True"
             ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single" 
                              SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  
-                                 ItemTemplate="{DynamicResource TreeViewExItemTemplate}">
+                                 ItemTemplate="{DynamicResource TreeViewExItemTemplate}" d:IsLocked="True">
             
             <telerik:RadTreeView.ItemContainerStyle >
                 <Style TargetType="{x:Type telerik:RadTreeViewItem}">

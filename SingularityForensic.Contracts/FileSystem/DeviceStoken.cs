@@ -69,7 +69,6 @@ namespace SingularityForensic.Contracts.FileSystem {
                     device.SetStartLBA(part, partStartLBA);
                 }
             }
-            
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace SingularityForensic.Contracts.Controls {
         public GridLength GridLength { get; set; }
         public double MinLength { get; set; }
         public double MaxLength { get; set; }
-
+        
         public GridChildLength(GridLength length, double min = 0.0, double max = double.PositiveInfinity) {
             GridLength = length;
             MinLength = min;

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Contracts.StatusBar;
 
 namespace SingularityForensic.Test.StatusBar {
@@ -22,14 +23,14 @@ namespace SingularityForensic.Test.StatusBar {
         [TestMethod]
         public void TestAdd() {
             var newItem = new Mock<IStatusBarObjectItem>();
-            _statusBarService.AddStatusBarItem(newItem.Object, new Contracts.Controls.GridChildLength());
+            _statusBarService.AddStatusBarItem(newItem.Object, GridChildLength.Auto);
             Assert.IsTrue(_statusBarService.Children.Contains(newItem.Object));
         }
 
         [TestMethod]
         public void TestRemove() {
             var newItem = new Mock<IStatusBarObjectItem>();
-            _statusBarService.AddStatusBarItem(newItem.Object, new Contracts.Controls.GridChildLength());
+            _statusBarService.AddStatusBarItem(newItem.Object, GridChildLength.Auto);
             Assert.IsTrue(_statusBarService.Children.Contains(newItem.Object));
             _statusBarService.RemoveStatusBarItem(newItem.Object);
             Assert.IsTrue(!_statusBarService.Children.Contains(newItem.Object));

@@ -23,6 +23,9 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <returns></returns>
         IFile ParseStream(Stream stream,string name,XElement xElem, IProgressReporter reporter);
 
+        /// <summary>
+        /// 排序;
+        /// </summary>
         int Order { get; }
 
         /// <summary>

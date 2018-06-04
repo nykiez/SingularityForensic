@@ -46,25 +46,25 @@ namespace SingularityForensic.MainPage.Views {
         }
     }
 
-    /// <summary>
-    /// 根据节点类型动态选择上下文菜单;
-    /// </summary>
-    public class LevelToMarginConverter : GenericStaticInstance<LevelToMarginConverter>,IValueConverter {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if (value != null && int.TryParse(value.ToString(), out int level)) {
-                return new Thickness(level * 16, 0, 0, 0);
-            }
-            return new Thickness(0, 0, 0, 0);
-        }
+    ///// <summary>
+    ///// 根据节点类型动态选择上下文菜单;
+    ///// </summary>
+    //public class LevelToMarginConverter : GenericStaticInstance<LevelToMarginConverter>,IValueConverter {
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+    //        if (value != null && int.TryParse(value.ToString(), out int level)) {
+    //            return new Thickness(level * 16, 0, 0, 0);
+    //        }
+    //        return new Thickness(0, 0, 0, 0);
+    //    }
 
 
-        public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture) {
-            throw new NotImplementedException();
-        }
+    //    public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture) {
+    //        throw new NotImplementedException();
+    //    }
 
-        //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-        //    throw new NotImplementedException();
-        //}
-    }
+    //    //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
     
 }

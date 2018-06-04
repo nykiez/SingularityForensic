@@ -59,23 +59,23 @@ namespace SingularityForensic.MainPage.Views {
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e) {
-            var fsName = $"{Environment.CurrentDirectory}\\{Contracts.Common.Constants.ResourceFolder}\\{Constants.MainPageLayoutFile}";
-            CheckFolderExists();
-            if (!File.Exists(fsName)) {
-                return;
-            }
+            //var fsName = $"{Environment.CurrentDirectory}\\{Contracts.Common.Constants.ResourceFolder}\\{Constants.MainPageLayoutFile}";
+            //CheckFolderExists();
+            //if (!File.Exists(fsName)) {
+            //    return;
+            //}
 
-            Stream _layoutStream = null;
+            //Stream _layoutStream = null;
 
-            try {
-                _layoutStream = File.OpenRead(fsName);
-                //docking.LoadLayout(_layoutStream);
-                mainContent.PaneHeaderVisibility = Visibility.Collapsed;
-            }
-            catch (Exception ex) {
+            //try {
+            //    _layoutStream = File.OpenRead(fsName);
+            //    //docking.LoadLayout(_layoutStream);
+            //    mainContent.PaneHeaderVisibility = Visibility.Collapsed;
+            //}
+            //catch (Exception ex) {
 
-            }
-            _layoutStream?.Dispose();
+            //}
+            //_layoutStream?.Dispose();
 
             
         }

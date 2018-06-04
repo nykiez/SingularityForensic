@@ -275,8 +275,8 @@ namespace SingularityForensic.BaseDevice {
                 entryStoken.StartLBA = (long)gptPartInfo.StGptPTable.nOffset;
                 entryStoken.Size = Marshal.SizeOf(typeof(StEFIPTable));
 
-                entryStoken.PartStartLBA = (long)efiTable.PartTabStartLBA;
-                entryStoken.PartSize = (long)(efiTable.PartTabEndLBA - efiTable.PartTabStartLBA);
+                entryStoken.PartStartLBA = (long)efiTable.PartTabStartLBA * deviceStoken.BlockSize;
+                entryStoken.PartSize = (long)(efiTable.PartTabEndLBA - efiTable.PartTabStartLBA) * deviceStoken.BlockSize;
                 
                 deviceStoken.PartitionEntries.Add(entry);
             });

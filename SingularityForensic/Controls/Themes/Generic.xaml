@@ -10,5 +10,6 @@
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.GridView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Navigation.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Docking.xaml"/>
+        <ResourceDictionary Source="Docking.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

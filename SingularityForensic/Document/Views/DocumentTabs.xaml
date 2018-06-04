@@ -107,10 +107,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-
-
-    
-    <telerik:RadTabControl ItemsSource="{Binding Documents}" 
+    <telerik:RadTabControl ItemsSource="{Binding Documents}" BorderThickness="0"
                            SelectedItem="{Binding SelectedDocument}" IsContentPreserved="False"
                            DropDownDisplayMode="Visible" ItemTemplate="{StaticResource TabItemTemplate}"
                            ScrollMode="Viewport">

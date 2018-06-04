@@ -91,6 +91,11 @@
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
+    <Compile Include="Common\PropDescribleAttribute.cs" />
+    <Compile Include="Common\Sizes.cs" />
+    <Compile Include="Common\StreamUtilities.cs" />
+    <Compile Include="Common\IByteArraySerializable.cs" />
+    <Compile Include="Common\EndianUtilities.cs" />
     <Compile Include="Common\Events\ViewCreatedEvent.cs" />
     <Compile Include="Common\IFieldDescriptor.cs" />
     <Compile Include="Common\ILoggerService.cs" />

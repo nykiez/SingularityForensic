@@ -37,9 +37,7 @@ namespace SingularityForensic.Contracts.Hex {
         IEnumerable<ICommandItem> ContextCommands { get; }
         void AddContextCommand(ICommandItem command);
         void RemoveContextCommand(ICommandItem command);
-
-
-
+        
         /// <summary>
         /// ToolTip项(键值型);
         /// </summary>
@@ -50,8 +48,6 @@ namespace SingularityForensic.Contracts.Hex {
         /// ToolTip项(自定义型)
         /// </summary>
         ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems { get; }
-
-        
     }
 
     

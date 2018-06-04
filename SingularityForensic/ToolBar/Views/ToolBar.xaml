@@ -9,7 +9,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    <telerik:RadToolBar BorderThickness="0" Margin="0">
+    <telerik:RadToolBar BorderThickness="0" Margin="0" >
         <ItemsControl ItemsSource="{Binding ToolBarItems}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

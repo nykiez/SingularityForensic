@@ -13,13 +13,12 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderThickness="1,0,1,1" CornerRadius="0,0,3,3" Padding="0,0,0,3"
-                            Margin="0,0,0,3">
+        <Border  Padding="0,0,0,3">
             <ContentControl Content="{Binding MainView}"/>
         </Border>
         <GridSplitter  ShowsPreview="True" Height="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
         <!--ItemsSource="{Binding DocumentTabs}"-->
-        <telerik:RadTabControl Grid.Row="1" ItemsSource="{Binding DocumentTabs}" 
+        <telerik:RadTabControl Grid.Row="1" ItemsSource="{Binding DocumentTabs}" BorderThickness="0"
                                SelectedItem="{Binding SelectedDocument}" >
             <telerik:RadTabControl.ItemContainerStyle>
                 <Style TargetType="telerik:RadTabItem" BasedOn="{StaticResource {x:Type telerik:RadTabItem}}" >
