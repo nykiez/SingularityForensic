@@ -396,8 +396,8 @@ namespace SingularityForensic.FileExplorer {
 
             var reporter = ProgessReporterFactory.CreateNew();
             reporter.ProgressReported += (sender, e) => {
-                if (latestPro < e.pro) {
-                    latestPro = e.pro;
+                if (latestPro < e.totalPer) {
+                    latestPro = e.totalPer;
                     loadingDialog.ReportProgress(latestPro);
                 }
             };

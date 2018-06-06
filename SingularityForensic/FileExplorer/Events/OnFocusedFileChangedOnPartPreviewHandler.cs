@@ -24,12 +24,15 @@ namespace SingularityForensic.FileExplorer.Events {
         public int Sort => 0;
 
         public bool IsEnabled => true;
+        /// <summary>
+        /// 记录优先级;
+        /// </summary>
+        private long prior = 0;
 
         public void Handle((IFolderBrowserViewModel owner, IFileRow file) tuple) {
             if (!(tuple.owner is IFolderBrowserViewModel folderBrowserVM)) {
                 return;
             }
-
             var tab = DocumentService.MainDocumentService.CurrentDocuments.
                 FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
             if (tab == null) {
@@ -41,34 +44,65 @@ namespace SingularityForensic.FileExplorer.Events {
                 LoggerService.WriteCallerLine($"{nameof(previewerDoc)} can't be null.");
             }
 
-            if (!(tuple.file.File is IBlockGroupedFile blockGrouped)) {
-                return;
-            }
+            previewerDoc.UIObject = null;
+            var localPrior = ++prior;
+            ThreadInvoker.BackInvoke(() => {
+                var previewer = GetPreviewer(tuple.file.File);
+                if(previewer == null) {
+                    return;
+                }
 
-            var fileBaseStream = blockGrouped.GetInputStream();
+                if (localPrior != prior) {
+                    return;
+                }
+                ThreadInvoker.UIInvoke(() => {
+                    try {
+                        previewerDoc.GetIntance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
+                        previewerDoc.SetInstance(previewer, Constants.DocumentTag_FilePreviewer);
+                        previewerDoc.UIObject = previewer.UIObject;
+                    }
+                    catch (Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                    }
+                });
+            });
+            
+        }
+
+        /// <summary>
+        /// 获取预览器;
+        /// </summary>
+        private IPreviewer GetPreviewer(IFile file) {
+            var fileBaseStream = file.GetInputStream();
             if (fileBaseStream == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileBaseStream)} can't be null.");
-                return;
+                return null;
+            }
+
+            if (fileBaseStream.Length > 1024 * 1024 * 100) {
+                fileBaseStream.Dispose();
+                return null;
             }
 
             if (_previewerProviders == null) {
                 LoggerService.WriteCallerLine($"{nameof(_previewerProviders)} can't be null.");
-                return;
+                return null;
             }
 
             var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
             var tempFileName = tempDirectory + Path.GetRandomFileName();
+
             //是否已经保存到本地;
             var savedToLocal = false;
             IPreviewer previewer = null;
             //是否为本地预览,若为本地预览,则InputStream即可在本方法执行后释放;
             //否则InputStream将在Previewer释放时被释放;
             var isLocalPreviewer = false;
-
+            
             foreach (var provider in _previewerProviders) {
                 try {
                     //若要求保存到本地,则临时保存;
-                    if (provider.NeedSaveLocal && !savedToLocal) {
+                    if (provider.NeedSaveToLocal && !savedToLocal) {
                         //创建临时文件夹;
                         if (!System.IO.Directory.Exists(tempDirectory)) {
                             System.IO.Directory.CreateDirectory(tempDirectory);
@@ -80,12 +114,17 @@ namespace SingularityForensic.FileExplorer.Events {
                         }
                     }
 
-                    if (provider.NeedSaveLocal && savedToLocal) {
-                        previewer = provider.CreatePreviewer(tempFileName, tuple.file.File.Name);
+                    if (provider.NeedSaveToLocal && savedToLocal) {
+                        ThreadInvoker.UIInvoke(() => {
+                            previewer = provider.CreatePreviewer(tempFileName, file.Name);
+                        });
+                        
                         isLocalPreviewer = previewer != null;
                     }
                     else {
-                        previewer = provider.CreatePreviewer(fileBaseStream, tuple.file.File.Name);
+                        ThreadInvoker.UIInvoke(() => {
+                            previewer = provider.CreatePreviewer(fileBaseStream, file.Name);
+                        });
                     }
 
                     if (previewer != null) {
@@ -96,24 +135,12 @@ namespace SingularityForensic.FileExplorer.Events {
                     LoggerService.WriteCallerLine(ex.Message);
                 }
             }
-
-            if (previewer == null) {
-                return;
-            }
-
-            try {
-                previewerDoc.GetIntance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
-                previewerDoc.SetInstance(previewer, Constants.DocumentTag_FilePreviewer);
-                previewerDoc.UIObject = previewer.View;
-            }
-            catch (Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
-            }
-
+            
             if (isLocalPreviewer) {
                 fileBaseStream.Dispose();
             }
 
+            return previewer;
         }
     }
 }

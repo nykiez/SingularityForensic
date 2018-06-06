@@ -14,7 +14,7 @@ namespace SingularityForensic.Test.Imaging {
     [TestClass]
     public class ImagingServiceTest {
         //private const string OpenFileName = "G://MobileImgs/Honor/mmcblk0";
-        private const string OpenFileName = "I://test.E01";
+        private const string OpenFileName = "E:\\mmcblk0";
 
         [TestInitialize]
         public void Initialize() {

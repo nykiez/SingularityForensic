@@ -33,11 +33,8 @@ namespace SingularityForensic.FileExplorer {
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnContextCommands);
             //为设备/分区节点加入时加入右键菜单;
             PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(OnTreeUnitAddedOnBlockStreamedFile);
-            
         }
-
         
-
         /// <summary>
         /// 点击了文件系统节点时响应;
         /// </summary>
@@ -127,8 +124,9 @@ namespace SingularityForensic.FileExplorer {
             if (fileTuple.Value.file is IHaveFileCollection haveCollection2) {
                 TraverseAddChildren(fsUnit, haveCollection2);
             }
+
+            Contracts.MainPage.MainTreeService.Current.AddUnit(tuple.unit, fsUnit);
             
-            tuple.unit.Children.Add(fsUnit);
         }
 
         /// <summary>

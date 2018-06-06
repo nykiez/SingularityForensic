@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Ext {
-    //[Export(typeof(IStreamParsingProvider))]
+    [Export(typeof(IStreamParsingProvider))]
     public partial class ExtStreamParsingProvider : IStreamParsingProvider {
         public int Order => 33;
 
@@ -50,6 +50,7 @@ namespace SingularityForensic.Ext {
                 throw new ArgumentNullException(nameof(stream));
             }
 
+
             var part = FileFactory.CreatePartition(Constants.PartitionKey_Ext);
             var stoken = part.GetStoken(Constants.PartitionKey_Ext);
             stoken.BaseStream = stream;
@@ -64,6 +65,14 @@ namespace SingularityForensic.Ext {
                 ExtUnmanagedManager = extUnmanagedManager
             };
 
+#if DEBUG
+            //IntPtr stExt4Inode = ExtX_Get_InodeInfo(extUnmanagedManager.ExtManagerPtr, 113880);    //129793
+            //var stBlockList = ExtX_Get_BlockList(extUnmanagedManager.ExtManagerPtr, stExt4Inode);
+            //var stDirDntry = ExtX_Parse_Dir(extUnmanagedManager.ExtManagerPtr, stBlockList);
+            //var dirEntry = stDirDntry.GetStructure<StDirEntry>();
+            //var cext4Entry = dirEntry.DirInfo.GetStructure<StExt4DirEntry>();
+
+#endif
             //设定EXT分区详细信息;
             stoken.SetInstance(partInfo, Constants.PartitionStokenTag_ExtPartInfo);
 
@@ -151,6 +160,7 @@ namespace SingularityForensic.Ext {
         }
 
         private static void LoadPartContent(IPartition part,IProgressReporter reporter) {
+
             var partStoken = part.GetStoken(Constants.PartitionKey_Ext);
             var partInfo = partStoken.GetIntance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
             var partManager = partInfo.ExtUnmanagedManager;
@@ -158,7 +168,13 @@ namespace SingularityForensic.Ext {
                 LoggerService.WriteCallerLine($"{nameof(partManager.ExtManagerPtr)} can't be nullptr.");
                 return;
             }
-            
+
+#if DEBUG
+            //var nodePtr = ExtX_Get_InodeInfo(partManager.ExtManagerPtr, 46);
+            //var stBPtr = ExtX_Get_BlockList(partManager.ExtManagerPtr, nodePtr);
+            //var ss = ExtX_Parse_Dir(partManager.ExtManagerPtr, stBPtr);
+#endif
+
             var stExt4INodePtr = ExtX_Get_InodeInfo(partManager.ExtManagerPtr,2);                  //加载Inode,BlockList,Dir;
             if(stExt4INodePtr == IntPtr.Zero) {
                 LoggerService.WriteCallerLine($"{nameof(stExt4INodePtr)} can't be nullptr.");
@@ -224,33 +240,46 @@ namespace SingularityForensic.Ext {
             while (filePtr != IntPtr.Zero) {
                 IFile file = null;
                 FileStokenBase2 fileStoken2 = null;
-
                 var stDirEntry = filePtr.GetStructure<StDirEntry>();
+
+                //压栈;避免使用continue导致死循环以及冗余代码;
+                void Push() {
+                    if (file != null) {
+                        haveFileCollection.Children.Add(file);
+                    }
+                    filePtr = stDirEntry.Next;
+                }
+                
                 if (stDirEntry.DirInfo == IntPtr.Zero) {
+                    Push();
                     continue;
                 }
 
-                var stExt4DirEntry = stDirEntry.DirInfo.GetStructure<StExt4DirEntry>();
+                var stExtDirEntry = stDirEntry.DirInfo.GetStructure<StExt4DirEntry>();
              
-                var stExtINodePtr = ExtX_Get_InodeInfo(partInfo.ExtUnmanagedManager.ExtManagerPtr, stExt4DirEntry.inode);
+                var stExtINodePtr = ExtX_Get_InodeInfo(partInfo.ExtUnmanagedManager.ExtManagerPtr, stExtDirEntry.inode);
                 if(stExtINodePtr == IntPtr.Zero) {
                     LoggerService.WriteCallerLine($"{nameof(stExtINodePtr)} can't be nullptr.");
+                    Push();
+                    continue;
                 }
                 var stExtINode = stExtINodePtr.GetStructure<StExt4Inode>();
 
                 var stBlockListPtr = ExtX_Get_BlockList(partInfo.ExtUnmanagedManager.ExtManagerPtr, stExtINodePtr);
                 if(stBlockListPtr == IntPtr.Zero) {
-                    LoggerService.WriteCallerLine($"{nameof(stBlockListPtr)} can't be nullptr.");
+                    //LoggerService.WriteCallerLine($"{nameof(stBlockListPtr)} can't be nullptr.");
+                    Push();
+                    continue;
                 }
 
                 var extFileInfo = new ExtFileInfo {
                     StDirEntry = stDirEntry,
-                    StExt4DirEntry = stExt4DirEntry,
+                    StExt4DirEntry = stExtDirEntry,
                     BlockListPtr = stBlockListPtr,
                     StExt4Inode = stExtINode
                 };
 
-                if (stExt4DirEntry.file_type == Ext4FileType.Directory) {
+                if (stExtDirEntry.file_type == Ext4FileType.Directory) {
                     var dir = FileFactory.CreateDirectory(Constants.DirectoryKey_Ext);
 
                     var dirStoken = dir.GetStoken(Constants.DirectoryKey_Ext);
@@ -263,17 +292,18 @@ namespace SingularityForensic.Ext {
 
                     EditFileStoken2(fileStoken2, partInfo, extFileInfo);
                     //当目录名为".."或者"."时,跳过加载子文件;
-                    if (stExt4DirEntry.name != "." && stExt4DirEntry.name != "..") {
+                    //且所加载目录不能被删除;
+                    if (stExtDirEntry._name[0] != '.' && !stDirEntry.bDel) {
                         LoadDirectoryContent(dir, partInfo, ntfSzAct, isCancel);
                     }
-                    else if(stExt4DirEntry.name == "..") {
+                    else if(stExtDirEntry._name[1] == '.') {
                         dirStoken.IsBack = true;
                     }
                     else {
                         dirStoken.IsLocalBackUp = true;
                     }
                 }
-                else if (stExt4DirEntry.file_type == Ext4FileType.RegularFile) {
+                else if (stExtDirEntry.file_type == Ext4FileType.RegularFile) {
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_Ext);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_Ext);
                     
@@ -287,18 +317,17 @@ namespace SingularityForensic.Ext {
                     EditFileStoken2(fileStoken2, partInfo, extFileInfo);
                     ntfSzAct?.Invoke(fileStoken2.Size);
                 }
-                
-                if (file != null) {
-                    haveFileCollection.Children.Add(file);
-                }
+
+                Push();
                 
                 if (isCancel?.Invoke() ?? false) {
                     return;
                 }
 
-                filePtr = stDirEntry.Next;
+                
             }
         }
+
 
         private static void LoadDirectoryContent(IDirectory direct,
             ExtPartInfo partInfo,
@@ -340,18 +369,16 @@ namespace SingularityForensic.Ext {
 
             fileStoken2.SetInstance(extFileInfo, Constants.FileStokenTag_ExtFileInfo);
 
-            fileStoken2.Name = extFileInfo.StExt4DirEntry?.name;
+            fileStoken2.Name = extFileInfo.StExt4DirEntry?.Name;
             fileStoken2.Size = extFileInfo.StExt4Inode?.Size??0;
             fileStoken2.Deleted = extFileInfo.StDirEntry?.bDel??false;
             
             EditTime(fileStoken2, extFileInfo);
 #if DEBUG
-            if (fileStoken2.Name == "avcodec-56.dll") {
+            //if (fileStoken2.Name.StartsWith(".journal")) {
 
-            }
-            if (fileStoken2.Name == "SILK2MP3.EXE") {
-
-            }
+            //}
+            
 #endif
             EditBlockGroups(fileStoken2, partInfo, extFileInfo);
 
@@ -419,6 +446,10 @@ namespace SingularityForensic.Ext {
             var blocks = extFileInfo.BlockList;
             var blockSize = partInfo.StSuperBlock.BlockSize;
 
+            if(blocks == null) {
+                return;
+            }
+            
             //遍历,粘合,将连续的簇列表并入为一个块组;
             StBlockList? lastBlock = null;
             long firstClusterLBA = 0;
@@ -429,7 +460,7 @@ namespace SingularityForensic.Ext {
             //重置局部变量;参数为本次(循环)最新的独立头块;
             void Reset(StBlockList block) {
                 lastBlock = block;
-                blockCount = 1;
+                blockCount = (int)block.count;
                 lastBlockNum = block.address;
                 firstClusterLBA = (long)block.address * blockSize;
             }
@@ -444,7 +475,7 @@ namespace SingularityForensic.Ext {
                     BlockGroupFactory.CreateNewBlockGroup((long)lastBlock.Value.address, blockCount,blockSize, firstClusterLBA)
                 );
             }
-
+            
             try {
                 foreach (var cluster in blocks) {
                     if (lastBlock == null) {
@@ -472,6 +503,9 @@ namespace SingularityForensic.Ext {
                 LoggerService.WriteCallerLine(ex.Message);
             }
         }
+
+
+        
     }
     partial class ExtStreamParsingProvider {
         internal const string EXTAssembly = "ExtRecover.dll";

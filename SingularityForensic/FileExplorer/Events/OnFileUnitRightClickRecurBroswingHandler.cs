@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.App;
+﻿using Prism.Commands;
+using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
@@ -11,8 +12,8 @@ namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
     /// 右键子文件递归浏览的命令;
     /// </summary>
-    [Export(typeof(ITreeUnitRightClickedEventHandler))]
-    public class OnInnerFileUnitRightClickRecurBroswingHandler : EventHandlerBase<(ITreeUnit unit, ITreeService treeService)>, ITreeUnitRightClickedEventHandler {
+    [Export(typeof(ITreeUnitAddedEventHandler))]
+    public class OnFileUnitAddedRecurBroswingHandler : EventHandlerBase<(ITreeUnit unit, ITreeService treeService)>, ITreeUnitAddedEventHandler {
         public override void Handle((ITreeUnit unit, ITreeService treeService) tuple) {
             if (tuple.unit == null) {
                 return;
@@ -23,11 +24,17 @@ namespace SingularityForensic.FileExplorer.Events {
             }
 
             if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_InnerFile) {
-                HandleOnInnerFileUnit(tuple.unit);
+                var comm = new DelegateCommand(() => HandleOnInnerFileUnit(tuple.unit));
+                var cmi = CommandItemFactory.CreateNew(comm);
+                cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RecurBrowse);
+                tuple.unit.AddContextCommand(cmi);
             }
 
             if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_FileSystem) {
-                HandleOnFileSystemUnit(tuple.unit);
+                var comm = new DelegateCommand(() => HandleOnFileSystemUnit(tuple.unit));
+                var cmi = CommandItemFactory.CreateNew(comm);
+                cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RecurBrowse);
+                tuple.unit.AddContextCommand(cmi);
             } 
         }
 
@@ -84,4 +91,6 @@ namespace SingularityForensic.FileExplorer.Events {
             folderBrowseViewModel.FillRows(haveFileCollection.GetInnerFiles());
         }
     }
+
+    
 }

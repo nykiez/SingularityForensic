@@ -66,8 +66,7 @@ namespace SingularityForensic.Contracts.App {
         /// <summary>
         /// 通知事件;
         /// </summary>
-        event EventHandler<(int pro, string text, string descrip)> ProgressReported;
-        event EventHandler<(int totalPer, int detailPer, string desc, string detail)> DoubleProgressReported;
+        event EventHandler<(int totalPer, int detailPer, string desc, string detail)> ProgressReported;
 
         /// <summary>
         /// 是否已经取消;

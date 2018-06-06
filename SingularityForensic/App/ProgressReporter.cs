@@ -11,16 +11,14 @@ namespace SingularityForensic.App {
             ReportProgress(percentProgress, string.Empty, string.Empty);
         }
         public void ReportProgress(int percentProgress, string text, string descrip) {
-            ProgressReported?.Invoke(this, (percentProgress, text, descrip));
+            ProgressReported?.Invoke(this, (percentProgress,0, text, descrip));
         }
-
-        public event EventHandler<(int pro, string text, string descrip)> ProgressReported;
 
         public void ReportProgress(int totalPer, int detailPer, string desc, string detail) {
-            DoubleProgressReported?.Invoke(this, (totalPer, detailPer, desc, detail));
+            ProgressReported?.Invoke(this, (totalPer, detailPer, desc, detail));
         }
 
-        public event EventHandler<(int totalPer, int detailPer, string desc, string detail)> DoubleProgressReported;
+        public event EventHandler<(int totalPer, int detailPer, string desc, string detail)> ProgressReported;
 
         private string _title;
         public string Title {

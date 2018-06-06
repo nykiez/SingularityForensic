@@ -152,6 +152,11 @@ namespace SingularityForensic.FileExplorer {
 
         public const string ContextCommandName_OpenFileWithAnotherPro = nameof(ContextCommandName_OpenFileWithAnotherPro);
 
+
+        public const string ContextCommandName_RecurBrowse = nameof(ContextCommandName_RecurBrowse);
+
+
+
         public const string MsgText_FileSaveDone = nameof(MsgText_FileSaveDone);
         public const string MsgText_FailedToCreateDirectory = nameof(MsgText_FailedToCreateDirectory);
 

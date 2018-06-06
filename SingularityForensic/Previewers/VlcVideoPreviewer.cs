@@ -3,6 +3,7 @@ using SingularityForensic.Previewers.ViewModels;
 using SingularityForensic.Previewers.Models;
 using SingularityForensic.Contracts.Previewers;
 using System;
+using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Previewers {
     /// <summary>
@@ -12,18 +13,17 @@ namespace SingularityForensic.Previewers {
         where TVideoPreviewerModel : IVideoPreviewerModel<IPlayer> {
         public virtual object DataContext => null;
         
-        public abstract UIElement View { get; }
+        public abstract object UIObject { get; }
 
         //~VideoPreviewer() {
         //    Dispose();
         //}
         public abstract TVideoPreviewerModel VideoPreviewerModel { get; }
-
-        FrameworkElement IPreviewer.View => throw new NotImplementedException();
-
+        
         public virtual void Dispose() => VideoPreviewerModel.Dispose();
     }
 
+    
     public class VlcVideoPreviewer : VideoPreviewer<VlcVideoPreviewerModel> {
         public VlcVideoPreviewer(string videoFileName) {
             this.FileName = videoFileName;
@@ -32,7 +32,7 @@ namespace SingularityForensic.Previewers {
         public string FileName { get; }
 
         private Views.VideoPreviewer _previewer;
-        public override UIElement View {
+        public override object UIObject {
             get {
                 if(_previewer == null) {
                     _previewer = new Views.VideoPreviewer {

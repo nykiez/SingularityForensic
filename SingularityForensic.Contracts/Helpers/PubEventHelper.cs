@@ -3,6 +3,7 @@ using Prism.Events;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SingularityForensic.Contracts.Helpers {
     public static class PubEventHelper {
@@ -57,7 +58,7 @@ namespace SingularityForensic.Contracts.Helpers {
                 return;
             }
             
-            foreach (var handler in eventHandlers) {
+            foreach (var handler in eventHandlers.OrderBy(p => p.Sort)) {
                 if (handler == null) {
                     LoggerService.WriteCallerLine($"{nameof(handler)} coudn't be null.");
                     continue;

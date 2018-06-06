@@ -12,7 +12,7 @@ namespace SingularityForensic.Controls.Previewers {
             FileName = targetFileName;
         }
         private Views.OutsideInPreviewer view;
-        public FrameworkElement View => view ?? (view = new Views.OutsideInPreviewer());
+        public object UIObject => view ?? (view = new Views.OutsideInPreviewer());
 
         private string fileName;
         public string FileName {
@@ -22,12 +22,12 @@ namespace SingularityForensic.Controls.Previewers {
             set {
                 fileName = value;
                 //(View as Views.OutsideInPreviewer)?.CloseFile();
-                (View as Views.OutsideInPreviewer)?.OpenFile(fileName);
+                (UIObject as Views.OutsideInPreviewer)?.OpenFile(fileName);
             }
         }
         
         public void Dispose() {
-            (View as Views.OutsideInPreviewer).CloseFile();
+            (UIObject as Views.OutsideInPreviewer).CloseFile();
         }
     }
 }

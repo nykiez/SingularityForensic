@@ -58,6 +58,6 @@ namespace SingularityForensic.Previewers {
 
         public int Order => int.MaxValue;
 
-        public bool NeedSaveLocal => true;
+        public bool NeedSaveToLocal => true;
     }
 }

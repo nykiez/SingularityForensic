@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,10 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.TreeView.Events {
     //当树形(主分支)被附加节点时发生;
     public class TreeUnitAddedEvent : PubSubEvent<(ITreeUnit unit, ITreeService treeService)> {
+
+    }
+
+    public interface ITreeUnitAddedEventHandler: IEventHandler<(ITreeUnit unit, ITreeService treeService)> {
 
     }
 }

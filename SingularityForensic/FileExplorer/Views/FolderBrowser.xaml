@@ -96,7 +96,8 @@
             <Border/>
         </DockPanel>
 
-        <gv:RadGridViewEx ItemsSource="{Binding Files}"  SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" ShowGroupPanel="False" IsReadOnly="True"
+        <gv:RadGridViewEx ItemsSource="{Binding Files}"  SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" 
+                          IsReadOnly="True"
                              Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
                              >

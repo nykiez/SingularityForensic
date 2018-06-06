@@ -20,7 +20,7 @@ namespace SingularityForensic.Previewers {
         private Views.SqlitePreviewer view;
 
        
-        public FrameworkElement View {
+        public object UIObject {
             get {
                 if (view == null) {
                     view = new Views.SqlitePreviewer();

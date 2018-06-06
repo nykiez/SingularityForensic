@@ -28,6 +28,9 @@ namespace SingularityForensic.App.Dialogs {
 
         public void ShowDialog() {
             RunTask();
+            window.Canceld += delegate {
+                Canceld?.Invoke(this, EventArgs.Empty);
+            };
             window.ShowDialog();
         }
         private void RunTask() {

@@ -112,6 +112,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 Files.Add(FileRowFactory.Current.CreateFileRow(file));
             }
             this.FilesChanged?.Invoke(this, EventArgs.Empty);
+            RaisePropertyChanged(nameof(FilterSettings));
         }
 
         public event EventHandler FilesChanged;

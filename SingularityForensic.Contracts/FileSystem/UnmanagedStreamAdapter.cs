@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,18 @@ namespace SingularityForensic.Contracts.FileSystem {
         List<Delegate> delegates = new List<Delegate>();
         
         private long OnGetPos() => OriStream.Position;
-        private void OnSetPos(long pos) => OriStream.Position = pos;
+        private void OnSetPos(long pos) {
+#if DEBUG
+            if(pos >= 13878934528 && OriStream.Length == 13878934528) {
+                
+            }
+#endif
+            if(pos > OriStream.Length) {
+                LoggerService.WriteCallerLine($"{nameof(pos)} out of range.({nameof(pos)}:{pos},available length:{OriStream.Length}");
+                return;
+            }
+            OriStream.Position = pos;
+        }
         private long OnGetLength() => OriStream.Length;
         private bool OnCanWrite() => OriStream.CanWrite;
         private bool OnCanRead() => OriStream.CanRead;
@@ -54,6 +66,17 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
 
             var readCount = OriStream.Read(readBuffer, 0, count);
+
+#if DEBUG
+            if (count == 30380032) {
+
+            }
+            
+            if(count != readCount && OriStream.Length == 13878934528) {
+
+            }
+#endif
+
             Marshal.Copy(readBuffer, 0, buffer, readCount);
             return readCount;
         }

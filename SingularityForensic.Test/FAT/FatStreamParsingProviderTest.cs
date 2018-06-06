@@ -10,8 +10,9 @@ namespace SingularityForensic.Test.FAT {
     [TestClass()]
     public class FatStreamParsingProviderTests {
         private const string FAT32ImgPath = "E://anli//FAT32.img";
+        private const string NotFAT32Path = "J:\\test_anli\\phone\\mmcblk0";
         private IStreamParsingProvider _streamParsingProvider;
-
+        
         private Stream _fatStream;
 
         private const string UnknownImgPath = "E://anli/1.E01";
@@ -20,7 +21,7 @@ namespace SingularityForensic.Test.FAT {
         public void Initialize() {
             TestCommon.InitializeTest();
 
-            _fatStream = File.OpenRead(FAT32ImgPath);
+            _fatStream = File.OpenRead(NotFAT32Path);
             _streamParsingProvider = ServiceProvider.Current.GetAllInstances<IStreamParsingProvider>().
                 FirstOrDefault(p => 
                     p.GUID == SingularityForensic.FAT.Constants.StreamParserGUID_FAT
@@ -33,7 +34,7 @@ namespace SingularityForensic.Test.FAT {
 
         [TestMethod()]
         public void CheckIsValidStreamTest() {
-            Assert.IsTrue(_streamParsingProvider.CheckIsValidStream(_fatStream));
+            Assert.IsTrue(!_streamParsingProvider.CheckIsValidStream(_fatStream));
 
             using(var unKnownStream = File.OpenRead(UnknownImgPath)) {
                 Assert.IsFalse(_streamParsingProvider.CheckIsValidStream(unKnownStream));

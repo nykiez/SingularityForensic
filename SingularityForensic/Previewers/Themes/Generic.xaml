@@ -178,14 +178,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Image Source="/Singularity.Previewers;component/Images/Slider_Value.png" HorizontalAlignment="Stretch" Stretch="Fill" />
+                    <Image Source="/SingularityForensic;component/Previewers/Images/Slider_Value.png" HorizontalAlignment="Stretch" Stretch="Fill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-            <Image Source="/Singularity.Previewers;component/Images/Slider_ICon.png" 
+            <Image Source="/SingularityForensic;component/Previewers/Images/Slider_Icon.png" 
                    RenderOptions.BitmapScalingMode="Fant" Cursor="Hand" />
         </Grid>
     </ControlTemplate>
@@ -202,7 +202,7 @@
                 <Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderThumb.Track.Border}" 
                           Margin="5,0" Grid.Row="1" >
                     <Border.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="/Singularity.Previewers;component/Images/Slider_Back.png" />
+                        <ImageBrush Stretch="Fill" ImageSource="/SingularityForensic;component/Previewers/Images/Slider_Back.png" />
                     </Border.Background>
                 </Border>
                 <Track x:Name="PART_Track" Grid.Row="1">
@@ -376,7 +376,7 @@
     </Style>
     <ControlTemplate x:Key="VolumeSliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-            <Image Source="/Singularity.Previewers;component/Images/Volume_Pin.png" 
+            <Image Source="/SingularityForensic;component/Previewers/Images/Volume_Pin.png" 
                    RenderOptions.BitmapScalingMode="Fant" Cursor="Hand" />
         </Grid>
     </ControlTemplate>
@@ -393,7 +393,7 @@
                 <Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderThumb.Track.Border}" 
                           Margin="5,0" Grid.Row="1" >
                     <Border.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="/Singularity.Previewers;component/Images/Volume_Back.png" />
+                        <ImageBrush Stretch="Fill" ImageSource="/SingularityForensic;component/Previewers/Images/Volume_Back.png" />
                     </Border.Background>
                 </Border>
                 <Track x:Name="PART_Track" Grid.Row="1">

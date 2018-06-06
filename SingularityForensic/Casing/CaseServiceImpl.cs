@@ -117,7 +117,7 @@ namespace SingularityForensic.Casing {
             msg.DoWork += delegate {
                 //构建进度回调器;
                 var reporter = ProgessReporterFactory.CreateNew();
-                reporter.DoubleProgressReported += (sender, e) => {
+                reporter.ProgressReported += (sender, e) => {
                     msg.ReportProgress(e.totalPer, e.detailPer, e.desc, e.detail);
                 };
 

@@ -121,7 +121,7 @@ namespace SingularityForensic.Casing {
             }
 
             var reporter = ProgessReporterFactory.CreateNew();
-            reporter.DoubleProgressReported += (sender, e) => {
+            reporter.ProgressReported += (sender, e) => {
                 dialog.ReportProgress(e.totalPer, e.detailPer, e.desc, e.detail);
             };
 
@@ -132,7 +132,7 @@ namespace SingularityForensic.Casing {
             dialog.DoWork += delegate {
                 LoadCaseEvidence(csEvidence, reporter);
             };
-
+            
             dialog.ShowDialog();
         }
 

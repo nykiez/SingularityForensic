@@ -286,10 +286,21 @@ namespace SingularityForensic.Ext {
         public ushort rec_len;                                  /* 本目录项长度字节数 */
         public byte name_len;                                   /* 目录名字字节数 */
         public Ext4FileType file_type;                                  /* 文件类型 */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-        public string name;                                     /* File name */
 
-        
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+        public byte[] _name;                                     /* File name */
+
+        public string Name {
+            get {
+                var name = Encoding.UTF8.GetString(_name,0,name_len);
+#if DEBUG
+                //if (name.EndsWith("zip")) {
+
+                //}
+#endif
+                return name;
+            }
+        }
     }
     /*文件类型
     Unknown,                0未知文件;

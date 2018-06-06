@@ -14,10 +14,12 @@ namespace SingularityForensic.Ext {
         public IEnumerable<StBlockList> BlockList {
             get {
                 if(BlockListPtr == IntPtr.Zero) {
-                    return null;
+                    yield break;
                 }
 
-                return BlockListPtr.GetStructs<StBlockList>(p => p.Next);
+                foreach (var block in BlockListPtr.GetStructs<StBlockList>(p => p.Next)) {
+                    yield return block;
+                } 
             }
         }
     }

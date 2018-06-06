@@ -23,20 +23,18 @@ namespace SingularityForensic.Previewers {
                 if (_baseStream != null) {
                     var sr = new StreamReader(_baseStream,Encoding.UTF8);
                     var txt= sr.ReadToEnd();
-                    (View as views.PlainTextPreviewer).LoadString(txt);
+                    (UIObject as views.PlainTextPreviewer).LoadString(txt);
                 }
                 else {
-                    (View as views.PlainTextPreviewer).Clear();
+                    (UIObject as views.PlainTextPreviewer).Clear();
                 }
                 
             }
         }
 
         private views.PlainTextPreviewer view;
-        public UIElement View => view ?? (view = new views.PlainTextPreviewer());
-
-        FrameworkElement IPreviewer.View => throw new NotImplementedException();
-
+        public object UIObject => view ?? (view = new views.PlainTextPreviewer());
+        
         public void Dispose() {
             BaseStream?.Close();
             BaseStream = null;

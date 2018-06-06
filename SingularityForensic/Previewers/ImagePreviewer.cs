@@ -20,17 +20,17 @@ namespace SingularityForensic.Previewers {
             private set {
                 _baseStream = value;
                 if (_baseStream != null) {
-                    (View as Views.ImagePreviewer).LoadStream(_baseStream);
+                    (UIObject as Views.ImagePreviewer).LoadStream(_baseStream);
                 }
                 else {
-                    (View as Views.ImagePreviewer).LoadStream(null); 
+                    (UIObject as Views.ImagePreviewer).LoadStream(null); 
                 }
 
             }
         }
 
         private Views.ImagePreviewer view;
-        public FrameworkElement View => view ?? (view = new Views.ImagePreviewer());
+        public object UIObject => view ?? (view = new Views.ImagePreviewer());
 
         public void Dispose() {
             BaseStream?.Dispose();

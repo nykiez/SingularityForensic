@@ -22,13 +22,7 @@ namespace SingularityForensic.MainPage.ViewModels {
     }
 
     //案件相关;
-    public partial class UnitTreeViewModel {
-        //通知节点展开;
-        public event EventHandler<ITreeUnit> NotifyUnitExpanded;
-        protected void NotifyUnitExpand(ITreeUnit unit) {
-            NotifyUnitExpanded?.Invoke(this, unit);
-        }
-        
+    public partial class UnitTreeViewModel {  
         private DelegateCommand unAvailebleCommand = new DelegateCommand(() => { }, () => false);
     }
     

@@ -107,9 +107,9 @@ namespace SingularityForensic.FileExplorer {
             
             var latestPro = 0;
             reporter.ProgressReported += (sender, e) => {
-                if (latestPro < e.pro) {
-                    latestPro = e.pro;
-                    loadingDialog.ReportProgress(latestPro,e.text,e.descrip);
+                if (latestPro < e.totalPer) {
+                    latestPro = e.totalPer;
+                    loadingDialog.ReportProgress(latestPro,e.desc,e.detail);
                 }
             };
             return CustomSignSearchService.Search(stream, setting, reporter);

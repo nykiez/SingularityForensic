@@ -514,7 +514,7 @@ namespace SingularityForensic.FAT {
             StFatClusterNode? lastCluster = null;
             long firstClusterLBA = 0;
 
-            int blockCount = 0;
+            long blockCount = 0;
             ulong lastClusterNum = 0;
 
             //重置局部变量;参数为本次(循环)最新的独立头块;

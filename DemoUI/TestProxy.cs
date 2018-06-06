@@ -50,7 +50,7 @@ namespace DemoUI {
             //    dev.SetStartLBA(part, i * 200);
             //}
 
-            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
+            var unit = TreeUnitFactory.CreateNew(SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
             MainTreeService.Current?.AddUnit(null, unit);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
@@ -66,11 +66,11 @@ namespace DemoUI {
 
             //var file = FileSystemService.Current.MountedFiles.First().file;
 
-            var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
-            unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            //var unit = TreeUnitFactory.CreateNew(SingularityForensic.FileExplorer.Constants.TreeUnitGUID_FileSystem);
+            //unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            //PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            //PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
+            //PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));
         }
     }
 }

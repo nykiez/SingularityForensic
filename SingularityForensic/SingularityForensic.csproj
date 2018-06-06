@@ -362,7 +362,7 @@
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler.cs" />
     <Compile Include="FileExplorer\Events\OnHexDataContextLoadedOnDeviceHandler.cs" />
-    <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFileUnitRightClickRecurBroswingHandler.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedHandler.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />

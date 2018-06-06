@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,13 +24,14 @@ namespace SingularityForensic.Contracts.Previewers {
         /// </summary>
         /// <param name="fileName">本地文件名</param>
         /// <param name="originName">原始文件名</param>
+        /// <remarks>本方法必须在UI线程调用,否则将会产生跨线程调用的异常</remarks>
         /// <returns>若失败则返回为空</returns>
         IPreviewer CreatePreviewer(string fileName,string originName);
 
         /// <summary>
         /// 是否需要保存到本地;
         /// </summary>
-        bool NeedSaveLocal { get; }
+        bool NeedSaveToLocal { get; }
 
         /// <summary>
         /// 排序;
@@ -37,10 +39,10 @@ namespace SingularityForensic.Contracts.Previewers {
         int Order { get; }
     }
 
-    public interface IPreviewer : IDisposable {
+    public interface IPreviewer : IDisposable,IUIObjectProvider {
         /// <summary>
         /// UI元素;
         /// </summary>
-        FrameworkElement View { get; }
+        object UIObject { get; }
     }
 }
