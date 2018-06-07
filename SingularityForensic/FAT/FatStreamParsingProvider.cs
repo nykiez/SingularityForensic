@@ -104,10 +104,10 @@ namespace SingularityForensic.FAT {
             };
 
             if (fatPartType == FATPartType.FAT32) {
-                stoken.PartType = ServiceProvider.Current.GetInstance<FAT32PartitionType>();
+                stoken.PartType = ServiceProvider.GetAllInstances<IPartitionType>().FirstOrDefault(p => p.GUID == Constants.PartitionType_FAT32);
             }
             else {
-                stoken.PartType = ServiceProvider.Current.GetInstance<FAT16PartitionType>();
+                stoken.PartType = ServiceProvider.GetAllInstances<IPartitionType>().FirstOrDefault(p => p.GUID == Constants.PartitionType_FAT16);
             }
 
             var unmanagedManager = new UnmanagedFATManager(stream);

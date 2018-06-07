@@ -218,9 +218,9 @@ namespace SingularityForensic.BaseDevice {
                     var gptPTable = partNode.GetStructure<StGptPTable>();
                     var gptPartInfo = new GPTPartInfo();
                     gptPartInfo.StGptPTable = gptPTable;
-
-                    if (gptPTable.Info != IntPtr.Zero) {
-                        var stInfoDisk = gptPTable.Info.GetStructure<StInFoDisk>();
+                    
+                    if (gptPTable.InfoDisk != IntPtr.Zero) {
+                        var stInfoDisk = gptPTable.InfoDisk.GetStructure<StInFoDisk>();
                         gptPartInfo.StInFoDisk = stInfoDisk;
                     }
                     
@@ -241,7 +241,7 @@ namespace SingularityForensic.BaseDevice {
                 EditGptPartEntries(gptDeviceInfo, deviceStoken);
 
                 //编辑拓展;
-                deviceStoken.SetInstance(gptDeviceInfo,Constants.DeviceStokenTag_GPT);
+                deviceStoken.SetInstance(gptDeviceInfo,Constants.DeviceStokenTag_GPTDeviceInfo);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -303,7 +303,7 @@ namespace SingularityForensic.BaseDevice {
                 }
                 else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
-                    deviceInfo = deviceStoken.GetIntance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPT);
+                    deviceInfo = deviceStoken.GetIntance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPTDeviceInfo);
                 }
             }
             catch (Exception ex) {
@@ -379,61 +379,7 @@ namespace SingularityForensic.BaseDevice {
     /// 内部实体;
     /// </summary>
     partial class BaseDeviceStreamParsingProvider {
-        //分区表类型;
-        private enum InnerPartsType {
-            DOS,
-            GPT
-        }
         
-        
-        /// <summary>
-        /// DOS/GPT设备存储信息基类,将会保存在FileBase->Tag字段中;
-        /// </summary>
-        internal abstract class BaseDeviceInfo {
-            public IUnmanagedBasicDeviceManager UnmanagedManager { get; set; }
-        }
-
-        /// <summary>
-        /// //Dos设备信息;
-        /// </summary>
-        internal class DOSDeviceInfo : BaseDeviceInfo {
-            public List<DOSPartInfo> DosPartInfos { get; } = new List<DOSPartInfo>();
-            
-            private const int SECSIZE = 512;
-        }
-
-        /// <summary>
-        /// GPT设备信息;
-        /// </summary>
-        internal class GPTDeviceInfo : BaseDeviceInfo {
-            public List<GPTPartInfo> GptPartInfos { get; } = new List<GPTPartInfo>();
-            
-            private const int SECSIZE = 512;
-        }
-
-        /// <summary>
-        /// //GPT/Dos分区信息基类;
-        /// </summary>
-        internal abstract class BasePartInfo {
-            public StInFoDisk? StInFoDisk { get; set; }
-        }
-
-        /// <summary>
-        /// //Dos分区项信息;
-        /// </summary>
-        internal class DOSPartInfo : BasePartInfo {
-            public StDosPTable StDosPTable { get; set; }
-        }
-
-        /// <summary>
-        /// //GPT分区项信息;
-        /// </summary>
-        internal class GPTPartInfo : BasePartInfo {
-            public StGptPTable StGptPTable { get; set; }
-            public StEFIInfo? StEFIInfo { get; set; }
-            public StEFIPTable? StEFIPTable { get; set; }
-        }
-
         /// <summary>
         /// 从Dos分区表项类型转换至Constants;
         /// </summary>

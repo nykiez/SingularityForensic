@@ -2,7 +2,7 @@
 using SingularityForensic.Contracts.FileSystem;
 using System.Diagnostics;
 
-namespace SingularityForensic.Test.FileSystem {
+namespace SingularityForensic.Test.BaseDevice {
     [TestClass()]
     public class HaveFileCollectionExtensionsTests {
         [TestInitialize]

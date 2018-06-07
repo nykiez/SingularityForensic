@@ -15,7 +15,7 @@ namespace SingularityForensic.Hex.Events {
     /// </summary>
     [Export(typeof(IHexDataContextLoadedEventHandler))]
     public class OnHexDataContextLoadedOnContextCommandsHandler : IHexDataContextLoadedEventHandler {
-        public int Sort => 0;
+        public int Sort => 128;
 
         public bool IsEnabled => true;
         

@@ -53,8 +53,7 @@ namespace SingularityForensic.FAT.Events {
             hexDataContext.UpdateCustomBackgroundBlocks();
         }
 
-        private readonly Brush FirstBrush = Brushes.Chocolate;
-        private readonly Brush SecondBrush = Brushes.DarkGray;
+        
 
         /// <summary>
         /// 高亮DBR背景;
@@ -188,7 +187,7 @@ namespace SingularityForensic.FAT.Events {
             var tp = typeof(TStruct);
             var fieldIndex = 0;
             var fieldOffset = 0;
-            Brush GetBrush() => fieldIndex % 2 == 0 ? FirstBrush : SecondBrush;
+            Brush GetBrush() => fieldIndex % 2 == 0 ? CustomBackgroundBlockFactory.FirstBrush : CustomBackgroundBlockFactory.SecondBrush;
             foreach (var field in tp.GetFields()) {
                 //若为字节数组,则访问MarshalAsAttribute,获取大小;
                 if (field.FieldType == typeof(byte[])) {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.Contracts.FileSystem;
 
-namespace SingularityForensic.Test.FileSystem {
+namespace SingularityForensic.Test.BaseDevice {
     [TestClass]
     public class FileSystemServiceTest {
         [TestInitialize]

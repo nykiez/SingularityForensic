@@ -277,6 +277,10 @@
     <Compile Include="App\Views\MessageBoxWindow.xaml.cs">
       <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseDevice\BaseDeviceInfo.cs" />
+    <Compile Include="BaseDevice\Events\OnHexDataContextLoadedOnGPTDeviceHandler.cs" />
+    <Compile Include="BaseDevice\BasePartInfo.cs" />
+    <Compile Include="BaseDevice\InnerPartsType.cs" />
     <Compile Include="Common\LoggerServiceImpl.cs" />
     <Compile Include="App\Dialogs\SingularityMessageBoxDialog.cs" />
     <Compile Include="App\MessageBoxServiceImpl.cs" />
@@ -338,6 +342,7 @@
     <Compile Include="Ext\Constants.cs" />
     <Compile Include="Ext\ExtFileInfo.cs" />
     <Compile Include="Ext\ExtPartInfo.cs" />
+    <Compile Include="Ext\ExtPartitionType.cs" />
     <Compile Include="Ext\ExtStreamParsingProvider.cs" />
     <Compile Include="Ext\ExtUnmanagedManager.cs" />
     <Compile Include="Ext\ReadOnlyCompatibleFeatures.cs" />
@@ -367,7 +372,6 @@
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
-    <Compile Include="FileExplorer\FileRowPropertyDescriptorProvider.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\ViewerSeviceImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />

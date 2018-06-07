@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
-    /// 基础设备(Dos/Gpt)信息管理器,用于处理非托管的状态保存;
+    /// 基础设备(比如Dos,Gpt)信息管理器,用于处理非托管的状态保存;
     /// </summary>
     public interface IUnmanagedBasicDeviceManager:IDisposable {
         IntPtr BasicDevicePtr { get; }

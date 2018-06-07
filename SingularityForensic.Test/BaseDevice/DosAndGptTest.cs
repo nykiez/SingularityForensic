@@ -5,14 +5,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace SingularityForensic.Test.FileSystem {
+namespace SingularityForensic.Test.BaseDevice {
     [TestClass]
     public class DosAndGptTest {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
             _streamParser = ServiceProvider.Current.GetAllInstances<IStreamParsingProvider>().
-                FirstOrDefault(p => p.GUID == BaseDevice.Constants.StreamParser_BaseDevice);
+                FirstOrDefault(p => p.GUID == SingularityForensic.BaseDevice.Constants.StreamParser_BaseDevice);
             //_fsService = ServiceProvider.Current.GetInstance<IFileSystemService>();
 
             //Assert.AreNotEqual(_parsingProviders.Count(), 0);

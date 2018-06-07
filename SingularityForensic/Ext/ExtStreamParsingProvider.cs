@@ -75,12 +75,12 @@ namespace SingularityForensic.Ext {
 #endif
             //设定EXT分区详细信息;
             stoken.SetInstance(partInfo, Constants.PartitionStokenTag_ExtPartInfo);
-
+            stoken.PartType = ServiceProvider.GetAllInstances<IPartitionType>().FirstOrDefault(p => p.GUID == Constants.PartitionType_Ext);
             if(partInfo.ExtUnmanagedManager.ExtManagerPtr == IntPtr.Zero) {
                 extUnmanagedManager.Dispose();
                 throw new InvalidOperationException($"{nameof(extUnmanagedManager.ExtManagerPtr)} can't be nullptr.");
             }
-
+            
             try {
                 LoadPartInfo(partInfo);
                 LoadPartContent(part, reporter);

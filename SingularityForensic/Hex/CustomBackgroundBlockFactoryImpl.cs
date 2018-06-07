@@ -18,5 +18,8 @@ namespace SingularityForensic.Hex {
                 Length = length,
                 Background = background
             };
+
+        public Brush FirstBrush => Brushes.Chocolate;
+        public Brush SecondBrush => Brushes.DarkGray;
     }
 }

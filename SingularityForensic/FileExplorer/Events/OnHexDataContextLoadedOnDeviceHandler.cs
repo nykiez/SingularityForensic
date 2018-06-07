@@ -15,7 +15,7 @@ namespace SingularityForensic.FileExplorer.Events {
     /// </summary>
     [Export(typeof(IHexDataContextLoadedEventHandler))]
     class OnHexDataContextLoadedOnDeviceHandler : IHexDataContextLoadedEventHandler {
-        public int Sort => 0;
+        public int Sort => 512;
 
         public bool IsEnabled => true;
 

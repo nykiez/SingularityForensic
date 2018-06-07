@@ -6,6 +6,7 @@ using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.ComponentModel.Composition;
 using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -300,6 +301,35 @@ namespace SingularityForensic.FileExplorer {
 
     }
 
+    [Export(typeof(IFileMetaDataProvider))]
+    class FilePathMetaDataProvider : FileMetaDataProvider {
+        public override string MetaDataName => LanguageService.FindResourceString(Constants.FileMetaDataName_Path);
+
+        public override Type MetaDataType => typeof(string);
+
+        public override string GUID => Constants.FileMetaDataGUID_Path;
+
+        public override int Order => 12;
+
+        public override object GetMetaData(IFile file) {
+            if(file == null) {
+                return null;
+            }
+            var sb = new StringBuilder();
+            var fileNode = file;
+            while(fileNode != null) {
+                if(fileNode is IPartition part) {
+                    sb.Insert(0, $"/{part.GetPartFixAndName()}") ;
+                }
+                else {
+                    sb.Insert(0, $"/{fileNode.Name}");
+                }
+                
+                fileNode = fileNode.Parent;
+            }
+            return sb.ToString();
+        }
+    }
     //[Export(typeof(IFileMetaDataProvider))]
     //class FileImgMetaDataProvider : FileMetaDataProviderBase {
     //    public override string MetaDataName => "测试";

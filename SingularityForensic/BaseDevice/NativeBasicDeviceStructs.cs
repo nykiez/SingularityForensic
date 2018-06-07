@@ -73,7 +73,7 @@ namespace SingularityForensic.BaseDevice {
     public struct StGptPTable {
         public ulong nOffset;
         //InFoDisk* InFo;
-        public IntPtr Info;
+        public IntPtr InfoDisk;
         //StEFIInfo* EFIInfo;
         public IntPtr EFIInfo;
         //StEFIPTable* EFIPTable;

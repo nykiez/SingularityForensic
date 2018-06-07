@@ -10,7 +10,7 @@
         internal const string PartEntryKey_GPT = "0EB0D4E8-0313-4849-9803-1E327411525B";
 
         public const string DeviceStokenTag_DOS = nameof(DeviceStokenTag_DOS);
-        public const string DeviceStokenTag_GPT = nameof(DeviceStokenTag_GPT);
+        public const string DeviceStokenTag_GPTDeviceInfo = nameof(DeviceStokenTag_GPTDeviceInfo);
 
         public const string PartitionEntryStokenTag_DOS = nameof(PartitionEntryStokenTag_DOS);
     }

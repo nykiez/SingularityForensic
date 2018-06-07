@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.BaseDevice;
 using SingularityForensic.Contracts.FileSystem;
 
-namespace SingularityForensic.Test.FileSystem {
+namespace SingularityForensic.Test.BaseDevice {
     /// <summary>
     /// 非托管调用调试;
     /// </summary>
@@ -82,7 +82,7 @@ namespace SingularityForensic.Test.FileSystem {
                 Trace.WriteLine(gptPTable.nOffset);
                 var stEFIInfo = gptPTable.EFIInfo.GetStructure<StEFIInfo>();
                 
-                var stInfo = gptPTable.Info.GetStructure<StInFoDisk>();
+                var stInfo = gptPTable.InfoDisk.GetStructure<StInFoDisk>();
                 Trace.WriteLine($"\t{stEFIInfo.GPTStartLBA * 512} - {stEFIInfo.GPTEndLBA * 512}");
                 var stEFITable = gptPTable.EFIPTable.GetStructure<StEFIPTable>();
                 if (gptPTable.EFIPTable != IntPtr.Zero) {
