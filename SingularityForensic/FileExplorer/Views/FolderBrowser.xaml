@@ -37,6 +37,9 @@
 				   BasedOn="{StaticResource GridViewCellStyle}">
             
         </Style>
+        <Style x:Key="gvStyle" BasedOn="{StaticResource {x:Type telerik:RadGridView}}" TargetType="gv:RadGridViewEx">
+            
+        </Style>
     </UserControl.Resources>
     <Grid x:Name="gd">
         <Grid.RowDefinitions>
@@ -96,7 +99,8 @@
             <Border/>
         </DockPanel>
 
-        <gv:RadGridViewEx ItemsSource="{Binding Files}"  SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" 
+        <gv:RadGridViewEx ItemsSource="{Binding Files}" Style="{StaticResource gvStyle}"
+                          SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" 
                           IsReadOnly="True"
                              Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
