@@ -10,7 +10,7 @@ using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
-    /// 右键子文件递归浏览的命令;
+    /// 添加子文件递归浏览的命令;
     /// </summary>
     [Export(typeof(ITreeUnitAddedEventHandler))]
     public class OnFileUnitAddedRecurBroswingHandler : EventHandlerBase<(ITreeUnit unit, ITreeService treeService)>, ITreeUnitAddedEventHandler {

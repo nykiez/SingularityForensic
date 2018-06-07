@@ -177,7 +177,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.2.1\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.5\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -362,7 +362,7 @@
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler.cs" />
     <Compile Include="FileExplorer\Events\OnHexDataContextLoadedOnDeviceHandler.cs" />
-    <Compile Include="FileExplorer\Events\OnFileUnitRightClickRecurBroswingHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFileUnitAddedRecurBroswingHandler.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedHandler.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
@@ -440,10 +440,14 @@
     <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
       <DependentUpon>FindTextStringWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hex\CustomBackgroundBlock.cs" />
+    <Compile Include="Hex\CustomBackgroundBlockFactoryImpl.cs" />
     <Compile Include="Hex\Events\OnHexDataContextLoadedOnContextCommandsHandler.cs" />
     <Compile Include="Hex\Events\OnHexFocusPositionChangedOnStatusBarHandler.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactory.cs" />
     <Compile Include="Hex\HexUIServiceImpl.cs" />
+    <Compile Include="Hex\Models\CollectionWrapper.cs" />
+    <Compile Include="Hex\Models\CutomBackgroundWrapper.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
     <Compile Include="Hex\ToolTipDataItem.cs" />
     <Compile Include="Hex\ToolTipItemFactoryImpl.cs" />

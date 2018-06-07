@@ -202,6 +202,8 @@
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\IHasher.cs" />
     <Compile Include="App\ILocalExplorerService.cs" />
+    <Compile Include="Hex\ICustomBackgroundBlock.cs" />
+    <Compile Include="Hex\ICustomBackgroundBlockFactory.cs" />
     <Compile Include="Hex\IHexUIService.cs" />
     <Compile Include="Hex\IToolTipDataItem.cs" />
     <Compile Include="Hex\IToolTipItem.cs" />

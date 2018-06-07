@@ -50,6 +50,7 @@ namespace SingularityForensic.FAT.Events {
         private void UpdateBackgrounds(IHexDataContext hexDataContext,FATPartInfo fatPartInfo) {
             UpdateDBRBackgrounds(hexDataContext, fatPartInfo);
             UpdateInfoBackgrounds(hexDataContext, fatPartInfo);
+            hexDataContext.UpdateCustomBackgroundBlocks();
         }
 
         private readonly Brush FirstBrush = Brushes.Chocolate;
@@ -197,14 +198,16 @@ namespace SingularityForensic.FAT.Events {
                         continue;
                     }
 
-                    hexDataContext.CustomBackgroundBlocks.Add((offset + fieldOffset, attr.SizeConst, GetBrush()));
+                    var block = CustomBackgroundBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, attr.SizeConst, GetBrush());
+                    hexDataContext.CustomBackgroundBlocks.Add(block);
                     fieldOffset += attr.SizeConst;
                 }
                 //若为结构体(值类型)，则尝试使用Marshal.SizeOf获取大小;
                 else {
                     try {
                         var fieldSize = Marshal.SizeOf(field.FieldType);
-                        hexDataContext.CustomBackgroundBlocks.Add((offset + fieldOffset, fieldSize, GetBrush()));
+                        var block = CustomBackgroundBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, fieldSize, GetBrush());
+                        hexDataContext.CustomBackgroundBlocks.Add(block);
                         fieldOffset += fieldSize;
                     }
                     catch (Exception ex) {

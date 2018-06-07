@@ -32,7 +32,11 @@ namespace SingularityForensic.Contracts.Hex {
         //失去焦点时触发;
         event EventHandler LostFocus;
 
-        ICollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; }
+        ICollection<ICustomBackgroundBlock> CustomBackgroundBlocks { get; }
+        /// <summary>
+        /// 刷新自定义块内容,避免多次添加色块所带来的损失;
+        /// </summary>
+        void UpdateCustomBackgroundBlocks();
 
         IEnumerable<ICommandItem> ContextCommands { get; }
         void AddContextCommand(ICommandItem command);

@@ -22,7 +22,6 @@ namespace SingularityForensic.Hex.Views {
     public partial class HexView : UserControl {
         public HexView() {
             InitializeComponent();
-            HexEditor.SetBinding(DrawedHexEditor.CustomBackgroundBlocksProperty, new Binding(nameof(HexEditor.CustomBackgroundBlocks)));
         }
 
         protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e) {

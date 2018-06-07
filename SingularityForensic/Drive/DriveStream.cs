@@ -144,9 +144,6 @@ namespace SingularityForensic.Drive {
         [DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private extern static long DevManager_write(SafeFileHandle hDisk, ulong nPosition, IntPtr szBuffer, long nSize, ref int nRetSize);
 
-        //[DllImport("DevManager.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        //private extern static bool DevManager_SetPosition(HANDLE hDisk, unsigned __int64 nPosition );
-
         /// <summary>
         /// 特殊文件流的构造方法;
         /// </summary>
@@ -160,7 +157,7 @@ namespace SingularityForensic.Drive {
             SectorSize = sectorSize;
             _position = base.Position;
         }
-
+        
         //由于无法直接通过Handle/SafeFileHandle获得长度,在本程序集内部直接指定长度;
         internal long InternalLength { get; set; }
         public override long Length => InternalLength;

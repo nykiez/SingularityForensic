@@ -1,14 +1,17 @@
 ﻿using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
+using SingularityForensic.Hex.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using WpfHexaEditor.Core.Interfaces;
 
 namespace SingularityForensic.Hex.ViewModels {
     public partial class HexViewViewModel : BindableBase {
@@ -82,9 +85,14 @@ namespace SingularityForensic.Hex.ViewModels {
         }
         public event EventHandler FocusPositionChanged;
 
-        public ObservableCollection<(long index, long length, Brush background)> CustomBackgroundBlocks { get; set; }
-        = new ObservableCollection<(long index, long length, Brush background)>();
+        public ObservableCollection<WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock> CustomBackgroundBlocks { get; set; } 
+            = new ObservableCollection<WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock>();
+        
+        public void UpdateCustomBackgroundBlocks() {
+            UpdateBackgroundRequest.Raise(new Notification());
+        }
 
+        public InteractionRequest<Notification> UpdateBackgroundRequest { get; set; } = new InteractionRequest<Notification>();
 
         /// <summary>
         /// 失去焦点命令;

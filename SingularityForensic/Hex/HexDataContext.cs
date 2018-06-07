@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
+using SingularityForensic.Hex.Models;
 using SingularityForensic.Hex.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,11 @@ namespace SingularityForensic.Hex {
             _vm.FocusPositionChanged += delegate {
                 LostFocus?.Invoke(this, EventArgs.Empty);
             };
+
+            _customBackgroundBlocksWrapper = new CollectionWrapper<
+                ICustomBackgroundBlock, 
+                WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock
+            >(p => new CutomBackgroundBlockWrapper(p), _vm.CustomBackgroundBlocks);
         }
 
         public bool ReadOnlyMode { get; set; }
@@ -56,13 +62,18 @@ namespace SingularityForensic.Hex {
             set => _vm.FocusPosition = value;
         }
 
-        public ICollection<(long index, long length, Brush background)> CustomBackgroundBlocks {
-            get => _vm.CustomBackgroundBlocks;
-        }
+        public ICollection<ICustomBackgroundBlock> CustomBackgroundBlocks => _customBackgroundBlocksWrapper;
+
+        private CollectionWrapper<ICustomBackgroundBlock, WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock> _customBackgroundBlocksWrapper;
+            
 
         private HexViewViewModel _vm = new HexViewViewModel();
         
         public object UIObject { get; }
+
+        public void UpdateCustomBackgroundBlocks() {
+            _vm.UpdateCustomBackgroundBlocks();
+        }
     }
 
     partial class HexDataContext {

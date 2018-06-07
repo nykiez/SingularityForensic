@@ -37,12 +37,17 @@ namespace SingularityForensic.FileExplorer.Events {
             
             foreach (var ti in device.PartitionEntries.OrderBy(p => p.StartLBA)) {
                 hexDataContext.CustomBackgroundBlocks?.Add(
-                    (
+                    CustomBackgroundBlockFactory.CreateNewBackgroundBlock(
                         ti.StartLBA,
-                        ti.Size, i++ % 2 == 0 ? Brushes.LightBlue : Brushes.Chocolate
+                        ti.Size,
+                        i++ % 2 == 0 ? Brushes.LightBlue : Brushes.Chocolate
                     )
                 );
+
+                
             }
+
+            hexDataContext.UpdateCustomBackgroundBlocks();
         }
     }
 }

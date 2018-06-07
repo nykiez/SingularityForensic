@@ -91,14 +91,6 @@ namespace SingularityForensic.BaseDevice {
         public IntPtr stGptPTable;
     };
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct StPTable {
-        int eType;
-        ulong nOffset;
-	    IntPtr InFo;
-        IntPtr EFIInfo;
-        IntPtr EFIPTable;
-        IntPtr next;
-    }
+  
 
 }
