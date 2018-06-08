@@ -91,6 +91,7 @@
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
+    <Compile Include="Common\ICheckable.cs" />
     <Compile Include="Common\MarshalExtensions.cs" />
     <Compile Include="Common\PropDescribleAttribute.cs" />
     <Compile Include="Common\Sizes.cs" />

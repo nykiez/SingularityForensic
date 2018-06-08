@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:cvts="http://singularity/converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns:design="clr-namespace:SingularityForensic.Document.Design"
+             d:DataContext="{d:DesignInstance design:DocumentTabsDesignViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <!--<ResourceDictionary.MergedDictionaries>
@@ -88,7 +92,9 @@
                 <StackPanel VerticalAlignment="Center"
                 Orientation="Horizontal">
                     <TextBlock Text="{Binding Title}" />
-                    <Button Margin="10,0,0,0"
+                    <Button Margin="10,0,0,0" 
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=telerik:RadTabItem},
+                        Path=IsMouseOver,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance},ConverterParameter={x:Static cvts:VisibilityAttributes.Save}}"
               Command="{Binding CloseCommand}"
               Style="{StaticResource CloseButton}"
               ToolTipService.ToolTip="Remove item">
@@ -104,7 +110,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <telerik:RadTabControl BorderThickness="0" ItemsSource="{Binding Documents}"
+    <telerik:RadTabControl BorderThickness="0" ItemsSource="{Binding Documents}" HeaderBackground="{DynamicResource Envoirment.Background}"
                            SelectedItem="{Binding SelectedDocument}" 
                            DropDownDisplayMode="WhenNeeded"  
                            ItemTemplate="{StaticResource TabItemTemplate}">

@@ -13,11 +13,15 @@ namespace SingularityForensic.Contracts.FileExplorer {
     /// </summary>
     /// <typeparam name="TFile">文件本体类型</typeparam>
     /// <typeparam name="TOwnerFile">从属文件本体类型</typeparam>
-    public interface IFileMetaDataProviderProxy<TFile> where TFile:IFile { 
-        //原数据名称;
+    public interface IFileMetaDataProviderProxy<TFile> where TFile:IFile {
+        /// <summary>
+        /// 元数据名称;
+        /// </summary>
         string MetaDataName { get; }
 
-        //元数据类型;
+        /// <summary>
+        /// 元数据类型;
+        /// </summary>
         Type MetaDataType { get; }
 
         /// <summary>

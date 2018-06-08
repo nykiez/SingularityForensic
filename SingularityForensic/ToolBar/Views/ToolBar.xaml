@@ -7,20 +7,18 @@
              xmlns:local="clr-namespace:SingularityForensic.ToolBar.Views"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="30" d:DesignWidth="300">
-    <telerik:RadToolBar BorderThickness="0" Margin="0" >
-        <ItemsControl ItemsSource="{Binding ToolBarItems}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <ContentControl Content="{Binding UIObject}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </telerik:RadToolBar>
+    <ItemsControl ItemsSource="{Binding ToolBarItems}" Background="{DynamicResource Envoirment.Background}" Padding="6,3" >
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding UIObject}"/>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>

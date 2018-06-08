@@ -24,7 +24,7 @@ namespace SingularityForensic.FileExplorer.Models {
     /// 文件行泛基类;
     /// </summary>
     /// <typeparam name="TFile"></typeparam>
-    public class FileRowProxy<TFile> : CustomTypeDescriptor,IFileRowProxy<TFile> where TFile: IFile {
+    public class FileRowProxy<TFile> : CustomTypeDescriptor,IFileRowProxy<TFile>,INotifyPropertyChanged where TFile: IFile {
         public FileRowProxy(TFile file) {
             this.File = file;
         }
@@ -70,7 +70,9 @@ namespace SingularityForensic.FileExplorer.Models {
         }
 
         private static PropertyDescriptorCollection _filePropDescriptorCollection;
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public override PropertyDescriptorCollection GetProperties() {
             return _filePropDescriptorCollection;
         }

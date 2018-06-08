@@ -14,10 +14,10 @@
 
     <sys:Double x:Key="DialogTitleHeight">30</sys:Double>
     <sys:Int32 x:Key="WindowTitleHeight">30</sys:Int32>
-    <Thickness x:Key="WindowBorderThickness">0</Thickness>
+    <Thickness x:Key="WindowBorderThickness">1</Thickness>
     <SolidColorBrush x:Key="WindowTitleBack">#f0f0f0</SolidColorBrush>
     <SolidColorBrush x:Key="WindowTitleFore">#ffffff</SolidColorBrush>
-    <SolidColorBrush x:Key="WindowBorderBrush">#0071f0</SolidColorBrush>
+    <SolidColorBrush x:Key="WindowBorderBrush">#CCCEDB</SolidColorBrush>
     <SolidColorBrush x:Key="WindowGlowBrush">#0071f0</SolidColorBrush>
     
     <sys:Double x:Key="WindowIconWidth">16</sys:Double>
@@ -143,9 +143,7 @@
 
                     <Border   Grid.Row="1"
                               Grid.Column="0"
-                              Grid.ColumnSpan="5"
-                              BorderBrush="{TemplateBinding  BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                              Grid.ColumnSpan="5">
                         <!--  the main window content  -->
                         <Controls:MetroContentControl x:Name="PART_Content"
                                                   FocusVisualStyle="{x:Null}"
@@ -220,7 +218,8 @@
             <Border x:Name="PART_Border"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    BorderThickness="1"
+                    BorderBrush="{TemplateBinding  BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
                     Background="{x:Null}"
                     UseLayoutRounding="True" />
             <ResizeGrip x:Name="WindowResizeGrip"
@@ -491,7 +490,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{x:Null}"
-                    BorderBrush="{TemplateBinding GlowBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     UseLayoutRounding="True" />
             <ResizeGrip x:Name="WindowResizeGrip"
@@ -574,7 +573,6 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Controls:MetroWindow}" x:Key="WindowStyle">
-        
         <Setter Property="WindowButtonCommands">
             <Setter.Value>
                 <Controls:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"/>

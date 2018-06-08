@@ -293,11 +293,11 @@
            BasedOn="{StaticResource DefaultMWindow}">
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
-        <Setter Property="WindowTitleBrush" Value="{StaticResource Window.TitleBrush}"/>
+        <Setter Property="WindowTitleBrush" Value="{DynamicResource Window.TitleBrush}"/>
         <Setter Property="Padding" Value="0,0,0,12"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="#3f92f0"/>
-        <Setter Property="Template" Value="{StaticResource MsgWindowTemplateKey}"/>
+        <Setter Property="Template" Value="{DynamicResource MsgWindowTemplateKey}"/>
         <Setter Property="TitleTemplate">
             <Setter.Value>
                 <DataTemplate>

@@ -5,7 +5,9 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
-    public class BoolToVisibilityConverter : GenericStaticInstance<BoolToVisibilityConverter>,IValueConverter {
+    public class BoolToVisibilityConverter : IValueConverter {
+        private static IValueConverter _staticInstance;
+        public static IValueConverter StaticInstance => _staticInstance ?? (_staticInstance = new BoolToVisibilityConverter());
         /// <summary>
         /// 
         /// </summary>

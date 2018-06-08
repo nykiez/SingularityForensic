@@ -336,6 +336,7 @@
     <Compile Include="Controls\MessageBoxes\Filtering\FilterSizeMessageBox.cs" />
     <Compile Include="Controls\MessageBoxes\Filtering\FilterStringMessageBox.cs" />
     <Compile Include="Controls\StackGrid.cs" />
+    <Compile Include="Document\Design\DocumentTabsDesignViewModel.cs" />
     <Compile Include="Document\DocumentBase.cs" />
     <Compile Include="Document\DocumentModule.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />

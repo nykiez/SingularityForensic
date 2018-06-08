@@ -102,9 +102,7 @@ namespace SingularityForensic.FileExplorer {
             }
         }
     }
-
     
-
     [Export(typeof(IFileMetaDataProvider))]
     class FileDeletedMetaDataProvider : FileMetaDataProvider {
         public override string MetaDataName => 

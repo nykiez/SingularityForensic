@@ -206,7 +206,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <telerik:RadMenu ItemsSource="{Binding MenuGroups}" BorderThickness="0">
+    <telerik:RadMenu ItemsSource="{Binding MenuGroups}" BorderThickness="0" Background="{DynamicResource Envoirment.Background}">
         <telerik:RadMenu.ItemContainerStyle>
             <Style TargetType="{x:Type telerik:RadMenuItem}" BasedOn="{StaticResource BasicMenuItem}">
                 <Setter Property="ItemContainerStyle">
