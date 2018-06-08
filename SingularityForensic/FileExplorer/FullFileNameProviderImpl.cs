@@ -16,9 +16,9 @@ namespace SingularityForensic.FileExplorer {
             if (file == null) {
                 throw new ArgumentNullException(nameof(file));
             }
-
+            
             var sb = new StringBuilder();
-            var fileNode = file;
+            var fileNode = selfIncluded?file:file.Parent;
             while (fileNode != null) {
                 if (fileNode is IPartition part) {
                     sb.Insert(0, $"/{part.GetPartFixAndName()}");

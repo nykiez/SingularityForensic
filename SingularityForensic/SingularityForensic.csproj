@@ -591,6 +591,7 @@
     <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\IOSBackUpParser.cs" />
+    <Compile Include="ITunes\ITunesFullFileNameProviderImpl.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
     <Compile Include="ITunes\ITunesBackUpService.cs" />
     <Compile Include="ITunes\ITunesRegularFileInputStreamProvider.cs" />

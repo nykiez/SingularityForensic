@@ -15,6 +15,10 @@ namespace SingularityForensic.ITunes {
         public int Sort => 64;
 
         public Stream GetInputStream(IFile file) {
+            if(file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
             if (file.TypeGuids?.Contains(Constants.RegularFileType_ITunesBackUp) ?? false) {
                 return null;
             }
