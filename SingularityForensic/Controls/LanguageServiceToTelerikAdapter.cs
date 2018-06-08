@@ -7,6 +7,7 @@ namespace SingularityForensic.Controls {
     /// </summary>
     public class LanguageServiceToTelerikAdapter : LocalizationManager {
         public override string GetStringOverride(string key) {
+
             return LanguageService.Current?.FindResourceString(key);
         }
     }

@@ -5,6 +5,9 @@
                     xmlns:dock="clr-namespace:Telerik.Windows.Controls.Docking;assembly=Telerik.Windows.Controls.Docking"
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                     xmlns:telerikDocking="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Docking">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Docking.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="telerik:RadPaneGroup" x:Key="NoBordernessGroupStyle"  >
         <Setter Property="Template">
             <Setter.Value>

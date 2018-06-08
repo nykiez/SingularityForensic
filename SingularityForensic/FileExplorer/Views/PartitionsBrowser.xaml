@@ -58,9 +58,8 @@
             <TextBlock Text="{DynamicResource IsRecursivelyBrowsing}" Foreground="Black"
                        Visibility="{Binding IsExpanded,Converter={x:Static pubCvts:BoolToVisibilityConverter.StaticInstance}}"/>
         </StackPanel>-->
-        <gv:RadGridViewEx Grid.Row="1" ShowGroupPanel="False" 
-                          SelectedItem="{Binding SelectedRow}" 
-                          MouseDoubleClick="RadGridViewEx_MouseDoubleClick"
+        <gv:RadGridViewEx Grid.Row="1" SelectedItem="{Binding SelectedRow}" 
+                          MouseDoubleClick="RadGridViewEx_MouseDoubleClick" Style="{DynamicResource RadGridViewExStyle}"
                           AutoGeneratingColumn="RadGridViewEx_AutoGeneratingColumn"  IsReadOnly="True"                  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="AutoGeneratingColumn" >

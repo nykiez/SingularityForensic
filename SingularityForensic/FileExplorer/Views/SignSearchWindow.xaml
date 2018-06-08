@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
         WindowStartupLocation="CenterScreen" KeyDown="CorneredWindow_KeyDown"
-        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height"
+        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height" WindowCornerRadius="0"
         Title="{DynamicResource SignSearch}"  Width="600" Style="{DynamicResource MsgWindowStyle}">
     <Window.Resources>
         <ResourceDictionary>
@@ -158,7 +158,7 @@
         
         <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Margin="0,3">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Margin="12,0" Content="{DynamicResource Confirm}" x:Name="btnConfirm" Click="btnConfirm_Click" />
+                <Button Margin="12,0" Style="{DynamicResource SureBtnStyle}" Content="{DynamicResource Confirm}" x:Name="btnConfirm" Click="btnConfirm_Click" />
                 <Button Margin="12,0" Style="{DynamicResource DenyBtnStyle}" Content="{DynamicResource Cancel}"  x:Name="btnCancel" Click="btnCancel_Click"/>
             </StackPanel>
         </StackPanel>

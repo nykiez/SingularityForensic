@@ -57,9 +57,9 @@ namespace SingularityForensic.Casing {
         public static IToolBarButtonItem CreateCaseToolBarItem {
             get {
                 if (_createCaseToolBarItem == null) {
-                    _createCaseToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(CsUIService.CloseCaseCommand, Constants.TBButtonGUID__CloseCase);
+                    _createCaseToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(CsUIService.CreateCaseCommand, Constants.TBButtonGUID__CloseCase);
                     _createCaseToolBarItem.Icon = IconSources.OpenCaseIcon;
-                    _createCaseToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_CloseCase);
+                    _createCaseToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip__CreateCase);
                     _createCaseToolBarItem.Sort = 0;
                 }
                 return _createCaseToolBarItem;

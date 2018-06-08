@@ -50,9 +50,8 @@
             ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single" 
                              SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}" d:IsLocked="True">
-            
             <telerik:RadTreeView.ItemContainerStyle >
-                <Style TargetType="{x:Type telerik:RadTreeViewItem}">
+                <Style TargetType="{x:Type telerik:RadTreeViewItem}" BasedOn="{StaticResource {x:Type telerik:RadTreeViewItem}}">
                     <Setter Property="ContextMenu" Value="{x:Null}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                     <Setter Property="ContextMenu">

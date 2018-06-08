@@ -20,7 +20,7 @@
   <sys:String x:Key="GridViewFilterIsLessThanOrEqualTo">小于或等于</sys:String>
   <sys:String x:Key="GridViewFilterIsNotEqualTo">不等</sys:String>
   <sys:String x:Key="GridViewFilterMatchCase">匹配大小写</sys:String>
-  <sys:String x:Key="GridViewFilterOr ">或</sys:String>
+  <sys:String x:Key="GridViewFilterOr">或</sys:String>
   <sys:String x:Key="GridViewFilterSelectAll">全选</sys:String>
   <sys:String x:Key="GridViewFilterShowRowsWithValueThat">仅显示行，需包含值</sys:String>
   <sys:String x:Key="GridViewFilterStartsWith">头部匹配</sys:String>

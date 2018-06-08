@@ -7,9 +7,10 @@
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/System.Windows.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Input.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.GridView.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Navigation.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Docking.xaml"/>
+        
+        
         <ResourceDictionary Source="Docking.xaml"/>
+        <ResourceDictionary Source="RadGridView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

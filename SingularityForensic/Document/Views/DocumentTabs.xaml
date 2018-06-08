@@ -11,9 +11,9 @@
              d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+            <!--<ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/TabControl.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>-->
             <Style x:Key="CloseButton"
          TargetType="{x:Type Button}">
                 <Setter Property="Template">
@@ -101,16 +101,14 @@
                     </Button>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="ContentTemplate">
-                <Grid />
-            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <telerik:RadTabControl ItemsSource="{Binding Documents}" BorderThickness="0"
-                           SelectedItem="{Binding SelectedDocument}" IsContentPreserved="False"
-                           DropDownDisplayMode="Visible" ItemTemplate="{StaticResource TabItemTemplate}"
-                           ScrollMode="Viewport">
+    <telerik:RadTabControl BorderThickness="0" ItemsSource="{Binding Documents}"
+                           SelectedItem="{Binding SelectedDocument}" 
+                           DropDownDisplayMode="WhenNeeded"  
+                           ItemTemplate="{StaticResource TabItemTemplate}">
+        <!--ItemsSource="{Binding Documents}"-->
         <telerik:RadTabControl.ContentTemplate>
             <DataTemplate>
                 <ContentControl Content="{Binding UIObject}"/>
@@ -121,11 +119,11 @@
                 <TextBlock Text="{Binding Title}"/>
             </DataTemplate>
         </telerik:RadTabControl.ItemDropDownContentTemplate>
-        <telerik:RadTabControl.ItemContainerStyle>
-            <Style TargetType="telerik:RadTabItem" BasedOn="{StaticResource {x:Type telerik:RadTabItem}}" >
+        <!--<telerik:RadTabControl.ItemContainerStyle>
+            --><!--<Style TargetType="telerik:RadTabItem" BasedOn="{StaticResource {x:Type telerik:RadTabItem}}" >
                 <Setter Property="DropDownContent" Value="{Binding Title}"/>
-            </Style>
-        </telerik:RadTabControl.ItemContainerStyle>
+            </Style>--><!--
+        </telerik:RadTabControl.ItemContainerStyle>-->
     </telerik:RadTabControl>
    
 </UserControl>

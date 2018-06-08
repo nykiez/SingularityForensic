@@ -46,8 +46,12 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
         ~FolderBrowser() {
 
         }
+
+        private void RadGridViewEx_SelectionChanged(object sender, SelectionChangeEventArgs e) {
+            
+        }
 #endif
 
-        
+
     }
 }
