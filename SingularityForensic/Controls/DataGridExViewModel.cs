@@ -7,6 +7,7 @@ using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Controls.GridView;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,6 +28,10 @@ namespace SingularityForensic.Controls {
         /// </summary>
         /// <param name="row"></param>
         void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e);
+        /// <summary>
+        /// 当前选定的项集合;
+        /// </summary>
+        Func<IEnumerable> GetSelectedRows { get; set; }
     }
 
     public class DataGridExViewModel : BindableBase, IInteractionGridViewModel,IDataGridViewModel {
@@ -168,5 +173,6 @@ namespace SingularityForensic.Controls {
                 }
             ));
 
+        public Func<IEnumerable> GetSelectedRows { get ; set ; }
     }
 }

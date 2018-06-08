@@ -22,6 +22,8 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// 当前选定的文件;
         /// </summary>
         IFileRow SelectedFile { get; }
+        IEnumerable<IFileRow> SelectedFiles { get; }
+        //void AddSelectedFile(IEnumerable<IFileRow> fileRows);
 
         event EventHandler SelectedFileChanged;
         

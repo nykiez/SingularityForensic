@@ -91,7 +91,7 @@
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
-    <Compile Include="Common\ICheckable.cs" />
+    <Compile Include="Common\IHaveGUIDObject.cs" />
     <Compile Include="Common\MarshalExtensions.cs" />
     <Compile Include="Common\PropDescribleAttribute.cs" />
     <Compile Include="Common\Sizes.cs" />
@@ -148,6 +148,7 @@
     <Compile Include="Document\IDocumentService.cs" />
     <Compile Include="Document\IDocument.cs" />
     <Compile Include="Dummy.cs" />
+    <Compile Include="FileExplorer\IFullFileNameProvider.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\Events\FilterSettingsChangedEvent.cs" />
     <Compile Include="FileExplorer\Events\FocusedFileChangedEvent.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="FileExplorer\ViewModels\IPartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\Models\INavNodeModel.cs" />
     <Compile Include="FileSystem\IFileService.cs" />
+    <Compile Include="FileSystem\IFullFileNameProvider.cs" />
     <Compile Include="FileSystem\StreamFileStoken.cs" />
     <Compile Include="FileSystem\IFileInputStreamProvider.cs" />
     <Compile Include="FileSystem\IStreamFile.cs" />

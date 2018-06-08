@@ -78,5 +78,7 @@ namespace SingularityForensic.FileSystem {
             }
 
         }
+
+        public int Sort => 128;
     }
 }

@@ -9,7 +9,7 @@ namespace SingularityForensic.Test.BaseDevice {
             TestCommon.InitializeTest();
             _fsService = FileSystemService.Current;
             Assert.IsNotNull(_fsService);
-
+            
         }
 
         private IFileSystemService _fsService;

@@ -16,6 +16,8 @@ using SingularityForensic.Controls.GridView;
 using SingularityForensic.Controls;
 using SingularityForensic.Contracts.FileExplorer.Models;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
+using SingularityForensic.FileExplorer.Internal;
+using System.Collections;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -94,6 +96,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 SelectedFileChanged?.Invoke(this, EventArgs.Empty);
                 PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), _focusedFileRowChangedEventHandlers);
                 PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
+
+#if DEBUG
+                //var fs = SelectedFiles.ToArray();
+#endif
             }
         }
         
@@ -125,9 +131,24 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 NavNodeModels = value as ObservableCollection<INavNodeModel>;
             }
         }
+
+        public IEnumerable<IFileRow> SelectedFiles {
+            get {
+                if(GetSelectedRows == null) {
+                    yield break;
+                }
+                
+                foreach (var row in GetSelectedRows.Invoke()) {
+                    if(row is IFileRow fileRow) {
+                        yield return fileRow;
+                    }
+                }
+            }
+        }
         
         public event EventHandler SelectedFileChanged;
         
+
 #if DEBUG
         ~FolderBrowserViewModel() {
 

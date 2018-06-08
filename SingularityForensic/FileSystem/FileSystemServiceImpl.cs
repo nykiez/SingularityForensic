@@ -11,14 +11,10 @@ using System.Xml.Linq;
 namespace SingularityForensic.FileSystem {
     [Export(typeof(IFileSystemService))]
     class FileSystemServiceImpl : IFileSystemService {
-        [ImportingConstructor]
-        public FileSystemServiceImpl([ImportMany] IEnumerable<IStreamParsingProvider> streamParsers) {
-            this._parsingProvider = streamParsers.OrderBy(p => p.Order);
-        }
         IEnumerable<IStreamParsingProvider> _parsingProvider;
 
         public void Initialize() {
-            
+            this._parsingProvider = ServiceProvider.GetAllInstances<IStreamParsingProvider>().OrderBy(p => p.Order).ToArray();
         }
         
         private List<(IFile file, XElement xElem)> _enumFiles = new List<(IFile file, XElement xElem)>();

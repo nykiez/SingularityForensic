@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
     /// <summary>
-    /// 是否已经被勾选,本对象将用于确认勾选;
+    /// 具有GUID的对象,这将用于状态保存;
     /// </summary>
-    public interface ICheckable {
-        bool IsChecked { get; set; }
+    public interface IHaveGUIDObject {
         /// <summary>
         /// 获取GUID;(关于对象唯一);
         /// </summary>

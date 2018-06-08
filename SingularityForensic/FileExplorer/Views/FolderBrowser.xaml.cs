@@ -15,8 +15,20 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
     public partial class FolderBrowser : UserControl {
         public FolderBrowser() {
             InitializeComponent();
+            this.DataContextChanged += FolderBrowser_DataContextChanged;
         }
-       
+
+        private void FolderBrowser_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
+            if(e.NewValue is IInteractionGridViewModel newVM) {
+                newVM.GetSelectedRows = () => gridView.SelectedItems;
+            }
+
+            if(e.OldValue is IInteractionGridViewModel oldVM){
+                oldVM.GetSelectedRows = null;
+            }
+        }
+
+        
         private void RadGridView_AutoGeneratingColumn(object sender,Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs e) {
             var args = new Contracts.Controls.GridViewAutoGeneratingColumnEventArgs(e.ItemPropertyInfo);
             (this.DataContext as IInteractionGridViewModel)?.NotifyAutoGeneratingColumns(args);
@@ -33,7 +45,7 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
             if(!(e.OriginalSource is FrameworkElement elem)) {
                 return;
             }
-
+            
             var cell = VisualHelper.GetVisualParent<GridViewCell>(elem);
             if(cell == null) {
                 return;

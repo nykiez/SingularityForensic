@@ -313,19 +313,8 @@ namespace SingularityForensic.FileExplorer {
             if(file == null) {
                 return null;
             }
-            var sb = new StringBuilder();
-            var fileNode = file;
-            while(fileNode != null) {
-                if(fileNode is IPartition part) {
-                    sb.Insert(0, $"/{part.GetPartFixAndName()}") ;
-                }
-                else {
-                    sb.Insert(0, $"/{fileNode.Name}");
-                }
-                
-                fileNode = fileNode.Parent;
-            }
-            return sb.ToString();
+            return file.GetFullFileName();
+            
         }
     }
     //[Export(typeof(IFileMetaDataProvider))]

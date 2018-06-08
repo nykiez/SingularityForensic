@@ -14,9 +14,6 @@ using static CDFCUIContracts.Helpers.ApplicationHelper;
 namespace SingularityForensic.FileExplorer {
     [ModuleExport(typeof(FileExplorerModule))]
     public class FileExplorerModule:IModule {
-        //[Import]
-        //IFSNodeService fsNodeService;
-
         public void Initialize() {
             PubEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
@@ -27,28 +24,6 @@ namespace SingularityForensic.FileExplorer {
 
         private IFileExplorerUIReactService _fileExplorerUIService;
         
-
-        //private void ViewFile(ViewerProgramMessage e) {
-        //    FileStream targetStream = null;
-        //    try {
-        //        var path = ServiceProvider.Current.GetInstance<ICaseService>()?.CurrentCase.Path;
-        //        if (!System.IO.Directory.Exists($"{path}/Temp")) {
-        //            System.IO.Directory.CreateDirectory($"{path}/Temp");
-        //        }
-        //        var oriStream = e.FStream;
-        //        targetStream = File.Create($"{path}/Temp/{e.FileName}");
-        //        oriStream.CopyTo(targetStream);
-        //        Process.Start(e.ViewerPath, $"{path}/Temp/{ e.FileName}");
-        //    }
-        //    catch (Exception ex) {
-        //        LoggerService.Current?.WriteCallerLine($"{ex.Message}");
-        //        AppInvoke(() => {
-        //            RemainingMessageBox.Tell($"{LanguageService.FindResourceString("FailedToExtractFile")}:{ex.Message}");
-        //        });
-        //    }
-        //    finally {
-        //        targetStream?.Close();
-        //    }
-        //}
+        
     }
 }

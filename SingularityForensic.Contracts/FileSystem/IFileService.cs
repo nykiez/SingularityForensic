@@ -12,6 +12,10 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// </summary>
     public interface IFileService {
         /// <summary>
+        /// 初始化;
+        /// </summary>
+        void Initialize();
+        /// <summary>
         /// 获取文件流;
         /// </summary>
         /// <param name="file"></param>

@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 namespace SingularityForensic.ITunes {
     [Export(typeof(IFileInputStreamProvider))]
     class ITunesRegularFileInputStreamProvider : IFileInputStreamProvider {
+        public int Sort => 64;
+
         public Stream GetInputStream(IFile file) {
             if (file.TypeGuids?.Contains(Constants.RegularFileType_ITunesBackUp) ?? false) {
                 return null;

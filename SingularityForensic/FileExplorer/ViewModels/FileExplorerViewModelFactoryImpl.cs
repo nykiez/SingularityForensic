@@ -1,5 +1,4 @@
-﻿using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileExplorer.Events;
+﻿using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
