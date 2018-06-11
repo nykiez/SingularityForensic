@@ -68,6 +68,11 @@ namespace SingularityForensic.App.Dialogs {
             }
         }
 
+        public bool IsProgressVisible {
+            get => window.IsProgressBarVisible;
+            set => window.IsProgressBarVisible = value;
+        }
+
         public void Show() {
             ShowCore(null, false);
         }
@@ -80,8 +85,8 @@ namespace SingularityForensic.App.Dialogs {
             if (owner != null && owner.IsVisible) {
                 window.Owner = owner;
             }
-            else {
-                window.Owner = Application.Current.MainWindow;
+            else if((SingularityForensic.Contracts.Shell.ShellService.Current.Shell as Window)?.IsLoaded??false){
+                window.Owner = SingularityForensic.Contracts.Shell.ShellService.Current.Shell as Window;
             }
 
             //window.ShowInTaskbar = false;

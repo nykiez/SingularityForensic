@@ -27,12 +27,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -146,7 +147,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCopy "$(SolutionDir)\packages\CDFC.Common.0.1.3.8\lib\NET451" "$(TargetDir)Common\"  /E /Y
-XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.0.8\lib\NET451" "$(TargetDir)Controls\"  /E /Y
+XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.2.1\lib\NET451" "$(TargetDir)Controls\"  /E /Y
 
 
 copy "$(SolutionDir)\packages\Prism.Core.6.3.0\lib\net45\Prism.dll" "$(TargetDir)Common\Prism.dll"
@@ -158,7 +159,7 @@ copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  
 
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb"
 copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll"
-copy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.1.5\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll"
+copy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.2.1\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll"
 copy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll"
 Copy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll"
 

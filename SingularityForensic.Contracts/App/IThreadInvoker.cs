@@ -20,6 +20,7 @@ namespace SingularityForensic.Contracts.App {
         /// </summary>
         /// <param name="act"></param>
         void UIInvoke(Action act);
+
     }
 
     public class ThreadInvoker : GenericServiceStaticInstance<IThreadInvoker> {

@@ -187,7 +187,7 @@ namespace SingularityForensic.FAT.Events {
             var tp = typeof(TStruct);
             var fieldIndex = 0;
             var fieldOffset = 0;
-            Brush GetBrush() => fieldIndex % 2 == 0 ? CustomBackgroundBlockFactory.FirstBrush : CustomBackgroundBlockFactory.SecondBrush;
+            Brush GetBrush() => fieldIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush;
             foreach (var field in tp.GetFields()) {
                 //若为字节数组,则访问MarshalAsAttribute,获取大小;
                 if (field.FieldType == typeof(byte[])) {
@@ -197,7 +197,7 @@ namespace SingularityForensic.FAT.Events {
                         continue;
                     }
 
-                    var block = CustomBackgroundBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, attr.SizeConst, GetBrush());
+                    var block = BrushBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, attr.SizeConst, GetBrush());
                     hexDataContext.CustomBackgroundBlocks.Add(block);
                     fieldOffset += attr.SizeConst;
                 }
@@ -205,7 +205,7 @@ namespace SingularityForensic.FAT.Events {
                 else {
                     try {
                         var fieldSize = Marshal.SizeOf(field.FieldType);
-                        var block = CustomBackgroundBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, fieldSize, GetBrush());
+                        var block = BrushBlockFactory.CreateNewBackgroundBlock(offset + fieldOffset, fieldSize, GetBrush());
                         hexDataContext.CustomBackgroundBlocks.Add(block);
                         fieldOffset += fieldSize;
                     }

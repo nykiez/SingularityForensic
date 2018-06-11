@@ -16,8 +16,7 @@ using SingularityForensic.Controls.GridView;
 using SingularityForensic.Controls;
 using SingularityForensic.Contracts.FileExplorer.Models;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
-using SingularityForensic.FileExplorer.Internal;
-using System.Collections;
+using SingularityForensic.Contracts.App;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -72,17 +71,15 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         private void InitializeColumns() {
             foreach (var descripter in FileRowFactory.Current.PropertyDescriptors) {
-                _files.PropertyDescriptorList.Add(descripter);
+                FileRows.PropertyDescriptorList.Add(descripter);
             }
         }
 
         public IHaveFileCollection HaveFileCollection { get; }                                        //浏览器所属主文件（分区，设备等);
 
-        private CustomTypedListSource<IFileRow> _files = new CustomTypedListSource<IFileRow>();
-        public ICollection<IFileRow> Files {
-            get => _files;
-            set => _files = value as CustomTypedListSource<IFileRow>;
-        }
+        public CustomTypedListSource<IFileRow> FileRows { get; set; } = new CustomTypedListSource<IFileRow>();
+        //public ObservableCollection<IFileRow> FileRows { get; set; } = new ObservableCollection<IFileRow>();
+        public IEnumerable<IFileRow> Files  => FileRows;
         
         IEnumerable<IFocusedFileRowChangedEventHandler> _focusedFileRowChangedEventHandlers;
         private IFileRow _selectedFile;
@@ -111,12 +108,54 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             if (files == null) {
                 return;
             }
-
-            Files.Clear();
-
-            foreach (var file in files) {
-                Files.Add(FileRowFactory.Current.CreateFileRow(file));
+            
+            ThreadInvoker.UIInvoke(() => {
+                FileRows.Clear();
+                MouseService.AppCusor = Cursor.Loading;
+            });
+            
+            var loadingDialog = DialogService.Current?.CreateLoadingDialog();
+            if(loadingDialog != null) {
+                loadingDialog.IsProgressVisible = false;
             }
+
+            
+            loadingDialog.Word = LanguageService.FindResourceString(Constants.MsgText_FileBeingShown);
+            loadingDialog.DoWork += (sender, e) => {
+                var bufferLength = 10;
+                var bufferRows = new IFileRow[bufferLength];
+
+                var index = 0;
+                foreach (var file in files) {
+                    var fileRow = FileRowFactory.Current.CreateFileRow(file);
+                    
+                    if (loadingDialog.CancellationPending) {
+                        return;
+                    }
+                    bufferRows[index] = fileRow;
+                    index++;
+                    if (index == bufferLength) {
+                        ThreadInvoker.UIInvoke(() => {
+                            foreach (var row in bufferRows) {
+                                FileRows.Add(row);
+                            }
+                        });
+                        System.Threading.Thread.Sleep(1);
+                        index = 0;
+                    }
+                }
+                ThreadInvoker.UIInvoke(() => {
+                    for (int i = 0; i < index; i++) {
+                        FileRows.Add(bufferRows[i]);
+                    }
+
+                    MouseService.AppCusor = Cursor.Normal;
+                });
+                
+            };
+
+            loadingDialog.ShowDialog();
+            
             this.FilesChanged?.Invoke(this, EventArgs.Empty);
             RaisePropertyChanged(nameof(FilterSettings));
         }
@@ -179,13 +218,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         if (direct.Parent is IHaveFileCollection parentCollection
                             && (parentCollection as IFile)?.Parent is IHaveFileCollection grandCollection) {
                             this.FillWithCollection(grandCollection);
-
                         }
                     }
                     else if (!direct.IsLocalBackUp) {
                         this.FillWithCollection(haveFileCollection);
                     }
-
                 }
             }
             catch (Exception ex) {

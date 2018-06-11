@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SingularityForensic.Controls.FileExplorer.Views.PartitionsFolderBrowser"
+﻿<UserControl x:Class="SingularityForensic.FileExplorer.Views.PartitionsFolderBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:gv="clr-namespace:SingularityForensic.Controls.GridView"

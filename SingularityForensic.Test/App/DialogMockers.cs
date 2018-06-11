@@ -33,6 +33,7 @@ namespace SingularityForensic.Test.App {
         public string Word { get; set; }
         public string Description { get; set; }
         public string WindowTitle { get; set; }
+        public bool IsProgressVisible { get ; set ; }
 
         public event DoWorkEventHandler DoWork;
         public event RunWorkerCompletedEventHandler RunWorkerCompleted;

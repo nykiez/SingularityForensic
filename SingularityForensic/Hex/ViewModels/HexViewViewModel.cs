@@ -4,13 +4,11 @@ using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
-using SingularityForensic.Hex.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using WpfHexaEditor.Core.Interfaces;
 
 namespace SingularityForensic.Hex.ViewModels {
@@ -85,9 +83,9 @@ namespace SingularityForensic.Hex.ViewModels {
         }
         public event EventHandler FocusPositionChanged;
 
-        public ObservableCollection<WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock> CustomBackgroundBlocks { get; set; } 
-            = new ObservableCollection<WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock>();
-        
+        public ObservableCollection<WpfHexaEditor.Core.Interfaces.IBrushBlock> CustomBackgroundBlocks { get; set; }
+            = new ObservableCollection<WpfHexaEditor.Core.Interfaces.IBrushBlock>();
+
         public void UpdateCustomBackgroundBlocks() {
             UpdateBackgroundRequest.Raise(new Notification());
         }
@@ -115,7 +113,7 @@ namespace SingularityForensic.Hex.ViewModels {
             _positionToolTip = ToolTipItemFactory.CreateIToolTipDataItem();
             _valToolTip = ToolTipItemFactory.CreateIToolTipDataItem();
 
-            _positionToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset); 
+            _positionToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset);
             _valToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Value);
 
             DataToolTips.Add(_positionToolTip);
@@ -216,7 +214,7 @@ namespace SingularityForensic.Hex.ViewModels {
         public DelegateCommand CopyKeyCommand => _copyKeyCommand ??
             (_copyKeyCommand = new DelegateCommand(
                 () => {
-                    if(SelectedToolTipItem is IToolTipDataItem toolTipDataItem) {
+                    if (SelectedToolTipItem is IToolTipDataItem toolTipDataItem) {
                         Clipboard.SetText(toolTipDataItem.KeyName);
                     }
                 },
@@ -250,5 +248,14 @@ namespace SingularityForensic.Hex.ViewModels {
         /// 右键菜单项;
         /// </summary>
         public ObservableCollection<ICommandItem> ContextCommands { get; set; } = new ObservableCollection<ICommandItem>();
+    }
+
+    public partial class HexViewViewModel {
+        private WpfHexaEditor.Core.Interfaces.IBytesToCharEncoding _bytesToCharEncoding;
+        public WpfHexaEditor.Core.Interfaces.IBytesToCharEncoding BytesToCharEncoding {
+            get => _bytesToCharEncoding;
+            set => SetProperty(ref _bytesToCharEncoding, value);
+        }
+
     }
 }

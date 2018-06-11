@@ -71,6 +71,11 @@ namespace SingularityForensic.App.Views {
             Canceld?.Invoke(this, EventArgs.Empty);
         }
         public event EventHandler Canceld;
+
+        public bool IsProgressBarVisible {
+            get => ProBar.Visibility == Visibility.Visible;
+            set => ProBar.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
     
 }

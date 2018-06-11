@@ -21,6 +21,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="file"></param>
         /// <returns></returns>
         Stream GetInputStream(IFile file);
+
     }
 
 

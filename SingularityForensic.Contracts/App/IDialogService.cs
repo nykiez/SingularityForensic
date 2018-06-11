@@ -47,6 +47,7 @@ namespace SingularityForensic.Contracts.App {
         string GetInputValue(string title = null, string desc = null, string val = null);
 
         ILoadingDialog CreateLoadingDialog();
+
         IDoubleLoadingDialog CreateDoubleLoadingDialog();
     }
 
@@ -114,7 +115,8 @@ namespace SingularityForensic.Contracts.App {
         string Word { get; set; }
         string Description { get; set; }
         string WindowTitle { get; set; }
-        
+        bool IsProgressVisible { get; set; }
+
         event DoWorkEventHandler DoWork;
         event RunWorkerCompletedEventHandler RunWorkerCompleted;
         event EventHandler Canceld;

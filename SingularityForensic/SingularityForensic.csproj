@@ -177,7 +177,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.1.5\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.2.1\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +267,7 @@
     <Compile Include="App\LocalExplorerServiceImpl.cs" />
     <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
     <Compile Include="App\Dialogs\ProgressDialog.cs" />
+    <Compile Include="App\MouseServiceImpl.cs" />
     <Compile Include="App\ProgressReporter.cs" />
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\DialogServiceImpl.cs" />
@@ -282,7 +283,7 @@
     <Compile Include="BaseDevice\BasePartInfo.cs" />
     <Compile Include="BaseDevice\InnerPartsType.cs" />
     <Compile Include="Common\LoggerServiceImpl.cs" />
-    <Compile Include="App\Dialogs\SingularityMessageBoxDialog.cs" />
+    <Compile Include="App\Dialogs\MessageBoxDialog.cs" />
     <Compile Include="App\MessageBoxServiceImpl.cs" />
     <Compile Include="App\Models\MessageButtonModel.cs" />
     <Compile Include="App\ViewModels\SingularityMessageBoxDialogViewModel.cs" />
@@ -376,11 +377,11 @@
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FullFileNameProviderImpl.cs" />
-    <Compile Include="FileExplorer\Internal\IDataGridViewModelInternal.cs" />
     <Compile Include="FileExplorer\ViewerSeviceImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
     <Compile Include="FileSystem\BlockGroup.cs" />
     <Compile Include="FileSystem\BlockGroupedFileInputStreamProvider.cs" />
+    <Compile Include="FileSystem\DeviceServiceImpl.cs" />
     <Compile Include="FileSystem\FileServiceImpl.cs" />
     <Compile Include="FileSystem\FullFileNameProvider.cs" />
     <Compile Include="FileSystem\NormalFullFileNameProvider.cs" />
@@ -403,6 +404,7 @@
     <Compile Include="Hash\MD5Hasher.cs" />
     <Compile Include="Hash\SHA1Hasher.cs" />
     <Compile Include="Hex\BufferToProCodeFormatters.cs" />
+    <Compile Include="Hex\BytesToCharEncodings.cs" />
     <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
     <Compile Include="Hex\Controls\FindTextMessageBox.cs" />
     <Compile Include="Hex\Controls\GoToOffsetMessageBox.cs" />
@@ -453,9 +455,11 @@
     <Compile Include="Hex\CustomBackgroundBlock.cs" />
     <Compile Include="Hex\CustomBackgroundBlockFactoryImpl.cs" />
     <Compile Include="Hex\Events\OnHexDataContextLoadedOnContextCommandsHandler.cs" />
+    <Compile Include="Hex\Events\OnHexDataContextLoadedOnEncodingContextCommandHandler.cs" />
     <Compile Include="Hex\Events\OnHexFocusPositionChangedOnStatusBarHandler.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactory.cs" />
     <Compile Include="Hex\HexUIServiceImpl.cs" />
+    <Compile Include="Hex\Models\BytesToCharEncodingWrapper.cs" />
     <Compile Include="Hex\Models\CollectionWrapper.cs" />
     <Compile Include="Hex\Models\CutomBackgroundWrapper.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
@@ -529,9 +533,6 @@
     <Compile Include="FileExplorer\ViewModels\ThumbnailTabModel.cs" />
     <Compile Include="FileExplorer\Views\CustomIndexSearch.xaml.cs">
       <DependentUpon>CustomIndexSearch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FileExplorer\Views\FileBrowser.xaml.cs">
-      <DependentUpon>FileBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileExplorer\Views\FileDetailInfo.xaml.cs">
       <DependentUpon>FileDetailInfo.xaml</DependentUpon>
@@ -905,10 +906,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FileExplorer\Views\FileBrowser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="FileExplorer\Views\FileDetailInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1178,6 +1175,7 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
+    <Folder Include="FileExplorer\Internal\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
     <Folder Include="ITunes\ViewModels\" />

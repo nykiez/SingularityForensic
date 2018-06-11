@@ -3,6 +3,7 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
+using System;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
@@ -20,25 +21,34 @@ namespace SingularityForensic.FileExplorer.Events {
             if (!(tuple.tab is IEnumerableDocument enumDoc)) {
                 return;
             }
+
+            LoggerService.WriteCallerLine($"OnDocumentAddedShowFolderBrowserHandler handling");
+
+            try {
+                var haveFileCollection = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
+                if (haveFileCollection == null) {
+                    return;
+                }
+
+                //因设备有专门的视图,中止操作;
+                if (haveFileCollection is IDevice) {
+                    return;
+                }
+
+                var vm = FileExplorerViewModelFactory.CreateFolderBrowserViewModel(haveFileCollection);
+
+                var folderBrowser = ViewProvider.CreateView(Constants.FolderBrowserView, vm);
+
+                //设定文件资源管理器模型关联实体;
+                enumDoc.SetInstance(vm, Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
+                enumDoc.MainUIObject = folderBrowser;
+
+                LoggerService.WriteCallerLine($"OnDocumentAddedShowFolderBrowserHandler handled");
+            }
+            catch(Microsoft.Practices.ServiceLocation.ActivationException ex) {
+                LoggerService.WriteException(ex);
+            }
             
-
-            var haveFileCollection = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
-            if (haveFileCollection == null) {
-                return;
-            }
-
-            //因设备有专门的视图,中止操作;
-            if (haveFileCollection is IDevice) {
-                return;
-            }
-
-            var vm = FileExplorerViewModelFactory.CreateFolderBrowserViewModel(haveFileCollection);
-
-            var folderBrowser = ViewProvider.CreateView(Constants.FolderBrowserView,vm);
-
-            //设定文件资源管理器模型关联实体;
-            enumDoc.SetInstance(vm, Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
-            enumDoc.MainUIObject = folderBrowser;
         }
     }
 }

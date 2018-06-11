@@ -1,4 +1,5 @@
 ﻿using CDFCUIContracts.Helpers;
+using SingularityForensic.Controls;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +7,7 @@ using System.Windows.Input;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 
-namespace SingularityForensic.Controls.FileExplorer.Views {
+namespace SingularityForensic.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for FolderBrowser.xaml
     /// </summary>
@@ -14,9 +15,17 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class FolderBrowser : UserControl {
         public FolderBrowser() {
+            SingularityForensic.Contracts.Common.LoggerService.WriteCallerLine("Folder initializing");
             InitializeComponent();
             this.DataContextChanged += FolderBrowser_DataContextChanged;
+            //this.Unloaded += FolderBrowser_Unloaded;
         }
+
+        //private void FolderBrowser_Unloaded(object sender, RoutedEventArgs e) {
+        //    if(this.DataContext is IInteractionGridViewModel vm) {
+        //        vm.GetSelectedRows = null;
+        //    }
+        //}
 
         private void FolderBrowser_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
             if(e.NewValue is IInteractionGridViewModel newVM) {
@@ -27,6 +36,7 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
                 oldVM.GetSelectedRows = null;
             }
         }
+
 
         
         private void RadGridView_AutoGeneratingColumn(object sender,Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs e) {
@@ -58,12 +68,10 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
         ~FolderBrowser() {
 
         }
-
-        private void RadGridViewEx_SelectionChanged(object sender, SelectionChangeEventArgs e) {
-            
-        }
 #endif
+        private void RadGridViewEx_SelectionChanged(object sender, SelectionChangeEventArgs e) {
 
+        }
 
     }
 }

@@ -28,7 +28,7 @@ namespace SingularityForensic.Test.FileExplorer.Events {
 
             var fbDoc = docs.First().GetIntance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
             Assert.IsNotNull(fbDoc);
-            Assert.AreEqual(fbDoc.Files.Count,device.GetInnerFiles().Count());
+            Assert.AreEqual(fbDoc.Files.Count(),device.GetInnerFiles().Count());
         }
     }
 }

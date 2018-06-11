@@ -9,6 +9,7 @@ using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.FileExplorer.Helpers;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>
@@ -58,6 +59,11 @@ namespace SingularityForensic.FileExplorer {
             }
         }
         
+        private struct AddUnitStack {
+            public ITreeUnit ParentUnit { get; set; }
+            public ITreeUnit ChildUnit { get; set; }
+        }
+
         /// <summary>
         /// 案件文件节点加入时加入文件系统节点;
         /// </summary>
@@ -91,7 +97,10 @@ namespace SingularityForensic.FileExplorer {
             fsUnit.Icon = IconResources.FileSystemIcon;
             fsUnit.Label = LanguageService.Current?.FindResourceString(Constants.TreeUnitLabel_FileSystem);
             fsUnit.SetInstance(fileTuple.Value.file, Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
-            
+
+            var bufferLength = 10;
+            var bufferStacks = new AddUnitStack[bufferLength];
+            var index = 0;
             //递归添加子节点：
             void TraverseAddChildren(ITreeUnit tUnit, IHaveFileCollection haveCollection) {
                 foreach (var file in haveCollection.Children) {
@@ -117,12 +126,32 @@ namespace SingularityForensic.FileExplorer {
                     }
                     
                     TraverseAddChildren(cUnit, cHaveCollection);
-                    tuple.treeService.AddUnit(tUnit, cUnit);
+
+                    if(index == bufferLength) {
+                        ThreadInvoker.UIInvoke(() => {
+                            foreach (var unit in bufferStacks) {
+                                Contracts.MainPage.MainTreeService.Current.AddUnit(unit.ParentUnit,unit.ChildUnit);
+                            }
+                        });
+                        index = 0;
+                        Thread.Sleep(1);
+                    }
+
+                    bufferStacks[index].ParentUnit = tUnit;
+                    bufferStacks[index].ChildUnit = cUnit;
+
+                    index++;
+                    //tUnit.Children.Add(cUnit);
                 }
             }
 
             if (fileTuple.Value.file is IHaveFileCollection haveCollection2) {
                 TraverseAddChildren(fsUnit, haveCollection2);
+                ThreadInvoker.UIInvoke(() => {
+                    for (int i = 0; i < index; i++) {
+                        Contracts.MainPage.MainTreeService.Current.AddUnit(bufferStacks[i].ParentUnit, bufferStacks[i].ChildUnit);
+                    }
+                });
             }
 
             Contracts.MainPage.MainTreeService.Current.AddUnit(tuple.unit, fsUnit);

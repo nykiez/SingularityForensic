@@ -27,6 +27,5 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <remarks>这将遍历<see cref="IFileInputStreamProvider"/>完成文件流的获取</remarks>
         /// <returns></returns>
         public static Stream GetInputStream(this IFile file) => FileService.GetInputStream(file);
-
     }
 }

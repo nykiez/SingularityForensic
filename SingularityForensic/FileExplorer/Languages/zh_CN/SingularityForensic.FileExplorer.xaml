@@ -53,4 +53,5 @@
   <sys:String x:Key="StatusBarItemText_RegFileCount">文件数量</sys:String>
   <sys:String x:Key="StatusBarItemText_DirectoryCount">目录数量</sys:String>
   <sys:String x:Key="ContextCommandName_RecurBrowse">递归浏览</sys:String>
+  <sys:String x:Key="MsgText_FileBeingShown">正在显示文件</sys:String>
 </ResourceDictionary>

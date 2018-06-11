@@ -405,6 +405,7 @@ namespace SingularityForensic.Hex {
             hexDataContext.Stream.Read(buffer, 0, (int)hexDataContext.SelectionLength);
             return buffer;
         }
-        
+
+
     }
 }

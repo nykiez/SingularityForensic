@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
 using System;
@@ -23,7 +24,7 @@ namespace SingularityForensic.Hex.Events {
             if (hexDataContext == null) {
                 throw new ArgumentNullException(nameof(hexDataContext));
             }
-
+            
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateSetAsStartCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateSetAsEndCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyToNewFileCommandItem(hexDataContext));
@@ -52,6 +53,7 @@ namespace SingularityForensic.Hex.Events {
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyToClipBoardCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyToCopyHexToCBoardCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyAsProCodeCommandItem(hexDataContext));
+
         }
     }
 }

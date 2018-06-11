@@ -105,13 +105,19 @@ namespace SingularityForensic.MainPage {
         }
         
         public void AddUnit(ITreeUnit parentUnit,ITreeUnit nUnit) {
-            if(parentUnit == null) {
-                VM.AddUnit(nUnit);
-            }
-            else {
-                parentUnit.Children.Add(nUnit);
+            if(nUnit == null) {
+                throw new ArgumentNullException($"{nameof(nUnit)}");
             }
 
+            ThreadInvoker.UIInvoke(() => {
+                if (parentUnit == null) {
+                    VM.AddUnit(nUnit);
+                }
+                else {
+                    parentUnit.Children.Add(nUnit);
+                }
+            });
+            
             try {
                 PubEventHelper.GetEvent<TreeUnitAddedEvent>().Publish((nUnit, this));
                 PubEventHelper.PublishEventToHandlers((nUnit, this as ITreeService),_treeUnitAddedEventHandlers);

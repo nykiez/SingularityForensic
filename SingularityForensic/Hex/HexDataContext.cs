@@ -26,9 +26,9 @@ namespace SingularityForensic.Hex {
             };
 
             _customBackgroundBlocksWrapper = new CollectionWrapper<
-                ICustomBackgroundBlock, 
-                WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock
-            >(p => new CutomBackgroundBlockWrapper(p), _vm.CustomBackgroundBlocks);
+                IBrushBlock, 
+                WpfHexaEditor.Core.Interfaces.IBrushBlock
+            >(p => new BrushBlockWrapper(p), _vm.CustomBackgroundBlocks);
         }
 
         public bool ReadOnlyMode { get; set; }
@@ -62,14 +62,19 @@ namespace SingularityForensic.Hex {
             set => _vm.FocusPosition = value;
         }
 
-        public ICollection<ICustomBackgroundBlock> CustomBackgroundBlocks => _customBackgroundBlocksWrapper;
+        public ICollection<IBrushBlock> CustomBackgroundBlocks => _customBackgroundBlocksWrapper;
 
-        private CollectionWrapper<ICustomBackgroundBlock, WpfHexaEditor.Core.Interfaces.ICustomBackgroundBlock> _customBackgroundBlocksWrapper;
+        private CollectionWrapper<IBrushBlock, WpfHexaEditor.Core.Interfaces.IBrushBlock> _customBackgroundBlocksWrapper;
             
 
         private HexViewViewModel _vm = new HexViewViewModel();
         
         public object UIObject { get; }
+
+        public IBytesToCharEncoding BytesToCharEncoding {
+            get => (_vm.BytesToCharEncoding as BytesToCharEncodingWrapper)?.Encoding;
+            set => _vm.BytesToCharEncoding = new BytesToCharEncodingWrapper(value);  
+        }
 
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();

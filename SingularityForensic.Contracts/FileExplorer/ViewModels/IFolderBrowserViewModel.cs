@@ -27,8 +27,13 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
 
         event EventHandler SelectedFileChanged;
         
-        ICollection<IFileRow> Files { get; }
+        IEnumerable<IFileRow> Files { get; }
         
+        /// <summary>
+        /// 添加文件;
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="isFromUIThread">是否从UI线程调用的</param>
         void FillRows(IEnumerable<IFile> files);
 
         event EventHandler FilesChanged;

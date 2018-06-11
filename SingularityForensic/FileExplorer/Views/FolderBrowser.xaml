@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SingularityForensic.Controls.FileExplorer.Views.FolderBrowser"
+﻿<UserControl x:Class="SingularityForensic.FileExplorer.Views.FolderBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -97,9 +97,9 @@
             <Border/>
         </DockPanel>
 
-        <gv:RadGridViewEx ItemsSource="{Binding Files}" Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended"
+        <gv:RadGridViewEx ItemsSource="{Binding FileRows}" Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended"
   SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" 
-                          IsReadOnly="True" SelectionUnit="FullRow" SelectionChanged="RadGridViewEx_SelectionChanged" x:Name="gridView"
+                          IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView"
                              Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
                              >

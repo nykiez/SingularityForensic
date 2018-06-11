@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
-    [Export(typeof(ICustomBackgroundBlockFactory))]
-    class CustomBackgroundBlockFactoryImpl : ICustomBackgroundBlockFactory {
-        public ICustomBackgroundBlock CreateNewBackgroundBlock() => new CustomBackgroundBlock();
+    [Export(typeof(IBrushBlockFactory))]
+    class CustomBackgroundBlockFactoryImpl : IBrushBlockFactory {
+        public IBrushBlock CreateNewBackgroundBlock() => new CustomBackgroundBlock();
 
-        public ICustomBackgroundBlock CreateNewBackgroundBlock(long startOffset, long length, Brush background) =>
+        public IBrushBlock CreateNewBackgroundBlock(long startOffset, long length, Brush background) =>
             new CustomBackgroundBlock {
                 StartOffset = startOffset,
                 Length = length,

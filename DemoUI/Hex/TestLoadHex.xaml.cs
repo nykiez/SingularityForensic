@@ -22,7 +22,7 @@ namespace DemoUI.Hex {
         private IHexDataContext _dataContext;
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e) {
-            _dataContext.CustomBackgroundBlocks.Add(CustomBackgroundBlockFactory.CreateNewBackgroundBlock(1, 1024, Brushes.AliceBlue));
+            _dataContext.CustomBackgroundBlocks.Add(BrushBlockFactory.CreateNewBackgroundBlock(1, 1024, Brushes.AliceBlue));
             _dataContext.UpdateCustomBackgroundBlocks();
         }
     }

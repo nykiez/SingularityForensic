@@ -10,6 +10,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
             xmlns:sviews="clr-namespace:SingularityForensic.Shell.Views"
+                    xmlns:cvts="http://singularity/converters"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts" 
                    x:Name="shell"
@@ -62,6 +63,9 @@
         <ContentControl prism:RegionManager.RegionName="{x:Static shell:Constants.StatusBarRegion}" Grid.Row="3"/>
         <!--<sviews:LoadingMask Grid.Column="1" Grid.ColumnSpan="3" 
                             Visibility="{Binding IsLoading,Converter={x:Static publicCvts:BoolToVisibilityConverter.StaticInstance},FallbackValue=Visible}"/>-->
+        <Rectangle Fill="White" Grid.RowSpan="5" Opacity="0"
+                   Visibility="{Binding IsLoading, Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance}}" />
+
     </Grid>
         
     

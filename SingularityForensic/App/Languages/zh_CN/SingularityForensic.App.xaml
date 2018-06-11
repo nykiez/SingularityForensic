@@ -237,4 +237,5 @@
   <sys:String x:Key="MsgBtnText_Cancel">取消</sys:String>
   <sys:String x:Key="MsgBtnText_Yes">确定</sys:String>
   <sys:String x:Key="WindowTitle_Tip">提示</sys:String>
+  <sys:String x:Key="MsgText_ConfirmToCancel">确定要取消吗?</sys:String>
 </ResourceDictionary>

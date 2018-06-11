@@ -12,6 +12,7 @@ namespace SingularityForensic.Hex {
                 GetEvent<Contracts.Splash.Events.SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.SplashText_HexModuleBeingLoaded));
             
+            
             HexUIService.Current.Initialize();
         }
 

@@ -100,7 +100,7 @@ namespace SingularityForensic.Ext {
                 return;
             }
 
-            if (part.TypeGuids?.Contains(Constants.PartitionType_Ext) ?? false) {
+            if (!part.TypeGuids?.Contains(Constants.PartitionType_Ext) ?? false) {
                 return;
             }
 

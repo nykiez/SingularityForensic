@@ -233,12 +233,7 @@
         
     </UserControl.Resources>
     <dialogs:CustomDialog HorizontalAlignment="Stretch" Background="White" VerticalAlignment="Stretch" >
-        <!--<dialogs:CustomDialog.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="White"  Offset="0"/>
-                <GradientStop Color="White"  Offset="1"/>
-            </LinearGradientBrush>
-        </dialogs:CustomDialog.Background>-->
+        
         <dialogs:CustomDialog.OpacityMask>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="Green" Offset="1"/>

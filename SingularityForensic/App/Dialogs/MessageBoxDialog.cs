@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 
 namespace SingularityForensic.App.Dialogs {
-    public static class SingularityMessageBoxDialog {
+    public static class MessageBoxDialog {
         public static MessageBoxResult Show(string msgText) {
             return Show(msgText, Contracts.App.LanguageService.FindResourceString("Tip"), MessageBoxButton.OK);
         }

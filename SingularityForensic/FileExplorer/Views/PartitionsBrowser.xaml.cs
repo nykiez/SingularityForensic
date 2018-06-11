@@ -1,4 +1,5 @@
 ﻿using CDFCUIContracts.Helpers;
+using SingularityForensic.Controls;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +7,7 @@ using System.Windows.Input;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 
-namespace SingularityForensic.Controls.FileExplorer.Views {
+namespace SingularityForensic.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for PartitionsBrowser.xaml
     /// </summary>
@@ -25,8 +26,6 @@ namespace SingularityForensic.Controls.FileExplorer.Views {
         private void RadGridViewEx_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
             var args = new Contracts.Controls.GridViewAutoGeneratingColumnEventArgs(e.ItemPropertyInfo);
             (this.DataContext as IInteractionGridViewModel)?.NotifyAutoGeneratingColumns(args);
-
-
             e.Column.CellTemplate = args.CellTemplate;
             if (e.Column is GridViewDataColumn dataColumn
                 && dataColumn.DataMemberBinding != null) {

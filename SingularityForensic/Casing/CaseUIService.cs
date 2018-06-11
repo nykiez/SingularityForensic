@@ -98,6 +98,10 @@ namespace SingularityForensic.Casing {
 
         //证据项被加载完成时发生;
         private void OnEvidenceLoaded(ICaseEvidence evidence) {
+            LoadEvidenceUnitToTree(evidence);
+        }
+
+        private void LoadEvidenceUnitToTree(ICaseEvidence evidence) {
             var nodeService = MainTreeService.Current;
             if (nodeService == null) {
                 LoggerService.WriteCallerLine($"{nameof(nodeService)} can't be null.");
@@ -120,9 +124,7 @@ namespace SingularityForensic.Casing {
                     MsgBoxService.ShowError(ex.Message);
                 });
             }
-            ThreadInvoker.UIInvoke(() => {
-                nodeService.AddUnit(nodeService.CurrentUnits.FirstOrDefault(), unit);
-            });
+            nodeService.AddUnit(nodeService.CurrentUnits.FirstOrDefault(), unit);
         }
 
         //案件被卸载时发生;

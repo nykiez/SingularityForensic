@@ -10,6 +10,7 @@ namespace SingularityForensic.Contracts.Common {
     public interface ILoggerService {
         void WriteLine(string msg);
         void WriteCallerLine(string msg,[CallerMemberName] string callerName = null);
+        void WriteException(Exception ex, [CallerMemberName] string callerName = null);
     }
 
     /// <summary>
@@ -19,5 +20,7 @@ namespace SingularityForensic.Contracts.Common {
         public static void WriteCallerLine(string msg) => Current?.WriteLine(msg);
 
         public static void WriteLine(string msg) => Current?.WriteLine(msg);
+
+        public static void WriteException(Exception ex, [CallerMemberName] string callerName = null) => Current?.WriteException(ex);
     }
 }

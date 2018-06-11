@@ -171,6 +171,9 @@ namespace SingularityForensic.FileExplorer {
         
         public const string StatusBarItemText_DirectoryCount = nameof(StatusBarItemText_DirectoryCount);
 
+
+        public const string MsgText_FileBeingShown = nameof(MsgText_FileBeingShown);
+
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
