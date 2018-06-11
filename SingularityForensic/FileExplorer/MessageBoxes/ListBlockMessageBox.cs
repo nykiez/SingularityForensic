@@ -46,7 +46,7 @@ namespace SingularityForensic.FileExplorer.MessageBoxes {
         public IFile File { get; }
         public void Show() {
             try {
-                if(ShellService.Current.Shell is Window owner) {
+                if(ShellService.Current.Shell is Window owner && owner.IsLoaded) {
                     _window.Owner = owner;
                     _window.ShowInTaskbar = false;
                 }

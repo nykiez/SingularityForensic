@@ -127,6 +127,7 @@ namespace SingularityForensic.FAT {
             LoadPartContent(part, reporter);
             
             part.Disposing += OnPartDisposing;
+
             return part;
         }
 

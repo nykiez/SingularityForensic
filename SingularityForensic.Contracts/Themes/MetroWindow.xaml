@@ -292,6 +292,7 @@
     <Style x:Key="DefaultMsgWindowStyle" TargetType="{x:Type metros:MetroWindow}" 
            BasedOn="{StaticResource DefaultMWindow}">
         <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="WindowTransitionsEnabled" Value="False"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="WindowTitleBrush" Value="{DynamicResource Window.TitleBrush}"/>
         <Setter Property="Padding" Value="0,0,0,12"/>

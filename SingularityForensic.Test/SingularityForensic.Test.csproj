@@ -110,6 +110,7 @@
     <Compile Include="Casing\Commands\OpenCasePathCommandItemTests.cs" />
     <Compile Include="Common\CommonMockers.cs" />
     <Compile Include="Common\GenericServiceStaticInstance2Tests.cs" />
+    <Compile Include="Common\TestSerializer.cs" />
     <Compile Include="Common\TestExtensibleObject.cs" />
     <Compile Include="Common\AppDataFolderTest.cs" />
     <Compile Include="Common\ViewProviderTests.cs" />

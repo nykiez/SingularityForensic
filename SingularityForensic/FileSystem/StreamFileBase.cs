@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,11 +33,27 @@ namespace SingularityForensic.FileSystem {
 
         private bool _disposed = false;
         public virtual void Dispose() {
+            if (_disposed) {
+                return;
+            }
+
+
             if (!_disposed) {
-                Disposing?.Invoke(this, EventArgs.Empty);
-                BaseStream?.Close();
-                _stoken.BaseStream = null;
-                _disposed = true;
+                try {
+                    BaseStream?.Close();
+                    _stoken.BaseStream = null;
+                    _disposed = true;
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                }
+
+                try {
+                    Disposing?.Invoke(this, EventArgs.Empty);
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                }
             }
         }
 

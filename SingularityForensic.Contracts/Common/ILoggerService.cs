@@ -11,16 +11,19 @@ namespace SingularityForensic.Contracts.Common {
         void WriteLine(string msg);
         void WriteCallerLine(string msg,[CallerMemberName] string callerName = null);
         void WriteException(Exception ex, [CallerMemberName] string callerName = null);
+        void WriteStack(string msg, [CallerMemberName] string callerName = null);
     }
 
     /// <summary>
 	/// Contains an <see cref="IMessageBoxService"/> instance
 	/// </summary>
 	public class LoggerService : GenericServiceStaticInstance<ILoggerService> {
-        public static void WriteCallerLine(string msg) => Current?.WriteLine(msg);
-
         public static void WriteLine(string msg) => Current?.WriteLine(msg);
 
-        public static void WriteException(Exception ex, [CallerMemberName] string callerName = null) => Current?.WriteException(ex);
+        public static void WriteCallerLine(string msg, [CallerMemberName] string callerName = null) => Current?.WriteCallerLine(msg,callerName);
+
+        public static void WriteException(Exception ex, [CallerMemberName] string callerName = null) => Current?.WriteException(ex,callerName);
+
+        public static void WriteStack(string msg, [CallerMemberName] string callerName = null) => Current?.WriteStack(msg, callerName);
     }
 }

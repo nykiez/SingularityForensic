@@ -138,7 +138,7 @@ namespace SingularityForensic.Ext {
 
             var stSuperBlockPtr = ExtX_SuperBlock(partInfo.ExtUnmanagedManager.ExtManagerPtr);
             if(stSuperBlockPtr == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(stSuperBlockPtr)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(stSuperBlockPtr)} can't be nullptr.");
                 return;
             }
             else {
@@ -147,7 +147,7 @@ namespace SingularityForensic.Ext {
 
             var stGroupDescPtr = ExtX_GroupDesc(partInfo.ExtUnmanagedManager.ExtManagerPtr);
             if(stGroupDescPtr == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(stGroupDescPtr)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(stGroupDescPtr)} can't be nullptr.");
                 return;
             }
             else {
@@ -160,7 +160,6 @@ namespace SingularityForensic.Ext {
         }
 
         private static void LoadPartContent(IPartition part,IProgressReporter reporter) {
-
             var partStoken = part.GetStoken(Constants.PartitionKey_Ext);
             var partInfo = partStoken.GetIntance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
             var partManager = partInfo.ExtUnmanagedManager;
@@ -177,19 +176,19 @@ namespace SingularityForensic.Ext {
 
             var stExt4INodePtr = ExtX_Get_InodeInfo(partManager.ExtManagerPtr,2);                  //加载Inode,BlockList,Dir;
             if(stExt4INodePtr == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(stExt4INodePtr)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(stExt4INodePtr)} can't be nullptr.");
                 return;
             }
 
             var stBlockListPtr = ExtX_Get_BlockList(partManager.ExtManagerPtr,stExt4INodePtr);     //加载Inode,BlockList,Dir;
             if(stBlockListPtr == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(stBlockListPtr)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(stBlockListPtr)} can't be nullptr.");
                 return;
             }
             
             var stDirEntryPtr = ExtX_Parse_Dir(partManager.ExtManagerPtr, stBlockListPtr);            //加载Inode,BlockList,Dir;
             if (stDirEntryPtr == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(stDirEntryPtr)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(stDirEntryPtr)} can't be nullptr.");
                 return;
             }
 
@@ -430,16 +429,16 @@ namespace SingularityForensic.Ext {
                 throw new ArgumentNullException(nameof(extFileInfo));
             }
 
-            if (extFileInfo.BlockListPtr == null) {
-                throw new InvalidOperationException($"{nameof(extFileInfo.BlockListPtr)} of {nameof(ExtFileInfo)} can't be nullptr.");
-            }
+            //if (extFileInfo.BlockListPtr == null) {
+            //    throw new InvalidOperationException($"{nameof(extFileInfo.BlockListPtr)} of {nameof(ExtFileInfo)} can't be nullptr.");
+            //}
 
             if (partInfo == null) {
                 throw new ArgumentNullException(nameof(partInfo));
             }
 
             if(extFileInfo.BlockList == null) {
-                LoggerService.WriteCallerLine($"{nameof(extFileInfo.BlockList)} can't be null.");
+                //LoggerService.WriteCallerLine($"{nameof(extFileInfo.BlockList)} can't be null.");
                 return;
             }
             

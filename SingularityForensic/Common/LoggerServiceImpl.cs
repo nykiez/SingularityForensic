@@ -2,6 +2,7 @@
 using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace SingularityForensic.Common {
@@ -12,11 +13,11 @@ namespace SingularityForensic.Common {
         }
 
         public void WriteException(Exception ex, [CallerMemberName] string callerName = null) {
-            Logger.WriteCallerLine(ex.Message);
-            Logger.WriteCallerLine(ex.StackTrace);
+            Logger.WriteCallerLine($"{nameof(Exception)}:{ex.Message}");
+            Logger.WriteCallerLine($"{nameof(ex.StackTrace)}:{ex.StackTrace}");
             var ie = ex.InnerException;
-            if(ie != null) {
-                Logger.WriteLine(ie.Message);
+            while(ie != null) {
+                Logger.WriteLine($"\t{nameof(Type)}:{ie.GetType()}\t{nameof(ie.Message)}:{ie.Message}");
                 //if(ie is System.ComponentModel.Composition.CompositionException ce) {
                 //    foreach (var err in ce.Errors) {
                 //        Logger.WriteLine(err.Description);
@@ -29,6 +30,12 @@ namespace SingularityForensic.Common {
 
         public void WriteLine(string msg) {
             Logger.WriteLine(msg);
+        }
+
+        public void WriteStack(string msg, [CallerMemberName] string callerName = null) {
+            var st = new StackFrame(1);
+            var sm = st.GetMethod();
+            WriteLine($"{sm?.ReflectedType?.FullName} -> {callerName} : {msg}");
         }
     }
 }

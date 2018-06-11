@@ -24,7 +24,6 @@ namespace SingularityForensic.ITunes {
 
             var iosFileStruct = file.GetIntance<IOSFileStruct?>(Constants.RegularFileTag_ITunesBackUp);
             if (iosFileStruct == null) {
-                LoggerService.WriteCallerLine($"{nameof(iosFileStruct)} can't be null.");
                 return null;
             }
 
