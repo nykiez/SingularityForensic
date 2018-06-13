@@ -31,7 +31,7 @@ namespace SingularityForensic.FileSystem {
                 LoggerService.WriteCallerLine($"{nameof(blockGrouped.BlockGroups)} can't be null.");
                 return null;
             }
-
+            
             //检查块组集合是否为空;
             if (blockGrouped.BlockGroups.FirstOrDefault() == null) {
                 LoggerService.WriteCallerLine($"{nameof(blockGrouped.BlockGroups)} can't be empty.");

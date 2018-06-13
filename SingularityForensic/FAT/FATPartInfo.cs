@@ -7,6 +7,7 @@
         /// 非托管状态;
         /// </summary>
         public UnmanagedFATManager UnmanagedFATManager { get; set; }
+
         /// <summary>
         /// 引导扇区
         /// </summary>

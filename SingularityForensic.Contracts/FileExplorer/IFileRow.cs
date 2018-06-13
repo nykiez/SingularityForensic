@@ -8,8 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileExplorer {
-    public interface IFileRowProxy<TFile> where TFile : IFile {
+    public interface IFileRowProxy<TFile> :INotifyPropertyChanged,ICustomNotify where TFile : IFile {
         TFile File { get; }
+        /// <summary>
+        /// 是否被标记;
+        /// </summary>
+        bool IsChecked { get; set; }
     }
 
     public interface IFileRow : IFileRowProxy<IFile> {

@@ -17,7 +17,7 @@ namespace SingularityForensic.Contracts.Hex {
     }
     
 
-    public interface IHexDataContext:IUIObjectProvider,IInstanceExtensible {
+    public interface IHexDataContext:IUIObjectProvider,IExtensible {
         bool ReadOnlyMode { get; set; }
         Stream Stream { get; set; }
 

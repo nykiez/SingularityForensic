@@ -18,7 +18,7 @@ namespace SingularityShell {
             
             //框架模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Dummy).Assembly));
-
+            
 
             ////取证信息模块;
             //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfoModule).Assembly));
@@ -48,8 +48,9 @@ namespace SingularityShell {
         }
 
         protected override DependencyObject CreateShell() {
-            ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
+            ServiceProvider.SetServiceProvider(new MefServiceProvider(ServiceLocator.Current));
             ViewProvider.SetViewProvider(new ViewProviderImpl(ServiceProvider.Current));
+            
             //因为各个模块都可能用到语言服务,必须先初始化语言服务;
             LanguageService.Current.Initialize();
             return ViewProvider.GetView(SingularityForensic.Contracts.Shell.Constants.ShellView) as DependencyObject;

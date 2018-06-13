@@ -25,25 +25,22 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IFile file) => file?.Name;
     }
-
     
-    abstract class FileSizeMetaDataProviderBase : IFileMetaDataProvider {
-        public string MetaDataName =>
+    abstract class FileSizeMetaDataProviderBase : FileMetaDataProvider {
+        public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Size);
 
-        public Type MetaDataType => typeof(long?);
+        public override Type MetaDataType => typeof(long?);
 
-        public string GUID => Constants.FileMetaDataGUID_Size;
+        public override string GUID => Constants.FileMetaDataGUID_Size;
+        
+        public override object GetMetaData(IFile file) => file.Size;
 
-        public abstract int Order { get; }
+        public override IValueConverter Converter => ByteSizeToSizeConverter.StaticInstance;
 
-        public object GetMetaData(IFile file) => file.Size;
-
-        public virtual IValueConverter Converter => ByteSizeToSizeConverter.StaticInstance;
-
-        public virtual DataTemplate CellTemplate => null;
+        public override DataTemplate CellTemplate => null;
     }
-
+    
     /// <summary>
     /// 文件名元数据提供器;
     /// </summary>
@@ -64,19 +61,23 @@ namespace SingularityForensic.FileExplorer {
                     iconFactory.SetBinding(Image.SourceProperty, iconBinding);
                     iconFactory.SetValue(Image.WidthProperty, 17.0);
 
+                    var chkFactory = new FrameworkElementFactory(typeof(CheckBox));
+                    var chkBinding = new Binding();
+                    chkBinding.Path = new PropertyPath(nameof(IFileRowProxy<IFile>.IsChecked));
+                    chkBinding.Mode = BindingMode.TwoWay;
+                    chkFactory.SetBinding(CheckBox.IsCheckedProperty, chkBinding);
+                    chkFactory.SetValue(CheckBox.IsThreeStateProperty, false);
+                    chkFactory.SetValue(CheckBox.PaddingProperty, new Thickness(0,0,0,0));
+
                     var txbFactory = new FrameworkElementFactory(typeof(TextBlock));
                     var nameBinding = new Binding();
                     nameBinding.Path = new PropertyPath(this.GUID);
                     txbFactory.SetBinding(TextBlock.TextProperty, nameBinding);
 
+                    fef.AppendChild(chkFactory);
                     fef.AppendChild(iconFactory);
                     fef.AppendChild(txbFactory);
-                    
-                    //binding.Path = new PropertyPath("MarketIndicator");
-                    //fef.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-                    //fef.SetBinding(CheckBox.ContentProperty, binding);
-                    //fef.SetValue(CheckBox.ForegroundProperty, Brushes.White);
-                    
+
                     _cellTemplate.VisualTree = fef;
                     _cellTemplate.Seal();
                 }
@@ -101,7 +102,21 @@ namespace SingularityForensic.FileExplorer {
                 throw new NotImplementedException();
             }
         }
+
+        public class FileToCheckedConverter : GenericStaticInstance<FileToCheckedConverter>, IValueConverter {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+                if (value is IFile file) {
+                    return true;
+                }
+                return false;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+                return null;
+            }
+        }
     }
+
     
     [Export(typeof(IFileMetaDataProvider))]
     class FileDeletedMetaDataProvider : FileMetaDataProvider {
@@ -197,9 +212,7 @@ namespace SingularityForensic.FileExplorer {
             return part.PartType?.PartTypeName;
         }
     }
-
     
-
     [Export(typeof(IPartitionMetaDataProvider))]
     class PartitionStartLBAMetaDataProvider : PartitionMetaDataProvider {
         public override string MetaDataName => LanguageService.FindResourceString(Constants.PartMetaDataName_StartLBA);
@@ -309,10 +322,13 @@ namespace SingularityForensic.FileExplorer {
 
         public override int Order => 12;
 
+        public override bool ShowDistinctFilters => false;
+
         public override object GetMetaData(IFile file) {
             if(file == null) {
                 return null;
             }
+
             return file.GetFullFileName();
             
         }

@@ -10,7 +10,7 @@ namespace SingularityForensic.Contracts.Document {
     /// <summary>
     /// 文档实体结构契约基类;
     /// </summary>
-    public interface IDocumentBase:IUIObjectProvider,IInstanceExtensible {
+    public interface IDocumentBase:IUIObjectProvider,IExtensible {
         string Title { get; set; }
         IList<ICommandItem> CustomCommands { get; }
     }

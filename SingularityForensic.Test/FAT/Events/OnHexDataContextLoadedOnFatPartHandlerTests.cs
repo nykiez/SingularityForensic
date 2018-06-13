@@ -50,7 +50,7 @@ namespace SingularityForensic.Test.FAT.Events {
             var hexDataContext = HexService.Current.CreateNewHexDataContext(null);
             var part = FatMockers.GetFATPartitition();
             Assert.IsNotNull(part);
-            hexDataContext.SetInstance<IFile>(part,Contracts.FileExplorer.Constants.HexDataContextTag_File);
+            hexDataContext.SetInstance<IFile>(part, SingularityForensic.Contracts.FileExplorer.Constants.HexDataContextTag_File);
             _onHexDataContextLoadedOnFatPartHandler.Handle(hexDataContext);
 
 

@@ -26,12 +26,12 @@ namespace SingularityForensic.Test.ITunes {
             AppMockers.OpenDirName =  "H://iosb";
             _iTunesBackUpService.AddITunesBackUpDir();
             
-            Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedFiles.Count(), 1);
-            var file = Contracts.FileSystem.FileSystemService.Current.MountedFiles.ElementAt(0);
-            Assert.AreEqual(file.file.Name, "iosb");
+            Assert.AreEqual(SingularityForensic.Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 1);
+            var file = SingularityForensic.Contracts.FileSystem.FileSystemService.Current.MountedUnits.ElementAt(0);
+            Assert.AreEqual(file.File.Name, "iosb");
 
-            Assert.AreEqual(Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
-            var csEvidence = Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.ElementAt(0);
+            Assert.AreEqual(SingularityForensic.Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
+            var csEvidence = SingularityForensic.Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.ElementAt(0);
             Assert.AreEqual(csEvidence.Name , "iosb");
 
             Assert.AreEqual(_iTunesBackUpService.Managers.Count(), 1);

@@ -17,7 +17,6 @@ namespace SingularityForensic.Test {
             ServiceProvider.SetServiceProvider(ExportProviderServiceProviderMocker.StaticInstance);
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Dummy).Assembly));
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Contracts.Dummy).Assembly));
             
             var container = new CompositionContainer(catalog);
 

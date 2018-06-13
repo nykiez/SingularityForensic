@@ -499,12 +499,12 @@ namespace SingularityForensic.FAT {
             }
             
             if ((fatFileInfo.StFileNode?.stClusterList ?? IntPtr.Zero) == IntPtr.Zero) {
-                LoggerService.WriteCallerLine($"{nameof(StFatFileNode.stClusterList)} can't be nullptr.");
+                //LoggerService.WriteCallerLine($"{nameof(StFatFileNode.stClusterList)} can't be nullptr.");
                 return;
             }
 
             if (partInfo.ClusterSize == null) {
-                LoggerService.WriteCallerLine($"{nameof(partInfo.ClusterSize)} of {nameof(partInfo)} can't be null.");
+                //LoggerService.WriteCallerLine($"{nameof(partInfo.ClusterSize)} of {nameof(partInfo)} can't be null.");
                 return;
             }
 

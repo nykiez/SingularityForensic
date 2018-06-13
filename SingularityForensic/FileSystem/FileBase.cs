@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ namespace SingularityForensic.FileSystem {
     /// <summary>
     /// 文件基类;
     /// </summary>
-    [Serializable]
     public abstract class FileBase : IFile {
         public abstract IEnumerable<string> TypeGuids { get; }
 
@@ -25,6 +25,9 @@ namespace SingularityForensic.FileSystem {
         internal void ChangeParent(IFile parent) {
             InternalParent = parent;
         }
+
+        private IExtensible _extensibleTag;
+        public IExtensible ExtensibleTag => _extensibleTag ?? (_extensibleTag = new ExtensibleObject());
     }
 
     /// <summary>

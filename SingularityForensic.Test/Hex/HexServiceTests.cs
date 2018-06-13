@@ -30,7 +30,7 @@ namespace SingularityForensic.Test.Hex {
             enumDoc.AddDocument(hexDoc);
             enumDoc.SelectedDocument = hexDoc;
             var context = _hexService.CreateNewHexDataContext(null);
-            hexDoc.SetInstance(context, Contracts.Hex.Constants.Tag_HexDataContext);
+            hexDoc.SetInstance(context, SingularityForensic.Contracts.Hex.Constants.Tag_HexDataContext);
 
             ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand.CanExecuteChanged += (sender, e) => {
                 canExecuteCatched = true;

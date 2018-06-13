@@ -29,14 +29,13 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// <param name="part">模型所属主文件</param>
         public FolderBrowserViewModel(IHaveFileCollection part) {
             this.HaveFileCollection = part ?? throw new ArgumentNullException(nameof(part));
-            Initialize();
-            this.FillWithCollection(part);
         }
 
-        private void Initialize() {
+        public void Initialize() {
             InitializeFileRowDescriptors();
             InitializeColumns();
             InitializeEventHandlers();
+            this.FillWithCollection(HaveFileCollection);
         }
 
         private void InitializeEventHandlers() {
@@ -157,7 +156,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             loadingDialog.ShowDialog();
             
             this.FilesChanged?.Invoke(this, EventArgs.Empty);
-            RaisePropertyChanged(nameof(FilterSettings));
+            //RaisePropertyChanged(nameof(FilterSettings));
+
+#if DEBUG
+            ((FileRow)FileRows[0]).CheckSubscribed();
+#endif
         }
 
         public event EventHandler FilesChanged;
@@ -241,7 +244,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
             
             e.CellTemplate = fileRowPropDescriptor.FileMetaDataProvider.CellTemplate;
+            e.Cancel = fileRowPropDescriptor.FileMetaDataProvider.IsHidden;
             e.Converter = fileRowPropDescriptor.FileMetaDataProvider.Converter;
+            e.ShowDistinctFilters = fileRowPropDescriptor.FileMetaDataProvider.ShowDistinctFilters;
         }
     }
     

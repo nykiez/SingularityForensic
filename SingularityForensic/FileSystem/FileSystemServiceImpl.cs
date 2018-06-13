@@ -17,9 +17,9 @@ namespace SingularityForensic.FileSystem {
             this._parsingProvider = ServiceProvider.GetAllInstances<IStreamParsingProvider>().OrderBy(p => p.Order).ToArray();
         }
         
-        private List<(IFile file, XElement xElem)> _enumFiles = new List<(IFile file, XElement xElem)>();
+        private List<IMountedUnit> _enumFiles = new List<IMountedUnit>();
 
-        public IEnumerable<(IFile file, XElement xElem)> MountedFiles => _enumFiles.Select(p => p);
+        public IEnumerable<IMountedUnit> MountedUnits => _enumFiles.Select(p => p);
         
         public IFile MountStream(Stream stream,string name,XElement xElem, IProgressReporter reporter) {
             IFile file = null;
@@ -46,7 +46,7 @@ namespace SingularityForensic.FileSystem {
             }
 
             if (file != null) {
-                _enumFiles.Add((file, xElem));
+                _enumFiles.Add(new MountedUnit { File = file, XElem = xElem });
                 return file;
             }
 
@@ -62,10 +62,10 @@ namespace SingularityForensic.FileSystem {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            var tuples = _enumFiles.Where(p => p.file == file).ToArray();
+            var tuples = _enumFiles.Where(p => p.File == file).ToArray();
             foreach (var tuple in tuples) {
                 try {
-                    if(tuple.file is IDisposable disOb) {
+                    if(tuple.File is IDisposable disOb) {
                         disOb.Dispose();
                     }
                 }
@@ -87,9 +87,19 @@ namespace SingularityForensic.FileSystem {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            _enumFiles.Add((file, xElem));
+            _enumFiles.Add(new MountedUnit {
+                File = file,
+                XElem = xElem
+            });
         }
 
         
     }
+
+    class MountedUnit : IMountedUnit {
+        public IFile File { get; internal set; }
+
+        public XElement XElem { get; internal set; }
+    }
+
 }

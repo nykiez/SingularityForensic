@@ -42,9 +42,11 @@ namespace SingularityForensic.FileExplorer.Views {
         private void RadGridView_AutoGeneratingColumn(object sender,Telerik.Windows.Controls.GridViewAutoGeneratingColumnEventArgs e) {
             var args = new Contracts.Controls.GridViewAutoGeneratingColumnEventArgs(e.ItemPropertyInfo);
             (this.DataContext as IInteractionGridViewModel)?.NotifyAutoGeneratingColumns(args);
-            
-            
+
+            e.Cancel = args.Cancel;
             e.Column.CellTemplate = args.CellTemplate;
+            e.Column.ShowDistinctFilters = args.ShowDistinctFilters;
+            
             if(e.Column is GridViewDataColumn dataColumn
                 && dataColumn.DataMemberBinding != null) {
                 dataColumn.DataMemberBinding.Converter = args.Converter;

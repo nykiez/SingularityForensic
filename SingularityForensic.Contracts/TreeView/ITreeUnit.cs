@@ -14,7 +14,7 @@ namespace SingularityForensic.Contracts.TreeView {
     /// <summary>
     /// 树形节点契约;
     /// </summary>
-    public interface ITreeUnit:IInstanceExtensible {
+    public interface ITreeUnit:IExtensible {
         /// <summary>
         /// 父节点;
         /// </summary>

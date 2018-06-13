@@ -10,9 +10,35 @@ using System.Security.Authentication;
 
 namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
+    /// 所有文件相关接口契约;
+    /// </summary>
+    public interface IFile : IReadOnlyExtensible {
+        /// <summary>
+        /// 类型标识;
+        /// </summary>
+        IEnumerable<string> TypeGuids { get; }
+
+        /// <summary>
+        /// 父节点;
+        /// </summary>
+        IFile Parent { get; }
+
+        /// <summary>
+        /// 名称;
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// 大小;
+        /// </summary>
+        long Size { get; }
+
+        IExtensible ExtensibleTag { get; }
+    }
+
+    /// <summary>
     /// 用于某块内部使用的文件信息(Tag可自定义,外部需要根据Key拿到所需数据);
     /// </summary>
-    [Serializable]
     public abstract class FileStokenBase : ExtensibleObject, IHaveExtendTime {
         public IEnumerable<string> TypeGuids { get; set; }          //文件类型;
         public string Name { get; set; }                //文件名;
@@ -37,7 +63,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
     /// 用于描述文件,文件夹等具有时间,块组特性的文件的信息;
     /// </summary>
-    [Serializable]
     public abstract class FileStokenBase2 : FileStokenBase, IHaveFileTime, IDeletable {
         public DateTime? ModifiedTime { get; set; }
 
@@ -58,15 +83,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         bool? Deleted { get; }
     }
     
-    public interface IFile : IInstanceReadOnlyExtensible {
-        IEnumerable<string> TypeGuids { get; }
-
-        IFile Parent { get; }
-
-        string Name { get; }
-
-        long Size { get; }
-    }
+   
     
     public interface IFile<TStoken> : IHaveStoken<TStoken>,IFile where TStoken : FileStokenBase, new() {
         DateTime? GetExtensionTime(string timeLabel);
@@ -94,7 +111,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
     /// 常规文件内部信息;
     /// </summary>
-    [Serializable]
     public class RegularFileStoken : FileStokenBase2 {
 
     }
@@ -102,7 +118,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// <summary>
     /// 文件夹内部信息;
     /// </summary>
-    [Serializable]
     public class DirectoryStoken : FileStokenBase2 {
         /// <summary>
         /// 是否为上级目录;

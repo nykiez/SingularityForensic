@@ -38,7 +38,7 @@ namespace SingularityForensic.FileSystem
                     }
                 }
                 catch (Exception ex) {
-                    LoggerService.WriteCallerLine(ex.Message);
+                    LoggerService.WriteException(ex);
                 }
             }
 

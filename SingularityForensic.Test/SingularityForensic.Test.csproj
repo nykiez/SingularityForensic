@@ -132,9 +132,11 @@
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
+    <Compile Include="FileExplorer\TestFileMetaDataProvider.cs" />
     <Compile Include="FileExplorer\ViewerSeviceImplTests.cs" />
     <Compile Include="BaseDevice\DosAndGptTest.cs" />
     <Compile Include="FAT\FatStreamParsingProviderTest.cs" />
+    <Compile Include="FileSystem\FileSystemExtensionsTests.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="BaseDevice\DosAndGptNativeTest.cs" />

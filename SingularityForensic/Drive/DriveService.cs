@@ -99,9 +99,9 @@ namespace SingularityForensic.Drive {
 
             foreach (var evidence in DriveEvidences) {
                 //文件系统卸载镜像文件;
-                var files = fsService.MountedFiles.Where(p => evidence.XElem == p.xElem).ToArray();
+                var files = fsService.MountedUnits.Where(p => evidence.XElem == p.XElem).ToArray();
                 foreach (var file in files) {
-                    fsService.UnMountFile(file.file);
+                    fsService.UnMountFile(file.File);
                 }
             }
 
@@ -137,9 +137,7 @@ namespace SingularityForensic.Drive {
             if(evidence.EvidenceTypeGuids == null) {
                 return;
             }
-
-            if (DriveEvidences.Contains(evidence)) { 
-}
+            
             if (!(evidence.EvidenceTypeGuids.Contains(EvidenceType_LocalVolume) ||
                 evidence.EvidenceTypeGuids.Contains(EvidenceType_LocalHDD))) {
                 return;
@@ -151,18 +149,15 @@ namespace SingularityForensic.Drive {
                 return;
             }
 
-            
-            //var tuples = DriveEvidences.Where(p => p == evidence).ToArray();
-            //foreach (var tuple in tuples) {
-            //    //文件系统卸载文件;
-            //    var files = fsService.MountedFiles.Where(p => tuple.XElem == p.xElem).ToArray();
-            //    foreach (var fileTuple in files) {
-            //        fsService.UnMountFile(fileTuple.file);
-            //    }
 
-            //    tuple.mounter.Dispose();
-            //    _mounterTuples.Remove(tuple);
-            //}
+            var tuples = DriveEvidences.Where(p => p == evidence).ToArray();
+            foreach (var tuple in tuples) {
+                //文件系统卸载文件;
+                var files = fsService.MountedUnits.Where(p => tuple.XElem == p.XElem).ToArray();
+                foreach (var fileTuple in files) {
+                    fsService.UnMountFile(fileTuple.File);
+                }
+            }
         }
 
         /// <summary>

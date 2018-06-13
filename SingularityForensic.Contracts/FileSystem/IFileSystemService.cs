@@ -43,8 +43,15 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 所有文件;
         /// file为对应的文件管理单元,xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
         /// </summary>
-        IEnumerable<(IFile file,XElement xElem)> MountedFiles { get; }
+        IEnumerable<IMountedUnit> MountedUnits { get; }
+        
     }
+
+    public interface IMountedUnit {
+        IFile File { get; }
+        XElement XElem { get; }
+    }
+
 
     public class FileSystemService :GenericServiceStaticInstance<IFileSystemService> {
 
@@ -67,14 +74,14 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return null;
             }
 
-            foreach (var (file, xElem) in fsService.MountedFiles) {
+            foreach (var unit in fsService.MountedUnits) {
                 
-                if(xElem.Element(nameof(ICaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
-                    if(file is IDevice device) {
+                if(unit.XElem.Element(nameof(ICaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
+                    if(unit.File is IDevice device) {
                         return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
                     }
 
-                    if(file is IHaveFileCollection enumFile)  {
+                    if(unit.File is IHaveFileCollection enumFile)  {
                         return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
                     }
                     

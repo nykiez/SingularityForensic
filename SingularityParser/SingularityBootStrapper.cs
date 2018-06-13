@@ -46,7 +46,7 @@ namespace SingularityParser {
         }
 
         protected override void InitializeShell() {
-            ServiceProvider.SetServiceProvider(new SingularityForensic.Common.PracticeServiceProvider(ServiceLocator.Current));
+            ServiceProvider.SetServiceProvider(new SingularityForensic.Common.MefServiceProvider(ServiceLocator.Current));
             base.InitializeShell();
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();

@@ -81,6 +81,7 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
 
         public const string FileMetaDataName_Name = nameof(FileMetaDataName_Name);
+        public const string FileMetaDataName_Checked = nameof(FileMetaDataName_Checked);
         public const string FileMetaDataName_FileType = nameof(FileMetaDataName_FileType);
         public const string FileMetaDataName_Size = nameof(FileMetaDataName_Size);
         public const string FileMetaDataName_ModifiedTime = nameof(FileMetaDataName_ModifiedTime);
@@ -102,6 +103,7 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
 
         public const string FileMetaDataGUID_Name = nameof(FileMetaDataGUID_Name);
+        public const string FileMetaDataGUID_Checked = nameof(FileMetaDataGUID_Checked);
         public const string FileMetaDataGUID_FileType = nameof(FileMetaDataGUID_FileType);
         public const string FileMetaDataGUID_Size = nameof(FileMetaDataGUID_Size);
         public const string FileMetaDataGUID_ModifiedTime = nameof(FileMetaDataGUID_ModifiedTime);
@@ -142,6 +144,14 @@ namespace SingularityForensic.FileExplorer {
         public const string TempDirectoryName = "Temp";
 
         public const string ContextCommandName_SaveAs = nameof(ContextCommandName_SaveAs);
+        public const string ContextCommandName_SaveCheckedAs = nameof(ContextCommandName_SaveCheckedAs);
+        public const string ContextCommandName_SaveSelectedAs = nameof(ContextCommandName_SaveSelectedAs);
+
+        public const string ContextCommandName_Check = nameof(ContextCommandName_Check);
+        public const string ContextCommandName_UnCheckSelected = nameof(ContextCommandName_UnCheckSelected);
+        public const string ContextCommandName_CheckAll = nameof(ContextCommandName_CheckAll);
+        
+
         public const string ContextCommandName_ViewFile = nameof(ContextCommandName_ViewFile);
         public const string ContextCommandName_OpenFileWith = nameof(ContextCommandName_OpenFileWith);
         public const string ContextCommandName_Navigate = nameof(ContextCommandName_Navigate);

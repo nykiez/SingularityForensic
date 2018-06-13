@@ -13,10 +13,10 @@ namespace SingularityForensic.Test.Documents {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            this._documentService = ServiceProvider.Current.GetInstance<IDocumentService>(Contracts.Document.Constants.MainDocumentService);
+            this._documentService = ServiceProvider.Current.GetInstance<IDocumentService>(SingularityForensic.Contracts.Document.Constants.MainDocumentService);
             Assert.IsNotNull(_documentService);
             
-
+            
         }
 
         private IDocumentService _documentService;

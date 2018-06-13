@@ -9,7 +9,7 @@ namespace SingularityForensic.Contracts.Common {
     /// <summary>
     /// 可拓展绑定基类;
     /// </summary>
-    public abstract class ExtensibleBindableBase: BindableBase,IInstanceExtensible {
+    public abstract class ExtensibleBindableBase: BindableBase,IExtensible {
         private ExtensibleObject _extensibleBase = new ExtensibleObject();
 
         public TInstance GetIntance<TInstance>(string extName) => _extensibleBase.GetIntance<TInstance>(extName);

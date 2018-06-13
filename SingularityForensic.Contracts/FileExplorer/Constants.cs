@@ -47,6 +47,8 @@ namespace SingularityForensic.Contracts.FileExplorer {
         public const string HexDataContext_FolderBrowser_Partition = nameof(HexDataContext_FolderBrowser_Partition);
 
         public const string HexDataContext_FolderBrowser_File = nameof(HexDataContext_FolderBrowser_File);
+
+        public const string FileTag_IsChecked = nameof(FileTag_IsChecked);
         //public const string FileMetaDataType_File = nameof(FileMetaDataType_File);
         //public const string FileMetaDataType_Partition = nameof(FileMetaDataType_Partition);
     }

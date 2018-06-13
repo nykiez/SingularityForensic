@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Telerik.Windows.Controls;
@@ -54,20 +55,32 @@ namespace SingularityForensic.Controls.GridView {
         // Using a DependencyProperty as the backing store for FilterSettings.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FilterSettingsProperty =
             DependencyProperty.Register(nameof(FilterSettings), typeof(IEnumerable<FilterSetting>), typeof(RadGridViewEx), 
-                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, FilterSettings_PropertyChanged));
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    null,FilterSettings_CoerceValueCallBack));
 
-        private static void FilterSettings_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            if(!(e.NewValue is IEnumerable<FilterSetting> settings)) {
-                return;
+        private static object FilterSettings_CoerceValueCallBack(DependencyObject d, object baseValue) {
+            if (!(d is GridViewDataControl grid)) {
+                return baseValue;
             }
-            if(!(d is GridViewDataControl grid)) {
-                return;
+            if(baseValue is IEnumerable<FilterSetting> settings) {
+                GridViewExtensions.LoadColumnFilters(grid,settings);
             }
-
-            GridViewExtensions.LoadColumnFilters(grid , settings);
+            
+            return baseValue;
         }
 
-        
+        private static void FilterSettings_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            if (!(e.NewValue is IEnumerable<FilterSetting> settings)) {
+                return;
+            }
+            if (!(d is GridViewDataControl grid)) {
+                return;
+            }
+
+            GridViewExtensions.LoadColumnFilters(grid, settings);
+        }
+
+
         /// <summary>
         /// 可滚动区域的上下文菜单;
         /// </summary>

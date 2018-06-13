@@ -104,8 +104,10 @@
                           RowIndicatorVisibility="Collapsed" 
                              >
             <gv:RadGridViewEx.Columns>
-                <gv:RowNumberColumn Header="#"
+                <gv:RowNumberColumn Header="#" 
 								 Width="30" CellStyle="{StaticResource cellStyle}" />
+                
+                <!--<telerik:GridViewCheckBoxColumn IsThreeState="False"  DataMemberBinding="{Binding IsChecked}" Header="" />-->
             </gv:RadGridViewEx.Columns>
             <gv:RadGridViewEx.ScrollContentContextMenu>
                 <ContextMenu ItemsSource="{Binding ContextCommands}">

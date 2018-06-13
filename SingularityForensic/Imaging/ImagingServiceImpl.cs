@@ -94,9 +94,9 @@ namespace SingularityForensic.Imaging {
             var tuples = MounterTuples.Where(p => p.csEvidence == evidence).ToArray();
             foreach (var tuple in tuples) {
                 //文件系统卸载文件;
-                var files = fsService.MountedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+                var files = fsService.MountedUnits.Where(p => tuple.csEvidence.XElem == p.XElem).ToArray();
                 foreach (var fileTuple in files) {
-                    fsService.UnMountFile(fileTuple.file);
+                    fsService.UnMountFile(fileTuple.File);
                 }
 
                 tuple.mounter.Dispose();
@@ -117,9 +117,9 @@ namespace SingularityForensic.Imaging {
 
             foreach (var tuple in MounterTuples) {
                 //文件系统卸载镜像文件;
-                var files = fsService.MountedFiles.Where(p => tuple.csEvidence.XElem == p.xElem).ToArray();
+                var files = fsService.MountedUnits.Where(p => tuple.csEvidence.XElem == p.XElem).ToArray();
                 foreach (var file in files) {
-                    fsService.UnMountFile(file.file);
+                    fsService.UnMountFile(file.File);
                 }
 
                 try {

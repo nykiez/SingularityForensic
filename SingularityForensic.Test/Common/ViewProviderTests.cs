@@ -20,7 +20,7 @@ namespace SingularityForensic.Test.Common {
 
         [TestMethod()]
         public void GetViewTest() {
-            var hexView = _viewProvider.GetView(Contracts.Hex.Constants.HexView);
+            var hexView = _viewProvider.GetView(SingularityForensic.Contracts.Hex.Constants.HexView);
         }
     }
 }

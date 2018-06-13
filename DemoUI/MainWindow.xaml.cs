@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.ServiceLocation;
+using SingularityForensic.Contracts.Common;
 using System.ComponentModel.Composition;
 using System.Windows;
 
@@ -11,7 +12,7 @@ namespace DemoUI {
         public MainWindow() {
             InitializeComponent();
             this.Loaded += delegate {
-                ServiceLocator.Current.GetInstance<MainWindow>();
+                ServiceProvider.Current.GetInstance<MainWindow>();
             };
         }
 

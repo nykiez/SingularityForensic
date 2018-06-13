@@ -87,7 +87,7 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var fileTuple = FileSystemService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
+            var fileTuple = FileSystemService.Current.MountedUnits?.FirstOrDefault(p => p.XElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;
@@ -96,7 +96,7 @@ namespace SingularityForensic.FileExplorer {
             var fsUnit = TreeUnitFactory.CreateNew(Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
             fsUnit.Icon = IconResources.FileSystemIcon;
             fsUnit.Label = LanguageService.Current?.FindResourceString(Constants.TreeUnitLabel_FileSystem);
-            fsUnit.SetInstance(fileTuple.Value.file, Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            fsUnit.SetInstance(fileTuple.File, Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
 
             var bufferLength = 10;
             var bufferStacks = new AddUnitStack[bufferLength];
@@ -145,7 +145,7 @@ namespace SingularityForensic.FileExplorer {
                 }
             }
 
-            if (fileTuple.Value.file is IHaveFileCollection haveCollection2) {
+            if (fileTuple.File is IHaveFileCollection haveCollection2) {
                 TraverseAddChildren(fsUnit, haveCollection2);
                 ThreadInvoker.UIInvoke(() => {
                     for (int i = 0; i < index; i++) {
@@ -203,13 +203,13 @@ namespace SingularityForensic.FileExplorer {
                 return;
             }
 
-            var fileTuple = FileSystemService.Current.MountedFiles?.FirstOrDefault(p => p.xElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
+            var fileTuple = FileSystemService.Current.MountedUnits?.FirstOrDefault(p => p.XElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csFile.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return;
             }
 
-            if(!(fileTuple.Value.file is IStreamFile streamFile)) {
+            if(!(fileTuple.File is IStreamFile streamFile)) {
                 return;
             }
 

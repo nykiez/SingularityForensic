@@ -18,6 +18,9 @@ using SingularityForensic.FileExplorer.Helpers;
 using CDFC.Util.IO;
 
 namespace SingularityForensic.FileExplorer {
+    /// <summary>
+    /// 保存部分;
+    /// </summary>
     public static partial class FolderBrowserCommandItemFactory {
         /// <summary>
         /// 另存为功能;
@@ -35,18 +38,37 @@ namespace SingularityForensic.FileExplorer {
             return cmi;
         }
 
+        /// <summary>
+        /// 另存勾选文件功能;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        public static ICommandItem CreateSaveCheckedFilesCommandItem(IFolderBrowserViewModel vm) {
+            if (vm == null) {
+                throw new ArgumentNullException(nameof(vm));
+            }
+
+            var cmi = CommandItemFactory.CreateNew(
+                new DelegateCommand(() =>{
+                    if (vm.SelectedFiles == null) {
+                        return;
+                    }
+                    RecoverFiles(vm.Files.Where(p => p.IsChecked).Select(p => p.File));
+                })
+            );
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_SaveCheckedAs);
+            cmi.Sort = 12;
+            return cmi;
+        }
+
         private static DelegateCommand CreateSaveAsFileCommand(IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(() => {
-                if (vm.SelectedFile == null) {
+                if (vm.SelectedFiles == null) {
                     return;
                 }
 
-                if (vm.SelectedFile.File is IRegularFile regFile) {
-                    RecoverFiles(new IFile[] { regFile });
-                }
-                else if (vm.SelectedFile.File is IDirectory dir) {
-                    RecoverFiles(dir.Children);
-                }
+                
+                RecoverFiles(vm.SelectedFiles.Select(p => p.File));
             });
             return comm;
         }
@@ -87,6 +109,9 @@ namespace SingularityForensic.FileExplorer {
                     fs = System.IO.File.Create($"{drPath}/{fileName ?? rFile.Name}");
                     int read;
                     using (var mulS = rFile.GetInputStream()) {
+                        if(mulS == null) {
+                            return;
+                        }
                         var buffer = new byte[10485760];
                         mulS.Position = 0;
                         while ((read = mulS.Read(buffer, 0, buffer.Length)) != 0
@@ -209,7 +234,78 @@ namespace SingularityForensic.FileExplorer {
         }
     }
 
+    /// <summary>
+    /// 勾选部分;
+    /// </summary>
     public static partial class FolderBrowserCommandItemFactory {
+        /// <summary>
+        /// 选中功能;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        public static ICommandItem CreateCheckCommandItem(IFolderBrowserViewModel vm) {
+            if (vm == null) {
+                throw new ArgumentNullException(nameof(vm));
+            }
+
+            var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
+                if(vm.SelectedFiles == null) {
+                    return;
+                }
+
+                foreach (var fileRow in vm.SelectedFiles) {
+                    fileRow.IsChecked = true;
+                }
+            }));
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_Check);
+            cmi.Sort = 12;
+            return cmi;
+        }
+
+        public static ICommandItem CreateUnCheckCommandItem(IFolderBrowserViewModel vm) {
+            if (vm == null) {
+                throw new ArgumentNullException(nameof(vm));
+            }
+
+            var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
+                if (vm.SelectedFiles == null) {
+                    return;
+                }
+
+                foreach (var fileRow in vm.SelectedFiles) {
+                    fileRow.IsChecked = false;
+                }
+            }));
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_UnCheckSelected);
+            cmi.Sort = 12;
+            return cmi;
+        }
+
+        /// <summary>
+        /// 全选功能;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        public static ICommandItem CreateCheckAllCommandItem(IFolderBrowserViewModel vm) {
+            if (vm == null) {
+                throw new ArgumentNullException(nameof(vm));
+            }
+
+            var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
+                if (vm.SelectedFiles == null) {
+                    return;
+                }
+
+                foreach (var fileRow in vm.Files) {
+                    fileRow.IsChecked = true;
+                }
+            }));
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CheckAll);
+            cmi.Sort = 12;
+            return cmi;
+        }
+    }
+        public static partial class FolderBrowserCommandItemFactory {
         /// <summary>
         /// 查看文件功能;
         /// </summary>

@@ -27,6 +27,7 @@ namespace SingularityForensic.Test.Imaging {
             Assert.IsNotNull(_imgService);
             Assert.IsNotNull(_fsService);
             Assert.IsNotNull(_csService);
+            _fsService.Initialize();
             _imgService.Initialize();
         }
 
@@ -40,13 +41,13 @@ namespace SingularityForensic.Test.Imaging {
             
             Assert.AreEqual(_csService.CurrentCase.CaseEvidences.Count(), 1);
 
-            Assert.AreEqual(_fsService.MountedFiles.Count(), 1);
+            Assert.AreEqual(_fsService.MountedUnits.Count(), 1);
 
             Assert.AreEqual(_imgService.MounterTuples.Count(), 1);
 
             var firstEvi = _imgService.MounterTuples.First().csEvidence;
 
-            Assert.IsTrue(firstEvi.EvidenceTypeGuids.Contains(Contracts.Imaging.Constants.EvidenceType_Img));
+            Assert.IsTrue(firstEvi.EvidenceTypeGuids.Contains(SingularityForensic.Contracts.Imaging.Constants.EvidenceType_Img));
         }
 
         //测试从案件中加载镜像;

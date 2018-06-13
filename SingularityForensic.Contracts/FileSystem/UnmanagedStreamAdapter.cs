@@ -41,8 +41,14 @@ namespace SingularityForensic.Contracts.FileSystem {
 #endif
             if(pos > OriStream.Length) {
                 LoggerService.WriteCallerLine($"{nameof(pos)} out of range.({nameof(pos)}:{pos},available length:{OriStream.Length}");
+                OriStream.Position = pos;
                 return;
             }
+            else if(pos < 0){
+                LoggerService.WriteCallerLine($"{nameof(pos)} can't be less than zero.({nameof(pos)}:{pos},available length:{OriStream.Length}");
+                return;
+            }
+            
             OriStream.Position = pos;
         }
         private long OnGetLength() => OriStream.Length;

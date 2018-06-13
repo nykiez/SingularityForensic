@@ -108,6 +108,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -123,6 +124,7 @@
     </Reference>
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>False</Private>
@@ -383,7 +385,6 @@
     <Compile Include="FileSystem\BlockGroupedFileInputStreamProvider.cs" />
     <Compile Include="FileSystem\DeviceServiceImpl.cs" />
     <Compile Include="FileSystem\FileServiceImpl.cs" />
-    <Compile Include="FileSystem\FullFileNameProvider.cs" />
     <Compile Include="FileSystem\NormalFullFileNameProvider.cs" />
     <Compile Include="FileSystem\StreamFileBase.cs" />
     <Compile Include="FileSystem\FileFactoryImpl.cs" />
@@ -1538,6 +1539,7 @@
     <Content Include="FAT\FatRecover.dll" />
     <Content Include="BaseDevice\PartitionManager.dll" />
     <Resource Include="FileExplorer\Images\Type_RegularFile.png" />
+    <Compile Include="FileExplorer\FileHashMetaDataProviders.cs" />
     <Content Include="FileExplorer\ViewerPrograms.xml" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -9,6 +9,9 @@ namespace SingularityForensic.Contracts.Common {
     public abstract class EmptyServiceProvider<TProvider> :
         GenericStaticInstance<TProvider> , IServiceProvider
         where TProvider :class,new() {
+        public TService AddInstance<TService>(string key) {
+            throw new NotImplementedException();
+        }
 
         public virtual IEnumerable<object> GetAllInstances(Type serviceType) => null;
         public virtual IEnumerable<TService> GetAllInstances<TService>() {

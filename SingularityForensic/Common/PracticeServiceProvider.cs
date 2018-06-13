@@ -3,18 +3,21 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 
 namespace SingularityForensic.Common {
     /// <summary>
     /// PracticeServiceProvider,本类别连接本地IServiceLocator与Microsoft.Practices.ServiceLocation.IServiceLocator
     /// </summary>
-    public class PracticeServiceProvider:Contracts.Common.IServiceProvider {
-        public PracticeServiceProvider(IServiceLocator serviceLocator) {
+    public class MefServiceProvider:Contracts.Common.IServiceProvider {
+        public MefServiceProvider(IServiceLocator serviceLocator) {
             if(serviceLocator == null) {
                 LoggerService.Current?.WriteCallerLine("servicelocator can't be null!");
                 throw new InvalidOperationException("servicelocator can't be null!");
             }
-
+            
+            
             _serviceLocator = serviceLocator;
         }
         
@@ -31,5 +34,9 @@ namespace SingularityForensic.Common {
         public TService GetInstance<TService>() => _serviceLocator.GetInstance<TService>();
 
         public TService GetInstance<TService>(string key) => _serviceLocator.GetInstance<TService>(key);
+
+        public TService AddInstance<TService>(string key) {
+            throw new NotImplementedException();
+        }
     }
 }

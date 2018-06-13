@@ -14,10 +14,7 @@ namespace DemoUI {
     class DemoBootStrapper:MefBootstrapper {
         protected override void ConfigureAggregateCatalog() {
             base.ConfigureAggregateCatalog();
-
-            //契约模块;
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Contracts.Dummy).Assembly));
-
+            
             //框架模块;
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SingularityForensic.Dummy).Assembly));
 
@@ -51,7 +48,8 @@ namespace DemoUI {
         }
 
         protected override DependencyObject CreateShell() {
-            ServiceProvider.SetServiceProvider(new PracticeServiceProvider(ServiceLocator.Current));
+            
+            ServiceProvider.SetServiceProvider(new MefServiceProvider(ServiceLocator.Current));
             ViewProvider.SetViewProvider(new ViewProviderImpl(ServiceProvider.Current));
             ServiceProvider.Current.GetInstance<ILanguageService>()?.Initialize();
             return ServiceProvider.GetInstance<MainWindow>();

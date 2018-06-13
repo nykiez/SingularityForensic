@@ -102,6 +102,14 @@ namespace SingularityForensic.Contracts.Common {
         //   T:Microsoft.Practices.ServiceLocation.ActivationException:
         //     if there is are errors resolving the service instance.
         TService GetInstance<TService>(string key);
+
+        ///// <summary>
+        ///// 添加实例;
+        ///// </summary>
+        ///// <typeparam name="TService"></typeparam>
+        ///// <param name="key"></param>
+        ///// <returns></returns>
+        //TService AddInstance<TService>(string key);
     }
 
     public static class ServiceProvider {

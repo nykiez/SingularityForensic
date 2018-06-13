@@ -6,25 +6,36 @@ using System.ComponentModel;
 using System.Linq;
 
 namespace SingularityForensic.FileExplorer.Models {
+    public class PartitionRow : FileRowProxy<IPartition>, IPartitionRow {
+        public PartitionRow(IPartition part) : base(part) {
+
+        }
+    }
+
     public class FileRow:FileRowProxy<IFile> , IFileRow{
         public FileRow(IFile file):base(file) {
             
         }
-        
+        void NotifyProperty(string propName) {
 
-    }
-
-    public class PartitionRow : FileRowProxy<IPartition>,IPartitionRow {
-        public PartitionRow(IPartition part) : base(part){
-            
         }
     }
+
+ 
     
+
     /// <summary>
     /// 文件行泛基类;
     /// </summary>
     /// <typeparam name="TFile"></typeparam>
     public class FileRowProxy<TFile> : CustomTypeDescriptor,IFileRowProxy<TFile>,INotifyPropertyChanged where TFile: IFile {
+#if DEBUG
+        public void CheckSubscribed() {
+            var notEmpty = this.PropertyChanged != null;
+        }
+
+
+#endif
         public FileRowProxy(TFile file) {
             this.File = file;
         }
@@ -57,7 +68,7 @@ namespace SingularityForensic.FileExplorer.Models {
         internal static IEnumerable<PropertyDescriptor> PropertyDescriptors {
             get {
                 if (!DescriptorsInitialized) {
-                    yield return null;
+                    yield break;
                 }
 
                 if (_filePropDescriptorCollection != null) {
@@ -69,12 +80,27 @@ namespace SingularityForensic.FileExplorer.Models {
             }
         }
 
+        public bool IsChecked {
+            get {
+                var isChecked = File.ExtensibleTag.GetIntance<bool?>(Contracts.FileExplorer.Constants.FileTag_IsChecked);
+                return isChecked ?? false;
+            }
+            set {
+                File.ExtensibleTag.SetInstance<bool?>(value, Contracts.FileExplorer.Constants.FileTag_IsChecked);
+                NotifyProperty(nameof(IsChecked));
+            }
+        }
+
         private static PropertyDescriptorCollection _filePropDescriptorCollection;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public override PropertyDescriptorCollection GetProperties() {
             return _filePropDescriptorCollection;
+        }
+
+        public void NotifyProperty(string propName) {
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(propName));
         }
 
         public class FileRowPropertyDescriptor  : PropertyDescriptor {

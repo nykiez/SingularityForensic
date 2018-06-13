@@ -36,7 +36,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 }
 
                 var vm = FileExplorerViewModelFactory.CreateFolderBrowserViewModel(haveFileCollection);
-
+                
                 var folderBrowser = ViewProvider.CreateView(Constants.FolderBrowserView, vm);
 
                 //设定文件资源管理器模型关联实体;

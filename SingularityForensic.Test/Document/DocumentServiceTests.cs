@@ -13,7 +13,7 @@ namespace SingularityForensic.Test.Document {
             TestCommon.InitializeTest();
             Assert.IsNotNull( _documentService = 
                 ServiceProvider.Current.GetInstance<IDocumentService>(
-                    Contracts.Document.Constants.MainDocumentService
+                    SingularityForensic.Contracts.Document.Constants.MainDocumentService
                 ) as SingularityForensic.Document.MainDocumentService
             );
         }

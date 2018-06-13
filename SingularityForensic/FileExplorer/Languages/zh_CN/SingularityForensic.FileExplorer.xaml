@@ -34,6 +34,8 @@
   <sys:String x:Key="FileDeleted_Unknown">未知</sys:String>
   <sys:String x:Key="DocumentTitle_FilePreview">预览</sys:String>
   <sys:String x:Key="TreeUnitLabel_FileSystem">文件系统</sys:String>
+  <sys:String x:Key="ContextCommandName_SaveCheckedAs">另存勾选文件</sys:String>
+  <sys:String x:Key="ContextCommandName_SaveSelectedAs">另存选中文件</sys:String>
   <sys:String x:Key="ContextCommandName_SaveAs">另存为</sys:String>
   <sys:String x:Key="ContextCommandName_ViewFile">查看</sys:String>
   <sys:String x:Key="ContextCommandName_OpenFileWith">打开方式</sys:String>
@@ -54,4 +56,7 @@
   <sys:String x:Key="StatusBarItemText_DirectoryCount">目录数量</sys:String>
   <sys:String x:Key="ContextCommandName_RecurBrowse">递归浏览</sys:String>
   <sys:String x:Key="MsgText_FileBeingShown">正在显示文件</sys:String>
+  <sys:String x:Key="ContextCommandName_Check">选中</sys:String>
+  <sys:String x:Key="ContextCommandName_UnCheckSelected">取消选中</sys:String>
+  <sys:String x:Key="ContextCommandName_CheckAll">全选</sys:String>
 </ResourceDictionary>

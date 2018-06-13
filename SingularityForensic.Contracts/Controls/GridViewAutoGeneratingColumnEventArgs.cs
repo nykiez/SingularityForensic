@@ -27,5 +27,9 @@ namespace SingularityForensic.Contracts.Controls {
         /// 转换器;
         /// </summary>
         public IValueConverter Converter {get;set;}
+
+        public bool Cancel { get; set; }
+
+        public bool ShowDistinctFilters { get; set; }
     }
 }
