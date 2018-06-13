@@ -32,7 +32,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
         public void Initialize() {
-            InitializeFileRowDescriptors();
             InitializeColumns();
             InitializeEventHandlers();
             this.FillWithCollection(HaveFileCollection);
@@ -44,27 +43,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 OrderBy(p => p.Sort).
                 ToArray();
         }
-
-        /// <summary>
-        /// 初始化行元数据提供器;
-        /// </summary>
-        private void InitializeFileRowDescriptors() {
-            if (FileRowFactory.Current.DescriptorsInitialized) {
-                return;
-            }
-
-            var fileMetaDataProviders = ServiceProvider.Current?.GetAllInstances<IFileMetaDataProvider>().OrderBy(p => p.Order);
-            if (fileMetaDataProviders == null) {
-                LoggerService.WriteCallerLine($"{nameof(fileMetaDataProviders)} can't be null.");
-                return;
-            }
-
-#if DEBUG
-            //var arr = fileMetaDataProviders.ToArray();
-#endif
-            FileRowFactory.Current.InitializeDescriptors(fileMetaDataProviders);
-        }
-
+        
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>

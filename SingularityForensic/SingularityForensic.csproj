@@ -522,9 +522,6 @@
     <Compile Include="FileExplorer\Models\NavNodeModel.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgram.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgramModel.cs" />
-    <Compile Include="FileExplorer\Modules\Hash\ComputeHashCommandItem.cs" />
-    <Compile Include="FileExplorer\Modules\Indexing\CommandDefinitions.cs" />
-    <Compile Include="FileExplorer\Modules\RecoverSign\CommandDefinitions.cs" />
     <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
     <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
@@ -1176,7 +1173,6 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="FileExplorer\Internal\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
     <Folder Include="ITunes\ViewModels\" />
@@ -1539,7 +1535,6 @@
     <Content Include="FAT\FatRecover.dll" />
     <Content Include="BaseDevice\PartitionManager.dll" />
     <Resource Include="FileExplorer\Images\Type_RegularFile.png" />
-    <Compile Include="FileExplorer\FileHashMetaDataProviders.cs" />
     <Content Include="FileExplorer\ViewerPrograms.xml" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -32,10 +32,10 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// <returns></returns>
         TFileRow CreateFileRow(TFile file);
         /// <summary>
-        /// 初始化属性描述器;
+        /// 添加属性描述器;
         /// </summary>
         /// <param name="metaProviders"></param>
-        void InitializeDescriptors(IEnumerable<IFileMetaDataProviderProxy<TFile>> metaProviders);
+        void AddDescriptors(IEnumerable<IFileMetaDataProviderProxy<TFile>> metaProviders);
         /// <summary>
         /// 属性描述器是否已经被初始化;
         /// </summary>

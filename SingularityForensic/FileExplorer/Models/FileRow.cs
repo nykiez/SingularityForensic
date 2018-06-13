@@ -16,9 +16,7 @@ namespace SingularityForensic.FileExplorer.Models {
         public FileRow(IFile file):base(file) {
             
         }
-        void NotifyProperty(string propName) {
-
-        }
+        
     }
 
  
@@ -55,13 +53,31 @@ namespace SingularityForensic.FileExplorer.Models {
             if(metaProviders == null) {
                 throw new ArgumentNullException(nameof(metaProviders));
             }
-
+            
             _filePropDescriptorCollection = new PropertyDescriptorCollection(
                 metaProviders.Select(p => new FileRowPropertyDescriptor(p)).ToArray(),true);
 
             DescriptorsInitialized = true;
         }
         
+        /// <summary>
+        /// 添加元数据描述器;
+        /// </summary>
+        /// <param name="metaProviders"></param>
+        internal static void AddDescriptors(IEnumerable<IFileMetaDataProviderProxy<TFile>> metaProviders) {
+            if (metaProviders == null) {
+                throw new ArgumentNullException(nameof(metaProviders));
+            }
+
+            if (!DescriptorsInitialized) {
+                throw new InvalidOperationException($"{nameof(FileRowFactory)} hasn't been initialized.");
+            }
+
+            foreach (var provider in metaProviders) {
+                _filePropDescriptorCollection.Add(new FileRowPropertyDescriptor(provider));
+            }
+        }
+
         /// <summary>
         /// 所拥有的所有属性描述器,当且仅当初始化后才可能返回不为空;
         /// </summary>

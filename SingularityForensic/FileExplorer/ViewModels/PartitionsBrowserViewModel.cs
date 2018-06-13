@@ -22,8 +22,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 throw new ArgumentNullException(nameof(device));
             }
             this.Device = device;
-
-            InitializePartRowDescriptors();
+            
             InitializeColumns();
             FillRows(device.Children.Select(p => p as IPartition));
         }
@@ -36,24 +35,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public CustomTypedListSource<IPartitionRow> Partitions { get; set; } 
             = new CustomTypedListSource<IPartitionRow>();
         
-        /// <summary>
-        /// 初始化行元数据提供器;
-        /// </summary>
-        private void InitializePartRowDescriptors() {
-            if (PartitionRowFactory.Current.DescriptorsInitialized) {
-                return;
-            }
-
-            var partMetaDataProviders = ServiceProvider.Current?.
-                GetAllInstances<IPartitionMetaDataProvider>().OrderBy(p => p.Order);
-            if (partMetaDataProviders == null) {
-                LoggerService.WriteCallerLine($"{nameof(partMetaDataProviders)} can't be null.");
-                return;
-            }
-
-            PartitionRowFactory.Current.InitializeDescriptors(partMetaDataProviders);
-        }
-
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>

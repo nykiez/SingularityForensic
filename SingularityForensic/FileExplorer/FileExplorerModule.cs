@@ -20,6 +20,8 @@ namespace SingularityForensic.FileExplorer {
 
             _fileExplorerUIService = ServiceProvider.Current?.GetInstance<IFileExplorerUIReactService>();
             _fileExplorerUIService.Initialize();
+
+
         }
 
         private IFileExplorerUIReactService _fileExplorerUIService;

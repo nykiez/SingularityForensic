@@ -25,7 +25,7 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IFile file) => file?.Name;
     }
-    
+
     abstract class FileSizeMetaDataProviderBase : FileMetaDataProvider {
         public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Size);
@@ -33,14 +33,14 @@ namespace SingularityForensic.FileExplorer {
         public override Type MetaDataType => typeof(long?);
 
         public override string GUID => Constants.FileMetaDataGUID_Size;
-        
+
         public override object GetMetaData(IFile file) => file.Size;
 
         public override IValueConverter Converter => ByteSizeToSizeConverter.StaticInstance;
 
         public override DataTemplate CellTemplate => null;
     }
-    
+
     /// <summary>
     /// 文件名元数据提供器;
     /// </summary>
@@ -49,7 +49,7 @@ namespace SingularityForensic.FileExplorer {
         private DataTemplate _cellTemplate;
         public override DataTemplate CellTemplate {
             get {
-                if(_cellTemplate == null) {
+                if (_cellTemplate == null) {
                     _cellTemplate = new DataTemplate();
                     var fef = new FrameworkElementFactory(typeof(StackPanel));
                     fef.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
@@ -67,7 +67,7 @@ namespace SingularityForensic.FileExplorer {
                     chkBinding.Mode = BindingMode.TwoWay;
                     chkFactory.SetBinding(CheckBox.IsCheckedProperty, chkBinding);
                     chkFactory.SetValue(CheckBox.IsThreeStateProperty, false);
-                    chkFactory.SetValue(CheckBox.PaddingProperty, new Thickness(0,0,0,0));
+                    chkFactory.SetValue(CheckBox.PaddingProperty, new Thickness(0, 0, 0, 0));
 
                     var txbFactory = new FrameworkElementFactory(typeof(TextBlock));
                     var nameBinding = new Binding();
@@ -85,13 +85,13 @@ namespace SingularityForensic.FileExplorer {
             }
         }
 
-        public class FileTypeToIconConverter : GenericStaticInstance<FileTypeToIconConverter>,IValueConverter {
+        public class FileTypeToIconConverter : GenericStaticInstance<FileTypeToIconConverter>, IValueConverter {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-                if(value is IFile file) {
-                    if(file is IDirectory) {
+                if (value is IFile file) {
+                    if (file is IDirectory) {
                         return IconResources.DirectoryRowIcon;
                     }
-                    else if(file is IRegularFile) {
+                    else if (file is IRegularFile) {
                         return IconResources.RegFileUnitIcon;
                     }
                 }
@@ -117,10 +117,10 @@ namespace SingularityForensic.FileExplorer {
         }
     }
 
-    
+
     [Export(typeof(IFileMetaDataProvider))]
     class FileDeletedMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName => 
+        public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Deleted);
 
         public override Type MetaDataType => typeof(string);
@@ -130,7 +130,7 @@ namespace SingularityForensic.FileExplorer {
         public override int Order => 12;
 
         public override object GetMetaData(IFile file) {
-            if(file is IDeletable deletable) {
+            if (file is IDeletable deletable) {
                 switch (deletable.Deleted) {
                     case true:
                         return LanguageService.FindResourceString(Constants.FileDeleted_Yes);
@@ -151,7 +151,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileTypeMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName => 
+        public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_FileType);
 
         public override Type MetaDataType => typeof(string);
@@ -159,16 +159,16 @@ namespace SingularityForensic.FileExplorer {
         public override string GUID => Constants.FileMetaDataGUID_FileType;
 
         public override int Order => 4;
-        
+
         private string dirType;
         private string regType;
         private string unknownType;
 
         public override object GetMetaData(IFile file) {
-            if(file is IDirectory) {
+            if (file is IDirectory) {
                 return dirType ?? (dirType = LanguageService.FindResourceString(Constants.FileType_Directory));
             }
-            else if(file is IRegularFile) {
+            else if (file is IRegularFile) {
                 return regType ?? (regType = LanguageService.FindResourceString(Constants.FileType_RegularFile));
             }
             else {
@@ -212,7 +212,7 @@ namespace SingularityForensic.FileExplorer {
             return part.PartType?.PartTypeName;
         }
     }
-    
+
     [Export(typeof(IPartitionMetaDataProvider))]
     class PartitionStartLBAMetaDataProvider : PartitionMetaDataProvider {
         public override string MetaDataName => LanguageService.FindResourceString(Constants.PartMetaDataName_StartLBA);
@@ -222,9 +222,9 @@ namespace SingularityForensic.FileExplorer {
         public override string GUID => Constants.PartMetaDataGUID_StartLBA;
 
         public override int Order => 10;
-        
+
         public override object GetMetaData(IPartition part) {
-            if(part.Parent is IDevice device) {
+            if (part.Parent is IDevice device) {
                 return device.GetStartLBA(part);
             }
             return null;
@@ -243,14 +243,14 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IPartition part) {
             var dt = part.GetExtensionTime(Contracts.FileSystem.Constants.PartitionExtendTime_LastMount);
-            if(dt == null) {
+            if (dt == null) {
                 return DBNull.Value;
             }
-            return dt; 
+            return dt;
         }
     }
 
-    [Export( typeof(IFileMetaDataProvider))]
+    [Export(typeof(IFileMetaDataProvider))]
     class FileMTimeMetaDataProvider : FileMetaDataProvider {
         public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_ModifiedTime);
@@ -263,14 +263,14 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IFile file) {
             var mTime = (file as IHaveFileTime)?.ModifiedTime;
-            if(mTime != null) {
+            if (mTime != null) {
                 return mTime.Value;
             }
             return DBNull.Value;
         }
     }
-    
-    [Export( typeof(IFileMetaDataProvider))]
+
+    [Export(typeof(IFileMetaDataProvider))]
     class FileATimeMetaDataProvider : FileMetaDataProvider {
         public override string MetaDataName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_AccessedTime);
@@ -283,14 +283,14 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IFile file) {
             var accessTime = (file as IHaveFileTime)?.AccessedTime;
-            if(accessTime != null) {
+            if (accessTime != null) {
                 return accessTime.Value;
             }
             return DBNull.Value;
         }
 
     }
-    
+
     [Export(typeof(IFileMetaDataProvider))]
     class FileCTimeMetaDataProvider : FileMetaDataProvider {
         public override string MetaDataName =>
@@ -304,7 +304,7 @@ namespace SingularityForensic.FileExplorer {
 
         public override object GetMetaData(IFile file) {
             var cTime = (file as IHaveFileTime)?.CreateTime;
-            if(cTime != null) {
+            if (cTime != null) {
                 return cTime.Value;
             }
             return DBNull.Value;
@@ -325,26 +325,17 @@ namespace SingularityForensic.FileExplorer {
         public override bool ShowDistinctFilters => false;
 
         public override object GetMetaData(IFile file) {
-            if(file == null) {
+            if (file == null) {
                 return null;
             }
 
             return file.GetFullFileName();
-            
+
         }
     }
+
     //[Export(typeof(IFileMetaDataProvider))]
-    //class FileImgMetaDataProvider : FileMetaDataProviderBase {
-    //    public override string MetaDataName => "测试";
+    //class FileHashMetaDataProvider : FileMetaDataProvider {
 
-    //    public override Type MetaDataType => typeof(BitmapImage);
-
-    //    public override string GUID => "dad";
-
-    //    public override int Order => 1;
-
-    //    public override object GetDataObject(FileBase file) {
-    //        return new BitmapImage(IconResources.DirectoryUnitIcon);
-    //    }
     //}
 }
