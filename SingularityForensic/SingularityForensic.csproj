@@ -360,6 +360,10 @@
     <Compile Include="FAT\FATInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedEventOnDeviceHexHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnDocumentAddedShowPartitionBrowserHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFileSystemUnitSelectedChangedHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFocusedPartChangedOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler.cs" />
     <Compile Include="FileExplorer\Events\OnDocumentAddedOnFileHexHandler.cs" />
     <Compile Include="FileExplorer\Events\OnDocumentAddedOnPartHexHandler.cs" />
@@ -373,6 +377,10 @@
     <Compile Include="FileExplorer\Events\OnHexDataContextLoadedOnDeviceHandler.cs" />
     <Compile Include="FileExplorer\Events\OnFileUnitAddedRecurBroswingHandler.cs" />
     <Compile Include="FileExplorer\Events\OnInnerFileUnitSelectedHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnPartitionDoubleClickedHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnTreeUnitAddedOnBlockStreamedFileHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnTreeUnitAddedOnContextCommandsHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnTreeUnitAddedToAddFileSystemUnitHandler.cs" />
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
@@ -511,8 +519,6 @@
     <Compile Include="FileExplorer\Helpers\FileExplorerUIHelper.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\FileExplorerModule.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIReactServiceImpl.cs" />
-    <Compile Include="FileExplorer\FileExplorerUIReactServiceForDevice.cs" />
     <Compile Include="FileExplorer\Helpers\ViewerProgramHelper.cs" />
     <Compile Include="FileExplorer\IconResources.cs" />
     <Compile Include="FileExplorer\MessageBoxes\FileDetailMessageBox.cs" />

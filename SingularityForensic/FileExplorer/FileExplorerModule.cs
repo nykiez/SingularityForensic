@@ -17,14 +17,10 @@ namespace SingularityForensic.FileExplorer {
         public void Initialize() {
             PubEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
-
-            _fileExplorerUIService = ServiceProvider.Current?.GetInstance<IFileExplorerUIReactService>();
-            _fileExplorerUIService.Initialize();
-
-
+            
         }
 
-        private IFileExplorerUIReactService _fileExplorerUIService;
+        
         
         
     }

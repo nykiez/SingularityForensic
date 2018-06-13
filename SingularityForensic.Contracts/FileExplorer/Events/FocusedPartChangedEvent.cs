@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,4 +13,9 @@ namespace SingularityForensic.Contracts.FileExplorer.Events {
     /// </summary>
     public class FocusedPartitionChangedEvent : PubSubEvent<(IPartitionsBrowserViewModel sender, IPartitionRow part)> {
     }
+
+    public interface IFocusedPartitionChangedEventHandler : IEventHandler<(IPartitionsBrowserViewModel sender, IPartitionRow part)> {
+
+    }
+
 }

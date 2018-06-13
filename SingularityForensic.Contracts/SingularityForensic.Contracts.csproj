@@ -92,6 +92,7 @@
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
+    <Compile Include="Common\GenericServiceStaticInstances.cs" />
     <Compile Include="Common\ICustomNotify.cs" />
     <Compile Include="Common\IHaveGUIDObject.cs" />
     <Compile Include="Common\MarshalExtensions.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />
     <Compile Include="Casing\ICaseUIService.cs" />
     <Compile Include="FileExplorer\ICustomSignSearchService.cs" />
-    <Compile Include="FileExplorer\IFileExplorerUIReactService.cs" />
     <Compile Include="FileExplorer\IViewerService.cs" />
     <Compile Include="FileExplorer\ViewModels\IFolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\IPartitionsBrowserViewModel.cs" />

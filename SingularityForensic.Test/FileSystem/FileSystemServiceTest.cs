@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,8 @@ namespace SingularityForensic.Test.BaseDevice {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _fsService = FileSystemService.Current;
+            var fss = ServiceProvider.GetAllInstances<IFileSystemService>();
+            
             Assert.IsNotNull(_fsService);
             _fsService.Initialize();
         }

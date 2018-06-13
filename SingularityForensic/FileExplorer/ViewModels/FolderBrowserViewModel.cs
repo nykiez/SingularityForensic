@@ -33,17 +33,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
         public void Initialize() {
             InitializeColumns();
-            InitializeEventHandlers();
             this.FillWithCollection(HaveFileCollection);
         }
 
-        private void InitializeEventHandlers() {
-            _focusedFileRowChangedEventHandlers = 
-                ServiceProvider.GetAllInstances<IFocusedFileRowChangedEventHandler>().
-                OrderBy(p => p.Sort).
-                ToArray();
-        }
-        
+       
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
@@ -56,10 +49,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public IHaveFileCollection HaveFileCollection { get; }                                        //浏览器所属主文件（分区，设备等);
 
         public CustomTypedListSource<IFileRow> FileRows { get; set; } = new CustomTypedListSource<IFileRow>();
-        //public ObservableCollection<IFileRow> FileRows { get; set; } = new ObservableCollection<IFileRow>();
         public IEnumerable<IFileRow> Files  => FileRows;
         
-        IEnumerable<IFocusedFileRowChangedEventHandler> _focusedFileRowChangedEventHandlers;
         private IFileRow _selectedFile;
         public IFileRow SelectedFile {
             get => _selectedFile;
@@ -69,7 +60,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     return;
                 }
                 SelectedFileChanged?.Invoke(this, EventArgs.Empty);
-                PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), _focusedFileRowChangedEventHandlers);
+                PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
                 PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
 
 #if DEBUG
