@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Hex;
+using SingularityForensic.Hex.Models;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Hex {

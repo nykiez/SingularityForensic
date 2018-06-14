@@ -42,7 +42,7 @@ namespace SingularityForensic.Test.Hex.Events {
 
         [TestMethod]
         public void LostFocusTest() {
-            _hexContext.Raise(p => p.LostFocus += null, EventArgs.Empty);
+            //_hexContext.Raise(p => p.LostFocus += null, EventArgs.Empty);
             var positionItem = _statusbarService.Children.FirstOrDefault(p => p.GUID == SingularityForensic.Hex.Constants.StatusBarItemGUID_Position);
             Assert.IsNull(positionItem);
 

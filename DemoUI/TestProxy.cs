@@ -60,7 +60,7 @@ namespace DemoUI {
         }
 
         static void TestPartitionNodeClick() {
-            var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/gpt.img"), "mmp", null, null);
+            var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/fat32.img"), "mmp", null, null);
 
 
             //ImgService.Current.AddImg("I://test.E01");

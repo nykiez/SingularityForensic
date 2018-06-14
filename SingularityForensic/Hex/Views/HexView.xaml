@@ -18,11 +18,7 @@
     
     <UserControl.Resources>
         <DataTemplate x:Key="DataToolTipTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding KeyName}"/>
-                <TextBlock Text=":"/>
-                <TextBlock Text="{Binding Value}"/>
-            </StackPanel>
+            <ContentControl Content="{Binding UIObject}"/>
         </DataTemplate>
 
         <ContextMenu x:Key="DataLayerContextMenu">
@@ -30,6 +26,15 @@
             <MenuItem Header="{DynamicResource ContextCommandName_CopyValue}" Command="{Binding CopyValueCommand}"/>
             <MenuItem Header="{DynamicResource ContextCommandName_CopyExpression}" Command="{Binding CopyExpressionCommand}"/>
         </ContextMenu>
+        <Style TargetType="ListBox" x:Key="ToolTipListBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{DynamicResource Envoirment.Background}"/>
+            <Setter Property="ContextMenu" Value="{StaticResource DataLayerContextMenu}"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource DataToolTipTemplate}"/>
+            <Setter Property="ItemsSource" Value="{Binding ToolTipItems}"/>
+            <Setter Property="SelectedItem" Value="{Binding SelectedToolTipItem}"/>
+        </Style>
     </UserControl.Resources>
     
     <Grid>
@@ -59,12 +64,10 @@
                 </ContextMenu>
             </hex:DrawedHexEditor.ContextMenu>
             <hex:DrawedHexEditor.HexDataToolTip>
-                <ListBox ItemsSource="{Binding DataToolTips}" FontSize="14" SelectedItem="{Binding SelectedToolTipItem}" Style="{x:Null}"
-                         ItemTemplate="{StaticResource DataToolTipTemplate}" ContextMenu="{StaticResource DataLayerContextMenu}" />
+                <ListBox Style="{StaticResource ToolTipListBox}" />
             </hex:DrawedHexEditor.HexDataToolTip>
             <hex:DrawedHexEditor.StringDataToolTip>
-                <ListBox ItemsSource="{Binding DataToolTips}" FontSize="14" SelectedItem="{Binding SelectedToolTipItem}" Style="{x:Null}"
-                         ItemTemplate="{StaticResource DataToolTipTemplate}" ContextMenu="{StaticResource DataLayerContextMenu}" />
+                <ListBox Style="{StaticResource ToolTipListBox}" />
             </hex:DrawedHexEditor.StringDataToolTip>
         </hex:DrawedHexEditor>
         <Border Grid.Column="1"/>

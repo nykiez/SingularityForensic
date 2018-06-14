@@ -116,8 +116,8 @@ namespace SingularityForensic.Hex.ViewModels {
             _positionToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset);
             _valToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Value);
 
-            DataToolTips.Add(_positionToolTip);
-            DataToolTips.Add(_valToolTip);
+            ToolTipItems.Add(_positionToolTip);
+            ToolTipItems.Add(_valToolTip);
         }
 
         private IToolTipDataItem _valToolTip;
@@ -141,18 +141,27 @@ namespace SingularityForensic.Hex.ViewModels {
             }
         }
 
-        public ObservableCollection<IToolTipItem> DataToolTips { get; set; } = new ObservableCollection<IToolTipItem>();
+        public ObservableCollection<IToolTipItem> ToolTipItems { get; set; } = new ObservableCollection<IToolTipItem>();
 
         /// <summary>
         /// These properties make the tool tip more extensible;
         /// </summary>
         public ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems = new List<(long position, long size, string key, string value)>();
         public ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems = new List<(long position, long size, IToolTipObjectItem toolTipObjectItem)>();
-
         /// <summary>
         /// This is for better performance,reducing frequency of the building IToolTipDataItem;
         /// </summary>
         private List<IToolTipDataItem> _cachedToolTipDataItems = new List<IToolTipDataItem>();
+        IToolTipDataItem GetOrCreateDataItem(int index) {
+            if(_cachedToolTipDataItems.Count < index +1) {
+                var sub = index + 1 - _cachedToolTipDataItems.Count;
+                for (int i = 0; i < sub; i++) {
+                    _cachedToolTipDataItems.Add(ToolTipItemFactory.CreateIToolTipDataItem());
+                }
+            }
+            return _cachedToolTipDataItems[index];
+        }
+
         private void UpdateToolTipItems() {
             if (!(Stream?.CanRead ?? false)) {
                 return;
@@ -162,22 +171,17 @@ namespace SingularityForensic.Hex.ViewModels {
                 return;
             }
 
-            DataToolTips.Clear();
+            ToolTipItems.Clear();
 
             Stream.Position = HoverPosition;
             _positionToolTip.Value = HoverPosition.ToString();
             _valToolTip.Value = Stream.ReadByte().ToString();
 
-            DataToolTips.Add(_positionToolTip);
-            DataToolTips.Add(_valToolTip);
+            ToolTipItems.Add(_positionToolTip);
+            ToolTipItems.Add(_valToolTip);
 
-            if (_cachedToolTipDataItems.Count < CustomDataToolTipItems.Count) {
-                var sub = CustomDataToolTipItems.Count - _cachedToolTipDataItems.Count;
-                for (int i = 0; i < sub; i++) {
-                    _cachedToolTipDataItems.Add(ToolTipItemFactory.CreateIToolTipDataItem());
-                }
-            }
-
+            
+            
 
             //Update  Custom ToolDataTips;
             var dataToolTipIndex = 0;
@@ -185,11 +189,11 @@ namespace SingularityForensic.Hex.ViewModels {
                 if (!(HoverPosition >= position && HoverPosition < size + position)) {
                     continue;
                 }
-
-                var tooltipDataItem = _cachedToolTipDataItems[dataToolTipIndex];
+                
+                var tooltipDataItem = GetOrCreateDataItem(dataToolTipIndex);
                 tooltipDataItem.KeyName = key;
                 tooltipDataItem.Value = value;
-                DataToolTips.Add(tooltipDataItem);
+                ToolTipItems.Add(tooltipDataItem);
 
                 dataToolTipIndex++;
             }
@@ -199,7 +203,7 @@ namespace SingularityForensic.Hex.ViewModels {
                     continue;
                 }
 
-                DataToolTips.Add(toolTipObjectItem);
+                ToolTipItems.Add(toolTipObjectItem);
             }
         }
 
