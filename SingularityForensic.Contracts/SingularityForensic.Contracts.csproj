@@ -150,6 +150,7 @@
     <Compile Include="Document\IEnumerableDocument.cs" />
     <Compile Include="Document\IDocumentService.cs" />
     <Compile Include="Document\IDocument.cs" />
+    <Compile Include="FileExplorer\Events\IFileExplorerModuleLoadingEventHandler.cs" />
     <Compile Include="FileExplorer\IFullFileNameProvider.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
     <Compile Include="FileExplorer\Events\FilterSettingsChangedEvent.cs" />

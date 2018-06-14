@@ -16,11 +16,15 @@ namespace SingularityForensic.FileExplorer.Models {
         public FileRow(IFile file):base(file) {
             
         }
-        
+#if DEBUG
+        ~FileRow() {
+
+        }
+#endif
     }
 
- 
-    
+
+
 
     /// <summary>
     /// 文件行泛基类;
@@ -55,7 +59,7 @@ namespace SingularityForensic.FileExplorer.Models {
             }
             
             _filePropDescriptorCollection = new PropertyDescriptorCollection(
-                metaProviders.Select(p => new FileRowPropertyDescriptor(p)).ToArray(),true);
+                metaProviders.Select(p => new FileRowPropertyDescriptor(p)).ToArray());
 
             DescriptorsInitialized = true;
         }

@@ -16,6 +16,7 @@ using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Helpers;
 using CDFC.Util.IO;
+using SingularityForensic.Contracts.FileExplorer;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>
@@ -446,15 +447,7 @@ namespace SingularityForensic.FileExplorer {
 
         private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IHasher hasher) {
             var comm = new DelegateCommand(() => {
-                if(vm.SelectedFile == null) {
-                    return;
-                }
-
-                if(!(vm.SelectedFile.File is IBlockGroupedFile blockFile)) {
-                    return;
-                }
-
-                var stream = blockFile.GetInputStream();
+                var stream = vm.SelectedFile?.File?.GetInputStream();
                 if(stream == null) {
                     return;
                 }
@@ -464,15 +457,18 @@ namespace SingularityForensic.FileExplorer {
 
                 loadingDialog.DoWork += delegate {
                     result = ComputeHashOnDialog(loadingDialog, hasher,stream);
+                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrifix}{hasher.GUID}";
+                    vm.SelectedFile.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
+                    vm.SelectedFile.NotifyProperty(metaGUID);
+                    stream.Dispose();
                 };
 
                 loadingDialog.RunWorkerCompleted += delegate {
                     if(result == null) {
                         return;
                     }
-
-                    DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.ConvertToHexFormat());
-                    stream.Dispose();
+                    
+                    DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.BytesToHexString()?.ToUpper());
                 };
                 
                 loadingDialog.Show();

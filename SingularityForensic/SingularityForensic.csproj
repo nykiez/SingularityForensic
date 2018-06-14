@@ -360,6 +360,7 @@
     <Compile Include="FAT\FATInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFileExplorerModuleLoadingForHashColumnEventHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedEventOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedShowPartitionBrowserHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileSystemUnitSelectedChangedHandler.cs" />

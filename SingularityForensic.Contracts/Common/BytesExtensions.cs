@@ -100,7 +100,6 @@ namespace SingularityForensic.Contracts.Common {
             foreach (var b in data) {
                 sb.Append(ByteToHexChar(b / 16));
                 sb.Append(ByteToHexChar(b % 16));
-                sb.Append(" ");
             }
 
             if (sb.Length > 0)

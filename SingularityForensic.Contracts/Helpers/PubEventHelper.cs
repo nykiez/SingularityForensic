@@ -37,8 +37,8 @@ namespace SingularityForensic.Contracts.Helpers {
             token = evt.Subscribe(act);
         }
 
-        public static void Subscribe<TEvent,TPayload>(Action<TPayload> act) where TEvent:PubSubEvent<TPayload>,new(){
-            Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
+        public static SubscriptionToken Subscribe<TEvent,TPayload>(Action<TPayload> act) where TEvent:PubSubEvent<TPayload>,new(){
+            return Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
         }
 
         public static void Subscribe<TEvent>(Action act) where TEvent : PubSubEvent, new() {
@@ -72,6 +72,30 @@ namespace SingularityForensic.Contracts.Helpers {
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine($"{handler.GetType()} ex.Message");
+                    LoggerService.WriteException(ex);
+                }
+            }
+        }
+        public static void PublishEventToHandlers<TEventHandler>( IEnumerable<TEventHandler> eventHandlers) where TEventHandler:IEventHandler {
+            if (eventHandlers == null) {
+                return;
+            }
+
+            foreach (var handler in eventHandlers.OrderBy(p => p.Sort)) {
+                if (handler == null) {
+                    LoggerService.WriteCallerLine($"{nameof(handler)} coudn't be null.");
+                    continue;
+                }
+
+                try {
+                    if (!handler.IsEnabled) {
+                        continue;
+                    }
+                    handler.Handle();
+                }
+                catch (Exception ex) {
+                    LoggerService.WriteCallerLine($"{handler.GetType()} ex.Message");
+                    LoggerService.WriteException(ex);
                 }
             }
         }

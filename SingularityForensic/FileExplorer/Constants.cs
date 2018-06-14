@@ -44,12 +44,16 @@ namespace SingularityForensic.FileExplorer {
 
         public const string StatusBarItemGUID_DirectoryCount = nameof(StatusBarItemGUID_DirectoryCount);
 
+        public const string FileHashMetaDataProvider_GUIDPrifix = "HashMetaData_";
 
         /// <summary>
         /// 打开方式,右键;
         /// </summary>
         public const string CommandItemGUID_OpenFileWith = nameof(CommandItemGUID_OpenFileWith);
 
+        /// <summary>
+        /// 查看器配置文件相关的元素名称;
+        /// </summary>
         public const string ViewerProgram_ConfigFile = "ViewerPrograms.xml";
 
         public const string XmlElemName_Viewer_Root = "Programs";
@@ -59,6 +63,7 @@ namespace SingularityForensic.FileExplorer {
         public const string XmlElemName_View_Pro_Path = "Path";
 
         public const string XmlAttrName_View_Pro_Name = "Name";
+        
     }
 
     /// <summary>

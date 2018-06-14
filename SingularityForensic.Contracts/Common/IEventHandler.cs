@@ -6,6 +6,25 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
     /// <summary>
+    /// 无参的事件处理器;
+    /// </summary>
+    public interface IEventHandler {
+        /// <summary>
+        /// 处理排序;
+        /// </summary>
+        int Sort { get; }
+        /// <summary>
+        /// 处理;
+        /// </summary>
+        /// <param name="args"></param>
+        void Handle();
+        /// <summary>
+        /// 是否可用;
+        /// </summary>
+        bool IsEnabled { get; }
+    }
+
+    /// <summary>
     /// 事件处理器,在使用事件驱动模式时,使事件的订阅者所订阅动作按照排序进行;
     /// </summary>
     /// <typeparam name="TEventArgs"></typeparam>
