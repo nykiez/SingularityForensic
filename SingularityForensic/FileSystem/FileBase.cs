@@ -20,7 +20,9 @@ namespace SingularityForensic.FileSystem {
 
         internal IFile InternalParent { get; set; }
 
-        public abstract TInstance GetIntance<TInstance>(string extName);
+        public abstract TInstance GetInstance<TInstance>(string extName);
+
+        public abstract TInstance GetGeneralInstance<TInstance>(string extName);
 
         internal void ChangeParent(IFile parent) {
             InternalParent = parent;
@@ -69,11 +71,16 @@ namespace SingularityForensic.FileSystem {
         /// <returns></returns>
         public DateTime? GetExtensionTime(string timeLabel) => _stoken.GetExtensionTime(timeLabel);
 
-        public override TInstance GetIntance<TInstance>(string extName) {
-            return _stoken.GetIntance<TInstance>(extName);
+        public override TInstance GetInstance<TInstance>(string extName) {
+            return _stoken.GetInstance<TInstance>(extName);
         }
+
+        public override TInstance GetGeneralInstance<TInstance>(string extName) {
+            return _stoken.GetGeneralInstance<TInstance>(extName);
+        }
+
     }
-    
+
     /// <summary>
     /// 用于描述文件,文件夹等具有时间,块组特性的文件;
     /// </summary>

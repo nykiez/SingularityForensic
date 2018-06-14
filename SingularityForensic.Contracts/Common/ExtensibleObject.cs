@@ -19,9 +19,11 @@ namespace SingularityForensic.Contracts.Common {
     }
 
     public class ReadOnlyExtensibleObject : ReadOnlyExtensibleBase, IReadOnlyExtensible {
-        public TInstance GetIntance<TInstance>(string extName) => GetIntanceCore<TInstance>(extName);
+        public TInstance GetInstance<TInstance>(string extName) => GetInstanceCore<TInstance>(extName);
+
+        public TInstance GetGeneralInstance<TInstance>(string extName) => GetGeneralInstanceCore<TInstance>(extName);
     }
-    
+
     public abstract class ReadOnlyExtensibleBase {
         /// <summary>
         /// 实例保存栈;
@@ -44,17 +46,36 @@ namespace SingularityForensic.Contracts.Common {
             throw new InvalidCastException($"{nameof(cell.Instance)} can't be cast to {instanceType}.");
         }
 
-        protected virtual TInstance GetIntanceCore<TInstance>(string extName) {
+        protected virtual TInstance GetInstanceCore<TInstance>(string extName) {
             var ins = GetInstance(typeof(TInstance), extName);
             if (ins != null) {
                 return (TInstance)ins;
             }
             return default(TInstance);
         }
+
+        /// <summary>
+        /// 类型判断拆箱获取类型;
+        /// </summary>
+        /// <typeparam name="TInstance"></typeparam>
+        /// <param name="extName"></param>
+        /// <returns></returns>
+        protected virtual TInstance GetGeneralInstanceCore<TInstance>(string extName) {
+            foreach (var item in StateStack) {
+                if(item.Instance is TInstance instance) {
+                    return instance;
+                }
+            }
+
+            return default(TInstance);
+        }
+
+        
     }
 
     public abstract class ExtensibleBase:ReadOnlyExtensibleBase {
-        public virtual TInstance GetIntance<TInstance>(string extName) => GetIntanceCore<TInstance>(extName);
+        public virtual TInstance GetInstance<TInstance>(string extName) => GetInstanceCore<TInstance>(extName);
+        public virtual TInstance GetGeneralInstance<TInstance>(string extName) => GetGeneralInstanceCore<TInstance>(extName);
 
         protected void SetInstanceCore<TInstance>(TInstance instance, string extName) {
             var tuple = StateStack.FirstOrDefault(p => p.InstanceType == typeof(TInstance)

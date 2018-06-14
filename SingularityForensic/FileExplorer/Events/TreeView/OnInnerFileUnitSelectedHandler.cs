@@ -30,7 +30,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var innerFile = tuple.unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
+            var innerFile = tuple.unit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
             if (innerFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(innerFile)} can't be null.");
                 return;
@@ -60,7 +60,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var folderBrowseViewModel = doc.GetIntance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
+            var folderBrowseViewModel = doc.GetInstance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
             if (folderBrowseViewModel == null) {
                 LoggerService.WriteCallerLine($"{nameof(folderBrowseViewModel)} can't be null.");
                 return;

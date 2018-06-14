@@ -130,10 +130,10 @@ namespace SingularityForensic.Drive.ViewModels {
             (_confirmCommand = new DelegateCommand(
                 () => {
                     if(SelectedUnit.TypeGuid == Constants.DriveType_LocalHDD) {
-                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetIntance<LocalHDD>(Constants.TreeUnitTag_LocalHDD));
+                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetInstance<LocalHDD>(Constants.TreeUnitTag_LocalHDD));
                     }
                     else if(SelectedUnit.TypeGuid == Constants.TreeUnitTag_LocalVolume) {
-                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetIntance<LocalVolume>(Constants.TreeUnitTag_LocalVolume));
+                        SelectedDriveTuple = (SelectedUnit.TypeGuid, SelectedUnit.GetInstance<LocalVolume>(Constants.TreeUnitTag_LocalVolume));
                     }
                     
                     _confirmed = true;

@@ -157,7 +157,7 @@ namespace SingularityForensic.FAT {
                 return;
             }
 
-            var partInfo = stoken.GetIntance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
+            var partInfo = stoken.GetInstance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
             if(partInfo == null) {
                 return;
             }
@@ -279,7 +279,7 @@ namespace SingularityForensic.FAT {
             IProgressReporter reporter) {
 
             var partStoken = part.GetStoken(Constants.PartitionKey_FAT);
-            var partInfo = partStoken.GetIntance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
+            var partInfo = partStoken.GetInstance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
             var partManager = partInfo.UnmanagedFATManager;
             if(partManager.FATManagerPtr == IntPtr.Zero) {
                 LoggerService.WriteCallerLine($"{nameof(partManager.FATManagerPtr)} can't be nullptr.");
@@ -579,7 +579,7 @@ namespace SingularityForensic.FAT {
             Func<bool> isCancel) {
 
             var dirStoken = direct.GetStoken(Constants.DirectoryKey_FAT);
-            var fatFileInfo = dirStoken.GetIntance<FATFileInfo>(Constants.FileStokenTag_FATFileInfo) as FATFileInfo;
+            var fatFileInfo = dirStoken.GetInstance<FATFileInfo>(Constants.FileStokenTag_FATFileInfo) as FATFileInfo;
             var filePtr = Fat_Parse_Dir(partInfo.UnmanagedFATManager.FATManagerPtr, fatFileInfo.StFileNode.Value.stClusterList);
 
             DealWithFileNode(direct, partInfo , filePtr, ntfSzAct, isCancel);

@@ -22,7 +22,7 @@ namespace SingularityForensic.Hex {
             };
 
             _vm.FocusPositionChanged += delegate {
-                LostFocus?.Invoke(this, EventArgs.Empty);
+                //LostFocus?.Invoke(this, EventArgs.Empty);
             };
 
             _customBackgroundBlocksWrapper = new CollectionWrapper<

@@ -34,12 +34,12 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
             var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
+                FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
             if (tab == null) {
                 return;
             }
 
-            var previewerDoc = tab.GetIntance<IDocument>(Constants.Document_FilePreviewer);
+            var previewerDoc = tab.GetInstance<IDocument>(Constants.Document_FilePreviewer);
             if (previewerDoc == null) {
                 LoggerService.WriteCallerLine($"{nameof(previewerDoc)} can't be null.");
             }
@@ -57,7 +57,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 }
                 ThreadInvoker.UIInvoke(() => {
                     try {
-                        previewerDoc.GetIntance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
+                        previewerDoc.GetInstance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
                         previewerDoc.SetInstance(previewer, Constants.DocumentTag_FilePreviewer);
                         previewerDoc.UIObject = previewer.UIObject;
                     }

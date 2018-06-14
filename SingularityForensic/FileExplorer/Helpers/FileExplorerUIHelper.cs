@@ -85,7 +85,7 @@ namespace SingularityForensic.FileExplorer.Helpers {
             }
 
             var doc = mainDocService.CurrentDocuments.FirstOrDefault(p =>
-            p.GetIntance<IFile>( Contracts.FileExplorer.Constants.DocumentTag_File) == file);
+            p.GetInstance<IFile>( Contracts.FileExplorer.Constants.DocumentTag_File) == file);
 
             if (doc != null) {
                 mainDocService.SelectedDocument = doc;

@@ -102,7 +102,7 @@ namespace SingularityForensic.FileExplorer.Models {
 
         public bool IsChecked {
             get {
-                var isChecked = File.ExtensibleTag.GetIntance<bool?>(Contracts.FileExplorer.Constants.FileTag_IsChecked);
+                var isChecked = File.ExtensibleTag.GetInstance<bool?>(Contracts.FileExplorer.Constants.FileTag_IsChecked);
                 return isChecked ?? false;
             }
             set {

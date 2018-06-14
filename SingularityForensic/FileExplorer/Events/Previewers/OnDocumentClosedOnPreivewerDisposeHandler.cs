@@ -18,13 +18,13 @@ namespace SingularityForensic.FileExplorer.Events {
 
         public void Handle((IDocumentBase doc, IDocumentService owner) tuple) {
             //释放预览器;
-            var previewerDoc = tuple.doc?.GetIntance<IDocument>(Constants.Document_FilePreviewer);
+            var previewerDoc = tuple.doc?.GetInstance<IDocument>(Constants.Document_FilePreviewer);
             if (previewerDoc == null) {
                 return;
             }
 
             try {
-                previewerDoc.GetIntance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
+                previewerDoc.GetInstance<IPreviewer>(Constants.DocumentTag_FilePreviewer)?.Dispose();
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

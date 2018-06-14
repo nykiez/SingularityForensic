@@ -54,7 +54,7 @@ namespace SingularityForensic.Casing {
             }
 
             var evidenceUnit = caseUnit.Children.FirstOrDefault(p => p.TypeGuid == Contracts.Casing.Constants.TreeUnitType_CaseEvidence
-            && p.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence) == evidence);
+            && p.GetInstance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence) == evidence);
 
             if(evidenceUnit == null) {
                 LoggerService.WriteCallerLine($"{nameof(evidenceUnit)} can't be null.");

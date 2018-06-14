@@ -31,15 +31,15 @@ namespace SingularityForensic.FileExplorer.Events {
             }
 
             var tab = DocumentService.MainDocumentService.CurrentDocuments.
-               FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.Device);
+               FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.Device);
             if (tab == null) {
                 return;
             }
 
             vm.Device.GetStartLBA(tuple.part.File);
 
-            var deviceHexDataContext = tab.GetIntance<IHexDataContext>(Constants.HexDataContext_PartitionBrowser_Device);
-            var partHexDataContext = tab.GetIntance<IHexDataContext>(Constants.HexDataContext_PartitionBrowser_Partition);
+            var deviceHexDataContext = tab.GetInstance<IHexDataContext>(Constants.HexDataContext_PartitionBrowser_Device);
+            var partHexDataContext = tab.GetInstance<IHexDataContext>(Constants.HexDataContext_PartitionBrowser_Partition);
 
             if (deviceHexDataContext != null) {
                 deviceHexDataContext.Position = vm.Device.GetStartLBA(tuple.part.File);

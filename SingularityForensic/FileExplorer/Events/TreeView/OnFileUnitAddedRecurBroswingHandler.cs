@@ -39,7 +39,7 @@ namespace SingularityForensic.FileExplorer.Events {
         }
 
         public void HandleOnInnerFileUnit(ITreeUnit unit) {
-            var innerFile = unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
+            var innerFile = unit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
             if (innerFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(innerFile)} can't be null.");
                 return;
@@ -54,7 +54,7 @@ namespace SingularityForensic.FileExplorer.Events {
         }
 
         public void HandleOnFileSystemUnit(ITreeUnit unit) {
-            var file = unit?.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            var file = unit?.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             if(!(file is IHaveFileCollection haveFileCollection)) {
                 return;
             }
@@ -82,7 +82,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var folderBrowseViewModel = doc.GetIntance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
+            var folderBrowseViewModel = doc.GetInstance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
             if (folderBrowseViewModel == null) {
                 LoggerService.WriteCallerLine($"{nameof(folderBrowseViewModel)} can't be null.");
                 return;

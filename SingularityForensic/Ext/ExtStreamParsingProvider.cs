@@ -116,7 +116,7 @@ namespace SingularityForensic.Ext {
                 return;
             }
 
-            var partInfo = stoken.GetIntance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
+            var partInfo = stoken.GetInstance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
             if (partInfo == null) {
                 return;
             }
@@ -161,7 +161,7 @@ namespace SingularityForensic.Ext {
 
         private static void LoadPartContent(IPartition part,IProgressReporter reporter) {
             var partStoken = part.GetStoken(Constants.PartitionKey_Ext);
-            var partInfo = partStoken.GetIntance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
+            var partInfo = partStoken.GetInstance<ExtPartInfo>(Constants.PartitionStokenTag_ExtPartInfo);
             var partManager = partInfo.ExtUnmanagedManager;
             if (partManager.ExtManagerPtr == IntPtr.Zero) {
                 LoggerService.WriteCallerLine($"{nameof(partManager.ExtManagerPtr)} can't be nullptr.");
@@ -334,7 +334,7 @@ namespace SingularityForensic.Ext {
             Func<bool> isCancel) {
 
             var dirStoken = direct.GetStoken(Constants.DirectoryKey_Ext);
-            var fatFileInfo = dirStoken.GetIntance<ExtFileInfo>(Constants.FileStokenTag_ExtFileInfo) as ExtFileInfo;
+            var fatFileInfo = dirStoken.GetInstance<ExtFileInfo>(Constants.FileStokenTag_ExtFileInfo) as ExtFileInfo;
 
             var filePtr = ExtX_Parse_Dir(partInfo.ExtUnmanagedManager.ExtManagerPtr, fatFileInfo.BlockListPtr);
 

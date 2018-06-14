@@ -24,7 +24,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var device = hexDataContext.GetIntance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IDevice;
+            var device = hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IDevice;
             if (device == null) {
                 return;
             }
@@ -40,7 +40,7 @@ namespace SingularityForensic.FileExplorer.Events {
                     BrushBlockFactory.CreateNewBackgroundBlock(
                         ti.StartLBA,
                         ti.Size,
-                        i++ % 2 == 0 ? Brushes.LightBlue : Brushes.Chocolate
+                        i++ % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush
                     )
                 );
 

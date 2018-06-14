@@ -25,7 +25,7 @@ namespace SingularityForensic.FileExplorer.Events {
             LoggerService.WriteCallerLine($"OnDocumentAddedShowFolderBrowserHandler handling");
 
             try {
-                var haveFileCollection = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
+                var haveFileCollection = enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
                 if (haveFileCollection == null) {
                     return;
                 }

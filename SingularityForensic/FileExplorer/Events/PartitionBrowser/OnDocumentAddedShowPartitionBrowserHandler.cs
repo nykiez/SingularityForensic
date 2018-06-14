@@ -27,7 +27,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var device = enumDoc.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IDevice;
+            var device = enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IDevice;
             if (device == null) {
                 return;
             }

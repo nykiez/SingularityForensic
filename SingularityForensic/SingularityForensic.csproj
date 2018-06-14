@@ -281,7 +281,8 @@
       <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseDevice\BaseDeviceInfo.cs" />
-    <Compile Include="BaseDevice\Events\OnHexDataContextLoadedOnGPTDeviceHandler.cs" />
+    <Compile Include="BaseDevice\Events\Hex\BaseDeviceHexHelper.cs" />
+    <Compile Include="BaseDevice\Events\Hex\OnHexDataContextLoadedOnGPTDeviceHandler.cs" />
     <Compile Include="BaseDevice\BasePartInfo.cs" />
     <Compile Include="BaseDevice\InnerPartsType.cs" />
     <Compile Include="Common\LoggerServiceImpl.cs" />

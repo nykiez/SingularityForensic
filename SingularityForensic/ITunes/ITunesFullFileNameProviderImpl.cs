@@ -22,7 +22,7 @@ namespace SingularityForensic.ITunes {
                 return null;
             }
 
-            var iosFileStruct = file.GetIntance<IOSFileStruct?>(Constants.RegularFileTag_ITunesBackUp);
+            var iosFileStruct = file.GetInstance<IOSFileStruct?>(Constants.RegularFileTag_ITunesBackUp);
             if (iosFileStruct == null) {
                 return null;
             }

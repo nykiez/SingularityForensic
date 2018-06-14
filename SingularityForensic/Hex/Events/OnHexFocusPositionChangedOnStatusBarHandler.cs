@@ -26,7 +26,7 @@ namespace SingularityForensic.Hex.Events {
             //订阅位置变更事件;
             hexContext.FocusPositionChanged += (sender,e) => HandleOnFocusChanged(hexContext);
             //失去焦点时,移除状态栏项;
-            hexContext.LostFocus += (sender, e) => HandleOnLostFocus(hexContext);
+            //hexContext.LostFocus += (sender, e) => HandleOnLostFocus(hexContext);
         }
 
         private void HandleOnLostFocus(IHexDataContext hexContext) {

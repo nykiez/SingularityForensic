@@ -30,13 +30,13 @@ namespace SingularityForensic.Contracts.Hex {
         event EventHandler FocusPositionChanged;
 
         //失去焦点时触发;
-        event EventHandler LostFocus;
+        //event EventHandler LostFocus;
 
         ICollection<IBrushBlock> CustomBackgroundBlocks { get; }
 
         IBytesToCharEncoding BytesToCharEncoding { get; set; }
         /// <summary>
-        /// 刷新自定义块内容,避免多次添加色块所带来的损失;
+        /// 手动刷新自定义块内容,避免多次添加色块所带来的性能损耗;
         /// </summary>
         void UpdateCustomBackgroundBlocks();
 
@@ -49,7 +49,7 @@ namespace SingularityForensic.Contracts.Hex {
         /// </summary>
         /// <remarks>之所以会将ToolTip键值型与自定义类型分离,是因为若合并处理，将会导致过多的键值型ToolTip中含有大量的UI元素,导致内存占用过大.</remarks>
         ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems { get; }
-
+        
         /// <summary>
         /// ToolTip项(自定义型)
         /// </summary>

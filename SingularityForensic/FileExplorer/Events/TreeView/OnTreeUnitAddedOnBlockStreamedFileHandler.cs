@@ -29,7 +29,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var file = tuple.unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
+            var file = tuple.unit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
             if (file == null) {
                 LoggerService.WriteCallerLine($"{nameof(file)} can't be null.");
                 return;

@@ -204,7 +204,7 @@ namespace SingularityForensic.FileExplorer.Events {
             }
 
             foreach (var doc in docs) {
-                var vm = doc.GetIntance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
+                var vm = doc.GetInstance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
                 if (vm != null) {
                     yield return vm;
                 }

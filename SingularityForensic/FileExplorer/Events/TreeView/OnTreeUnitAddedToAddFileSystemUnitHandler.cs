@@ -36,7 +36,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var csEvidence = tuple.unit.GetIntance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
+            var csEvidence = tuple.unit.GetInstance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
             if (csEvidence == null) {
                 LoggerService.WriteCallerLine($"{nameof(csEvidence)} can't be null.");
                 return;

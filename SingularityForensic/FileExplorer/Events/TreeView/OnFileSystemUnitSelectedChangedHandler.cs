@@ -32,7 +32,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var file = tuple.unit.GetIntance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
+            var file = tuple.unit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             if (file != null) {
                 FileExplorerUIHelper.GetOrAddFileDocument(file);
             }

@@ -92,7 +92,7 @@ namespace SingularityForensic.Test.Documents {
                 throw new NotImplementedException();
             }
 
-            public TInstance GetIntance<TInstance>(string extName) {
+            public TInstance GetInstance<TInstance>(string extName) {
                 throw new NotImplementedException();
             }
 

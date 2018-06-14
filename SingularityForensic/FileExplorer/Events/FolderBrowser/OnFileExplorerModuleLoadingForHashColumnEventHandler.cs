@@ -52,7 +52,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
 
             }
 #endif
-            var hash = file.ExtensibleTag.GetIntance<string>(this.GUID);
+            var hash = file.ExtensibleTag.GetInstance<string>(this.GUID);
             
             return hash;
         }

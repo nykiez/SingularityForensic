@@ -28,7 +28,15 @@ namespace SingularityForensic.Contracts.Common {
         /// </summary>
         /// <typeparam name="TInstance">拓展实例类型</typeparam>
         /// <returns></returns>
-        TInstance GetIntance<TInstance>(string extName);
+        TInstance GetInstance<TInstance>(string extName);
+
+        ///// <summary>
+        ///// 类型判断拆箱获取类型;
+        ///// </summary>
+        ///// <typeparam name="TInstance"></typeparam>
+        ///// <param name="extName"></param>
+        ///// <returns></returns>
+        //TInstance GetGeneralInstance<TInstance>(string extName);
     }
 
     public interface ITextExtensible:ITextReadOnlyExtensible {

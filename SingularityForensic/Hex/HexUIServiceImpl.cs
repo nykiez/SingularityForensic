@@ -112,7 +112,7 @@ namespace SingularityForensic.Hex {
             }
 
             if (slDoc is IEnumerableDocument enumDoc && enumDoc.SelectedDocument != null) {
-                return enumDoc.SelectedDocument.GetIntance<IHexDataContext>(Contracts.Hex.Constants.Tag_HexDataContext);
+                return enumDoc.SelectedDocument.GetInstance<IHexDataContext>(Contracts.Hex.Constants.Tag_HexDataContext);
             }
 
             return null;

@@ -400,13 +400,13 @@ namespace SingularityForensic.FileExplorer {
                 var lb = new ListBlockMessageBox(blockGrouped);
                 lb.SelectedAddressChanged += (sender, e) => {
                     var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                        FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.HaveFileCollection);
+                        FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.HaveFileCollection);
                     if (tab == null) {
                         return;
                     }
 
-                    var partHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_Partition);
-                    var fileHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_File);
+                    var partHexDataContext = tab.GetInstance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_Partition);
+                    var fileHexDataContext = tab.GetInstance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_File);
 
                     var blockGroup = blockGrouped.BlockGroups.FirstOrDefault(p => e >= p.BlockAddress && e <= p.BlockAddress + p.Count);
                     if (blockGroup == null) {

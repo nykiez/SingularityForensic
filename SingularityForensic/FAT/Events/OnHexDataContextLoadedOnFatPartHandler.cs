@@ -24,7 +24,7 @@ namespace SingularityForensic.FAT.Events {
                 return;
             }
 
-            var part = hexDataContext.GetIntance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IPartition;
+            var part = hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IPartition;
             if(part == null) {
                 return;
             }
@@ -33,7 +33,7 @@ namespace SingularityForensic.FAT.Events {
                 return;
             }
 
-            var fatPartInfo = part.GetIntance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
+            var fatPartInfo = part.GetInstance<FATPartInfo>(Constants.PartitionStokenTag_FATPartInfo);
             if(fatPartInfo == null) {
                 return;
             }

@@ -299,11 +299,11 @@ namespace SingularityForensic.BaseDevice {
             try {
                 if (device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
                     deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
-                    deviceInfo = deviceStoken.GetIntance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOS);
+                    deviceInfo = deviceStoken.GetInstance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOS);
                 }
                 else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
-                    deviceInfo = deviceStoken.GetIntance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPTDeviceInfo);
+                    deviceInfo = deviceStoken.GetInstance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPTDeviceInfo);
                 }
             }
             catch (Exception ex) {

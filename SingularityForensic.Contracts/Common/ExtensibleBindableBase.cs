@@ -12,7 +12,9 @@ namespace SingularityForensic.Contracts.Common {
     public abstract class ExtensibleBindableBase: BindableBase,IExtensible {
         private ExtensibleObject _extensibleBase = new ExtensibleObject();
 
-        public TInstance GetIntance<TInstance>(string extName) => _extensibleBase.GetIntance<TInstance>(extName);
+        public TInstance GetGeneralInstance<TInstance>(string extName) => _extensibleBase.GetGeneralInstance<TInstance>(extName);
+
+        public TInstance GetInstance<TInstance>(string extName) => _extensibleBase.GetInstance<TInstance>(extName);
 
         public void SetInstance<TInstance>(TInstance instance, string extName) => _extensibleBase.SetInstance<TInstance>(instance, extName);
     }

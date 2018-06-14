@@ -23,13 +23,13 @@ namespace SingularityForensic.FileExplorer.Events {
             }
 
             var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                FirstOrDefault(p => p.GetIntance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
+                FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
             if (tab == null) {
                 return;
             }
 
-            var partHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_Partition);
-            var fileHexDataContext = tab.GetIntance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_File);
+            var partHexDataContext = tab.GetInstance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_Partition);
+            var fileHexDataContext = tab.GetInstance<IHexDataContext>(Contracts.FileExplorer.Constants.HexDataContext_FolderBrowser_File);
 
             if (!(tuple.file.File is IBlockGroupedFile blockGrouped)) {
                 return;
