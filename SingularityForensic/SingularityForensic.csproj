@@ -474,6 +474,7 @@
     <Compile Include="Hex\Models\CollectionWrapper.cs" />
     <Compile Include="Hex\Models\CutomBackgroundWrapper.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
+    <Compile Include="Hex\Models\ToolTipItemModels.cs" />
     <Compile Include="Hex\ToolTipDataItem.cs" />
     <Compile Include="Hex\ToolTipItemFactoryImpl.cs" />
     <Compile Include="Hex\ToolTipObjectItem.cs" />

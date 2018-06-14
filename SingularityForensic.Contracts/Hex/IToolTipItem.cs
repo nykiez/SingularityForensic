@@ -5,7 +5,7 @@ namespace SingularityForensic.Contracts.Hex {
     /// <summary>
     /// This is designed for more extensibility for ToolTip;
     /// </summary>
-    public interface IToolTipItem:IUIObjectProvider {
+    public interface IToolTipItem {
         
     }
 }

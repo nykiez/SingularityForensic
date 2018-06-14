@@ -84,7 +84,7 @@ namespace SingularityForensic.Hex {
     partial class HexDataContext {
         public IEnumerable<ICommandItem> ContextCommands => _vm.ContextCommands;
 
-        public ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems => _vm.CustomDataToolTipItems;
+        public ICollection<(long position, long size, IToolTipDataItem toolTipDataItem)> CustomDataToolTipItems => _vm.CustomDataToolTipItems;
 
         public ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems =>
             _vm.CustomObjectToolTipItems;

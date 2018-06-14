@@ -155,11 +155,10 @@ namespace SingularityForensic.FAT.Events {
             var currentOffset = 0;
 
             foreach (var fieldDescriptor in fieldDescriptors) {
-                hexDataContext.CustomDataToolTipItems.Add(
-                    (offset + currentOffset, 
-                    fieldDescriptor.FieldSize,
-                    LanguageService.FindResourceString(fieldDescriptor.KeyName),
-                    fieldDescriptor.Value));
+                var dataItem = ToolTipItemFactory.CreateIToolTipDataItem();
+                dataItem.KeyName = LanguageService.FindResourceString(fieldDescriptor.KeyName);
+                dataItem.Value = fieldDescriptor.Value;
+                hexDataContext.CustomDataToolTipItems.Add((offset + currentOffset, fieldDescriptor.FieldSize, dataItem));
                 currentOffset += fieldDescriptor.FieldSize;
             }
 
@@ -172,8 +171,9 @@ namespace SingularityForensic.FAT.Events {
            string ownerValueName)
            where TStruct : struct {
             var stSize = Marshal.SizeOf(typeof(TStruct));
+            
             hexDataContext.CustomDataToolTipItems.Add(
-                    (offset, stSize, ownerKeyName, ownerValueName)
+                    (offset, stSize,ToolTipItemFactory.CreateIToolTipDataItem(ownerKeyName, ownerValueName))
                 );
         }
 

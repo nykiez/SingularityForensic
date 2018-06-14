@@ -18,6 +18,7 @@
     
     <UserControl.Resources>
         <DataTemplate x:Key="DataToolTipTemplate">
+            
             <ContentControl Content="{Binding UIObject}"/>
         </DataTemplate>
 
@@ -32,8 +33,8 @@
             <Setter Property="Background" Value="{DynamicResource Envoirment.Background}"/>
             <Setter Property="ContextMenu" Value="{StaticResource DataLayerContextMenu}"/>
             <Setter Property="ItemTemplate" Value="{StaticResource DataToolTipTemplate}"/>
-            <Setter Property="ItemsSource" Value="{Binding ToolTipItems}"/>
-            <Setter Property="SelectedItem" Value="{Binding SelectedToolTipItem}"/>
+            <Setter Property="ItemsSource" Value="{Binding ToolTipItemModels}"/>
+            <Setter Property="SelectedItem" Value="{Binding SelectedToolTipItemModel}"/>
         </Style>
     </UserControl.Resources>
     

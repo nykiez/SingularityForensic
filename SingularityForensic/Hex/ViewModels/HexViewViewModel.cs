@@ -4,12 +4,11 @@ using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
+using SingularityForensic.Hex.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows;
-using WpfHexaEditor.Core.Interfaces;
 
 namespace SingularityForensic.Hex.ViewModels {
     public partial class HexViewViewModel : BindableBase {
@@ -110,53 +109,52 @@ namespace SingularityForensic.Hex.ViewModels {
     /// </summary>
     public partial class HexViewViewModel {
         private void InitializeToolTips() {
-            _positionToolTip = ToolTipItemFactory.CreateIToolTipDataItem();
-            _valToolTip = ToolTipItemFactory.CreateIToolTipDataItem();
+            _positionToolTipItemModel = ToolTipItemModelFactory.CreateToolTipDataItemModel();
+            _valToolTipItemModel = ToolTipItemModelFactory.CreateToolTipDataItemModel();
 
-            _positionToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset);
-            _valToolTip.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Value);
+            _positionToolTipItem = ToolTipItemFactory.CreateIToolTipDataItem();
+            _valToolTipItem = ToolTipItemFactory.CreateIToolTipDataItem();
 
-            ToolTipItems.Add(_positionToolTip);
-            ToolTipItems.Add(_valToolTip);
+            _positionToolTipItemModel.ToolTipItem = _positionToolTipItem;
+            _valToolTipItemModel.ToolTipItem = _valToolTipItem;
+
+            _positionToolTipItem.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Offset);
+            _valToolTipItem.KeyName = LanguageService.Current?.FindResourceString(Constants.ToolTipKey_Value);
+
+            ToolTipItemModels.Add(_positionToolTipItemModel);
+            ToolTipItemModels.Add(_valToolTipItemModel);
         }
 
-        private IToolTipDataItem _valToolTip;
-        private IToolTipDataItem _positionToolTip;
+        private IToolTipItemModel _valToolTipItemModel;
+        private IToolTipItemModel _positionToolTipItemModel;
+        private IToolTipDataItem _valToolTipItem;
+        private IToolTipDataItem _positionToolTipItem;
 
         private long _hoverPosition;
         public long HoverPosition {
             get => _hoverPosition;
             set {
                 SetProperty(ref _hoverPosition, value);
-                if (Stream?.CanRead ?? false) {
-                    if (_hoverPosition >= Stream.Length) {
-                        return;
-                    }
-                    Stream.Position = _hoverPosition;
-                    _positionToolTip.Value = value.ToString();
-                    _valToolTip.Value = Stream.ReadByte().ToString();
-                }
                 UpdateToolTipItems();
-
             }
         }
 
-        public ObservableCollection<IToolTipItem> ToolTipItems { get; set; } = new ObservableCollection<IToolTipItem>();
+        public ObservableCollection<IToolTipItemModel> ToolTipItemModels { get; set; } = new ObservableCollection<IToolTipItemModel>();
 
         /// <summary>
         /// These properties make the tool tip more extensible;
         /// </summary>
-        public ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems = new List<(long position, long size, string key, string value)>();
+        public ICollection<(long position, long size, IToolTipDataItem toolTipDataItem)> CustomDataToolTipItems = new List<(long position, long size, IToolTipDataItem toolTipDataItem)>();
         public ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems = new List<(long position, long size, IToolTipObjectItem toolTipObjectItem)>();
         /// <summary>
         /// This is for better performance,reducing frequency of the building IToolTipDataItem;
         /// </summary>
-        private List<IToolTipDataItem> _cachedToolTipDataItems = new List<IToolTipDataItem>();
-        IToolTipDataItem GetOrCreateDataItem(int index) {
+        private List<IToolTipItemModel> _cachedToolTipDataItems = new List<IToolTipItemModel>();
+        IToolTipItemModel GetOrCreateDataItem(int index) {
             if(_cachedToolTipDataItems.Count < index +1) {
                 var sub = index + 1 - _cachedToolTipDataItems.Count;
                 for (int i = 0; i < sub; i++) {
-                    _cachedToolTipDataItems.Add(ToolTipItemFactory.CreateIToolTipDataItem());
+                    _cachedToolTipDataItems.Add(ToolTipItemModelFactory.CreateToolTipDataItemModel());
                 }
             }
             return _cachedToolTipDataItems[index];
@@ -171,30 +169,27 @@ namespace SingularityForensic.Hex.ViewModels {
                 return;
             }
 
-            ToolTipItems.Clear();
+            ToolTipItemModels.Clear();
 
             Stream.Position = HoverPosition;
-            _positionToolTip.Value = HoverPosition.ToString();
-            _valToolTip.Value = Stream.ReadByte().ToString();
+            _positionToolTipItem.Value = HoverPosition.ToString();
+            _valToolTipItem.Value = Stream.ReadByte().ToString();
+            _positionToolTipItemModel.ToolTipItem = _positionToolTipItem;
+            _valToolTipItemModel.ToolTipItem = _valToolTipItem;
 
-            ToolTipItems.Add(_positionToolTip);
-            ToolTipItems.Add(_valToolTip);
-
+            ToolTipItemModels.Add(_positionToolTipItemModel);
+            ToolTipItemModels.Add(_valToolTipItemModel);
             
-            
-
             //Update  Custom ToolDataTips;
             var dataToolTipIndex = 0;
-            foreach ((long position, long size, string key, string value) in CustomDataToolTipItems) {
+            foreach ((long position, long size, IToolTipDataItem tooltipDataItem) in CustomDataToolTipItems) {
                 if (!(HoverPosition >= position && HoverPosition < size + position)) {
                     continue;
                 }
                 
-                var tooltipDataItem = GetOrCreateDataItem(dataToolTipIndex);
-                tooltipDataItem.KeyName = key;
-                tooltipDataItem.Value = value;
-                ToolTipItems.Add(tooltipDataItem);
-
+                var tooltipDataItemModel = GetOrCreateDataItem(dataToolTipIndex);
+                tooltipDataItemModel.ToolTipItem = tooltipDataItem;
+                ToolTipItemModels.Add(tooltipDataItemModel);
                 dataToolTipIndex++;
             }
 
@@ -202,15 +197,16 @@ namespace SingularityForensic.Hex.ViewModels {
                 if (!(HoverPosition >= position && HoverPosition < size + position)) {
                     continue;
                 }
-
-                ToolTipItems.Add(toolTipObjectItem);
+                var toolTipObjectItemModel = ToolTipItemModelFactory.CreateToolTipObjectItemModel();
+                toolTipObjectItemModel.ToolTipItem = toolTipObjectItem;
+                ToolTipItemModels.Add(toolTipObjectItemModel);
             }
         }
 
-        private IToolTipItem _selectedToolTipItem;
-        public IToolTipItem SelectedToolTipItem {
-            get => _selectedToolTipItem;
-            set => SetProperty(ref _selectedToolTipItem, value);
+        private IToolTipItemModel _selectedToolTipItemModel;
+        public IToolTipItemModel SelectedToolTipItemModel {
+            get => _selectedToolTipItemModel;
+            set => SetProperty(ref _selectedToolTipItemModel, value);
         }
 
 
@@ -218,35 +214,35 @@ namespace SingularityForensic.Hex.ViewModels {
         public DelegateCommand CopyKeyCommand => _copyKeyCommand ??
             (_copyKeyCommand = new DelegateCommand(
                 () => {
-                    if (SelectedToolTipItem is IToolTipDataItem toolTipDataItem) {
-                        Clipboard.SetText(toolTipDataItem.KeyName);
+                    if (SelectedToolTipItemModel.ToolTipItem is IToolTipDataItem toolTipDataItem) {
+                        ClipBoardService.SetText(toolTipDataItem.KeyName);
                     }
                 },
-                () => SelectedToolTipItem != null
-            )).ObservesProperty(() => SelectedToolTipItem);
+                () => SelectedToolTipItemModel != null
+            )).ObservesProperty(() => SelectedToolTipItemModel);
 
 
         private DelegateCommand _copyValueCommand;
         public DelegateCommand CopyValueCommand => _copyValueCommand ??
             (_copyValueCommand = new DelegateCommand(
                 () => {
-                    if (SelectedToolTipItem is IToolTipDataItem toolTipDataItem) {
-                        Clipboard.SetText(toolTipDataItem.Value);
+                    if (SelectedToolTipItemModel.ToolTipItem is IToolTipDataItem toolTipDataItem) {
+                        ClipBoardService.SetText(toolTipDataItem.Value);
                     }
                 },
-                () => SelectedToolTipItem != null
-            )).ObservesProperty(() => SelectedToolTipItem);
+                () => SelectedToolTipItemModel != null
+            )).ObservesProperty(() => SelectedToolTipItemModel);
 
         private DelegateCommand _copyExpressionCommand;
         public DelegateCommand CopyExpressionCommand => _copyExpressionCommand ??
             (_copyExpressionCommand = new DelegateCommand(
                 () => {
-                    if (SelectedToolTipItem is IToolTipDataItem toolTipDataItem) {
-                        Clipboard.SetText($"{toolTipDataItem.KeyName}:{toolTipDataItem.Value}");
+                    if (SelectedToolTipItemModel.ToolTipItem is IToolTipDataItem toolTipDataItem) {
+                        ClipBoardService.SetText($"{toolTipDataItem.KeyName}:{toolTipDataItem.Value}");
                     }
                 },
-                () => SelectedToolTipItem != null
-            )).ObservesProperty(() => SelectedToolTipItem);
+                () => SelectedToolTipItemModel != null
+            )).ObservesProperty(() => SelectedToolTipItemModel);
 
         /// <summary>
         /// 右键菜单项;

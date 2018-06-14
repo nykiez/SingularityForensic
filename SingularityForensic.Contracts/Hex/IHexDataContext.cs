@@ -43,17 +43,18 @@ namespace SingularityForensic.Contracts.Hex {
         IEnumerable<ICommandItem> ContextCommands { get; }
         void AddContextCommand(ICommandItem command);
         void RemoveContextCommand(ICommandItem command);
-        
+
         /// <summary>
         /// ToolTip项(键值型);
         /// </summary>
         /// <remarks>之所以会将ToolTip键值型与自定义类型分离,是因为若合并处理，将会导致过多的键值型ToolTip中含有大量的UI元素,导致内存占用过大.</remarks>
-        ICollection<(long position, long size, string key, string value)> CustomDataToolTipItems { get; }
+        ICollection<(long position, long size, IToolTipDataItem toolTipDataItem)> CustomDataToolTipItems { get; }
         
         /// <summary>
         /// ToolTip项(自定义型)
         /// </summary>
         ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems { get; }
+        
     }
 
     

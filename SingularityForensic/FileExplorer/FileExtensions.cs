@@ -35,7 +35,7 @@ namespace SingularityForensic.FileExplorer {
         /// <returns></returns>
         public static string GetPartFixAndName(this IPartition part) {
             if (!(part.Parent is IHaveFileCollection haveCollection)) {
-                LoggerService.WriteCallerLine($"{nameof(haveCollection)} can't be null.");
+                //LoggerService.WriteCallerLine($"{nameof(haveCollection)} can't be null.");
                 return part.Name;
             }
 
