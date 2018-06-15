@@ -39,8 +39,29 @@ namespace SingularityForensic.Ext.Events.Hex {
                 return;
             }
 
-            if(extPartInfo.SuperBlock == null) {
+            if(extPartInfo.SuperBlock != null) {
+                var stSuperBlock = extPartInfo.SuperBlock.StructInstance;
+                hexDataContext.UpdateDescriptorBackgroundAndToolTips(extPartInfo.SuperBlock, Constants.ExtSuperBlockStartIndex, BrushBlockFactory.FirstBrush, BrushBlockFactory.HighLightBrush, Constants.ExtSuperBlockFieldPrefix);
+                
+                var descStart = (stSuperBlock.s_first_data_block + 1) * stSuperBlock.BlockSize;
 
+                var descIndex = 0;
+                if(extPartInfo.Ext4GroupDescs == null) {
+                    LoggerService.WriteCallerLine($"{nameof(extPartInfo.Ext4GroupDescs)} can't be null.");
+                    return;
+                }
+
+                foreach (var desc in extPartInfo.Ext4GroupDescs) {
+                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                        desc,
+                        descStart + descIndex * stSuperBlock.s_desc_size,
+                        descIndex % 2 == 0?BrushBlockFactory.FirstBrush:BrushBlockFactory.SecondBrush,
+                        BrushBlockFactory.HighLightBrush,
+                        Constants.ExtGroupDescFieldPrefix
+                    );
+                    descIndex++;
+                }
+                //extPartInfo.StExt4GroupDescs
             }
         }
     }

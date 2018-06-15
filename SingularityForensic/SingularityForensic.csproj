@@ -882,6 +882,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ext\Languages\zh_CN\SingularityForensic.Ext.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Hash\Languages\zh_CN\SingularityForensic.Hash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1804,7 +1808,8 @@ XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)MainPage\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

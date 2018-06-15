@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.App;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -80,12 +81,21 @@ namespace SingularityForensic.Contracts.Common {
 
             foreach (var fieldInfo in ObjectType.GetFields()) {
                 var descriptor = new FieldMemberInfo(fieldInfo);
+                var arg = new CancelEventArgs();
+                OnEditMemberDescriptorOverride(fieldInfo,arg);
+                if (arg.Cancel) {
+                    continue;
+                }
                 EditFieldDecriptor(descriptor);
                 _descriprors.Add(descriptor);
             }
 
             return _descriprors;
         }
+
+        protected virtual void OnEditMemberDescriptorOverride(MemberInfo memberInfo,CancelEventArgs arg) {
+
+        } 
 
         private void EditFieldDecriptor(FieldMemberInfo descriptor) {
             var stringEventArgs = new EditingValueEventArgs<string>();
@@ -98,7 +108,7 @@ namespace SingularityForensic.Contracts.Common {
             descriptor.StringValue = stringEventArgs.EditingValue;
 
             var szEventArgs = new EditingValueEventArgs<int>();
-            EditFieldDescriptorSize(descriptor.FieldInfo,szEventArgs);
+            OnEditFieldDescriptorSize(descriptor.FieldInfo,szEventArgs);
             descriptor.MemberSize = szEventArgs.EditingValue;
         }
 
@@ -128,7 +138,7 @@ namespace SingularityForensic.Contracts.Common {
             }
         }
 
-        protected virtual void EditFieldDescriptorSize(FieldInfo fieldInfo, EditingValueEventArgs<int> args) {
+        protected virtual void OnEditFieldDescriptorSize(FieldInfo fieldInfo, EditingValueEventArgs<int> args) {
             //若为字节数组,则访问MarshalAsAttribute,获取大小;
             if (fieldInfo.FieldType == typeof(byte[])) {
                 var attr = Attribute.GetCustomAttribute(fieldInfo, typeof(MarshalAsAttribute)) as MarshalAsAttribute;

@@ -137,7 +137,17 @@ namespace SingularityForensic.Ext {
         public int[] s_reserved;      /* Padding to the end of the block */
         public uint s_checksum;      /* crc32c(superblock) */
 
-        public long BlockSize => s_log_block_size * 2048;
+        public long BlockSize {
+            get {
+                var blockSize = 1;
+                for (int i = 0; i < s_log_block_size + 10; i++) {
+                    blockSize *= 2;
+                }
+
+                return blockSize;
+            }
+            
+        }
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]

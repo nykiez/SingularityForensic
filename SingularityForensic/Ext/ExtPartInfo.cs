@@ -2,7 +2,9 @@
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace SingularityForensic.Ext {
         /// <summary>
         /// 块组描述符;
         /// </summary>
-        public StExtGroupDesc[] StExt4GroupDescs { get;set;}
+        public ExtGroupDesc[] Ext4GroupDescs { get;set;}
 
         
     }
@@ -29,6 +31,18 @@ namespace SingularityForensic.Ext {
     public class SuperBlock: StructFieldDecriptorBase<StSuperBlock>,ICustomMemerDecriptor {
         public SuperBlock(StSuperBlock stSuperBlock):base(stSuperBlock) {
 
+        }
+    }
+    public class ExtGroupDesc : StructFieldDecriptorBase<StExtGroupDesc>, ICustomMemerDecriptor {
+        public ExtGroupDesc(StExtGroupDesc desc):base(desc) {
+
+        }
+
+        protected override void OnEditMemberDescriptorOverride(MemberInfo memberInfo, CancelEventArgs arg) {
+            if(memberInfo.Name == nameof(StExtGroupDesc.Next) || memberInfo.Name == nameof(StExtGroupDesc.Pre)) {
+                arg.Cancel = true;
+            }
+            base.OnEditMemberDescriptorOverride(memberInfo, arg);
         }
     }
 }

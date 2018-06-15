@@ -12,7 +12,7 @@ namespace SingularityForensic.Contracts.Common {
     /// <summary>
     /// 命令项;
     /// </summary>
-    public interface ICommandItem:IExtensible {
+    public interface ICommandItem {
         /// <summary>
         /// 命令;
         /// </summary>

@@ -151,7 +151,8 @@ namespace SingularityForensic.Ext {
                 return;
             }
             else {
-                partInfo.StExt4GroupDescs = stGroupDescPtr.GetStructs<StExtGroupDesc>(p => p.Next)?.ToArray()??null;
+                partInfo.Ext4GroupDescs = stGroupDescPtr.GetStructs<StExtGroupDesc>(p => p.Next)?.
+                    Select(p => new ExtGroupDesc(p)).ToArray()??null;
             }
 
             //stExt4INodePtr = ExtX_Get_InodeInfo( 2);                  //加载Inode,BlockList,Dir;

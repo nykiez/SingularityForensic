@@ -11,6 +11,10 @@ namespace SingularityForensic.Ext {
         /// </summary>
         public const int ExtSuperBlockStartIndex = 1024;
 
+        public const string ExtSuperBlockFieldPrefix = "ExtSuperBlock_";
+
+        public const string ExtGroupDescFieldPrefix = "ExtGroupDesc_";
+
         public const string StreamParserGUID_Ext = nameof(StreamParserGUID_Ext);
 
         public const string PartitionKey_Ext = nameof(PartitionKey_Ext);

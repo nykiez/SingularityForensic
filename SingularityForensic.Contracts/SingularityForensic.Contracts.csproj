@@ -94,7 +94,6 @@
     <Compile Include="App\ILanguageService.cs" />
     <Compile Include="Common\GenericServiceStaticInstances.cs" />
     <Compile Include="Common\ICustomNotify.cs" />
-    <Compile Include="Common\IHaveGUIDObject.cs" />
     <Compile Include="Common\MarshalExtensions.cs" />
     <Compile Include="Common\PropDescribleAttribute.cs" />
     <Compile Include="Common\Sizes.cs" />
