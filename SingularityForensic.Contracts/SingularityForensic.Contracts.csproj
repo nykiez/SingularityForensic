@@ -102,7 +102,7 @@
     <Compile Include="Common\IByteArraySerializable.cs" />
     <Compile Include="Common\EndianUtilities.cs" />
     <Compile Include="Common\Events\ViewCreatedEvent.cs" />
-    <Compile Include="Common\IFieldDescriptor.cs" />
+    <Compile Include="Common\IMemberDescriptor.cs" />
     <Compile Include="Common\ILoggerService.cs" />
     <Compile Include="Casing\Events\CaseEvidenceRemoved.cs" />
     <Compile Include="Casing\Events\CaseLoadingEvent.cs" />
@@ -208,6 +208,7 @@
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\IHasher.cs" />
     <Compile Include="App\ILocalExplorerService.cs" />
+    <Compile Include="Hex\HexExtensions.cs" />
     <Compile Include="Hex\IBytesToCharEncoding.cs" />
     <Compile Include="Hex\IBrushBlock.cs" />
     <Compile Include="Hex\IBrushBlockFactory.cs" />

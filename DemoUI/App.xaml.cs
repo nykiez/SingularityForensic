@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.Common;
+using System;
 using System.Windows;
 
 namespace DemoUI {
@@ -8,7 +9,7 @@ namespace DemoUI {
     public partial class App2 : Application {
         public App2() {
             DispatcherUnhandledException += (sender, e) => {
-                
+                LoggerService.WriteException(e.Exception);
             };
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
                 

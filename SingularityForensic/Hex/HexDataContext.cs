@@ -25,6 +25,10 @@ namespace SingularityForensic.Hex {
                 //LostFocus?.Invoke(this, EventArgs.Empty);
             };
 
+            _vm.SelectedToolTipItemModelChanged += delegate {
+                SelectedToolTipItemChanged?.Invoke(this, EventArgs.Empty);
+            };
+
             _customBackgroundBlocksWrapper = new CollectionWrapper<
                 IBrushBlock, 
                 WpfHexaEditor.Core.Interfaces.IBrushBlock
@@ -50,7 +54,9 @@ namespace SingularityForensic.Hex {
 
         public event EventHandler SelectionStateChanged;
         public event EventHandler FocusPositionChanged;
-        public event EventHandler LostFocus;
+        
+
+        //public event EventHandler LostFocus;
 
         public long Position {
             get => _vm.Position;
@@ -75,7 +81,7 @@ namespace SingularityForensic.Hex {
             get => (_vm.BytesToCharEncoding as BytesToCharEncodingWrapper)?.Encoding;
             set => _vm.BytesToCharEncoding = new BytesToCharEncodingWrapper(value);  
         }
-
+        
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();
         }
@@ -92,5 +98,8 @@ namespace SingularityForensic.Hex {
         public void AddContextCommand(ICommandItem commandItem) => _vm.ContextCommands.AddOrderBy(commandItem,ci => ci.Sort);
 
         public void RemoveContextCommand(ICommandItem commandItem) => _vm.ContextCommands.Remove(commandItem);
+
+        public event EventHandler SelectedToolTipItemChanged;
+        public IToolTipItem SelectedToolTipItem => _vm.SelectedToolTipItemModel?.ToolTipItem;
     }
 }

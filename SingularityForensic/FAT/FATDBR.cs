@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.FAT {
-    public class FATDBR : StructFieldDecriptorBase<StFatDBR>,ICustomFieldDecriptor {
+    public class FATDBR : StructFieldDecriptorBase<StFatDBR>,ICustomMemerDecriptor {
         public FATDBR(StFatDBR stFatDBR,long offset):base(stFatDBR) {
             this.Offset = offset;
-            this.PrefixName = Constants.FATFieldPrefix_DBR;
         }
 
         public long Offset { get; }

@@ -54,12 +54,12 @@ namespace SingularityForensic.Ext {
         public uint s_feature_compat;            /* 兼容性特征标志 */
         public uint s_feature_incompat;          /* 非兼容性特征标志 */
         public uint s_feature_ro_compat;     /* 只读兼容性特征标志 */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string s_uuid;                    /* 128-bit uuid for volume */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string s_volume_name;         /* 卷名 */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-        public string s_last_mounted;            /* 最后挂载时间 */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] s_uuid;                    /* 128-bit uuid for volume */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] s_volume_name;         /* 卷名 */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+        public byte[] s_last_mounted;            /* 最后挂载时间 */
         public uint s_algorithm_usage_bitmap;    /* 位图使用运算法则 */
                                                  /*
                                                   * Performance hints.  Directory preallocation should only
@@ -69,8 +69,8 @@ namespace SingularityForensic.Ext {
         public char s_prealloc_dir_blocks;     /* 目录再分配块数 */
         public ushort s_reserved_gdt_blocks;       /* Per group desc for online growth */
                                                    /*Journaling support valid if EXT4_FEATURE_COMPAT_HAS_JOURNAL set. */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string s_journal_uuid;            /* uuid of journal superblock */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] s_journal_uuid;            /* uuid of journal superblock */
         public uint s_journal_inum;              /* 日志的inode */
         public uint s_journal_dev;               /* device number of journal file */
         public uint s_last_orphan;               /* start of list of inodes to delete */
@@ -109,8 +109,8 @@ namespace SingularityForensic.Ext {
         public uint s_first_error_time;          /* first time an error happened */
         public uint s_first_error_ino;           /* inode involved in first error */
         public ulong s_first_error_block;    /* block involved of first error */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-        public string s_first_error_func;        /* function where the error happened */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+        public byte[] s_first_error_func;        /* function where the error happened */
         public uint s_first_error_line;          /* line number where error happened */
         public uint s_last_error_time;           /* most recent time of an error */
         public uint s_last_error_ino;            /* inode involved in last error */

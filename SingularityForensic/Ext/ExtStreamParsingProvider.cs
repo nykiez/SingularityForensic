@@ -86,7 +86,7 @@ namespace SingularityForensic.Ext {
                 LoadPartContent(part, reporter);
             }
             catch(Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
+                LoggerService.WriteException(ex);
                 
             }
 
@@ -142,7 +142,7 @@ namespace SingularityForensic.Ext {
                 return;
             }
             else {
-                partInfo.StSuperBlock = stSuperBlockPtr.GetStructure<StSuperBlock>();
+                partInfo.SuperBlock = new SuperBlock(stSuperBlockPtr.GetStructure<StSuperBlock>());
             }
 
             var stGroupDescPtr = ExtX_GroupDesc(partInfo.ExtUnmanagedManager.ExtManagerPtr);
@@ -443,7 +443,7 @@ namespace SingularityForensic.Ext {
             }
             
             var blocks = extFileInfo.BlockList;
-            var blockSize = partInfo.StSuperBlock.BlockSize;
+            var blockSize = partInfo.SuperBlock.StructInstance.BlockSize;
 
             if(blocks == null) {
                 return;

@@ -9,6 +9,9 @@ namespace SingularityForensic.Contracts.Hex {
     /// 字符转换器;
     /// </summary>
     public interface IBytesToCharEncoding {
+        /// <summary>
+        /// 字符的字节长度;
+        /// </summary>
         int BytePerChar { get; }
 
         char Convert(byte[] bytesToConvert);

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Ext {
     public static class Constants {
+        /// <summary>
+        /// 超级块起始地址;
+        /// </summary>
+        public const int ExtSuperBlockStartIndex = 1024;
 
         public const string StreamParserGUID_Ext = nameof(StreamParserGUID_Ext);
 

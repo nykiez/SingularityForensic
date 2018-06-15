@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Ext;
 using SingularityForensic.Test.Common;
 using System;
@@ -19,7 +20,7 @@ namespace SingularityForensic.Test.Ext {
             //设定事件聚合器;
             ExportProviderServiceProviderMocker.StaticInstance.SetInstance(CommonMockers.LoggerServiceMocker);
             //E://Ext4G.img
-            _stream = File.OpenRead("E:\\part30ext4.img");
+            _stream = File.OpenRead("E:\\anli\\Ext1g.img");
         }
         
         [TestMethod()]
@@ -33,7 +34,8 @@ namespace SingularityForensic.Test.Ext {
         public void ParseStreamTest() {
             var reporter = new Mock<IProgressReporter>();
             //reporter.Setup(p => p.ReportProgress(It.IsAny<int>(),It.IsAny<int>(), It.IsAny<string>(),It.IsAny<string>())).Raises);
-            var file = _provider.ParseStream(_stream, null, null, null);
+            var part = _provider.ParseStream(_stream, null, null, null) as IPartition;
+            Assert.IsNotNull(part);
         }
 
         [TestCleanup]

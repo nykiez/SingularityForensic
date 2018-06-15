@@ -17,10 +17,6 @@ namespace SingularityForensic.Test.FileExplorer {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-
-            _fileExplorerUIService = ServiceProvider.Current.GetInstance<IFileExplorerUIReactService>();
-            Assert.IsNotNull(_fileExplorerUIService);
-            _fileExplorerUIService.Initialize();
             
             _docService = DocumentService.MainDocumentService;
             Assert.IsNotNull(_docService);
@@ -32,7 +28,7 @@ namespace SingularityForensic.Test.FileExplorer {
             AppMockers.OpenFileName = "E://anli/Fat32_Test.img";
         }
 
-        private IFileExplorerUIReactService _fileExplorerUIService;
+        
         private IDocumentService _docService;
         private IFileSystemService _fsService;
 

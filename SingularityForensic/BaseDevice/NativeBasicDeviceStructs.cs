@@ -36,11 +36,12 @@ namespace SingularityForensic.BaseDevice {
         public byte[] PartTabNameUnicode;           //分区名unicode码	72 byte
     }
 
+    
 
     [StructLayout(LayoutKind.Sequential,Pack = 1)]
     public struct StInFoDisk {
         public byte BootID;                   //80h表示可启动分区，否则为0；对主分区有用；
-        public byte SartHead;             //分区的起始磁头号； 
+        public byte StartHead;             //分区的起始磁头号； 
         public UInt16 SartSectorTrack;         //分区的起始扇区和磁道号
         public byte FileSystemID;             //05H或0FH为扩展分区，06H或0EH为FAT16，0BH或0CH为FAT32 ,07为NTFS；
         public byte EndHead;                  //分区结束磁头号；

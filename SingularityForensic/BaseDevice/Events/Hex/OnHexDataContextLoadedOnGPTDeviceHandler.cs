@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.BaseDevice.Events {
+namespace SingularityForensic.BaseDevice.Events.Hex {
     /// <summary>
     /// 高亮GPT设备信息;
     /// </summary>
     [Export(typeof(IHexDataContextLoadedEventHandler))]
     class OnHexDataContextLoadedOnGPTDeviceHandler : IHexDataContextLoadedEventHandler {
-        public int Sort => 64;
+        public int Sort => 618;
 
         public bool IsEnabled => true;
 
@@ -39,9 +39,39 @@ namespace SingularityForensic.BaseDevice.Events {
                 return;
             }
 
-            gptDeviceInfo.GptPartInfos.ForEach(p => {
-                
-            });
+            var pTableIndex = 0;
+            foreach (var p in gptDeviceInfo.GptPartInfos.OrderBy(p => p.StGptPTable.nOffset)) {
+                if (p.InfoDisk != null) {
+                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                        p.InfoDisk,
+                        (long)p.StGptPTable.nOffset,
+                        pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
+                        BrushBlockFactory.HighLightBrush,
+                        Constants.BaseDeviceFieldPrefix_InfoDisk
+                    );
+                }
+
+                if (p.EFIInfo != null) {
+                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                        p.EFIInfo,
+                        (long)p.StGptPTable.nOffset,
+                        pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
+                        BrushBlockFactory.HighLightBrush,
+                        Constants.GptFieldPrefix_EFIInfo
+                    );
+                }
+
+                if(p.EFIPTable != null) {
+                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                        p.EFIPTable,
+                        (long)p.StGptPTable.nOffset,
+                        pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
+                        BrushBlockFactory.HighLightBrush,
+                        Constants.GptFieldPrefix_EFIPTable);
+                }
+                pTableIndex++;
+            }
+            
         }
     }
 }

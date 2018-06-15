@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="AdbAquirTest.cs" />
     <Compile Include="App\AppMockers.cs" />
+    <Compile Include="BaseDevice\BaseDeviceTest.cs" />
     <Compile Include="Common\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
     <Compile Include="App\LanguageServiceTests.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Drive\DriveDialogServiceTest.cs" />
     <Compile Include="Drive\DriveServiceTest.cs" />
     <Compile Include="Ext\ExtStreamParsingProviderTests.cs" />
+    <Compile Include="Ext\StructTest.cs" />
     <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandlerTests.cs" />
     <Compile Include="FAT\FatMockers.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImplTests.cs" />

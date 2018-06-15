@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="BaseDeviceInfoDisk_BootID">启动ID(80h表示可启动分区，否则为0；对主分区有用)</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_StartHead">分区的起始磁头号</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_SartSectorTrack">分区的起始扇区和磁道号</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_FileSystemID">文件系统ID(05H或0FH为扩展分区，06H或0EH为FAT16，0BH或0CH为FAT32 ,07为NTFS)</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_EndHead">分区结束磁头号</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_EndSectorTrack">分区结束扇区和磁道号</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_HeadSector">分区前的扇区</sys:String>
+    <sys:String x:Key="BaseDeviceInfoDisk_AllSector">分区的总扇区</sys:String>
+    <sys:String x:Key="GPTEFIInfo_EFIPART">EFI签名(EFI PART)</sys:String>
+    <sys:String x:Key="GPTEFIInfo_Version">EFI版本</sys:String>
+    <sys:String x:Key="GPTEFIInfo_EFISize">EFI信息大小(单位为字节)</sys:String>
+    <sys:String x:Key="GPTEFIInfo_CRC">EFI信息 CRC校验和</sys:String>
+    <sys:String x:Key="GPTEFIInfo_Unknown">保留</sys:String>
+    <sys:String x:Key="GPTEFIInfo_EFICurrSecNum">当前EFI LBA扇区号</sys:String>
+    <sys:String x:Key="GPTEFIInfo_EFIBackupSecNum">备份EFI LBA扇区号</sys:String>
+    <sys:String x:Key="GPTEFIInfo_GPTStartLBA">GPT分区区域起始偏移</sys:String>
+    <sys:String x:Key="GPTEFIInfo_GPTEndLBA">GPT分区区域结束LBA</sys:String>
+    <sys:String x:Key="GPTEFIInfo_DiskGUID">磁盘GUID</sys:String>
+    <sys:String x:Key="GPTEFIInfo_GPTPartTabStartLBA">备份EFI 偏移扇区号</sys:String>
+    <sys:String x:Key="GPTEFIInfo_PartTabCount">分区表项数</sys:String>
+    <sys:String x:Key="GPTEFIInfo_PartTabCRC">分区表CRC校验和</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabType">分区类型GUID</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabOnly">分区唯一GUID</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabStartLBA">分区起始偏移</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabEndLBA">分区结束偏移</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabProp">分区属性</sys:String>
+    <sys:String x:Key="GPTEFIPTable_PartTabNameUnicode">分区名unicode码</sys:String>
+</ResourceDictionary>

@@ -11,9 +11,15 @@ namespace SingularityForensic.Contracts.Hex {
         IBrushBlock CreateNewBackgroundBlock(long startOffset,long length,Brush background);
         IBrushBlock CreateNewBackgroundBlock();
 
-        //区分相邻块的两种颜色;
+        /// <summary>
+        /// 区分相邻块的两种颜色;
+        /// </summary>
         Brush FirstBrush { get; }
         Brush SecondBrush { get; }
+        /// <summary>
+        /// 高亮色;
+        /// </summary>
+        Brush HighLightBrush { get; }
     }
 
     public class BrushBlockFactory : GenericServiceStaticInstance<IBrushBlockFactory> {
@@ -23,5 +29,6 @@ namespace SingularityForensic.Contracts.Hex {
 
         public static Brush FirstBrush => Current.FirstBrush;
         public static Brush SecondBrush => Current.SecondBrush;
+        public static Brush HighLightBrush => Current.HighLightBrush;
     }
 }

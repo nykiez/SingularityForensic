@@ -9,11 +9,11 @@ using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
     [Export(typeof(IBrushBlockFactory))]
-    class CustomBackgroundBlockFactoryImpl : IBrushBlockFactory {
-        public IBrushBlock CreateNewBackgroundBlock() => new CustomBackgroundBlock();
+    class BrushBlockFactoryImpl : IBrushBlockFactory {
+        public IBrushBlock CreateNewBackgroundBlock() => new BrushBlock();
 
         public IBrushBlock CreateNewBackgroundBlock(long startOffset, long length, Brush background) =>
-            new CustomBackgroundBlock {
+            new BrushBlock {
                 StartOffset = startOffset,
                 Length = length,
                 Background = background
@@ -21,5 +21,7 @@ namespace SingularityForensic.Hex {
 
         public Brush FirstBrush => Brushes.Chocolate;
         public Brush SecondBrush => Brushes.DarkGray;
+
+        public Brush HighLightBrush => Brushes.Yellow;
     }
 }

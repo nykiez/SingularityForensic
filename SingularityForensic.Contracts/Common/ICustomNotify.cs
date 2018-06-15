@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
     /// <summary>
-    /// 可从实体外通知属性,这对于属性为非CLR属性(比如继承子ICustomTypeDescripter)而言,是有用的;
+    /// 可从实体外通知属性,这对于属性为非CLR属性(比如继承自ICustomTypeDescripter的类型)而言,是有用的;
     /// </summary>
     public interface ICustomNotify {
         /// <summary>

@@ -206,8 +206,12 @@ namespace SingularityForensic.Hex.ViewModels {
         private IToolTipItemModel _selectedToolTipItemModel;
         public IToolTipItemModel SelectedToolTipItemModel {
             get => _selectedToolTipItemModel;
-            set => SetProperty(ref _selectedToolTipItemModel, value);
+            set {
+                SetProperty(ref _selectedToolTipItemModel, value);
+                SelectedToolTipItemModelChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
+        public event EventHandler SelectedToolTipItemModelChanged;
 
 
         private DelegateCommand _copyKeyCommand;

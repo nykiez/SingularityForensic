@@ -16,7 +16,6 @@ namespace SingularityForensic.Contracts.Hex {
         Hex                                                                 //十六进制检索;
     }
     
-
     public interface IHexDataContext:IUIObjectProvider,IExtensible {
         bool ReadOnlyMode { get; set; }
         Stream Stream { get; set; }
@@ -43,7 +42,7 @@ namespace SingularityForensic.Contracts.Hex {
         IEnumerable<ICommandItem> ContextCommands { get; }
         void AddContextCommand(ICommandItem command);
         void RemoveContextCommand(ICommandItem command);
-
+        
         /// <summary>
         /// ToolTip项(键值型);
         /// </summary>
@@ -54,7 +53,13 @@ namespace SingularityForensic.Contracts.Hex {
         /// ToolTip项(自定义型)
         /// </summary>
         ICollection<(long position, long size, IToolTipObjectItem toolTipObjectItem)> CustomObjectToolTipItems { get; }
-        
+
+        /// <summary>
+        /// 当前选定ToolTipItem;
+        /// </summary>
+        IToolTipItem SelectedToolTipItem { get; }
+
+        event EventHandler SelectedToolTipItemChanged;
     }
 
     

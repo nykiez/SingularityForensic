@@ -35,6 +35,7 @@
             <Setter Property="ItemTemplate" Value="{StaticResource DataToolTipTemplate}"/>
             <Setter Property="ItemsSource" Value="{Binding ToolTipItemModels}"/>
             <Setter Property="SelectedItem" Value="{Binding SelectedToolTipItemModel}"/>
+            <Setter Property="MaxHeight" Value="256"/>
         </Style>
     </UserControl.Resources>
     

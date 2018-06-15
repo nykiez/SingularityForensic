@@ -111,11 +111,11 @@ namespace SingularityForensic.BaseDevice {
                 while (partNode != IntPtr.Zero) {
                     var dosPTable = partNode.GetStructure<StDosPTable>();
                     var dosPartInfo = new DOSPartInfo();
-                    dosPartInfo.StDosPTable = dosPTable;
+                    dosPartInfo.DosPTable = new DosPTable(dosPTable);
 
                     if(dosPTable.Info != IntPtr.Zero) {
                         var stInfoDisk = dosPTable.Info.GetStructure<StInFoDisk>();
-                        dosPartInfo.StInFoDisk = stInfoDisk;
+                        dosPartInfo.InfoDisk = new InfoDisk(stInfoDisk);
                     }
 
                     dosDeviceInfo.DosPartInfos.Add(dosPartInfo);
@@ -125,7 +125,7 @@ namespace SingularityForensic.BaseDevice {
                 EditDosPartEntries(dosDeviceInfo, deviceStoken);
 
                 //编辑拓展;
-                deviceStoken.SetInstance(dosDeviceInfo,Constants.DeviceStokenTag_DOS);
+                deviceStoken.SetInstance(dosDeviceInfo,Constants.DeviceStokenTag_DOSDeviceInfo);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -151,32 +151,32 @@ namespace SingularityForensic.BaseDevice {
                 //确定起始绝对位移;
                 long startLBA = 0;
                 long? partStartLBA = null;
-                long? partSize = dosPartInfo.StInFoDisk.Value.AllSector * SECSIZE;
+                long? partSize = dosPartInfo.InfoDisk.StructInstance.AllSector * SECSIZE;
                 
-                switch (dosPartInfo.StDosPTable.DosPartType) {
+                switch (dosPartInfo.DosPTable.StructInstance.DosPartType) {
                     case DosPartType.Error:
                         return;
                     case DosPartType.Main:
-                        startLBA = (long)dosPartInfo.StDosPTable.nOffset;
-                        partStartLBA = dosPartInfo.StInFoDisk.Value.HeadSector * SECSIZE;
+                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
+                        partStartLBA = dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
                         break;
                     case DosPartType.Extend:
-                        extendPartLBA += dosPartInfo.StInFoDisk.Value.HeadSector * SECSIZE;
-                        startLBA = (long)dosPartInfo.StDosPTable.nOffset;
+                        extendPartLBA += dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
+                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
                         partSize = null;
                         partStartLBA = null;
                         break;
                     case DosPartType.Logic:
-                        startLBA = (long)dosPartInfo.StDosPTable.nOffset;
-                        partStartLBA = extendPartLBA + dosPartInfo.StInFoDisk.Value.HeadSector * SECSIZE;
+                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
+                        partStartLBA = extendPartLBA + dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
                         break;
                     default:
                         break;
                 }
-                var entry = PartitionEntryFactory.CreatePartitionEntry(Constants.PartEntryKey_Dos);
-                var entryStoken = entry.GetStoken(Constants.PartEntryKey_Dos);
+                var entry = PartitionEntryFactory.CreatePartitionEntry(Constants.PartEntryKey_DOS);
+                var entryStoken = entry.GetStoken(Constants.PartEntryKey_DOS);
 
-                entryStoken.TypeGUID = FromDosPartTypeToCons(dosPartInfo.StDosPTable.DosPartType);
+                entryStoken.TypeGUID = FromDosPartTypeToCons(dosPartInfo.DosPTable.StructInstance.DosPartType);
 
                 entryStoken.StartLBA = startLBA;
                 entryStoken.Size = Marshal.SizeOf(typeof(StInFoDisk));
@@ -221,17 +221,17 @@ namespace SingularityForensic.BaseDevice {
                     
                     if (gptPTable.InfoDisk != IntPtr.Zero) {
                         var stInfoDisk = gptPTable.InfoDisk.GetStructure<StInFoDisk>();
-                        gptPartInfo.StInFoDisk = stInfoDisk;
+                        gptPartInfo.InfoDisk = new InfoDisk(stInfoDisk);
                     }
                     
                     if(gptPTable.EFIInfo != IntPtr.Zero) {
                         var stEFIInfo = gptPTable.EFIInfo.GetStructure<StEFIInfo>();
-                        gptPartInfo.StEFIInfo = stEFIInfo;
+                        gptPartInfo.EFIInfo = new EFIInfo(stEFIInfo);
                     }
 
                     if(gptPTable.EFIPTable != IntPtr.Zero) {
                         var stEFITable = gptPTable.EFIPTable.GetStructure<StEFIPTable>();
-                        gptPartInfo.StEFIPTable = stEFITable;
+                        gptPartInfo.EFIPTable = new EFIPTable(stEFITable);
                     }
 
                     gptDeviceInfo.GptPartInfos.Add(gptPartInfo);
@@ -263,11 +263,11 @@ namespace SingularityForensic.BaseDevice {
 
             gptDeviceInfo.GptPartInfos.ForEach(gptPartInfo => {
                 //若EFIPTable为空,则非分区;
-                if(gptPartInfo.StEFIPTable == null) {
+                if(gptPartInfo.EFIPTable == null) {
                     return;
                 }
 
-                var efiTable = gptPartInfo.StEFIPTable.Value;
+                var efiTable = gptPartInfo.EFIPTable.StructInstance ;
                 var entry = PartitionEntryFactory.CreatePartitionEntry(Constants.PartEntryKey_GPT);
                 var entryStoken = entry.GetStoken(Constants.PartEntryKey_GPT);
                 entryStoken.TypeGUID = Constants.PartEntryType_GPT;
@@ -299,7 +299,7 @@ namespace SingularityForensic.BaseDevice {
             try {
                 if (device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
                     deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
-                    deviceInfo = deviceStoken.GetInstance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOS);
+                    deviceInfo = deviceStoken.GetInstance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOSDeviceInfo);
                 }
                 else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
@@ -388,15 +388,15 @@ namespace SingularityForensic.BaseDevice {
         private static string FromDosPartTypeToCons(DosPartType dosPartType) {
             switch (dosPartType) {
                 case DosPartType.Error:
-                    return Constants.PartEntryType_Dos_Error;
+                    return Constants.PartEntryType_DOS_Error;
                 case DosPartType.Main:
-                    return Constants.PartEntryType_Dos_Main;
+                    return Constants.PartEntryType_DOS_Main;
                 case DosPartType.Extend:
-                    return Constants.PartEntryType_Dos_Extended;
+                    return Constants.PartEntryType_DOS_Extended;
                 case DosPartType.Logic:
-                    return Constants.PartEntryType_Dos_Logic;
+                    return Constants.PartEntryType_DOS_Logic;
                 default:
-                    return Constants.PartEntryType_Dos_Error;
+                    return Constants.PartEntryType_DOS_Error;
             }
         }
     }

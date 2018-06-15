@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace SingularityForensic.Ext {
         /// <summary>
         /// 超级块;
         /// </summary>
-        public StSuperBlock StSuperBlock { get; set; }
+        public SuperBlock SuperBlock { get; set; }
 
         /// <summary>
         /// 块组描述符;
@@ -23,5 +24,11 @@ namespace SingularityForensic.Ext {
         public StExtGroupDesc[] StExt4GroupDescs { get;set;}
 
         
+    }
+
+    public class SuperBlock: StructFieldDecriptorBase<StSuperBlock>,ICustomMemerDecriptor {
+        public SuperBlock(StSuperBlock stSuperBlock):base(stSuperBlock) {
+
+        }
     }
 }

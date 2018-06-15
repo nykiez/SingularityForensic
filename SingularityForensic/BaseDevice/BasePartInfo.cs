@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.FileSystem;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,44 @@ namespace SingularityForensic.BaseDevice {
     /// //GPT/Dos分区信息基类;
     /// </summary>
     internal abstract class BasePartInfo {
-        public StInFoDisk? StInFoDisk { get; set; }
+        public InfoDisk InfoDisk { get; set; }
+    }
+
+    public class InfoDisk: StructFieldDecriptorBase<StInFoDisk>, ICustomMemerDecriptor {
+        public InfoDisk(StInFoDisk stInfoDisk):base(stInfoDisk) {
+            
+        }
+    }
+
+    /// <summary>
+    /// EFI信息;
+    /// </summary>
+    public class EFIInfo : StructFieldDecriptorBase<StEFIInfo> {
+        public EFIInfo(StEFIInfo stEFIInfo):base(stEFIInfo) {
+
+        }
+    }
+
+    /// <summary>
+    /// GPT分区项信息;
+    /// </summary>
+    public class EFIPTable : StructFieldDecriptorBase<StEFIPTable> {
+        public EFIPTable(StEFIPTable stEFIPtable):base(stEFIPtable) {
+
+        }
+    }
+
+    public class DosPTable:StructFieldDecriptorBase<StDosPTable>,ICustomMemerDecriptor {
+        public DosPTable(StDosPTable stDosPTable):base(stDosPTable) {
+
+        }
     }
 
     /// <summary>
     /// //Dos分区项信息;
     /// </summary>
     internal class DOSPartInfo : BasePartInfo {
-        public StDosPTable StDosPTable { get; set; }
+        public DosPTable DosPTable { get; set; }
     }
 
     /// <summary>
@@ -25,7 +56,7 @@ namespace SingularityForensic.BaseDevice {
     /// </summary>
     internal class GPTPartInfo : BasePartInfo {
         public StGptPTable StGptPTable { get; set; }
-        public StEFIInfo? StEFIInfo { get; set; }
-        public StEFIPTable? StEFIPTable { get; set; }
+        public EFIInfo EFIInfo { get; set; }
+        public EFIPTable EFIPTable { get; set; }
     }
 }

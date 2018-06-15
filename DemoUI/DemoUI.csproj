@@ -351,6 +351,7 @@ Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevMa
 
 Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
+Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
 
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)DirectOutIn.dll"
 Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
