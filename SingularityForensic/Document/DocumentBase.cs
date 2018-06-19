@@ -4,9 +4,6 @@ using SingularityForensic.Contracts.Document;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Document {
     public abstract class DocumentBase : ExtensibleBindableBase, IDocumentBase {

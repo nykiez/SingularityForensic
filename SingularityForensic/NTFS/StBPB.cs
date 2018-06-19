@@ -1,13 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SingularityForensic.NTFS
-{
+namespace SingularityForensic.NTFS {
     public class BiosParameterBlock {
         [PropDescrible(0x24)]
         public byte BiosDriveNumber{ get; private set; } // Value: 0x80 (first hard disk)

@@ -6,12 +6,7 @@ using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.StatusBar;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>

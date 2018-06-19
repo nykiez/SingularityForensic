@@ -3,7 +3,6 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;

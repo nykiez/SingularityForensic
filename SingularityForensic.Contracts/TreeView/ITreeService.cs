@@ -17,7 +17,40 @@ namespace SingularityForensic.Contracts.TreeView {
 
         IEnumerable<ITreeUnit> CurrentUnits { get; }
         ITreeUnit SelectedUnit { get; }
+        
         void ClearNodes();
+
+        /// <summary>
+        /// 上下文命令项;
+        /// </summary>
+        IEnumerable<ICommandItem> ContextCommands { get; }
+
+        void AddContextCommand(ICommandItem commandItem);
+
+        void RemoveContextCommand(ICommandItem commandItem);
+    }
+
+    /// <summary>
+    /// 属性服务拓展;
+    /// </summary>
+    public static class TreeServiceExtensions {
+        /// <summary>
+        /// 检查选定节点是否为指定类型;
+        /// </summary>
+        /// <param name="treeService"></param>
+        /// <param name="typeGUID"></param>
+        /// <returns></returns>
+        public static bool CheckTypedUnitSelected(this ITreeService treeService, string typeGUID) {
+            var slUnit = treeService.SelectedUnit;
+            if (slUnit == null) {
+                return false;
+            }
+            if (slUnit.TypeGuid != typeGUID) {
+                return false;
+            }
+            return true;
+        }
+        
     }
     
 }

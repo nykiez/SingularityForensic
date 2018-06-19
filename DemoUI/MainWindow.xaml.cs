@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using System.ComponentModel.Composition;
 using System.Windows;
 

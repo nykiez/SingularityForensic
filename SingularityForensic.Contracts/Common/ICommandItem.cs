@@ -12,7 +12,15 @@ namespace SingularityForensic.Contracts.Common {
     /// <summary>
     /// 命令项;
     /// </summary>
-    public interface ICommandItem {
+    public interface ICommandItem:ICustomNotify {
+        /// <summary>
+        /// 是否可见;
+        /// </summary>
+        bool IsVisible { get; }
+        /// <summary>
+        /// 是否已经被Check;
+        /// </summary>
+        bool IsChecked { get; set; }
         /// <summary>
         /// 命令;
         /// </summary>
@@ -44,11 +52,11 @@ namespace SingularityForensic.Contracts.Common {
     /// 命令项工厂;
     /// </summary>
     public interface ICommandItemFactory {
-        ICommandItem CreateNew(ICommand command,string guid);
+        ICommandItem CreateNew(ICommand command,string guid,Func<bool> isVisible);
     }
 
     public class CommandItemFactory:GenericServiceStaticInstance<ICommandItemFactory> {
-        public static ICommandItem CreateNew(ICommand command,string guid = null) => Current?.CreateNew(command,guid);
+        public static ICommandItem CreateNew(ICommand command,string guid = null,Func<bool> isVisible = null) => Current?.CreateNew(command,guid,isVisible);
     }
 
     //public interface ICommandItem<TData> : ICommandItem {

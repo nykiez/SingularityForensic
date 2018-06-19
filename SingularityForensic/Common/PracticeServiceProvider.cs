@@ -1,10 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Registration;
 
 namespace SingularityForensic.Common {
     /// <summary>

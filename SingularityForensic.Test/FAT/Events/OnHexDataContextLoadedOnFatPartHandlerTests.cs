@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hex;
@@ -7,13 +6,9 @@ using SingularityForensic.Contracts.Hex.Events;
 using SingularityForensic.FAT;
 using SingularityForensic.FAT.Events;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.FAT.Events {
     [TestClass()]

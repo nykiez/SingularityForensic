@@ -4,6 +4,7 @@ using Prism.Commands;
 using System.ComponentModel.Composition;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.TreeView;
+using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.MainPage.ViewModels {
 
@@ -38,6 +39,9 @@ namespace SingularityForensic.MainPage.ViewModels {
             set {
                 SetProperty(ref _selectedUnit, value);
                 SelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+                foreach (var cmi in ContextCommands) {
+                    cmi.NotifyProperty(nameof(ICommandItem.IsVisible));
+                }
             }
             
         }  
@@ -53,7 +57,8 @@ namespace SingularityForensic.MainPage.ViewModels {
             //NotifyUnitClick(treeUnit);
             UnitRightClicked?.Invoke(this, treeUnit);
         }
-        
+
+        public ObservableCollection<ICommandItem> ContextCommands { get; set; } = new ObservableCollection<ICommandItem>();
     }
 
     

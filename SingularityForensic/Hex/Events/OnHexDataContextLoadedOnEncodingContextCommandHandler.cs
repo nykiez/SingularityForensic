@@ -3,13 +3,9 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace SingularityForensic.Hex.Events {
     /// <summary>

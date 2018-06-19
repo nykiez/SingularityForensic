@@ -3,7 +3,6 @@ using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
-using System;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {

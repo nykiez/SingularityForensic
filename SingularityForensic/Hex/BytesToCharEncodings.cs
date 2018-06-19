@@ -1,12 +1,8 @@
-﻿using CDFC.Util;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Hex;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WpfHexaEditor.Core.Bytes;
 
 namespace SingularityForensic.Hex {

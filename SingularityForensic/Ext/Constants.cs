@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SingularityForensic.Ext {
+﻿namespace SingularityForensic.Ext {
     public static class Constants {
         /// <summary>
         /// 超级块起始地址;

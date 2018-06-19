@@ -1,12 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Globalization;
 using System.ComponentModel.Composition;
 using CDFCUIContracts.Helpers;
-using CDFC.Util;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.MainPage.ViewModels;
 

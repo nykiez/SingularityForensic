@@ -1,5 +1,4 @@
 ﻿using Prism.Mvvm;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Windows.Media;

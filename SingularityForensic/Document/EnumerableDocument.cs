@@ -1,5 +1,4 @@
-﻿using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
 using SingularityForensic.Contracts.Helpers;
@@ -8,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 
 namespace SingularityForensic.Document {
     class EnumerableDocument : DocumentBase,IEnumerableDocument {

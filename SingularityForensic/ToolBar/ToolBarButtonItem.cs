@@ -2,7 +2,6 @@
 using SingularityForensic.Contracts.ToolBar;
 using SingularityForensic.ToolBar.ViewModels;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace SingularityForensic.ToolBar {

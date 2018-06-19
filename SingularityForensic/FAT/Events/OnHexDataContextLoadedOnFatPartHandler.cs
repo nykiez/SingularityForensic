@@ -1,14 +1,10 @@
-﻿using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows.Media;
 
 namespace SingularityForensic.FAT.Events {
     /// <summary>

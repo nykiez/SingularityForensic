@@ -16,7 +16,6 @@ using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Helpers;
 using CDFC.Util.IO;
-using SingularityForensic.Contracts.FileExplorer;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>

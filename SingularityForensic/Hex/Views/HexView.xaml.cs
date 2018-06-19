@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using WpfHexaEditor;
 
 namespace SingularityForensic.Hex.Views {
     /// <summary>

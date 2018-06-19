@@ -1,9 +1,11 @@
-﻿using System;
-
-namespace SingularityForensic.FileExplorer {
+﻿namespace SingularityForensic.FileExplorer {
     public static partial class Constants {
-        public const string DeviceNodeContextCommand = nameof(DeviceNodeContextCommand);
-        
+
+        public const string ContextCommandItemGUID_RecurBrowse = nameof(ContextCommandItemGUID_RecurBrowse);
+
+        public const string ContextCommandItemGUID_CustomSignSearch = nameof(ContextCommandItemGUID_CustomSignSearch);
+
+
         /// <summary>
         /// 设备分区UI对象名;
         /// </summary>

@@ -9,13 +9,16 @@ namespace SingularityForensic.Common {
     /// <summary>
     /// 命令绑定项,可用于MenuItem等的绑定等;
     /// </summary>
-    class CommandItem : ExtensibleBindableBase, ICommandItem {
-        public CommandItem(ICommand command,string guid) {
+    class CommandItem : ExtensibleBindableBase, ICommandItem,ICustomNotify {
+        public CommandItem(ICommand command,string guid,Func<bool> isVisible = null) {
             this.Command = command;
             this.GUID = guid;
+            this._isVisibleFunc = isVisible;
         }
 
         public ICommand Command { get; }
+        private Func<bool> _isVisibleFunc;
+        public bool IsVisible => _isVisibleFunc?.Invoke() ?? true;
 
         private string _commandName;
         public virtual string Name {
@@ -51,14 +54,19 @@ namespace SingularityForensic.Common {
         public int Sort { get; set; }
 
         public string GUID { get; }
+        public bool IsChecked { get ; set ; }
 
         public void AddChild(ICommandItem commandItem) => _children.AddOrderBy(commandItem, p => p.Sort);
 
         public void RemoveChild(ICommandItem commandItem) => _children.Remove(commandItem);
+        
+        public void NotifyProperty(string propName) {
+            RaisePropertyChanged(nameof(IsVisible));
+        }
     }
 
     [Export(typeof(ICommandItemFactory))]
     class CommandItemFactory : ICommandItemFactory {
-        public ICommandItem CreateNew(ICommand command,string guid) => new CommandItem(command,guid);
+        public ICommandItem CreateNew(ICommand command,string guid,Func<bool> isVisible = null) => new CommandItem(command,guid,isVisible);
     }
 }

@@ -4,12 +4,7 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Ext;
 using SingularityForensic.Test.Common;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Ext {
     [TestClass()]

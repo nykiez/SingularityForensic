@@ -2,12 +2,10 @@
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using fsContracts = SingularityForensic.Contracts.FileSystem;
 using System.Xml.Linq;
 using SingularityForensic.Contracts.Common;
 

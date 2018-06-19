@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace SingularityForensic.MainPage {
     [Export(Contracts.MainPage.Constants.MainTreeService,typeof(ITreeService))]
-    public class MainTreeService : ITreeService {
+    public partial class MainTreeService : ITreeService {
         [ImportingConstructor]
         public MainTreeService(UnitTreeViewModel vm) {
             this.VM = vm;
@@ -128,5 +128,16 @@ namespace SingularityForensic.MainPage {
             
         }
         
+    }
+
+    public partial class MainTreeService {
+        /// <summary>
+        /// 上下文命令菜单;
+        /// </summary>
+        public IEnumerable<ICommandItem> ContextCommands => VM.ContextCommands;
+
+        public void AddContextCommand(ICommandItem commandItem) => VM.ContextCommands.AddOrderBy(commandItem, p => p.Sort);
+
+        public void RemoveContextCommand(ICommandItem commandItem) => VM.ContextCommands.Remove(commandItem);
     }
 }

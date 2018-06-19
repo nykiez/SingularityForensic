@@ -9,7 +9,6 @@ using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.TreeView;
 using static SingularityForensic.Casing.Constants;
-using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -20,8 +19,28 @@ namespace SingularityForensic.Casing {
     [Export(typeof(ICaseUIService)),Export]
     public partial class CaseUIService : ICaseUIService {
         public void Initialize() {
+            AddContextCommands();
             RegisterEvents();
             RegisterEventsForCommands();
+        }
+
+        /// <summary>
+        /// 加入上下文菜单;
+        /// </summary>
+        private void AddContextCommands() {
+            var treeService = MainTreeService.Current;
+            if (treeService == null) {
+                LoggerService.WriteCallerLine($"{nameof(treeService)} can't be null.");
+                return;
+            }
+            //打开案件位置命令;
+            treeService.AddContextCommand(CaseCommandItemFactory.CreateOpenCasePathCommandItem(treeService));
+            //显示案件文件信息命令;
+            treeService.AddContextCommand(CaseCommandItemFactory.CreateShowCasePropertyCommandItem(treeService));
+            //显示案件文件属性;
+            treeService.AddContextCommand(CaseCommandItemFactory.CreateShowCaseEvidencePropertyCommandItem(treeService));
+            //移除案件;
+            treeService.AddContextCommand(CaseCommandItemFactory.CreateRemoveCaseEvidenceCommandItem(treeService));
         }
         private void RegisterEvents() {
             //加入案件节点;
@@ -82,18 +101,14 @@ namespace SingularityForensic.Casing {
             }
 
             //加入案件节点;
-            var csUnit = TreeUnitFactory.CreateNew(Constants.CaseEvidenceUnitType);
+            var csUnit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.TreeUnitType_Case);
             csUnit.Label = cs.CaseName;
 
-            csUnit.SetInstance(cs,Contracts.Casing.Constants.TreeUnitType_Case);
+            csUnit.SetInstance(cs,Contracts.Casing.Constants.TreeUnitTag_Case);
 
-            //打开案件位置命令;
-            csUnit.AddContextCommand(CaseCommandItemFactory.CreateOpenCasePathCommandItem(cs));
-
-            //显示案件文件信息命令;
-            csUnit.AddContextCommand(CaseCommandItemFactory.CreateShowCasePropertyCommandItem(cs));
-            
             nodeService.AddUnit(null, csUnit);
+            
+            
         }
 
         //证据项被加载完成时发生;
@@ -102,9 +117,9 @@ namespace SingularityForensic.Casing {
         }
 
         private void LoadEvidenceUnitToTree(ICaseEvidence evidence) {
-            var nodeService = MainTreeService.Current;
-            if (nodeService == null) {
-                LoggerService.WriteCallerLine($"{nameof(nodeService)} can't be null.");
+            var treeService = MainTreeService.Current;
+            if (treeService == null) {
+                LoggerService.WriteCallerLine($"{nameof(treeService)} can't be null.");
                 return;
             }
 
@@ -112,19 +127,7 @@ namespace SingularityForensic.Casing {
             unit.Label = evidence.Name;
 
             unit.SetInstance(evidence, Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
-            try {
-                //显示案件文件属性;
-                unit.AddContextCommand(CaseCommandItemFactory.CreateShowCaseEvidencePropertyCommandItem(evidence));
-                //移除案件;
-                unit.AddContextCommand(CaseCommandItemFactory.CreateRemoveCaseEvidencePropertyCommandItem(evidence));
-            }
-            catch (Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);
-                ThreadInvoker.UIInvoke(() => {
-                    MsgBoxService.ShowError(ex.Message);
-                });
-            }
-            nodeService.AddUnit(nodeService.CurrentUnits.FirstOrDefault(), unit);
+            treeService.AddUnit(treeService.CurrentUnits.FirstOrDefault(), unit);
         }
 
         //案件被卸载时发生;

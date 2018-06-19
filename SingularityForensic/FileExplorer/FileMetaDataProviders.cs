@@ -6,7 +6,6 @@ using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.ComponentModel.Composition;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

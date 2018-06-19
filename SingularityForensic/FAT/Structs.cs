@@ -1,6 +1,4 @@
-﻿using SingularityForensic.Contracts.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 

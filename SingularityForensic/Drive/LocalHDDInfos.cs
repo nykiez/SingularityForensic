@@ -1,5 +1,4 @@
 ﻿using CDFC.Util.PInvoke;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 

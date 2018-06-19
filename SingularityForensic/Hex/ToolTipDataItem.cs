@@ -1,5 +1,4 @@
 ﻿using SingularityForensic.Contracts.Hex;
-using SingularityForensic.Hex.ViewModels;
 
 namespace SingularityForensic.Hex {
     class ToolTipDataItem : IToolTipDataItem {

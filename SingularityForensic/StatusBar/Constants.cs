@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
-namespace SingularityForensic.StatusBar
-{
+namespace SingularityForensic.StatusBar {
     static class Constants
     {
         public const string StatusBarItemGUID_Default = nameof(StatusBarItemGUID_Default);

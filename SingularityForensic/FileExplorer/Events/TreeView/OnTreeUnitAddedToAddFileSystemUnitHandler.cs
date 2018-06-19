@@ -4,13 +4,9 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>

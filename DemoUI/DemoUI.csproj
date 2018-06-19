@@ -136,6 +136,9 @@
     <Compile Include="Hex\TestLoadHex.xaml.cs">
       <DependentUpon>TestLoadHex.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainPage\TestUnitTree.xaml.cs">
+      <DependentUpon>TestUnitTree.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Previewers\TestVideoPreviewer.xaml.cs">
       <DependentUpon>TestVideoPreviewer.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,9 @@
     </Compile>
     <Compile Include="TestHex.xaml.cs">
       <DependentUpon>TestHex.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestMainPage.xaml.cs">
+      <DependentUpon>TestMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestPreviewer.xaml.cs">
       <DependentUpon>TestPreviewer.xaml</DependentUpon>
@@ -208,6 +214,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainPage\TestUnitTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -261,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestInteractionRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

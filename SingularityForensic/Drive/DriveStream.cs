@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32.SafeHandles;
-using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.IO;

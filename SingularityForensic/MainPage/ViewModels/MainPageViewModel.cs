@@ -4,9 +4,7 @@ using Prism.Commands;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
-using System.IO;
 using SingularityForensic.Contracts.Shell.Events;
-using System;
 
 namespace SingularityForensic.MainPage.ViewModels {
     [Export]

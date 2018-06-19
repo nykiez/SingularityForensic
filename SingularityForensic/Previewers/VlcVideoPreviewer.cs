@@ -1,9 +1,6 @@
-﻿using System.Windows;
-using SingularityForensic.Previewers.ViewModels;
+﻿using SingularityForensic.Previewers.ViewModels;
 using SingularityForensic.Previewers.Models;
 using SingularityForensic.Contracts.Previewers;
-using System;
-using System.ComponentModel.Composition;
 
 namespace SingularityForensic.Previewers {
     /// <summary>

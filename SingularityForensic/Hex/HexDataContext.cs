@@ -5,8 +5,6 @@ using SingularityForensic.Hex.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
-using System.Windows.Media;
 
 namespace SingularityForensic.Hex {
     partial class HexDataContext : ExtensibleBindableBase, IHexDataContext {

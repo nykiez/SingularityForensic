@@ -1,5 +1,4 @@
 ﻿using System;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static SingularityForensic.Contracts.App.LanguageService;
 using System.ComponentModel.Composition;
 using SingularityForensic.Contracts.TreeView;

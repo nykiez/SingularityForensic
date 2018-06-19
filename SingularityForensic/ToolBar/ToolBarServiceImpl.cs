@@ -6,11 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SingularityForensic.ToolBar
-{
+namespace SingularityForensic.ToolBar {
     [Export(typeof(IToolBarService))]
     class ToolBarServiceImpl : IToolBarService {
         [ImportingConstructor]

@@ -9,7 +9,6 @@ using SingularityForensic.Adb.Models.AdbViewer;
 using Cflab.DataTransport.Tools.Adb.Devices;
 using System.Collections.Generic;
 using Cflab.DataTransport.Modules.Transport.Model;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using Cflab.DataTransport;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;

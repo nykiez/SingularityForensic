@@ -42,16 +42,7 @@ namespace SingularityForensic.Contracts.TreeView {
         /// <summary>
         /// 子集合;
         /// </summary>
-        ICollection<ITreeUnit> Children { get; }
-
-        /// <summary>
-        /// 上下文命令项;
-        /// </summary>
-        IEnumerable<ICommandItem> ContextCommands { get; }
-
-        void AddContextCommand(ICommandItem commandItem);
-
-        void RemoveContextCommand(ICommandItem commandItem);
+        ICollection<ITreeUnit> Children { get; }       
     }
 
 }

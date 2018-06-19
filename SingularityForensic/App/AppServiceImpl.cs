@@ -1,15 +1,10 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SingularityForensic.App
-{
+namespace SingularityForensic.App {
     [Export(typeof(IAppService))]
     class AppServiceImpl : IAppService {
         public string AppName => "SingularityForensic";

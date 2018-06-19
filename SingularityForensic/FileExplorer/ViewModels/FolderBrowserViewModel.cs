@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using Prism.Commands;
 using SingularityForensic.Contracts.FileExplorer;
@@ -129,7 +128,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             //RaisePropertyChanged(nameof(FilterSettings));
 
 #if DEBUG
-            ((FileRow)FileRows[0]).CheckSubscribed();
+            if(FileRows.Count != 0) {
+                ((FileRow)FileRows[0]).CheckSubscribed();
+            }
 #endif
         }
 

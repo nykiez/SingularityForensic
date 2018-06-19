@@ -92,7 +92,9 @@
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
+    <Compile Include="Casing\Events\CaseModuleLoadingEvent.cs" />
     <Compile Include="Common\GenericServiceStaticInstances.cs" />
+    <Compile Include="Common\ICommandFactory.cs" />
     <Compile Include="Common\ICustomNotify.cs" />
     <Compile Include="Common\MarshalExtensions.cs" />
     <Compile Include="Common\PropDescribleAttribute.cs" />

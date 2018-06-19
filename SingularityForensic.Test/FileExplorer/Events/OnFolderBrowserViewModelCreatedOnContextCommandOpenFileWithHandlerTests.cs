@@ -2,19 +2,15 @@
 using Moq;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.FileExplorer.Events;
 using SingularityForensic.Test.App;
 using SingularityForensic.Test.Common;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.FileExplorer.Events {
     [TestClass()]

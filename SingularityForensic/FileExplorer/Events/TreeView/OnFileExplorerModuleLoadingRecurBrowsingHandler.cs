@@ -1,10 +1,9 @@
-﻿using Prism.Commands;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.TreeView;
-using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.FileExplorer.Helpers;
 using System.ComponentModel.Composition;
 
@@ -12,33 +11,32 @@ namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
     /// 添加子文件递归浏览的命令;
     /// </summary>
-    [Export(typeof(ITreeUnitAddedEventHandler))]
-    public class OnFileUnitAddedRecurBroswingHandler : EventHandlerBase<(ITreeUnit unit, ITreeService treeService)>, ITreeUnitAddedEventHandler {
-        public override void Handle((ITreeUnit unit, ITreeService treeService) tuple) {
-            if (tuple.unit == null) {
+    [Export(typeof(IFileExplorerModuleLoadingEventHandler))]
+    public class OnFileExplorerModuleLoadingRecurBrowsingHandler :  IFileExplorerModuleLoadingEventHandler {
+        public int Sort => 4;
+
+        public bool IsEnabled => true;
+
+        public void Handle() {
+            var treeService = Contracts.MainPage.MainTreeService.Current;
+            if (treeService == null) {
                 return;
             }
-
-            if (tuple.treeService != Contracts.MainPage.MainTreeService.Current) {
-                return;
-            }
-
-            if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_InnerFile) {
-                var comm = new DelegateCommand(() => HandleOnInnerFileUnit(tuple.unit));
-                var cmi = CommandItemFactory.CreateNew(comm);
-                cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RecurBrowse);
-                tuple.unit.AddContextCommand(cmi);
-            }
-
-            if (tuple.unit.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_FileSystem) {
-                var comm = new DelegateCommand(() => HandleOnFileSystemUnit(tuple.unit));
-                var cmi = CommandItemFactory.CreateNew(comm);
-                cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RecurBrowse);
-                tuple.unit.AddContextCommand(cmi);
-            } 
+            
+            var comm = CommandFactory.CreateDelegateCommand(() =>{
+                if (CheckInnerFileUnitSelected(treeService) ){
+                    HandleOnInnerFileUnit(treeService.SelectedUnit);
+                }
+                else if(CheckFileSystemUnitSelected(treeService)){
+                    HandleOnFileSystemUnit(treeService.SelectedUnit);
+                }
+            });
+            var cmi = CommandItemFactory.CreateNew(comm,Constants.ContextCommandItemGUID_RecurBrowse,() => CheckFileSystemUnitSelected(treeService) || CheckInnerFileUnitSelected(treeService));
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_RecurBrowse);
+            treeService.AddContextCommand(cmi);
         }
 
-        public void HandleOnInnerFileUnit(ITreeUnit unit) {
+        private void HandleOnInnerFileUnit(ITreeUnit unit) {
             var innerFile = unit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
             if (innerFile == null) {
                 LoggerService.WriteCallerLine($"{nameof(innerFile)} can't be null.");
@@ -53,7 +51,7 @@ namespace SingularityForensic.FileExplorer.Events {
             HandleOnFileCollection(haveFileCollection);
         }
 
-        public void HandleOnFileSystemUnit(ITreeUnit unit) {
+        private void HandleOnFileSystemUnit(ITreeUnit unit) {
             var file = unit?.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             if(!(file is IHaveFileCollection haveFileCollection)) {
                 return;
@@ -61,6 +59,10 @@ namespace SingularityForensic.FileExplorer.Events {
 
             HandleOnFileCollection(haveFileCollection);
         }
+
+        private static bool CheckInnerFileUnitSelected(ITreeService treeService) => treeService.CheckTypedUnitSelected(Contracts.FileExplorer.Constants.TreeUnitType_InnerFile);
+
+        private static bool CheckFileSystemUnitSelected(ITreeService treeService) => treeService.CheckTypedUnitSelected(Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
 
         private void HandleOnFileCollection(IHaveFileCollection haveFileCollection) {
             IStreamFile streamFile = null;

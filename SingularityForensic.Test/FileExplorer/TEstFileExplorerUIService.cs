@@ -2,7 +2,6 @@
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
-using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.MainPage;

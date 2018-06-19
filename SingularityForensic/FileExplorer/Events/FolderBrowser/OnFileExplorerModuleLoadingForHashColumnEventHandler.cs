@@ -4,14 +4,10 @@ using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hash;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SingularityForensic.FileExplorer.Events.FolderBrowser
-{
+namespace SingularityForensic.FileExplorer.Events.FolderBrowser {
     /// <summary>
     /// 为文件资源管理器注册哈希列;
     /// </summary>

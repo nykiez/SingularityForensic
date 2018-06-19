@@ -7,7 +7,6 @@ using Cflab.DataTransport;
 using Cflab.DataTransport.Modules.Transport.Model;
 using System.Threading;
 using System.IO;
-using static CDFCUIContracts.Helpers.ApplicationHelper;
 using static CDFCCultures.Helpers.IOPathHelper;
 using Prism.Commands;
 using CDFC.Info.Adb;

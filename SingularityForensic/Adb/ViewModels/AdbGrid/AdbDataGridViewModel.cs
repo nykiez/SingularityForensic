@@ -4,7 +4,6 @@ using System.Linq;
 using EventLogger;
 using CDFCUIContracts.Events;
 using System.IO;
-using Ookii.Dialogs.Wpf;
 using CDFCCultures.Helpers;
 using Cflab.DataTransport.Modules.Transport.Model;
 using Prism.Commands;

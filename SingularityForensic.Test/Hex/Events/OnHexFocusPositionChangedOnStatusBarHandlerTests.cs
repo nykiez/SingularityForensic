@@ -5,10 +5,7 @@ using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.StatusBar;
 using SingularityForensic.Hex.Events;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Test.Hex.Events {
     [TestClass()]

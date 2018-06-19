@@ -53,29 +53,12 @@ namespace SingularityForensic.TreeView {
             set => SetProperty(ref _icon, value);
         }
 
-        private ObservableCollection<ICommandItem> _contextCommands = new ObservableCollection<ICommandItem>();
-        /// <summary>
-        /// 上下文命令菜单;
-        /// </summary>
-        public IEnumerable<ICommandItem> ContextCommands {
-            get => _contextCommands;
-            set {
-                if (value is ObservableCollection<ICommandItem> commandItems) {
-                    _contextCommands = commandItems;
-                }
-            }
-        }
-
-
         private bool _isExpanded;
         public bool IsExpanded {
             get => _isExpanded;
             set => SetProperty(ref _isExpanded, value);
         }
 
-        public void AddContextCommand(ICommandItem commandItem) => _contextCommands.AddOrderBy(commandItem, p => p.Sort);
-
-        public void RemoveContextCommand(ICommandItem commandItem) => _contextCommands.Remove(commandItem);
     }
 
     interface IInternalNode<TNode> {

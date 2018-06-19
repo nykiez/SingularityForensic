@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SingularityForensic.MainPage.Views"
+             xmlns:cvts="http://singularity/converters"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
@@ -18,14 +18,15 @@
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Menu.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/GroupBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
-                    <Image Source="{Binding Icon}" Width="16" Margin="6,0" />
+                    <Image Source="{Binding Icon}" Width="16" Margin="0,0" />
                     <TextBlock Text="{Binding Label}"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <SolidColorBrush x:Key="Menu.Static.Separator" Color="#FF000000"/>
+            <controls:BindingProxy  x:Key="dataProxy" Data="{Binding}" />
+            
             <Style x:Key="SeparatorStyle1" TargetType="{x:Type Separator}">
                 <Setter Property="Background" Value="{StaticResource Menu.Static.Separator}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Menu.Static.Separator}"/>
@@ -40,6 +41,22 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <ContextMenu x:Key="treeContextMenu" ItemsSource="{Binding Data.ContextCommands,Source={StaticResource dataProxy}}">
+                <ContextMenu.ItemContainerStyle>
+                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                        <Setter Property="Command" Value="{Binding Command}"/>
+                        <Setter Property="Header" Value="{Binding Name}"/>
+                        <Setter Property="Visibility" Value="{Binding IsVisible,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance}}"/>
+                        <Setter Property="Icon" Value="{Binding Icon}"/>
+                        <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
+                                <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContextMenu.ItemContainerStyle>
+            </ContextMenu>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -52,32 +69,13 @@
                                  ItemTemplate="{DynamicResource TreeViewExItemTemplate}" d:IsLocked="True">
             <telerik:RadTreeView.ItemContainerStyle >
                 <Style TargetType="{x:Type telerik:RadTreeViewItem}" BasedOn="{StaticResource {x:Type telerik:RadTreeViewItem}}">
-                    <Setter Property="ContextMenu" Value="{x:Null}"/>
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu ItemsSource="{Binding ContextCommands}">
-                                <ContextMenu.ItemContainerStyle>
-                                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                                        <Setter Property="Command" Value="{Binding Command}"/>
-                                        <Setter Property="Header" Value="{Binding Name}"/>
-                                        <Setter Property="Icon" Value="{Binding Icon}"/>
-                                        <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding HasParameter,FallbackValue=False}" Value="True">
-                                                <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContextMenu.ItemContainerStyle>
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
+                    <Setter Property="ContextMenu" Value="{StaticResource treeContextMenu}"/>
+                    <!--<Style.Triggers>
                         <DataTrigger Binding="{Binding ContextCommands}" Value="{x:Null}">
                             <Setter Property="ContextMenu" Value="{x:Null}"/>
                         </DataTrigger>
-                    </Style.Triggers>
+                    </Style.Triggers>-->
                 </Style>
             </telerik:RadTreeView.ItemContainerStyle>
         </telerik:RadTreeView>

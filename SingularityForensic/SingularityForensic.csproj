@@ -285,6 +285,7 @@
     <Compile Include="BaseDevice\BasePartInfo.cs" />
     <Compile Include="BaseDevice\Events\Hex\OnHexDataContextLoadedOnMBRDeviceHandler.cs" />
     <Compile Include="BaseDevice\InnerPartsType.cs" />
+    <Compile Include="Common\CommandFactoryImpl.cs" />
     <Compile Include="Common\LoggerServiceImpl.cs" />
     <Compile Include="App\Dialogs\MessageBoxDialog.cs" />
     <Compile Include="App\MessageBoxServiceImpl.cs" />
@@ -378,11 +379,10 @@
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler.cs" />
     <Compile Include="FileExplorer\Events\Hex\OnHexDataContextLoadedOnDeviceHandler.cs" />
-    <Compile Include="FileExplorer\Events\TreeView\OnFileUnitAddedRecurBroswingHandler.cs" />
+    <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingRecurBrowsingHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnInnerFileUnitSelectedHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnPartitionDoubleClickedHandler.cs" />
-    <Compile Include="FileExplorer\Events\TreeView\OnTreeUnitAddedOnBlockStreamedFileHandler.cs" />
-    <Compile Include="FileExplorer\Events\TreeView\OnTreeUnitAddedOnContextCommandsHandler.cs" />
+    <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingOnCustomSignSearchHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnTreeUnitAddedToAddFileSystemUnitHandler.cs" />
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />

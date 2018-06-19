@@ -1,12 +1,9 @@
-﻿using SingularityForensic.Contracts.Casing;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
-using SingularityForensic.Contracts.Imaging;
 using SingularityForensic.Contracts.MainPage;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.Contracts.TreeView.Events;
-using System.Linq;
 
 namespace DemoUI {
     /// <summary>

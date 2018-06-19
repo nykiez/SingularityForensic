@@ -74,7 +74,7 @@
                     <Setter Property="Margin" Value="12,0"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="{DynamicResource OK}" x:Name="OkBtn" Click="OkBtn_Click"  />
+            <Button Content="{DynamicResource OK}" Style="{DynamicResource SureBtnStyle}" x:Name="OkBtn" Click="OkBtn_Click"  />
             <Button Content="{DynamicResource Cancel}" x:Name="CancelBtn" Click="CancelBtn_Click" Style="{DynamicResource DenyBtnStyle}" />
         </StackPanel>
     </Grid>

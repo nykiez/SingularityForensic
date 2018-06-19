@@ -3,9 +3,10 @@
     /// 树形相关;
     /// </summary>
     public static partial class Constants {
-        //案件节点类型;
-        public const string CaseEvidenceUnitType = nameof(CaseEvidenceUnitType);
-
+        public const string ContextCommandItemGUID_OpenCasePathFolder = nameof(ContextCommandItemGUID_OpenCasePathFolder);
+        public const string ContextCommandItemGUID_ShowCaseProperty = nameof(ContextCommandItemGUID_ShowCaseProperty);
+        public const string ContextCommandItemGUID_ShowCaseEvidenceProperty = nameof(ContextCommandItemGUID_ShowCaseEvidenceProperty);
+        public const string ContextCommandItemGUID_RemoveCaseProperty = nameof(ContextCommandItemGUID_RemoveCaseProperty);
 
         public const string TBButtonGUID__OpenCase = nameof(TBButtonGUID__OpenCase);
 
@@ -68,6 +69,8 @@
         public const string TBButtonToolTip__CreateCase = nameof(TBButtonToolTip__CreateCase);
         
         public const string MenuItemText_CreateCase = nameof(MenuItemText_CreateCase);
+
+        public const string MsgText_ConfirmToRemoveEvidence = nameof(MsgText_ConfirmToRemoveEvidence);
 
     }
 }

@@ -1,17 +1,13 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Controls;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SingularityForensic.Controls
-{
+namespace SingularityForensic.Controls {
     class StackGrid<TStackItem> : IStackGrid<TStackItem> where TStackItem : IUIObjectProvider {
         public StackGrid(Grid grid = null) {
             this._grid = grid??new Grid();

@@ -2,16 +2,10 @@
 using Prism.Interactivity.InteractionRequest;
 using SingularityForensic.App.Models;
 using SingularityForensic.Contracts.App;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SingularityForensic.App.ViewModels
-{
+namespace SingularityForensic.App.ViewModels {
     public partial class MessageBoxWindowViewModel : INotifyPropertyChanged {
         public InteractionRequest<Notification> CloseRequest { get; } = new InteractionRequest<Notification>();
         public MessageBoxWindowViewModel(MessageBoxButton button, string warnWords, string titleWords) {

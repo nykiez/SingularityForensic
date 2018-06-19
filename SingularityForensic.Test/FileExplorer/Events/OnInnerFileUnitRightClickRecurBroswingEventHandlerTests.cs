@@ -11,9 +11,9 @@ namespace SingularityForensic.Test.FileExplorer.Events {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _handler = new OnFileUnitAddedRecurBroswingHandler();
+            _handler = new OnFileExplorerModuleLoadingRecurBrowsingHandler();
         }
-        OnFileUnitAddedRecurBroswingHandler _handler;
+        OnFileExplorerModuleLoadingRecurBrowsingHandler _handler;
 
         [TestMethod()]
         public void HandleTest() {

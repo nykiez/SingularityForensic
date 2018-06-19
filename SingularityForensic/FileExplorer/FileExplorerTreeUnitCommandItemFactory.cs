@@ -3,6 +3,7 @@ using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
+using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.FileExplorer.Helpers;
 using System;
 using System.Collections.Generic;
@@ -10,46 +11,19 @@ using System.IO;
 using System.Linq;
 
 namespace SingularityForensic.FileExplorer {
-    public static class FileExplorerTreeUnitCommandItemFactory {
-        /// <summary>
-        /// 自定义签名功能;
-        /// </summary>
-        /// <param name="blockedStream"></param>
-        /// <returns></returns>
-        public static ICommandItem CreateCustomSignSearchCommandItem(IStreamFile blockedStream) {
-            if(blockedStream == null) {
-                throw new ArgumentNullException(nameof(blockedStream));
-            }
-            
-            var cmi = CommandItemFactory.CreateNew(CreateCustomSignSearchCommand(blockedStream));
-            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CustomSignSearch);
-            cmi.Sort = 12;
-            return cmi;
-        }
-
-        private static DelegateCommand CreateCustomSignSearchCommand(IStreamFile blockedStream) {
-            if (blockedStream == null) {
-                throw new ArgumentNullException(nameof(blockedStream));
-            }
-            
-            var comm = new DelegateCommand(
-                () => {
-                    var setting = CustomSignSearchService.GetSetting();
-                    if(setting == null) {
-                        return;
-                    }
-                    SignSearch(blockedStream, setting);
-                }
-            );
-            return comm;
-        }
-
+    public static class FileExplorerStreamFileExtensions {
+       
         /// <summary>
         /// 签名搜索;
         /// </summary>
         /// <param name="blDevice"></param>
         /// <param name="setting"></param>
-        private static void SignSearch(IStreamFile streamFile,ICustomSignSearchSetting setting) {
+        public static void SignSearch(IStreamFile streamFile) {
+            var setting = CustomSignSearchService.GetSetting();
+            if(setting == null) {
+                return;
+            }
+
             var loadingDialog = DialogService.Current.CreateLoadingDialog();
             loadingDialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_CustomSignSearch);
 

@@ -41,14 +41,19 @@ namespace SingularityForensic.Contracts.FileSystem {
         
         /// <summary>
         /// 所有文件;
-        /// file为对应的文件管理单元,xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
         /// </summary>
         IEnumerable<IMountedUnit> MountedUnits { get; }
         
     }
 
     public interface IMountedUnit {
+        /// <summary>
+        /// file为对应的文件管理单元;
+        /// </summary>
         IFile File { get; }
+        /// <summary>
+        /// xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
+        /// </summary>
         XElement XElem { get; }
     }
 
