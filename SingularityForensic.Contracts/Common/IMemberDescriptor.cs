@@ -148,6 +148,14 @@ namespace SingularityForensic.Contracts.Common {
                 }
                 args.EditingValue = attr.SizeConst;
             }
+            else if(fieldInfo.FieldType == typeof(int[]) || fieldInfo.FieldType == typeof(uint[])) {
+                var attr = Attribute.GetCustomAttribute(fieldInfo, typeof(MarshalAsAttribute)) as MarshalAsAttribute;
+                if (attr == null) {
+                    LoggerService.WriteCallerLine($"{nameof(attr)} can't be null.");
+                    return;
+                }
+                args.EditingValue = attr.SizeConst * 4;
+            }
             //否则直接使用Marshal.SizeOf获取大小;
             else {
                 try {

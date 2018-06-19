@@ -39,9 +39,6 @@ namespace SingularityForensic.MainPage.ViewModels {
             set {
                 SetProperty(ref _selectedUnit, value);
                 SelectedUnitChanged?.Invoke(this, EventArgs.Empty);
-                foreach (var cmi in ContextCommands) {
-                    cmi.NotifyProperty(nameof(ICommandItem.IsVisible));
-                }
             }
             
         }  

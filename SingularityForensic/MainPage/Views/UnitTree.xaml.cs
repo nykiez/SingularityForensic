@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using CDFCUIContracts.Helpers;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.MainPage.ViewModels;
+using Telerik.Windows.Controls;
 
 namespace SingularityForensic.MainPage.Views {
     /// <summary>
@@ -14,53 +15,43 @@ namespace SingularityForensic.MainPage.Views {
     public partial class UnitTree : UserControl {
         public UnitTree() {
             InitializeComponent();
+            EventManager.RegisterClassHandler(typeof(RadTreeViewItem),
+        Mouse.MouseDownEvent, new MouseButtonEventHandler(OnTreeViewItemMouseDown), false);
         }
 
-        
-        private void CaseTreeList_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
-            if (e.ClickCount == 1 && DataContext is UnitTreeViewModel vm) {
-                if (e.OriginalSource is DependencyObject dpo) {
-                    object dt = null;
-                    if (dpo is FrameworkElement element) {
-                        dt = element.DataContext;
-                    }
-                    else {
-                        dt = VisualHelper.GetVisualParent<FrameworkElement>(dpo)?.DataContext;
-                    }
-
-                    if (dt is ITreeUnit unit) {
-                        if (unit is ITreeUnit tUnit) {
-                            //通知右键点击;
-                            if (e.RightButton == MouseButtonState.Pressed) {
-                                vm.NotifyRightClick(tUnit);
-                            }
-                        }
-
-                    }
-                }
+        public static void OnTreeViewItemMouseDown(object sender, MouseButtonEventArgs e) {
+            var treeViewitem = sender as RadTreeViewItem;
+            if (e.RightButton == MouseButtonState.Pressed) {
+                treeViewitem.IsSelected = true;
+                e.Handled = true;
             }
+        }
+
+
+        private void CaseTreeList_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
+            //if (e.ClickCount == 1 && DataContext is UnitTreeViewModel vm) {
+            //    if (e.OriginalSource is DependencyObject dpo) {
+            //        object dt = null;
+            //        if (dpo is FrameworkElement element) {
+            //            dt = element.DataContext;
+            //        }
+            //        else {
+            //            dt = VisualHelper.GetVisualParent<FrameworkElement>(dpo)?.DataContext;
+            //        }
+
+            //        if (dt is ITreeUnit unit) {
+            //            if (unit is ITreeUnit tUnit) {
+            //                //通知右键点击;
+            //                if (e.RightButton == MouseButtonState.Pressed) {
+            //                    vm.NotifyRightClick(tUnit);
+            //                }
+            //            }
+
+            //        }
+            //    }
+            //}
         }
     }
 
-    ///// <summary>
-    ///// 根据节点类型动态选择上下文菜单;
-    ///// </summary>
-    //public class LevelToMarginConverter : GenericStaticInstance<LevelToMarginConverter>,IValueConverter {
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-    //        if (value != null && int.TryParse(value.ToString(), out int level)) {
-    //            return new Thickness(level * 16, 0, 0, 0);
-    //        }
-    //        return new Thickness(0, 0, 0, 0);
-    //    }
-
-
-    //    public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture) {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-    //    //    throw new NotImplementedException();
-    //    //}
-    //}
-    
+   
 }

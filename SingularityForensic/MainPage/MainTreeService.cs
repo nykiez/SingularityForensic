@@ -65,7 +65,10 @@ namespace SingularityForensic.MainPage {
             if(sender != VM) {
                 return;
             }
-
+            
+            foreach (var cmi in ContextCommands) {
+                cmi.NotifyProperty(nameof(ICommandItem.IsVisible));
+            }
             PubEventHelper.PublishEventToHandlers((VM.SelectedUnit, this as ITreeService), _treeUnitSelectedChangedEventHandlers);
             PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
         }
