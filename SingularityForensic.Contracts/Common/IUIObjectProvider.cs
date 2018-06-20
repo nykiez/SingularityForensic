@@ -15,4 +15,12 @@ namespace SingularityForensic.Contracts.Common {
         object UIObject { get; }
         
     }
+
+    public interface IUIObjectProviderFactory {
+        IUIObjectProvider CreateNew(object uiObject);
+    }
+
+    public class UIObjectProviderFactory:GenericServiceStaticInstance<IUIObjectProviderFactory> {
+        public static IUIObjectProvider CreateNew(object uiObject) => Current.CreateNew(uiObject);
+    }
 }

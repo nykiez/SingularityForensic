@@ -22,12 +22,12 @@ namespace SingularityForensic.Ext {
         
     }
 
-    public class SuperBlock: StructFieldDecriptorBase<StSuperBlock>,ICustomMemerDecriptor {
+    public class SuperBlock: StructFieldDecriptorBase<StSuperBlock>,ICustomMemberDecriptor {
         public SuperBlock(StSuperBlock stSuperBlock):base(stSuperBlock) {
 
         }
     }
-    public class ExtGroupDesc : StructFieldDecriptorBase<StExtGroupDesc>, ICustomMemerDecriptor {
+    public class ExtGroupDesc : StructFieldDecriptorBase<StExtGroupDesc>, ICustomMemberDecriptor {
         public ExtGroupDesc(StExtGroupDesc desc):base(desc) {
 
         }

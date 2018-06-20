@@ -22,10 +22,7 @@ namespace SingularityForensic.FileExplorer.Models {
         }
 #endif
     }
-
-
-
-
+    
     /// <summary>
     /// 文件行泛基类;
     /// </summary>
@@ -35,8 +32,6 @@ namespace SingularityForensic.FileExplorer.Models {
         public void CheckSubscribed() {
             var notEmpty = this.PropertyChanged != null;
         }
-
-
 #endif
         public FileRowProxy(TFile file) {
             this.File = file;

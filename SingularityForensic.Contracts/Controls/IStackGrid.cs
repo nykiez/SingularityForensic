@@ -21,7 +21,7 @@ namespace SingularityForensic.Contracts.Controls {
         /// <param name="child"></param>
         /// <param name="definition">子项类型,须是ColumnDefinition/RowDefinition</param>
         /// <param name="index">插入位置</param>
-        void AddChild<TDefinition>(TStackItem child,GridChildLength gridChildLength, int index = -1);
+        void AddChild(TStackItem child,GridChildLength gridChildLength, int index = -1);
         void Remove(TStackItem child);
         void Clear();
         /// <summary>

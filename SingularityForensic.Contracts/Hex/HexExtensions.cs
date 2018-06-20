@@ -20,7 +20,7 @@ namespace SingularityForensic.Contracts.Hex {
         /// <param name="languageKeyPrefix">语言前缀类型</param>
         public static void UpdateDescriptorBackgroundAndToolTips(
             this IHexDataContext hexDataContext,
-            ICustomMemerDecriptor customMemberDescriptor,
+            ICustomMemberDecriptor customMemberDescriptor,
             long offset,
             Brush originBrush,
             Brush highlightBrush,
@@ -56,6 +56,9 @@ namespace SingularityForensic.Contracts.Hex {
 
             //悬停高亮;
             hexDataContext.SelectedToolTipItemChanged += delegate {
+                if(hexDataContext.SelectedToolTipItem == null) {
+                    return;
+                }
                 toolTipAndBrushBlockTuples.ForEach(p => {
                     p.Value.brushBlock.Background = originBrush;
                 });

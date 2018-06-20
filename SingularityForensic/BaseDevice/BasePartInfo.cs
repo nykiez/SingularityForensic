@@ -8,7 +8,7 @@ namespace SingularityForensic.BaseDevice {
         public InfoDisk InfoDisk { get; set; }
     }
 
-    public class InfoDisk: StructFieldDecriptorBase<StInFoDisk>, ICustomMemerDecriptor {
+    public class InfoDisk: StructFieldDecriptorBase<StInFoDisk>, ICustomMemberDecriptor {
         public InfoDisk(StInFoDisk stInfoDisk):base(stInfoDisk) {
             
         }
@@ -32,7 +32,7 @@ namespace SingularityForensic.BaseDevice {
         }
     }
 
-    public class DosPTable:StructFieldDecriptorBase<StDosPTable>,ICustomMemerDecriptor {
+    public class DosPTable:StructFieldDecriptorBase<StDosPTable>,ICustomMemberDecriptor {
         public DosPTable(StDosPTable stDosPTable):base(stDosPTable) {
 
         }

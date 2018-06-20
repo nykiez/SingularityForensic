@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,8 @@ namespace SingularityForensic.Contracts.Hex {
     public interface IHexDataContext:IUIObjectProvider,IExtensible {
         bool ReadOnlyMode { get; set; }
         Stream Stream { get; set; }
+
+        IStackGrid<IUIObjectProvider> StackGrid { get; }
 
         long SelectionStart { get; set; }
         long SelectionLength { get; set; }

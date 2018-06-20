@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <local:TestMainPage/>
+        <local:TestControls/>
     </Grid>
 </Window>

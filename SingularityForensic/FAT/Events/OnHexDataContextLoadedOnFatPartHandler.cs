@@ -36,7 +36,7 @@ namespace SingularityForensic.FAT.Events {
                 return;
             }
 
-            IEnumerable<(ICustomMemerDecriptor descriptor,long offset,string languagePrefix)> GetDescriptorTuples() {
+            IEnumerable<(ICustomMemberDecriptor descriptor,long offset,string languagePrefix)> GetDescriptorTuples() {
                 yield return (fatPartInfo.FatDBR, fatPartInfo.FatDBR?.Offset??0,Constants.FATFieldPrefix_DBR);
                 yield return (fatPartInfo.FatDBR_BackUp, fatPartInfo.FatDBR_BackUp?.Offset ?? 0, Constants.FATFieldPrefix_DBR);
                 yield return (fatPartInfo.FatInfo, fatPartInfo.FatInfo?.Offset ?? 0,Constants.FATFieldPrefix_Info);

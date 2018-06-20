@@ -50,7 +50,7 @@ namespace SingularityForensic.Contracts.Common {
         ///public int FieldOffset { get; set; }
     }
     
-    public interface ICustomMemerDecriptor {
+    public interface ICustomMemberDecriptor {
         IEnumerable<IMemberInfo> GetMemberInfos();
         /// <summary>
         /// 所描述实体的类型;
@@ -62,7 +62,7 @@ namespace SingularityForensic.Contracts.Common {
     /// 针对非托管结构体的描述单位,本类别使用了反射获取各个字段的信息;
     /// </summary>
     /// <typeparam name="TStruct"></typeparam>
-    public abstract class StructFieldDecriptorBase<TStruct> : ICustomMemerDecriptor where TStruct :struct {
+    public abstract class StructFieldDecriptorBase<TStruct> : ICustomMemberDecriptor where TStruct :struct {
         public StructFieldDecriptorBase(TStruct structInstance) {
             this.ObjectType = typeof(TStruct);
             this.StructInstance = structInstance;

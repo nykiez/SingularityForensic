@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Hex.Models;
 using SingularityForensic.Hex.ViewModels;
@@ -10,7 +11,11 @@ namespace SingularityForensic.Hex {
     partial class HexDataContext : ExtensibleBindableBase, IHexDataContext {
         public HexDataContext(Stream stream) {
             _vm.Stream = stream;
-            UIObject = ViewProvider.CreateView(Contracts.Hex.Constants.HexView, _vm);
+            StackGrid.AddChild(
+                UIObjectProviderFactory.CreateNew(ViewProvider.CreateView(Contracts.Hex.Constants.HexView, _vm)), 
+                GridChildLength.Auto
+            );
+            
             _vm.FocusPositionChanged += delegate {
                 FocusPositionChanged?.Invoke(this, EventArgs.Empty);
             };
@@ -72,14 +77,17 @@ namespace SingularityForensic.Hex {
             
 
         private HexViewViewModel _vm = new HexViewViewModel();
-        
-        public object UIObject { get; }
+
+        public object UIObject => StackGrid.UIObject;
 
         public IBytesToCharEncoding BytesToCharEncoding {
             get => (_vm.BytesToCharEncoding as BytesToCharEncodingWrapper)?.Encoding;
             set => _vm.BytesToCharEncoding = new BytesToCharEncodingWrapper(value);  
         }
-        
+
+        private IStackGrid<IUIObjectProvider> _stackGrid = StackGridFactory.CreateNew<IUIObjectProvider>(new System.Windows.Controls.Grid());
+        public IStackGrid<IUIObjectProvider> StackGrid => _stackGrid;
+
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();
         }

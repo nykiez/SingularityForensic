@@ -322,6 +322,7 @@
       <DependentUpon>ShowFileCaseFilePropertyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CommandItem.cs" />
+    <Compile Include="Common\UIObjectProviderFactoryImpl.cs" />
     <Compile Include="Common\ViewProviderImpl.cs" />
     <Compile Include="Common\PracticeServiceProvider.cs" />
     <Compile Include="Controls\Constants.cs" />

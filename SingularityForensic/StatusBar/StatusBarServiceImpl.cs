@@ -40,7 +40,7 @@ namespace SingularityForensic.StatusBar {
 
             _items.Add(item);
             try {
-                _stackGrid.AddChild<IStatusBarObjectItem>(item, gridChildLength, index);
+                _stackGrid.AddChild(item, gridChildLength, index);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

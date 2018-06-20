@@ -1,7 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.FAT {
-    public class FATDBR : StructFieldDecriptorBase<StFatDBR>,ICustomMemerDecriptor {
+    public class FATDBR : StructFieldDecriptorBase<StFatDBR>,ICustomMemberDecriptor {
         public FATDBR(StFatDBR stFatDBR,long offset):base(stFatDBR) {
             this.Offset = offset;
         }
