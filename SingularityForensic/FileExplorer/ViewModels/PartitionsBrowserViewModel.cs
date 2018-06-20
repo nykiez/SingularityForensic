@@ -39,8 +39,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
-            foreach (var descripter in PartitionRowFactory.Current.PropertyDescriptors) {
-                Partitions.PropertyDescriptorList.Add(descripter);
+            foreach (var descriptor in PartitionRowFactory.Current.PropertyDescriptors) {
+                Partitions.PropertyDescriptorList.Add(descriptor);
             }
         }
 

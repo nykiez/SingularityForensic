@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls.Data.PropertyGrid;
 
 namespace DemoUI.Controls {
     /// <summary>
@@ -30,10 +31,10 @@ namespace DemoUI.Controls {
     }
 
     public class VM:BindableBase {
-        public IFileRow Item { get; set; }
+        public object Item { get; set; }
 
-        private object _selectedProperty;
-        public object SelectedProperty {
+        private PropertyDefinition _selectedProperty;
+        public PropertyDefinition SelectedProperty {
             get => _selectedProperty;
             set => SetProperty(ref _selectedProperty, value);
         }

@@ -36,7 +36,7 @@ namespace SingularityForensic.Contracts.Hex {
                 var brushBlock = BrushBlockFactory.CreateNewBackgroundBlock();
 
                 dataItem.KeyName =
-                    LanguageService.FindResourceString($"{languageKeyPrefix}{fieldDescriptor.KeyName}") +
+                    LanguageService.FindResourceString($"{languageKeyPrefix}{fieldDescriptor.MemberName}") +
                     $"({fieldDescriptor.MemberSize})";
 
                 dataItem.Value = fieldDescriptor.StringValue;

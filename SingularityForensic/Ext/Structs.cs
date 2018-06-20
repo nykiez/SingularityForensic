@@ -112,20 +112,20 @@ namespace SingularityForensic.Ext {
         public uint s_last_error_ino;            /* inode involved in last error */
         public uint s_last_error_line;           /* line number where error happened */
         public ulong s_last_error_block;    /* block involved of last error */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-        public string s_last_error_func; /* function where the error happened */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+        public byte[] s_last_error_func; /* function where the error happened */
                                          //#define EXT4_S_ERR_END offsetof( struct ext4_super_block, s_mount_opts )
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-        public string s_mount_opts;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+        public byte[] s_mount_opts;
         public uint s_usr_quota_inum;    /* inode for tracking user quota */
         public uint s_grp_quota_inum;    /* inode for tracking group quota */
         public uint s_overhead_clusters; /* overhead blocks/clusters in fs */
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public int[] s_backup_bgs; /* groups with sparse_super2 SBs */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 4)]
-        public string s_encrypt_algos;    /* Encryption algorithms in use  */
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string s_encrypt_pw_salt; /* Salt used for string2key algorithm */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] s_encrypt_algos;    /* Encryption algorithms in use  */
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] s_encrypt_pw_salt; /* Salt used for string2key algorithm */
         public uint s_lpf_ino;       /* Location of the lost+found inode */
         public uint s_prj_quota_inum;    /* inode for tracking project quota */
         public uint s_checksum_seed; /* crc32c(uuid) if csum_seed set */

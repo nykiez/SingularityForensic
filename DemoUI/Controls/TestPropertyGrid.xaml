@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <telerik:RadPropertyGrid Item="{Binding Item}" LabelColumnWidth="180" DescriptionPanelVisibility="Collapsed" SelectedPropertyDefinition="{Binding SelectedProperty,Mode=TwoWay}" >
+        <telerik:RadPropertyGrid IsGrouped="True" Item="{Binding Item}" LabelColumnWidth="180" DescriptionPanelVisibility="Collapsed" SelectedPropertyDefinition="{Binding SelectedProperty,Mode=TwoWay}" >
           
         </telerik:RadPropertyGrid>
     </Grid>

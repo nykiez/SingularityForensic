@@ -1197,6 +1197,8 @@
     <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
+    <Folder Include="PropertyGrid\ViewModels\" />
+    <Folder Include="PropertyGrid\Views\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">

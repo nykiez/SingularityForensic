@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.Hex {
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        IHexDataContext CreateNewHexDataContext(Stream stream);
+        IHexDataContext CreateNewHexDataContext(Stream stream = null);
 
         /// <summary>
         /// 加载十六进制上下文,这将触发事件通知;

@@ -15,7 +15,7 @@ namespace SingularityForensic.Hex {
         }
         private IEnumerable<IHexDataContextLoadedEventHandler> _hexDataContextLoadedEventHandlers;
 
-        public IHexDataContext CreateNewHexDataContext(Stream stream) {
+        public IHexDataContext CreateNewHexDataContext(Stream stream = null) {
             return new HexDataContext(stream);
         }
 

@@ -40,8 +40,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
-            foreach (var descripter in FileRowFactory.Current.PropertyDescriptors) {
-                FileRows.PropertyDescriptorList.Add(descripter);
+            foreach (var descriptor in FileRowFactory.Current.PropertyDescriptors) {
+                FileRows.PropertyDescriptorList.Add(descriptor);
             }
         }
 

@@ -245,6 +245,7 @@
     <Compile Include="MainPage\Constants.cs" />
     <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="Previewers\IPreviewProvider.cs" />
+    <Compile Include="PropertyGrid\IPropertyGridDataContext.cs" />
     <Compile Include="Shell\Constants.cs" />
     <Compile Include="Shell\Events\ShellClosedEvent.cs" />
     <Compile Include="Shell\Events\ShellClosingEventHandler.cs" />

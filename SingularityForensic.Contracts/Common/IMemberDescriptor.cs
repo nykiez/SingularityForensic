@@ -9,11 +9,45 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
+    public class PropertyDescriptorWrapper : PropertyDescriptor {
+        public PropertyDescriptorWrapper(IMemberInfo memberInfo):base(memberInfo.MemberName,new Attribute[0]) {
+            this.MemberInfo = memberInfo;
+        }
+        IMemberInfo MemberInfo { get; }
+        
+        public override string Name => base.Name;
+        public override Type ComponentType => throw new NotImplementedException();
+
+        public override bool IsReadOnly => true;
+
+        public override Type PropertyType => throw new NotImplementedException();
+
+        public override bool CanResetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override object GetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override void ResetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override void SetValue(object component, object value) {
+            throw new NotImplementedException();
+        }
+
+        public override bool ShouldSerializeValue(object component) {
+            throw new NotImplementedException();
+        }
+    }
+    
     public interface IMemberInfo {
         /// <summary>
-        /// 键名
+        /// 成员名;
         /// </summary>
-        string KeyName { get; }
+        string MemberName { get; }
         /// <summary>
         /// 成员大小;
         /// </summary>
@@ -22,6 +56,10 @@ namespace SingularityForensic.Contracts.Common {
         /// 字符串值;
         /// </summary>
         string StringValue { get; }
+        /// <summary>
+        /// 成员类型;
+        /// </summary>
+        Type MemberType { get; }
     }
 
     /// <summary>
@@ -34,9 +72,9 @@ namespace SingularityForensic.Contracts.Common {
 
         public FieldInfo FieldInfo { get; }
         /// <summary>
-        /// 键名
+        /// 成员名
         /// </summary>
-        public string KeyName { get; internal set; }
+        public string MemberName { get; internal set; }
         /// <summary>
         /// 字段大小;
         /// </summary>
@@ -45,6 +83,8 @@ namespace SingularityForensic.Contracts.Common {
         /// 值;
         /// </summary>
         public string StringValue { get; internal set; }
+
+        public Type MemberType { get; internal set; }
 
         ///删除原因,在顺序的字段描述中,既然具有了字段大小,就无需设定字段偏移了;
         ///public int FieldOffset { get; set; }
@@ -100,8 +140,8 @@ namespace SingularityForensic.Contracts.Common {
         private void EditFieldDecriptor(FieldMemberInfo descriptor) {
             var stringEventArgs = new EditingValueEventArgs<string>();
 
-            OnEditFieldDescriptorKeyName(descriptor.FieldInfo,stringEventArgs);
-            descriptor.KeyName = stringEventArgs.EditingValue;
+            OnEditFieldDescriptorMemberName(descriptor.FieldInfo,stringEventArgs);
+            descriptor.MemberName = stringEventArgs.EditingValue;
 
             stringEventArgs.EditingValue = null;
             OnEditFieldDescriptorStringValue(descriptor.FieldInfo,stringEventArgs);
@@ -112,7 +152,7 @@ namespace SingularityForensic.Contracts.Common {
             descriptor.MemberSize = szEventArgs.EditingValue;
         }
 
-        protected virtual void OnEditFieldDescriptorKeyName(FieldInfo fieldInfo, EditingValueEventArgs<string> args) {
+        protected virtual void OnEditFieldDescriptorMemberName(FieldInfo fieldInfo, EditingValueEventArgs<string> args) {
             args.EditingValue = fieldInfo.Name;
         }
 
@@ -169,7 +209,7 @@ namespace SingularityForensic.Contracts.Common {
             
         }
 
-
+        
     }
 
     public class EditingValueEventArgs<T> : EventArgs {
