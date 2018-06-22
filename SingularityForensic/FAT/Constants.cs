@@ -42,5 +42,14 @@
 
         public const string FAT_Owner_Info_Backup = nameof(FAT_Owner_Info_Backup);
 
+
+        public const string DisplayName_FATDBR = nameof(DisplayName_FATDBR);
+        public const string DisplayName_FATDBRBackup = nameof(DisplayName_FATDBRBackup);
+
+        public const string DisplayName_FATInfo = nameof(DisplayName_FATInfo);
+        public const string DisplayName_FATInfoBackup = nameof(DisplayName_FATInfoBackup);
+
+        public const string DisplayName_InfoDisk = nameof(DisplayName_InfoDisk);
+
     }
 }

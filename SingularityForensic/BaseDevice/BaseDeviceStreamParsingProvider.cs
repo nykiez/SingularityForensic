@@ -106,7 +106,8 @@ namespace SingularityForensic.BaseDevice {
                 //获取Dos链表;
                 var partPtr = Partition_Get_DosPTable(entity.BasicDevicePtr);
                 var partNode = partPtr;
-                
+                var infoDiskIndex = 0;
+
                 while (partNode != IntPtr.Zero) {
                     var dosPTable = partNode.GetStructure<StDosPTable>();
                     var dosPartInfo = new DOSPartInfo();
@@ -114,7 +115,9 @@ namespace SingularityForensic.BaseDevice {
 
                     if(dosPTable.Info != IntPtr.Zero) {
                         var stInfoDisk = dosPTable.Info.GetStructure<StInFoDisk>();
-                        dosPartInfo.InfoDisk = new InfoDisk(stInfoDisk);
+                        dosPartInfo.InfoDisk = new InfoDisk(stInfoDisk) {
+                            InternalDisplayName = LanguageService.FindResourceString($"{Constants.DisplayName_InfoDisk}{++infoDiskIndex}")
+                        };
                     }
 
                     dosDeviceInfo.DosPartInfos.Add(dosPartInfo);
@@ -152,21 +155,21 @@ namespace SingularityForensic.BaseDevice {
                 long? partStartLBA = null;
                 long? partSize = dosPartInfo.InfoDisk.StructInstance.AllSector * SECSIZE;
                 
-                switch (dosPartInfo.DosPTable.StructInstance.DosPartType) {
+                switch (dosPartInfo.DosPTable.StDosPTable.DosPartType) {
                     case DosPartType.Error:
                         return;
                     case DosPartType.Main:
-                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
+                        startLBA = (long)dosPartInfo.DosPTable.StDosPTable.nOffset;
                         partStartLBA = dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
                         break;
                     case DosPartType.Extend:
                         extendPartLBA += dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
-                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
+                        startLBA = (long)dosPartInfo.DosPTable.StDosPTable.nOffset;
                         partSize = null;
                         partStartLBA = null;
                         break;
                     case DosPartType.Logic:
-                        startLBA = (long)dosPartInfo.DosPTable.StructInstance.nOffset;
+                        startLBA = (long)dosPartInfo.DosPTable.StDosPTable.nOffset;
                         partStartLBA = extendPartLBA + dosPartInfo.InfoDisk.StructInstance.HeadSector * SECSIZE;
                         break;
                     default:
@@ -175,7 +178,7 @@ namespace SingularityForensic.BaseDevice {
                 var entry = PartitionEntryFactory.CreatePartitionEntry(Constants.PartEntryKey_DOS);
                 var entryStoken = entry.GetStoken(Constants.PartEntryKey_DOS);
 
-                entryStoken.TypeGUID = FromDosPartTypeToCons(dosPartInfo.DosPTable.StructInstance.DosPartType);
+                entryStoken.TypeGUID = FromDosPartTypeToCons(dosPartInfo.DosPTable.StDosPTable.DosPartType);
 
                 entryStoken.StartLBA = startLBA;
                 entryStoken.Size = Marshal.SizeOf(typeof(StInFoDisk));
@@ -213,6 +216,10 @@ namespace SingularityForensic.BaseDevice {
                 //获取GPT链表;
                 var partPtr = Partition_Get_GptPTable(entity.BasicDevicePtr);
                 var partNode = partPtr;
+                var infoDiskIndex = 0;
+                var efiInfoIndex = 0;
+                var efiPTableIndex = 0;
+
                 while (partNode != IntPtr.Zero) {
                     var gptPTable = partNode.GetStructure<StGptPTable>();
                     var gptPartInfo = new GPTPartInfo();
@@ -220,17 +227,23 @@ namespace SingularityForensic.BaseDevice {
                     
                     if (gptPTable.InfoDisk != IntPtr.Zero) {
                         var stInfoDisk = gptPTable.InfoDisk.GetStructure<StInFoDisk>();
-                        gptPartInfo.InfoDisk = new InfoDisk(stInfoDisk);
+                        gptPartInfo.InfoDisk = new InfoDisk(stInfoDisk) {
+                            InternalDisplayName = $"{LanguageService.FindResourceString(Constants.DisplayName_InfoDisk)}{++infoDiskIndex}"
+                        };
                     }
                     
                     if(gptPTable.EFIInfo != IntPtr.Zero) {
                         var stEFIInfo = gptPTable.EFIInfo.GetStructure<StEFIInfo>();
-                        gptPartInfo.EFIInfo = new EFIInfo(stEFIInfo);
+                        gptPartInfo.EFIInfo = new EFIInfo(stEFIInfo) {
+                            InternalDisplayName = $"{LanguageService.FindResourceString(Constants.DisplayName_EFIInfo)}{++efiInfoIndex}"
+                        };
                     }
 
                     if(gptPTable.EFIPTable != IntPtr.Zero) {
                         var stEFITable = gptPTable.EFIPTable.GetStructure<StEFIPTable>();
-                        gptPartInfo.EFIPTable = new EFIPTable(stEFITable);
+                        gptPartInfo.EFIPTable = new EFIPTable(stEFITable) {
+                            InternalDisplayName = $"{LanguageService.FindResourceString(Constants.DisplayName_EFIPTable)}{++efiPTableIndex}"
+                        };
                     }
 
                     gptDeviceInfo.GptPartInfos.Add(gptPartInfo);
@@ -241,6 +254,7 @@ namespace SingularityForensic.BaseDevice {
 
                 //编辑拓展;
                 deviceStoken.SetInstance(gptDeviceInfo,Constants.DeviceStokenTag_GPTDeviceInfo);
+                
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

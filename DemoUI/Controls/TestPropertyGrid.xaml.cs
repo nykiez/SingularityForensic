@@ -1,8 +1,10 @@
 ﻿using Prism.Mvvm;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +26,21 @@ namespace DemoUI.Controls {
     public partial class TestPropertyGrid : UserControl {
         public TestPropertyGrid() {
             InitializeComponent();
-            this.DataContext = new VM {
-                Item = FileRowFactory.Current.CreateFileRow(FileFactory.CreateRegularFile(string.Empty))
+            var item = new CustomTypeDescriptorWrapper();
+            item.CompositeCustomMemberDecriptor(new SingularityForensic.FAT.FATDBR(new SingularityForensic.FAT.StFatDBR(), 0));
+            var vm = new VM {
+                Item = item
             };
+            this.DataContext = vm;
+
         }
+
+       
+    }
+
+    public class ItemTemp {
+        public ICustomTypeDescriptor En { get; set; }
+        public string Name { get; set; }
     }
 
     public class VM:BindableBase {
@@ -36,11 +49,51 @@ namespace DemoUI.Controls {
         private PropertyDefinition _selectedProperty;
         public PropertyDefinition SelectedProperty {
             get => _selectedProperty;
-            set => SetProperty(ref _selectedProperty, value);
+            set {
+                SetProperty(ref _selectedProperty, value);
+            }
         }
 
     }
-    public class Entity {
+
+    public class Custdesc: CustomTypeDescriptor {
+        public PropertyDescriptorCollection Collection { get; set; }
+        public override PropertyDescriptorCollection GetProperties() {
+            return Collection;
+        }
+
+        
         //public string Name { get; set; } = "313";
+    }
+
+    public class PropertyDescriptor1 : PropertyDescriptor {
+        public PropertyDescriptor1():base(string.Empty,null) {
+
+        }
+        public override Type ComponentType => throw new NotImplementedException();
+
+        public override bool IsReadOnly => throw new NotImplementedException();
+
+        public override Type PropertyType => throw new NotImplementedException();
+
+        public override bool CanResetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override object GetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override void ResetValue(object component) {
+            throw new NotImplementedException();
+        }
+
+        public override void SetValue(object component, object value) {
+            throw new NotImplementedException();
+        }
+
+        public override bool ShouldSerializeValue(object component) {
+            throw new NotImplementedException();
+        }
     }
 }

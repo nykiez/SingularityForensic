@@ -10,7 +10,8 @@ namespace SingularityForensic.Contracts.PropertyGrid {
         /// <summary>
         /// 数据提供者;
         /// </summary>
-        ICustomMemberDecriptor Descriptor { get; set; }
+        IEnumerable<ICustomMemberDescriptor> CustomMemberDescriptors { get; }
+        void AddCustomMemberDescriptor(ICustomMemberDescriptor descriptor);
         /// <summary>
         /// 选定的成员信息;
         /// </summary>
@@ -20,5 +21,9 @@ namespace SingularityForensic.Contracts.PropertyGrid {
 
     public interface IPropertyGridDataContextFactory {
         IPropertyGridDataContext CreateNew();
+    }
+
+    public class PropertyGridDataContextFactory: GenericServiceStaticInstance<IPropertyGridDataContextFactory>{
+        public static IPropertyGridDataContext CreateNew() => Current.CreateNew();
     }
 }

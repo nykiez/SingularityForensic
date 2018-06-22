@@ -238,28 +238,36 @@ namespace SingularityForensic.FAT {
                     infoPtr, 
                     fsInfo => fsInfo.stFatINFO,
                     fsInfo => (long)fsInfo.nOffset,
-                    (fatFsEnt, offset) => info.FatInfo = new FATInfo(fatFsEnt, offset)
+                    (fatFsEnt, offset) => info.FatInfo = new FATInfo(fatFsEnt, offset) {
+                        InternalDisplayName = LanguageService.FindResourceString(Constants.DisplayName_FATInfo)
+                    }
                 );
 
                 SetFatDbrOrInfo<StFatFSInfo, StFatINFO>(
                     infoPtrBack,
                     fsInfo => fsInfo.stFatINFO,
                     fsInfo => (long)fsInfo.nOffset,
-                    (fatFsEnt, fatInfo) => info.FatInfo_BackUp = new FATInfo(fatFsEnt, fatInfo)
+                    (fatFsEnt, fatInfo) => info.FatInfo_BackUp = new FATInfo(fatFsEnt, fatInfo) {
+                        InternalDisplayName = LanguageService.FindResourceString(Constants.DisplayName_FATInfoBackup)
+                    }
                 );
 
                 SetFatDbrOrInfo<StFatFSDBR, StFatDBR>(
                     dbrPtr,
                     fsDbr => fsDbr.stFatDBR,
                     fsDbr => (long)fsDbr.nOffset,
-                    (fatFsDbr,fatDbr) => info.FatDBR = new FATDBR(fatFsDbr,fatDbr)
+                    (fatFsDbr,fatDbr) => info.FatDBR = new FATDBR(fatFsDbr, fatDbr) {
+                        InternalDisplayName = LanguageService.FindResourceString(Constants.DisplayName_FATDBR)
+                    }
                 );
 
                 SetFatDbrOrInfo<StFatFSDBR, StFatDBR>(
                     dbrPtrBack,
                     fsDbr => fsDbr.stFatDBR,
                     fsDbr => (long)fsDbr.nOffset,
-                    (fatFsDbr, fatDbr) => info.FatDBR_BackUp = new FATDBR(fatFsDbr, fatDbr)
+                    (fatFsDbr, fatDbr) => info.FatDBR_BackUp = new FATDBR(fatFsDbr, fatDbr) {
+                        InternalDisplayName = LanguageService.FindResourceString(Constants.DisplayName_FATDBRBackup)
+                    }
                 );
             }
             catch(Exception ex) {

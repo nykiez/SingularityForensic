@@ -1,4 +1,7 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -18,16 +21,14 @@ namespace SingularityForensic.Ext {
         /// 块组描述符;
         /// </summary>
         public ExtGroupDesc[] Ext4GroupDescs { get;set;}
-
         
+        //public IEnumerable<IMemberInfo> GetMemberInfos() {
+            
+        //}
     }
 
-    public class SuperBlock: StructFieldDecriptorBase<StSuperBlock>,ICustomMemberDecriptor {
-        public SuperBlock(StSuperBlock stSuperBlock):base(stSuperBlock) {
-
-        }
-    }
-    public class ExtGroupDesc : StructFieldDecriptorBase<StExtGroupDesc>, ICustomMemberDecriptor {
+    
+    public class ExtGroupDesc : StructFieldDecriptorBase<StExtGroupDesc>, ICustomMemberDescriptor {
         public ExtGroupDesc(StExtGroupDesc desc):base(desc) {
 
         }
@@ -38,5 +39,12 @@ namespace SingularityForensic.Ext {
             }
             base.OnEditMemberDescriptorOverride(memberInfo, arg);
         }
+
+        protected override void OnEditFieldDescriptorDisplayName(FieldInfo fieldInfo, EditingValueEventArgs<string> args) {
+            args.Value = LanguageService.FindResourceString($"{Constants.ExtGroupDescFieldPrefix}{fieldInfo.Name}");
+        }
+
+        internal string InternalDisplayName { get; set; }
+        public override string DisplayName => InternalDisplayName;
     }
 }

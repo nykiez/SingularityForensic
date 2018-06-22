@@ -13,7 +13,7 @@ using System.Windows.Data;
 namespace SingularityForensic.FileExplorer {
 
     abstract class FileNameMetaDataProviderBase : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Name);
 
         public override Type MetaDataType => typeof(string);
@@ -26,7 +26,7 @@ namespace SingularityForensic.FileExplorer {
     }
 
     abstract class FileSizeMetaDataProviderBase : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Size);
 
         public override Type MetaDataType => typeof(long?);
@@ -119,7 +119,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileDeletedMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_Deleted);
 
         public override Type MetaDataType => typeof(string);
@@ -150,7 +150,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileTypeMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_FileType);
 
         public override Type MetaDataType => typeof(string);
@@ -198,7 +198,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IPartitionMetaDataProvider))]
     class PartitionTypeMetaDataProvider : PartitionMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.PartMetaDataName_PartType);
 
         public override Type MetaDataType => typeof(string);
@@ -214,7 +214,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IPartitionMetaDataProvider))]
     class PartitionStartLBAMetaDataProvider : PartitionMetaDataProvider {
-        public override string MetaDataName => LanguageService.FindResourceString(Constants.PartMetaDataName_StartLBA);
+        public override string DisplayName => LanguageService.FindResourceString(Constants.PartMetaDataName_StartLBA);
 
         public override Type MetaDataType => typeof(long?);
 
@@ -232,7 +232,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IPartitionMetaDataProvider))]
     class ParitionLastMountTimeMetaDataProvider : PartitionMetaDataProvider {
-        public override string MetaDataName => LanguageService.FindResourceString(Constants.PartitionMetaDataName_LastMountTime);
+        public override string DisplayName => LanguageService.FindResourceString(Constants.PartitionMetaDataName_LastMountTime);
 
         public override Type MetaDataType => typeof(DateTime);
 
@@ -251,7 +251,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileMTimeMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_ModifiedTime);
 
         public override Type MetaDataType => typeof(DateTime);
@@ -271,7 +271,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileATimeMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_AccessedTime);
 
         public override Type MetaDataType => typeof(DateTime);
@@ -292,7 +292,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FileCTimeMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName =>
+        public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_CreateTime);
 
         public override Type MetaDataType => typeof(DateTime);
@@ -313,7 +313,7 @@ namespace SingularityForensic.FileExplorer {
 
     [Export(typeof(IFileMetaDataProvider))]
     class FilePathMetaDataProvider : FileMetaDataProvider {
-        public override string MetaDataName => LanguageService.FindResourceString(Constants.FileMetaDataName_Path);
+        public override string DisplayName => LanguageService.FindResourceString(Constants.FileMetaDataName_Path);
 
         public override Type MetaDataType => typeof(string);
 

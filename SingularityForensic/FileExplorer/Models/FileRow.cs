@@ -3,7 +3,9 @@ using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 
 namespace SingularityForensic.FileExplorer.Models {
     public class PartitionRow : FileRowProxy<IPartition>, IPartitionRow {
@@ -119,13 +121,15 @@ namespace SingularityForensic.FileExplorer.Models {
         }
 
         public class FileRowPropertyDescriptor  : PropertyDescriptor {
-            public override string DisplayName => FileMetaDataProvider.MetaDataName;
-            public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID, new Attribute[0]) {
+            public override string DisplayName => FileMetaDataProvider.DisplayName;
+            public FileRowPropertyDescriptor(IFileMetaDataProviderProxy<TFile> fileMetaDataProvider) : base(fileMetaDataProvider.GUID,null) {
+                
                 FileMetaDataProvider = fileMetaDataProvider ?? throw new ArgumentNullException(nameof(fileMetaDataProvider));
             }
 
             public IFileMetaDataProviderProxy<TFile> FileMetaDataProvider { get; }
             public override Type ComponentType => typeof(FileRowProxy<TFile>);
+
 
             public override bool IsReadOnly => true;
 

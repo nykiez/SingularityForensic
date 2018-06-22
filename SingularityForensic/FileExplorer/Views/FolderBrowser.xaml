@@ -99,8 +99,7 @@
 
         <gv:RadGridViewEx ItemsSource="{Binding FileRows}" Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended"
   SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}" 
-                          IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView"
-                             Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
+                          IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView" Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
                              >
             <gv:RadGridViewEx.Columns>

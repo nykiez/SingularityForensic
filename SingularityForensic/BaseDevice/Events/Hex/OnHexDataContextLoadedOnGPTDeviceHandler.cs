@@ -38,32 +38,29 @@ namespace SingularityForensic.BaseDevice.Events.Hex {
             var pTableIndex = 0;
             foreach (var p in gptDeviceInfo.GptPartInfos.OrderBy(p => p.StGptPTable.nOffset)) {
                 if (p.InfoDisk != null) {
-                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                    hexDataContext.LoadCustomTypeDescriptor(
                         p.InfoDisk,
                         (long)p.StGptPTable.nOffset,
                         pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
-                        BrushBlockFactory.HighLightBrush,
-                        Constants.BaseDeviceFieldPrefix_InfoDisk
+                        BrushBlockFactory.HighLightBrush
                     );
                 }
 
                 if (p.EFIInfo != null) {
-                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                    hexDataContext.LoadCustomTypeDescriptor(
                         p.EFIInfo,
                         (long)p.StGptPTable.nOffset,
                         pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
-                        BrushBlockFactory.HighLightBrush,
-                        Constants.GptFieldPrefix_EFIInfo
+                        BrushBlockFactory.HighLightBrush
                     );
                 }
 
                 if(p.EFIPTable != null) {
-                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                    hexDataContext.LoadCustomTypeDescriptor(
                         p.EFIPTable,
                         (long)p.StGptPTable.nOffset,
                         pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
-                        BrushBlockFactory.HighLightBrush,
-                        Constants.GptFieldPrefix_EFIPTable);
+                        BrushBlockFactory.HighLightBrush);
                 }
                 pTableIndex++;
             }

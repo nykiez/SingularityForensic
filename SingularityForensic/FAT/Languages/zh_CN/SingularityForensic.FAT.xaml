@@ -5,9 +5,9 @@
   <sys:String x:Key="FAT_Owner">FAT所属单位</sys:String>
   <sys:String x:Key="FAT_Owner_DBR">DBR</sys:String>
   <sys:String x:Key="FAT_Owner_DBR_Backup">DBR(备份)</sys:String>
-    <sys:String x:Key="FAT_Owner_Info">FATInfo</sys:String>
-    <sys:String x:Key="FAT_Owner_Info_Backup">FATInfo(备份)</sys:String>
-    <sys:String x:Key="FATDBR_ignored">跳转指令</sys:String>
+  <sys:String x:Key="FAT_Owner_Info">FATInfo</sys:String>
+  <sys:String x:Key="FAT_Owner_Info_Backup">FATInfo(备份)</sys:String>
+  <sys:String x:Key="FATDBR_ignored">跳转指令</sys:String>
   <sys:String x:Key="FATDBR_system_id">文件系统标志（ASCII码）</sys:String>
   <sys:String x:Key="FATDBR_sector_size">每扇区字节数</sys:String>
   <sys:String x:Key="FATDBR_sectors_per_cluster">每簇扇区数</sys:String>
@@ -43,5 +43,9 @@
   <sys:String x:Key="FATInfo_NextFreeCluter">下一可用簇号</sys:String>
   <sys:String x:Key="FATInfo_Uable2">未使用</sys:String>
   <sys:String x:Key="FATInfo_End">55aa</sys:String>
-  
+  <sys:String x:Key="DisplayName_FATDBR">FATDBR</sys:String>
+  <sys:String x:Key="DisplayName_FATInfo">FATInfo</sys:String>
+  <sys:String x:Key="DisplayName_InfoDisk">InfoDisk</sys:String>
+  <sys:String x:Key="DisplayName_FATDBRBackup">FATDBR(备份)</sys:String>
+  <sys:String x:Key="DisplayName_FATInfoBackup">FATInfo(备份)</sys:String>
 </ResourceDictionary>

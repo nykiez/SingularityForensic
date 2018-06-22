@@ -49,5 +49,13 @@
         /// GPT分区表项;
         /// </summary>
         public const string PartEntryType_GPT = nameof(PartEntryType_GPT);
+
+
+        public const string DisplayName_EFIInfo = nameof(DisplayName_EFIInfo);
+        public const string DisplayName_EFIPTable = nameof(DisplayName_EFIPTable);
+
+        public const string DisplayName_InfoDisk = nameof(DisplayName_InfoDisk);
+
+
     }
 }

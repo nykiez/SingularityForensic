@@ -32,7 +32,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser {
         }
         IHasher _hasher;
 
-        public override string MetaDataName => _hasher.HashTypeName;
+        public override string DisplayName => _hasher.HashTypeName;
 
         public override Type MetaDataType => typeof(string);
 

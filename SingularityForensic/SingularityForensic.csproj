@@ -145,6 +145,9 @@
     <Reference Include="Telerik.Windows.Controls, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Docking, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Docking.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll</HintPath>
     </Reference>
@@ -666,6 +669,12 @@
     <Compile Include="Previewers\Views\VlcVideoPreviewer.xaml.cs">
       <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGrid\PropertyGridDataContext.cs" />
+    <Compile Include="PropertyGrid\PropertyGridDataContextFactoryImpl.cs" />
+    <Compile Include="PropertyGrid\ViewModels\PropertyGridViewModel.cs" />
+    <Compile Include="PropertyGrid\Views\PropertyGridView.xaml.cs">
+      <DependentUpon>PropertyGridView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell\Models\IShell.cs" />
     <Compile Include="Shell\ShellServiceImpl.cs" />
     <Compile Include="Shell\Models\ViewerProgramMessage.cs" />
@@ -806,6 +815,10 @@
     <Page Include="Controls\FilterableDataGrid\FilterHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.Data.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Languages\zh_CN\SingularityForensic.Controls.GridView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1015,6 +1028,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PropertyGrid\Views\PropertyGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell\Views\BlankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1197,8 +1214,6 @@
     <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
-    <Folder Include="PropertyGrid\ViewModels\" />
-    <Folder Include="PropertyGrid\Views\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cflab.DataTransport\Cflab.DataTransport.csproj">

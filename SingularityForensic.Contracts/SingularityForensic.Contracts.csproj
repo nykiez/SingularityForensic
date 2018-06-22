@@ -61,6 +61,7 @@
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -93,6 +94,8 @@
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
     <Compile Include="Casing\Events\CaseModuleLoadingEvent.cs" />
+    <Compile Include="Common\EditingValueEventArgs.cs" />
+    <Compile Include="Common\ExtensibleExtensions.cs" />
     <Compile Include="Common\GenericServiceStaticInstances.cs" />
     <Compile Include="Common\ICommandFactory.cs" />
     <Compile Include="Common\ICustomNotify.cs" />
@@ -245,6 +248,7 @@
     <Compile Include="MainPage\Constants.cs" />
     <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="Previewers\IPreviewProvider.cs" />
+    <Compile Include="PropertyGrid\Constants.cs" />
     <Compile Include="PropertyGrid\IPropertyGridDataContext.cs" />
     <Compile Include="Shell\Constants.cs" />
     <Compile Include="Shell\Events\ShellClosedEvent.cs" />

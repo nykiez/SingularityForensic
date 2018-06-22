@@ -17,7 +17,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// <summary>
         /// 元数据名称;
         /// </summary>
-        string MetaDataName { get; }
+        string DisplayName { get; }
 
         /// <summary>
         /// 元数据类型;
@@ -64,7 +64,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
     }
 
     public abstract class FileMetaDataProvider : IFileMetaDataProvider {
-        public abstract string MetaDataName { get; }
+        public abstract string DisplayName { get; }
 
         public abstract Type MetaDataType { get; }
 
@@ -93,7 +93,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
     }
 
     public abstract class PartitionMetaDataProvider:IPartitionMetaDataProvider {
-        public abstract string MetaDataName { get; }
+        public abstract string DisplayName { get; }
 
         public abstract Type MetaDataType { get; }
 

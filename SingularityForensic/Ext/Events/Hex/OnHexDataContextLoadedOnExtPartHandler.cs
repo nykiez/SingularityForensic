@@ -1,7 +1,9 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
+using SingularityForensic.Contracts.PropertyGrid;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -37,7 +39,7 @@ namespace SingularityForensic.Ext.Events.Hex {
 
             if(extPartInfo.SuperBlock != null) {
                 var stSuperBlock = extPartInfo.SuperBlock.StructInstance;
-                hexDataContext.UpdateDescriptorBackgroundAndToolTips(extPartInfo.SuperBlock, Constants.ExtSuperBlockStartIndex, BrushBlockFactory.FirstBrush, BrushBlockFactory.HighLightBrush, Constants.ExtSuperBlockFieldPrefix);
+                hexDataContext.LoadCustomTypeDescriptor(extPartInfo.SuperBlock, Constants.ExtSuperBlockStartIndex, BrushBlockFactory.FirstBrush, BrushBlockFactory.HighLightBrush);
                 
                 var descStart = (stSuperBlock.s_first_data_block + 1) * stSuperBlock.BlockSize;
 
@@ -48,17 +50,34 @@ namespace SingularityForensic.Ext.Events.Hex {
                 }
 
                 foreach (var desc in extPartInfo.Ext4GroupDescs) {
-                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                    hexDataContext.LoadCustomTypeDescriptor(
                         desc,
                         descStart + descIndex * stSuperBlock.s_desc_size,
                         descIndex % 2 == 0?BrushBlockFactory.FirstBrush:BrushBlockFactory.SecondBrush,
-                        BrushBlockFactory.HighLightBrush,
-                        Constants.ExtGroupDescFieldPrefix
+                        BrushBlockFactory.HighLightBrush
                     );
                     descIndex++;
                 }
                 //extPartInfo.StExt4GroupDescs
             }
+
+            Handle(hexDataContext, extPartInfo);
+        }
+
+        
+        public void Handle(IHexDataContext hexDataContext,ExtPartInfo extPartInfo) {
+            //var propertyGridDataContext = hexDataContext.GetInstance<IPropertyGridDataContext>();
+            //if(propertyGridDataContext == null) {
+            //    propertyGridDataContext = PropertyGridDataContextFactory.CreateNew();
+            //    hexDataContext.StackGrid.AddChild(propertyGridDataContext, new Contracts.Controls.GridChildLength(new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)));
+            //    hexDataContext.SetInstance(propertyGridDataContext, HexDataContextTag_PropertyGridDataContext);
+            //}
+
+            //if(propertyGridDataContext == null) {
+            //    return;
+            //}
+
+            //propertyGridDataContext.AddCustomMemberDescriptor(extPartInfo.SuperBlock,LanguageService.FindResourceString(Constants.ExtSuperBlockGroupName));
         }
     }
 }

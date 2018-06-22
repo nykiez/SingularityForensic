@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:local="clr-namespace:SingularityForensic.Controls.Languages.zh_CN">
+  <sys:String x:Key="Categorize" >类别</sys:String>
+    <sys:String x:Key="Alphabetical" >按拼写排序</sys:String>
+</ResourceDictionary>

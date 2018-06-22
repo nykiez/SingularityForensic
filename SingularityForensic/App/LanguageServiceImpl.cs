@@ -190,8 +190,13 @@ namespace SingularityForensic.App {
 
         public void AddMergedDictionaryFromPath(string path) {
             using (var rs = File.OpenRead(path)) {
-                var res = XamlReader.Load(rs) as ResourceDictionary;
-                LanguageDict.MergedDictionaries.Add(res);
+                try {
+                    var res = XamlReader.Load(rs) as ResourceDictionary;
+                    LanguageDict.MergedDictionaries.Add(res);
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                }
             }
         }
 

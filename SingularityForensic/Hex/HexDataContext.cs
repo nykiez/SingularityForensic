@@ -91,6 +91,11 @@ namespace SingularityForensic.Hex {
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();
         }
+
+        public int BytePerLine {
+            get => _vm.BytePerLine;
+            set => _vm.BytePerLine = value;
+        }
     }
 
     partial class HexDataContext {

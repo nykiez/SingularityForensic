@@ -17,6 +17,7 @@ namespace SingularityForensic.Contracts.Common {
         public string ExtName { get; set; }
         public object Instance { get; set; }
     }
+    
 
     public class ReadOnlyExtensibleObject : ReadOnlyExtensibleBase, IReadOnlyExtensible {
         public TInstance GetInstance<TInstance>(string extName) => GetInstanceCore<TInstance>(extName);
@@ -24,6 +25,9 @@ namespace SingularityForensic.Contracts.Common {
         public TInstance GetGeneralInstance<TInstance>(string extName) => GetGeneralInstanceCore<TInstance>(extName);
     }
 
+    /// <summary>
+    /// 只读拓展(提供算法逻辑);
+    /// </summary>
     public abstract class ReadOnlyExtensibleBase {
         /// <summary>
         /// 实例保存栈;

@@ -45,7 +45,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <hex:DrawedHexEditor CellMargin="0,2" SeperatorLineWidth="0.7" CellPadding="2" Stream="{Binding Stream,IsAsync=True}" FocusPosition ="{Binding FocusPosition}"
-                        Position="{Binding Position}" SelectionLength="{Binding SelectionLength}"  BytesToCharEncoding="{Binding BytesToCharEncoding}"
+                        Position="{Binding Position}" SelectionLength="{Binding SelectionLength}"  BytePerLine="{Binding BytePerLine}"
+                             BytesToCharEncoding="{Binding BytesToCharEncoding}"
                              CustomBackgroundBlocks="{Binding CustomBackgroundBlocks}"
                              HoverPosition="{Binding HoverPosition}" 
                              x:Name="HexEditor" SelectionStart="{Binding SelectionStart,Mode=TwoWay}"  >

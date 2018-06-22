@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -9,26 +10,70 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Common {
-    public class PropertyDescriptorWrapper : PropertyDescriptor {
-        public PropertyDescriptorWrapper(IMemberInfo memberInfo):base(memberInfo.MemberName,new Attribute[0]) {
-            this.MemberInfo = memberInfo;
+    public class CustomTypeDescriptorWrapper : CustomTypeDescriptor {
+        private PropertyDescriptorCollection _properties = null;
+        public IEnumerable<ICustomMemberDescriptor> CustomMemberDescriptors => _customMemberDescriptors.Select(p => p.CustomMemberDescriptor);
+        private List<NestedDescriptor> _customMemberDescriptors = new List<NestedDescriptor>();
+
+        public void CompositeCustomMemberDecriptor(ICustomMemberDescriptor descriptor) {
+            _customMemberDescriptors.Add(new NestedDescriptor {
+                CustomMemberDescriptor = descriptor
+            });
         }
-        IMemberInfo MemberInfo { get; }
-        
-        public override string Name => base.Name;
-        public override Type ComponentType => throw new NotImplementedException();
+
+        public override PropertyDescriptorCollection GetProperties() {
+            if (_properties == null) {
+                _properties = new PropertyDescriptorCollection(
+                    _customMemberDescriptors.SelectMany(
+                        p => p.CustomMemberDescriptor.GetMemberInfos().
+                            Select(
+                                        q => new PropertyDescriptorWrapper(q) { GroupName = p.CustomMemberDescriptor.DisplayName }
+                            )
+                        ).ToArray()
+                    );
+            }
+            return _properties;
+        }
+
+        class NestedDescriptor {
+            public ICustomMemberDescriptor CustomMemberDescriptor { get; set; }
+        }
+    }
+
+
+
+    public class PropertyDescriptorWrapper : PropertyDescriptor {
+        public PropertyDescriptorWrapper(IMemberInfo memberInfo):base(memberInfo.MemberName, null) {
+            this.MemberInfo = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
+        }
+
+        public IMemberInfo MemberInfo { get; }
+        public override string Name => MemberInfo.MemberName;
+        public override string DisplayName => MemberInfo.DisplayName;
+        public string GroupName { get; set; }
+        private AttributeCollection _attributes;
+        public override AttributeCollection Attributes {
+            get {
+                if (_attributes == null) {
+                    _attributes = new AttributeCollection(new Attribute[] { new DisplayAttribute {
+                        GroupName = GroupName
+                    } });
+                }
+                return _attributes;
+            }
+        }
+
+        public override Type ComponentType { get; }
 
         public override bool IsReadOnly => true;
 
-        public override Type PropertyType => throw new NotImplementedException();
+        public override Type PropertyType => MemberInfo.MemberType;
 
         public override bool CanResetValue(object component) {
             throw new NotImplementedException();
         }
 
-        public override object GetValue(object component) {
-            throw new NotImplementedException();
-        }
+        public override object GetValue(object component) => MemberInfo.Value;
 
         public override void ResetValue(object component) {
             throw new NotImplementedException();
@@ -43,19 +88,24 @@ namespace SingularityForensic.Contracts.Common {
         }
     }
     
+
     public interface IMemberInfo {
         /// <summary>
         /// 成员名;
         /// </summary>
         string MemberName { get; }
         /// <summary>
+        /// 显示名;
+        /// </summary>
+        string DisplayName { get; }
+        /// <summary>
         /// 成员大小;
         /// </summary>
         int MemberSize { get; }
         /// <summary>
-        /// 字符串值;
+        /// 值;
         /// </summary>
-        string StringValue { get; }
+        object Value { get; }
         /// <summary>
         /// 成员类型;
         /// </summary>
@@ -82,30 +132,31 @@ namespace SingularityForensic.Contracts.Common {
         /// <summary>
         /// 值;
         /// </summary>
-        public string StringValue { get; internal set; }
+        public object Value { get; internal set; }
 
-        public Type MemberType { get; internal set; }
+        public Type MemberType => FieldInfo.FieldType;
+
+        public string DisplayName { get;internal set; }
 
         ///删除原因,在顺序的字段描述中,既然具有了字段大小,就无需设定字段偏移了;
         ///public int FieldOffset { get; set; }
     }
     
-    public interface ICustomMemberDecriptor {
+    public interface ICustomMemberDescriptor {
         IEnumerable<IMemberInfo> GetMemberInfos();
-        /// <summary>
-        /// 所描述实体的类型;
-        /// </summary>
         Type ObjectType { get; }
+        string DisplayName { get; }
+        string Name { get; }
     }
 
     /// <summary>
     /// 针对非托管结构体的描述单位,本类别使用了反射获取各个字段的信息;
     /// </summary>
     /// <typeparam name="TStruct"></typeparam>
-    public abstract class StructFieldDecriptorBase<TStruct> : ICustomMemberDecriptor where TStruct :struct {
+    public abstract class StructFieldDecriptorBase<TStruct> :  ICustomMemberDescriptor where TStruct :struct {
         public StructFieldDecriptorBase(TStruct structInstance) {
-            this.ObjectType = typeof(TStruct);
             this.StructInstance = structInstance;
+            this.ObjectType = typeof(TStruct);
         }
         
         public Type ObjectType { get; }
@@ -141,36 +192,48 @@ namespace SingularityForensic.Contracts.Common {
             var stringEventArgs = new EditingValueEventArgs<string>();
 
             OnEditFieldDescriptorMemberName(descriptor.FieldInfo,stringEventArgs);
-            descriptor.MemberName = stringEventArgs.EditingValue;
+            descriptor.MemberName = stringEventArgs.Value;
 
-            stringEventArgs.EditingValue = null;
+            stringEventArgs.Value = null;
+            OnEditFieldDescriptorDisplayName(descriptor.FieldInfo, stringEventArgs);
+            descriptor.DisplayName = stringEventArgs.Value;
+
+            stringEventArgs.Value = null;
             OnEditFieldDescriptorStringValue(descriptor.FieldInfo,stringEventArgs);
-            descriptor.StringValue = stringEventArgs.EditingValue;
+            descriptor.Value = stringEventArgs.Value;
 
             var szEventArgs = new EditingValueEventArgs<int>();
             OnEditFieldDescriptorSize(descriptor.FieldInfo,szEventArgs);
-            descriptor.MemberSize = szEventArgs.EditingValue;
+            descriptor.MemberSize = szEventArgs.Value;
+
+            
+
         }
 
         protected virtual void OnEditFieldDescriptorMemberName(FieldInfo fieldInfo, EditingValueEventArgs<string> args) {
-            args.EditingValue = fieldInfo.Name;
+            args.Value = fieldInfo.Name;
         }
+        protected abstract void OnEditFieldDescriptorDisplayName(FieldInfo fieldInfo, EditingValueEventArgs<string> args);
 
         protected virtual void OnEditFieldDescriptorStringValue(FieldInfo fieldInfo, EditingValueEventArgs<string> args) {
             //若为字节数组,则访问ByteExtensions,获取值;
             if (fieldInfo.FieldType == typeof(byte[])) {
                 var bts = fieldInfo.GetValue(StructInstance) as byte[];
-                if (bts.Length < 16) {
-                    args.EditingValue = bts.BytesToHexString();
+
+                if(bts == null) {
+                    args.Value = null;
+                }
+                else if (bts.Length < 16) {
+                    args.Value = bts.BytesToHexString();
                 }
                 else {
-                    args.EditingValue = "blobs";
+                    args.Value = "blobs";
                 }
             }
             //否则直接调用ToString();
             else {
                 try {
-                    args.EditingValue = fieldInfo.GetValue(StructInstance).ToString();
+                    args.Value = fieldInfo.GetValue(StructInstance).ToString();
                 }
                 catch(Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
@@ -186,7 +249,7 @@ namespace SingularityForensic.Contracts.Common {
                     LoggerService.WriteCallerLine($"{nameof(attr)} can't be null.");
                     return;
                 }
-                args.EditingValue = attr.SizeConst;
+                args.Value = attr.SizeConst;
             }
             else if(fieldInfo.FieldType == typeof(int[]) || fieldInfo.FieldType == typeof(uint[])) {
                 var attr = Attribute.GetCustomAttribute(fieldInfo, typeof(MarshalAsAttribute)) as MarshalAsAttribute;
@@ -194,12 +257,12 @@ namespace SingularityForensic.Contracts.Common {
                     LoggerService.WriteCallerLine($"{nameof(attr)} can't be null.");
                     return;
                 }
-                args.EditingValue = attr.SizeConst * 4;
+                args.Value = attr.SizeConst * 4;
             }
             //否则直接使用Marshal.SizeOf获取大小;
             else {
                 try {
-                    args.EditingValue = Marshal.SizeOf(fieldInfo.FieldType);
+                    args.Value = Marshal.SizeOf(fieldInfo.FieldType);
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
@@ -209,11 +272,15 @@ namespace SingularityForensic.Contracts.Common {
             
         }
 
-        
+        public abstract string DisplayName { get; }
+        public virtual string Name { get; }
     }
 
-    public class EditingValueEventArgs<T> : EventArgs {
-        public T EditingValue { get; set; }
+    public interface ICompositeCustomMemberDecriptor:ICustomMemberDescriptor {
+        //void Composite(ICustomMemberDescriptor );
     }
-    
+
+    public class CompositeCustomMemberDescriptor {
+
+    }
 }

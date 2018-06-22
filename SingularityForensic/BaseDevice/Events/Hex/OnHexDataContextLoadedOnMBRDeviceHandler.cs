@@ -36,14 +36,13 @@ namespace SingularityForensic.BaseDevice.Events.Hex {
             }
 
             var pTableIndex = 0;
-            foreach (var p in dosDeviceInfo.DosPartInfos.OrderBy(p => p.DosPTable.StructInstance.nOffset)) {
+            foreach (var p in dosDeviceInfo.DosPartInfos.OrderBy(p => p.DosPTable.StDosPTable.nOffset)) {
                 if (p.InfoDisk != null) {
-                    hexDataContext.UpdateDescriptorBackgroundAndToolTips(
+                    hexDataContext.LoadCustomTypeDescriptor(
                         p.InfoDisk,
-                        (long)p.DosPTable.StructInstance.nOffset,
+                        (long)p.DosPTable.StDosPTable.nOffset,
                         pTableIndex % 2 == 0 ? BrushBlockFactory.FirstBrush : BrushBlockFactory.SecondBrush,
-                        BrushBlockFactory.HighLightBrush,
-                        Constants.BaseDeviceFieldPrefix_InfoDisk
+                        BrushBlockFactory.HighLightBrush
                     );
                 }
                 

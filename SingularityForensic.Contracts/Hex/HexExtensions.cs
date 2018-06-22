@@ -1,5 +1,5 @@
-﻿using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.PropertyGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace SingularityForensic.Contracts.Hex {
     public static class HexExtensions {
         /// <summary>
-        /// 高亮结构体背景与ToolTip;
+        /// 高亮结构体背景与ToolTip,PropertyGrid;
         /// </summary>
         /// <param name="hexDataContext"></param>
         /// <param name="offset">绝对偏移量</param>
@@ -18,35 +18,32 @@ namespace SingularityForensic.Contracts.Hex {
         /// <param name="fieldPrefix">字段高亮前缀值(语言相关)</param>
         /// <param name="highlightBrush">高亮颜色</param>
         /// <param name="languageKeyPrefix">语言前缀类型</param>
-        public static void UpdateDescriptorBackgroundAndToolTips(
+        public static void LoadCustomTypeDescriptor(
             this IHexDataContext hexDataContext,
-            ICustomMemberDecriptor customMemberDescriptor,
+            ICustomMemberDescriptor customMemberDescriptor,
             long offset,
             Brush originBrush,
-            Brush highlightBrush,
-            string languageKeyPrefix
+            Brush highlightBrush
         ) {
-            var descriptors = customMemberDescriptor.GetMemberInfos();
+            var memberInfos = customMemberDescriptor.GetMemberInfos();
 
             var fieldOffset = 0;
-            var toolTipAndBrushBlockTuples = new List<(IToolTipDataItem dataItem, IBrushBlock brushBlock)?>();
+            var toolTipAndBrushBlockTuples = new List<(IToolTipDataItem dataItem, IBrushBlock brushBlock,IMemberInfo memberInfo)?>();
 
-            foreach (var fieldDescriptor in descriptors) {
+            foreach (var memberInfo in memberInfos) {
                 var dataItem = ToolTipItemFactory.CreateIToolTipDataItem();
                 var brushBlock = BrushBlockFactory.CreateNewBackgroundBlock();
 
-                dataItem.KeyName =
-                    LanguageService.FindResourceString($"{languageKeyPrefix}{fieldDescriptor.MemberName}") +
-                    $"({fieldDescriptor.MemberSize})";
+                dataItem.KeyName = memberInfo.DisplayName + $"({memberInfo.MemberSize})";
 
-                dataItem.Value = fieldDescriptor.StringValue;
+                dataItem.Value = memberInfo.Value?.ToString();
 
                 brushBlock.Background = originBrush;
                 brushBlock.StartOffset = offset + fieldOffset;
-                brushBlock.Length = fieldDescriptor.MemberSize;
+                brushBlock.Length = memberInfo.MemberSize;
 
-                toolTipAndBrushBlockTuples.Add((dataItem, brushBlock));
-                fieldOffset += fieldDescriptor.MemberSize;
+                toolTipAndBrushBlockTuples.Add((dataItem, brushBlock,memberInfo));
+                fieldOffset += memberInfo.MemberSize;
             }
 
             toolTipAndBrushBlockTuples.ForEach(p => {
@@ -54,7 +51,7 @@ namespace SingularityForensic.Contracts.Hex {
                 hexDataContext.CustomDataToolTipItems.Add((offset, fieldOffset, p.Value.dataItem));
             });
 
-            //悬停高亮;
+            //ToolTip悬停高亮;
             hexDataContext.SelectedToolTipItemChanged += delegate {
                 if(hexDataContext.SelectedToolTipItem == null) {
                     return;
@@ -69,6 +66,41 @@ namespace SingularityForensic.Contracts.Hex {
                 slTuple.Value.brushBlock.Background = highlightBrush;
                 hexDataContext.UpdateCustomBackgroundBlocks();
             };
+
+            //PropertyGrid部分;
+            var propertyGridDataContextTuple = hexDataContext.GetOrCreateInstanceInform<IPropertyGridDataContext>(Contracts.Hex.Constants.HexDataContextTag_PropertyGridDataContext,PropertyGridDataContextFactory.CreateNew);
+            var propertyGridDataContext = propertyGridDataContextTuple.instance;
+            if (propertyGridDataContext == null) {
+                return;
+            }
+            //若为首次创建,则加入视图;
+            if (propertyGridDataContextTuple.isNew) {
+                hexDataContext.StackGrid.AddChild(propertyGridDataContext, new Contracts.Controls.GridChildLength(new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)));
+            }
+            propertyGridDataContext.AddCustomMemberDescriptor(customMemberDescriptor);
+            
+
+            //PropertyGrid选中属性高亮;
+            propertyGridDataContext.SelectedMemberInfoChanged += delegate {
+                if (propertyGridDataContext.SelectedMemberInfo == null) {
+                    return;
+                }
+                toolTipAndBrushBlockTuples.ForEach(p => {
+                    p.Value.brushBlock.Background = originBrush;
+                });
+                var slTuple = toolTipAndBrushBlockTuples.FirstOrDefault(p => p.Value.memberInfo == propertyGridDataContext.SelectedMemberInfo);
+                if(slTuple == null) {
+                    return;
+                }
+
+                slTuple.Value.brushBlock.Background = highlightBrush;
+                if(hexDataContext.BytePerLine != 0) {
+                    hexDataContext.Position = slTuple.Value.brushBlock.StartOffset / hexDataContext.BytePerLine * hexDataContext.BytePerLine;
+                }
+                hexDataContext.UpdateCustomBackgroundBlocks();
+            };
         }
+
+
     }
 }

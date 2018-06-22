@@ -23,6 +23,8 @@ namespace SingularityForensic.Contracts.Hex {
 
         IStackGrid<IUIObjectProvider> StackGrid { get; }
 
+        int BytePerLine { get; set; }
+
         long SelectionStart { get; set; }
         long SelectionLength { get; set; }
         event EventHandler SelectionStateChanged;
