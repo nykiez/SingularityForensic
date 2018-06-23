@@ -44,7 +44,12 @@ namespace SingularityForensic.Ext {
             args.Value = LanguageService.FindResourceString($"{Constants.ExtGroupDescFieldPrefix}{fieldInfo.Name}");
         }
 
-        internal string InternalDisplayName { get; set; }
+#if DEBUG
+        public
+#else
+        internal
+#endif
+        string InternalDisplayName { get; set; }
         public override string DisplayName => InternalDisplayName;
     }
 }

@@ -25,10 +25,17 @@ namespace SingularityForensic.Contracts.Common {
             if (_properties == null) {
                 _properties = new PropertyDescriptorCollection(
                     _customMemberDescriptors.SelectMany(
-                        p => p.CustomMemberDescriptor.GetMemberInfos().
-                            Select(
-                                        q => new PropertyDescriptorWrapper(q) { GroupName = p.CustomMemberDescriptor.DisplayName }
-                            )
+                        p => {
+                            var index = 0;
+                            return p.CustomMemberDescriptor.GetMemberInfos().
+                           Select(
+
+                                   q => {
+
+                                       return new PropertyDescriptorWrapper(q) { GroupName = p.CustomMemberDescriptor.DisplayName ,Order = index++};
+                                   }
+                           );
+                        }
                         ).ToArray()
                     );
             }
@@ -40,7 +47,7 @@ namespace SingularityForensic.Contracts.Common {
         }
     }
 
-
+   
 
     public class PropertyDescriptorWrapper : PropertyDescriptor {
         public PropertyDescriptorWrapper(IMemberInfo memberInfo):base(memberInfo.MemberName, null) {
@@ -51,12 +58,14 @@ namespace SingularityForensic.Contracts.Common {
         public override string Name => MemberInfo.MemberName;
         public override string DisplayName => MemberInfo.DisplayName;
         public string GroupName { get; set; }
+        public int Order { get; set; }
         private AttributeCollection _attributes;
         public override AttributeCollection Attributes {
             get {
                 if (_attributes == null) {
                     _attributes = new AttributeCollection(new Attribute[] { new DisplayAttribute {
-                        GroupName = GroupName
+                        GroupName = GroupName,
+                        Order = Order
                     } });
                 }
                 return _attributes;
@@ -283,4 +292,6 @@ namespace SingularityForensic.Contracts.Common {
     public class CompositeCustomMemberDescriptor {
 
     }
+
+
 }

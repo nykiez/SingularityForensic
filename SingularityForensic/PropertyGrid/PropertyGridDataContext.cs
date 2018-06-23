@@ -38,7 +38,7 @@ namespace SingularityForensic.PropertyGrid {
             if(descriptor == null) {
                 throw new ArgumentNullException(nameof(descriptor));
             }
-
+            
             _vm.Item.CompositeCustomMemberDecriptor(descriptor);
         }
     }

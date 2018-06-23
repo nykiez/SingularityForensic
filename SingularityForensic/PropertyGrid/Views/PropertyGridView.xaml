@@ -6,5 +6,6 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <telerik:RadPropertyGrid IsGrouped="True" Item="{Binding Item}"  SelectedPropertyDefinition="{Binding SelectedProperty,Mode=OneWayToSource}" />
+    
+    <telerik:RadPropertyGrid IsGrouped="True"  Item="{Binding Item}" IsVirtualizing="True"  SelectedPropertyDefinition="{Binding SelectedProperty,Mode=OneWayToSource}" />
 </UserControl>

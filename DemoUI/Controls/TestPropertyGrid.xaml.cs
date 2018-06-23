@@ -28,14 +28,42 @@ namespace DemoUI.Controls {
             InitializeComponent();
             var item = new CustomTypeDescriptorWrapper();
             item.CompositeCustomMemberDecriptor(new SingularityForensic.FAT.FATDBR(new SingularityForensic.FAT.StFatDBR(), 0));
-            var vm = new VM {
+            _vm = new PropertyGridTestVM {
                 Item = item
             };
-            this.DataContext = vm;
+            this.DataContext = _vm;
 
         }
+        private PropertyGridTestVM _vm;
+        int index = 0;
 
-       
+        //private IEnumerable<PropertyDefinition> GetDefinitions(ICustomTypeDescriptor descriptor) {
+        //    foreach (PropertyDescriptor prop in descriptor.GetProperties()) {
+        //        var def = new PropertyDefinition();
+                
+        //         prop.GetValue(descriptor)
+        //    }
+        //}
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            rpg.PropertyDefinitions.Clear();
+            
+            if (index % 2 == 0) {
+                var item = FileRowFactory.Current.CreateFileRow(FileFactory.CreateRegularFile(string.Empty));
+                _vm.Item = item;
+            }
+            else {
+                var item = new CustomTypeDescriptorWrapper();
+                for (int i = 0; i < 40; i++) {
+                    item.CompositeCustomMemberDecriptor(new SingularityForensic.Ext.ExtGroupDesc(new SingularityForensic.Ext.StExtGroupDesc()) {
+                        InternalDisplayName = i.ToString()
+                    });
+                }
+                
+                _vm.Item = item;
+            }
+            index++;
+        }
     }
 
     public class ItemTemp {
@@ -43,8 +71,15 @@ namespace DemoUI.Controls {
         public string Name { get; set; }
     }
 
-    public class VM:BindableBase {
-        public object Item { get; set; }
+    public class PropertyGridTestVM:BindableBase {
+
+        private object _item;
+        public object Item {
+            get => _item;
+            set => SetProperty(ref _item, value);
+        }
+
+        
 
         private PropertyDefinition _selectedProperty;
         public PropertyDefinition SelectedProperty {

@@ -10,6 +10,13 @@ using Telerik.Windows.Controls.Data.PropertyGrid;
 
 namespace SingularityForensic.PropertyGrid.ViewModels {
     class PropertyGridViewModel:BindableBase {
+
+        //private object _It;
+        //public object val {
+        //    get => _val;
+        //    set => SetProperty(ref _val, value);
+        //}
+
         public CustomTypeDescriptorWrapper Item { get;
             set; } = new CustomTypeDescriptorWrapper();
 
