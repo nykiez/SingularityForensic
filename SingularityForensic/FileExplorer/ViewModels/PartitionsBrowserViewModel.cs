@@ -18,10 +18,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     /// </summary>
     public partial class PartitionsBrowserViewModel : DataGridExViewModel,IPartitionsBrowserViewModel {
         public PartitionsBrowserViewModel(IDevice device)  {
-            if(device == null) {
-                throw new ArgumentNullException(nameof(device));
-            }
-            this.Device = device;
+            this.Device = device ?? throw new ArgumentNullException(nameof(device));
             
             InitializeColumns();
             FillRows(device.Children.Select(p => p as IPartition));
@@ -82,23 +79,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public IPartitionRow SelectedPart {
             get;
             private set;
-        }
-        
-        private IEnumerable<ICommandItem> _contextCommands;
-        public override IEnumerable<ICommandItem> ContextCommands {
-            get {
-                //if (_contextCommands == null) {
-                //    var mainViewerCommandItem = new CommandItem {  CommandName = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ViewerProgram") };
-                //    mainViewerCommandItem.Children.AddRange(ViewersCommands);
-                //    _contextCommands = new ObservableCollection<CommandItem> {
-                //        new CommandItem{ CommandName=LanguageService.FindResourceString("FileDetailInfo") , Command = ShowFileDetailCommand }
-                //    };
-                //    _contextCommands.AddRange(base.ContextCommands);
-
-                //}
-                return _contextCommands;
-            }
-            set => _contextCommands = value;
         }
     }
 

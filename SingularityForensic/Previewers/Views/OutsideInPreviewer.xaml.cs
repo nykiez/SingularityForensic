@@ -79,7 +79,7 @@ namespace SingularityForensic.Controls.Previewers.Views {
         }
 
         IntPtr viewerHandle;
-        private void panel_SizeChanged(object sender, EventArgs e) {
+        private void Panel_SizeChanged(object sender, EventArgs e) {
             DoSize(panel.Handle, viewerHandle, (uint)panel.Width, (uint)panel.Height);
         }
         public void OpenFile(string fileName) {
@@ -96,7 +96,7 @@ namespace SingularityForensic.Controls.Previewers.Views {
         }
         public void CloseFile() {
             DoCloseFile(panel.Handle, viewerHandle);
-            panel.SizeChanged -= panel_SizeChanged;
+            panel.SizeChanged -= Panel_SizeChanged;
             panel.Dispose();
             
             grid.Children.Remove(host);

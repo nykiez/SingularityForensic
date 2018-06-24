@@ -58,18 +58,11 @@ namespace DemoUI {
 
     public class RowNumberColumn : Telerik.Windows.Controls.GridViewDataColumn {
         public override System.Windows.FrameworkElement CreateCellElement(Telerik.Windows.Controls.GridView.GridViewCell cell, object dataItem) {
-            TextBlock textBlock = cell.Content as TextBlock;
-
-            if (textBlock == null) {
+            if (!(cell.Content is TextBlock textBlock)) {
                 textBlock = new TextBlock();
-            }
-            else {
-
             }
 
             textBlock.Text = (this.DataControl.Items.IndexOf(dataItem) + 1).ToString();
-            //textBlock.Text = ((this.DataControl.ItemsSource as IList).IndexOf(dataItem) + 1).ToString();
-
             return textBlock;
         }
     }
@@ -155,11 +148,11 @@ namespace DemoUI {
 
         }
 
-        private void dgg_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
+        private void Dgg_AutoGeneratingColumn(object sender, GridViewAutoGeneratingColumnEventArgs e) {
 
         }
 
-        private void dgg_FieldFilterEditorCreated(object sender, Telerik.Windows.Controls.GridView.EditorCreatedEventArgs e) {
+        private void Dgg_FieldFilterEditorCreated(object sender, Telerik.Windows.Controls.GridView.EditorCreatedEventArgs e) {
 
         }
 
@@ -171,23 +164,23 @@ namespace DemoUI {
 
 
 
-        private void dgg2_SelectedCellsChanged(object sender, GridViewSelectedCellsChangedEventArgs e) {
+        private void Dgg2_SelectedCellsChanged(object sender, GridViewSelectedCellsChangedEventArgs e) {
 
         }
 
-        private void dgg2_SelectionChanged(object sender, SelectionChangeEventArgs e) {
+        private void Dgg2_SelectionChanged(object sender, SelectionChangeEventArgs e) {
 
         }
 
-        private void dgg_Copying(object sender, GridViewClipboardEventArgs e) {
+        private void Dgg_Copying(object sender, GridViewClipboardEventArgs e) {
 
         }
 
-        private void dgg_CurrentCellChanged(object sender, GridViewCurrentCellChangedEventArgs e) {
+        private void Dgg_CurrentCellChanged(object sender, GridViewCurrentCellChangedEventArgs e) {
 
         }
 
-        private void dgg_Filtered(object sender, GridViewFilteredEventArgs e) {
+        private void Dgg_Filtered(object sender, GridViewFilteredEventArgs e) {
 
         }
 
@@ -195,15 +188,15 @@ namespace DemoUI {
             dgg.Columns[0].Width = 100;
         }
 
-        private void dgg2_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
+        private void Dgg2_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
 
         }
 
-        private void dgg_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
+        private void Dgg_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {
 
         }
 
-        private void dgg_AutoGeneratingColumn_1(object sender, GridViewAutoGeneratingColumnEventArgs e) {
+        private void Dgg_AutoGeneratingColumn_1(object sender, GridViewAutoGeneratingColumnEventArgs e) {
 
         }
     }
@@ -220,7 +213,7 @@ namespace DemoUI {
 
 
     }
-    public class abDGModel : DependencyObject {
+    public class AbDGModel : DependencyObject {
 
     }
 
@@ -267,7 +260,7 @@ namespace DemoUI {
                     new DataColumn(col3, typeof(Depart)),
                     new DataColumn(col4, typeof(DateTime)),
                     new DataColumn(col5, typeof(long)),
-                    new DataColumn(col6, typeof(abDGModel))
+                    new DataColumn(col6, typeof(AbDGModel))
         }
             );
 

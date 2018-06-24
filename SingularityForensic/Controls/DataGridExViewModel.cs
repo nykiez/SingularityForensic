@@ -87,7 +87,7 @@ namespace SingularityForensic.Controls {
         /// <summary>
         /// 上下文菜单命令项;
         /// </summary>
-        public virtual IEnumerable<ICommandItem> ContextCommands {
+        public virtual ICollection<ICommandItem> ContextCommands {
             get {
                 if (_contextCommands == null) {
                     _contextCommands = new ObservableCollection<ICommandItem>() {
@@ -96,7 +96,6 @@ namespace SingularityForensic.Controls {
                 }
                 return _contextCommands;
             }
-            set => SetProperty(ref _contextCommands, value as ObservableCollection<ICommandItem>);
         }
 
         public virtual void NotifyDoubleClickOnRow(object row) {

@@ -54,23 +54,26 @@ namespace SingularityForensic.FileExplorer {
                     fef.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
                     var iconFactory = new FrameworkElementFactory(typeof(Image));
-                    var iconBinding = new Binding();
-                    iconBinding.Path = new PropertyPath(nameof(IFileRowProxy<IFile>.File));
-                    iconBinding.Converter = FileTypeToIconConverter.StaticInstance;
+                    var iconBinding = new Binding {
+                        Path = new PropertyPath(nameof(IFileRowProxy<IFile>.File)),
+                        Converter = FileTypeToIconConverter.StaticInstance
+                    };
                     iconFactory.SetBinding(Image.SourceProperty, iconBinding);
                     iconFactory.SetValue(Image.WidthProperty, 17.0);
 
                     var chkFactory = new FrameworkElementFactory(typeof(CheckBox));
-                    var chkBinding = new Binding();
-                    chkBinding.Path = new PropertyPath(nameof(IFileRowProxy<IFile>.IsChecked));
-                    chkBinding.Mode = BindingMode.TwoWay;
+                    var chkBinding = new Binding {
+                        Path = new PropertyPath(nameof(IFileRowProxy<IFile>.IsChecked)),
+                        Mode = BindingMode.TwoWay
+                    };
                     chkFactory.SetBinding(CheckBox.IsCheckedProperty, chkBinding);
                     chkFactory.SetValue(CheckBox.IsThreeStateProperty, false);
                     chkFactory.SetValue(CheckBox.PaddingProperty, new Thickness(0, 0, 0, 0));
 
                     var txbFactory = new FrameworkElementFactory(typeof(TextBlock));
-                    var nameBinding = new Binding();
-                    nameBinding.Path = new PropertyPath(this.GUID);
+                    var nameBinding = new Binding {
+                        Path = new PropertyPath(this.GUID)
+                    };
                     txbFactory.SetBinding(TextBlock.TextProperty, nameBinding);
 
                     fef.AppendChild(chkFactory);

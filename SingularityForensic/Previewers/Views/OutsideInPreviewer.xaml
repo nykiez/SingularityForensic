@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="grid">
         <wfi:WindowsFormsHost x:Name="host" Grid.Row="1" >
-            <wf:Panel x:Name="panel" SizeChanged="panel_SizeChanged"></wf:Panel>
+            <wf:Panel x:Name="panel" SizeChanged="Panel_SizeChanged"></wf:Panel>
         </wfi:WindowsFormsHost>
     </Grid>
 </UserControl>

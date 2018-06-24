@@ -50,8 +50,9 @@ namespace SingularityForensic.Previewers {
         public override VlcVideoPreviewerModel VideoPreviewerModel {
             get {
                 if(_videoPreviewerModel == null) {
-                    var _player = new VlcPlayer(previewerPanel.Player);
-                    _player.FileName = FileName;
+                    var _player = new VlcPlayer(previewerPanel.Player) {
+                        FileName = FileName
+                    };
                     _videoPreviewerModel = new VlcVideoPreviewerModel(_player);
                 }
                 return _videoPreviewerModel;

@@ -5,10 +5,7 @@ using SingularityForensic.Contracts.Previewers;
 namespace SingularityForensic.Previewers {
     public class ImagePreviewer : IPreviewer {
         public ImagePreviewer(Stream stream) {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
-
-            this.BaseStream = stream;
+            this.BaseStream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         private Stream _baseStream;

@@ -8,7 +8,7 @@ namespace SingularityForensic.Test.Common {
     [Serializable]
     public class SEntityB : ISerializable {
         public int n1;
-        public int n2 => n1;
+        public int N2 => n1;
         public String str;
         public SEntityB() {
             

@@ -497,9 +497,10 @@ namespace SingularityForensic.FileExplorer {
                 reporter.Cancel();
             };
 
-            var opStream = new OperatebleStream(inputStream);
-            opStream.Position = 0;
-            if(reporter != null) {
+            var opStream = new OperatebleStream(inputStream) {
+                Position = 0
+            };
+            if (reporter != null) {
                 //订阅取消事件;
                 reporter.Canceld += (sender, e) => {
                     opStream.Break();

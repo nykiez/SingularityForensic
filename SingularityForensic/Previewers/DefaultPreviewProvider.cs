@@ -44,6 +44,7 @@ namespace SingularityForensic.Previewers {
         public static readonly string[] VlcExtensionNames = new string[] {
             "MP4",
             "AVI",
+            "OGG",
             "RMVB",
             "MP3"
         };

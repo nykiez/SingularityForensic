@@ -18,15 +18,15 @@
         </Grid.RowDefinitions>
 
         <controls:RadGridViewEx ShowColumnSortIndexes="True" ShowGroupPanel="False" 
-                             FieldFilterEditorCreated="dgg_FieldFilterEditorCreated"
-                             SelectedCellsChanged="dgg2_SelectedCellsChanged" 
-                             CurrentCellChanged="dgg_CurrentCellChanged"
+                             FieldFilterEditorCreated="Dgg_FieldFilterEditorCreated"
+                             SelectedCellsChanged="Dgg2_SelectedCellsChanged" 
+                             CurrentCellChanged="Dgg_CurrentCellChanged"
                              FilterSettings="{Binding FilterSettings1}" 
-                             Copying="dgg_Copying"  Style="{DynamicResource RadGridViewStyle}"
-                             Filtered="dgg_Filtered" 
-                             SelectionChanged="dgg2_SelectionChanged"  
+                             Copying="Dgg_Copying"  Style="{DynamicResource RadGridViewStyle}"
+                             Filtered="Dgg_Filtered" 
+                             SelectionChanged="Dgg2_SelectionChanged"  
                              x:Name="dgg" IsReadOnly="True" ShowGroupFooters="False" SelectedItem="{Binding SelectedItem}"
-                             AutoGeneratingColumn="dgg_AutoGeneratingColumn" 
+                             AutoGeneratingColumn="Dgg_AutoGeneratingColumn" 
                              ItemsSource="{Binding Items}">
             
         </controls:RadGridViewEx>
@@ -40,12 +40,12 @@
         <!--</fi:FilterableDataGrid2>-->
 
         <controls:RadGridViewEx  ShowGroupPanel="False" 
-                                Grid.Row="1" LoadingRowDetails="dgg2_LoadingRowDetails"
+                                Grid.Row="1" LoadingRowDetails="Dgg2_LoadingRowDetails"
                              FilterSettings="{Binding FilterSettings2}"
-                             FieldFilterEditorCreated="dgg_FieldFilterEditorCreated"
+                             FieldFilterEditorCreated="Dgg_FieldFilterEditorCreated"
                              x:Name="dgg2" IsReadOnly="True" ShowGroupFooters="False"
                              SelectedItem="{Binding SelectedItem}"
-                             AutoGeneratingColumn="dgg_AutoGeneratingColumn" 
+                             AutoGeneratingColumn="Dgg_AutoGeneratingColumn" 
                              ItemsSource="{Binding Items}" >
             <controls:RadGridViewEx.ScrollContentContextMenu>
                 <ContextMenu x:Name="das" ItemsSource="{Binding Commands}" >

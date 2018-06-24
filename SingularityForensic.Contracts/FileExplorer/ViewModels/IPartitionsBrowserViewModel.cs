@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Contracts.FileSystem;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     /// <summary>
     /// 设备-分区视图模型被创建事件;
     /// </summary>
-    public interface IPartitionsBrowserViewModel {
+    public interface IPartitionsBrowserViewModel:IDataGridViewModel {
         /// <summary>
         /// 所属设备;
         /// </summary>
@@ -20,8 +21,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// 选定的分区;
         /// </summary>
         IPartitionRow SelectedPart { get; }
-
-        IEnumerable<ICommandItem> ContextCommands { get; }
+        
     }
 
     

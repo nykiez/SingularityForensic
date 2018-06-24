@@ -25,7 +25,7 @@ namespace SingularityForensic.Test.FAT.Events {
 
         [TestMethod]
         public void PrintDBRFields() {
-            int s = 0;
+            //int s = 0;
             var size = Marshal.SizeOf(typeof(IntPtr));
             var ss = IntPtr.Size;
             Assert.AreEqual(size, 4);
