@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.PropertyGrid {
+namespace SingularityForensic.Contracts.TreeView {
     public static class Constants {
 
-        public const string PorpertyGridView = nameof(PorpertyGridView);
+        public const string PorpertyListView = nameof(PorpertyListView);
 
     }
 }

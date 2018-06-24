@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Contracts.PropertyGrid {
-    public interface IPropertyGridDataContext:IUIObjectProvider {
+namespace SingularityForensic.Contracts.TreeView {
+    public interface IPropertyListDataContext:IUIObjectProvider {
         /// <summary>
         /// 数据提供者;
         /// </summary>
@@ -20,10 +20,10 @@ namespace SingularityForensic.Contracts.PropertyGrid {
     }
 
     public interface IPropertyGridDataContextFactory {
-        IPropertyGridDataContext CreateNew();
+        IPropertyListDataContext CreateNew();
     }
 
     public class PropertyGridDataContextFactory: GenericServiceStaticInstance<IPropertyGridDataContextFactory>{
-        public static IPropertyGridDataContext CreateNew() => Current.CreateNew();
+        public static IPropertyListDataContext CreateNew() => Current.CreateNew();
     }
 }

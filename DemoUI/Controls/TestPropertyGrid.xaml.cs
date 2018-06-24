@@ -46,7 +46,9 @@ namespace DemoUI.Controls {
         //}
 
         private void Button_Click(object sender, RoutedEventArgs e) {
+#if DEBUG
             rpg.PropertyDefinitions.Clear();
+#endif
             
             if (index % 2 == 0) {
                 var item = FileRowFactory.Current.CreateFileRow(FileFactory.CreateRegularFile(string.Empty));
@@ -56,7 +58,9 @@ namespace DemoUI.Controls {
                 var item = new CustomTypeDescriptorWrapper();
                 for (int i = 0; i < 40; i++) {
                     item.CompositeCustomMemberDecriptor(new SingularityForensic.Ext.ExtGroupDesc(new SingularityForensic.Ext.StExtGroupDesc()) {
+#if DEBUG
                         InternalDisplayName = i.ToString()
+#endif
                     });
                 }
                 

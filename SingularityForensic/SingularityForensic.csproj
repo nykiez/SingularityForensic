@@ -669,11 +669,13 @@
     <Compile Include="Previewers\Views\VlcVideoPreviewer.xaml.cs">
       <DependentUpon>VlcVideoPreviewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PropertyGrid\PropertyGridDataContext.cs" />
-    <Compile Include="PropertyGrid\PropertyGridDataContextFactoryImpl.cs" />
-    <Compile Include="PropertyGrid\ViewModels\PropertyGridViewModel.cs" />
-    <Compile Include="PropertyGrid\Views\PropertyGridView.xaml.cs">
-      <DependentUpon>PropertyGridView.xaml</DependentUpon>
+    <Compile Include="TreeView\Constants.cs" />
+    <Compile Include="TreeView\Models\PropertyItem.cs" />
+    <Compile Include="TreeView\PropertyListDataContext.cs" />
+    <Compile Include="TreeView\PropertyListDataContextFactoryImpl.cs" />
+    <Compile Include="TreeView\ViewModels\PropertyListViewViewModel.cs" />
+    <Compile Include="TreeView\Views\PropertyListView.xaml.cs">
+      <DependentUpon>PropertyListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\Models\IShell.cs" />
     <Compile Include="Shell\ShellServiceImpl.cs" />
@@ -1028,7 +1030,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PropertyGrid\Views\PropertyGridView.xaml">
+    <Page Include="TreeView\Languages\zh_CN\SingularityForensic.TreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TreeView\Views\PropertyListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1827,7 +1833,8 @@ XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)MainPage\Languages" "$(TargetDir)Languages\" /E /Y
 XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /E /Y
+XCopy "$(ProjectDir)TreeView\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

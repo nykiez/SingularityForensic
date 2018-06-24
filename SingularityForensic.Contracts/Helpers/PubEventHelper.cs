@@ -71,7 +71,7 @@ namespace SingularityForensic.Contracts.Helpers {
                     handler.Handle(args);
                 }
                 catch (Exception ex) {
-                    LoggerService.WriteCallerLine($"{handler.GetType()} ex.Message");
+                    LoggerService.WriteCallerLine($"{handler.GetType()}:{ex.Message}");
                     LoggerService.WriteException(ex);
                 }
             }

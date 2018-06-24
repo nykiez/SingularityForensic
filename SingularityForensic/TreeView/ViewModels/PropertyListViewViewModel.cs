@@ -1,7 +1,9 @@
 ﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.TreeView.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -9,22 +11,14 @@ using System.Threading.Tasks;
 using Telerik.Windows.Controls.Data.PropertyGrid;
 
 namespace SingularityForensic.PropertyGrid.ViewModels {
-    class PropertyGridViewModel:BindableBase {
+    class PropertyListViewViewModel :BindableBase {
+        public ObservableCollection<PropertyItem> Items { get; } = new ObservableCollection<PropertyItem>();
 
-        //private object _It;
-        //public object val {
-        //    get => _val;
-        //    set => SetProperty(ref _val, value);
-        //}
-
-        public CustomTypeDescriptorWrapper Item { get;
-            set; } = new CustomTypeDescriptorWrapper();
-
-        private PropertyDefinition _selectedProperty;
-        public PropertyDefinition SelectedProperty {
+        private PropertyItem _selectedProperty;
+        public PropertyItem SelectedProperty {
             get => _selectedProperty;
             set {
-                var equal = value != _selectedProperty;
+                var equal = value == _selectedProperty;
                 _selectedProperty = value;
                 if (!equal) {
                     SelectedPropertyChanged?.Invoke(this, EventArgs.Empty); 

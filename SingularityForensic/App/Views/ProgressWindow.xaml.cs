@@ -11,7 +11,6 @@ namespace SingularityForensic.App.Views {
     public partial class ProgressWindow : CorneredWindow {
         public ProgressWindow() {
             InitializeComponent();
-            CDFCCultures.Managers.LanguageHelper.LoadLanguage(this.Resources.MergedDictionaries, typeof(ProgressWindow).Assembly.GetName().Name);
         }
 
         private bool _cancellationPending;

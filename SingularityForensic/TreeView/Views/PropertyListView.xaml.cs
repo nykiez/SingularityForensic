@@ -14,14 +14,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SingularityForensic.PropertyGrid.Views {
+namespace SingularityForensic.TreeView.Views {
     /// <summary>
     /// Interaction logic for PropertyGridView.xaml
     /// </summary>
-    [Export(Contracts.PropertyGrid.Constants.PorpertyGridView,typeof(FrameworkElement))]
+    [Export(Contracts.TreeView.Constants.PorpertyListView,typeof(FrameworkElement))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class PropertyGridView : UserControl {
-        public PropertyGridView() {
+    public partial class PropertyListView : UserControl {
+        public PropertyListView() {
+            
             InitializeComponent();
         }
     }

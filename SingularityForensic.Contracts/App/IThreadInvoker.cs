@@ -42,4 +42,69 @@ namespace SingularityForensic.Contracts.App {
             Current.UIInvoke(act);
         }
     }
+
+    public static class ThreadInvokerExtensions {
+
+        /// <summary>
+        /// 添加某个集合的元素转化后到添加另一个元素集合(通常是与UI相关的元素);
+        /// 本方法对于数据量比较大的集合添加时,对于改善UI卡顿是有用的;
+        /// </summary>
+        /// <typeparam name="TOriginalEntity">原元素种类</typeparam>
+        /// <typeparam name="TEntity">需添加的元素种类</typeparam>
+        /// <param name="entitySet">新集合</param>
+        /// <param name="oriEntitySet">原集合</param>
+        /// <param name="factory">转化工厂方法</param>
+        /// <param name="bufferLength">缓冲区大小</param>
+        /// <param name="sleepInterval">睡眠周期</param>
+        public static void AddBufferItemsToCollection<TOriginalEntity,TEntity>(
+            ICollection<TEntity> entitySet,
+            IEnumerable<TOriginalEntity> oriEntitySet,
+            Func<TOriginalEntity,TEntity> factory,
+            Action callBack = null,
+            int bufferLength = 10,
+            int sleepInterval = 1) {
+
+            if(oriEntitySet == null) {
+                throw new ArgumentNullException(nameof(oriEntitySet));
+            }
+            if(entitySet == null) {
+                throw new ArgumentNullException(nameof(entitySet));
+            }
+            if(factory == null) {
+                throw new ArgumentNullException(nameof(factory));
+            }
+            if(bufferLength <= 0) {
+                throw new ArgumentException($"{nameof(bufferLength)} should be larger than zero.");
+            }
+
+            var oriEntityBuffer = new TEntity[bufferLength];
+            var index = 0;
+
+            ThreadInvoker.BackInvoke(() => {
+                foreach (var oriEntity in oriEntitySet) {
+                    var entity = factory(oriEntity);
+                    
+                    oriEntityBuffer[index] = entity;
+                    index++;
+                    if(index == bufferLength) {
+                        ThreadInvoker.UIInvoke(() => {
+                            foreach (var row in oriEntityBuffer) {
+                                entitySet.Add(row);
+                            }
+                        });
+                        System.Threading.Thread.Sleep(sleepInterval);
+                        index = 0;
+                    }
+                }
+
+                for (int i = 0; i < index; i++) {
+                    ThreadInvoker.UIInvoke(() => {
+                        entitySet.Add(oriEntityBuffer[i]);
+                    });
+                }
+                callBack?.Invoke();
+            });
+            
+        }
+    }
 }

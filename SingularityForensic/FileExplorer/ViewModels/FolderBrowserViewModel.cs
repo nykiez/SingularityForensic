@@ -119,7 +119,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
                     MouseService.AppCusor = Cursor.Normal;
                 });
-                
             };
 
             loadingDialog.ShowDialog();

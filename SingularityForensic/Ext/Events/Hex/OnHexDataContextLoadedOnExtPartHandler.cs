@@ -3,7 +3,6 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
-using SingularityForensic.Contracts.PropertyGrid;
 using System.ComponentModel.Composition;
 using System.Linq;
 
