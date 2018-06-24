@@ -35,42 +35,55 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFC.Util.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFC.Util.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Controls.0.1.2.1\lib\NET451\CDFCControls.dll</HintPath>
+      <HintPath>..\packages\CDFC.Controls.0.1.2.2\lib\NET451\CDFCControls.dll</HintPath>
     </Reference>
     <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCCultures.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFCCultures.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFCUIContracts.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CDFC.Common.0.1.3.8\lib\NET451\EventLogger.dll</HintPath>
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\EventLogger.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ewf.net, Version=1.0.6630.32560, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EWF.NET\ewf.net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
       <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -80,6 +93,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -96,21 +110,27 @@
     </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.GridView.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Input.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Navigation, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2015.3.930.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
@@ -351,10 +371,17 @@
     <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
       <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
       <Name>SingularityForensic.Contracts</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityForensic.Themes\SingularityForensic.Themes.csproj">
+      <Project>{42c3a445-0dd2-47a8-921c-921b65d81d50}</Project>
+      <Name>SingularityForensic.Themes</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SingularityForensic\SingularityForensic.csproj">
       <Project>{addffd58-e151-4487-a825-4db19e4fc0b9}</Project>
       <Name>SingularityForensic</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
@@ -381,6 +408,8 @@ Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevMa
 Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
+
+
 
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)DirectOutIn.dll"
 Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"

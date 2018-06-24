@@ -12,11 +12,7 @@
         Title="{DynamicResource CreateNewCase}" Height="320" SizeToContent="Width">
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/TextBox.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+           
             <ControlTemplate x:Key="TransparentButtonTempate" TargetType="{x:Type ButtonBase}">
                 <Border x:Name="border" BorderBrush="Transparent " BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
                     <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>

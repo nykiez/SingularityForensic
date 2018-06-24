@@ -9,13 +9,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Title="{DynamicResource ReComPresetting}" Height="200" Width="450" Style="{DynamicResource MsgWindowStyle}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

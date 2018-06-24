@@ -14,10 +14,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Menu.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/GroupBox.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source="{Binding Icon}" Width="16" Margin="0,0" />

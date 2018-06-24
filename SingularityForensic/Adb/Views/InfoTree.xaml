@@ -8,11 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/Menu.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/GroupBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TreeViewEx.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+            
             <HierarchicalDataTemplate x:Key="TreeViewExItemTemplate" ItemsSource="{Binding Children}" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Margin="6,0" Source="{Binding Icon}" />

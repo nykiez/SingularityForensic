@@ -9,13 +9,7 @@
                          ShowCloseButton="True" KeyDown="CorneredWindow_KeyDown"
         Title="{DynamicResource About}" Style="{DynamicResource MsgWindowStyle}" FontFamily="Courier New"
         mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height"  Width="550" >
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+    
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding ExitCommand}"/>
     </Window.InputBindings>

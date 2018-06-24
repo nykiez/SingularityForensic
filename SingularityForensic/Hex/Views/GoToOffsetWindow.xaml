@@ -8,13 +8,6 @@
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
          ResizeMode="NoResize"
     Title="{DynamicResource GoToOffset}" SizeToContent="Height" Width="300" Style="{DynamicResource MsgWindowStyle}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -31,14 +24,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Text="新位置:" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="{DynamicResource GoToOffset_NewPosition}" Grid.Row="1" Grid.Column="1"/>
         <DockPanel Grid.Column="2" Grid.Row="1">
             <!--<TextBlock DockPanel.Dock="Right" Text="Hex" />-->
             <Button DockPanel.Dock="Right" Width="40" Style="{DynamicResource CeleronBtn}" Margin="12,0" Content="Bytes" MinWidth="0" />
             <TextBox Text="0" x:Name="txbOffset" />
         </DockPanel>
-        
-        <TextBlock Text="相对于:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top"/>
+
+        <TextBlock Text="{DynamicResource GoToOffset_PositiveTo}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top"/>
         <StackPanel Grid.Row="3" Grid.Column="2" >
             <StackPanel.Resources>
                 <Style TargetType="RadioButton">
@@ -46,15 +39,15 @@
                     <Setter Property="Margin" Value="0,3"/>
                 </Style>
             </StackPanel.Resources>
-            <RadioButton x:Name="rbStart" IsChecked="True">起始位置</RadioButton>
-            <RadioButton x:Name="rbCurrent" >当前位置</RadioButton>
-            <RadioButton x:Name="rbBackFromCurrent" >当前位置(从后向前)</RadioButton>
-            <RadioButton x:Name="rbBackFrom" >终止位置(从后向前)</RadioButton>
+            <RadioButton x:Name="rbStart" IsChecked="True" Content="{DynamicResource PositiveTo_Begin}" />
+            <RadioButton x:Name="rbCurrent" Content="{DynamicResource PositiveTo_Current}"/>
+            <RadioButton x:Name="rbBackFromCurrent" Content="{DynamicResource PositiveTo_Current_BackFrom}" />
+            <RadioButton x:Name="rbBackFrom" Content="{DynamicResource PositiveTo_End}"/>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.ColumnSpan="4">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6">
-                <Button Content="确定" Margin="24,0" Click="ConfirmButton_Click" />
-                <Button Content="取消" Margin="24,0" Click="CancelButton_Click" Style="{DynamicResource DenyBtnStyle}" />
+                <Button Content="{DynamicResource Confirm}" Style="{DynamicResource SureBtnStyle}" Margin="24,0" Click="ConfirmButton_Click" />
+                <Button Content="{DynamicResource Cancel}" Margin="24,0" Click="CancelButton_Click" Style="{DynamicResource DenyBtnStyle}" />
             </StackPanel>
         </StackPanel>
     </Grid>

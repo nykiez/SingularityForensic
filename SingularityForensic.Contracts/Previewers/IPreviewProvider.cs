@@ -39,10 +39,5 @@ namespace SingularityForensic.Contracts.Previewers {
         int Order { get; }
     }
 
-    public interface IPreviewer : IDisposable,IUIObjectProvider {
-        /// <summary>
-        /// UI元素;
-        /// </summary>
-        object UIObject { get; }
-    }
+    
 }

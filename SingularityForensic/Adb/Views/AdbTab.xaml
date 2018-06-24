@@ -9,13 +9,7 @@
              xmlns:vms="clr-namespace:SingularityForensic.Adb.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TabControl.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

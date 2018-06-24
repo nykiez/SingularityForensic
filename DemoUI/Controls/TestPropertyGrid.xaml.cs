@@ -32,7 +32,7 @@ namespace DemoUI.Controls {
                 Item = item
             };
             this.DataContext = _vm;
-
+            
         }
         private PropertyGridTestVM _vm;
         int index = 0;

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:commands="clr-namespace:CDFCUIContracts.Commands;assembly=CDFCUIContracts"
-        mc:Ignorable="d" Title="工作中" ResizeMode="NoResize"
+        mc:Ignorable="d" Title="{DynamicResource WindowTitle_Working}" ResizeMode="NoResize"
         Style="{DynamicResource MsgWindowStyle}"
         WindowStartupLocation="CenterScreen"
         Height="200" Width="450">

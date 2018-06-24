@@ -8,12 +8,9 @@
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
         WindowStartupLocation="CenterScreen" KeyDown="CorneredWindow_KeyDown"
         mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height" WindowCornerRadius="0"
-        Title="{DynamicResource SignSearch}"  Width="600" Style="{DynamicResource MsgWindowStyle}">
+        Title="{DynamicResource WindowTitle_CustomSignSearch}"  Width="600" Style="{DynamicResource MsgWindowStyle}">
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="CheckBoxStyle1" TargetType="{x:Type CheckBox}">
                 <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}"/>
                 <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>

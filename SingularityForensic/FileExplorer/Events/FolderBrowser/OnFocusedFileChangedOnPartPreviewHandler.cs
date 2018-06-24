@@ -13,6 +13,9 @@ using System.IO;
 using System.Linq;
 
 namespace SingularityForensic.FileExplorer.Events {
+    /// <summary>
+    /// 文件选中行发生变化的时候预览变化;
+    /// </summary>
     [Export(typeof(IFocusedFileRowChangedEventHandler))]
     class OnFocusedFileChangedOnPartPreviewHandler : IFocusedFileRowChangedEventHandler {
         [ImportingConstructor]

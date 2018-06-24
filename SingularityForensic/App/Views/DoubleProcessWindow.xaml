@@ -7,15 +7,8 @@
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         mc:Ignorable="d" Style="{DynamicResource MsgWindowStyle}" ResizeMode="NoResize"
-        Title="案件加载"  SizeToContent="Height" WindowStartupLocation="CenterScreen" Width="420">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/ProgressBar.xaml"/>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        Title="{DynamicResource WindowTitle_CaseLoading}"  SizeToContent="Height" WindowStartupLocation="CenterScreen" Width="420">
+    
     <Border>
         <Grid>
             <Grid.RowDefinitions>

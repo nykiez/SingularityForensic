@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using System;
 using System.Collections.Generic;
+using CDFC.Util.PInvoke;
 
 namespace SingularityForensic.Ext {
     class ExtFileInfo {
@@ -13,7 +14,7 @@ namespace SingularityForensic.Ext {
                 if(BlockListPtr == IntPtr.Zero) {
                     yield break;
                 }
-
+                
                 foreach (var block in BlockListPtr.GetStructs<StBlockList>(p => p.Next)) {
                     yield return block;
                 } 

@@ -7,13 +7,6 @@
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows"  ResizeMode="NoResize"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
         Title="{DynamicResource SearchForHexValue}" SizeToContent="Height" Width="300" Style="{DynamicResource MsgWindowStyle}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6"/>

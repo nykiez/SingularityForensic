@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 
-                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Themes;component/Themes/Generic.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Controls/Themes/Generic.xaml"/>
                 <app:ResourceDictionaryEx Name="{x:Static app:Constants.LanguageDict}">
                     <ResourceDictionary.MergedDictionaries>

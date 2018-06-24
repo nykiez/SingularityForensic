@@ -22,7 +22,7 @@ namespace SingularityForensic.MainPage.Views {
             if(window == null) {
                 return;
             }
-
+            
             window.Closed += Window_Closed;
         }
 

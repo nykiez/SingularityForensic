@@ -11,10 +11,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/TabControl.xaml"/>
-                <!--<ResourceDictionary Source="pack://application:,,,/Singularity.UI.Themes;component/GroupBox.xaml"/>-->
-            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="MeTabControlEx" TargetType="{x:Type controls:TabControlEx}">
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>

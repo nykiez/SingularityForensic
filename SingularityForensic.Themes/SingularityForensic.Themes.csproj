@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42C3A445-0DD2-47A8-921C-921B65D81D50}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>SingularityForensic.Themes</RootNamespace>
+    <AssemblyName>SingularityForensic.Themes</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SingularityForensic.Themes.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CDFC.Util, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFC.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFCControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Controls.0.1.2.2\lib\NET451\CDFCControls.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFCCultures, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFCCultures.dll</HintPath>
+    </Reference>
+    <Reference Include="CDFCUIContracts, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\CDFCUIContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="EventLogger, Version=0.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CDFC.Common.0.1.4.1\lib\NET451\EventLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.4.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\AvalonBrushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\CorneredWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroWindow2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Thickness.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TreeViewEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Themes\Adobe-Heiti-Std-R.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Menu\Tooltip-Bg-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\PinClose_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\ProgressBar\Pro_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\ProgressBar\Pro_Val.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\FolderBrowser\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\FolderBrowser\FilterUsing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Menu_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\MenuItem_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Sign_Deleted.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Hover\BtnClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Hover\CommandBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Normal\BtnClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Normal\BtnMax_Maximumed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Normal\BtnMax_Normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleBar\Normal\BtnMin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\TitleIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Calc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Calc_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Collapse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Collapse_Hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_CollapseBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_ConnectToDevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_ConnectToDevice_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_CopyToSector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_CopyToSector_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_CreateImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_CreateImg_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Expand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Expand_Hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_New_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Open_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenDisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenDisk_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenFile_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_OpenFolder_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Print_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Property.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Property_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Save_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Snapshot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_SnapShot_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_SSearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\ToolBar\Btn_Undo_Click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_Case.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_CaseActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_Device.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_DeviceActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_Directory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_DirectoryActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_Partition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_PartitionActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_RegularFile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\Shell\Type_Unknown.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockAnchorableBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockAnchorableLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockAnchorableRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockAnchorableTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentAsAnchorableBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentAsAnchorableLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentAsAnchorableRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentAsAnchorableTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentInside.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockDocumentTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockPaneEmpty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\DockPaneLargeEmpty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\HTabGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\Locked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinAutoHide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinAutoHide_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinAutoHide_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinClose_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinClose_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinDocMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinDocMenu_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMaximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMaximize_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMaximize_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMenu_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinMenu_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinRestore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinRestore_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\PinRestore_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\TabItemActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TabControl\VTabGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\TextBox\Search_Field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Images\RadioButton\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SingularityForensic.Contracts\SingularityForensic.Contracts.csproj">
+      <Project>{ad6da6a6-29ac-4de0-a007-ccb3a61fbff7}</Project>
+      <Name>SingularityForensic.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

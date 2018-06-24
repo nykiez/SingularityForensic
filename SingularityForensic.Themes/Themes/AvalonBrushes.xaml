@@ -202,7 +202,7 @@
     <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
     <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
     <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#ACACAC"/>
-    <ImageBrush x:Key="TabItem.Selected.Background"  ImageSource="/SingularityForensic.Contracts;component/Themes/Images/TabControl/TabItemActive.png" />
+    <ImageBrush x:Key="TabItem.Selected.Background"  ImageSource="/SingularityForensic.Themes;component/Themes/Images/TabControl/TabItemActive.png" />
 
     <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#ECF4FC" Offset="0.0"/>

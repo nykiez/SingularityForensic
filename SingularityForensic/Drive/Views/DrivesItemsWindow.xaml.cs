@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using CDFCControls.Controls;
+using System.Windows;
 
 namespace SingularityForensic.Drive.Views {
     /// <summary>
     /// Drive项选择Window;
     /// </summary>
-    public partial class DrivesItemsWindow : Window {
+    public partial class DrivesItemsWindow : CorneredWindow {
         public DrivesItemsWindow() {
             InitializeComponent();
         }

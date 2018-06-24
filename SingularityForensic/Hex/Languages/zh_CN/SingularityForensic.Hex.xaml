@@ -29,4 +29,10 @@
   <sys:String x:Key="BytesToCharEncodingName_UTF8">UTF8</sys:String>
   <sys:String x:Key="BytesToCharEncodingName_UTF16">UTF16</sys:String>
   <sys:String x:Key="BytesToCharEncodingName_GBK">GBK(简体中文)</sys:String>
+  <sys:String x:Key="GoToOffset_NewPosition">新位置:</sys:String>
+  <sys:String x:Key="GoToOffset_PositiveTo">相对于:</sys:String>
+  <sys:String x:Key="PositiveTo_Begin">起始位置</sys:String>
+  <sys:String x:Key="PositiveTo_Current">当前位置</sys:String>
+  <sys:String x:Key="PositiveTo_Current_BackFrom">当前位置(从后向前)</sys:String>
+  <sys:String x:Key="PositiveTo_End">终止位置(从后向前)</sys:String>
 </ResourceDictionary>

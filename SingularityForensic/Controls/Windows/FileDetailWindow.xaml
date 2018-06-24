@@ -7,14 +7,7 @@
                     ResizeMode="NoResize" 
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="{DynamicResource FileDetailInfo}" Height="300" Width="300" Style="{DynamicResource MsgWindowStyle}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/CorneredWindow.xaml"/>
-                <ResourceDictionary Source="/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
