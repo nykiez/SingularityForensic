@@ -123,7 +123,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
             loadingDialog.ShowDialog();
             
-            this.FilesChanged?.Invoke(this, EventArgs.Empty);
+            this.FileCollectionChanged?.Invoke(this, EventArgs.Empty);
             //RaisePropertyChanged(nameof(FilterSettings));
 
 #if DEBUG
@@ -133,7 +133,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 #endif
         }
 
-        public event EventHandler FilesChanged;
+        public event EventHandler FileCollectionChanged;
         
         private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();
         
@@ -157,7 +157,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
             }
         }
-        
+
+
+        private INavNodeModel _selectedNavNode;
+        public INavNodeModel SelectedNavNode {
+            get => _selectedNavNode;
+            set => SetProperty(ref _selectedNavNode, value);
+        }
+
         public event EventHandler SelectedFileChanged;
         
 

@@ -84,9 +84,7 @@ namespace SingularityForensic.Hex {
             get => (_vm.BytesToCharEncoding as BytesToCharEncodingWrapper)?.Encoding;
             set => _vm.BytesToCharEncoding = new BytesToCharEncodingWrapper(value);  
         }
-
-        private IStackGrid<IUIObjectProvider> _stackGrid = StackGridFactory.CreateNew<IUIObjectProvider>(new System.Windows.Controls.Grid());
-        public IStackGrid<IUIObjectProvider> StackGrid => _stackGrid;
+        public IStackGrid<IUIObjectProvider> StackGrid { get; } = StackGridFactory.CreateNew<IUIObjectProvider>(new System.Windows.Controls.Grid());
 
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();

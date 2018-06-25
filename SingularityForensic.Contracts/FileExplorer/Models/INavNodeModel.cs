@@ -13,10 +13,8 @@ namespace SingularityForensic.Contracts.FileExplorer.Models {
     public interface INavNodeModel {
         IFile File { get; }
 
+        //ICollection<INavNodeModel> Children { get; }
         string Name { get; }
-
-        //跳转事件;
-        event EventHandler<IFile> EscapeRequired;
     }
 
     public interface INavNodeModelFactory {

@@ -22,22 +22,27 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// 当前选定的文件;
         /// </summary>
         IFileRow SelectedFile { get; }
+        /// <summary>
+        /// 当前聚焦的文件行;
+        /// </summary>
         IEnumerable<IFileRow> SelectedFiles { get; }
         //void AddSelectedFile(IEnumerable<IFileRow> fileRows);
 
         event EventHandler SelectedFileChanged;
         
         IEnumerable<IFileRow> Files { get; }
-        
+        event EventHandler FileCollectionChanged;
+
         /// <summary>
         /// 添加文件;
         /// </summary>
         /// <param name="files"></param>
         /// <param name="isFromUIThread">是否从UI线程调用的</param>
         void FillRows(IEnumerable<IFile> files);
-
-        event EventHandler FilesChanged;
+        
         ICollection<INavNodeModel> NavNodes{get;}
+        
+        INavNodeModel SelectedNavNode { get; }
     }
     
     /// <summary>
@@ -91,7 +96,6 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
             for (int i = 0; i < count; i++) {
                 var nodeFile = fileList[count - i - 1];
                 var navNode = NavNodeFactory.CreateNew(nodeFile);
-                navNode.EscapeRequired += (sender, e) => NavNode_EscapeRequiredWithVm(vm, e);
                 vm.NavNodes.Add(navNode);
             }
 

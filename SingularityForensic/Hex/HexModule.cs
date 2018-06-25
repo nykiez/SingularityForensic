@@ -15,7 +15,5 @@ namespace SingularityForensic.Hex {
             
             HexUIService.Current.Initialize();
         }
-
-        private IHexUIService _hexUIService;
     }
 }

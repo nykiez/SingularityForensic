@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/2008" 
              xmlns:gv="clr-namespace:SingularityForensic.Controls.GridView"
-             xmlns:pubCvts="clr-namespace:SingularityForensic.Contracts.Converters;assembly=SingularityForensic.Contracts"
+             xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cvts="http://singularity/converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:prism="http://prismlibrary.com/"
@@ -17,11 +18,12 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
+        <controls:BindingProxy x:Key="dataElement" Data="{Binding}" />
         <!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Contracts;component/Themes/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            --><!--<controls:BindingProxy x:Key="dataElement" Data="{Binding}" />-->
+            --><!---->
             <!--<Style TargetType="Button" x:Key="FilterButton" BasedOn="{StaticResource TransparentButton}">
                 <Setter Property='DockPanel.Dock' Value="Right"/>
                 <Setter Property="Height" Value="14"/>
@@ -44,8 +46,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <DockPanel x:Name="navDock" >
-            <ItemsControl ItemsSource="{Binding NavNodes}" DockPanel.Dock="Left">
+            
+            <!--<ItemsControl ItemsSource="{Binding NavNodes}" DockPanel.Dock="Left">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
                         <Setter Property="TextElement.Foreground" Value="Black"/>
@@ -69,41 +73,82 @@
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Button DockPanel.Dock="Right" Command="{Binding CancelFilteringCommand}" Height="14">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource TransparentButton}" >
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AnyFiltering}" Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <Image Source="/SingularityForensic;component/FileExplorer/Images/FolderBrowser/FilterUsing.png"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding AnyFiltering,FallbackValue=False}" Value="False">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <Image Source="/SingularityForensic;component/FileExplorer/Images/FolderBrowser/Filter.png"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
+            </ItemsControl>-->
             
-            <Border/>
-        </DockPanel>
+            <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
+            <telerik:RadBreadcrumb ItemsSource="{Binding NavNodes}" HeaderMemberPath="Name"  
+                                   CurrentItem="{Binding SelectedNavNode}">
 
+            </telerik:RadBreadcrumb>
+        </DockPanel>
         <gv:RadGridViewEx ItemsSource="{Binding FileRows}" Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended"
-  SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" SelectedItem="{Binding SelectedFile}"  AlternateRowBackground="{DynamicResource Envoirment.Background}" AlternationCount="2"
+  SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" 
+                          SelectedItem="{Binding SelectedFile}"  AlternateRowBackground="{DynamicResource Envoirment.Background}" AlternationCount="2"
                           IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView" Grid.Row="1" AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" 
                              >
+            <gv:RadGridViewEx.ControlPanelItems>
+                <telerik:ControlPanelItem >
+                    <telerik:ControlPanelItem.ButtonContent>
+                        <Grid HorizontalAlignment="Center" Height="16" Width="16" Margin="-3,0,0,0" ToolTip="{DynamicResource FolderBrowser_GroupChooser}">
+                            <Path Data="M2.6822092E-06,12.000001 L6.0000029,12.000001 L6.0000029,15.000001 L2.6822092E-06,15.000001 z M2.6822092E-06,8.000001 L6.0000029,8.000001 L6.0000029,11.000001 L2.6822092E-06,11.000001 z M0,0 L6,0 L6,3 L0,3 z" Fill="{telerik:Windows8Resource ResourceKey=StrongBrush}" Margin="4,0,9,0" Stretch="Fill"/>
+                            <Path Data="M0,0 L6,0 L6,3 L0,3 z" Fill="{telerik:Windows8Resource ResourceKey=StrongBrush}" Height="3" Margin="4,4,9,0" Stretch="Fill" VerticalAlignment="Top"/>
+                            <Path Data="M3,0 L3,3 L0,3 z" Fill="{telerik:Windows8Resource ResourceKey=StrongBrush}" HorizontalAlignment="Left" Height="3" Margin="0,4,0,0" Stretch="Fill" Stroke="{telerik:Windows8Resource ResourceKey=StrongBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="3" RenderTransformOrigin="0.5,0.5">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-45"/>
+                                        <ScaleTransform ScaleX="-2.3299793205922015E-08" ScaleY="4.4408920985006262E-16">
+                                        </ScaleTransform>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                            <Path Data="M0.50000036,12.499999 L2.5000005,12.499999 L2.5000005,14.499999 L0.50000036,14.499999 z M0.5,8.5 L2.5000002,8.5 L2.5000002,10.5 L0.5,10.5 z M0.5,4.5 L7.5,4.5 L7.5,6.5 L0.5,6.5 z M0.5,0.5 L7.5,0.5 L7.5,2.5 L0.5,2.5 z" HorizontalAlignment="Right" Stretch="Fill" Stroke="#FF767676" Width="8"/>
+                        </Grid>
+                    </telerik:ControlPanelItem.ButtonContent>
+                    <telerik:ControlPanelItem.Content>
+                        <ListBox ItemsSource="{Binding Columns}" BorderThickness="0" Padding="0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox Content="{Binding Header, Mode=OneWay}" IsChecked="{Binding IsVisible, Mode=TwoWay}" />
+                                        <!--<TextBox Text="{Binding Width,Mode=OneWay}"/>-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </telerik:ControlPanelItem.Content>
+                </telerik:ControlPanelItem>
+                <telerik:ControlPanelItem >
+                    <telerik:ControlPanelItem.ButtonContent>
+                        <Border Cursor="Hand" ToolTip="{DynamicResource FolderBrowser_CancelFiltering}" DataContext="{Binding Data,Source={StaticResource dataElement}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{Binding CancelFilteringCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Grid Cursor="Hand" >
+                                <Path  Width="12" Fill="{telerik:VisualStudio2013Resource ResourceKey=StrongBrush}" Visibility="{Binding AnyFiltering,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance},ConverterParameter=Reverse}"
+                                      Height="11" Stretch="Fill" Margin="2"
+                                      Data="M0,0 L11,0 L7,5 L7,9 L4,9 L4,5 z"/>
+                                <Path Width="12" Visibility="{Binding AnyFiltering,Converter={x:Static cvts:BoolToVisibilityConverter.StaticInstance},FallbackValue=Collapsed}"
+                                Height="11"
+                                Fill="{telerik:VisualStudio2013Resource ResourceKey=MarkerBrush}"
+                                Stretch="Fill"
+                                Margin="2"
+                                Data="M0,0 L11,0 L7,5 L7,9 L4,9 L4,5 z"/>
+                            </Grid>
+                        </Border>
+                    </telerik:ControlPanelItem.ButtonContent>
+                </telerik:ControlPanelItem>
+                <!--<telerik:ControlPanelItem>
+                    <telerik:ControlPanelItem.Content>
+                        <telerik:RadDataFilter Source="{Binding Items,ElementName=gridView}" 
+                                               ToolTip="{DynamicResource FolderBrowser_CustomFiltering}"/>
+                    </telerik:ControlPanelItem.Content>
+                </telerik:ControlPanelItem>-->
+            </gv:RadGridViewEx.ControlPanelItems>
             <gv:RadGridViewEx.Columns>
-                <gv:RowNumberColumn Header="#" 
+                <gv:RowNumberColumn Header="#"  
 								 Width="30" CellStyle="{StaticResource cellStyle}" />
                 
                 <!--<telerik:GridViewCheckBoxColumn IsThreeState="False"  DataMemberBinding="{Binding IsChecked}" Header="" />-->

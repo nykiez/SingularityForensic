@@ -26,7 +26,7 @@ namespace SingularityForensic.Hex.Events {
             //hexContext.LostFocus += (sender, e) => HandleOnLostFocus(hexContext);
         }
 
-        private void HandleOnLostFocus(IHexDataContext hexContext) {
+        private static void HandleOnLostFocus(IHexDataContext hexContext) {
             var positionItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position, _positionChildLength, 4);
             //RemoveItem(positionItem);
 
@@ -34,13 +34,13 @@ namespace SingularityForensic.Hex.Events {
             //RemoveItem(curCharValueItem);
         }
 
-        private void RemoveItem(IStatusBarObjectItem item) {
+        private static void RemoveItem(IStatusBarObjectItem item) {
             if (item != null && StatusBarService.Current.Children.Contains(item)) {
                 StatusBarService.Current.RemoveStatusBarItem(item);
             }
         }
 
-        private void HandleOnFocusChanged(IHexDataContext hexContext) {
+        private static void HandleOnFocusChanged(IHexDataContext hexContext) {
             if(hexContext == null) {
                 return;
             }
@@ -49,13 +49,13 @@ namespace SingularityForensic.Hex.Events {
             ShowChar(hexContext);
         }
 
-        private readonly GridChildLength _positionChildLength = new GridChildLength(GridLength.Auto);
+        private static readonly GridChildLength _positionChildLength = new GridChildLength(GridLength.Auto);
         
         /// <summary>
         /// 通知位置;
         /// </summary>
         /// <param name="hexContext"></param>
-        private void NotifyPosition(IHexDataContext hexContext) {
+        private static void NotifyPosition(IHexDataContext hexContext) {
             var positionItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_Position,_positionChildLength,4);
 
             if (positionItem == null) {
@@ -74,12 +74,12 @@ namespace SingularityForensic.Hex.Events {
             
         }
 
-        private readonly GridChildLength _curCharValueChildLength = new GridChildLength(GridLength.Auto);
+        private static readonly GridChildLength _curCharValueChildLength = new GridChildLength(GridLength.Auto);
         /// <summary>
         /// 通知当前的字符值;
         /// </summary>
         /// <param name="hexContext"></param>
-        private void ShowChar(IHexDataContext hexContext) {
+        private static void ShowChar(IHexDataContext hexContext) {
             var curCharValueItem = StatusBarService.Current.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_CurCharValue, _curCharValueChildLength, 8);
             if (curCharValueItem == null) {
                 return;
@@ -101,7 +101,5 @@ namespace SingularityForensic.Hex.Events {
                 LoggerService.WriteCallerLine(ex.Message);
             }
         }
-
-        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -35,7 +36,7 @@ namespace SingularityForensic.MainPage.Views {
                 Directory.CreateDirectory(folder);
             }
             catch(Exception ex) {
-
+                LoggerService.WriteException(ex);
             }
             
         }
@@ -51,7 +52,7 @@ namespace SingularityForensic.MainPage.Views {
                 docking.SaveLayout(_layoutStream);
             }
             catch(Exception ex) {
-
+                LoggerService.WriteException(ex);
             }
 
             _layoutStream?.Dispose();

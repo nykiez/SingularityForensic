@@ -59,4 +59,7 @@
   <sys:String x:Key="ContextCommandName_Check">选中</sys:String>
   <sys:String x:Key="ContextCommandName_UnCheckSelected">取消选中</sys:String>
   <sys:String x:Key="ContextCommandName_CheckAll">全选</sys:String>
+    <sys:String x:Key="FolderBrowser_GroupChooser">选择列</sys:String>
+    <sys:String x:Key="FolderBrowser_CancelFiltering">取消过滤</sys:String>
+    <sys:String x:Key="FolderBrowser_CustomFiltering">自定义过滤</sys:String>
 </ResourceDictionary>

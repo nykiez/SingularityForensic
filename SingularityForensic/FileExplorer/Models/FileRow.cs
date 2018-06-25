@@ -126,8 +126,8 @@ namespace SingularityForensic.FileExplorer.Models {
                 FileMetaDataProvider = fileMetaDataProvider ?? throw new ArgumentNullException(nameof(fileMetaDataProvider));
             }
 
-            private AttributeCollection _attributes;
-            public override AttributeCollection Attributes => base.Attributes;
+            //private AttributeCollection _attributes;
+            //public override AttributeCollection Attributes => base.Attributes;
 
             public IFileMetaDataProviderProxy<TFile> FileMetaDataProvider { get; }
             public override Type ComponentType => typeof(FileRowProxy<TFile>);

@@ -25,17 +25,22 @@ namespace SingularityForensic.Drive {
     /// </summary>
     [Export(typeof(IDriveDialogService))]
     public class DriveDialogService : IDriveDialogService {
-        [Import]
-        Lazy<DriveItemsWindowViewModel> _vm;
+        [ImportingConstructor]
+        internal DriveDialogService(DriveItemsWindowViewModel vm) {
+            this._vm = vm;
+        }
+        
+        private DriveItemsWindowViewModel _vm;
 
         public (string driveType, object entity)? SelectDrive() {
-            var window = new DrivesItemsWindow();
-            window.DataContext = _vm.Value;
+            var window = new DrivesItemsWindow {
+                DataContext = _vm
+            };
             window.SetBinding(DrivesItemsWindow.SelectedItemProperty,
                 new Binding(nameof(DriveItemsWindowViewModel.SelectedUnit)));
             window.ShowDialog();
             
-            return _vm.Value.SelectedDriveTuple;
+            return _vm.SelectedDriveTuple;
         }
     }
 }

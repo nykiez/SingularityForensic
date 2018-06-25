@@ -32,7 +32,7 @@ namespace SingularityForensic.FileExplorer.Views {
                 newVM.GetSelectedRows = () => gridView.SelectedItems;
             }
 
-            if(e.OldValue is IInteractionGridViewModel oldVM){
+            if (e.OldValue is IInteractionGridViewModel oldVM){
                 oldVM.GetSelectedRows = null;
             }
         }

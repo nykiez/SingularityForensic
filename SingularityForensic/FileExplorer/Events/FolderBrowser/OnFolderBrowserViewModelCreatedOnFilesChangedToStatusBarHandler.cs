@@ -23,7 +23,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            args.FilesChanged += (sender, e) => RefreshFilesCount(args);
+            args.FileCollectionChanged += (sender, e) => RefreshFilesCount(args);
         }
         
         private void RefreshFilesCount(IFolderBrowserViewModel vm) {
