@@ -13,14 +13,10 @@ namespace SingularityForensic.FileSystem {
         /// </summary>
         /// <param name="parent">父文件</param>
         public FileBaseCollection(IFile parent) {
-            if (parent == null) {
-                throw new ArgumentNullException(nameof(parent));
-            }
-
-            this._parent = parent;
+            this._parent = parent ?? throw new ArgumentNullException(nameof(parent));
         }
 
-        private IFile _parent;
+        private readonly IFile _parent;
         //核心文件集合;
         private List<IFile> _children = new List<IFile>();
 

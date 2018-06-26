@@ -106,7 +106,7 @@ namespace SingularityForensic.FileExplorer.Helpers {
                 return string.Empty;
             }
 
-            var tempDirectory = $"{Environment.CurrentDirectory}/{Constants.TempDirectoryName}/";
+            var tempDirectory = $"{Environment.CurrentDirectory}\\{Constants.TempDirectoryName}\\";
             var tempFileName = tempDirectory + $"{blockFile.Name}";
 
             try {

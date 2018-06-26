@@ -13,9 +13,10 @@ namespace SingularityForensic.App {
         /// </summary>
         /// <param name="fileFullName"></param>
         public void OpenFolderAndSelectFile(string fileFullName) {
-            var psi = new ProcessStartInfo("explorer.exe");
-            psi.Arguments = $"/e,/select,{Path.GetFullPath(fileFullName)}";
-            psi.UseShellExecute = false;
+            var psi = new ProcessStartInfo("explorer.exe") {
+                Arguments = $"/e,/select,{Path.GetFullPath(fileFullName)}",
+                UseShellExecute = false
+            };
             try {
                 Process.Start(psi);
             }
@@ -29,8 +30,9 @@ namespace SingularityForensic.App {
         /// </summary>
         /// <param name="fileFullName">eg：D:\Test\模版8.doc</param>
         public void OpenFile(string fileFullName) {
-            var psi = new ProcessStartInfo("Explorer.exe");
-            psi.Arguments = $"'{fileFullName}'";
+            var psi = new ProcessStartInfo("Explorer.exe") {
+                Arguments = $"\"{fileFullName}\""
+            };
             try {
                 Process.Start(psi);
             }

@@ -27,7 +27,7 @@ namespace SingularityForensic.Test.FileExplorer.Events {
 
         [TestMethod()]
         public void HandleTest() {
-            var vm = new Mock<IFolderBrowserViewModel>();
+            var vm = new Mock<SingularityForensic.Contracts.FileExplorer.ViewModels.IFolderBrowserDataContext>();
             var cmis = new List<ICommandItem>();
             vm.SetupGet(p => p.ContextCommands).Returns(cmis);
             vm.Setup(p => p.AddContextCommand(It.IsAny<ICommandItem>())).Callback<ICommandItem>(cmi => cmis.Add(cmi));

@@ -26,9 +26,7 @@ namespace SingularityForensic.FileSystem {
             stoken.BaseStream = stream;
             stoken.PartsType = LanguageService.Current?.FindResourceString(Constants.PartsType_Unknown);
             stoken.Name = name;
-            stoken.TypeGuids = new string[] {
-                    Constants.DeviceType_Unknown
-                };
+            stoken.TypeGuid = Constants.DeviceType_Unknown;
             stoken.BlockSize = 0;
             stoken.Size = stream.Length;
 
@@ -44,9 +42,7 @@ namespace SingularityForensic.FileSystem {
             var partStoken = part.GetStoken(Constants.PartitionKey_Unknown);
             partStoken.BaseStream = stream;
             partStoken.Name = name;
-            partStoken.TypeGuids = new string[] {
-                Constants.PartitionType_Unknown
-            };
+            partStoken.TypeGuid = Constants.PartitionType_Unknown;
             partStoken.BlockSize = 0;
             partStoken.Size = stream.Length;
 

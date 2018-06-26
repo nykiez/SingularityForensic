@@ -388,6 +388,7 @@
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnPartitionDoubleClickedHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingOnCustomSignSearchHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnTreeUnitAddedToAddFileSystemUnitHandler.cs" />
+    <Compile Include="FileExplorer\FolderBrowserDataContext.cs" />
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />

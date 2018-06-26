@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using SysIO = System.IO;
-using CDFCCultures.Helpers;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Hex;
@@ -328,19 +327,22 @@ namespace SingularityForensic.FileExplorer {
                     if (!(vm.SelectedFile.File is IBlockGroupedFile blockFile)) {
                         return;
                     }
-                    
-                    var tempFileName = FileExplorerUIHelper.SaveFileToTempPath(blockFile);
-                    if (string.IsNullOrEmpty(tempFileName)) {
-                        return;
-                    }
+                    ThreadInvoker.BackInvoke(() => {
+                        var tempFileName = FileExplorerUIHelper.SaveFileToTempPath(blockFile);
+                        if (string.IsNullOrEmpty(tempFileName)) {
+                            return;
+                        }
 
-                    try {
-                        ExplorerHelper.OpenFile(tempFileName);
-                    }
-                    catch(Exception ex) {
-                        LoggerService.WriteCallerLine(ex.Message);
-                        MsgBoxService.Show(ex.Message);
-                    }
+                        try {
+                            LocalExplorerService.OpenFile(tempFileName);
+                        }
+                        catch (Exception ex) {
+                            LoggerService.WriteCallerLine(ex.Message);
+                            ThreadInvoker.UIInvoke(() => {
+                                MsgBoxService.Show(ex.Message);
+                            });
+                        }
+                    });
                 },
 
                 () => {

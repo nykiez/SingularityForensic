@@ -43,7 +43,7 @@ namespace SingularityForensic.Test.BaseDevice {
             var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
 
             //检查"签名";
-            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.BaseDevice.Constants.DeviceType_DOS));
+            Assert.IsTrue(file.TypeGuid == SingularityForensic.BaseDevice.Constants.DeviceType_DOS);
 
             if (file is IDevice device) {
                 Assert.AreEqual(device.PartitionEntries.Count(), DOSPartEntryCount);
@@ -77,7 +77,7 @@ namespace SingularityForensic.Test.BaseDevice {
             var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
 
             //检查"签名";
-            Assert.IsTrue(file.TypeGuids.Contains(SingularityForensic.BaseDevice.Constants.DeviceType_GPT));
+            Assert.IsTrue(file.TypeGuid == SingularityForensic.BaseDevice.Constants.DeviceType_GPT);
 
             if(file is IDevice device) {
                 Assert.AreEqual(GPTPartCount,device.PartitionEntries.Count());

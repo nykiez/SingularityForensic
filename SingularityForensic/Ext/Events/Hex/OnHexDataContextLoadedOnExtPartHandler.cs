@@ -21,12 +21,11 @@ namespace SingularityForensic.Ext.Events.Hex {
                 return;
             }
 
-            var part = hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IPartition;
-            if (part == null) {
+            if (!(hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) is IPartition part)) {
                 return;
             }
 
-            if (!part.TypeGuids?.Contains(Constants.PartitionType_Ext) ?? false) {
+            if (part.TypeGuid != Constants.PartitionType_Ext) {
                 return;
             }
 

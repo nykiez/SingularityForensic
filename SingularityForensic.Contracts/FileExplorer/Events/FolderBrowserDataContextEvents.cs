@@ -11,23 +11,23 @@ namespace SingularityForensic.Contracts.FileExplorer.Events {
     /// <summary>
     /// 目录/资源浏览器模型被创建事件;
     /// </summary>
-    public class FolderBrowserViewModelCreatedEvent : 
-        PubSubEvent<IFolderBrowserViewModel> {
+    public class FolderBrowserDataContextCreatedEvent : 
+        PubSubEvent<IFolderBrowserDataContext> {
         
     }
 
-    public interface IFolderBrowserViewModelCreatedEventHandler : IEventHandler<IFolderBrowserViewModel> {
+    public interface IFolderBrowserDataContextCreatedEventHandler : IEventHandler<IFolderBrowserDataContext> {
 
     }
 
     /// <summary>
     /// 被卸载事件;
     /// </summary>
-    public class FolderBrowserViewModelUnLoadedEvent : PubSubEvent<IFolderBrowserViewModel> {
+    public class FolderBrowserViewModelUnLoadedEvent : PubSubEvent<IFolderBrowserDataContext> {
 
     }
 
-    public interface IFolderBrowserViewModelUnLoadedEventHandler : IEventHandler<IFolderBrowserViewModel> {
+    public interface IFolderBrowserViewModelUnLoadedEventHandler : IEventHandler<IFolderBrowserDataContext> {
 
     }
 }

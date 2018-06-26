@@ -21,16 +21,6 @@ namespace SingularityForensic.FileSystem {
 
         public int BlockSize => _stoken?.BlockSize ?? 0;
         
-        public override IEnumerable<string> TypeGuids {
-            get {
-                if (base.TypeGuids != null) {
-                    foreach (var guid in base.TypeGuids) {
-                        yield return guid;
-                    }
-                }
-            }
-        }
-
         private bool _disposed = false;
         public virtual void Dispose() {
             if (_disposed) {

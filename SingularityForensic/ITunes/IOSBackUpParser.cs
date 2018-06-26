@@ -57,9 +57,7 @@ namespace SingularityForensic.ITunes {
                 }
                 var direct = FileFactory.CreateDirectory(Constants.DirectoryKey_ITunesBackup);
                 var dirStoken = direct.GetStoken(Constants.DirectoryKey_ITunesBackup);
-                dirStoken.TypeGuids = new string[] {
-                    Constants.DirectoryType_ITunesBackUpDir
-                };
+                dirStoken.TypeGuid = Constants.DirectoryType_ITunesBackUpDir;
                 dirStoken.Name = di.Name;
 #if DEBUG
                 int index = 0;

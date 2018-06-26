@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
@@ -84,8 +85,13 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var folderBrowseViewModel = doc.GetInstance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
-            if (folderBrowseViewModel == null) {
+            var folderBrowseDataContext = doc.GetInstance<IFolderBrowserDataContext>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserDataContext);
+            if (folderBrowseDataContext == null) {
+                LoggerService.WriteCallerLine($"{nameof(folderBrowseDataContext)} can't be null.");
+                return;
+            }
+            var folderBrowseViewModel = folderBrowseDataContext.FolderBrowserViewModel;
+            if(folderBrowseViewModel == null) {
                 LoggerService.WriteCallerLine($"{nameof(folderBrowseViewModel)} can't be null.");
                 return;
             }

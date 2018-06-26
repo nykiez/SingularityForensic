@@ -15,7 +15,7 @@ namespace SingularityForensic.ITunes {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            if (file.TypeGuids?.Contains(Constants.RegularFileType_ITunesBackUp) ?? false) {
+            if (file.TypeGuid != Constants.RegularFileType_ITunesBackUp) {
                 return null;
             }
 

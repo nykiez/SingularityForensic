@@ -53,9 +53,7 @@ namespace SingularityForensic.Ext {
             stoken.BaseStream = stream;
             stoken.Name = name;
             stoken.Size = stream.Length;
-            stoken.TypeGuids = new string[] {
-                Constants.PartitionType_Ext
-            };
+            stoken.TypeGuid = Constants.PartitionType_Ext;
 
             var extUnmanagedManager = new ExtUnmanagedManager(stream);
             var partInfo = new ExtPartInfo {
@@ -97,7 +95,7 @@ namespace SingularityForensic.Ext {
                 return;
             }
 
-            if (!part.TypeGuids?.Contains(Constants.PartitionType_Ext) ?? false) {
+            if (part.TypeGuid != Constants.PartitionType_Ext) {
                 return;
             }
 
@@ -286,9 +284,7 @@ namespace SingularityForensic.Ext {
                     var dir = FileFactory.CreateDirectory(Constants.DirectoryKey_Ext);
 
                     var dirStoken = dir.GetStoken(Constants.DirectoryKey_Ext);
-                    dirStoken.TypeGuids = new string[] {
-                        Constants.DirectoryType_Ext
-                    };
+                    dirStoken.TypeGuid = Constants.DirectoryType_Ext;
 
                     file = dir;
                     fileStoken2 = dirStoken;
@@ -309,10 +305,8 @@ namespace SingularityForensic.Ext {
                 else if (stExtDirEntry.file_type == Ext4FileType.RegularFile) {
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_Ext);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_Ext);
-                    
-                    regFileStoken.TypeGuids = new string[] {
-                        Constants.RegularFileType_Ext
-                    };
+
+                    regFileStoken.TypeGuid = Constants.RegularFileType_Ext;
 
                     file = regFile;
                     fileStoken2 = regFileStoken;

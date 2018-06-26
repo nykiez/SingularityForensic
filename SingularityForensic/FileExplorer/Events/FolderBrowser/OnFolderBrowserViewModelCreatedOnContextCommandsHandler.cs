@@ -1,18 +1,24 @@
-﻿using SingularityForensic.Contracts.FileExplorer.Events;
+﻿using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
+using System;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
     /// 分区加入时加入基础右键菜单;
     /// </summary>
-    [Export(typeof(IFolderBrowserViewModelCreatedEventHandler))]
-    public class OnFolderBrowserViewModelCreatedOnContextCommandsHandler : IFolderBrowserViewModelCreatedEventHandler {
+    [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
+    public class OnFolderBrowserViewModelCreatedOnContextCommandsHandler : IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 0;
 
         public bool IsEnabled => true;
 
-        public void Handle(IFolderBrowserViewModel vm) {
+        public void Handle(IFolderBrowserDataContext dataContext) {
+            if(dataContext == null) {
+                throw new ArgumentNullException(nameof(dataContext));
+            }
+            var vm = dataContext.FolderBrowserViewModel;
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateSaveAsFileCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateSaveCheckedFilesCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateCheckCommandItem(vm));

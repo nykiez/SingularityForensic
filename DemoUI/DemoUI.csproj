@@ -149,6 +149,9 @@
     <Compile Include="Common\TestStackGrid.xaml.cs">
       <DependentUpon>TestStackGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TestBreadcrumb.xaml.cs">
+      <DependentUpon>TestBreadcrumb.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TestPropertyGrid.xaml.cs">
       <DependentUpon>TestPropertyGrid.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Common\TestStackGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TestBreadcrumb.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -152,7 +152,7 @@
     <Compile Include="FileExplorer\Events\FilterSettingsChangedEvent.cs" />
     <Compile Include="FileExplorer\Events\FocusedFileChangedEvent.cs" />
     <Compile Include="FileExplorer\Events\FocusedPartChangedEvent.cs" />
-    <Compile Include="FileExplorer\Events\FolderBrowserViewModelEvents.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowserDataContextEvents.cs" />
     <Compile Include="FileExplorer\Events\PartitionsBrowserViewModelCreatedEvent.cs" />
     <Compile Include="FileExplorer\Events\PartitionDoubleClickedEvent.cs" />
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />

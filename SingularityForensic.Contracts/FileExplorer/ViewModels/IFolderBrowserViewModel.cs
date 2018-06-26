@@ -40,34 +40,10 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// <param name="isFromUIThread">是否从UI线程调用的</param>
         void FillRows(IEnumerable<IFile> files);
         
-        ICollection<INavNodeModel> NavNodes{get;}
-        
         INavNodeModel SelectedNavNode { get; }
     }
     
-    /// <summary>
-    /// 文件系统资源管理器视图模型契约工厂类;
-    /// </summary>
-    public interface IFileExplorerViewModelFactory {
-        /// <summary>
-        /// 创建目录-文件资源管理器视图模型;
-        /// </summary>
-        /// <param name="part"></param>
-        /// <returns></returns>
-        IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection haveFileCollection);
-
-        /// <summary>
-        /// 创建设备-分区资源管理器视图模型;
-        /// </summary>
-        /// <param name="device"></param>
-        /// <returns></returns>
-        IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device);
-    }
-
-    public class FileExplorerViewModelFactory : GenericServiceStaticInstance<IFileExplorerViewModelFactory> {
-        public static IFolderBrowserViewModel CreateFolderBrowserViewModel(IHaveFileCollection haveFileCollection) => Current?.CreateFolderBrowserViewModel(haveFileCollection);
-        public static IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device) => Current?.CreatePartitionsBrowserViewModel(device);
-    }
+  
 
     /// <summary>
     /// 拓展;
@@ -84,24 +60,26 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
 
             vm.FillRows(fileCollection.Children);
 
-            vm.NavNodes.Clear();
-            IFile file = fileCollection;
-            var fileList = new List<IFile>();
-            while (file != null) {
-                fileList.Add(file);
-                file = file.Parent;
-            }
+            //var rootNavNode = 
+            //vm.NavNodes.Clear();
+            //IFile file = fileCollection;
+            //var fileList = new List<IFile>();
+            //while (file != null) {
+            //    fileList.Add(file);
+            //    file = file.Parent;
+            //}
 
-            var count = fileList.Count;
-            for (int i = 0; i < count; i++) {
-                var nodeFile = fileList[count - i - 1];
-                var navNode = NavNodeFactory.CreateNew(nodeFile);
-                vm.NavNodes.Add(navNode);
-            }
+            //var count = fileList.Count;
+            //for (int i = 0; i < count; i++) {
+            //    var nodeFile = fileList[count - i - 1];
+            //    var navNode = NavNodeFactory.CreateNew();
+            //    navNode.SetInstance(nodeFile, Constants.NavNodeTag_File);
+            //    vm.NavNodes.Add(navNode);
+            //}
 
         }
 
-        private static void NavNode_EscapeRequiredWithVm(IFolderBrowserViewModel vm, IFile e) {
+        private static void NavNode_EscapeRequiredWithVm(IFolderBrowserDataContext vm, IFile e) {
             if (!(e is IHaveFileCollection haveFileCollection)) {
                 return;
             }
@@ -110,7 +88,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
                 return;
             }
 
-            FillWithCollection(vm, haveFileCollection);
+            FillWithCollection(vm.FolderBrowserViewModel, haveFileCollection);
         }
     }
 }

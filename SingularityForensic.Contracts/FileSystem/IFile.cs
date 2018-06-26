@@ -16,7 +16,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <summary>
         /// 类型标识;
         /// </summary>
-        IEnumerable<string> TypeGuids { get; }
+        string TypeGuid { get; }
 
         /// <summary>
         /// 父节点;
@@ -40,7 +40,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// 用于某块内部使用的文件信息(Tag可自定义,外部需要根据Key拿到所需数据);
     /// </summary>
     public abstract class FileStokenBase : ExtensibleObject, IHaveExtendTime {
-        public IEnumerable<string> TypeGuids { get; set; }          //文件类型;
+        public string TypeGuid { get; set; }          //文件类型;
         public string Name { get; set; }                //文件名;
         public long Size { get; set; }                  //文件大小;
 

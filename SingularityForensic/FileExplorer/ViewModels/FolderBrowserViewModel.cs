@@ -16,18 +16,30 @@ using SingularityForensic.Controls;
 using SingularityForensic.Contracts.FileExplorer.Models;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.App;
+using System.Threading;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
     /// 目录/资源浏览器模型;
     /// </summary>
-    public partial class FolderBrowserViewModel : DataGridExViewModel, IFolderBrowserViewModel {
+    public partial class FolderBrowserViewModel : DataGridExViewModel, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel {
         /// <summary>
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
         /// <param name="part">模型所属主文件</param>
         public FolderBrowserViewModel(IHaveFileCollection part) {
             this.HaveFileCollection = part ?? throw new ArgumentNullException(nameof(part));
+
+#if DEBUG
+            _rootNavNode = NavNodeFactory.CreateNew();
+            _rootNavNode.Name = "dada";
+            for (int i = 0; i < 10; i++) {
+                var node = NavNodeFactory.CreateNew();
+                node.Name = $"child{i}";
+                _rootNavNode.Children.Add(node);
+            }
+#endif
+            Initialize();
         }
 
         public void Initialize() {
@@ -59,7 +71,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     return;
                 }
                 SelectedFileChanged?.Invoke(this, EventArgs.Empty);
-                PubEventHelper.PublishEventToHandlers((this as IFolderBrowserViewModel, SelectedFile), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
+                PubEventHelper.PublishEventToHandlers((this as Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel, SelectedFile: SelectedFile), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
                 PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
 
 #if DEBUG
@@ -67,7 +79,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 #endif
             }
         }
-        
+
+        private long fillPriLevel = 0;
+        private AutoResetEvent fillEvt = new AutoResetEvent(true);
         /// <summary>
         /// 填充行;
         /// </summary>
@@ -76,20 +90,16 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             if (files == null) {
                 return;
             }
-            
-            ThreadInvoker.UIInvoke(() => {
-                FileRows.Clear();
-                MouseService.AppCusor = Cursor.Loading;
-            });
-            
-            var loadingDialog = DialogService.Current?.CreateLoadingDialog();
-            if(loadingDialog != null) {
-                loadingDialog.IsProgressVisible = false;
-            }
 
+            var thisPriLevel = ++fillPriLevel;
             
-            loadingDialog.Word = LanguageService.FindResourceString(Constants.MsgText_FileBeingShown);
-            loadingDialog.DoWork += (sender, e) => {
+            BusyWord = LanguageService.FindResourceString(Constants.MsgText_FileBeingShown);
+            FileRows.Clear();
+            IsBusy = true;
+            MouseService.AppCusor = Cursor.Loading;
+
+            ThreadInvoker.BackInvoke(() => {
+                fillEvt.WaitOne();
                 var bufferLength = 10;
                 var bufferRows = new IFileRow[bufferLength];
 
@@ -97,9 +107,6 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 foreach (var file in files) {
                     var fileRow = FileRowFactory.Current.CreateFileRow(file);
                     
-                    if (loadingDialog.CancellationPending) {
-                        return;
-                    }
                     bufferRows[index] = fileRow;
                     index++;
                     if (index == bufferLength) {
@@ -111,6 +118,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         System.Threading.Thread.Sleep(1);
                         index = 0;
                     }
+                    if(thisPriLevel != fillPriLevel) {
+                        break;
+                    }
                 }
                 ThreadInvoker.UIInvoke(() => {
                     for (int i = 0; i < index; i++) {
@@ -119,10 +129,12 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
                     MouseService.AppCusor = Cursor.Normal;
                 });
-            };
-
-            loadingDialog.ShowDialog();
-            
+#if DEBUG
+                //Thread.Sleep(3000);
+#endif
+                IsBusy = false;
+                fillEvt.Set();
+            });
             this.FileCollectionChanged?.Invoke(this, EventArgs.Empty);
             //RaisePropertyChanged(nameof(FilterSettings));
 
@@ -136,13 +148,21 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         public event EventHandler FileCollectionChanged;
         
         private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();
-        
-        public ICollection<INavNodeModel> NavNodes {
-            get => NavNodeModels;
-            set {
-                NavNodeModels = value as ObservableCollection<INavNodeModel>;
-            }
+
+
+        private bool _isBusy;
+        public bool IsBusy {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
+
+
+        private string _busyWord;
+        public string BusyWord {
+            get => _busyWord;
+            set => SetProperty(ref _busyWord, value);
+        }
+
 
         public IEnumerable<IFileRow> SelectedFiles {
             get {
@@ -164,6 +184,14 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             get => _selectedNavNode;
             set => SetProperty(ref _selectedNavNode, value);
         }
+
+
+        private INavNodeModel _rootNavNode;
+        public INavNodeModel RootNavNode {
+            get => _rootNavNode;
+            set => SetProperty(ref _rootNavNode, value);
+        }
+
 
         public event EventHandler SelectedFileChanged;
         

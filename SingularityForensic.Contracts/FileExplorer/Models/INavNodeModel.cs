@@ -10,18 +10,17 @@ namespace SingularityForensic.Contracts.FileExplorer.Models {
     /// <summary>
     /// 路径节点;
     /// </summary>
-    public interface INavNodeModel {
-        IFile File { get; }
+    public interface INavNodeModel:IExtensible {
+        ICollection<INavNodeModel> Children { get;  }
 
-        //ICollection<INavNodeModel> Children { get; }
-        string Name { get; }
+        string Name { get; set; }
     }
 
     public interface INavNodeModelFactory {
-        INavNodeModel CreateNew(IFile file);
+        INavNodeModel CreateNew();
     }
 
     public class NavNodeFactory : GenericServiceStaticInstance<INavNodeModelFactory> {
-        public static INavNodeModel CreateNew(IFile file) => Current?.CreateNew(file);
+        public static INavNodeModel CreateNew() => Current?.CreateNew();
     }
 }

@@ -10,7 +10,7 @@ namespace SingularityForensic.FileSystem {
     /// 文件基类;
     /// </summary>
     public abstract class FileBase : IFile {
-        public abstract IEnumerable<string> TypeGuids { get; }
+        public abstract string TypeGuid { get; }
 
         public IFile Parent => InternalParent;
 
@@ -41,7 +41,7 @@ namespace SingularityForensic.FileSystem {
         FileBase, IFile<TStoken>
         where TStoken : FileStokenBase, new() {
 
-        private string _key;
+        private readonly string _key;
         protected TStoken _stoken;
 
         public TStoken GetStoken(string key) {
@@ -56,7 +56,7 @@ namespace SingularityForensic.FileSystem {
             this._stoken = new TStoken();
         }
 
-        public override IEnumerable<string> TypeGuids => _stoken?.TypeGuids;
+        public override string TypeGuid => _stoken?.TypeGuid;
 
         //public FileBase Parent => _stoken?.Parent;
 

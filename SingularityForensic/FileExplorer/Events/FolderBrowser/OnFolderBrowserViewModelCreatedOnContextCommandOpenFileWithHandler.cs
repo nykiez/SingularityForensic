@@ -16,14 +16,23 @@ namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
     /// 创建打开方式右键菜单;
     /// </summary>
-    [Export(typeof(IFolderBrowserViewModelCreatedEventHandler))]
+    [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
     public class OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler : 
-        IFolderBrowserViewModelCreatedEventHandler {
+        IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 8;
 
         public bool IsEnabled => true;
 
-        public void Handle(IFolderBrowserViewModel vm) {
+        public void Handle(Contracts.FileExplorer.IFolderBrowserDataContext dataContext) {
+            if(dataContext == null) {
+                return;
+            }
+
+            var vm = dataContext.FolderBrowserViewModel;
+            if(vm == null) {
+                return;
+            }
+
             var cmi = CommandItemFactory.CreateNew(null,Constants.CommandItemGUID_OpenFileWith);
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_OpenFileWith);
             cmi.Sort = 48;
@@ -64,14 +73,14 @@ namespace SingularityForensic.FileExplorer.Events {
         /// <param name="viewerPath"></param>
         /// <param name="vm"></param>
         /// <returns></returns>
-        private static ICommandItem CreateOpenFileWithProCommandItem(string viewerName,string viewerPath,IFolderBrowserViewModel vm) {
+        private static ICommandItem CreateOpenFileWithProCommandItem(string viewerName,string viewerPath, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
             var comm = CreateOpenFileWithProCommand(viewerPath, vm);
             var cmi = CommandItemFactory.CreateNew(comm);
             cmi.Name = viewerName;
             return cmi;
         }
         
-        private static DelegateCommand CreateOpenFileWithProCommand(string viewerPath,IFolderBrowserViewModel vm) {
+        private static DelegateCommand CreateOpenFileWithProCommand(string viewerPath, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(() => {
                 OpenFileWithPro(viewerPath, vm);
             });
@@ -88,7 +97,7 @@ namespace SingularityForensic.FileExplorer.Events {
         /// </summary>
         /// <param name="viewerPath"></param>
         /// <param name="vm"></param>
-        private static void OpenFileWithPro(string viewerPath,IFolderBrowserViewModel vm) {
+        private static void OpenFileWithPro(string viewerPath, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
             if (vm.SelectedFile?.File == null) {
                 return;
             }
@@ -151,7 +160,7 @@ namespace SingularityForensic.FileExplorer.Events {
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
-        private static ICommandItem CreateOpenFileWithAnotherProCommandItem(IFolderBrowserViewModel vm) {
+        private static ICommandItem CreateOpenFileWithAnotherProCommandItem(Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
             var comm = CreateOpenFileWithAnotherProCommand(vm);
             var cmi = CommandItemFactory.CreateNew(comm);
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_OpenFileWithAnotherPro);
@@ -159,7 +168,7 @@ namespace SingularityForensic.FileExplorer.Events {
             return cmi;
         }
 
-        public static DelegateCommand CreateOpenFileWithAnotherProCommand(IFolderBrowserViewModel vm) {
+        public static DelegateCommand CreateOpenFileWithAnotherProCommand(Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(() => {
                 var viewerPath = DialogService.Current.OpenFile(
                     $"({LanguageService.FindResourceString("Executable")})|*.exe");
@@ -197,14 +206,14 @@ namespace SingularityForensic.FileExplorer.Events {
         /// 获取所有的FolderViewModel;
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<IFolderBrowserViewModel> GetAllFolderViewModels() {
+        private static IEnumerable<Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel> GetAllFolderViewModels() {
             var docs = DocumentService.MainDocumentService?.CurrentDocuments;
             if (docs == null) {
                 yield break;
             }
 
             foreach (var doc in docs) {
-                var vm = doc.GetInstance<IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
+                var vm = doc.GetInstance<Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserDataContext);
                 if (vm != null) {
                     yield return vm;
                 }

@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Controls;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
@@ -12,21 +13,31 @@ namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
     /// 当当前文件行发生变更时,通知状态栏变化;
     /// </summary>
-    [Export(typeof(IFolderBrowserViewModelCreatedEventHandler))]
-    class OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler : IFolderBrowserViewModelCreatedEventHandler {
+    [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
+    class OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler : IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 7;
 
         public bool IsEnabled => true;
 
-        public void Handle(IFolderBrowserViewModel args) {
+        public void Handle(IFolderBrowserDataContext args) {
             if(args == null) {
                 return;
             }
-
-            args.FileCollectionChanged += (sender, e) => RefreshFilesCount(args);
+            if (args.FolderBrowserViewModel == null) {
+                return;
+            }
+            args.FolderBrowserViewModel.FileCollectionChanged += (sender, e) => RefreshFilesCount(args);
         }
         
-        private void RefreshFilesCount(IFolderBrowserViewModel vm) {
+        private void RefreshFilesCount(IFolderBrowserDataContext dataContext) {
+            if(dataContext == null) {
+                return;
+            }
+            var vm = dataContext.FolderBrowserViewModel;
+            if(vm == null) {
+                return;
+            }
+
             long fileCount = 0;
             long regFileCount = 0;
             long dirCount = 0;

@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using System.ComponentModel.Composition;
@@ -22,8 +23,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var device = enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IDevice;
-            if (device == null) {
+            if (!(enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) is IDevice device)) {
                 return;
             }
 
@@ -34,7 +34,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var vm = FileExplorerViewModelFactory.CreatePartitionsBrowserViewModel(device);
+            var vm = FileExplorerDataContextFactory.CreatePartitionsBrowserViewModel(device);
             partitionBrowser.DataContext = vm;
 
             enumDoc.SetInstance(vm, Contracts.FileExplorer.Constants.DocumentTag_PartitionsBrowserViewModel);

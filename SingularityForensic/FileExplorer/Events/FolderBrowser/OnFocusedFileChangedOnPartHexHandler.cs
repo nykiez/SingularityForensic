@@ -18,7 +18,8 @@ namespace SingularityForensic.FileExplorer.Events {
         public bool IsEnabled => true;
 
         public void Handle((IFolderBrowserViewModel owner, IFileRow file) tuple) {
-            if (!(tuple.owner is IFolderBrowserViewModel folderBrowserVM)) {
+            var folderBrowserVM = tuple.owner;
+            if(folderBrowserVM == null) {
                 return;
             }
 

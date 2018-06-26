@@ -16,7 +16,6 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
 
     public interface IFileCollection : ICollection<IFile> {
-        int Count { get; }
     }
     
 }

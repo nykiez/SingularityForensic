@@ -1,6 +1,7 @@
 ﻿using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Document.Events;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using System.ComponentModel.Composition;
@@ -24,8 +25,7 @@ namespace SingularityForensic.FileExplorer.Events {
             LoggerService.WriteCallerLine($"OnDocumentAddedShowFolderBrowserHandler handling");
 
             try {
-                var haveFileCollection = enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IHaveFileCollection;
-                if (haveFileCollection == null) {
+                if (!(enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) is IHaveFileCollection haveFileCollection)) {
                     return;
                 }
 
@@ -34,13 +34,11 @@ namespace SingularityForensic.FileExplorer.Events {
                     return;
                 }
 
-                var vm = FileExplorerViewModelFactory.CreateFolderBrowserViewModel(haveFileCollection);
+                var folderBrowserDataContext = FileExplorerDataContextFactory.CreateFolderBrowserDataContext(haveFileCollection);
                 
-                var folderBrowser = ViewProvider.CreateView(Constants.FolderBrowserView, vm);
-
                 //设定文件资源管理器模型关联实体;
-                enumDoc.SetInstance(vm, Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserViewModel);
-                enumDoc.MainUIObject = folderBrowser;
+                enumDoc.SetInstance(folderBrowserDataContext, Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserDataContext);
+                enumDoc.MainUIObject = folderBrowserDataContext.UIObject;
 
                 LoggerService.WriteCallerLine($"OnDocumentAddedShowFolderBrowserHandler handled");
             }

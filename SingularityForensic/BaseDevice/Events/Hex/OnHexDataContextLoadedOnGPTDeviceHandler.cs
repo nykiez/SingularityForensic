@@ -25,7 +25,7 @@ namespace SingularityForensic.BaseDevice.Events.Hex {
                 return;
             }
 
-            if (!device.TypeGuids?.Contains(Constants.DeviceType_GPT) ?? false) {
+            if (device.TypeGuid != Constants.DeviceType_GPT) {
                 return;
             }
             

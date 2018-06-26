@@ -11,11 +11,11 @@ namespace SingularityForensic.Test.FileExplorer {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _factory = ServiceProvider.GetInstance<IFileExplorerViewModelFactory>();
+            _factory = ServiceProvider.GetInstance<IFileExplorerDataContextFactory>();
             Assert.IsNotNull(_factory);
         }
 
-        IFileExplorerViewModelFactory _factory;
+        IFileExplorerDataContextFactory _factory;
 
         [TestMethod()]
         public void CreateNewTest() {
@@ -23,7 +23,7 @@ namespace SingularityForensic.Test.FileExplorer {
 
             var createCatched = false;
             var areEqual = false;
-            PubEventHelper.GetEvent<FolderBrowserViewModelCreatedEvent>().Subscribe(tuple => {
+            PubEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Subscribe(tuple => {
                 createCatched = true;
                 areEqual = tuple.HaveFileCollection == part;
             });

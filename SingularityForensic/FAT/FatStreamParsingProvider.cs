@@ -97,9 +97,7 @@ namespace SingularityForensic.FAT {
             stoken.BaseStream = stream;
             stoken.Name = name;
             stoken.Size = stream.Length;
-            stoken.TypeGuids = new string[] {
-                Constants.PartitionType_FAT32
-            };
+            stoken.TypeGuid = Constants.PartitionType_FAT32;
 
             if (fatPartType == FATPartType.FAT32) {
                 stoken.PartType = ServiceProvider.GetAllInstances<IPartitionType>().FirstOrDefault(p => p.GUID == Constants.PartitionType_FAT32);
@@ -139,7 +137,7 @@ namespace SingularityForensic.FAT {
                 return;
             }
 
-            if (part.TypeGuids?.Contains(Constants.PartitionType_FAT32)??false) {
+            if (part.TypeGuid != Constants.PartitionType_FAT32) {
                 return;
             }
 
@@ -357,10 +355,9 @@ namespace SingularityForensic.FAT {
                     var dir = FileFactory.CreateDirectory(Constants.DirectoryKey_FAT);
 
                     var dirStoken = dir.GetStoken(Constants.DirectoryKey_FAT);
-                    dirStoken.TypeGuids = new string[] {
-                        Constants.DirectoryType_FAT32
-                    };
-                    
+                    dirStoken.TypeGuid = Constants.DirectoryType_FAT32;
+
+
                     file = dir;
                     fileStoken2 = dirStoken;
                     EditFileStoken2(fileStoken2, partInfo, fatFileInfo);
@@ -388,9 +385,7 @@ namespace SingularityForensic.FAT {
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_FAT);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_FAT);
                     
-                    regFileStoken.TypeGuids = new string[] {
-                        Constants.RegularFileType_FAT32
-                    };
+                    regFileStoken.TypeGuid = Constants.RegularFileType_FAT32;
 
                     file = regFile;
                     fileStoken2 = regFileStoken;

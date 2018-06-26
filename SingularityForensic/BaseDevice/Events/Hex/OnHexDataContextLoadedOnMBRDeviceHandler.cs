@@ -20,12 +20,11 @@ namespace SingularityForensic.BaseDevice.Events.Hex {
                 return;
             }
 
-            var device = hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) as IDevice;
-            if (device == null) {
+            if (!(hexDataContext.GetInstance<IFile>(Contracts.FileExplorer.Constants.HexDataContextTag_File) is IDevice device)) {
                 return;
             }
 
-            if (!device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
+            if (device.TypeGuid != Constants.DeviceType_DOS){
                 return;
             }
 

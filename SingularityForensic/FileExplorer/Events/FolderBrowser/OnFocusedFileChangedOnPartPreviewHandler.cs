@@ -23,7 +23,7 @@ namespace SingularityForensic.FileExplorer.Events {
             this._previewerProviders = previewerProviders.OrderBy(p => p.Order).ToArray();
         }
 
-        private IEnumerable<IPreviewProvider> _previewerProviders;
+        private readonly IEnumerable<IPreviewProvider> _previewerProviders;
         public int Sort => 0;
 
         public bool IsEnabled => true;
@@ -32,8 +32,8 @@ namespace SingularityForensic.FileExplorer.Events {
         /// </summary>
         private long prior = 0;
 
-        public void Handle((IFolderBrowserViewModel owner, IFileRow file) tuple) {
-            if (!(tuple.owner is IFolderBrowserViewModel folderBrowserVM)) {
+        public void Handle((Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel owner, IFileRow file) tuple) {
+            if (!(tuple.owner is global::SingularityForensic.Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel folderBrowserVM)) {
                 return;
             }
             var tab = DocumentService.MainDocumentService.CurrentDocuments.

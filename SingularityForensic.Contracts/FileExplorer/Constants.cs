@@ -28,6 +28,10 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// </summary>
         public const string TreeUnitType_FileSystem = nameof(TreeUnitType_FileSystem);
 
+
+        public const string NavNodeTag_File = nameof(NavNodeTag_File);
+
+
         /// <summary>
         /// 文件关联实体单位;
         /// </summary>
@@ -36,7 +40,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// <summary>
         /// 文件-资源管理器实体关联;
         /// </summary>
-        public const string DocumentTag_FolderBrowserViewModel = nameof(DocumentTag_FolderBrowserViewModel);
+        public const string DocumentTag_FolderBrowserDataContext = nameof(DocumentTag_FolderBrowserDataContext);
 
         /// <summary>
         /// 设备-分区资源管理器实体关联;

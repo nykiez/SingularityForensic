@@ -98,9 +98,7 @@ namespace SingularityForensic.BaseDevice {
             
             var dosDeviceInfo = new DOSDeviceInfo();
             try {
-                deviceStoken.TypeGuids = new string[] {
-                    Constants.DeviceType_DOS
-                };
+                deviceStoken.TypeGuid = Constants.DeviceType_DOS;
                 deviceStoken.PartsType = Constants.PartsType_DOS;
                 
                 //获取Dos链表;
@@ -208,9 +206,7 @@ namespace SingularityForensic.BaseDevice {
 
             var gptDeviceInfo = new GPTDeviceInfo();
             try {
-                deviceStoken.TypeGuids = new string[] {
-                    Constants.DeviceType_GPT
-                };
+                deviceStoken.TypeGuid = Constants.DeviceType_GPT;
                 deviceStoken.PartsType = Constants.PartsType_GPT;
                 
                 //获取GPT链表;
@@ -310,11 +306,11 @@ namespace SingularityForensic.BaseDevice {
 
             //验证类型,尝试获取凭据;
             try {
-                if (device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false) {
+                if (device.TypeGuid == Constants.DeviceType_DOS) {
                     deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
                     deviceInfo = deviceStoken.GetInstance<DOSDeviceInfo>(Constants.DeviceStokenTag_DOSDeviceInfo);
                 }
-                else if(device.TypeGuids?.Contains(Constants.DeviceType_DOS) ?? false){
+                else if(device.TypeGuid == Constants.DeviceType_DOS){
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
                     deviceInfo = deviceStoken.GetInstance<GPTDeviceInfo>(Constants.DeviceStokenTag_GPTDeviceInfo);
                 }

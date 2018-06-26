@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.FileSystem {
-    [Serializable]
+    
     public class StreamFileStoken : FileStokenBase,ISerializable {
         public Stream BaseStream { get; set; }
 

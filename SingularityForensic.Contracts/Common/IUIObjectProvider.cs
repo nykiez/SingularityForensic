@@ -13,8 +13,8 @@ namespace SingularityForensic.Contracts.Common {
         /// UI元素;
         /// </summary>
         object UIObject { get; }
-        
     }
+    
 
     public interface IUIObjectProviderFactory {
         IUIObjectProvider CreateNew(object uiObject);

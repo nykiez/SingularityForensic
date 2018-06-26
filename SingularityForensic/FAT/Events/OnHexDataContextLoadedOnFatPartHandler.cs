@@ -26,7 +26,7 @@ namespace SingularityForensic.FAT.Events {
                 return;
             }
 
-            if(!(part.TypeGuids?.Contains(Constants.PartitionType_FAT32)??false)) {
+            if(part.TypeGuid != Constants.PartitionType_FAT32) {
                 return;
             }
 
