@@ -10,7 +10,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         Stream BaseStream { get; }
         int BlockSize { get; }
     }
-    public interface IStreamFile<TStoken> :IFile<TStoken>,IStreamFile, IDisposable,
+    public interface IStreamFile<TStoken> :IFile<TStoken>,IStreamFile,
          IHaveFileCollection where TStoken : StreamFileStoken, new() {
         event EventHandler Disposing;
     }

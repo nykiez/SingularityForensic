@@ -330,6 +330,7 @@
     <Compile Include="Common\PracticeServiceProvider.cs" />
     <Compile Include="Controls\Constants.cs" />
     <Compile Include="Controls\DataGridExViewModel.cs" />
+    <Compile Include="Controls\GridView\CustomColumn.cs" />
     <Compile Include="Controls\GridView\RowNumberColumn.cs" />
     <Compile Include="Controls\GridView\FilterSetting.cs" />
     <Compile Include="Controls\GridView\GridViewExtensions.cs" />
@@ -368,11 +369,12 @@
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFileExplorerModuleLoadingForHashColumnEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnNavMenuHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedEventOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedShowPartitionBrowserHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileSystemUnitSelectedChangedHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnFocusedPartChangedOnDeviceHexHandler.cs" />
-    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandOpenFileWithHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnDocumentAddedOnFileHexHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnDocumentAddedOnPartHexHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnDocumentAddedOnPartPreviewHandler.cs" />
@@ -380,8 +382,8 @@
     <Compile Include="FileExplorer\Events\Previewers\OnDocumentClosedOnPreivewerDisposeHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFocusedFileChangedOnPartHexHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFocusedFileChangedOnPartPreviewHandler.cs" />
-    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserViewModelCreatedOnContextCommandsHandler.cs" />
-    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandsHandler.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnFilesChangedToStatusBarHandler.cs" />
     <Compile Include="FileExplorer\Events\Hex\OnHexDataContextLoadedOnDeviceHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingRecurBrowsingHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnInnerFileUnitSelectedHandler.cs" />
@@ -395,8 +397,13 @@
     <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FullFileNameProviderImpl.cs" />
+    <Compile Include="FileExplorer\NavMenuDataContext.cs" />
     <Compile Include="FileExplorer\ViewerSeviceImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
+    <Compile Include="FileExplorer\ViewModels\NavMenuViewModel.cs" />
+    <Compile Include="FileExplorer\Views\NavMenu.xaml.cs">
+      <DependentUpon>NavMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileSystem\BlockGroup.cs" />
     <Compile Include="FileSystem\BlockGroupedFileInputStreamProvider.cs" />
     <Compile Include="FileSystem\DeviceServiceImpl.cs" />
@@ -540,7 +547,6 @@
     <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
     <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
-    <Compile Include="FileExplorer\IGridViewDataContext.cs" />
     <Compile Include="FileExplorer\ViewModels\ListBlockWindowViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\ThumbnailTabModel.cs" />
@@ -900,6 +906,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Ext\Languages\zh_CN\SingularityForensic.Ext.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileExplorer\Views\NavMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

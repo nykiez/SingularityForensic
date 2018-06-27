@@ -27,30 +27,30 @@ namespace SingularityForensic.Test.FileExplorer.Events {
 
         [TestMethod()]
         public void HandleTest() {
-            var vm = new Mock<SingularityForensic.Contracts.FileExplorer.ViewModels.IFolderBrowserDataContext>();
+            var vm = new Mock<SingularityForensic.Contracts.FileExplorer.IFolderBrowserDataContext>();
             var cmis = new List<ICommandItem>();
-            vm.SetupGet(p => p.ContextCommands).Returns(cmis);
-            vm.Setup(p => p.AddContextCommand(It.IsAny<ICommandItem>())).Callback<ICommandItem>(cmi => cmis.Add(cmi));
+            vm.SetupGet(p => p.FolderBrowserViewModel.ContextCommands).Returns(cmis);
+            vm.Setup(p => p.FolderBrowserViewModel.AddContextCommand(It.IsAny<ICommandItem>())).Callback<ICommandItem>(cmi => cmis.Add(cmi));
 
             var slRow = new Mock<IFileRow>();
             var slFile = new Mock<IFile>();
             slFile.SetupGet(p => p.Name).Returns("1.txt");
             slRow.SetupGet(p => p.File).Returns(slFile.Object);
 
-            vm.SetupGet(p => p.SelectedFile).Returns(slRow.Object);
+            vm.SetupGet(p => p.FolderBrowserViewModel.SelectedFile).Returns(slRow.Object);
 
             var haveFileCollection = new Mock<IHaveFileCollection>();
             
             var sw = new Stopwatch();
             sw.Start();
             
-            var handler = new OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler();
+            var handler = new OnFolderBrowserDataContextCreatedOnContextCommandOpenFileWithHandler();
             handler.Handle(vm.Object);
 
             sw.Stop();
 
-            Assert.AreNotEqual(vm.Object.ContextCommands.Count(), 0);
-            vm.Object.ContextCommands.First().Children.ElementAt(1).Command.Execute(null);
+            Assert.AreNotEqual(vm.Object.FolderBrowserViewModel.ContextCommands.Count(), 0);
+            vm.Object.FolderBrowserViewModel.ContextCommands.First().Children.ElementAt(1).Command.Execute(null);
             Trace.WriteLine(sw.ElapsedMilliseconds);
             //vm.SetupProperty(p => p)
         }

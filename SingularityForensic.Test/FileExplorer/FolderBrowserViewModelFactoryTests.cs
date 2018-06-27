@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
@@ -25,10 +26,10 @@ namespace SingularityForensic.Test.FileExplorer {
             var areEqual = false;
             PubEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Subscribe(tuple => {
                 createCatched = true;
-                areEqual = tuple.HaveFileCollection == part;
+                areEqual = tuple.FolderBrowserViewModel.OwnedFileCollection == part;
             });
 
-            _factory.CreateFolderBrowserViewModel(part);
+            _factory.CreateFolderBrowserDataContext(part);
 
             Assert.IsTrue(createCatched);
             Assert.IsTrue(areEqual);

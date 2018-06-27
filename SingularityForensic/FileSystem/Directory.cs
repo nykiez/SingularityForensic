@@ -3,7 +3,9 @@ using System;
 
 namespace SingularityForensic.FileSystem {
 
-    [Serializable]
+    /// <summary>
+    /// 目录实体;
+    /// </summary>
     public class Directory : BlockGroupedFileBase<DirectoryStoken>, IDirectory {
         public Directory(string key) : base(key) {
             Children = new FileBaseCollection(this);

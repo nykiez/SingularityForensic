@@ -56,6 +56,7 @@ namespace DemoUI.Controls {
             get => _treeSelectedItem;
             set  {
                 _treeSelectedItem = value;
+                ExplorerItem.ChildrenTimes = 0;
                 //SetProperty(ref _treeSelectedItem, value);
                 SetProperty(ref _currentItem, value,nameof(CurrentItem));
             }
@@ -88,13 +89,14 @@ namespace DemoUI.Controls {
         }
 
         private void LoadItems() {
-            ImageSourceConverter isc = new ImageSourceConverter();
+            ExplorerItem getNewItem() {
+                //ImageSourceConverter isc = new ImageSourceConverter();
 
-            ExplorerItem personalInfo = new ExplorerItem() {
-                Header = "Personal Folders",
-                //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/PersonalFolders.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                ExplorerItem personalInfo = new ExplorerItem() {
+                    Header = "Personal Folders",
+                    //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/PersonalFolders.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     new ExplorerItem() {Header = "Deleted Items(6)",
                         //Image =  (ImageSource)isc.ConvertFromString(prefix + "/Images/DeletedItems.png")
                     },
@@ -134,13 +136,13 @@ namespace DemoUI.Controls {
                                         }
                                     }
                 },
-            };
+                };
 
-            ExplorerItem programFiles = new ExplorerItem() {
-                Header = "Program Files",
-                //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                ExplorerItem programFiles = new ExplorerItem() {
+                    Header = "Program Files",
+                    //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     new ExplorerItem() { Header = "Microsoft",
                         //Image =  (ImageSource)isc.ConvertFromString(prefix + "/Images/Folder.png")
                     },
@@ -158,13 +160,13 @@ namespace DemoUI.Controls {
                                                                            }
                     }
                 },
-            };
+                };
 
-            ExplorerItem programFiles86 = new ExplorerItem() {
-                Header = "Program Files(86)",
-                //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                ExplorerItem programFiles86 = new ExplorerItem() {
+                    Header = "Program Files(86)",
+                    //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     new ExplorerItem() { Header = "Microsoft",
                         //Image =  (ImageSource)isc.ConvertFromString(prefix + "/Images/Folder.png")
                     },
@@ -201,13 +203,13 @@ namespace DemoUI.Controls {
                                                                            }
                     }
                 },
-            };
+                };
 
-            ExplorerItem downloads = new ExplorerItem() {
-                Header = "Downloads",
-               // Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                ExplorerItem downloads = new ExplorerItem() {
+                    Header = "Downloads",
+                    // Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/OpenedFolder.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     new ExplorerItem() { Header = "Music",
                         //Image =  (ImageSource)isc.ConvertFromString(prefix + "/Images/Folder.png")
                     },
@@ -215,47 +217,49 @@ namespace DemoUI.Controls {
                         //Image =  (ImageSource)isc.ConvertFromString(prefix + "/Images/Folder.png") 
                     }
                 },
-            };
+                };
 
-            ExplorerItem localHard = new ExplorerItem() {
+                ExplorerItem localHard = new ExplorerItem() {
 
-                Header = "Local Disk (C:)",
-              //  Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/HardDrive.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                    Header = "Local Disk (C:)",
+                    //  Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/HardDrive.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     personalInfo,
                     programFiles,
                     programFiles86,
                     downloads
                 }
-            };
+                };
 
-            ExplorerItem localHard2 = new ExplorerItem() {
+                ExplorerItem localHard2 = new ExplorerItem() {
 
-                Header = "Local Disk (D:)",
-               // Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/HardDrive.png")
-            };
+                    Header = "Local Disk (D:)",
+                    // Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/HardDrive.png")
+                };
 
-            ExplorerItem computer = new ExplorerItem() {
+                ExplorerItem computer = new ExplorerItem() {
 
-                Header = "Computer",
-              //  Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/Computer.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
+                    Header = "Computer",
+                    //  Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/Computer.png"),
+                    Children = new ObservableCollection<ExplorerItem>()
+                    {
                     localHard,
                     localHard2
                 }
-            };
+                };
+                return computer;
+            }
+            
 
             this.Root = new ExplorerItem() {
                 Header = "Desktop",
-                //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/Desktop.png"),
-                Children = new ObservableCollection<ExplorerItem>()
-                {
-                    computer
-                }
+                //Image = (ImageSource)isc.ConvertFromString(prefix + "/Images/Desktop.png")
             };
-
+            for (int i = 0; i < 1000; i++) {
+                var computer = getNewItem();
+                root.Children.Add(computer);
+            }
             this.items = new ObservableCollection<ExplorerItem>() { this.Root };
         }
     }
@@ -263,8 +267,20 @@ namespace DemoUI.Controls {
         public string Header { get; set; }
         public string PreviewHeader { get; set; }
         //public ImageSource Image { get; set; }
-        public ObservableCollection<ExplorerItem> Children { get; set; }
 
+        private ObservableCollection<ExplorerItem> _children;
+
+        public ObservableCollection<ExplorerItem> Children {
+            get {
+                ChildrenTimes++;
+                return _children;
+            }
+            set { _children = value; }
+        }
+        
+#if DEBUG
+        public static int ChildrenTimes { get; set; } = 0;
+#endif
         public ExplorerItem() {
             this.Children = new ObservableCollection<ExplorerItem>();
         }

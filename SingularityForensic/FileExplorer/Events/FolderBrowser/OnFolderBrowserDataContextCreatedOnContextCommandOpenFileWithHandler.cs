@@ -17,7 +17,7 @@ namespace SingularityForensic.FileExplorer.Events {
     /// 创建打开方式右键菜单;
     /// </summary>
     [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
-    public class OnFolderBrowserViewModelCreatedOnContextCommandOpenFileWithHandler : 
+    public class OnFolderBrowserDataContextCreatedOnContextCommandOpenFileWithHandler : 
         IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 8;
 
@@ -85,7 +85,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 OpenFileWithPro(viewerPath, vm);
             });
 
-            vm.SelectedFileChanged += (sender, e) => {
+            vm.SelectedFileChanged += delegate  {
                 comm.RaiseCanExecuteChanged();
             };
 

@@ -15,7 +15,13 @@
         /// 分区-文件UI对象名;
         /// </summary>
         public const string FolderBrowserView = nameof(FolderBrowserView);
-        
+
+        /// <summary>
+        /// 文件导航菜单;
+        /// </summary>
+        public const string NavMenuView = nameof(NavMenuView);
+
+
         public const string HexDataContext_PartitionBrowser_Device = nameof(HexDataContext_PartitionBrowser_Device);
 
         public const string HexDataContext_PartitionBrowser_Partition = nameof(HexDataContext_PartitionBrowser_Partition);
@@ -189,7 +195,10 @@
         public const string StatusBarItemText_DirectoryCount = nameof(StatusBarItemText_DirectoryCount);
 
 
-        public const string MsgText_FileBeingShown = nameof(MsgText_FileBeingShown);
+        public const string BusyWord_FileBeingShown = nameof(BusyWord_FileBeingShown);
+
+
+        public const string BusyWord_NavMenuBeingBuilt = nameof(BusyWord_NavMenuBeingBuilt);
 
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

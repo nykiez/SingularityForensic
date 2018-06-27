@@ -1,11 +1,7 @@
-﻿using Prism.Commands;
-using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.FileExplorer.Helpers;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

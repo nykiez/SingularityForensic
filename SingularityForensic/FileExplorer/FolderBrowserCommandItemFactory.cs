@@ -401,7 +401,7 @@ namespace SingularityForensic.FileExplorer {
                 var lb = new ListBlockMessageBox(blockGrouped);
                 lb.SelectedAddressChanged += (sender, e) => {
                     var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                        FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.HaveFileCollection);
+                        FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == vm.OwnedFileCollection);
                     if (tab == null) {
                         return;
                     }

@@ -15,7 +15,12 @@ namespace SingularityForensic.Contracts.FileSystem {
         IFileCollection Children { get; }
     }
 
+    /// <summary>
+    /// 文件集;
+    /// </summary>
     public interface IFileCollection : ICollection<IFile> {
     }
+
+    
     
 }

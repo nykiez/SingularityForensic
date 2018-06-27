@@ -11,7 +11,7 @@ namespace SingularityForensic.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for FolderBrowser.xaml
     /// </summary>
-    [Export(SingularityForensic.FileExplorer.Constants.FolderBrowserView,typeof(FrameworkElement))]
+    [Export(Constants.FolderBrowserView,typeof(FrameworkElement))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class FolderBrowser : UserControl {
         public FolderBrowser() {
@@ -71,6 +71,7 @@ namespace SingularityForensic.FileExplorer.Views {
 
         }
 #endif
+
         private void RadGridViewEx_SelectionChanged(object sender, SelectionChangeEventArgs e) {
 
         }

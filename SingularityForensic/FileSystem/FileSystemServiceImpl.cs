@@ -11,10 +11,10 @@ using System.Xml.Linq;
 namespace SingularityForensic.FileSystem {
     [Export(typeof(IFileSystemService))]
     class FileSystemServiceImpl : IFileSystemService {
-        IEnumerable<IStreamParsingProvider> _parsingProvider;
+        IEnumerable<IStreamParsingProvider> _parsingProviders;
 
         public void Initialize() {
-            this._parsingProvider = ServiceProvider.GetAllInstances<IStreamParsingProvider>().OrderBy(p => p.Order).ToArray();
+            this._parsingProviders = ServiceProvider.GetAllInstances<IStreamParsingProvider>().OrderBy(p => p.Order).ToArray();
         }
         
         private List<IMountedUnit> _enumFiles = new List<IMountedUnit>();
@@ -24,7 +24,7 @@ namespace SingularityForensic.FileSystem {
         public IFile MountStream(Stream stream,string name,XElement xElem, IProgressReporter reporter) {
             IFile file = null;
 
-            foreach (var provider in _parsingProvider) {
+            foreach (var provider in _parsingProviders) {
                 try {
                     if (!provider.CheckIsValidStream(stream)) {
                         continue;   

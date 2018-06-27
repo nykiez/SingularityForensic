@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 
 namespace SingularityForensic.Controls.GridView {
-    public class RadGridViewEx:RadGridView
+    public partial class RadGridViewEx:RadGridView
     {
         public RadGridViewEx() {
             this.CurrentCellChanged += GridViewEx_CurrentCellChanged;
             this.Filtered += GridViewEx_Filtered;
-            
         }
 
         private void GridViewEx_Filtered(object sender, GridViewFilteredEventArgs e) {
@@ -110,9 +110,8 @@ namespace SingularityForensic.Controls.GridView {
             if(this.Template == null) {
                 return;
             }
-            
-            var scrollpart = this.Template.FindName(ScrollPart,this) as FrameworkElement;
-            if(scrollpart == null) {
+
+            if (!(this.Template.FindName(ScrollPart, this) is FrameworkElement scrollpart)) {
                 return;
             }
 
@@ -124,9 +123,69 @@ namespace SingularityForensic.Controls.GridView {
         public override void OnApplyTemplate() {
             base.OnApplyTemplate();
             ApplyScrollContextMenu(this.ScrollContentContextMenu);
+            
         }
 
         private const string ScrollPart = "PART_GridViewVirtualizingPanel";
+
+        
     }
-    
+
+    public partial class RadGridViewEx  {
+
+
+
+        public IEnumerable<CustomColumn> CustomColumns {
+            get { return (IEnumerable<CustomColumn>)GetValue(CustomColumnsProperty); }
+            set { SetValue(CustomColumnsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CustomColumns.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CustomColumnsProperty =
+            DependencyProperty.Register(nameof(CustomColumns), typeof(IEnumerable<CustomColumn>), typeof(RadGridViewEx), new PropertyMetadata(null, CustomColumnsPropertyChanged));
+
+
+
+        //public static IEnumerable<CustomColumn> GetCustomColumns(DependencyObject obj) {
+        //    return (IEnumerable<CustomColumn>)obj.GetValue(CustomColumnsProperty);
+        //}
+
+        //public static void SetCustomColumns(DependencyObject obj, IEnumerable<CustomColumn> value) {
+        //    obj.SetValue(CustomColumnsProperty, value);
+        //}
+
+        //// Using a DependencyProperty as the backing store for CustomColumns.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty CustomColumnsProperty =
+        //    DependencyProperty.RegisterAttached("CustomColumns", typeof(IEnumerable<CustomColumn>), typeof(RadGridView), new PropertyMetadata(null, CustomColumnsPropertyChanged));
+        
+        private static void CustomColumnsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            if(!(d is RadGridView gv)) {
+                return;
+            }
+
+            if(!(e.NewValue is IEnumerable<CustomColumn> columns)) {
+                return;
+            }
+
+            foreach (var col in columns) {
+                Telerik.Windows.Controls.GridViewColumn newColumn = null;
+                if(col is CustomDataColumn dataCol) {
+                    newColumn = new GridViewDataColumn {
+                        DataMemberBinding = dataCol.Binding,
+                        DataType = dataCol.ColumnDataType
+                    };
+                }
+                else {
+                    newColumn = new Telerik.Windows.Controls.GridViewColumn();
+                }
+                newColumn.CellTemplate = col.CellTemplate;
+                //newColumn.ShowFieldFilters = true;
+                newColumn.Header = col.Header;
+                //newColumn.FilterMemberType = typeof(string);
+                newColumn.ShowDistinctFilters = col.ShowDistinctFilters;
+                gv.Columns.Add(newColumn);
+            }
+            
+        }
+    }
 }

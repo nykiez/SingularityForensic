@@ -138,6 +138,7 @@
     <Compile Include="FileExplorer\ViewerSeviceImplTests.cs" />
     <Compile Include="BaseDevice\DosAndGptTest.cs" />
     <Compile Include="FAT\FatStreamParsingProviderTest.cs" />
+    <Compile Include="FileSystem\FileExtensionsTests.cs" />
     <Compile Include="FileSystem\FileSystemExtensionsTests.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />

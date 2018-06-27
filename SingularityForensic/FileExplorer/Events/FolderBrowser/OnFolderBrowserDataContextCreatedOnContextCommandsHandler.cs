@@ -9,7 +9,7 @@ namespace SingularityForensic.FileExplorer.Events {
     /// 分区加入时加入基础右键菜单;
     /// </summary>
     [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
-    public class OnFolderBrowserViewModelCreatedOnContextCommandsHandler : IFolderBrowserDataContextCreatedEventHandler {
+    public class OnFolderBrowserDataContextCreatedOnContextCommandsHandler : IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 0;
 
         public bool IsEnabled => true;

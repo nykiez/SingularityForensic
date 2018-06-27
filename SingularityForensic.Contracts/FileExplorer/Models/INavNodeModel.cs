@@ -10,7 +10,7 @@ namespace SingularityForensic.Contracts.FileExplorer.Models {
     /// <summary>
     /// 路径节点;
     /// </summary>
-    public interface INavNodeModel:IExtensible {
+    public interface INavNodeModel {
         ICollection<INavNodeModel> Children { get;  }
 
         string Name { get; set; }

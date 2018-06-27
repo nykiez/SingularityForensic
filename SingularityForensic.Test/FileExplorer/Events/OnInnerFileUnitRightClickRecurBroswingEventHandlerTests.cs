@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.TreeView;
@@ -21,14 +22,14 @@ namespace SingularityForensic.Test.FileExplorer.Events {
             Assert.IsNotNull(device);
             var unit = TreeUnitFactory.CreateNew(SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitType_InnerFile);
             unit.SetInstance<IFile>(device.Children.First(), SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
-            _handler.Handle((unit, SingularityForensic.Contracts.MainPage.MainTreeService.Current));
+            _handler.Handle();
             var mainDocService = SingularityForensic.Contracts.Document.DocumentService.MainDocumentService;
             var docs = mainDocService.CurrentDocuments;
             Assert.AreEqual(docs.Count(), 1);
 
             var fbDoc = docs.First().GetInstance<IFolderBrowserDataContext>(SingularityForensic.Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserDataContext);
             Assert.IsNotNull(fbDoc);
-            Assert.AreEqual(fbDoc.Files.Count(),device.GetInnerFiles().Count());
+            Assert.AreEqual(fbDoc.FolderBrowserViewModel.Files.Count(),device.GetInnerFiles().Count());
         }
     }
 }

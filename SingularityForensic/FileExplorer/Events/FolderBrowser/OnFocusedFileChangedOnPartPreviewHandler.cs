@@ -37,7 +37,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
             var tab = DocumentService.MainDocumentService.CurrentDocuments.
-                FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.HaveFileCollection);
+                FirstOrDefault(p => p.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) == folderBrowserVM.OwnedFileCollection);
             if (tab == null) {
                 return;
             }

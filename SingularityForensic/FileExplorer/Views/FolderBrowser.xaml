@@ -47,9 +47,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <DockPanel x:Name="navDock" >
+        <!--<DockPanel x:Name="navDock" >
             
-            <!--<ItemsControl ItemsSource="{Binding NavNodes}" DockPanel.Dock="Left">
+            --><!--<ItemsControl ItemsSource="{Binding NavNodes}" DockPanel.Dock="Left">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
                         <Setter Property="TextElement.Foreground" Value="Black"/>
@@ -73,24 +73,18 @@
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
-            
-            <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
-            <telerik:RadBreadcrumb HierarchicalItemsSource="Children" Header="{Binding RootNavNode}" 
-                                   HierarchicalMemberPath="Name" HeaderMemberPath="Name"  TextModePath="Name"
-                                   ItemsSource="{Binding RootNavNode.Children}"
-                                   CurrentItem="{Binding SelectedNavNode,Mode=TwoWay}">
+            </ItemsControl>--><!--
 
-            </telerik:RadBreadcrumb>
-        </DockPanel>
+            <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
+        </DockPanel>-->
         <telerik:RadBusyIndicator Grid.Row="1" IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyWord}">
-            <gv:RadGridViewEx ItemsSource="{Binding FileRows}" 
-                          Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended"
+            <gv:RadGridViewEx ItemsSource="{Binding FileRows}" AutoGenerateColumns="False" IsFilteringAllowed="True"
+                          Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended" 
   SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" 
                           SelectedItem="{Binding SelectedFile}"  AlternateRowBackground="{DynamicResource Envoirment.Background}" AlternationCount="2"
                           IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView"  AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
-                          RowIndicatorVisibility="Collapsed" 
-                             >
+                          RowIndicatorVisibility="Collapsed" CustomColumns="{Binding CustomColumns}" >
+                
                 <gv:RadGridViewEx.ControlPanelItems>
                     <telerik:ControlPanelItem >
                         <telerik:ControlPanelItem.ButtonContent>
@@ -154,8 +148,6 @@
                 <gv:RadGridViewEx.Columns>
                     <gv:RowNumberColumn Header="#"  
 								 Width="30" CellStyle="{StaticResource cellStyle}" />
-
-                    <!--<telerik:GridViewCheckBoxColumn IsThreeState="False"  DataMemberBinding="{Binding IsChecked}" Header="" />-->
                 </gv:RadGridViewEx.Columns>
                 <gv:RadGridViewEx.ScrollContentContextMenu>
                     <ContextMenu ItemsSource="{Binding ContextCommands}">

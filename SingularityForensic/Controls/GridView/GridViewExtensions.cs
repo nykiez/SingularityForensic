@@ -13,28 +13,29 @@ namespace SingularityForensic.Controls.GridView {
             IList<FilterSetting> settings = new List<FilterSetting>();
 
             foreach (IFilterDescriptor filter in grid.FilterDescriptors) {
-                IColumnFilterDescriptor columnFilter = filter as IColumnFilterDescriptor;
-                if (columnFilter != null) {
-                    FilterSetting setting = new FilterSetting();
-
-                    setting.ColumnUniqueName = columnFilter.Column.UniqueName;
+                if (filter is IColumnFilterDescriptor columnFilter) {
+                    FilterSetting setting = new FilterSetting {
+                        ColumnUniqueName = columnFilter.Column.UniqueName
+                    };
 
                     setting.SelectedDistinctValues.AddRange(columnFilter.DistinctFilter.DistinctValues);
 
                     if (columnFilter.FieldFilter.Filter1.IsActive) {
-                        setting.Filter1 = new FilterDescriptorProxy();
-                        setting.Filter1.Operator = columnFilter.FieldFilter.Filter1.Operator;
-                        setting.Filter1.Value = columnFilter.FieldFilter.Filter1.Value;
-                        setting.Filter1.IsCaseSensitive = columnFilter.FieldFilter.Filter1.IsCaseSensitive;
+                        setting.Filter1 = new FilterDescriptorProxy {
+                            Operator = columnFilter.FieldFilter.Filter1.Operator,
+                            Value = columnFilter.FieldFilter.Filter1.Value,
+                            IsCaseSensitive = columnFilter.FieldFilter.Filter1.IsCaseSensitive
+                        };
                     }
 
                     setting.FieldFilterLogicalOperator = columnFilter.FieldFilter.LogicalOperator;
 
                     if (columnFilter.FieldFilter.Filter2.IsActive) {
-                        setting.Filter2 = new FilterDescriptorProxy();
-                        setting.Filter2.Operator = columnFilter.FieldFilter.Filter2.Operator;
-                        setting.Filter2.Value = columnFilter.FieldFilter.Filter2.Value;
-                        setting.Filter2.IsCaseSensitive = columnFilter.FieldFilter.Filter2.IsCaseSensitive;
+                        setting.Filter2 = new FilterDescriptorProxy {
+                            Operator = columnFilter.FieldFilter.Filter2.Operator,
+                            Value = columnFilter.FieldFilter.Filter2.Value,
+                            IsCaseSensitive = columnFilter.FieldFilter.Filter2.IsCaseSensitive
+                        };
                     }
 
                     settings.Add(setting);

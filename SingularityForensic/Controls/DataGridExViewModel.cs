@@ -32,6 +32,7 @@ namespace SingularityForensic.Controls {
         /// 当前选定的项集合;
         /// </summary>
         Func<IEnumerable> GetSelectedRows { get; set; }
+        IEnumerable<CustomColumn> CustomColumns { get; }
     }
 
     public class DataGridExViewModel : BindableBase, IInteractionGridViewModel,IDataGridViewModel {
@@ -173,5 +174,8 @@ namespace SingularityForensic.Controls {
             ));
 
         public Func<IEnumerable> GetSelectedRows { get ; set ; }
+
+
+        public virtual IEnumerable<CustomColumn> CustomColumns => null;
     }
 }

@@ -3,8 +3,10 @@
     /// 模块内部使用的"密码";
     /// </summary>
     public static partial class Constants {
-        internal const string DeviceKey_Unknown = "66D12281-5969-4117-B75C-10E56BCBC6F8";
-        internal const string PartitionKey_Unknown = "66D12281-5969-4117-B75C-10E56BCBC6F8";
+        internal const string DeviceKey_Unknown = nameof(DeviceKey_Unknown);
+        //"66D12281-5969-4117-B75C-10E56BCBC6F8";
+        internal const string PartitionKey_Unknown = nameof(PartitionKey_Unknown);
+            //"66D12281-5969-4117-B75C-10E56BCBC6F8";
     }
 
     /// <summary>

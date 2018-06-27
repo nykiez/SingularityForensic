@@ -26,8 +26,7 @@ namespace SingularityForensic.StatusBar {
             defaultItem.Margin = new Thickness(3, 0, 3, 0);
             AddStatusBarItem(defaultItem,new GridChildLength(new GridLength(1, GridUnitType.Star)));
         }
-
-        private IStatusBar _statusBar;
+        
         private IStackGrid<IStatusBarObjectItem> _stackGrid;
 
         private List<IStatusBarObjectItem> _items = new List<IStatusBarObjectItem>();
@@ -82,8 +81,7 @@ namespace SingularityForensic.StatusBar {
         public IStatusBarTextItem CreateStatusBarTextItem(string guid) => new StatusBarTextItem(guid);
 
         public IStatusBarTextItem GetOrCreateStatusBarTextItem(string guid, GridChildLength gridChildLength, int sort) {
-            var item = Children.FirstOrDefault(p => p.GUID == guid) as IStatusBarTextItem;
-            if (item == null) {
+            if (!(Children.FirstOrDefault(p => p.GUID == guid) is IStatusBarTextItem item)) {
                 item = CreateStatusBarTextItem(guid);
                 StatusBarService.Current.AddStatusBarItem(item, gridChildLength, sort);
                 item.Margin = new Thickness(12, 0, 12, 0);

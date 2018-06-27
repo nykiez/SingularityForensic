@@ -46,8 +46,7 @@ namespace SingularityForensic.Ext {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
-
-
+            
             var part = FileFactory.CreatePartition(Constants.PartitionKey_Ext);
             var stoken = part.GetStoken(Constants.PartitionKey_Ext);
             stoken.BaseStream = stream;
@@ -404,7 +403,7 @@ namespace SingularityForensic.Ext {
             }
 
             extFileInfo.StExt4Inode.Value.GetMacTime(out var modifiedTime, out var accessedTime, out var createTime);
-            fileStoken2.ModifiedTime = modifiedTime;
+            fileStoken2.ModifiedTime = modifiedTime;             
             fileStoken2.AccessedTime = accessedTime;
             fileStoken2.CreateTime = createTime;
         }

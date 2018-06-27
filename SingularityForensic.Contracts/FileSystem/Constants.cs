@@ -14,7 +14,10 @@
         /// </summary>
         public const string ExtTag_File = nameof(ExtTag_File);
 
-        
+        /// <summary>
+        /// 路径分割符;
+        /// </summary>
+        public const char Path_SplitChar = '\\';
     }
 
     

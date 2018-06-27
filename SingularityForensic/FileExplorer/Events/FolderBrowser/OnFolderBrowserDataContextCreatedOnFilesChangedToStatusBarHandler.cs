@@ -14,7 +14,7 @@ namespace SingularityForensic.FileExplorer.Events {
     /// 当当前文件行发生变更时,通知状态栏变化;
     /// </summary>
     [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
-    class OnFolderBrowserViewModelCreatedOnFilesChangedToStatusBarHandler : IFolderBrowserDataContextCreatedEventHandler {
+    class OnFolderBrowserDataContextCreatedOnFilesChangedToStatusBarHandler : IFolderBrowserDataContextCreatedEventHandler {
         public int Sort => 7;
 
         public bool IsEnabled => true;

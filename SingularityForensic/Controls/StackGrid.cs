@@ -33,7 +33,11 @@ namespace SingularityForensic.Controls {
         public bool NeedSplitter { get; set; }
         
         public void AddChild(TStackItem child, GridChildLength gridChildLength, int index = -1) {
-            if ((uint)index <= (uint)_children.Count)
+            if(index < 0) {
+                index = 0;
+            }
+
+            if ( index <= _children.Count )
                 _children.Insert(index,(child,gridChildLength));
             else
                 _children.Add((child, gridChildLength));

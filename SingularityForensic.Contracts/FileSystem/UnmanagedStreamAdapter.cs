@@ -14,11 +14,7 @@ namespace SingularityForensic.Contracts.FileSystem {
     /// </summary>
     public partial class UnmanagedStreamAdapter : IDisposable {
         public UnmanagedStreamAdapter(Stream stream) {
-            if (stream == null) {
-                throw new ArgumentNullException(nameof(stream));
-            }
-
-            OriStream = stream;
+            OriStream = stream ?? throw new ArgumentNullException(nameof(stream));
             StreamPtr = CreateUnManagedStream();
 
             _instances.Add(this);

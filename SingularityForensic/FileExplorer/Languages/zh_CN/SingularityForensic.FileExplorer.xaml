@@ -55,11 +55,12 @@
   <sys:String x:Key="StatusBarItemText_RegFileCount">文件数量</sys:String>
   <sys:String x:Key="StatusBarItemText_DirectoryCount">目录数量</sys:String>
   <sys:String x:Key="ContextCommandName_RecurBrowse">递归浏览</sys:String>
-  <sys:String x:Key="MsgText_FileBeingShown">正在显示文件</sys:String>
+  <sys:String x:Key="BusyWord_FileBeingShown">正在显示文件</sys:String>
   <sys:String x:Key="ContextCommandName_Check">选中</sys:String>
   <sys:String x:Key="ContextCommandName_UnCheckSelected">取消选中</sys:String>
   <sys:String x:Key="ContextCommandName_CheckAll">全选</sys:String>
-    <sys:String x:Key="FolderBrowser_GroupChooser">选择列</sys:String>
-    <sys:String x:Key="FolderBrowser_CancelFiltering">取消过滤</sys:String>
-    <sys:String x:Key="FolderBrowser_CustomFiltering">自定义过滤</sys:String>
+  <sys:String x:Key="FolderBrowser_GroupChooser">选择列</sys:String>
+  <sys:String x:Key="FolderBrowser_CancelFiltering">取消过滤</sys:String>
+  <sys:String x:Key="FolderBrowser_CustomFiltering">自定义过滤</sys:String>
+  <sys:String x:Key="BusyWord_NavMenuBeingBuilt">正在构建导航菜单</sys:String>
 </ResourceDictionary>

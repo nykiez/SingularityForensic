@@ -43,5 +43,7 @@ namespace SingularityForensic.FileExplorer.ViewModel {
             PubEventHelper.GetEvent<PartitionsBrowserViewModelCreatedEvent>().Publish(vm);
             return vm;
         }
+
+        public INavMenuDataContext CreateNavMenuDataContext() => new NavMenuDataContext();
     }
 }

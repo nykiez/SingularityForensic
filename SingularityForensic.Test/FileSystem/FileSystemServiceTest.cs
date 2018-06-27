@@ -13,7 +13,7 @@ namespace SingularityForensic.Test.BaseDevice {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            var fss = ServiceProvider.GetAllInstances<IFileSystemService>();
+            _fsService = ServiceProvider.GetInstance<IFileSystemService>();
             
             Assert.IsNotNull(_fsService);
             _fsService.Initialize();
@@ -28,7 +28,9 @@ namespace SingularityForensic.Test.BaseDevice {
             reporter.Setup(p => p.ReportProgress(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Callback<int, int, string, string>((p1, p2, s1, s2) => {
                 Trace.WriteLine($"{p1}\t {p2} \t{s1} \t {s2}");
             });
-            _fsService.MountStream(File.OpenRead("E://Ext4G.img"),"name", elem, reporter.Object);
+            //G:\\MobileImgs\\Z0176-809.dd
+            //E:\\anli\\Ext4G.img
+            var file = _fsService.MountStream(File.OpenRead("J:\\OPPOA59SMT6750_UserData.dd"),"name", elem, reporter.Object);
         }
     }
 }

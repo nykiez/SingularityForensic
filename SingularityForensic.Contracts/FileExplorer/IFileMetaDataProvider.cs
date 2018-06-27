@@ -52,8 +52,6 @@ namespace SingularityForensic.Contracts.FileExplorer {
         DataTemplate CellTemplate { get; }
 
         bool ShowDistinctFilters { get; }
-
-        bool IsHidden { get; }
     }
 
     /// <summary>
@@ -77,9 +75,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         public virtual DataTemplate CellTemplate => null;
 
         public virtual bool ShowDistinctFilters => true;
-
-        public virtual bool IsHidden => false;
-
+        
         public abstract object GetMetaData(IFile file);
     }
 

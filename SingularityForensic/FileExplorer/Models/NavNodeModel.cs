@@ -28,10 +28,7 @@ namespace SingularityForensic.FileExplorer.Models {
 
         private ICollection<INavNodeModel> _children;
         public ICollection<INavNodeModel> Children => _children ?? (_children = new ObservableCollection<INavNodeModel>());
-
-        //跳转事件;
-        public event EventHandler<IFile> EscapeRequired;
-
+        
         ~NavNodeModel() {
 
         }

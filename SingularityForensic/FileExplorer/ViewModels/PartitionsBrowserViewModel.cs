@@ -37,7 +37,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         private void InitializeColumns() {
             foreach (var descriptor in PartitionRowFactory.Current.PropertyDescriptors) {
-                Partitions.PropertyDescriptorList.Add(descriptor);
+                //Partitions.PropertyDescriptorList.Add(descriptor);
             }
         }
 

@@ -56,7 +56,12 @@ namespace SingularityForensic.Contracts.FileSystem {
             return sumSize;
         }
 
-        //得到文件总数;
+        /// <summary>
+        /// 得到文件总数;
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="searchOption"></param>
+        /// <returns></returns>
         private static long GetSubFileNum(IHaveFileCollection file, SearchOption searchOption = SearchOption.AllDirectories) {
             if (file == null) {
                 throw new ArgumentNullException(nameof(file));
@@ -99,7 +104,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 var partArgs = args.ToList().GetRange(1, args.Length - 1);
 
                 var partIndex = int.Parse(args[0]);
-                return (file.Children.ElementAt(partIndex) as IPartition).GetFileByUrl(partArgs.ToArray());
+                return (file.Children.ElementAt(partIndex) as IPartition).GetFileByUrlArgs(partArgs.ToArray());
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);
@@ -114,9 +119,9 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <returns></returns>
         public static IFile GetFileByUrl(this IHaveFileCollection part, string url) {
             try {
-                url = url.Replace('\\', '/');
-                var urlArgs = url.Split('/');
-                return GetFileByUrl(part, urlArgs);
+                url = url.Replace('/', Constants.Path_SplitChar);
+                var urlArgs = url.Split(Constants.Path_SplitChar);
+                return GetFileByUrlArgs(part, urlArgs);
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);
@@ -131,24 +136,111 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="enumFile"></param>
         /// <param name="urlArgs"></param>
         /// <returns></returns>
-        public static IFile GetFileByUrl(this IHaveFileCollection enumFile, string[] urlArgs) {
-            if (urlArgs == null) {
+        public static IFile GetFileByUrlArgs(this IHaveFileCollection enumFile, string[] urlArgs) {
+            if (urlArgs == null || urlArgs.Length == 0) {
                 return null;
             }
-            if (urlArgs.Length == 1 && string.IsNullOrEmpty(urlArgs[0])) {
-                return enumFile as IFile;
+            if (enumFile == null) {
+                return null;
             }
 
-            IHaveFileCollection fileNode = enumFile;
-            for (int index = 0; index < urlArgs.Length - 1; index++) {
-                if (fileNode == null) {
-                    throw new FileNotFoundException($"Can't find file {urlArgs[index]}-{urlArgs.Aggregate((a, b) => $"{a}/{b}")}");
-                }
-                fileNode = fileNode.Children.FirstOrDefault(p => p.Name == urlArgs[index]) as IHaveFileCollection;
-            }
-            return fileNode.Children.FirstOrDefault(p => p.Name == urlArgs[urlArgs.Length - 1]);
+            return EntityHelper.GetEntityFromParams<IFile, string>(
+                enumFile,
+                urlArgs,
+                f => {
+                    if (f is IHaveFileCollection haveFileCollection) {
+                        return haveFileCollection.Children;
+                    }
+                    return Enumerable.Empty<IFile>();
+                },
+                (f, param) => f.Name == param
+            );
         }
 
+        /// <summary>
+        /// 根据文件得到路径;
+        /// </summary>
+        /// <param name="haveFileCollection"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string GetUrlByFile(this IHaveFileCollection haveFileCollection, IFile file) {
+            if (file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            if (haveFileCollection == null) {
+                throw new ArgumentNullException(nameof(haveFileCollection));
+            }
+
+            var sb = new StringBuilder();
+            var parentFiles = haveFileCollection.GetParentFiles(file, true);
+            if (parentFiles == null) {
+                return null;
+            }
+            var index = 0;
+            foreach (var pFile in parentFiles) {
+                if (index == 0) {
+                    sb.Insert(0, $"{pFile.Name}");
+                }
+                else {
+                    sb.Insert(0, $"{pFile.Name}{Constants.Path_SplitChar}");
+                }
+                index++;
+            }
+            return sb.ToString();
+        }
+
+        //public static TAggregate GetAggregate<TAggregate,TEntity>(Func<TAggregate> aggreateFactory,IEnumerable<){
+        //}
+
+        /// <summary>
+        /// 检查某个文件集合中是否包含某个文件;
+        /// </summary>
+        /// <param name="haveFileCollection"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static bool CheckOwn(this IHaveFileCollection haveFileCollection,IFile file) {
+            if(haveFileCollection == null) {
+                throw new ArgumentNullException(nameof(haveFileCollection));
+            }
+
+            if(file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            return EntityHelper.CheckOwn(haveFileCollection, file, f => f.Parent);
+
+            //IFile fileNode = file;
+            //while (fileNode != null) {
+            //    if (fileNode == haveFileCollection) {
+            //        break;
+            //    }
+            //    fileNode = fileNode.Parent;
+            //}
+
+            //return fileNode != null;
+        }
+
+        /// <summary>
+        /// 得到指定文件节点以上所有父节点;
+        /// </summary>
+        /// <param name="haveFileCollection"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static IEnumerable<IFile> GetParentFiles(this IHaveFileCollection haveFileCollection,IFile file,bool selfIncluded = false) {
+            if(haveFileCollection == null) {
+                throw new ArgumentNullException(nameof(haveFileCollection));
+            }
+            if(file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+            if (!CheckOwn(haveFileCollection, file)) {
+                throw new InvalidOperationException($"{nameof(haveFileCollection)}({haveFileCollection.Name}) doesn't own the file ({file.Name})");
+            }
+
+            return EntityHelper.GetParentEntities(haveFileCollection, file, f => f.Parent, selfIncluded);
+        }
+        
         /// <summary>
         /// 得到内部所有文件的迭代;
         /// </summary>

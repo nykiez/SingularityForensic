@@ -13,7 +13,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="executeMethod"></param>
         /// <param name="canExecuteMethod"></param>
         /// <returns></returns>
-        ICommand CreateDelegateCommand(Action executeMethod, Func<bool> canExecuteMethod = null);
+        IDelegateCommand CreateDelegateCommand(Action executeMethod, Func<bool> canExecuteMethod = null);
         /// <summary>
         /// 通知可执行状态;
         /// </summary>
@@ -21,8 +21,12 @@ namespace SingularityForensic.Contracts.Common {
         void RaiseCanExecutedChanged(ICommand command);
     }
 
+    public interface IDelegateCommand:ICommand {
+        void RaiseCanExecuteChanged();
+    }
+
     public class CommandFactory : GenericServiceStaticInstance<ICommandFactory> {
-        public static ICommand CreateDelegateCommand(Action excuteMethod, Func<bool> canExecuteMethod = null)
+        public static IDelegateCommand CreateDelegateCommand(Action excuteMethod, Func<bool> canExecuteMethod = null)
             => Current.CreateDelegateCommand(excuteMethod, canExecuteMethod);
 
         public static void RaiseCanExecutedChanged(ICommand command) => Current.RaiseCanExecutedChanged(command);

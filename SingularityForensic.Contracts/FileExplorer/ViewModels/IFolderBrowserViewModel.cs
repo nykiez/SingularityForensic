@@ -14,9 +14,15 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
     /// </summary>
     public interface IFolderBrowserViewModel : IDataGridViewModel {
         /// <summary>
-        /// 所属分区;
+        /// 所属集合文件;
         /// </summary>
-        IHaveFileCollection HaveFileCollection { get; }
+        IHaveFileCollection OwnedFileCollection { get; }
+
+        /// <summary>
+        ///当前显示的路径;分割符为<see cref="SingularityForensic.Contracts.FileSystem.Constants.Path_SplitChar"/>
+        /// </summary>
+        string CurrentPath { get; set; }
+        event EventHandler CurrentPathChanged;
 
         /// <summary>
         /// 当前选定的文件;
@@ -29,7 +35,12 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         //void AddSelectedFile(IEnumerable<IFileRow> fileRows);
 
         event EventHandler SelectedFileChanged;
-        
+        //INavNodeModel SelectedNavNode { get; }
+
+
+        bool IsBusy { get; set; }
+        string BusyWord { get; set; }
+
         IEnumerable<IFileRow> Files { get; }
         event EventHandler FileCollectionChanged;
 
@@ -40,7 +51,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// <param name="isFromUIThread">是否从UI线程调用的</param>
         void FillRows(IEnumerable<IFile> files);
         
-        INavNodeModel SelectedNavNode { get; }
+        
     }
     
   
@@ -52,43 +63,13 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// <summary>
         /// 填充行;
         /// </summary>
-        ///<param name="fileCollection">母文件</param>
-        public static void FillWithCollection(this IFolderBrowserViewModel vm, IHaveFileCollection fileCollection) {
-            if (fileCollection == null) {
+        ///<param name="haveFileCollection">母文件</param>
+        public static void FillWithCollection(this IFolderBrowserViewModel vm, IHaveFileCollection haveFileCollection) {
+            if (haveFileCollection == null) {
                 return;
             }
-
-            vm.FillRows(fileCollection.Children);
-
-            //var rootNavNode = 
-            //vm.NavNodes.Clear();
-            //IFile file = fileCollection;
-            //var fileList = new List<IFile>();
-            //while (file != null) {
-            //    fileList.Add(file);
-            //    file = file.Parent;
-            //}
-
-            //var count = fileList.Count;
-            //for (int i = 0; i < count; i++) {
-            //    var nodeFile = fileList[count - i - 1];
-            //    var navNode = NavNodeFactory.CreateNew();
-            //    navNode.SetInstance(nodeFile, Constants.NavNodeTag_File);
-            //    vm.NavNodes.Add(navNode);
-            //}
-
+            vm.FillRows(haveFileCollection.Children);
         }
-
-        private static void NavNode_EscapeRequiredWithVm(IFolderBrowserDataContext vm, IFile e) {
-            if (!(e is IHaveFileCollection haveFileCollection)) {
-                return;
-            }
-
-            if (haveFileCollection is IDevice) {
-                return;
-            }
-
-            FillWithCollection(vm.FolderBrowserViewModel, haveFileCollection);
-        }
+        
     }
 }

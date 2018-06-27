@@ -86,6 +86,7 @@
     <Compile Include="App\ILanguageService.cs" />
     <Compile Include="Casing\Events\CaseModuleLoadingEvent.cs" />
     <Compile Include="Common\EditingValueEventArgs.cs" />
+    <Compile Include="Common\EntityHelper.cs" />
     <Compile Include="Common\ExtensibleExtensions.cs" />
     <Compile Include="Common\GenericServiceStaticInstances.cs" />
     <Compile Include="Common\ICommandFactory.cs" />
@@ -158,8 +159,10 @@
     <Compile Include="FileExplorer\Events\InnerTabSelectedChangedEvent.cs" />
     <Compile Include="Casing\ICaseUIService.cs" />
     <Compile Include="FileExplorer\ICustomSignSearchService.cs" />
+    <Compile Include="FileExplorer\INavMenuDataContext.cs" />
     <Compile Include="FileExplorer\IViewerService.cs" />
     <Compile Include="FileExplorer\ViewModels\IFolderBrowserViewModel.cs" />
+    <Compile Include="FileExplorer\ViewModels\INavMenuViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\IPartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\Models\INavNodeModel.cs" />
     <Compile Include="FileSystem\FileSystemExtensions.cs" />

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Prism.Commands;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Common;
@@ -22,42 +21,63 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
     /// 目录/资源浏览器模型;
     /// </summary>
-    public partial class FolderBrowserViewModel : DataGridExViewModel, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel {
+    public partial class FolderBrowserViewModel : DataGridExViewModel, IFolderBrowserViewModel {
         /// <summary>
         /// 目录/资源浏览器模型构造方法;
         /// </summary>
-        /// <param name="part">模型所属主文件</param>
-        public FolderBrowserViewModel(IHaveFileCollection part) {
-            this.HaveFileCollection = part ?? throw new ArgumentNullException(nameof(part));
+        /// <param name="haveFileCollection">模型所属主文件</param>
+        public FolderBrowserViewModel(IHaveFileCollection haveFileCollection) {
+            this.OwnedFileCollection = haveFileCollection ?? throw new ArgumentNullException(nameof(haveFileCollection));
 
-#if DEBUG
-            _rootNavNode = NavNodeFactory.CreateNew();
-            _rootNavNode.Name = "dada";
-            for (int i = 0; i < 10; i++) {
-                var node = NavNodeFactory.CreateNew();
-                node.Name = $"child{i}";
-                _rootNavNode.Children.Add(node);
-            }
-#endif
             Initialize();
         }
 
         public void Initialize() {
             InitializeColumns();
-            this.FillWithCollection(HaveFileCollection);
+            this.FillWithCollection(OwnedFileCollection);
         }
 
-       
+
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行
         /// </summary>
         private void InitializeColumns() {
+            _customColumns = new List<CustomColumn>();
+#if DEBUG
+            int colIndex = 0;
+#endif
             foreach (var descriptor in FileRowFactory.Current.PropertyDescriptors) {
-                FileRows.PropertyDescriptorList.Add(descriptor);
+
+                if (descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor) {
+                    _customColumns.Add(new CustomDataColumn {
+                        Binding = new System.Windows.Data.Binding {
+                            Path = new System.Windows.PropertyPath(descriptor.Name),
+                            Converter = fileRowPropDescriptor.FileMetaDataProvider.Converter,
+                        },
+                        Header = descriptor.DisplayName,
+                        CellTemplate = fileRowPropDescriptor.FileMetaDataProvider.CellTemplate,
+                        ShowDistinctFilters = true,
+                        ColumnDataType = descriptor.PropertyType
+                    });
+                }
+#if DEBUG
+                colIndex++;
+                if(colIndex >= 1) {
+                    //break;
+                }
+#endif
             }
         }
 
-        public IHaveFileCollection HaveFileCollection { get; }                                        //浏览器所属主文件（分区，设备等);
+        private List<CustomColumn> _customColumns;
+        public override IEnumerable<CustomColumn> CustomColumns => _customColumns;
+
+        /// <summary>
+        /// 所属主文件（分区，设备等);
+        /// </summary>
+        public IHaveFileCollection OwnedFileCollection { get; }                                        
+
+
 
         public CustomTypedListSource<IFileRow> FileRows { get; set; } = new CustomTypedListSource<IFileRow>();
         public IEnumerable<IFileRow> Files  => FileRows;
@@ -93,13 +113,15 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
             var thisPriLevel = ++fillPriLevel;
             
-            BusyWord = LanguageService.FindResourceString(Constants.MsgText_FileBeingShown);
-            FileRows.Clear();
+            BusyWord = LanguageService.FindResourceString(Constants.BusyWord_FileBeingShown);
             IsBusy = true;
             MouseService.AppCusor = Cursor.Loading;
 
             ThreadInvoker.BackInvoke(() => {
                 fillEvt.WaitOne();
+                ThreadInvoker.UIInvoke(() => {
+                    FileRows.Clear();
+                });
                 var bufferLength = 10;
                 var bufferRows = new IFileRow[bufferLength];
 
@@ -178,20 +200,32 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
 
+        /// <summary>
+        /// 当前路径;
+        /// </summary>
+        private string _currentPath;
+        public string CurrentPath {
+            get => _currentPath;
+            set {
+                try {
+                    if (!(OwnedFileCollection.GetFileByUrl(value) is IHaveFileCollection collection)) {
+                        throw new ArgumentException($"{nameof(_currentPath)} doesn't aim to a valid {nameof(IHaveFileCollection)}.");
+                    }
+                    this.FillWithCollection(collection);
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                    throw;
+                }
 
-        private INavNodeModel _selectedNavNode;
-        public INavNodeModel SelectedNavNode {
-            get => _selectedNavNode;
-            set => SetProperty(ref _selectedNavNode, value);
+                var pathChanged = _currentPath != value;
+                _currentPath = value;
+                if(pathChanged) {
+                    CurrentPathChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
-
-
-        private INavNodeModel _rootNavNode;
-        public INavNodeModel RootNavNode {
-            get => _rootNavNode;
-            set => SetProperty(ref _rootNavNode, value);
-        }
-
+        public event EventHandler CurrentPathChanged;
 
         public event EventHandler SelectedFileChanged;
         
@@ -221,15 +255,16 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 if (!(file is IHaveFileCollection haveFileCollection)) {
                     return;
                 }
-                if (file is IDirectory direct) {
+                if (haveFileCollection is IDirectory direct) {
                     if (direct.IsBack) {
                         if (direct.Parent is IHaveFileCollection parentCollection
-                            && (parentCollection as IFile)?.Parent is IHaveFileCollection grandCollection) {
-                            this.FillWithCollection(grandCollection);
+                            && (parentCollection as IFile)?.Parent is IHaveFileCollection grandCollection
+                            && !(grandCollection is IDevice)) {
+                            CurrentPath = OwnedFileCollection.GetUrlByFile(grandCollection);
                         }
                     }
                     else if (!direct.IsLocalBackUp) {
-                        this.FillWithCollection(haveFileCollection);
+                        CurrentPath = OwnedFileCollection.GetUrlByFile(haveFileCollection);
                     }
                 }
             }
@@ -238,29 +273,15 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
         }
 
-        /// <summary>
-        /// 自动生成动作;
-        /// </summary>
-        /// <param name="e"></param>
-        public override void NotifyAutoGeneratingColumns(GridViewAutoGeneratingColumnEventArgs e) {
-            var descriptor = FileRowFactory.Current.PropertyDescriptors.FirstOrDefault(p => p.Name == e.ItemPropertyInfo.Name);
-            if (!(descriptor is FileRow.FileRowPropertyDescriptor fileRowPropDescriptor)) {
-                return;
-            }
-            
-            e.CellTemplate = fileRowPropDescriptor.FileMetaDataProvider.CellTemplate;
-            e.Cancel = fileRowPropDescriptor.FileMetaDataProvider.IsHidden;
-            e.Converter = fileRowPropDescriptor.FileMetaDataProvider.Converter;
-            e.ShowDistinctFilters = fileRowPropDescriptor.FileMetaDataProvider.ShowDistinctFilters;
-        }
+        
     }
     
     ////目录视图资源管理器模型过滤命令部分;
     public partial class FolderBrowserViewModel {
         //一键取消所有的过滤;
-        private DelegateCommand _cancelFilteringCommand;
-        public DelegateCommand CancelFilteringCommand =>
-            _cancelFilteringCommand ?? (_cancelFilteringCommand = new DelegateCommand(() => {
+        private IDelegateCommand _cancelFilteringCommand;
+        public IDelegateCommand CancelFilteringCommand =>
+            _cancelFilteringCommand ?? (_cancelFilteringCommand = CommandFactory.CreateDelegateCommand(() => {
                 FilterSettings = Enumerable.Empty<FilterSetting>();
             }));
     }

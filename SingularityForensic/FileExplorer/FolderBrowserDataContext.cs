@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer {
-    class FolderBrowserDataContext: IFolderBrowserDataContext {
+    class FolderBrowserDataContext: ExtensibleObject, IFolderBrowserDataContext {
         public FolderBrowserDataContext(IHaveFileCollection haveFileCollection) {
             FolderBrowserViewModel = new FolderBrowserViewModel(haveFileCollection);
             //var vm = FileExplorerDataContextFactory.CreateFolderBrowserDataContext(haveFileCollection);
@@ -36,13 +36,5 @@ namespace SingularityForensic.FileExplorer {
         }
 
         public object UIObject => StackGrid.UIObject;
-
-        public TInstance GetInstance<TInstance>(string extName) {
-            throw new NotImplementedException();
-        }
-
-        public void SetInstance<TInstance>(TInstance instance, string extName) {
-            throw new NotImplementedException();
-        }
     }
 }

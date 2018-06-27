@@ -27,10 +27,9 @@
 		                       HierarchicalMemberPath="Header"
 		                       ImagePath="Image"
 		                       IsIconVisible="True"
-                               
 		                       ItemsSource="{Binding Root.Children}"
-		                       Path="Desktop\Computer\Local Disk (C:)\Program Files(86)"
 		                       TextModePath="Header" />
+        <!--Path="{Binding Path}"-->
         <Border Grid.Row="1" BorderThickness="1" Margin="0 5 0 0" BorderBrush="#FFD7D5D5">
             <!--SelectionChanged="explorerTree_SelectionChanged"-->
             <telerik:RadTreeView x:Name="explorerTree"
