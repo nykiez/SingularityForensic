@@ -123,6 +123,7 @@
     <Compile Include="Common\IExtensible.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
     <Compile Include="Controls\GridChildLength.cs" />
+    <Compile Include="Controls\InputBindingExtensions.cs" />
     <Compile Include="Controls\IStackGrid.cs" />
     <Compile Include="Common\IUIObjectProvider.cs" />
     <Compile Include="Common\IUIReactService.cs" />

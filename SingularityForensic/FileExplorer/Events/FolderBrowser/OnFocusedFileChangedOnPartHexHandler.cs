@@ -38,7 +38,13 @@ namespace SingularityForensic.FileExplorer.Events {
 
             var startLBA = blockGrouped.GetStartLBA();
             if (startLBA != null && partHexDataContext != null) {
-                partHexDataContext.Position = startLBA.Value;
+                if(partHexDataContext.BytePerLine != 0) {
+                    partHexDataContext.Position = startLBA.Value / partHexDataContext.BytePerLine * partHexDataContext.BytePerLine;
+                }
+                else {
+                    partHexDataContext.Position = startLBA.Value;
+                }
+                partHexDataContext.FocusPosition = startLBA.Value;
             }
 
             var fileBaseStream = blockGrouped.GetInputStream();

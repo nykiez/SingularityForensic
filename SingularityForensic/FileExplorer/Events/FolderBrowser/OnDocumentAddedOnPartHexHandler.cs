@@ -21,8 +21,7 @@ namespace SingularityForensic.FileExplorer.Events {
                 return;
             }
 
-            var part = enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) as IPartition;
-            if (part == null) {
+            if (!(enumDoc.GetInstance<IFile>(Contracts.FileExplorer.Constants.DocumentTag_File) is IPartition part)) {
                 return;
             }
 

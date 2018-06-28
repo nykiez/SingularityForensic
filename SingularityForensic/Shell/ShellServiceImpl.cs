@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Shell.Events;
 using SingularityForensic.Shell.ViewModels;
@@ -84,15 +85,7 @@ namespace SingularityForensic.Shell {
         /// <param name="modifier">修饰键</param>
         /// <param name="commandPara">命令参数</param>
         public void AddKeyBinding(ICommand command,Key key,ModifierKeys modifier = ModifierKeys.None) {
-            var kb = new KeyBinding {
-                Modifiers = modifier,
-                Key = key,
-                Command = command
-            };
-            
-            if(_shellView is UIElement uiElem) {
-                uiElem.InputBindings.Add(kb);
-            }
+            InputBindingExtensions.AddKeyBinding(_shellView, command, key, modifier);
         }
 
         public void Show() {

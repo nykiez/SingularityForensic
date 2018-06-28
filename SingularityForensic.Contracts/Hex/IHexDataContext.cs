@@ -64,6 +64,8 @@ namespace SingularityForensic.Contracts.Hex {
         /// </summary>
         IToolTipItem SelectedToolTipItem { get; }
 
+        void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None);
+
         event EventHandler SelectedToolTipItemChanged;
     }
 

@@ -14,18 +14,7 @@ namespace SingularityForensic.FileExplorer.Models {
             get => _name;
             set => SetProperty(ref _name, value);
         }
-
-        ////选择节点跳转的命令;
-        //private DelegateCommand escapeToCommand;
-        //public DelegateCommand EscapeToCommand {
-        //    get {
-        //        return escapeToCommand ??
-        //            (escapeToCommand = new DelegateCommand(() => {
-        //                EscapeRequired?.Invoke(this, this.File);
-        //            }));
-        //    }
-        //}
-
+        
         private ICollection<INavNodeModel> _children;
         public ICollection<INavNodeModel> Children => _children ?? (_children = new ObservableCollection<INavNodeModel>());
         

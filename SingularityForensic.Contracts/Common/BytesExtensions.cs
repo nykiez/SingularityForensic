@@ -101,10 +101,7 @@ namespace SingularityForensic.Contracts.Common {
                 sb.Append(ByteToHexChar(b / 16));
                 sb.Append(ByteToHexChar(b % 16));
             }
-
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 1, 1);
-
+            
             return sb.ToString();
         }
 

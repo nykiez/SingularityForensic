@@ -1,6 +1,4 @@
 ﻿using CDFC.Util.IO;
-using CDFCCultures.Helpers;
-using Prism.Commands;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Hex;
@@ -47,8 +45,8 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CopyToNewFile);
             return cmi;
         }
-        internal static DelegateCommand CreateCopyToNewFileCommand(IHexDataContext hexDataContext) {
-            var copyToNewFileCommand = new DelegateCommand(
+        internal static IDelegateCommand CreateCopyToNewFileCommand(IHexDataContext hexDataContext) {
+            var copyToNewFileCommand = CommandFactory.CreateDelegateCommand(
                 () => {
                     if (hexDataContext.SelectionLength == -1 || hexDataContext.SelectionStart == -1) {
                         return;
@@ -130,8 +128,8 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CopyToClipBoard);
             return cmi;
         }
-        internal static DelegateCommand CreateCopyToClipBoardCommand(IHexDataContext hexDataContext) {
-            var copyToClipBoardCommand = new DelegateCommand(
+        internal static IDelegateCommand CreateCopyToClipBoardCommand(IHexDataContext hexDataContext) {
+            var copyToClipBoardCommand = CommandFactory.CreateDelegateCommand(
                 () => {
                     if (hexDataContext.SelectionStart == -1 || hexDataContext.SelectionLength == -1) {       
                         return;
@@ -156,6 +154,7 @@ namespace SingularityForensic.Hex {
 
                         sr = new StreamReader(sourceStream);
                         ClipBoardService.SetDataObject(sr.ReadToEnd());
+                        
                     }
                     catch(Exception ex) {
                         LoggerService.WriteCallerLine(ex.Message);
@@ -185,8 +184,8 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CopyHexToCBoard);
             return cmi;
         }
-        internal static DelegateCommand CreateCopyToCopyHexToCBoardCommand(IHexDataContext hexDataContext) {
-            var copyHexToCBoardCommand = new DelegateCommand(
+        internal static IDelegateCommand CreateCopyToCopyHexToCBoardCommand(IHexDataContext hexDataContext) {
+            var copyHexToCBoardCommand = CommandFactory.CreateDelegateCommand(
             () => {
                 if (hexDataContext.SelectionStart == -1 || hexDataContext.SelectionStart == -1) {       //若需剪切数据大于4GB
                     return;
@@ -199,7 +198,7 @@ namespace SingularityForensic.Hex {
                 
                 try {
                     var buffer = hexDataContext.GetSelectionData();
-                    ClipBoardService.SetText(ByteConverterHelper.ByteToHex(buffer));
+                    ClipBoardService.SetText(ByteExtensions.BytesToHexString(buffer));
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
@@ -224,8 +223,8 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_CopyASCIIToCBoard);
             return cmi;
         }
-        internal static DelegateCommand CopyASCIIToCBoardCommand(IHexDataContext hexDataContext) {
-            var copyASCIIToCBoardCommand = new DelegateCommand(
+        internal static IDelegateCommand CopyASCIIToCBoardCommand(IHexDataContext hexDataContext) {
+            var copyASCIIToCBoardCommand = CommandFactory.CreateDelegateCommand(
                 () => {
                     if (hexDataContext.SelectionStart == -1 || hexDataContext.SelectionLength == -1) {       //若需剪切数据大于4GB
                         return;
@@ -263,8 +262,9 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_SetAsStart);
             return cmi;
         }
-        internal static DelegateCommand CreateSetAsStartCommand(IHexDataContext hexDataContext) {
-            var setAsStartCommand = new DelegateCommand(() => {
+
+        internal static IDelegateCommand CreateSetAsStartCommand(IHexDataContext hexDataContext) {
+            var setAsStartCommand = CommandFactory.CreateDelegateCommand(() => {
                 if (hexDataContext.Stream == null) {
                     return;
                 }
@@ -305,8 +305,8 @@ namespace SingularityForensic.Hex {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_SetAsEnd);
             return cmi;
         }
-        internal static DelegateCommand CreateSetAsEndCommand(IHexDataContext hexDataContext) {
-            var setAsEndCommand = new DelegateCommand(() => {
+        internal static IDelegateCommand CreateSetAsEndCommand(IHexDataContext hexDataContext) {
+            var setAsEndCommand = CommandFactory.CreateDelegateCommand(() => {
                 if (hexDataContext.Stream == null) {
                     return;
                 }
@@ -337,8 +337,8 @@ namespace SingularityForensic.Hex {
         /// </summary>
         /// <param name="hexDataContext"></param>
         /// <returns></returns>
-        private static DelegateCommand CreateSubmitChangesCommand(IHexDataContext hexDataContext) {
-            var submitChangesCommand = new DelegateCommand(() => {
+        private static IDelegateCommand CreateSubmitChangesCommand(IHexDataContext hexDataContext) {
+            var submitChangesCommand = CommandFactory.CreateDelegateCommand(() => {
                 //SubmitChangesRequired?.Invoke(this, new EventArgs());
             });
             return submitChangesCommand;
@@ -371,7 +371,7 @@ namespace SingularityForensic.Hex {
         }
 
         private static ICommandItem GetCopyAsProCommandItem(IHexDataContext hexDataContext,IBufferToCodeFormatter formatter) {
-            var comm = new DelegateCommand(() => {
+            var comm = CommandFactory.CreateDelegateCommand(() => {
                 if(hexDataContext.SelectionStart == - 1 || hexDataContext.SelectionLength == -1) {
                     return;
                 }

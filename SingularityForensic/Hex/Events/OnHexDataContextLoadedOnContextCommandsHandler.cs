@@ -26,6 +26,8 @@ namespace SingularityForensic.Hex.Events {
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyToClipBoardCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyToCopyHexToCBoardCommandItem(hexDataContext));
             hexDataContext.AddContextCommand(HexDataContextCommandFactory.CreateCopyAsProCodeCommandItem(hexDataContext));
+
+            AddKeyBindingsToHexDataContext(hexDataContext);
         }
 
         private void AddKeyBindingsToHexDataContext(IHexDataContext hexDataContext) {

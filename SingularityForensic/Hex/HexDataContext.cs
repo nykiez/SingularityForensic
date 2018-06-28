@@ -6,6 +6,7 @@ using SingularityForensic.Hex.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Input;
 
 namespace SingularityForensic.Hex {
     partial class HexDataContext : ExtensibleBindableBase, IHexDataContext {
@@ -88,6 +89,10 @@ namespace SingularityForensic.Hex {
 
         public void UpdateCustomBackgroundBlocks() {
             _vm.UpdateCustomBackgroundBlocks();
+        }
+
+        public void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None) {
+            InputBindingExtensions.AddKeyBinding(UIObject,command, key, modifier);
         }
 
         public int BytePerLine {
