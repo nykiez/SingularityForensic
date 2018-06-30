@@ -28,7 +28,7 @@ namespace SingularityForensic.Contracts.Common {
             if(service != null) {
                 return (TService)service;
             }
-            return default(TService);
+            return default;
         }
 
         public virtual TService GetInstance<TService>(string key) {
@@ -36,7 +36,7 @@ namespace SingularityForensic.Contracts.Common {
             if((service = GetInstance(typeof(TService),key)) != null) {
                 return (TService)service;
             }
-            return default(TService);
+            return default;
         }
         public virtual object GetInstance(Type serviceType, string key) => null;
     }

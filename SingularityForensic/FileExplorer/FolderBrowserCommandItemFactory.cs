@@ -458,7 +458,7 @@ namespace SingularityForensic.FileExplorer {
 
                 loadingDialog.DoWork += delegate {
                     result = ComputeHashOnDialog(loadingDialog, hasher,stream);
-                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrifix}{hasher.GUID}";
+                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
                     vm.SelectedFile.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
                     vm.SelectedFile.NotifyProperty(metaGUID);
                     stream.Dispose();

@@ -2,6 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fs="clr-namespace:SingularityForensic.FileSystem"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    
-    
+
+    <sys:String x:Key="Prefix_Partition">分区</sys:String>
 </ResourceDictionary>

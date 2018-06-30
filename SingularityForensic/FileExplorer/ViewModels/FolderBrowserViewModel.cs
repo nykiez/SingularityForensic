@@ -215,7 +215,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
                 catch(Exception ex) {
                     LoggerService.WriteException(ex);
-                    throw;
+                    return;
                 }
 
                 var pathChanged = _currentPath != value;

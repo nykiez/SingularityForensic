@@ -17,5 +17,7 @@ namespace SingularityForensic.Contracts.Common {
         public TInstance GetInstance<TInstance>(string extName) => _extensibleBase.GetInstance<TInstance>(extName);
 
         public void SetInstance<TInstance>(TInstance instance, string extName) => _extensibleBase.SetInstance<TInstance>(instance, extName);
+
+        public void RemoveInstance<TInstance>(string extName) => _extensibleBase.RemoveInstance<TInstance>(extName);
     }
 }

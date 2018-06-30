@@ -1,4 +1,5 @@
 ﻿using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
@@ -45,5 +46,23 @@ namespace SingularityForensic.FileExplorer.ViewModel {
         }
 
         public INavMenuDataContext CreateNavMenuDataContext() => new NavMenuDataContext();
+
+        /// <summary>
+        /// 获取所有的FolderViewModel;
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IFolderBrowserDataContext> GetAllFolderBrowserDataContext() {
+            var docs = DocumentService.MainDocumentService?.CurrentDocuments;
+            if (docs == null) {
+                yield break;
+            }
+
+            foreach (var doc in docs) {
+                var vm = doc.GetInstance<IFolderBrowserDataContext>(Contracts.FileExplorer.Constants.DocumentTag_FolderBrowserDataContext);
+                if (vm != null) {
+                    yield return vm;
+                }
+            }
+        }
     }
 }

@@ -18,7 +18,9 @@ namespace DemoUI.FileExplorer {
                     SingularityForensic.Contracts.MainPage.Constants.MainPageDocumentRegion,
                     SingularityForensic.Contracts.Document.Constants.DocumentTabsView
                 );
-                var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("G://MobileImgs/ext1g.img"), "mmp", null, null);
+                //"J://Z0176-809.dd"
+                //"E://anli/FAT32.img"
+                var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/FAT32.img"), "mmp", null, null);
                 var unit = TreeUnitFactory.CreateNew(SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
                 unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
                 PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((unit, MainTreeService.Current));

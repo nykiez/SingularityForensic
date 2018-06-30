@@ -416,7 +416,7 @@ Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(Targ
 Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
 
-
+Copy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt"
 
 Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)DirectOutIn.dll"
 Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"

@@ -67,6 +67,7 @@ namespace SingularityForensic.ITunes {
                     
                     var regFile = FileFactory.CreateRegularFile(Constants.RegularFileKey_ITunesBackUp);
                     var regFileStoken = regFile.GetStoken(Constants.RegularFileKey_ITunesBackUp);
+                    regFileStoken.TypeGuid = Constants.RegularFileKey_ITunesBackUp;
                     regFileStoken.SetInstance<IOSFileStruct?>(st, Constants.RegularFileTag_ITunesBackUp);
 
                     try {

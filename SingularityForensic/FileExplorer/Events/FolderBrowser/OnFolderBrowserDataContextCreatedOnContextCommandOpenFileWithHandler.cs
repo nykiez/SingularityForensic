@@ -131,13 +131,13 @@ namespace SingularityForensic.FileExplorer.Events {
                 return string.Empty;
             }
 
-            var tempFolder = AppSerivice.AppTempFolder;
-            var filePath = $"{AppSerivice.AppTempFolder}\\{ file.Name}";
+            var tempFolder = AppService.AppTempFolder;
+            var filePath = $"{AppService.AppTempFolder}\\{ file.Name}";
             var fileIndex = 0;
 
             //若已经存在同名文件,则累加文件后缀序列号,直至找到可用的不同名;
             while (File.Exists(filePath)) {
-                filePath = $"{AppSerivice.AppTempFolder}\\{Path.GetFileNameWithoutExtension(file.Name)}~{fileIndex++}{System.IO.Path.GetExtension(file.Name)}";
+                filePath = $"{AppService.AppTempFolder}\\{Path.GetFileNameWithoutExtension(file.Name)}~{fileIndex++}{System.IO.Path.GetExtension(file.Name)}";
             }
             
             var inputStream = file.GetInputStream();
@@ -206,7 +206,7 @@ namespace SingularityForensic.FileExplorer.Events {
         /// 获取所有的FolderViewModel;
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel> GetAllFolderViewModels() {
+        private static IEnumerable<IFolderBrowserViewModel> GetAllFolderViewModels() {
             var docs = DocumentService.MainDocumentService?.CurrentDocuments;
             if (docs == null) {
                 yield break;

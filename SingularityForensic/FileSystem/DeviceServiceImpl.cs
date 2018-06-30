@@ -27,6 +27,7 @@ namespace SingularityForensic.FileSystem {
 
             var partsGroup = xElem?.GetGroup(SingularityForensic.Contracts.FileSystem.Constants.Device_InnerParts);
 
+            var partIndex = 0;
             foreach (var entry in device.PartitionEntries) {
                 IFile file = null;
 
@@ -53,14 +54,16 @@ namespace SingularityForensic.FileSystem {
                         (partStartLBA,size)
                     }
                 );
-
-                file = ParseStream(partStream, string.Empty, partElem, reporter);
+                
+                file = ParseStream(partStream, entry.Name??$"{LanguageService.FindResourceString(Constants.Prefix_Partition)}{++partIndex}", partElem, reporter);
                 device.Children.Add(file);
 
                 //设定StartLBA;
                 if (file is IPartition part) {
                     device.SetStartLBA(part, partStartLBA);
                 }
+
+                
             }
         }
 

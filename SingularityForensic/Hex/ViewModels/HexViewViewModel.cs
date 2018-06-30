@@ -15,7 +15,7 @@ namespace SingularityForensic.Hex.ViewModels {
         public HexViewViewModel() {
             InitializeToolTips();
         }
-        private bool readOnlyMode;
+        //private bool readOnlyMode;
         public bool ReadOnlyMode {
             get {
                 if (Stream != null) {

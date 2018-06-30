@@ -6,4 +6,5 @@
   <ViewerProgram Name="Notepad">
     <Path>notepad</Path>
   </ViewerProgram>
+  
 </Programs>

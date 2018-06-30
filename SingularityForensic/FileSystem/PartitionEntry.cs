@@ -31,5 +31,8 @@ namespace SingularityForensic.FileSystem {
 
         //分区表项类型;
         public string TypeGUID => _stoken?.TypeGUID;
+
+        //分区名;
+        public string Name => _stoken?.Name;
     }
 }

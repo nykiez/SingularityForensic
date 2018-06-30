@@ -34,7 +34,7 @@ namespace SingularityForensic.Contracts.Converters {
             }
             catch(Exception ex) {
                 
-                return default(DateTime);
+                return default;
             }
         }
     }

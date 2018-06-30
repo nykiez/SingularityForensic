@@ -30,8 +30,9 @@ namespace SingularityForensic.App {
         
         private ILanguageDict _languageDict;
         public string FindResourceString(string keyName) {
+
             if (string.IsNullOrEmpty(keyName)) {
-                throw new ArgumentNullException(nameof(keyName));
+                return keyName;
             }
  
             if(_languageDict != null) {

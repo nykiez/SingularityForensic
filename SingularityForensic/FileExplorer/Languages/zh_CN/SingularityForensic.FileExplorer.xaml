@@ -63,4 +63,10 @@
   <sys:String x:Key="FolderBrowser_CancelFiltering">取消过滤</sys:String>
   <sys:String x:Key="FolderBrowser_CustomFiltering">自定义过滤</sys:String>
   <sys:String x:Key="BusyWord_NavMenuBeingBuilt">正在构建导航菜单</sys:String>
+  <sys:String x:Key="StringMatchRuleType_StartWith">头部包含</sys:String>
+  <sys:String x:Key="StringMatchRuleName_EndsWith">尾部包含</sys:String>
+  <sys:String x:Key="StringMatchRuleName_Contains">包含</sys:String>
+  <sys:String x:Key="StringMatchRuleName_IsEqualTo">全字匹配</sys:String>
+  <sys:String x:Key="FileMetaDataName_NameCategory">名称类别</sys:String>
+  <sys:String x:Key="TBButtonToolTip_LoadCategoryNameFile">加载名称类别文件</sys:String>
 </ResourceDictionary>

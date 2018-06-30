@@ -36,7 +36,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser {
 
         public override Type MetaDataType => typeof(string);
 
-        public override string GUID => _guid??(_guid = $"{Constants.FileHashMetaDataProvider_GUIDPrifix}{_hasher.GUID}");
+        public override string GUID => _guid??(_guid = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{_hasher.GUID}");
         private string _guid;
 
         public override int Order => InternalOrder;

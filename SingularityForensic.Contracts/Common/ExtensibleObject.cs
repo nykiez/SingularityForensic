@@ -9,6 +9,8 @@ namespace SingularityForensic.Contracts.Common {
     /// 可拓展基类;
     /// </summary>
     public class ExtensibleObject : ExtensibleBase, IExtensible {
+        public void RemoveInstance<TInstance>(string extName) => RemoveInstanceCore<TInstance>(extName);
+
         public void SetInstance<TInstance>(TInstance instance, string extName) => SetInstanceCore(instance, extName);
     }
 
@@ -55,7 +57,7 @@ namespace SingularityForensic.Contracts.Common {
             if (ins != null) {
                 return (TInstance)ins;
             }
-            return default(TInstance);
+            return default;
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace SingularityForensic.Contracts.Common {
                 }
             }
 
-            return default(TInstance);
+            return default;
         }
 
         
@@ -82,11 +84,10 @@ namespace SingularityForensic.Contracts.Common {
         public virtual TInstance GetGeneralInstance<TInstance>(string extName) => GetGeneralInstanceCore<TInstance>(extName);
 
         protected void SetInstanceCore<TInstance>(TInstance instance, string extName) {
-            var tuple = StateStack.FirstOrDefault(p => p.InstanceType == typeof(TInstance)
-            && p.ExtName == extName);
+            var cell = StateStack.FirstOrDefault(p => p.InstanceType == typeof(TInstance) && p.ExtName == extName);
 
-            if (tuple != null) {
-                tuple.Instance = instance;
+            if (cell != null) {
+                cell.Instance = instance;
             }
             else {
                 StateStack.Add(new InstanceCell {
@@ -94,6 +95,13 @@ namespace SingularityForensic.Contracts.Common {
                     ExtName = extName,
                     InstanceType = typeof(TInstance)
                 });
+            }
+        }
+
+        protected void RemoveInstanceCore<TInstance>(string extName) {
+            var cell = StateStack.FirstOrDefault(p => p.InstanceType == typeof(TInstance) && p.ExtName == extName);
+            if(cell != null) {
+                StateStack.Remove(cell);
             }
         }
     }

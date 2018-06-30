@@ -237,19 +237,13 @@ namespace SingularityForensic.FileExplorer {
     class ParitionLastMountTimeMetaDataProvider : PartitionMetaDataProvider {
         public override string DisplayName => LanguageService.FindResourceString(Constants.PartitionMetaDataName_LastMountTime);
 
-        public override Type MetaDataType => typeof(DateTime);
+        public override Type MetaDataType => typeof(DateTime?);
 
         public override string GUID => Constants.PartitionMetaDataGUID_LastMountTime;
 
         public override int Order => 12;
 
-        public override object GetMetaData(IPartition part) {
-            var dt = part.GetExtensionTime(Contracts.FileSystem.Constants.PartitionExtendTime_LastMount);
-            if (dt == null) {
-                return DBNull.Value;
-            }
-            return dt;
-        }
+        public override object GetMetaData(IPartition part) => part.GetExtensionTime(Contracts.FileSystem.Constants.PartitionExtendTime_LastMount);
     }
 
     [Export(typeof(IFileMetaDataProvider))]
@@ -257,19 +251,13 @@ namespace SingularityForensic.FileExplorer {
         public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_ModifiedTime);
 
-        public override Type MetaDataType => typeof(DateTime);
+        public override Type MetaDataType => typeof(DateTime?);
 
         public override string GUID => Constants.FileMetaDataGUID_ModifiedTime;
 
         public override int Order => 6;
 
-        public override object GetMetaData(IFile file) {
-            var mTime = (file as IHaveFileTime)?.ModifiedTime;
-            if (mTime != null) {
-                return mTime.Value;
-            }
-            return DBNull.Value;
-        }
+        public override object GetMetaData(IFile file) => (file as IHaveFileTime)?.ModifiedTime;
     }
 
     [Export(typeof(IFileMetaDataProvider))]
@@ -277,19 +265,13 @@ namespace SingularityForensic.FileExplorer {
         public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_AccessedTime);
 
-        public override Type MetaDataType => typeof(DateTime);
+        public override Type MetaDataType => typeof(DateTime?);
 
         public override string GUID => Constants.FileMetaDataGUID_AccessedTime;
 
         public override int Order => 8;
 
-        public override object GetMetaData(IFile file) {
-            var accessTime = (file as IHaveFileTime)?.AccessedTime;
-            if (accessTime != null) {
-                return accessTime.Value;
-            }
-            return DBNull.Value;
-        }
+        public override object GetMetaData(IFile file) => (file as IHaveFileTime)?.AccessedTime;
 
     }
 
@@ -298,19 +280,13 @@ namespace SingularityForensic.FileExplorer {
         public override string DisplayName =>
             LanguageService.FindResourceString(Constants.FileMetaDataName_CreateTime);
 
-        public override Type MetaDataType => typeof(DateTime);
+        public override Type MetaDataType => typeof(DateTime?);
 
         public override string GUID => Constants.FileMetaDataGUID_CreateTime;
 
         public override int Order => 10;
 
-        public override object GetMetaData(IFile file) {
-            var cTime = (file as IHaveFileTime)?.CreateTime;
-            if (cTime != null) {
-                return cTime.Value;
-            }
-            return DBNull.Value;
-        }
+        public override object GetMetaData(IFile file) => (file as IHaveFileTime)?.CreateTime;
 
     }
 
@@ -336,8 +312,19 @@ namespace SingularityForensic.FileExplorer {
         }
     }
 
-    //[Export(typeof(IFileMetaDataProvider))]
-    //class FileHashMetaDataProvider : FileMetaDataProvider {
+    /// <summary>
+    /// 起始偏移元数据提供器;
+    /// </summary>
+    [Export(typeof(IFileMetaDataProvider))]
+    class FileStartLBAMetaDataProvider : FileMetaDataProvider {
+        public override string DisplayName => LanguageService.FindResourceString(Constants.FileMetaDataName_StartLBA);
 
-    //}
+        public override Type MetaDataType => typeof(long?);
+
+        public override string GUID => Constants.FileMetaDataGUID_StartLBA;
+
+        public override int Order => 16;
+
+        public override object GetMetaData(IFile file) => (file as IBlockGroupedFile)?.GetStartLBA();
+    }
 }

@@ -1,0 +1,82 @@
+***程序文件
+-EndsWith
+	.exe 可执行程序
+	.dll 动态链接库
+*** 图片
+-EndsWith
+	.jpg JPEG	3
+	.png PNG
+	.bmp Bitmap
+*** 压缩文件
+-EndsWith 
+	.zip 压缩文件	3
+	.rar 压缩文件
+	.7z 压缩文件
+*** 常用办公文档
+-EndsWith 
+	.doc Office 2003
+	.docx Office 2007
+	.xls Office 2003
+	.xlsx Office 2007
+	.ppt Office 2003
+	.pptx Office 2007
+	.pdf Acrobat
+	.wps 金山wps文档
+	.et 金山电子表格
+	.wpp 金山演示文稿
+	.rtf RTF
+*** 打印痕迹
+-EndsWith
+	.shd Spooler	4
+	.spl Spooler	4
+*** 编辑痕迹
+-IsEqualTo
+	wps.bkl wps文档备份
+	et.bkl wps电子表格备份
+	wpp.bkl wps演示文稿备份
+*** NTFS日志
+-IsEqualTo
+	$J NTFS日志
+	$LogFile NTFS日志
+*** 图片缩略图
+-IsEqualTo
+	thumbcache_32.db Windows 7缩略图
+	thumbcache_96.db Windows 7缩略图
+	thumbcache_256.db Windows 7缩略图
+	thumbcache_1024.db Windows 7缩略图
+	thumbs.db Windows XP缩略图
+*** 浏览器历史记录
+-IsEqualTo
+	index.dat IE/cache	4
+*** Windows注册表
+-IsEqualTo
+	default Registry hive	2
+	ntuser.dat Registry hive	5
+	sam Registry hive	5
+	security Registry hive	4
+	software Registry hive	4
+	system Registry hive	5
+*** macOS系统
+-IsEqualTo
+	TopSites.plist Safari痕迹	4
+	History.plist Safari痕迹	4
+	SystemVersion.plist 系统版本	4
+	.AppleInstallType.plist 系统安装时间	4
+	COM.APPLE.LOGINITEMS.PLIST 开机启动程序	4
+	COM.APPLE.LOGINWindow.PLIST 自动登录用户	4
+	KCPASSWORD 自动登录密码	4
+	COM.APPLE.iPod.PLIST 连接过得iOS设备	4
+	COM.APPLE.RECENTITEMS.PLIST 最近访问的	4
+	.BASH_HISTORY 最近执行的命令	4
+	system.log 开机时间Boot_Time	4
+-EndsWith
+	.webhistory Safari曾经访问过的网址
+	.sqlitedb Sqlite数据库
+*** iOS备份
+-IsEqualTo
+	info.plist 手机备份信息	4
+	status.plist 手机备份信息	4
+-EndsWith
+	.plist Plist信息
+	.sqlitedb Sqlite数据库
+=T=Certain potentially relevant types

@@ -10,8 +10,7 @@ namespace SingularityForensic.Contracts.App
     /// <summary>
     /// 应用程序;
     /// </summary>
-    public interface IAppService
-    {
+    public interface IAppService {
         /// <summary>
         /// 获取App名称;
         /// </summary>
@@ -31,9 +30,28 @@ namespace SingularityForensic.Contracts.App
         /// 程序存储资源文件的目录;
         /// </summary>
         string AppResourceFolder { get; }
+
+        /// <summary>
+        /// 当前字符集;
+        /// </summary>
+        Encoding AppEncoding { get; }
+
+        /// <summary>
+        /// 获取配置文件配置节的值;
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        string GetSettingValue(string keyName);
+
+        /// <summary>
+        /// 设定配置文件配置节的值;
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        void SetSettingValue(string keyName, string value);
     }
 
-    public class AppSerivice : GenericServiceStaticInstance<IAppService> {
+    public class AppService : GenericServiceStaticInstance<IAppService> {
         public static string AppName => Current?.AppName;
         public static string AppDataFolder => Current?.AppDataFolder;
         public static string AppTempFolder => Current?.AppTempFolder;

@@ -34,6 +34,14 @@ namespace SingularityForensic.BaseDevice {
         public ulong PartTabProp;			//分区属性			8 byte
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 72)]
         public byte[] PartTabNameUnicode;           //分区名unicode码	72 byte
+        public string PartTabName {
+            get {
+                if(PartTabNameUnicode == null) {
+                    return string.Empty;
+                }
+                return System.Text.Encoding.Unicode.GetString(PartTabNameUnicode);
+            }
+        }
     }
 
     

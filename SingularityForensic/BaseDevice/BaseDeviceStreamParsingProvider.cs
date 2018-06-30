@@ -108,10 +108,11 @@ namespace SingularityForensic.BaseDevice {
 
                 while (partNode != IntPtr.Zero) {
                     var dosPTable = partNode.GetStructure<StDosPTable>();
-                    var dosPartInfo = new DOSPartInfo();
-                    dosPartInfo.DosPTable = new DosPTable(dosPTable);
+                    var dosPartInfo = new DOSPartInfo {
+                        DosPTable = new DosPTable(dosPTable)
+                    };
 
-                    if(dosPTable.Info != IntPtr.Zero) {
+                    if (dosPTable.Info != IntPtr.Zero) {
                         var stInfoDisk = dosPTable.Info.GetStructure<StInFoDisk>();
                         dosPartInfo.InfoDisk = new InfoDisk(stInfoDisk) {
                             InternalDisplayName = LanguageService.FindResourceString($"{Constants.DisplayName_InfoDisk}{++infoDiskIndex}")
@@ -218,9 +219,10 @@ namespace SingularityForensic.BaseDevice {
 
                 while (partNode != IntPtr.Zero) {
                     var gptPTable = partNode.GetStructure<StGptPTable>();
-                    var gptPartInfo = new GPTPartInfo();
-                    gptPartInfo.StGptPTable = gptPTable;
-                    
+                    var gptPartInfo = new GPTPartInfo {
+                        StGptPTable = gptPTable
+                    };
+
                     if (gptPTable.InfoDisk != IntPtr.Zero) {
                         var stInfoDisk = gptPTable.InfoDisk.GetStructure<StInFoDisk>();
                         gptPartInfo.InfoDisk = new InfoDisk(stInfoDisk) {
@@ -280,6 +282,8 @@ namespace SingularityForensic.BaseDevice {
                 var entry = PartitionEntryFactory.CreatePartitionEntry(Constants.PartEntryKey_GPT);
                 var entryStoken = entry.GetStoken(Constants.PartEntryKey_GPT);
                 entryStoken.TypeGUID = Constants.PartEntryType_GPT;
+
+                entryStoken.Name = gptPartInfo.EFIPTable.StructInstance.PartTabName;
 
                 entryStoken.StartLBA = (long)gptPartInfo.StGptPTable.nOffset;
                 entryStoken.Size = Marshal.SizeOf(typeof(StEFIPTable));

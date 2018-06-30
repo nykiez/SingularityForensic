@@ -368,8 +368,10 @@
     <Compile Include="FAT\FATInfo.cs" />
     <Compile Include="FAT\FATPartInfo.cs" />
     <Compile Include="FAT\FATPartType.cs" />
+    <Compile Include="FileExplorer\CategoryNameFileMetaDataProvider.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFileExplorerModuleLoadingForHashColumnEventHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnNavMenuHandler.cs" />
+    <Compile Include="FileExplorer\Events\OnFileExplorerModuleLoadingForCategoryServiceEventHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedEventOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedShowPartitionBrowserHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileSystemUnitSelectedChangedHandler.cs" />
@@ -394,10 +396,13 @@
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
     <Compile Include="FileExplorer\CustomSignSearchServiceImpl.cs" />
-    <Compile Include="FileExplorer\FileExplorerTreeUnitCommandItemFactory.cs" />
+    <Compile Include="FileExplorer\FileExplorerStreamFileExtensions.cs" />
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FullFileNameProviderImpl.cs" />
+    <Compile Include="FileExplorer\CategoryNameServiceImpl.cs" />
+    <Compile Include="FileExplorer\MenuItemDefinitions.cs" />
     <Compile Include="FileExplorer\NavMenuDataContext.cs" />
+    <Compile Include="FileExplorer\StringMatchRules.cs" />
     <Compile Include="FileExplorer\ViewerSeviceImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\FileExplorerViewModelFactoryImpl.cs" />
     <Compile Include="FileExplorer\ViewModels\NavMenuViewModel.cs" />
@@ -1592,6 +1597,8 @@
     <Content Include="FAT\FatRecover.dll" />
     <Content Include="BaseDevice\PartitionManager.dll" />
     <Resource Include="FileExplorer\Images\Type_RegularFile.png" />
+    <Resource Include="FileExplorer\File Type Categories.txt" />
+    <Resource Include="FileExplorer\Images\Toolbar_TargetPeople.png" />
     <Content Include="FileExplorer\ViewerPrograms.xml" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

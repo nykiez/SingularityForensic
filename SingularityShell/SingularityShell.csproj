@@ -191,6 +191,7 @@ Copy "$(SolutionDir)SingularityForensic.Themes\$(OutDir)\SingularityForensic.The
 Copy "$(SolutionDir)SingularityForensic.Android\$(OutDir)\SingularityForensic.Android.dll" "$(TargetDir)Entities\SingularityForensic.Android.dll"
 
 Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
+Copy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt"
 
 Copy "$(SolutionDir)SingularityForensic.Info\$(OutDir)\SingularityForensic.Info.dll" "$(TargetDir)Entities\SingularityForensic.Info.dll"
 Copy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll"

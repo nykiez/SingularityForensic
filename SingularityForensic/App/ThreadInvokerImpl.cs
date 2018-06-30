@@ -16,13 +16,8 @@ namespace SingularityForensic.App {
                 act.Invoke();
             });
         }
-
-        /// <summary>
-        /// UI线程状态;priLevel为优先级;done表示是否完成;
-        /// </summary>
-        private (uint priLevel, bool done) uiState;
-
-        private AutoResetEvent evt = new AutoResetEvent(false);
+        
+        private readonly AutoResetEvent evt = new AutoResetEvent(false);
         public void UIInvoke(Action act) {
             if (act == null) {
                 throw new ArgumentNullException(nameof(act));

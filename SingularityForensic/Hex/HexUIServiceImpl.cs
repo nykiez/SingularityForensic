@@ -75,17 +75,22 @@ namespace SingularityForensic.Hex {
             };
 
             dialog.RunWorkerCompleted += (sender, e) => {
-                if (!e.Cancelled) {
-                    if (pos != -1) {
-                        //SelectionStart = pos;
-                        //SelectionStop = pos + findBytes.Length - 1;
-                        hex.Position = pos;
-                        hex.FocusPosition = pos;
-                    }
-                    else {
-                        MsgBoxService.Show(LanguageService.FindResourceString("CannotFindTheContent"));
-                    }
+                if (e.Cancelled) {
+                    return;
                 }
+                if(pos == -1) {
+                    MsgBoxService.Show(LanguageService.FindResourceString("CannotFindTheContent"));
+                    return;
+                }
+
+                if (hex.BytePerLine <= 0) {
+                    LoggerService.WriteCallerLine($"{nameof(hex.BytePerLine)} can't be less than zero.");
+                    MsgBoxService.Show("Un expected error");
+                    return;
+                }
+
+                hex.Position = pos / hex.BytePerLine * hex.BytePerLine;
+                hex.FocusPosition = pos;
             };
 
             dialog.ShowDialog();

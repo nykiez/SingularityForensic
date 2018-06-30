@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="AdbAquirTest.cs" />
     <Compile Include="App\AppMockers.cs" />
+    <Compile Include="App\AppServiceTest.cs" />
     <Compile Include="BaseDevice\BaseDeviceTest.cs" />
     <Compile Include="Common\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="FileExplorer\Events\OnInnerFileUnitRightClickRecurBroswingEventHandlerTests.cs" />
     <Compile Include="FileExplorer\FileExplorerTestCommon.cs" />
     <Compile Include="FileExplorer\FolderBrowserViewModelFactoryTests.cs" />
+    <Compile Include="FileExplorer\TestCategoryNameService.cs" />
     <Compile Include="FileExplorer\TestFileExplorerUIService.cs" />
     <Compile Include="FileExplorer\TestDataTable.cs" />
     <Compile Include="FileExplorer\PartitionsBrowserViewModelTests.cs" />
@@ -210,6 +212,7 @@ Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatReco
 Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
 Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
 Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
+Copy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt"
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
 

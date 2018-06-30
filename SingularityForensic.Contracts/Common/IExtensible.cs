@@ -17,6 +17,13 @@ namespace SingularityForensic.Contracts.Common {
         /// <typeparam name="TInstance"></typeparam>
         /// <param name="instance"></param>
         void SetInstance<TInstance>(TInstance instance,string extName);
+
+        /// <summary>
+        /// 移除拓展实例;
+        /// </summary>
+        /// <typeparam name="TInstance"></typeparam>
+        /// <param name="extName"></param>
+        void RemoveInstance<TInstance>(string extName);
     }
 
     /// <summary>

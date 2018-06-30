@@ -2,7 +2,9 @@
 using SingularityForensic.Contracts.Common;
 using System;
 using System.ComponentModel.Composition;
+using System.Configuration;
 using System.IO;
+using System.Text;
 
 namespace SingularityForensic.App {
     [Export(typeof(IAppService))]
@@ -45,6 +47,9 @@ namespace SingularityForensic.App {
             }
         }
 
+        private Encoding _appEncoding;
+        public Encoding AppEncoding => _appEncoding ?? (_appEncoding = Encoding.GetEncoding("GB2312"));
+
         /// <summary>
         /// 检查指定目录是否存在,若无,则创建;
         /// </summary>
@@ -61,6 +66,44 @@ namespace SingularityForensic.App {
             }
 
             return Directory.Exists(folderPath);
+        }
+
+        public string GetSettingValue(string keyName) {
+            var cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if(cfa == null) {
+                LoggerService.WriteCallerLine($"{nameof(cfa)} is null.");
+                return null;
+            }
+            try {
+                return cfa.AppSettings.Settings[keyName].Value;
+            }
+            catch (Exception ex) {
+                LoggerService.WriteException(ex);
+                return null;
+            }
+        }
+
+        public void SetSettingValue(string keyName,string value) {
+            var cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (cfa == null) {
+                LoggerService.WriteCallerLine($"{nameof(cfa)} is null.");
+                return;
+            }
+
+            try {
+                var setting = cfa.AppSettings.Settings[keyName];
+                if(setting == null) {
+                    cfa.AppSettings.Settings.Add(keyName, value);
+                }
+                else {
+                    setting.Value = value;
+                }
+                
+                cfa.Save();
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+            }
         }
     }
 }

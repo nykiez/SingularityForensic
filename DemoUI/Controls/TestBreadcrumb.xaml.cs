@@ -56,7 +56,8 @@ namespace DemoUI.Controls {
             get => _treeSelectedItem;
             set  {
                 _treeSelectedItem = value;
-                ExplorerItem.ChildrenTimes = 0;
+
+
                 //SetProperty(ref _treeSelectedItem, value);
                 SetProperty(ref _currentItem, value,nameof(CurrentItem));
             }
@@ -272,7 +273,9 @@ namespace DemoUI.Controls {
 
         public ObservableCollection<ExplorerItem> Children {
             get {
+#if DEBUG
                 ChildrenTimes++;
+#endif
                 return _children;
             }
             set { _children = value; }

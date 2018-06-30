@@ -13,7 +13,10 @@
     /// 语言部分;
     /// </summary>
     public static partial class Constants {
-        
+
+        public const string Prefix_Partition = nameof(Prefix_Partition);
+
+
         public const string StreamParser_Unknown = nameof(StreamParser_Unknown);
         
         public const string StreamParser_NTFS = nameof(StreamParser_NTFS);

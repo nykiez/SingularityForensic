@@ -40,6 +40,13 @@ namespace SingularityForensic.Contracts.FileExplorer {
         /// </summary>
         /// <returns></returns>
         INavMenuDataContext CreateNavMenuDataContext();
+
+
+        /// <summary>
+        /// 获取所有的FolderViewModel;
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<IFolderBrowserDataContext> GetAllFolderBrowserDataContext();
     }
 
     public class FileExplorerDataContextFactory : GenericServiceStaticInstance<IFileExplorerDataContextFactory> {

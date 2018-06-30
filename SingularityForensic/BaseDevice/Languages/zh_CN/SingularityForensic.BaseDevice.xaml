@@ -29,4 +29,5 @@
   <sys:String x:Key="GPTEFIPTable_PartTabNameUnicode">分区名unicode码</sys:String>
   <sys:String x:Key="DisplayName_EFIInfo">EFIInfo</sys:String>
   <sys:String x:Key="DisplayName_EFIPTable">EFIPTable</sys:String>
+  <sys:String x:Key="DisplayName_InfoDisk">InfoDisk</sys:String>
 </ResourceDictionary>

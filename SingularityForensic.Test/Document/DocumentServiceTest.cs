@@ -96,6 +96,10 @@ namespace SingularityForensic.Test.Documents {
                 throw new NotImplementedException();
             }
 
+            public void RemoveInstance<TInstance>(string extName) {
+                throw new NotImplementedException();
+            }
+
             public void SetInstance<TInstance>(TInstance instance, string extName) {
                 throw new NotImplementedException();
             }

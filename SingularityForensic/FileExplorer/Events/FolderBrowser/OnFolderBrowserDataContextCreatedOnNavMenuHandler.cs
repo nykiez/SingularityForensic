@@ -35,7 +35,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser {
                 //跳转目录时导航节点变化;
                 folderBrowserDataContext.FolderBrowserViewModel.CurrentPathChanged += (sender, e) => {
                     var currentPath = folderBrowserDataContext.FolderBrowserViewModel.CurrentPath;
-                    if (string.IsNullOrEmpty(currentPath)) {
+                    if ( currentPath == null) {
                         return;
                     }
                     navContext.NavMenuViewModel.SelectedPath = currentPath;

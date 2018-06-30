@@ -10,9 +10,9 @@
     <Grid>
         <telerik:RadBreadcrumb HierarchicalItemsSource="Children" Header="{Binding RootNavNode}" 
                                    HierarchicalMemberPath="Name" HeaderMemberPath="Name"  TextModePath="Name"
-                                   ItemsSource="{Binding RootNavNode.Children}" 
+                               ItemsSource="{Binding RootNavNode.Children}"
                                    Path="{Binding InternalSelectedPath,Mode=TwoWay}">
-
+            
         </telerik:RadBreadcrumb>
     </Grid>
 </UserControl>

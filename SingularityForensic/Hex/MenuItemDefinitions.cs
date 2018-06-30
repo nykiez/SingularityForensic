@@ -43,7 +43,7 @@ namespace SingularityForensic.Hex {
         [Export]
         public static MenuButtonItem FindTextMenuItem
               => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
-                        ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("SearchForText")) {
+                        LanguageService.FindResourceString("SearchForText")) {
                   Command = ServiceProvider.GetInstance<HexUIServiceImpl>().FindTextCommand,
                   IconSource = IconSources.FindTextIcon,
                   Modifier = ModifierKeys.Control,

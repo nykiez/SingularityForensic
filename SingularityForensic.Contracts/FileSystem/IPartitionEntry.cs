@@ -33,6 +33,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 分区表项类型;
         /// </summary>
         public string TypeGUID { get; set; }
+
+        /// <summary>
+        /// 分区名;
+        /// </summary>
+        public string Name { get; set; }
     }
 
     public interface IPartitionEntry:IHaveStoken<PartitionEntryStoken> {
@@ -58,6 +63,11 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 分区表项类型;
         /// </summary>
         string TypeGUID { get; }
+
+        /// <summary>
+        /// 分区名;
+        /// </summary>
+        string Name { get; }
     }
 
     /// <summary>

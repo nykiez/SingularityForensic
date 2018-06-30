@@ -48,11 +48,13 @@
         public const string StatusBarItemGUID_FilesCount = nameof(StatusBarItemGUID_FilesCount);
         
         public const string StatusBarItemGUID_RegFileCount = nameof(StatusBarItemGUID_RegFileCount);
+        
+        public const string TBButtonGUID_LoadCategoryNameFile = nameof(TBButtonGUID_LoadCategoryNameFile);
 
 
         public const string StatusBarItemGUID_DirectoryCount = nameof(StatusBarItemGUID_DirectoryCount);
 
-        public const string FileHashMetaDataProvider_GUIDPrifix = "HashMetaData_";
+        public const string FileHashMetaDataProvider_GUIDPrefix = "HashMetaData_";
 
         /// <summary>
         /// 打开方式,右键;
@@ -72,6 +74,17 @@
 
         public const string XmlAttrName_View_Pro_Name = "Name";
         
+        public const string StringMatchRuleType_StartsWith = "StartsWith";
+        public const string StringMatchRuleType_EndsWith = "EndsWith";
+        public const string StringMatchRuleType_Contains = "Contains";
+        public const string StringMatchRuleType_IsEqualTo = "IsEqualTo";
+
+        public const string TextLine_CategoryCaptionPrefix = "***";
+        public const string TextLine_CategoryDetailPrefix = "\t";
+        public const string TextLine_CategoryRulePrefix = "-";
+        
+        public const string ConfigKey_CategoryDescriptorFile = "CategoryNameFile";
+        public const string ConfigValue_CategoryDescriptorDefaultFile = "File Type Categories.txt";
     }
 
     /// <summary>
@@ -94,7 +107,6 @@
         /// </summary>
 
         public const string FileMetaDataName_Name = nameof(FileMetaDataName_Name);
-        public const string FileMetaDataName_Checked = nameof(FileMetaDataName_Checked);
         public const string FileMetaDataName_FileType = nameof(FileMetaDataName_FileType);
         public const string FileMetaDataName_Size = nameof(FileMetaDataName_Size);
         public const string FileMetaDataName_ModifiedTime = nameof(FileMetaDataName_ModifiedTime);
@@ -104,6 +116,8 @@
 
         public const string FileMetaDataName_Deleted = nameof(FileMetaDataName_Deleted);
         public const string FileMetaDataName_Path = nameof(FileMetaDataName_Path);
+
+        public const string FileMetaDataName_NameCategory = nameof(FileMetaDataName_NameCategory);
 
         public const string FileDeleted_Yes = nameof(FileDeleted_Yes);
         public const string FileDeleted_No = nameof(FileDeleted_No);
@@ -116,7 +130,6 @@
         /// </summary>
 
         public const string FileMetaDataGUID_Name = nameof(FileMetaDataGUID_Name);
-        public const string FileMetaDataGUID_Checked = nameof(FileMetaDataGUID_Checked);
         public const string FileMetaDataGUID_FileType = nameof(FileMetaDataGUID_FileType);
         public const string FileMetaDataGUID_Size = nameof(FileMetaDataGUID_Size);
         public const string FileMetaDataGUID_ModifiedTime = nameof(FileMetaDataGUID_ModifiedTime);
@@ -126,6 +139,13 @@
 
         public const string FileMetaDataGUID_Deleted = nameof(FileMetaDataGUID_Deleted);
         public const string FileMetaDataGUID_Path = nameof(FileMetaDataGUID_Path);
+
+
+        public const string FileMetaDataGUID_NameCategory = nameof(FileMetaDataGUID_NameCategory);
+        
+        //名称类别拓展元素;
+        public const string FileTag_CategoryDescriptor = nameof(FileTag_CategoryDescriptor);
+
 
         public const string FileType_Directory = nameof(FileType_Directory);
         public const string FileType_RegularFile = nameof(FileType_RegularFile);
@@ -196,10 +216,15 @@
 
 
         public const string BusyWord_FileBeingShown = nameof(BusyWord_FileBeingShown);
-
-
         public const string BusyWord_NavMenuBeingBuilt = nameof(BusyWord_NavMenuBeingBuilt);
 
+
+        public const string StringMatchRuleName_StartsWith = nameof(StringMatchRuleName_StartsWith);
+        public const string StringMatchRuleName_EndsWith = nameof(StringMatchRuleName_EndsWith);
+        public const string StringMatchRuleName_Contains = nameof(StringMatchRuleName_Contains);
+        public const string StringMatchRuleName_IsEqualTo = nameof(StringMatchRuleName_IsEqualTo);
+
+        public const string TBButtonToolTip_LoadCategoryNameFile = nameof(TBButtonToolTip_LoadCategoryNameFile);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

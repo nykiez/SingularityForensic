@@ -22,10 +22,10 @@ namespace SingularityForensic.Contracts.Common {
            Func<TEntity, IEnumerable<TEntity>> getChildren,
            Func<TEntity, TParam, bool> predicate) {
             if (EqualityComparer<TEntity>.Default.Equals(entity)) {
-                return default(TEntity);
+                return default;
             }
             if (splitParams == null || splitParams.Length == 0) {
-                return default(TEntity);
+                return default;
             }
             if (getChildren == null) {
                 throw new ArgumentNullException(nameof(getChildren));
@@ -34,12 +34,12 @@ namespace SingularityForensic.Contracts.Common {
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            TEntity entityNode = default(TEntity);
+            TEntity entityNode = default;
             if (predicate(entity, splitParams[0])) {
                 entityNode = entity;
             }
             else {
-                return default(TEntity);
+                return default;
             }
 
             if (splitParams.Length == 1) {
@@ -49,7 +49,7 @@ namespace SingularityForensic.Contracts.Common {
             for (int index = 1; index < splitParams.Length - 1; index++) {
                 entityNode = getChildren(entityNode).FirstOrDefault(p => predicate(p, splitParams[index]));
                 if (EqualityComparer<TEntity>.Default.Equals(entityNode)) {
-                    return default(TEntity);
+                    return default;
                 }
             }
 

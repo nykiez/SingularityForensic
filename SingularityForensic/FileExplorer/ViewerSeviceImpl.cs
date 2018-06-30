@@ -36,7 +36,7 @@ namespace SingularityForensic.FileExplorer {
                 yield break;
             }
 
-            var dataFile = $"{AppSerivice.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var dataFile = $"{AppService.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
 
             XDocument xDoc = null;
             try {
@@ -98,15 +98,15 @@ namespace SingularityForensic.FileExplorer {
 
         }
 
-        private static string GetDataFileName() => $"{AppSerivice.AppDataFolder}/{Constants.ViewerProgram_ConfigFile}";
+        private static string GetDataFileName() => $"{AppService.AppDataFolder}/{Constants.ViewerProgram_ConfigFile}";
 
         /// <summary>
         /// 检查查看程序配置文件是否存在,若不存在,则创建;
         /// </summary>
         /// <returns></returns>
         private static bool CheckDataFileExists() {
-            var dataFile = $"{AppSerivice.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
-            var originFile = $"{AppSerivice.AppResourceFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var dataFile = $"{AppService.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var originFile = $"{AppService.AppResourceFolder}\\{Constants.ViewerProgram_ConfigFile}";
             if (!File.Exists(dataFile) && File.Exists(originFile)) {
                 try {
                     File.Copy(originFile, dataFile);
@@ -120,8 +120,8 @@ namespace SingularityForensic.FileExplorer {
         }
 
         public void Reset() {
-            var dataFile = $"{AppSerivice.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
-            var originFile = $"{AppSerivice.AppResourceFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var dataFile = $"{AppService.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var originFile = $"{AppService.AppResourceFolder}\\{Constants.ViewerProgram_ConfigFile}";
             if (File.Exists(originFile)) {
                 try {
                     File.Copy(originFile, dataFile, true);
