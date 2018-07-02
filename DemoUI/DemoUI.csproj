@@ -159,6 +159,9 @@
     <Compile Include="Document\Documents.xaml.cs">
       <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileExplorer\TestNameCategory.xaml.cs">
+      <DependentUpon>TestNameCategory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileExplorer\TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Document\Documents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileExplorer\TestNameCategory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

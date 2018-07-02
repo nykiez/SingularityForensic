@@ -6,12 +6,14 @@ using System.Linq;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
+using SingularityForensic.Contracts.FileExplorer.Events;
+using SingularityForensic.Contracts.Helpers;
 
 namespace SingularityForensic.FileExplorer {
-    [Export(typeof(ICategoryNameService))]
-    class CategoryNameServiceImpl : ICategoryNameService {
+    [Export(typeof(INameCategoryService))]
+    class NameCategoryServiceImpl : INameCategoryService {
         [ImportingConstructor]
-        public CategoryNameServiceImpl([ImportMany]IEnumerable<IStringMatchRule> stringMatchRules) {
+        public NameCategoryServiceImpl([ImportMany]IEnumerable<IStringMatchRule> stringMatchRules) {
             this._stringRecognizers =  stringMatchRules.Select(p => new NameCategoryRecognizer(p)).ToArray();
         }
 
@@ -39,6 +41,8 @@ namespace SingularityForensic.FileExplorer {
         public void LoadDescriptorsFromFile(string fileName) {
             try {
                 LoadDescriptorInternal(fileName);
+                PubEventHelper.GetEvent<NameCategoryDescriptorsLoadedEvent>().Publish();
+                PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<INameCategoryDescriptorsLoadedEventHandler>.Currents);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -159,10 +163,10 @@ namespace SingularityForensic.FileExplorer {
                     }
                     //设定默认值;
                     AppService.Current.SetSettingValue(Constants.ConfigKey_CategoryDescriptorFile, descriptorFile);
-                    LoadDescriptorsFromFile(descriptorFile);
+                    LoadDescriptorInternal(descriptorFile);
                 }
                 else{
-                    LoadDescriptorsFromFile(descriptorFile);
+                    LoadDescriptorInternal(descriptorFile);
                 }
             }
             catch(Exception ex) {

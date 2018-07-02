@@ -147,6 +147,7 @@
     <Compile Include="Document\IEnumerableDocument.cs" />
     <Compile Include="Document\IDocumentService.cs" />
     <Compile Include="Document\IDocument.cs" />
+    <Compile Include="FileExplorer\Events\NameCategoryDescriptorsLoadedEvent.cs" />
     <Compile Include="FileExplorer\ICategoryNameService.cs" />
     <Compile Include="FileExplorer\Events\IFileExplorerModuleLoadingEventHandler.cs" />
     <Compile Include="FileExplorer\IFolderBrowserDataContext.cs" />

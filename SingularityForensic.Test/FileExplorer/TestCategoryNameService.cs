@@ -13,28 +13,28 @@ namespace SingularityForensic.Test.FileExplorer {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _categoryNameService = CategoryNameService.Current;
+            _categoryNameService = NameCategoryService.Current;
             Assert.IsNotNull(_categoryNameService);
             _categoryNameService.Initialize();
         }
 
-        private ICategoryNameService _categoryNameService;
+        private INameCategoryService _categoryNameService;
         [TestMethod]
         public void TestLoadKeyPairFrom() {
-            CategoryNameService.LoadDescriptorsFromFile("D:\\SingularitySolution\\SingularityForensic\\FileExplorer\\File Type Categories.txt");
+            NameCategoryService.LoadDescriptorsFromFile("D:\\SingularitySolution\\SingularityForensic\\FileExplorer\\File Type Categories.txt");
         }
         [TestMethod]
         public void TestExpired() {
-            var pair = CategoryNameService.GetNameCategory("thumbcache_96.db");
+            var pair = NameCategoryService.GetNameCategory("thumbcache_96.db");
             Assert.IsNotNull(pair);
             Assert.IsFalse(pair.IsExpired);
-            CategoryNameService.LoadDescriptorsFromFile("D:\\SingularitySolution\\SingularityForensic\\FileExplorer\\File Type Categories.txt");
+            NameCategoryService.LoadDescriptorsFromFile("D:\\SingularitySolution\\SingularityForensic\\FileExplorer\\File Type Categories.txt");
             Assert.IsTrue(pair.IsExpired);
         }
 
         [TestMethod]
         public void TestGetKeyPair() {
-            var pair = CategoryNameService.GetNameCategory("thumbcache_96.db");
+            var pair = NameCategoryService.GetNameCategory("thumbcache_96.db");
             Assert.IsNotNull(pair);
             Assert.IsFalse(pair.IsExpired);
             Assert.AreEqual(pair.CategoryName, "Windows 7缩略图");

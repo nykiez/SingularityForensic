@@ -39,7 +39,14 @@ namespace SingularityForensic.BaseDevice {
                 if(PartTabNameUnicode == null) {
                     return string.Empty;
                 }
-                return System.Text.Encoding.Unicode.GetString(PartTabNameUnicode);
+                var availebleIndex = 0;
+                for (int i = PartTabNameUnicode.Length - 1; i >= 0 ; i--) {
+                    if(PartTabNameUnicode[i] != '\0') {
+                        availebleIndex = i;
+                        break;
+                    }
+                }
+                return System.Text.Encoding.Unicode.GetString(PartTabNameUnicode,0,availebleIndex  % 2 == 0?availebleIndex + 2 :availebleIndex + 1);
             }
         }
     }

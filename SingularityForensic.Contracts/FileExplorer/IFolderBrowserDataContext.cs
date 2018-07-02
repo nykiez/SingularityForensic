@@ -43,7 +43,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
 
 
         /// <summary>
-        /// 获取所有的FolderViewModel;
+        /// 获取所有的FolderBrowserDataContext;
         /// </summary>
         /// <returns></returns>
         IEnumerable<IFolderBrowserDataContext> GetAllFolderBrowserDataContext();

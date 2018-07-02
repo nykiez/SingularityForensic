@@ -52,7 +52,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
     /// <summary>
     /// 命名类别服务;
     /// </summary>
-    public interface ICategoryNameService {
+    public interface INameCategoryService {
         /// <summary>
         /// 获取名称;
         /// </summary>
@@ -72,7 +72,7 @@ namespace SingularityForensic.Contracts.FileExplorer {
         void Initialize();
     }
      
-    public class CategoryNameService : GenericServiceStaticInstance<ICategoryNameService> {
+    public class NameCategoryService : GenericServiceStaticInstance<INameCategoryService> {
         public static void LoadDescriptorsFromFile(string fileName) => Current?.LoadDescriptorsFromFile(fileName);
         public static ICategoryDescriptor GetNameCategory(string name) => Current?.GetNameCategory(name);
     }

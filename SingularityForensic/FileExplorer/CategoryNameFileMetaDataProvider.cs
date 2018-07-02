@@ -1,13 +1,8 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.FileExplorer;
-using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.FileSystem;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer {
     [Export(typeof(IFileMetaDataProvider))]
@@ -28,7 +23,7 @@ namespace SingularityForensic.FileExplorer {
 
             var descriptor = file.ExtensibleTag.GetInstance<ICategoryDescriptor>(Constants.FileTag_CategoryDescriptor);
             if(descriptor == null || descriptor.IsExpired) {
-                descriptor = CategoryNameService.GetNameCategory(file.Name);
+                descriptor = NameCategoryService.GetNameCategory(file.Name);
                 if(descriptor != null) {
                     file.ExtensibleTag.SetInstance(descriptor, Constants.FileTag_CategoryDescriptor);
                     return $"{descriptor.CategoryName}-{descriptor.Key}";

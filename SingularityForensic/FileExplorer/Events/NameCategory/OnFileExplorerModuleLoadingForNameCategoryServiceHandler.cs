@@ -9,8 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.FileExplorer.Events {
+    /// <summary>
+    /// 模块加载时,初始化名称类别服务;
+    /// </summary>
     [Export(typeof(IFileExplorerModuleLoadingEventHandler))]
-    class OnFileExplorerModuleLoadingForCategoryServiceEventHandler : IFileExplorerModuleLoadingEventHandler {
+    class OnFileExplorerModuleLoadingForNameCategoryServiceHandler : IFileExplorerModuleLoadingEventHandler {
         public int Sort => 2;
 
         public bool IsEnabled => true;
@@ -18,7 +21,7 @@ namespace SingularityForensic.FileExplorer.Events {
         public void Handle() {
             try {
 
-                CategoryNameService.Current.Initialize();
+                NameCategoryService.Current.Initialize();
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);

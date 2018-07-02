@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SingularityForensic.FileExplorer {
-    /// <summary>
-    /// 加载名称类别工具栏;
-    /// </summary>
     
-    static class LoadCategoryNameDescriptorsMenuItemDefinitions {
+    
+    static class MenuItemDefinitions {
+        /// <summary>
+        /// 加载名称类别文件工具栏;
+        /// </summary>
         private static IToolBarButtonItem _loadCategoryNameDescriptorsToolBarItem;
         [Export]
         public static IToolBarButtonItem LoadCategoryNameDescriptorsToolBarItem {
@@ -42,24 +43,7 @@ namespace SingularityForensic.FileExplorer {
             }
 
             try {
-                CategoryNameService.LoadDescriptorsFromFile(fileName);
-                var dts = SingularityForensic.Contracts.FileExplorer.FileExplorerDataContextFactory.Current?.GetAllFolderBrowserDataContext();
-                if(dts == null) {
-                    return;
-                }
-
-                ThreadInvoker.BackInvoke(() => {
-                    foreach (var dt in dts) {
-                        var files = dt.FolderBrowserViewModel?.Files;
-                        if (files == null) {
-                            continue;
-                        }
-                        foreach (var file in files) {
-                            file.NotifyProperty(Constants.FileMetaDataGUID_NameCategory);
-                        }
-                    }
-                });
-                
+                NameCategoryService.LoadDescriptorsFromFile(fileName);
             }
             catch (Exception ex) {
                 LoggerService.WriteException(ex);
