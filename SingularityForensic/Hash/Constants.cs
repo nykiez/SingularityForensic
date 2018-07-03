@@ -4,6 +4,22 @@
         public const string HashTypeGUID_SHA1 = nameof(HashTypeGUID_SHA1);
         public const string HashTypeGUID_SHA256 = nameof(HashTypeGUID_SHA256);
         public const string HashTypeGUID_SHA512 = nameof(HashTypeGUID_SHA512);
+
+        /// <summary>
+        /// 哈希集配置文件相关的元素名称;
+        /// </summary>
+        public const string HashSetManagement_ConfigFile = "HashSets.xml";
+
+        public const string XmlElemName_HashSets_Root = "HashSets";
+
+        public const string XmlElemName_HashSets_Set = "Set";
+        
+        public const string XmlAttrName_HashSets_Set_Name = "Name";
+        
+        public const string XmlAttrName_HashSets_Set_GUID = nameof(XmlAttrName_HashSets_Set_GUID);
+        
+        public const string XmlAttrName_HashSets_Set_Path = nameof(XmlAttrName_HashSets_Set_Path);
+
     }
 
     /// <summary>

@@ -16,8 +16,10 @@ namespace SingularityForensic.Hash {
 
         public override int Sort => 2;
 
+        public override int BytesPerHashValue => 16;
+
         class MD5HashAlgorithmProvider : GenericStaticInstance<MD5HashAlgorithmProvider>,IHashAlgorithmProvider {
-            public HashAlgorithm CreateNew() => new MD5CryptoServiceProvider();
+            public HashAlgorithm GetOrCreateNewOne() => new MD5CryptoServiceProvider();
         }
     }
 }

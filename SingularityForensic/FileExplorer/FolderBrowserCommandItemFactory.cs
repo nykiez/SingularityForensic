@@ -448,6 +448,10 @@ namespace SingularityForensic.FileExplorer {
 
         private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IHasher hasher) {
             var comm = new DelegateCommand(() => {
+                /////获取选中文件的行;
+                //IEnumerable<Stream> GetSelectedFileStreams() {
+
+                //};
                 var stream = vm.SelectedFile?.File?.GetInputStream();
                 if(stream == null) {
                     return;
@@ -460,7 +464,14 @@ namespace SingularityForensic.FileExplorer {
                     result = ComputeHashOnDialog(loadingDialog, hasher,stream);
                     var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
                     vm.SelectedFile.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
+#if DEBUG
+                    //foreach (var file in vm.SelectedFiles) {
+                    //    file.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
+                    //    file.NotifyProperty(metaGUID);
+                    //}
+#endif
                     vm.SelectedFile.NotifyProperty(metaGUID);
+                    
                     stream.Dispose();
                 };
 

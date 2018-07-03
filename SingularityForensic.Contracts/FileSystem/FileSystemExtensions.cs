@@ -12,7 +12,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 从文件系统中根据某个路径获取文件;
         /// </summary>
         /// <param name="fsService"></param>
-        /// <param name="path"></param>
+        /// <param name="path">路径,路径分割符("/"或"\")将只能同时出现一次</param>
         /// <returns></returns>
         public static IFile GetFile(this IFileSystemService fsService, string path) {
             if (fsService == null) {
@@ -31,7 +31,7 @@ namespace SingularityForensic.Contracts.FileSystem {
             if (!(mountedUnit.File is IHaveFileCollection haveFileCollection)) { 
                 return null;
             }
-
+            
             return haveFileCollection.GetFileByUrlArgs(pathParams.Skip(1).ToArray());
         }
     }

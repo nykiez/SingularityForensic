@@ -18,8 +18,10 @@ namespace SingularityForensic.Hash {
 
         public override int Sort => 8;
 
+        public override int BytesPerHashValue => 64;
+
         class SHA512HashAlgorithmProvider : GenericStaticInstance<SHA512HashAlgorithmProvider>, IHashAlgorithmProvider {
-            public HashAlgorithm CreateNew() => new SHA512CryptoServiceProvider();
+            public HashAlgorithm GetOrCreateNewOne() => new SHA512CryptoServiceProvider();
         }
     }
 }

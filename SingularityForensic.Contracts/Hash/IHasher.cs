@@ -30,5 +30,9 @@ namespace SingularityForensic.Contracts.Hash {
         /// 排序;
         /// </summary>
         int Sort { get; }
+        /// <summary>
+        /// 哈希值字节长度;
+        /// </summary>
+        int BytesPerHashValue { get; }
     }
 }

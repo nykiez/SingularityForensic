@@ -10,6 +10,7 @@ namespace SingularityForensic.Hash {
         public SHA1Hasher() : base(SHA1HashAlgorithmProvider.StaticInstance) {
 
         }
+        
         public override string HashTypeName => LanguageService.FindResourceString(Constants.HashTypeName_SHA1);
 
         public override string GUID => Constants.HashTypeGUID_SHA1;
@@ -17,8 +18,10 @@ namespace SingularityForensic.Hash {
         public override int Sort => 4;
 
         class SHA1HashAlgorithmProvider : GenericStaticInstance<SHA1HashAlgorithmProvider>, IHashAlgorithmProvider {
-            public HashAlgorithm CreateNew() => new SHA1CryptoServiceProvider();
+            public HashAlgorithm GetOrCreateNewOne() => new SHA1CryptoServiceProvider();
         }
+
+        public override int BytesPerHashValue => 20;
     }
 
     

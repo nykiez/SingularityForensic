@@ -10,7 +10,6 @@ namespace SingularityForensic.Shell.Views {
     [Export(Constants.ShellView, typeof(FrameworkElement))]
     public partial class Shell : MetroWindow {
         public Shell() {
-            
             InitializeComponent();
         }
     }

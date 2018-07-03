@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
@@ -23,7 +24,7 @@ namespace DemoUI.FileExplorer {
                     SingularityForensic.Contracts.MainPage.Constants.MainPageDocumentRegion,
                     SingularityForensic.Contracts.Document.Constants.DocumentTabsView
             );
-            var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/gpt.img"), "mmp", null, null);
+            var file = FileSystemService.Current.MountStream(System.IO.File.OpenRead("E://anli/FAT32.img"), "mmp", null, null);
             var unit = TreeUnitFactory.CreateNew(SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
             unit.SetInstance(file, SingularityForensic.Contracts.FileExplorer.Constants.TreeUnitTag_FileSystem_File);
             PubEventHelper.PublishEventToHandlers((unit, MainTreeService.Current), GenericServiceStaticInstances<ITreeUnitSelectedChangedEventHandler>.Currents);
@@ -31,7 +32,13 @@ namespace DemoUI.FileExplorer {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            NameCategoryService.LoadDescriptorsFromFile("E://anli/File Type Categories.txt");
+            var file = DialogService.Current.OpenFile();
+            if (string.IsNullOrEmpty(file)) {
+                return;
+            }
+
+            //NameCategoryService.LoadDescriptorsFromFile("E://anli/File Type Categories.txt");
+            NameCategoryService.LoadDescriptorsFromFile(file);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) {

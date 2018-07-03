@@ -16,19 +16,17 @@ namespace SingularityForensic.Hash {
 
         public abstract int Sort { get; }
 
+        public abstract int BytesPerHashValue { get; }
+
         public virtual byte[] ComputeHash(Stream inputStream) {
             if(inputStream == null) {
                 throw new ArgumentNullException(nameof(inputStream));
             }
-
             
-
             byte[] bts = null;
-
-           
-            //创建哈希算法;
             
-            var algorithm = _algorithmProvider.CreateNew();
+            //创建哈希算法;
+            var algorithm = _algorithmProvider.GetOrCreateNewOne();
             try {
                 bts = algorithm.ComputeHash(inputStream);
             }

@@ -16,8 +16,9 @@ namespace SingularityForensic.Hash {
 
         public override int Sort => 6;
 
+        public override int BytesPerHashValue => 32;
         class SHA256HashAlgorithmProvider : GenericStaticInstance<SHA256HashAlgorithmProvider>, IHashAlgorithmProvider {
-            public HashAlgorithm CreateNew() => new SHA256CryptoServiceProvider();
+            public HashAlgorithm GetOrCreateNewOne() => new SHA256CryptoServiceProvider();
         }
     }
 }
