@@ -210,6 +210,7 @@
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\Events\HashSetNameChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetDescriptionChangedEvent.cs" />
+    <Compile Include="Hash\HashSetExtensions.cs" />
     <Compile Include="Hash\IHasher.cs" />
     <Compile Include="App\ILocalExplorerService.cs" />
     <Compile Include="Hash\IHashPair.cs" />

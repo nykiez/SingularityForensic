@@ -29,6 +29,10 @@ namespace SingularityForensic.Hash {
                 throw new ArgumentNullException(nameof(path));
             }
 
+            if(guid == string.Empty) {
+                throw new ArgumentException($"{nameof(guid)} can't be empty.");
+            }
+
             //若不存在路径，尝试创建路径;
             if (!System.IO.Directory.Exists(path)) {
                 try {
@@ -40,7 +44,7 @@ namespace SingularityForensic.Hash {
                 }
             }
             
-            this._path = path;
+            this.StoragePath = path;
             this.GUID = guid;
             this.Hasher = hasher;
             InitializeDirectory();
@@ -52,9 +56,7 @@ namespace SingularityForensic.Hash {
         internal void ClearInternal() {
             CheckDisposed();
             try {
-                BeginEdit();
                 _indexWriter.DeleteAll();
-                EndEdit();
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);
@@ -64,7 +66,7 @@ namespace SingularityForensic.Hash {
         private FSDirectory _fsDirectory;
         private void InitializeDirectory() {
             try {
-                _fsDirectory = FSDirectory.Open(_path);
+                _fsDirectory = FSDirectory.Open(StoragePath);
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);
@@ -88,7 +90,7 @@ namespace SingularityForensic.Hash {
             }
         }
 
-        private string _path;
+        public string StoragePath { get; }
         public string GUID { get; }
 
         public IHasher Hasher { get; }
@@ -114,7 +116,8 @@ namespace SingularityForensic.Hash {
         public void BeginEdit() {
             CheckDisposed();
             if (_indexWriter != null) {
-                throw new InvalidOperationException($"Please invoke {nameof(EndEdit)} before invoking this method.");
+                //throw new InvalidOperationException($"Please invoke {nameof(EndEdit)} before invoking this method.");
+                return;
             }
 
             try {
@@ -184,7 +187,8 @@ namespace SingularityForensic.Hash {
         public void BeginOpen() {
             CheckDisposed();
             if (_indexSearcher != null) {
-                throw new InvalidOperationException($"Please invoke {nameof(EndOpen)} before invoking this method.");
+                //throw new InvalidOperationException($"Please invoke {nameof(EndOpen)} before invoking this method.");
+                return;
             }
 
             try {
@@ -230,9 +234,21 @@ namespace SingularityForensic.Hash {
 
         public IEnumerable<IHashPair> FindHashPairs(string value) {
             CheckDisposed();
+            if(value == null) {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if(value == string.Empty) {
+                throw new ArgumentException($"{nameof(value)} can't be empty.");
+            }
+
+            if(value.Length != Hasher.BytesPerHashValue * 2) {
+                throw new InvalidOperationException($"The length of {nameof(value)} doesn't match the {nameof(Hasher.BytesPerHashValue)}({Hasher.HashTypeName} - {Hasher.BytesPerHashValue} bit(s))");
+            }
             if (_indexSearcher == null) {
                 throw new InvalidOperationException($"{nameof(_indexSearcher)} can't be null.Please invoke {nameof(BeginOpen)} first.");
             }
+            
             var query = new PhraseQuery();
             query.Add(new Term(nameof(IHashPair.Value), value));
             var res = _indexSearcher.Search(query, 12);

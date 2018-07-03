@@ -101,6 +101,12 @@ namespace SingularityForensic.Test.Hash {
             Assert.ThrowsException<InvalidOperationException>(() => {
                 FindHashPairsTestCore();
             });
+            Assert.ThrowsException<InvalidOperationException>(() => {
+                 Assert.IsTrue(_hashSet.ContainsValue(TestMD5));
+            });
+            _hashSet.BeginOpen();
+            Assert.IsTrue(_hashSet.ContainsValue(TestMD5));
+            _hashSet.EndOpen();
         }
 
         private void FindHashPairsTestCore() {

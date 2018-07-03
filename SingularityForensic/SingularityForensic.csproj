@@ -1610,7 +1610,6 @@
     <Resource Include="FileExplorer\File Type Categories.txt" />
     <Resource Include="FileExplorer\Images\Toolbar_TargetPeople.png" />
     <Content Include="FileExplorer\ViewerPrograms.xml" />
-    <Resource Include="Hash\HashSets.xml" />
     <Content Include="Imaging\libewf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

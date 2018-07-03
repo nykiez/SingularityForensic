@@ -16,6 +16,11 @@ namespace SingularityForensic.Contracts.Hash {
         string Name { get; set; }
 
         /// <summary>
+        /// 本地(索引)路径;
+        /// </summary>
+        string StoragePath { get; }
+
+        /// <summary>
         /// 唯一标识;
         /// </summary>
         string GUID { get; }
@@ -51,7 +56,7 @@ namespace SingularityForensic.Contracts.Hash {
         void AddHashPair(string name,string value);
 
         /// <summary>
-        /// 清除所有哈希对;
+        /// 清除所有哈希对;调用本方法前,必须先调用<see cref="BeginEdit"/>,否则将会抛出一个运行时异常;
         /// </summary>
         void Clear();
 
@@ -89,22 +94,22 @@ namespace SingularityForensic.Contracts.Hash {
         /// <summary>
         /// 从本地加载哈希集;
         /// </summary>
-        /// <param name="path">本地(索引)路径</param>
+        /// <param name="storagePath">本地(索引)路径</param>
         /// <param name="guid">唯一标识</param>
         /// <returns></returns>
-        IHashSet LoadFromLocal(string path,string guid,IHasher hasher);
+        IHashSet LoadFromLocal(string storagePath,string guid,IHasher hasher);
 
         /// <summary>
         /// 创建哈希集;
         /// </summary>
-        /// <param name="path">本地(索引)路径</param>
+        /// <param name="storagePath">本地(索引)路径</param>
         /// <param name="guid">唯一标识</param>
         /// <returns></returns>
-        IHashSet CreateNew(string path,string guid, IHasher hasher);
+        IHashSet CreateNew(string storagePath,string guid, IHasher hasher);
     }
 
     public class HashSetFactory:GenericServiceStaticInstance<IHashSetFactory> {
-        public static IHashSet LoadFromLocal(string path, string guid, IHasher hasher) => Current?.LoadFromLocal(path, guid, hasher);
-        public static IHashSet CreateNew(string path, string guid, IHasher hasher) => Current?.CreateNew(path,  guid, hasher);
+        public static IHashSet LoadFromLocal(string storagePath, string guid, IHasher hasher) => Current?.LoadFromLocal(storagePath, guid, hasher);
+        public static IHashSet CreateNew(string storagePath, string guid, IHasher hasher) => Current?.CreateNew(storagePath,  guid, hasher);
     }
 }

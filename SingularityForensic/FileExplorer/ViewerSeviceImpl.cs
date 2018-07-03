@@ -98,6 +98,10 @@ namespace SingularityForensic.FileExplorer {
 
         }
 
+        /// <summary>
+        /// 获取查看程序配置文件应存在的位置;
+        /// </summary>
+        /// <returns></returns>
         private static string GetDataFileName() => $"{AppService.AppDataFolder}/{Constants.ViewerProgram_ConfigFile}";
 
         /// <summary>
@@ -105,7 +109,7 @@ namespace SingularityForensic.FileExplorer {
         /// </summary>
         /// <returns></returns>
         private static bool CheckDataFileExists() {
-            var dataFile = $"{AppService.AppDataFolder}\\{Constants.ViewerProgram_ConfigFile}";
+            var dataFile = GetDataFileName();
             var originFile = $"{AppService.AppResourceFolder}\\{Constants.ViewerProgram_ConfigFile}";
             if (!File.Exists(dataFile) && File.Exists(originFile)) {
                 try {

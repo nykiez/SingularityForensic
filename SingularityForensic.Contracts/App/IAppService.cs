@@ -17,7 +17,7 @@ namespace SingularityForensic.Contracts.App
         string AppName { get; }
 
         /// <summary>
-        /// 获取程序的AppData路径(对应本程序);
+        /// 获取程序的AppData路径(对应本程序);与本程序所在目录无直接关联;
         /// </summary>
         string AppDataFolder { get; }
 

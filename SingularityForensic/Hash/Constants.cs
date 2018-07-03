@@ -16,10 +16,13 @@
         
         public const string XmlAttrName_HashSets_Set_Name = "Name";
         
-        public const string XmlAttrName_HashSets_Set_GUID = nameof(XmlAttrName_HashSets_Set_GUID);
+        public const string XmlAttrName_HashSets_Set_GUID = "GUID";
         
-        public const string XmlAttrName_HashSets_Set_Path = nameof(XmlAttrName_HashSets_Set_Path);
+        public const string XmlAttrName_HashSets_Set_StoragePath = "StoragePath";
 
+        public const string XmlAttrName_HashSets_Set_HashTypeGUID = "HashTypeGUID";
+
+        public const string XmlElemName_HashSets_Set_Description = "Description";
     }
 
     /// <summary>
