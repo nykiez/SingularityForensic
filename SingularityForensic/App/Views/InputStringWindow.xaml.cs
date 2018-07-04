@@ -5,7 +5,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for InputStringWindow.xaml
     /// </summary>
-    public partial class InputStringWindow : CorneredWindow {
+    public partial class InputStringWindow  {
         public InputStringWindow(string title = "",string desc = "") {
             InitializeComponent();
             this.Title = title;

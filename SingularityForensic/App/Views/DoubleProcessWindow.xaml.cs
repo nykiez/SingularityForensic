@@ -9,7 +9,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for LoadCaseWindow.xaml
     /// </summary>
-    public partial class DoubleProcessWindow : CorneredWindow {
+    public partial class DoubleProcessWindow  {
         public DoubleProcessWindow() {
             InitializeComponent();
         }

@@ -6,13 +6,11 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
-using static CDFCCultures.Managers.ManagerLocator;
-
 namespace SingularityForensic.Controls.Windows {
     /// <summary>
     /// Interaction logic for FindHexValueWindow.xaml
     /// </summary>
-    public partial class FindHexValueWindow : CorneredWindow {
+    public partial class FindHexValueWindow  {
         public FindHexValueWindow() {
             InitializeComponent();
             
@@ -77,7 +75,7 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockSize() {
             if(chbSearchBlock.IsChecked == true) {
                 if (SearchBlockSize == null) {
-                    MsgBoxService.Show($"{FindResourceString("InvalidBlockSize")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("InvalidBlockSize")}");
                     return false;
                 }
                 return true;
@@ -87,11 +85,11 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockOffset() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockOffset == null) {
-                    MsgBoxService.Show($"{FindResourceString("InvalidBlockOffset")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("InvalidBlockOffset")}");
                     return false;
                 }
                 else if (SearchBlockOffset > (HexValue?.Length ?? 0) + SearchBlockSize) {
-                    MsgBoxService.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("BlockOffsetOutOfRange")}");
                     return false;
                 }
                 else {
@@ -106,7 +104,7 @@ namespace SingularityForensic.Controls.Windows {
         
         private void btnSure_Click(object sender, RoutedEventArgs e) {
             if(HexValue == null || HexValue.Length == 0) {
-                MsgBoxService.Show(FindResourceString("InvalidInput"));
+                MsgBoxService.Show(LanguageService.FindResourceString("InvalidInput"));
             }
             else if(CheckBlockSize() && CheckBlockOffset()){
                 Canceld = false;

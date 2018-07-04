@@ -1,14 +1,12 @@
-﻿using CDFCControls.Controls;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using System.Windows;
 using System.Windows.Input;
-using static CDFCCultures.Managers.ManagerLocator;
 
 namespace SingularityForensic.Controls.Windows {
     /// <summary>
     /// Interaction logic for FindTextStringWindow.xaml
     /// </summary>
-    public partial class FindTextWindow : CorneredWindow {
+    public partial class FindTextWindow  {
         public FindTextWindow() {
             InitializeComponent();
         }
@@ -68,7 +66,7 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockSize() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockSize == null) {
-                    MsgBoxService.Show($"{FindResourceString("InvalidBlockSize")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("InvalidBlockSize")}");
                     return false;
                 }
                 return true;
@@ -78,11 +76,11 @@ namespace SingularityForensic.Controls.Windows {
         private bool CheckBlockOffset() {
             if (chbSearchBlock.IsChecked == true) {
                 if (SearchBlockOffset == null) {
-                    MsgBoxService.Show($"{FindResourceString("InvalidBlockOffset")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("InvalidBlockOffset")}");
                     return false;
                 }
                 else if (SearchBlockOffset > (Text?.Length ?? 0) + SearchBlockSize) {
-                    MsgBoxService.Show($"{FindResourceString("BlockOffsetOutOfRange")}");
+                    MsgBoxService.Show($"{LanguageService.FindResourceString("BlockOffsetOutOfRange")}");
                     return false;
                 }
                 else {
@@ -97,7 +95,7 @@ namespace SingularityForensic.Controls.Windows {
 
         private void btnSure_Click(object sender, RoutedEventArgs e) {
             if(string.IsNullOrEmpty(Text)){
-                MsgBoxService.Show($"{FindResourceString("InvalidText")}");
+                MsgBoxService.Show($"{LanguageService.FindResourceString("InvalidText")}");
             }
             else if (CheckBlockSize() && CheckBlockOffset()) {
                 Canceld = false;

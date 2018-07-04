@@ -10,7 +10,7 @@ namespace SingularityForensic.Controls.Windows {
     /// <summary>
     /// 文件重组扫描预设定窗体;
     /// </summary>
-    public partial class ReComPreSettingWindow : CorneredWindow {
+    public partial class ReComPreSettingWindow  {
         public ReComPreSettingWindow() {
             InitializeComponent();
         }

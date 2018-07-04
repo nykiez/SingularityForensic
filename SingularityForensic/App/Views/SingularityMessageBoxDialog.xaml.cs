@@ -6,7 +6,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for CDFCMessageBox.xaml
     /// </summary>
-    public partial class SingularityMessageBoxDialog : CorneredWindow {
+    public partial class SingularityMessageBoxDialog  {
         private SingularityMessageBoxDialogViewModel vm;
         public SingularityMessageBoxDialog(SingularityMessageBoxDialogViewModel vm) {
             this.vm = vm;

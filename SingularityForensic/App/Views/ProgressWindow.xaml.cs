@@ -8,7 +8,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for ProgressWindow.xaml
     /// </summary>
-    public partial class ProgressWindow : CorneredWindow {
+    public partial class ProgressWindow  {
         public ProgressWindow() {
             InitializeComponent();
         }

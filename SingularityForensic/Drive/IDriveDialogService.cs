@@ -2,6 +2,7 @@
 using SingularityForensic.Drive.Views;
 using System;
 using System.ComponentModel.Composition;
+using System.Windows;
 using System.Windows.Data;
 
 namespace SingularityForensic.Drive {
@@ -36,6 +37,10 @@ namespace SingularityForensic.Drive {
             var window = new DrivesItemsWindow {
                 DataContext = _vm
             };
+            window.ShowInTaskbar = false;
+           if ((Contracts.Shell.ShellService.Current.Shell as Window)?.IsLoaded ?? false) {
+                window.Owner = Contracts.Shell.ShellService.Current.Shell as Window;
+            }
             window.SetBinding(DrivesItemsWindow.SelectedItemProperty,
                 new Binding(nameof(DriveItemsWindowViewModel.SelectedUnit)));
             window.ShowDialog();

@@ -248,20 +248,56 @@ namespace SingularityForensic.Hash {
             if (_indexSearcher == null) {
                 throw new InvalidOperationException($"{nameof(_indexSearcher)} can't be null.Please invoke {nameof(BeginOpen)} first.");
             }
-            
+
+
+
             var query = new PhraseQuery();
             query.Add(new Term(nameof(IHashPair.Value), value));
             var res = _indexSearcher.Search(query, 12);
+            //此处预编译测试GC对于iterator中局部变量的回收是否能正常调用Dispose接口;
+#if DEBUG
+            var s = new GCTestClass();
+            try {
+                
+            //using (var s = new GCTestClass()) {
+#endif
             foreach (var scoreDoc in res.ScoreDocs) {
                 var doc = _indexSearcher.Doc(scoreDoc.Doc);
                 var name = doc.Get(nameof(IHashPair.Name));
-                if(name == null) {
+                if (name == null) {
                     continue;
                 }
                 yield return HashPairFactory.CreateHashPair(name, value);
             }
+
+#if DEBUG
+            }
+            finally {
+                s.Dispose();
+            }
+#endif
+
             
         }
+
+#if DEBUG
+        /// <summary>
+        /// 本类用于测试GC是否能够在使用yield时正常工作;
+        /// </summary>
+        private class GCTestClass:IDisposable {
+            ~GCTestClass() {
+                if (!_disposed) {
+                    //Dispose();
+                    _disposed = true;
+                }
+            }
+
+            private bool _disposed;
+            public void Dispose() {
+
+            }
+        }
+#endif
 
         private bool _disposed = false;
         public void Dispose() {

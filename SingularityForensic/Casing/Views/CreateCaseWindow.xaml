@@ -1,4 +1,4 @@
-﻿<controls:CorneredWindow
+﻿<metros:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
@@ -8,7 +8,7 @@
         x:Class="SingularityForensic.Casing.Views.CreateCaseWindow" 
         mc:Ignorable="d" Closing="MetroWindow_Closing" ResizeMode="NoResize"
         IsEnabled="{Binding IsEnabled}" IsEnabledChanged="MetroWindow_IsEnabledChanged" 
-                    TitlebarHeight="30" WindowStartupLocation="CenterScreen" Style="{DynamicResource MsgWindowStyle}"
+                    TitlebarHeight="30" WindowStartupLocation="CenterScreen" Style="{DynamicResource WindowStyle}"
         Title="{DynamicResource CreateNewCase}" Height="320" SizeToContent="Width">
     <Window.Resources>
         <ResourceDictionary>
@@ -97,4 +97,4 @@
         </Border>
     </Grid>
     
-</controls:CorneredWindow>
+</metros:MetroWindow>

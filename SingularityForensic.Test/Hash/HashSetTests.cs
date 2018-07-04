@@ -19,7 +19,7 @@ namespace SingularityForensic.Test.Hash {
             TestCommon.InitializeTest();
             _hashSet = HashSetFactory.CreateNew(
                 DirPath,
-                string.Empty,
+                Guid.NewGuid().ToString("P"),
                 ServiceProvider.GetAllInstances<IHasher>().FirstOrDefault(p => p.GUID == HashGUID)
             );
             Assert.IsNotNull(_hashSet);
@@ -121,6 +121,24 @@ namespace SingularityForensic.Test.Hash {
                 AddHashPairTestCore();
             });
             
+        }
+
+        /// <summary>
+        /// 测试GC与iterator是否正常工作;
+        /// </summary>
+        [TestMethod]
+        public void TestGC() {
+            _hashSet.BeginOpen();
+            for (int i = 0; i < 100000; i++) {
+                var s = _hashSet.FindHashPairs(TestMD5).FirstOrDefault();
+            }
+            
+            for (int i = 0; i < 5; i++) {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+            }
+            _hashSet.EndOpen();
+            System.Threading.Thread.Sleep(10000);
         }
     }
 }

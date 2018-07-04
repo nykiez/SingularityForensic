@@ -1241,6 +1241,7 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
+    <Folder Include="Hash\Views\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
     <Folder Include="ITunes\ViewModels\" />

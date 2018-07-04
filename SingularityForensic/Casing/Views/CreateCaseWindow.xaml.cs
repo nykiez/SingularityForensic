@@ -6,7 +6,7 @@ namespace SingularityForensic.Casing.Views {
     /// <summary>
     /// Interaction logic for CreateCaseWindow.xaml
     /// </summary>
-    public partial class CreateCaseWindow : CorneredWindow {
+    public partial class CreateCaseWindow  {
         private CreateCaseWindowViewModel vm;
         public CreateCaseWindow(CreateCaseWindowViewModel viewModel) {
             vm = viewModel;

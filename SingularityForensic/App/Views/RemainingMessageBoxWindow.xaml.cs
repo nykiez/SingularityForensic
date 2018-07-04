@@ -5,7 +5,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for RemainingMessageBox.xaml
     /// </summary>
-    public partial class RemainingMessageBoxWindow : CorneredWindow {
+    public partial class RemainingMessageBoxWindow  {
         public RemainingMessageBoxWindow() {
             InitializeComponent();
         }

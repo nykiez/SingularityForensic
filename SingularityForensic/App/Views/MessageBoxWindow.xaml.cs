@@ -4,7 +4,7 @@ namespace SingularityForensic.App.Views {
     /// <summary>
     /// Interaction logic for MessageBox.xaml
     /// </summary>
-    public partial class MessageBoxWindow : CorneredWindow
+    public partial class MessageBoxWindow 
     {
         public MessageBoxWindow()
         {

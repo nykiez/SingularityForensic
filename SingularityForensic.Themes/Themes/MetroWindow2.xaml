@@ -571,11 +571,11 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Controls:MetroWindow}" x:Key="WindowStyle">
-        <Setter Property="WindowButtonCommands">
+        <!--<Setter Property="WindowButtonCommands">
             <Setter.Value>
                 <Controls:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"/>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         <Setter Property="TitleTemplate">
             <Setter.Value>
                 <DataTemplate>

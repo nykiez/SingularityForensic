@@ -1,5 +1,4 @@
-﻿using CDFCControls.Controls;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Hex.Models;
 using System.Windows;
@@ -8,7 +7,7 @@ namespace SingularityForensic.Hex.Views {
     /// <summary>
     /// Interaction logic for GoToOffsetWindow.xaml
     /// </summary>
-    public partial class GoToOffsetWindow : CorneredWindow {
+    public partial class GoToOffsetWindow  {
         public GoToOffsetWindow() {
             InitializeComponent();
         }
