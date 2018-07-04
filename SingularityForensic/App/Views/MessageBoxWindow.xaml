@@ -6,8 +6,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:dvms="clr-namespace:SingularityForensic.App.Design"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:prism="http://prismlibrary.com/" 
+                    d:DataContext="{d:DesignInstance dvms:MessageBoxWindowDesignViewModel,IsDesignTimeCreatable=True}"
                     Style="{DynamicResource WindowStyle}"
         mc:Ignorable="d"  x:Name="window"
         Title="{Binding TitleWords}" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
@@ -25,10 +27,9 @@
         <StackPanel Margin="60,0">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SureBtnStyle}">
-                    <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Margin" Value="12,0"/>
                     <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="FontFamily" Value="Microsoft JhengHei UI" />
+                    <!--<Setter Property="FontFamily" Value="Microsoft JhengHei UI" />-->
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Result,Mode=OneTime}">
                             <DataTrigger.Value>

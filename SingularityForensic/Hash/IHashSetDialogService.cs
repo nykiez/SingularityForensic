@@ -39,13 +39,14 @@ namespace SingularityForensic.Hash
             var dialog = new HashSetManagementDialog {
                 DataContext = new HashSetManagementDialogViewModel()
             };
-
-            
             
             if (ShellService.Current.Shell is Window shell && shell.IsLoaded) {
                 dialog.ShowInTaskbar = false;
                 dialog.Owner = shell;
             }
+
+            dialog.ShowDialog();
+            dialog.DataContext = null;
         }
     }
 }

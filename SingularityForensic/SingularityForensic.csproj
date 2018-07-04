@@ -275,6 +275,7 @@
     </Compile>
     <Compile Include="App\AppServiceImpl.cs" />
     <Compile Include="App\ClipBoardServiceImpl.cs" />
+    <Compile Include="App\Design\MessageBoxWindowDesignViewModel.cs" />
     <Compile Include="App\LocalExplorerServiceImpl.cs" />
     <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
     <Compile Include="App\Dialogs\ProgressDialog.cs" />
@@ -444,7 +445,7 @@
     <Compile Include="Hash\IHashAlgorithmProvider.cs" />
     <Compile Include="Hash\MD5Hasher.cs" />
     <Compile Include="Hash\SHA1Hasher.cs" />
-    <Compile Include="Hash\ViewModels\HashSetManagementViewModel.cs" />
+    <Compile Include="Hash\ViewModels\HashSetManagementDialogViewModel.cs" />
     <Compile Include="Hash\Views\HashSetManagementDialog.xaml.cs">
       <DependentUpon>HashSetManagementDialog.xaml</DependentUpon>
     </Compile>

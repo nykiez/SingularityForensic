@@ -4,13 +4,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
         mc:Ignorable="d" Style="{DynamicResource WindowStyle}" ResizeMode="CanMinimize"
-        Title="{DynamicResource WindowTitle_HashSetManagement}" Height="450" Width="800">
+        Title="{DynamicResource WindowTitle_HashSetManagement}" Height="450" Width="480">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <telerik:RadGridView RowIndicatorVisibility="Collapsed" SelectionMode="Single" IsReadOnly="{Binding IsReadOnly}"
                              SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}"
@@ -23,5 +24,10 @@
         <telerik:RadPropertyGrid Item="{Binding SelectedHashSetModel}" IsReadOnly="{Binding IsReadOnly}" Grid.Row="1">
             
         </telerik:RadPropertyGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
+            <telerik:RadButton Content="{DynamicResource Confirm}"/>
+            <FrameworkElement Width="48"/>
+            <telerik:RadButton Content="{DynamicResource Cancel}"/>
+        </StackPanel>
     </Grid>
 </metros:MetroWindow>

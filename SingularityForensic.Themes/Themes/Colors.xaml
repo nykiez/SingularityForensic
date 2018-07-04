@@ -20,8 +20,8 @@
     <SolidColorBrush x:Key="MessageBoxButtonBorderBrushKey" Color="#3f92f0"/>
 
 
-    <SolidColorBrush x:Key="SureButtonBack" Color="#3f92f0"/>
-    <SolidColorBrush x:Key="SureButtonFore" Color="White"/>
+    <SolidColorBrush x:Key="SureButtonBack" Color="#e1e1e1"/>
+    <SolidColorBrush x:Key="SureButtonFore" Color="Black"/>
     <SolidColorBrush x:Key="DenyButtonBack" Color="#cdcdcd" />
     <SolidColorBrush x:Key="DenyButtonFore" Color="Black"/>
 </ResourceDictionary>

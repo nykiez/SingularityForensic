@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace SingularityForensic.App.Models {
     
     public partial class MessageButtonModel {
-        private MessageButtonModel(string btnWord, MessageBoxResult result) {
+        public MessageButtonModel(string btnWord, MessageBoxResult result) {
             this.Result = result;
             this.BtnWord = btnWord;
         }
