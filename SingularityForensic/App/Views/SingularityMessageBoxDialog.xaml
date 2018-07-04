@@ -6,8 +6,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          IsEnabledChanged="MetroWindow_IsEnabledChanged"
-                     TitleForeground="White" WindowTitleBrush="{DynamicResource MessageBoxWindowTitleBrushKey}"
-                    WindowStartupLocation="CenterScreen" BorderThickness="1,0,1,1" 
+                     TitleForeground="White" Style="{DynamicResource WindowStyle}"
+                    WindowStartupLocation="CenterOwner" BorderThickness="1,0,1,1" 
                          BorderBrush="{DynamicResource MessageBoxWindowBorderBrushKey}"
         mc:Ignorable="d" IsEnabled="{Binding IsEnabled}" 
         Title="{Binding TitleWords}"  SizeToContent="WidthAndHeight" ResizeMode="NoResize">

@@ -11,6 +11,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 namespace SingularityForensic.Drive.ViewModels {
+    /// <summary>
+    /// 为防止多次加载本地设备,程序种仅存在一个实例;
+    /// </summary>
     [Export]
     class DriveItemsWindowViewModel:BindableBase {
         public DriveItemsWindowViewModel() {
@@ -94,7 +97,7 @@ namespace SingularityForensic.Drive.ViewModels {
         }
 
         private ComObject _comObject;
-        public InteractionRequest<Notification> CloseRequest { get; private set; } = new InteractionRequest<Notification>();
+        public InteractionRequest<Notification> CloseRequest { get; } = new InteractionRequest<Notification>();
 
         private ITreeUnit _selectedUnit;
         public ITreeUnit SelectedUnit {

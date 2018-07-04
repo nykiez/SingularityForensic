@@ -23,6 +23,8 @@
         public const string XmlAttrName_HashSets_Set_HashTypeGUID = "HashTypeGUID";
 
         public const string XmlElemName_HashSets_Set_Description = "Description";
+
+        public const string XmlAttrName_HashSets_Set_IsEnabled = "IsEnabled";
     }
 
     /// <summary>
@@ -33,5 +35,14 @@
         public const string HashTypeName_SHA1 = nameof(HashTypeName_SHA1);
         public const string HashTypeName_SHA256 = nameof(HashTypeName_SHA256);
         public const string HashTypeName_SHA512 = nameof(HashTypeName_SHA512);
+
+
+        public const string WindowTitle_HashSetManagement = nameof(WindowTitle_HashSetManagement);
+        
+        public const string HashSetProp_Name = nameof(HashSetProp_Name);
+        
+        public const string HashSetProp_HashType = nameof(HashSetProp_HashType);
+
+
     }
 }

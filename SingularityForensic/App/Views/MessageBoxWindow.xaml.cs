@@ -1,4 +1,6 @@
 ﻿using CDFCControls.Controls;
+using System;
+using System.Windows.Interactivity;
 
 namespace SingularityForensic.App.Views {
     /// <summary>
@@ -10,5 +12,14 @@ namespace SingularityForensic.App.Views {
         {
             InitializeComponent();
         }
+        protected override void OnClosed(EventArgs e) {
+            base.OnClosed(e);
+            //Interaction.GetTriggers(this).Clear();
+        }
+#if DEBUG
+        ~MessageBoxWindow() {
+
+        }
+#endif
     }
 }

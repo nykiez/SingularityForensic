@@ -53,11 +53,15 @@ namespace SingularityForensic.Hash {
                 var root = xDoc.Root;
 
                 var hashSetElem = new XElement(Constants.XmlElemName_HashSets_Set);
+                //必要元素;
                 hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_GUID, hashSet.GUID);
-                hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_Name, hashSet.Name);
                 hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_StoragePath, hashSet.StoragePath);
                 hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_HashTypeGUID, hashSet.Hasher.GUID);
+
+                //可选元素;
+                hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_Name, hashSet.Name);
                 hashSetElem.SetXElemValue(hashSet.Description,Constants.XmlElemName_HashSets_Set_Description);
+                hashSetElem.SetAttributeValue(Constants.XmlAttrName_HashSets_Set_IsEnabled, hashSet.IsEnabled.ToString());
 
                 root.Add(hashSetElem);
                 xDoc.Save(GetDataFileName());
@@ -98,11 +102,15 @@ namespace SingularityForensic.Hash {
             var elems = root.Elements(Constants.XmlElemName_HashSets_Set);
             foreach (var elem in elems) {
                 try {
-                    var guid = elem.Attribute(Constants.XmlAttrName_HashSets_Set_GUID)?.Value;
-                    var name = elem.Attribute(Constants.XmlAttrName_HashSets_Set_Name)?.Value;
+                    //必要元素;
                     var storagePath = elem.Attribute(Constants.XmlAttrName_HashSets_Set_StoragePath)?.Value;
-                    var description = elem.GetXElemValue(Constants.XmlElemName_HashSets_Set_Description);
+                    var guid = elem.Attribute(Constants.XmlAttrName_HashSets_Set_GUID)?.Value;
                     var hashTypeGuid = elem.Attribute(Constants.XmlAttrName_HashSets_Set_HashTypeGUID)?.Value;
+
+                    //可选元素;
+                    var name = elem.Attribute(Constants.XmlAttrName_HashSets_Set_Name)?.Value;
+                    var description = elem.GetXElemValue(Constants.XmlElemName_HashSets_Set_Description);
+                    var isEnabled = elem.Attribute(Constants.XmlAttrName_HashSets_Set_IsEnabled)?.Value == bool.TrueString;
 
                     var hasher = GenericServiceStaticInstances<IHasher>.Currents.FirstOrDefault(p => p.GUID == hashTypeGuid);
                     
@@ -123,6 +131,11 @@ namespace SingularityForensic.Hash {
                     }
 
                     var hashSet = HashSetFactory.LoadFromLocal(storagePath, guid, hasher);
+
+                    hashSet.Name = name;
+                    hashSet.Description = description;
+                    hashSet.IsEnabled = isEnabled;
+
                     _hashSets.Add(hashSet);
                 }
                 catch (Exception ex) {
@@ -135,8 +148,9 @@ namespace SingularityForensic.Hash {
         }
 
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<HashSetDescriptionChangedEvent>().Subscribe(OnHashSetDescriptionChanged);
-            PubEventHelper.GetEvent<HashSetNameChangedEvent>().Subscribe(OnHashSetNameChanged);
+            PubEventHelper.GetEvent<HashSetDescriptionChangedEvent>().SubscribeCheckingSubscribed<HashSetDescriptionChangedEvent,IHashSet>(OnHashSetDescriptionChanged);
+            PubEventHelper.GetEvent<HashSetNameChangedEvent>().SubscribeCheckingSubscribed<HashSetNameChangedEvent, IHashSet>(OnHashSetNameChanged);
+            PubEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().SubscribeCheckingSubscribed<HashSetIsEnabledChangedEvent, IHashSet>(OnHashSetIsEnabledChanged);
         }
 
         /// <summary>
@@ -146,6 +160,62 @@ namespace SingularityForensic.Hash {
         private void OnHashSetDescriptionChanged(IHashSet hashSet) {
             if(hashSet == null) {
                 return;
+            }
+
+            if (!_hashSets.Contains(hashSet)) {
+                return;
+            }
+
+            SetSetElemXElemValue(hashSet, Constants.XmlElemName_HashSets_Set_Description, hashSet.Description);
+        }
+
+        /// <summary>
+        /// 设定哈希集节点的属性值;
+        /// </summary>
+        /// <param name="attrName"></param>
+        /// <param name=""></param>
+        private static void SetSetElemAttrValue(IHashSet hashSet,string attrName,string value) {
+            if(hashSet == null) {
+                throw new ArgumentNullException(nameof(hashSet));
+            }
+
+            try {
+                var xDoc = XDocument.Load(GetDataFileName());
+                var setElem = xDoc.Root.Elements(Constants.XmlElemName_HashSets_Set).
+                    FirstOrDefault(p => p.Attribute(Constants.XmlAttrName_HashSets_Set_GUID)?.Value == hashSet.GUID);
+                if (setElem == null) {
+                    LoggerService.WriteCallerLine($"{nameof(setElem)} can't be null.");
+                }
+                setElem.SetAttributeValue(attrName, value);
+                xDoc.Save(GetDataFileName());
+            }
+            catch (Exception ex) {
+                LoggerService.WriteException(ex);
+            }
+        }
+
+        /// <summary>
+        /// 设定哈希集节点的子节点值;
+        /// </summary>
+        /// <param name="xElemName"></param>
+        /// <param name=""></param>
+        private static void SetSetElemXElemValue(IHashSet hashSet, string xElemName, string value) {
+            if (hashSet == null) {
+                throw new ArgumentNullException(nameof(hashSet));
+            }
+
+            try {
+                var xDoc = XDocument.Load(GetDataFileName());
+                var setElem = xDoc.Root.Elements(Constants.XmlElemName_HashSets_Set).
+                    FirstOrDefault(p => p.Attribute(Constants.XmlAttrName_HashSets_Set_GUID)?.Value == hashSet.GUID);
+                if (setElem == null) {
+                    LoggerService.WriteCallerLine($"{nameof(setElem)} can't be null.");
+                }
+                setElem.SetXElemValue(xElemName, value);
+                xDoc.Save(GetDataFileName());
+            }
+            catch (Exception ex) {
+                LoggerService.WriteException(ex);
             }
         }
 
@@ -158,8 +228,29 @@ namespace SingularityForensic.Hash {
                 return;
             }
 
+            if (!_hashSets.Contains(hashSet)) {
+                return;
+            }
+
+            SetSetElemAttrValue(hashSet, Constants.XmlAttrName_HashSets_Set_Name, hashSet.Name);
         }
-        
+
+        /// <summary>
+        /// 哈希集可用状态变化时,更新XML文件中的内容;
+        /// </summary>
+        /// <param name="hashSet"></param>
+        private void OnHashSetIsEnabledChanged(IHashSet hashSet) {
+            if (hashSet == null) {
+                return;
+            }
+
+            if (!_hashSets.Contains(hashSet)) {
+                return;
+            }
+
+            SetSetElemAttrValue(hashSet, Constants.XmlAttrName_HashSets_Set_IsEnabled, hashSet.IsEnabled.ToString());
+        }
+
         public void RemoveHashSet(IHashSet hashSet) {
             if(hashSet == null) {
                 throw new ArgumentNullException(nameof(hashSet));
@@ -180,6 +271,7 @@ namespace SingularityForensic.Hash {
                 else {
                     LoggerService.WriteCallerLine($"{nameof(elem)} can't be null.");
                 }
+
                 _hashSets.Remove(hashSet);
                 xDoc.Save(GetDataFileName());
             }
@@ -202,5 +294,7 @@ namespace SingularityForensic.Hash {
                 throw;
             }
         }
+
+
     }
 }

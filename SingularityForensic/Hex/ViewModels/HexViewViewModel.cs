@@ -102,8 +102,7 @@ namespace SingularityForensic.Hex.ViewModels {
                 }
             ));
         public event EventHandler LostFocus;
-
-
+        
         private int _bytePerLine = 16;
         public int BytePerLine {
             get => _bytePerLine;

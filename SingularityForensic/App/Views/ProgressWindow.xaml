@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="1" Margin="24,0" HorizontalAlignment="Stretch">
             <TextBlock Text="" x:Name="txblWord" Margin="0,12" FontSize="13" FontFamily="Microsoft YaHei UI"/>
             <ProgressBar x:Name="ProBar"  Grid.Row="1" MinHeight="20" Value="0" Style="{DynamicResource NormalProgressBar}"  />
-            <Button HorizontalAlignment="Right" Style="{DynamicResource DenyBtnStyle}" x:Name="btnCancel" Margin="0,24,0,0" FontSize="13" Content="{DynamicResource Cancel}" Click="btnCancel_Click" />
+            <Button HorizontalAlignment="Right" Style="{DynamicResource DenyBtnStyle}" x:Name="btnCancel" Margin="0,24,0,0" FontSize="13" Content="{DynamicResource Cancel}" Click="BtnCancel_Click" />
         </StackPanel>
     </Grid>
 </metros:MetroWindow>

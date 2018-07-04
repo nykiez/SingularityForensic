@@ -33,17 +33,17 @@
                     
                 </telerik:RadTreeListView.ItemTemplate>
             </telerik:RadTreeListView>-->
-            <TreeView ItemsSource="{Binding DriveUnits}"
-                      SelectedItemChanged="TreeView_SelectedItemChanged">
-                <TreeView.ItemTemplate>
+            <telerik:RadTreeView ItemsSource="{Binding DriveUnits}" SelectionMode="Single"
+                                 SelectedItem="{Binding SelectedUnit,Mode=TwoWay}">
+                <telerik:RadTreeView.ItemTemplate>
                     <HierarchicalDataTemplate  ItemsSource="{Binding Children}" >
                         <StackPanel Orientation="Horizontal" >
                             <Image Source="{Binding Icon}" Width="16" Margin="6,0" />
                             <TextBlock Text="{Binding Label}"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
+                </telerik:RadTreeView.ItemTemplate>
+            </telerik:RadTreeView>
         </DockPanel>
 
         <Border Background="#88000000" Grid.RowSpan="2" 

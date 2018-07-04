@@ -41,10 +41,20 @@ namespace SingularityForensic.Drive {
            if ((Contracts.Shell.ShellService.Current.Shell as Window)?.IsLoaded ?? false) {
                 window.Owner = Contracts.Shell.ShellService.Current.Shell as Window;
             }
-            window.SetBinding(DrivesItemsWindow.SelectedItemProperty,
-                new Binding(nameof(DriveItemsWindowViewModel.SelectedUnit)));
-            window.ShowDialog();
             
+            window.ShowDialog();
+
+            window.DataContext = null;
+
+#if DEBUG
+            Contracts.App.ThreadInvoker.BackInvoke(() => {
+                System.Threading.Thread.Sleep(1000);
+                for (int i = 0; i < 2; i++) {
+                    System.GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+            });
+#endif
             return _vm.SelectedDriveTuple;
         }
     }

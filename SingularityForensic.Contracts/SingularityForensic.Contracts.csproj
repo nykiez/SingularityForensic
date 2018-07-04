@@ -208,6 +208,7 @@
     <Compile Include="FileSystem\IIndexable.cs" />
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
+    <Compile Include="Hash\Events\HashSetIsEnabledChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetNameChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetDescriptionChangedEvent.cs" />
     <Compile Include="Hash\HashSetExtensions.cs" />

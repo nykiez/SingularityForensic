@@ -13,9 +13,10 @@ namespace SingularityForensic.App.Dialogs {
 
         public static MessageBoxResult Show(string msgText, string caption, MessageBoxButton button) {
             var vm = new SingularityMessageBoxDialogViewModel(button, msgText, caption);
-            var msg = new Views.SingularityMessageBoxDialog(vm);
-            msg.Owner = Application.Current.MainWindow;
-            msg.ShowInTaskbar = false;
+            var msg = new Views.SingularityMessageBoxDialog(vm) {
+                Owner = Application.Current.MainWindow,
+                ShowInTaskbar = false
+            };
             var res = msg.ShowDialog();
             switch (vm.DialogResult) {
                 case null:

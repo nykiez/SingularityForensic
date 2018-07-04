@@ -18,7 +18,7 @@ namespace SingularityForensic.Contracts.Common {
             => GetOrCreateInstanceInform<TInstance>(ext, extName, factory).instance;
 
         /// <summary>
-        /// 从可拓展实例中获取或创建实例;
+        /// 从可拓展实例中获取或创建实例;并能告知是否为新建;
         /// </summary>
         /// <typeparam name="TInstance"></typeparam>
         /// <param name="ext"></param>
@@ -29,6 +29,10 @@ namespace SingularityForensic.Contracts.Common {
             if (ext == null) {
                 throw new ArgumentNullException(nameof(ext));
             }
+            if(factory == null) {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
             var created = false;
             var ins = ext.GetInstance<TInstance>(extName);
             if (ins == null) {

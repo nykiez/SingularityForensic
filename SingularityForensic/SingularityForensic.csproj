@@ -435,6 +435,8 @@
     <Compile Include="Hash\HashManagementServiceImpl.cs" />
     <Compile Include="Hash\HashPair.cs" />
     <Compile Include="Hash\HashSet.cs" />
+    <Compile Include="Hash\IHashSetDialogService.cs" />
+    <Compile Include="Hash\Models\HashSetModel.cs" />
     <Compile Include="Hash\SHA256Hasher.cs" />
     <Compile Include="Hash\SHA512Hasher.cs" />
     <Compile Include="Hash\Constants.cs" />
@@ -442,6 +444,10 @@
     <Compile Include="Hash\IHashAlgorithmProvider.cs" />
     <Compile Include="Hash\MD5Hasher.cs" />
     <Compile Include="Hash\SHA1Hasher.cs" />
+    <Compile Include="Hash\ViewModels\HashSetManagementViewModel.cs" />
+    <Compile Include="Hash\Views\HashSetManagementDialog.xaml.cs">
+      <DependentUpon>HashSetManagementDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hex\BufferToProCodeFormatters.cs" />
     <Compile Include="Hex\BytesToCharEncodings.cs" />
     <Compile Include="Hex\Controls\FindHexValueMessageBox.cs" />
@@ -932,6 +938,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Hash\Views\HashSetManagementDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Hex\Views\GoToOffsetWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1241,7 +1251,6 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="Hash\Views\" />
     <Folder Include="ITunes\Events\" />
     <Folder Include="ITunes\Models\" />
     <Folder Include="ITunes\ViewModels\" />

@@ -1,0 +1,27 @@
+﻿<metros:MetroWindow x:Class="SingularityForensic.Hash.Views.HashSetManagementDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Style="{DynamicResource WindowStyle}" ResizeMode="CanMinimize"
+        Title="{DynamicResource WindowTitle_HashSetManagement}" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <telerik:RadGridView RowIndicatorVisibility="Collapsed" SelectionMode="Single" IsReadOnly="{Binding IsReadOnly}"
+                             SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}"
+                             ShowGroupPanel="False" ItemsSource="{Binding HashSetModels}">
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_Name}" DataMemberBinding="{Binding HashSetName}" Width="*"/>
+                <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_HashType}"  IsReadOnly="True" DataMemberBinding="{Binding HashSet.Hasher.HashTypeName}" Width="*"/>
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+        <telerik:RadPropertyGrid Item="{Binding SelectedHashSetModel}" IsReadOnly="{Binding IsReadOnly}" Grid.Row="1">
+            
+        </telerik:RadPropertyGrid>
+    </Grid>
+</metros:MetroWindow>

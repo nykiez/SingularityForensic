@@ -45,6 +45,7 @@ namespace SingularityForensic.App.ViewModels {
             }
         }
     }
+
     public partial class MessageBoxWindowViewModel {
 
         private DelegateCommand _confirmCommand;
@@ -52,18 +53,16 @@ namespace SingularityForensic.App.ViewModels {
             (_confirmCommand = new DelegateCommand(
                 () => {
                     DialogResult = true;
-                    CloseRequest.Raise(new Notification());
+                    Close();
                 }
             ));
-
-
-
+        
         private DelegateCommand _denyCommand;
         public DelegateCommand DenyCommand => _denyCommand ??
             (_denyCommand = new DelegateCommand(
                 () => {
                     DialogResult = false;
-                    CloseRequest.Raise(new Notification());
+                    Close();
                 }
             ));
 
@@ -72,9 +71,20 @@ namespace SingularityForensic.App.ViewModels {
         public DelegateCommand EmptyCommand => _emptyCommand ??(_emptyCommand = 
             new DelegateCommand(() => {
                 DialogResult = null;
-                CloseRequest.Raise(new Notification());
-             })
+                Close();
+            })
         );
+
+        private void Close() {
+            CloseRequest.Raise(new Notification());
+            
+        }
+
+#if DEBUG
+        ~MessageBoxWindowViewModel() {
+
+        }
+#endif
     }
 
 }

@@ -78,6 +78,10 @@ namespace SingularityForensic.Hash {
         public string Name {
             get => _name;
             set {
+                if(_name == value) {
+                    return;
+                }
+
                 _name = value;
                 try {
                     PubEventHelper.GetEvent<HashSetNameChangedEvent>().Publish(this);
@@ -99,6 +103,10 @@ namespace SingularityForensic.Hash {
         public string Description {
             get => _description;
             set {
+                if(_description == value) {
+                    return;
+                }
+
                 _description = value;
                 try {
                     PubEventHelper.GetEvent<HashSetDescriptionChangedEvent>().Publish(this);
@@ -111,7 +119,26 @@ namespace SingularityForensic.Hash {
             }
         }
 
-        
+        private bool _isEnabled;
+        public bool IsEnabled {
+            get => _isEnabled;
+            set {
+                if(_isEnabled == value) {
+                    return;
+                }
+
+                _isEnabled = value;
+                try {
+                    PubEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().Publish(this);
+                    PubEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetIsEnabledChangedEventHandler>.Currents);
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                    throw;
+                }
+            }
+        }
+
         private IndexWriter _indexWriter;
         public void BeginEdit() {
             CheckDisposed();

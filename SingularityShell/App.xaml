@@ -35,6 +35,7 @@
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/FileSystem/Languages/zh_CN/SingularityForensic.FileSystem.xaml"/>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Hex/Languages/zh_CN/SingularityForensic.Hex.xaml"/>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/TreeView/Languages/zh_CN/SingularityForensic.TreeView.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Hash/Languages/zh_CN/SingularityForensic.Hash.xaml"/>
                         <!--<ResourceDictionary Source="pack://application:,,,/SingularityShell;component/Languages/zh_CN/SingularityShell.xaml"/>-->
 
                         <!--<ResourceDictionary Source="pack://application:,,,/SingularityForensic.Controls;component/Languages/zh_CN/SingularityForensic.Controls.xaml"/>

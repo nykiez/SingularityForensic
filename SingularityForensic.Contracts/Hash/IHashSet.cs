@@ -11,6 +11,11 @@ namespace SingularityForensic.Contracts.Hash {
     /// </summary>
     public interface IHashSet:IDisposable {
         /// <summary>
+        /// 是否启用;
+        /// </summary>
+        bool IsEnabled { get; set; }
+
+        /// <summary>
         /// 哈希集名称;
         /// </summary>
         string Name { get; set; }

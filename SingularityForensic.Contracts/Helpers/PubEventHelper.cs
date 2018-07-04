@@ -19,30 +19,30 @@ namespace SingularityForensic.Contracts.Helpers {
 
         public static TEventType GetEvent<TEventType>() where TEventType : EventBase, new() => Aggregator?.GetEvent<TEventType>();
 
-        public static void SubsToken<TEvent, TPayload>(ref SubscriptionToken token, Action<TPayload> act)
+        public static void SubsToken<TEvent, TPayload>(ref SubscriptionToken token, Action<TPayload> subscriber)
             where TEvent : PubSubEvent<TPayload>, new() {
             var evt = Aggregator.GetEvent<TEvent>();
             if (token != null) {
                 evt?.Unsubscribe(token);
             }
             
-            token = evt?.Subscribe(act);
+            token = evt?.Subscribe(subscriber);
         }
 
-        public static void SubsToken<TEvent>(ref SubscriptionToken token, Action act) where TEvent : PubSubEvent, new() {
+        public static void SubsToken<TEvent>(ref SubscriptionToken token, Action subscriber) where TEvent : PubSubEvent, new() {
             var evt = Aggregator.GetEvent<TEvent>();
             if (token != null) {
                 evt.Unsubscribe(token);
             }
-            token = evt.Subscribe(act);
+            token = evt.Subscribe(subscriber);
         }
 
-        public static SubscriptionToken Subscribe<TEvent,TPayload>(Action<TPayload> act) where TEvent:PubSubEvent<TPayload>,new(){
-            return Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
+        public static SubscriptionToken Subscribe<TEvent,TPayload>(Action<TPayload> subscriber) where TEvent:PubSubEvent<TPayload>,new(){
+            return Aggregator?.GetEvent<TEvent>()?.Subscribe(subscriber);
         }
 
-        public static void Subscribe<TEvent>(Action act) where TEvent : PubSubEvent, new() {
-            Aggregator?.GetEvent<TEvent>()?.Subscribe(act);
+        public static void Subscribe<TEvent>(Action subscriber) where TEvent : PubSubEvent, new() {
+            Aggregator?.GetEvent<TEvent>()?.Subscribe(subscriber);
         }
         
         /// <summary>
@@ -98,6 +98,21 @@ namespace SingularityForensic.Contracts.Helpers {
                     LoggerService.WriteException(ex);
                 }
             }
+        }
+
+        /// <summary>
+        /// 订阅事件;若订阅者已经订阅,则将不会订阅;
+        /// 此方法适合在内存中常驻的对象(比如各种稳定的服务)进行订阅操作;
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <typeparam name="TPayLoad"></typeparam>
+        /// <param name="evt"></param>
+        /// <param name="subscriber"></param>
+        public static void SubscribeCheckingSubscribed<TEvent,TPayLoad>(this TEvent evt,Action<TPayLoad> subscriber) where TEvent:PubSubEvent<TPayLoad> {
+            if (evt.Contains(subscriber)) {
+                return;
+            }
+            evt.Subscribe(subscriber);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using SingularityForensic.App.ViewModels;
 using SingularityForensic.App.Views;
 using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Shell;
 using System.ComponentModel.Composition;
+using System.Threading;
 
 namespace SingularityForensic.App {
    
@@ -22,12 +24,27 @@ namespace SingularityForensic.App {
 
         public MessageBoxResult Show(string msgText, string caption, MessageBoxButton button) {
             var vm = new MessageBoxWindowViewModel(button, msgText, caption);
-            var msg = new MessageBoxWindow();
-            msg.ShowInTaskbar = false;
-            msg.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-            msg.DataContext = vm;
-            msg.Owner =  System.Windows.Application.Current.MainWindow;
+            var msg = new MessageBoxWindow {
+                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner,
+                DataContext = vm
+            };
+
+            if (ShellService.Current.Shell is System.Windows.Window shell && shell.IsLoaded) {
+                msg.ShowInTaskbar = false;
+                msg.Owner = shell;
+            }
             var res = msg.ShowDialog();
+
+#if DEBUG
+            ThreadInvoker.BackInvoke(() => {
+                Thread.Sleep(1000);
+                for (int i = 0; i < 10; i++) {
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                }
+            });
+#endif
+            msg.DataContext = null;
             switch (vm.DialogResult) {
                 case null:
                     if (button == MessageBoxButton.YesNoCancel)
@@ -42,8 +59,9 @@ namespace SingularityForensic.App {
                 default:
                     return MessageBoxResult.None;
             }
-            
-            
+
+
+
         }
     }
 }

@@ -14,6 +14,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="txbMain" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
-        <Button Grid.Row="1" x:Name="btnClose" Style="{DynamicResource SureBtnStyle}" Click="btnClose_Click"  Margin="0,6" HorizontalAlignment="Center" Content="{DynamicResource Close}" />
+        <Button Grid.Row="1" x:Name="btnClose" Style="{DynamicResource SureBtnStyle}" Click="BtnClose_Click"  Margin="0,6" HorizontalAlignment="Center" Content="{DynamicResource Close}" />
     </Grid>
 </controls:CorneredWindow>

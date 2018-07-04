@@ -68,27 +68,27 @@ namespace SingularityForensic.Contracts.Hex {
             };
 
             //PropertyGrid部分;
-            var (instance, isNew) = hexDataContext.GetOrCreateInstanceInform(Constants.HexDataContextTag_PropertyGridDataContext,PropertyGridDataContextFactory.CreateNew);
-            var propertyGridDataContext = instance;
-            if (propertyGridDataContext == null) {
+            var (instance, isNew) = hexDataContext.GetOrCreateInstanceInform(Constants.HexDataContextTag_PropertyListDataContext,PropertyGridDataContextFactory.CreateNew);
+            var propertyListDataContext = instance;
+            if (propertyListDataContext == null) {
                 return;
             }
             //若为首次创建,则加入视图;
             if (isNew) {
-                hexDataContext.StackGrid.AddChild(propertyGridDataContext, new Contracts.Controls.GridChildLength(new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)),1);
+                hexDataContext.StackGrid.AddChild(propertyListDataContext, new Contracts.Controls.GridChildLength(new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)),1);
             }
-            propertyGridDataContext.AddCustomMemberDescriptor(customMemberDescriptor);
+            propertyListDataContext.AddCustomMemberDescriptor(customMemberDescriptor);
             
 
             //PropertyGrid选中属性高亮;
-            propertyGridDataContext.SelectedMemberInfoChanged += delegate {
-                if (propertyGridDataContext.SelectedMemberInfo == null) {
+            propertyListDataContext.SelectedMemberInfoChanged += delegate {
+                if (propertyListDataContext.SelectedMemberInfo == null) {
                     return;
                 }
                 toolTipAndBrushBlockTuples.ForEach(p => {
                     p.Value.brushBlock.Background = originBrush;
                 });
-                var slTuple = toolTipAndBrushBlockTuples.FirstOrDefault(p => p.Value.memberInfo == propertyGridDataContext.SelectedMemberInfo);
+                var slTuple = toolTipAndBrushBlockTuples.FirstOrDefault(p => p.Value.memberInfo == propertyListDataContext.SelectedMemberInfo);
                 if(slTuple == null) {
                     return;
                 }
