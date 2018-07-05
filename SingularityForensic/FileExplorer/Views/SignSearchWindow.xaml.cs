@@ -1,5 +1,4 @@
-﻿using CDFCControls.Controls;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using System;
 using System.Windows;
@@ -8,7 +7,7 @@ namespace SingularityForensic.FileExplorer.Views {
     /// <summary>
     /// Interaction logic for SignSearchWindow.xaml
     /// </summary>
-    public partial class SignSearchWindow : CorneredWindow {
+    public partial class SignSearchWindow  {
         public SignSearchWindow() {
             InitializeComponent();
             this.txbSecSize.Text = 512.ToString() ;

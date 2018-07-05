@@ -165,6 +165,12 @@
     <Compile Include="FileExplorer\TestPartitionsBrowser.xaml.cs">
       <DependentUpon>TestPartitionsBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hash\TestCreateHashSet.xaml.cs">
+      <DependentUpon>TestCreateHashSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hash\TestHashManagement.xaml.cs">
+      <DependentUpon>TestHashManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hex\TestLoadHex.xaml.cs">
       <DependentUpon>TestLoadHex.xaml</DependentUpon>
     </Compile>
@@ -182,6 +188,9 @@
     </Compile>
     <Compile Include="TestControls.xaml.cs">
       <DependentUpon>TestControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestHash.xaml.cs">
+      <DependentUpon>TestHash.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestHex.xaml.cs">
       <DependentUpon>TestHex.xaml</DependentUpon>
@@ -257,6 +266,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Hash\TestCreateHashSet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hash\TestHashManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Hex\TestLoadHex.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -316,6 +333,10 @@
     <Page Include="TestFilterableDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestHash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestHex.xaml">
       <SubType>Designer</SubType>
@@ -401,33 +422,33 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"
-Copy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.SqlServer.dll"
+    <PostBuildEvent>XCopy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.SqlServer.dll"  /I /D /E /Y
 
-Copy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"
-Copy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll"
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"  /E /Y
-xcopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"  /E /Y
-Copy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll"
+XCopy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.EF6.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.SQLite.Linq.dll" /I /D /E /Y
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(SolutionDir)DemoUI\$(OutDir)x86\"   /I /D /E /Y
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(SolutionDir)DemoUI\$(OutDir)x64\"   /I /D /E /Y
+XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\System.Data.Sqlite.dll" /I /D /E /Y
 
-Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"
-Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
+XCopy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll" /I /D /E /Y
 
 
-XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
-Copy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*"
-Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml"
-Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
+XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"   /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn\*.*" "$(TargetDir)OutSideIn\*.*" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll" /I /D /E /Y
 
-Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
-Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
-Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
+XCopy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll" /I /D /E /Y
 
-Copy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt"
+XCopy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt" /I /D /E /Y
 
-Copy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)DirectOutIn.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\Contracts.dll" "$(TargetDir)Entities\Contracts.dll"
+XCopy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)DirectOutIn.dll" /I /D /E /Y
+XCopy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll" /I /D /E /Y
+XCopy "$(SolutionDir)\$(ConfigurationName)\Contracts.dll" "$(TargetDir)Entities\Contracts.dll" /I /D /E /Y
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

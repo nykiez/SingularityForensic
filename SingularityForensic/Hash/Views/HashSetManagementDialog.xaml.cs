@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingularityForensic.Contracts.App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,16 @@ namespace SingularityForensic.Hash.Views
         {
             InitializeComponent();
         }
+
+        public static string HashSetNameDisplay => LanguageService.FindResourceString(Constants.HashSetProp_Name)??"名称";
+        public static string HashSetEnabledDisplay => LanguageService.FindResourceString(Constants.HashSetProp_IsEnabled) ?? "可用";
+        public static string HashSetDescriptionDisplay => LanguageService.FindResourceString(Constants.HashSetProp_Desciption) ?? "描述";
+        public static string HashSetHashTypeDisplay => LanguageService.FindResourceString(Constants.HashSetProp_HashType) ?? "哈希类型";
+
+#if DEBUG
+        ~HashSetManagementDialog() {
+
+        }
+#endif
     }
 }

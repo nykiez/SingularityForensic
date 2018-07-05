@@ -3,16 +3,24 @@
 namespace SingularityForensic.Contracts.MainMenu {
     public static class MenuConstants {
         //主页菜单项;
-        public const string MenuMainGroup = "D1AACE87-95CD-4638-A1BB-4DAA32958D7B";
+        public const string MenuGroupGUID_File = "D1AACE87-95CD-4638-A1BB-4DAA32958D7B";
 
         //关联分析菜单项;
-        public const string RelavenceGroup = "A0338252-DEB1-4113-AFA1-70B3D223E567";
+        //public const string RelavenceGroup = "A0338252-DEB1-4113-AFA1-70B3D223E567";
+
+        //工具菜单项;
+        public const string MenuGroupGUID_Tools = nameof(MenuGroupGUID_Tools);
+
 
         //帮助/关于菜单项;
-        public const string AboutGroup = "13553745-A910-42F4-974F-91AF614A92EA";
+        public const string MenuGroupGUID_About = "13553745-A910-42F4-974F-91AF614A92EA";
+
+
         
+
+
         /// <summary>Guid of context menu</summary>
-		public const string CTX_MENU_GUID = "CB53CCAF-9EE3-411E-A03A-561E7D8470EC";
+        public const string CTX_MENU_GUID = "CB53CCAF-9EE3-411E-A03A-561E7D8470EC";
 
         /// <summary>Guid of app menu</summary>
         public const string APP_MENU_GUID = "3D87660F-DA21-48B9-9022-C76F0E588E1F";

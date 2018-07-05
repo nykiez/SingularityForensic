@@ -20,7 +20,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Border Width="{TemplateBinding Width}" x:Name="Background" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(metros:ControlsHelper.CornerRadius)}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}"
                                 BorderThickness="{TemplateBinding BorderThickness}"  Background="{TemplateBinding Background}" />
                         <!--<Image Stretch="None"  x:Name="DefaultBackground" Source="/CDFCMessageBoxes;component/btnSureIcon.png" />-->
                         <Border x:Name="DisabledVisualElement" Background="{DynamicResource ControlsDisabledBrush}"

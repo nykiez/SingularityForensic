@@ -12,32 +12,37 @@ using System.Windows;
 
 namespace SingularityForensic.Hash
 {
-    /// <summary>
-    /// 哈希集对话框服务;
-    /// </summary>
-    public interface IHashSetDialogService
-    {
-        /// <summary>
-        /// 显示管理对话框;
-        /// </summary>
-        void ShowManagementDialog();
-
-        /// <summary>
-        /// 选择哈希集;
-        /// </summary>
-        /// <returns></returns>
-        IHashSet SelectIHashSet();
-    }
-
+   
     [Export(typeof(IHashSetDialogService))]
     class HashSetDialogServiceImpl : IHashSetDialogService {
+        public IHashSet CreateNewHashSet() {
+            var vm = new CreateHashSetDialogViewModel();
+            vm.Initialize();
+            var dialog = new CreateHashSetDialog() {
+                DataContext = vm
+            };
+
+            if (ShellService.Current.Shell is Window shell && shell.IsLoaded) {
+                dialog.ShowInTaskbar = false;
+                dialog.Owner = shell;
+            }
+
+            dialog.ShowDialog();
+            dialog.DataContext = null;
+
+            return vm.HashSet;
+        }
+
         public IHashSet SelectIHashSet() {
             throw new NotImplementedException();
+
         }
 
         public void ShowManagementDialog() {
+            var vm = new HashSetManagementDialogViewModel();
+            vm.Initialize();
             var dialog = new HashSetManagementDialog {
-                DataContext = new HashSetManagementDialogViewModel()
+                DataContext = vm
             };
             
             if (ShellService.Current.Shell is Window shell && shell.IsLoaded) {
@@ -47,6 +52,18 @@ namespace SingularityForensic.Hash
 
             dialog.ShowDialog();
             dialog.DataContext = null;
+
+#if DEBUG
+            Contracts.App.ThreadInvoker.BackInvoke(() => {
+                System.Threading.Thread.Sleep(1000);
+                for (int i = 0; i < 2; i++) {
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                }
+            });
+#endif
         }
+
+
     }
 }

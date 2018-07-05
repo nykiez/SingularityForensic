@@ -26,7 +26,7 @@ namespace SingularityForensic.ITunes {
         }
 
         [Export]
-        public static readonly MenuButtonItem AddItunesBackUpMI = new MenuButtonItem(MenuConstants.MenuMainGroup,
+        public static readonly MenuButtonItem AddItunesBackUpMI = new MenuButtonItem(MenuConstants.MenuGroupGUID_File,
             ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString(Constants.MenuItemText_AddITunesBackupDir), 5) {
             IconSource = IconResources.AddITunesIcon,
             //进行Itnues备份文件检索;

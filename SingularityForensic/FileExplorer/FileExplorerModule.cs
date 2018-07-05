@@ -5,6 +5,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer.Events;
 using SingularityForensic.Contracts.Helpers;
 using SingularityForensic.Contracts.Splash.Events;
+using System;
 
 namespace SingularityForensic.FileExplorer {
     [ModuleExport(typeof(FileExplorerModule))]
@@ -12,7 +13,15 @@ namespace SingularityForensic.FileExplorer {
         public void Initialize() {
             PubEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
-            PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<IFileExplorerModuleLoadingEventHandler>.Currents);
+
+            try {
+                PubEventHelper.GetEvent<FileExplorerModuleLoadingEvent>().Publish();
+                PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<IFileExplorerModuleLoadingEventHandler>.Currents);
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+            }
+            
         }
 
         

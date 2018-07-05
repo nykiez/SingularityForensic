@@ -149,7 +149,7 @@
     <Compile Include="Document\IDocument.cs" />
     <Compile Include="FileExplorer\Events\NameCategoryDescriptorsLoadedEvent.cs" />
     <Compile Include="FileExplorer\ICategoryNameService.cs" />
-    <Compile Include="FileExplorer\Events\IFileExplorerModuleLoadingEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\FileExplorerModuleLoadingEvent.cs" />
     <Compile Include="FileExplorer\IFolderBrowserDataContext.cs" />
     <Compile Include="FileExplorer\IFullFileNameProvider.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
@@ -208,6 +208,8 @@
     <Compile Include="FileSystem\IIndexable.cs" />
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
+    <Compile Include="Hash\Events\HashModuleLoadingEvent.cs" />
+    <Compile Include="Hash\IHashSetDialogService.cs" />
     <Compile Include="Hash\Events\HashSetIsEnabledChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetNameChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetDescriptionChangedEvent.cs" />
@@ -327,8 +329,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>Copy "$(SolutionDir)$(ConfigurationName)\Contracts.dll" "$(SolutionDir)$(ProjectName)\Contracts.dll"
-Copy "$(SolutionDir)$(ConfigurationName)\StreamExtension.dll" "$(SolutionDir)$(ProjectName)\StreamExtension.dll"
+    <PreBuildEvent>XCopy "$(SolutionDir)$(ConfigurationName)\Contracts.dll" "$(SolutionDir)$(ProjectName)\Contracts.dll" /I /D /E /Y
+XCopy "$(SolutionDir)$(ConfigurationName)\StreamExtension.dll" "$(SolutionDir)$(ProjectName)\StreamExtension.dll"  /I /D /E /Y
 </PreBuildEvent>
   </PropertyGroup>
 </Project>

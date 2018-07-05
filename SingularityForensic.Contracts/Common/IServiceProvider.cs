@@ -123,7 +123,10 @@ namespace SingularityForensic.Contracts.Common {
 
         public static TService GetInstance<TService>() where TService : class {
             if (Current == null) {
-                throw new InvalidOperationException("ServiceProvidder has not been set!");
+#if DEBUG
+                return null;
+#endif
+                throw new InvalidOperationException("ServiceProvider has not been set!");
             }
 
             return Current.GetInstance<TService>();

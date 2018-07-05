@@ -25,6 +25,10 @@
         public const string XmlElemName_HashSets_Set_Description = "Description";
 
         public const string XmlAttrName_HashSets_Set_IsEnabled = "IsEnabled";
+
+        //默认的哈希存储路径;
+        public const string HashDefaultStorageFolder = "HashSets";
+
     }
 
     /// <summary>
@@ -40,8 +44,39 @@
         public const string WindowTitle_HashSetManagement = nameof(WindowTitle_HashSetManagement);
         
         public const string HashSetProp_Name = nameof(HashSetProp_Name);
-        
+        public const string HashSetProp_Desciption = nameof(HashSetProp_Desciption);
         public const string HashSetProp_HashType = nameof(HashSetProp_HashType);
+        public const string HashSetProp_IsEnabled = nameof(HashSetProp_IsEnabled);
+        public const string HashSetProp_StoragePath = nameof(HashSetProp_StoragePath);
+
+        public const string MsgText_HashSetNameCannotBeEmpty = nameof(MsgText_HashSetNameCannotBeEmpty);
+
+        public const string MsgText_HashSetStoragePathCannotBeCreated = nameof(MsgText_HashSetStoragePathCannotBeCreated);
+
+
+        public const string MsgText_Index = nameof(MsgText_Index);
+
+
+        public const string MsgText_InvalidPathChar = nameof(MsgText_InvalidPathChar);
+
+
+        public const string MsgText_StoragePathAlreadyOccupied = nameof(MsgText_StoragePathAlreadyOccupied);
+
+
+        public const string HashModuleLoading = nameof(HashModuleLoading);
+
+
+        public const string WindowTitle_CreateHashSet = nameof(WindowTitle_CreateHashSet);
+
+
+        public const string BtnWord_CreateHashSet = nameof(BtnWord_CreateHashSet);
+
+
+        public const string MenuItemText_HashSetManagement = nameof(MenuItemText_HashSetManagement);
+
+
+        public const string ContextCommandName_DeleteHashSet = nameof(ContextCommandName_DeleteHashSet);
+
 
 
     }

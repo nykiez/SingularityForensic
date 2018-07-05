@@ -13,7 +13,7 @@ namespace SingularityForensic.Hex {
         public static MenuButtonItem SearchKeyMenuItem {
             get {
                 if (_searchKeyMenuItem == null) {
-                    _searchKeyMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexSearch")) {
+                    _searchKeyMenuItem = new MenuButtonItem(MenuConstants.MenuGroupGUID_File, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("IndexSearch")) {
                         Command = ServiceProvider.GetInstance<HexUIServiceImpl>().SearchKeyConfirmCommand,
                         IconSource = IconSources.FindTextIcon
                     };
@@ -42,7 +42,7 @@ namespace SingularityForensic.Hex {
         private static MenuButtonItem _findTextMenuItem;
         [Export]
         public static MenuButtonItem FindTextMenuItem
-              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
+              => _findTextMenuItem ?? (_findTextMenuItem = new MenuButtonItem(MenuConstants.MenuGroupGUID_File,
                         LanguageService.FindResourceString("SearchForText")) {
                   Command = ServiceProvider.GetInstance<HexUIServiceImpl>().FindTextCommand,
                   IconSource = IconSources.FindTextIcon,
@@ -69,7 +69,7 @@ namespace SingularityForensic.Hex {
         private static MenuButtonItem _findHexMenuItem;
         [Export]
         public static MenuButtonItem FindHexMenuItem
-            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItem(MenuConstants.MenuMainGroup,
+            => _findHexMenuItem ?? (_findHexMenuItem = new MenuButtonItem(MenuConstants.MenuGroupGUID_File,
                 ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString(Constants.ToolBarText_SearchForHex)) {
                 Command = ServiceProvider.GetInstance<HexUIServiceImpl>().FindHexValueCommand,
                 IconSource = IconSources.FindHexIcon,
@@ -97,7 +97,7 @@ namespace SingularityForensic.Hex {
         [Export]
         public static MenuButtonItem GoToOffsetMenuItem
            => _goToOffsetMenuItem ?? (_goToOffsetMenuItem = new MenuButtonItem(
-           MenuConstants.MenuMainGroup,
+           MenuConstants.MenuGroupGUID_File,
            ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("GoToOffset")) {
                Command = ServiceProvider.GetInstance<HexUIServiceImpl>().GoToOffsetCommand,
                IconSource = IconSources.GotoOffsetIcon,

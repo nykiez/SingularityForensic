@@ -4,30 +4,82 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
-        mc:Ignorable="d" Style="{DynamicResource WindowStyle}" ResizeMode="CanMinimize"
-        Title="{DynamicResource WindowTitle_HashSetManagement}" Height="450" Width="480">
-    <Grid>
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:prism="http://prismlibrary.com/" WindowStartupLocation="CenterOwner"
+        xmlns:local="clr-namespace:SingularityForensic.Hash.Views"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:gv="clr-namespace:SingularityForensic.Controls.GridView"
+        x:Name="window"
+        mc:Ignorable="d" Style="{DynamicResource WindowStyle}" 
+        Title="{DynamicResource WindowTitle_HashSetManagement}" Height="360" Width="480" >
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding CloseRequest}">
+            <ei:CallMethodAction MethodName="Close" TargetObject="{Binding ElementName=window}"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" BasedOn="{StaticResource SureBtnStyle}">
+                <Setter Property="Margin" Value="12,0"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="6,0">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" MinHeight="90"  />
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <telerik:RadGridView RowIndicatorVisibility="Collapsed" SelectionMode="Single" IsReadOnly="{Binding IsReadOnly}"
-                             SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}"
+
+        <gv:RadGridViewEx Style="{DynamicResource RadGridViewExStyle}"
+                          RowIndicatorVisibility="Collapsed"  SelectionMode="Single" AutoGenerateColumns="False"
+                             SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}" Margin="-1" 
                              ShowGroupPanel="False" ItemsSource="{Binding HashSetModels}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Deleted">
+                    <prism:InvokeCommandAction TriggerParameterPath="Items" Command="{Binding ItemsDeletedCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <gv:RadGridViewEx.ScrollContentContextMenu>
+                <ContextMenu ItemsSource="{Binding ContextCommands}">
+                    <ContextMenu.ItemContainerStyle>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="Header" Value="{Binding Name}"/>
+                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
+                        </Style>
+                    </ContextMenu.ItemContainerStyle>
+                </ContextMenu>
+            </gv:RadGridViewEx.ScrollContentContextMenu>
             <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_IsEnabled}" DataMemberBinding="{Binding HashSetEnabled,UpdateSourceTrigger=PropertyChanged}" Width="48" MinWidth="24"/>
                 <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_Name}" DataMemberBinding="{Binding HashSetName}" Width="*"/>
                 <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_HashType}"  IsReadOnly="True" DataMemberBinding="{Binding HashSet.Hasher.HashTypeName}" Width="*"/>
             </telerik:RadGridView.Columns>
-        </telerik:RadGridView>
-        <telerik:RadPropertyGrid Item="{Binding SelectedHashSetModel}" IsReadOnly="{Binding IsReadOnly}" Grid.Row="1">
-            
+        </gv:RadGridViewEx>
+        <GridSplitter Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="3" Background="Transparent"/>
+        <telerik:RadPropertyGrid Margin="0,3,0,0" Item="{Binding SelectedHashSetModel}"  Grid.Row="1" DescriptionPanelVisibility="Collapsed" AutoGenerateBindingPaths="False"
+                                 AutoGeneratePropertyDefinitions="False" >
+            <telerik:RadPropertyGrid.PropertyDefinitions>
+                <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetNameDisplay}" Binding="{Binding HashSetName}"/>
+                <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetEnabledDisplay}" Binding="{Binding HashSetEnabled}"/>
+                <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetDescriptionDisplay}" Binding="{Binding HashSetDescription}">
+                    <telerik:PropertyDefinition.EditorTemplate>
+                        <DataTemplate>
+                            <TextBox MaxHeight="120" Text="{Binding HashSetDescription}" />
+                        </DataTemplate>
+                    </telerik:PropertyDefinition.EditorTemplate>
+                </telerik:PropertyDefinition>
+                <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetHashTypeDisplay}" Binding="{Binding HashSetHashTypeName}" IsReadOnly="True"/>
+            </telerik:RadPropertyGrid.PropertyDefinitions>
         </telerik:RadPropertyGrid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <telerik:RadButton Content="{DynamicResource Confirm}"/>
-            <FrameworkElement Width="48"/>
-            <telerik:RadButton Content="{DynamicResource Cancel}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,3">
+            <Button Content="{DynamicResource BtnWord_CreateHashSet}" Command="{Binding CreateHashSetCommand}" />
+            
+            <Button Content="{DynamicResource Confirm}" Command="{Binding ConfirmCommand}" />
+            
+            <Button Content="{DynamicResource Cancel}" Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </metros:MetroWindow>

@@ -7,4 +7,16 @@
   <sys:String x:Key="WindowTitle_HashSetManagement">哈希库管理</sys:String>
   <sys:String x:Key="HashSetProp_Name">名称</sys:String>
   <sys:String x:Key="HashSetProp_HashType">哈希类型</sys:String>
+  <sys:String x:Key="MsgText_HashSetNameCannotBeEmpty">哈希集名称不可为空</sys:String>
+  <sys:String x:Key="MsgText_Index">序号</sys:String>
+  <sys:String x:Key="HashSetProp_IsEnabled">可用</sys:String>
+  <sys:String x:Key="HashModuleLoading">正在加载哈希模块</sys:String>
+  <sys:String x:Key="HashSetProp_Desciption">描述</sys:String>
+  <sys:String x:Key="WindowTitle_CreateHashSet">新建哈希集</sys:String>
+  <sys:String x:Key="BtnWord_CreateHashSet">新建</sys:String>
+  <sys:String x:Key="HashSetProp_StoragePath">存储路径</sys:String>
+  <sys:String x:Key="MsgText_HashSetStoragePathCannotBeCreated">无法创建存储路径</sys:String>
+  <sys:String x:Key="MsgText_StoragePathAlreadyOccupied">该存储路径已经被占用</sys:String>
+  <sys:String x:Key="MenuItemText_HashSetManagement">管理哈希库</sys:String>
+  <sys:String x:Key="ContextCommandName_DeleteHashSet">移除</sys:String>
 </ResourceDictionary>

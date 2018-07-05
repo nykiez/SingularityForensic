@@ -151,6 +151,8 @@
     <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hash\HashSetManagementServiceTest.cs" />
     <Compile Include="Hash\HashSetTests.cs" />
+    <Compile Include="Hash\ViewModels\CreateHashSetDialogViewModelTests.cs" />
+    <Compile Include="Hash\ViewModels\HashSetManagementDialogViewModelTests.cs" />
     <Compile Include="Hex\EncodingTest.cs" />
     <Compile Include="Hex\Events\OnHexFocusPositionChangedOnStatusBarHandlerTests.cs" />
     <Compile Include="Hex\HexDataContextCommandItemFactoryTests.cs" />
@@ -205,24 +207,24 @@
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.1.1.18\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.1.18\build\net45\MSTest.TestAdapter.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"
-Copy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"
-Copy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"
-Copy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll"
-Copy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll" 
-Copy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll"
-Copy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll"
-Copy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" 
-Copy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml"
-Copy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt"
+    <PostBuildEvent>XCopy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)libewf.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)zlib.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)cdfc_device.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)DevManager.dll" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)PartitionManager.dll"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)FatRecover.dll" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)ExtRecover.dll" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml"  /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml" /I /D /E /Y
+XCopy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt" /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /E /Y
+XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /I /D /E /Y
 
-Copy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Microsoft.Expression.Interactions.dll"
+XCopy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Microsoft.Expression.Interactions.dll"  /I /D /E /Y
 
-copy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll"
-Copy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)StreamExtension.dll"
+XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)System.Windows.Interactivity.dll" /I /D /E /Y
+XCopy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)StreamExtension.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic\ITunes\DLLS" "$(TargetDir)"  /E /Y</PostBuildEvent>
+XCopy "$(SolutionDir)SingularityForensic\ITunes\DLLS" "$(TargetDir)"   /I /D /E /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

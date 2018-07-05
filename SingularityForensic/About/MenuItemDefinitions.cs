@@ -17,7 +17,7 @@ namespace SingularityForensic.About {
         
         [Export]
         public static readonly MenuButtonItem AboutMenuItem =
-            new MenuButtonItem(MenuConstants.AboutGroup, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("About")) {
+            new MenuButtonItem(MenuConstants.MenuGroupGUID_About, ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("About")) {
                 Command = AboutCommand,
                 IconSource = IconSources.AboutIcon
             };
@@ -39,7 +39,7 @@ namespace SingularityForensic.About {
 
         [Export]
         public static readonly MenuButtonItem CalcMenuItem =
-            new MenuButtonItem(MenuConstants.AboutGroup,
+            new MenuButtonItem(MenuConstants.MenuGroupGUID_About,
                 LanguageService.FindResourceString(Constants.MenuItemText_Calc)){
                 Command = new DelegateCommand(OpenCalc),
                 IconSource = IconSources.CalcIcon

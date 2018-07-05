@@ -30,10 +30,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <telerik:RadProgressBar x:Name="ProCapBar" Margin="0,12"  Grid.Row="0"  Value="10"/>
+                    <telerik:RadProgressBar x:Name="ProCapBar" Margin="0,12" telerik:AnimationManager.IsAnimationEnabled="True" Grid.Row="0"  Value="10"/>
                     <telerik:RadProgressBar x:Name="ProDetailBar" Margin="0,12" Grid.Row="1" />
                     <DockPanel Grid.Row="2" Margin="0,12">
-                        <telerik:RadButton Content="{DynamicResource Cancel}" DockPanel.Dock="Right" Click="btnCancel_Click"  />
+                        <Button Content="{DynamicResource Cancel}" Style="{DynamicResource SureBtnStyle}" DockPanel.Dock="Right" Click="btnCancel_Click"  />
                         <Border/>
                     </DockPanel>
                 </Grid>

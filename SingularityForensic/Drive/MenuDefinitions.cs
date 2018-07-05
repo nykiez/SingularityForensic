@@ -32,7 +32,7 @@ namespace SingularityForensic.Drive {
 
         [Export]
         public static readonly MenuButtonItem AddDriveMenuItem = new MenuButtonItem(
-           MenuConstants.MenuMainGroup,
+           MenuConstants.MenuGroupGUID_File,
            LanguageService.FindResourceString(Constants.TBButtonToolTip_AddDrive), 4) {
                 Command = AddImgCommand,
                 IconSource = IconSources.AddDriveIcon

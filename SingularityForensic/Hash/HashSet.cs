@@ -368,6 +368,12 @@ namespace SingularityForensic.Hash {
             }
             
         }
+
+        ~HashSet() {
+            if (!_disposed) {
+                Dispose();
+            }
+        }
     }
 
     [Export(typeof(IHashSetFactory))]

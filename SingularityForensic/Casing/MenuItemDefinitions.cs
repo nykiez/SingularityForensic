@@ -22,7 +22,7 @@ namespace SingularityForensic.Casing {
 
         [Export]
         public static readonly MenuButtonItem OpenCaseMenuItem = new MenuButtonItem(
-            MenuConstants.MenuMainGroup,
+            MenuConstants.MenuGroupGUID_File,
             LanguageService.Current?.FindResourceString(Constants.MenuItemText_OpenCase)) {
             Command = CsUIService.OpenCaseCommand,
             IconSource = IconSources.OpenCaseIcon
@@ -46,7 +46,7 @@ namespace SingularityForensic.Casing {
         //关闭案件菜单;
         [Export]
         public static MenuButtonItem CloseCaseMenuItem = new MenuButtonItem(
-                        MenuConstants.MenuMainGroup,
+                        MenuConstants.MenuGroupGUID_File,
                        LanguageService.Current?.FindResourceString(Constants.MenuItemText_CloseCase)) {
             Command = CsUIService.CloseCaseCommand,
             IconSource = IconSources.CloseCaseIcon
@@ -69,7 +69,7 @@ namespace SingularityForensic.Casing {
         [Export]
         public static readonly MenuButtonItem CreateCaseMenuItem =
             new MenuButtonItem(
-               MenuConstants.MenuMainGroup,
+               MenuConstants.MenuGroupGUID_File,
                LanguageService.Current?.FindResourceString(Constants.MenuItemText_CreateCase), 0) {
                     Command = CsUIService.CreateCaseCommand,
                     IconSource = IconSources.CreateCaseIcon

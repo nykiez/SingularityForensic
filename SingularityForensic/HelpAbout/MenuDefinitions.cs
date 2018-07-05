@@ -7,12 +7,7 @@ namespace SingularityForensic.HelpAbout {
     //菜单组定义;
     public static class MenuGroupDefinitions {
         [Export]
-        public static readonly MenuItemGroup OptionsMenuGroup = new MenuItemGroup(MenuConstants.AboutGroup,36) {
-            Text = LanguageService.FindResourceString("OptionsShipMenuText")
-        };
-
-        [Export]
-        public static readonly MenuItemGroup HelpMenuGroup = new MenuItemGroup(MenuConstants.AboutGroup, 48) {
+        public static readonly MenuItemGroup HelpMenuGroup = new MenuItemGroup(MenuConstants.MenuGroupGUID_About, 48) {
             Text = ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("HelpMenuText")
         };
 

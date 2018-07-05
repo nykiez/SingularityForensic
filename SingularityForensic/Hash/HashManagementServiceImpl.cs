@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using SingularityForensic.Contracts.Common;
@@ -211,7 +209,7 @@ namespace SingularityForensic.Hash {
                 if (setElem == null) {
                     LoggerService.WriteCallerLine($"{nameof(setElem)} can't be null.");
                 }
-                setElem.SetXElemValue(xElemName, value);
+                setElem.SetXElemValue(value,xElemName);
                 xDoc.Save(GetDataFileName());
             }
             catch (Exception ex) {

@@ -433,10 +433,14 @@
     <Compile Include="FileSystem\Device.cs" />
     <Compile Include="FileSystem\FileBase.cs" />
     <Compile Include="FileSystem\Partition.cs" />
+    <Compile Include="Hash\Events\OnHashModuleLoadingHashSetManagementServiceInitializingHandler.cs" />
     <Compile Include="Hash\HashManagementServiceImpl.cs" />
+    <Compile Include="Hash\HashModule.cs" />
     <Compile Include="Hash\HashPair.cs" />
     <Compile Include="Hash\HashSet.cs" />
-    <Compile Include="Hash\IHashSetDialogService.cs" />
+    <Compile Include="Hash\HashSetDialogServiceImpl.cs" />
+    <Compile Include="Hash\MenuItemDefinitions.cs" />
+    <Compile Include="Hash\Models\HasherModel.cs" />
     <Compile Include="Hash\Models\HashSetModel.cs" />
     <Compile Include="Hash\SHA256Hasher.cs" />
     <Compile Include="Hash\SHA512Hasher.cs" />
@@ -445,7 +449,11 @@
     <Compile Include="Hash\IHashAlgorithmProvider.cs" />
     <Compile Include="Hash\MD5Hasher.cs" />
     <Compile Include="Hash\SHA1Hasher.cs" />
+    <Compile Include="Hash\ViewModels\CreateHashSetDialogViewModel.cs" />
     <Compile Include="Hash\ViewModels\HashSetManagementDialogViewModel.cs" />
+    <Compile Include="Hash\Views\CreateHashSetDialog.xaml.cs">
+      <DependentUpon>CreateHashSetDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hash\Views\HashSetManagementDialog.xaml.cs">
       <DependentUpon>HashSetManagementDialog.xaml</DependentUpon>
     </Compile>
@@ -650,6 +658,7 @@
     <Compile Include="ITunes\Views\StartForensicWindow.xaml.cs">
       <DependentUpon>StartForensicWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainMenu\Constants.cs" />
     <Compile Include="MainMenu\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainMenu\MainMenuModule.cs" />
     <Compile Include="MainMenu\MenuGroupDefinitions.cs" />
@@ -939,6 +948,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Hash\Views\CreateHashSetDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Hash\Views\HashSetManagementDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1026,6 +1039,10 @@
     <Page Include="ITunes\Views\StartForensicWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainMenu\Languages\zh_CN\SingularityForensic.MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainMenu\Views\MainMenu.xaml">
       <SubType>Designer</SubType>
@@ -1858,26 +1875,28 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)About\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)FileSystem\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Drive\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Adb\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Imaging\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)ITunes\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)MainPage\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /E /Y
-XCopy "$(ProjectDir)TreeView\Languages" "$(TargetDir)Languages\" /E /Y</PostBuildEvent>
+    <PostBuildEvent>XCopy "$(ProjectDir)Casing\Languages" "$(TargetDir)Languages\" /I /D /E /Y
+XCopy "$(ProjectDir)About\Languages" "$(TargetDir)Languages\"  /I /D /E /Y
+XCopy "$(ProjectDir)FileSystem\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Drive\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Adb\Languages" "$(TargetDir)Languages\"  /I /D /E /Y
+XCopy "$(ProjectDir)Imaging\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)ITunes\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)App\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Previewers\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Controls\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)FileExplorer\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Hex\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)FAT\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Document\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)MainPage\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)MainMenu\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)TreeView\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /I /D  /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

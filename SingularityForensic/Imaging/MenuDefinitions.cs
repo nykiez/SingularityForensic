@@ -28,7 +28,7 @@ namespace SingularityForensic.Imaging {
 
         [Export]
         public static readonly MenuButtonItem AddImgMenuItem = new MenuButtonItem(
-            MenuConstants.MenuMainGroup,
+            MenuConstants.MenuGroupGUID_File,
             LanguageService.FindResourceString(Constants.MenuItemText_AddImg), 4) {
             Command = AddImgCommand,
             IconSource = IconSources.AddImgIcon

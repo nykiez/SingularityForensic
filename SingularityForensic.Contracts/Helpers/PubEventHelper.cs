@@ -53,7 +53,7 @@ namespace SingularityForensic.Contracts.Helpers {
         /// <param name="args"></param>
         /// <param name="eventHandlers"></param>
         public static void PublishEventToHandlers<TEventHandler, TEventArgs>(TEventArgs args, IEnumerable<TEventHandler> eventHandlers)
-            where TEventHandler : IEventHandler<TEventArgs> {
+            where TEventHandler : class,IEventHandler<TEventArgs> {
             if (eventHandlers == null) {
                 return;
             }
@@ -76,7 +76,31 @@ namespace SingularityForensic.Contracts.Helpers {
                 }
             }
         }
-        public static void PublishEventToHandlers<TEventHandler>( IEnumerable<TEventHandler> eventHandlers) where TEventHandler:IEventHandler {
+        /// <summary>
+        /// 向事件处理契发布事件;将会自动寻找事件处理器队列;
+        /// </summary>
+        /// <typeparam name="TEventHandler"></typeparam>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="args"></param>
+        public static void PublishEventToHandlers<TEventHandler,TEventArgs>(TEventArgs args)
+            where TEventHandler : class,IEventHandler<TEventArgs> {
+
+            if (args == null) {
+                return;
+            }
+
+            var handlers = GenericServiceStaticInstances<TEventHandler>.Currents;
+            PublishEventToHandlers<TEventHandler, TEventArgs>(args, handlers);
+        }
+
+        /// <summary>
+        /// 向事件处理器发布事件;
+        /// </summary>
+        /// <typeparam name="TEventHandler"></typeparam>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="args"></param>
+        /// <param name="eventHandlers"></param>
+        public static void PublishEventToHandlers<TEventHandler>( IEnumerable<TEventHandler> eventHandlers) where TEventHandler:class, IEventHandler {
             if (eventHandlers == null) {
                 return;
             }
@@ -98,6 +122,16 @@ namespace SingularityForensic.Contracts.Helpers {
                     LoggerService.WriteException(ex);
                 }
             }
+        }
+        /// <summary>
+        /// 向事件处理契发布事件;将会自动寻找事件处理器队列;
+        /// </summary>
+        /// <typeparam name="TEventHandler"></typeparam>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="args"></param>
+        public static void PublishEventToHandlers<TEventHandler>() where TEventHandler :class, IEventHandler {
+            var handlers = GenericServiceStaticInstances<TEventHandler>.Currents;
+            PublishEventToHandlers<TEventHandler>(handlers);
         }
 
         /// <summary>
