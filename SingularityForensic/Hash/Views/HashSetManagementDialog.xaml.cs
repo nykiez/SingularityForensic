@@ -29,7 +29,7 @@ namespace SingularityForensic.Hash.Views
         public static string HashSetEnabledDisplay => LanguageService.FindResourceString(Constants.HashSetProp_IsEnabled) ?? "可用";
         public static string HashSetDescriptionDisplay => LanguageService.FindResourceString(Constants.HashSetProp_Desciption) ?? "描述";
         public static string HashSetHashTypeDisplay => LanguageService.FindResourceString(Constants.HashSetProp_HashType) ?? "哈希类型";
-
+        public static string HashSetStoragePathDisplay => LanguageService.FindResourceString(Constants.HashSetProp_StoragePath) ?? "存储路径";
 #if DEBUG
         ~HashSetManagementDialog() {
 

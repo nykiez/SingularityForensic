@@ -41,6 +41,7 @@ namespace SingularityForensic.Hash.Models
         }
 
         public string HashSetHashTypeName => HashSet.Hasher.HashTypeName;
+        public string HashSetStoragePath => HashSet.StoragePath;
 
         private string _hashSetDescription;
         public string HashSetDescription {

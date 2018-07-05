@@ -19,4 +19,9 @@
   <sys:String x:Key="MsgText_StoragePathAlreadyOccupied">该存储路径已经被占用</sys:String>
   <sys:String x:Key="MenuItemText_HashSetManagement">管理哈希库</sys:String>
   <sys:String x:Key="ContextCommandName_DeleteHashSet">移除</sys:String>
+  <sys:String x:Key="MsgText_NoHashSetModelBeenSelected">请选中哈希集后再进行此操作</sys:String>
+  <sys:String x:Key="ContextCommandName_ImportHash">导入哈希值</sys:String>
+  <sys:String x:Key="WindowTitle_ImportingHash">导入哈希值中</sys:String>
+  <sys:String x:Key="MsgText_ImportingHashFormat">当前导入共{0}行,成功{1}行,未成功{2}行</sys:String>
+  <sys:String x:Key="MsgText_HashImportedFormat">导入哈希完成,共{0}行,成功导入{1}行,未成功{2}行</sys:String>
 </ResourceDictionary>

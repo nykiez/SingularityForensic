@@ -8,6 +8,7 @@ using SingularityForensic.Hash.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +30,15 @@ namespace SingularityForensic.Hash.ViewModels
                 HashSetModels.Add(new HashSetModel(hashSet));
             }
 
+            //加入删除哈希集命令;
             var delCmi = CommandItemFactory.CreateNew(DeleteHashSetCommand);
             delCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_DeleteHashSet);
             ContextCommands.Add(delCmi);
+
+            //加入导入哈希命令;
+            var importCmi = CommandItemFactory.CreateNew(ImportHashCommand);
+            importCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ImportHash);
+            ContextCommands.Add(importCmi);
         }
 
         public ObservableCollection<ICommandItem> ContextCommands { get; } = new ObservableCollection<ICommandItem>();
@@ -96,6 +103,102 @@ namespace SingularityForensic.Hash.ViewModels
                 }
             ));
 
+
+        /// <summary>
+        /// 导入(从文件种)导入哈希;
+        /// </summary>
+        private DelegateCommand _importHashCommand;
+        public DelegateCommand ImportHashCommand => _importHashCommand ??
+            (_importHashCommand = new DelegateCommand(
+                () => {
+                    if(SelectedHashSetModel == null) {
+                        MsgBoxService.Show(LanguageService.FindResourceString(Constants.MsgText_NoHashSetModelBeenSelected));
+                        return;
+                    }
+
+                    var fileName = DialogService.Current.OpenFile();
+                    if (string.IsNullOrEmpty(fileName)) {
+                        return;
+                    }
+
+                    //使用进度对话框显示进度;
+                    var loadingDialog = DialogService.Current.CreateLoadingDialog();
+                    loadingDialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_ImportingHash);
+                    loadingDialog.IsProgressVisible = false;
+
+                    //当前行号;
+                    var lineIndex = 0;
+                    //未成功行数;
+                    var errLineCount = 0;
+                    //成功行数;
+                    var succeedLineCount = 0;
+
+                    StreamReader sr = null;
+
+                    loadingDialog.DoWork += delegate {
+                        try {
+                            SelectedHashSetModel.HashSet.BeginEdit();
+                            sr = new StreamReader(fileName);
+                            string line = null;
+                            
+                            //逐行读取;
+                            while((line = sr.ReadLine()) != null) {
+                                //查看哈希
+                                if(line.Length != SelectedHashSetModel.HashSet.Hasher.BytesPerHashValue * 2) {
+                                    errLineCount++;
+                                }
+                                else {
+                                    SelectedHashSetModel.HashSet.AddHashPair(string.Empty, line);
+                                    succeedLineCount++;
+                                }
+
+                                lineIndex++;
+                                if(lineIndex % 100 == 0) {
+                                    loadingDialog.ReportProgress(
+                                        0, 
+                                        LanguageService.Current.TryGetStringWithFormat(
+                                            Constants.MsgText_ImportingHashFormat,
+                                            lineIndex,
+                                            succeedLineCount,
+                                            errLineCount
+                                        ),
+                                        string.Empty
+                                    );
+
+                                    //如若点击了取消;
+                                    if (loadingDialog.CancellationPending) {
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex) {
+                            LoggerService.WriteException(ex);
+                            ThreadInvoker.UIInvoke(() => MsgBoxService.Show(ex.Message));
+                        }
+                        finally {
+                            SelectedHashSetModel.HashSet.EndEdit();
+                            sr?.Dispose();
+                        }
+                    };
+
+                    loadingDialog.RunWorkerCompleted += delegate {
+                        MsgBoxService.Show(
+                            LanguageService.Current.TryGetStringWithFormat(
+                                Constants.MsgText_HashImportedFormat,
+                                lineIndex,
+                                succeedLineCount,
+                                errLineCount
+                            )
+                        );
+                    };
+
+                    loadingDialog.ShowDialog();
+                }
+            ));
+
+        
+        
 
         /// <summary>
         /// 应用更改;

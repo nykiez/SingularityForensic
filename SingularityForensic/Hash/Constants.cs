@@ -78,6 +78,19 @@
         public const string ContextCommandName_DeleteHashSet = nameof(ContextCommandName_DeleteHashSet);
 
 
+        public const string MsgText_NoHashSetModelBeenSelected = nameof(MsgText_NoHashSetModelBeenSelected);
+
+
+        public const string ContextCommandName_ImportHash = nameof(ContextCommandName_ImportHash);
+
+
+        public const string WindowTitle_ImportingHash = nameof(WindowTitle_ImportingHash);
+
+
+        public const string MsgText_ImportingHashFormat = nameof(MsgText_ImportingHashFormat);
+
+
+        public const string MsgText_HashImportedFormat = nameof(MsgText_HashImportedFormat);
 
     }
 }

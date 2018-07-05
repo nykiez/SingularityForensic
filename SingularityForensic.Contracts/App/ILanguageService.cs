@@ -62,7 +62,34 @@ namespace SingularityForensic.Contracts.App {
         /// <param name="path"></param>
         void AddMergedDictionaryFromPath(string path);
     }
-    public class LanguageService: GenericServiceStaticInstance<ILanguageService> {
+    public class LanguageService : GenericServiceStaticInstance<ILanguageService> {
         public static string FindResourceString(string keyName) => Current?.FindResourceString(keyName);
+    }
+
+    public static class LanguageServiceExtensions {
+        /// <summary>
+        /// 尝试根据指定格式的值与参数获取字符串内容,适用于句势具有动态性的语言查找;
+        /// </summary>
+        /// <param name="languageService"></param>
+        /// <param name="languageFormatKey">语言格式键值(比如"{0}是哲学家")</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static string TryGetStringWithFormat(this ILanguageService languageService,string languageFormatKey, params object[] args) {
+            if(languageService == null) {
+                throw new ArgumentNullException(nameof(languageService));
+            }
+            
+            try {
+#if DEBUG
+                var format = LanguageService.FindResourceString(languageFormatKey);
+                return string.Format(format, args);
+#endif
+                return string.Format(LanguageService.FindResourceString(languageFormatKey), args);
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+                return languageService.FindResourceString(languageFormatKey);
+            }
+        }
     }
 }

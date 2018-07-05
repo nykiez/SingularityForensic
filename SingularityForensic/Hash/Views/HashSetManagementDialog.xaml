@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:SingularityForensic.Hash.Views"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:gv="clr-namespace:SingularityForensic.Controls.GridView"
-        x:Name="window"
+        x:Name="window" 
         mc:Ignorable="d" Style="{DynamicResource WindowStyle}" 
         Title="{DynamicResource WindowTitle_HashSetManagement}" Height="360" Width="480" >
     <i:Interaction.Triggers>
@@ -32,7 +32,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <gv:RadGridViewEx Style="{DynamicResource RadGridViewExStyle}"
+        <gv:RadGridViewEx Style="{DynamicResource RadGridViewExStyle}" GroupRenderMode="Flat" CanUserFreezeColumns="False"
                           RowIndicatorVisibility="Collapsed"  SelectionMode="Single" AutoGenerateColumns="False"
                              SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}" Margin="-1" 
                              ShowGroupPanel="False" ItemsSource="{Binding HashSetModels}">
@@ -72,6 +72,7 @@
                     </telerik:PropertyDefinition.EditorTemplate>
                 </telerik:PropertyDefinition>
                 <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetHashTypeDisplay}" Binding="{Binding HashSetHashTypeName}" IsReadOnly="True"/>
+                <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetStoragePathDisplay}" Binding="{Binding HashSetStoragePath}" IsReadOnly="True"/>
             </telerik:RadPropertyGrid.PropertyDefinitions>
         </telerik:RadPropertyGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,3">
