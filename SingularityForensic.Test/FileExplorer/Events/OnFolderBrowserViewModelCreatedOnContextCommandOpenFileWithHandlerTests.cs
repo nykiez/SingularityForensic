@@ -37,7 +37,7 @@ namespace SingularityForensic.Test.FileExplorer.Events {
             slFile.SetupGet(p => p.Name).Returns("1.txt");
             slRow.SetupGet(p => p.File).Returns(slFile.Object);
 
-            vm.SetupGet(p => p.FolderBrowserViewModel.SelectedFile).Returns(slRow.Object);
+            vm.SetupGet(p => p.FolderBrowserViewModel.SelectedFileRow).Returns(slRow.Object);
 
             var haveFileCollection = new Mock<IHaveFileCollection>();
             

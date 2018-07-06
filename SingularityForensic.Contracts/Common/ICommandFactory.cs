@@ -21,6 +21,8 @@ namespace SingularityForensic.Contracts.Common {
         void RaiseCanExecutedChanged(ICommand command);
     }
 
+    
+
     public interface IDelegateCommand:ICommand {
         void RaiseCanExecuteChanged();
     }

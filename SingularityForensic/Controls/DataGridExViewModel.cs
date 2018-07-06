@@ -66,7 +66,10 @@ namespace SingularityForensic.Controls {
 
                     SelectedTextChanged += (sender, e) => {
                         try {
-                            _copySelectedTextCommandItem.Name = string.Format(LanguageService.FindResourceString("CopyCellTextFormat"), e);
+                            _copySelectedTextCommandItem.Name = string.Format(
+                                LanguageService.FindResourceString("CopyCellTextFormat"),
+                                e.Length >= 8?(e.Substring(0,8) + "..."):e
+                            );
                         }
                         catch (Exception ex) {
                             LoggerService.Current?.WriteCallerLine(ex.Message);

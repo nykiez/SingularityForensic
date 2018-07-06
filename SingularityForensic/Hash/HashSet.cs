@@ -198,7 +198,7 @@ namespace SingularityForensic.Hash {
             }
             
             try {
-                var hashPair = HashPairFactory.CreateHashPair(name, value);
+                var hashPair = HashPairFactory.CreateHashPair(name, value.ToUpper());
                 var doc = new Lucene.Net.Documents.Document();
                 doc.Add(new Field(nameof(IHashPair.Name), hashPair.Name, Field.Store.YES, Field.Index.NOT_ANALYZED));
                 doc.Add(new Field(nameof(IHashPair.Value), hashPair.Value, Field.Store.YES, Field.Index.NOT_ANALYZED));

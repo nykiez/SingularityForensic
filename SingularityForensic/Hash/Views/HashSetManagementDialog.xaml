@@ -58,8 +58,8 @@
                 <telerik:GridViewDataColumn Header="{DynamicResource HashSetProp_HashType}"  IsReadOnly="True" DataMemberBinding="{Binding HashSet.Hasher.HashTypeName}" Width="*"/>
             </telerik:RadGridView.Columns>
         </gv:RadGridViewEx>
-        <GridSplitter Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="3" Background="Transparent"/>
-        <telerik:RadPropertyGrid Margin="0,3,0,0" Item="{Binding SelectedHashSetModel}"  Grid.Row="1" DescriptionPanelVisibility="Collapsed" AutoGenerateBindingPaths="False"
+        <GridSplitter Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="6" Background="Transparent"/>
+        <telerik:RadPropertyGrid Margin="0,6,0,0" Item="{Binding SelectedHashSetModel}" Grid.Row="1" DescriptionPanelVisibility="Collapsed" AutoGenerateBindingPaths="False"
                                  AutoGeneratePropertyDefinitions="False" >
             <telerik:RadPropertyGrid.PropertyDefinitions>
                 <telerik:PropertyDefinition DisplayName="{x:Static local:HashSetManagementDialog.HashSetNameDisplay}" Binding="{Binding HashSetName}"/>

@@ -103,8 +103,6 @@ namespace SingularityForensic.Contracts.App {
     public class ProgessReporterFactory : GenericServiceStaticInstance<IProgessReporterFactory> {
         public static IProgressReporter CreateNew() => Current?.CreateNew();
     }
-
-    
     
     public class DialogService: GenericServiceStaticInstance<IDialogService>{
 
@@ -140,5 +138,9 @@ namespace SingularityForensic.Contracts.App {
         void Show();
 
         string Title { get; set; }
+    }
+
+    public interface ISingleSelectDialog<TOption> {
+        TOption GetOption();
     }
 }

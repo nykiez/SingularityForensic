@@ -79,11 +79,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
 
 
-        public CustomTypedListSource<IFileRow> FileRows { get; set; } = new CustomTypedListSource<IFileRow>();
-        public IEnumerable<IFileRow> Files  => FileRows;
+        public CustomTypedListSource<IFileRow> InternalFileRows { get; set; } = new CustomTypedListSource<IFileRow>();
+        public IEnumerable<IFileRow> FileRows  => InternalFileRows;
         
         private IFileRow _selectedFile;
-        public IFileRow SelectedFile {
+        public IFileRow SelectedFileRow {
             get => _selectedFile;
             set {
                 SetProperty(ref _selectedFile, value);
@@ -91,8 +91,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     return;
                 }
                 SelectedFileChanged?.Invoke(this, EventArgs.Empty);
-                PubEventHelper.PublishEventToHandlers((this as Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel, SelectedFile: SelectedFile), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
-                PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFile));
+                PubEventHelper.PublishEventToHandlers((this as Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel, SelectedFile: SelectedFileRow), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
+                PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFileRow));
 
 #if DEBUG
                 //var fs = SelectedFiles.ToArray();
@@ -117,11 +117,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             IsBusy = true;
             MouseService.AppCusor = Cursor.Loading;
 
-            ThreadInvoker.BackInvoke(() => {
+            ThreadInvoker.BackInvoke((Action)(() => {
                 fillEvt.WaitOne();
-                ThreadInvoker.UIInvoke(() => {
-                    FileRows.Clear();
-                });
+                ThreadInvoker.UIInvoke((Action)(() => {
+                    this.InternalFileRows.Clear();
+                }));
                 var bufferLength = 10;
                 var bufferRows = new IFileRow[bufferLength];
 
@@ -132,11 +132,11 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     bufferRows[index] = fileRow;
                     index++;
                     if (index == bufferLength) {
-                        ThreadInvoker.UIInvoke(() => {
+                        ThreadInvoker.UIInvoke((Action)(() => {
                             foreach (var row in bufferRows) {
-                                FileRows.Add(row);
+                                this.InternalFileRows.Add(row);
                             }
-                        });
+                        }));
                         System.Threading.Thread.Sleep(1);
                         index = 0;
                     }
@@ -144,25 +144,25 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                         break;
                     }
                 }
-                ThreadInvoker.UIInvoke(() => {
+                ThreadInvoker.UIInvoke((Action)(() => {
                     for (int i = 0; i < index; i++) {
-                        FileRows.Add(bufferRows[i]);
+                        this.InternalFileRows.Add(bufferRows[i]);
                     }
 
                     MouseService.AppCusor = Cursor.Normal;
-                });
+                }));
 #if DEBUG
                 //Thread.Sleep(3000);
 #endif
                 IsBusy = false;
                 fillEvt.Set();
-            });
+            }));
             this.FileCollectionChanged?.Invoke(this, EventArgs.Empty);
             //RaisePropertyChanged(nameof(FilterSettings));
 
 #if DEBUG
-            if(FileRows.Count != 0) {
-                ((FileRow)FileRows[0]).CheckSubscribed();
+            if(InternalFileRows.Count != 0) {
+                ((FileRow)InternalFileRows[0]).CheckSubscribed();
             }
 #endif
         }
@@ -186,7 +186,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         }
 
 
-        public IEnumerable<IFileRow> SelectedFiles {
+        public IEnumerable<IFileRow> SelectedFileRows {
             get {
                 if(GetSelectedRows == null) {
                     yield break;

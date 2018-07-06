@@ -98,11 +98,11 @@ namespace SingularityForensic.FileExplorer.Events {
         /// <param name="viewerPath"></param>
         /// <param name="vm"></param>
         private static void OpenFileWithPro(string viewerPath, Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel vm) {
-            if (vm.SelectedFile?.File == null) {
+            if (vm.SelectedFileRow?.File == null) {
                 return;
             }
 
-            var fileName = SaveFileToTemp(vm.SelectedFile.File);
+            var fileName = SaveFileToTemp(vm.SelectedFileRow.File);
             if (string.IsNullOrEmpty(fileName)) {
                 LoggerService.WriteCallerLine($"{nameof(fileName)} can't be null.");
                 return;

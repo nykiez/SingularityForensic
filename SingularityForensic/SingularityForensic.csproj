@@ -408,6 +408,7 @@
     <Compile Include="FileExplorer\FolderBrowserCommandItemFactory.cs" />
     <Compile Include="FileExplorer\FullFileNameProviderImpl.cs" />
     <Compile Include="FileExplorer\CategoryNameServiceImpl.cs" />
+    <Compile Include="FileExplorer\HashSetFileMetaDataProvider.cs" />
     <Compile Include="FileExplorer\MenuItemDefinitions.cs" />
     <Compile Include="FileExplorer\NavMenuDataContext.cs" />
     <Compile Include="FileExplorer\StringMatchRules.cs" />

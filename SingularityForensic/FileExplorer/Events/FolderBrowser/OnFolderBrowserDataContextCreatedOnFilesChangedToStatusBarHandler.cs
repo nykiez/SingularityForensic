@@ -43,7 +43,7 @@ namespace SingularityForensic.FileExplorer.Events {
             long dirCount = 0;
 
             try {
-                foreach (var file in vm.Files) {
+                foreach (var file in vm.FileRows) {
                     if(file.File is IRegularFile) {
                         regFileCount++;
                     }

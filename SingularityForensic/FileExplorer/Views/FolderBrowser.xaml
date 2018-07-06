@@ -78,10 +78,10 @@
             <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
         </DockPanel>-->
         <telerik:RadBusyIndicator Grid.Row="1" IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyWord}">
-            <gv:RadGridViewEx ItemsSource="{Binding FileRows}" AutoGenerateColumns="False" IsFilteringAllowed="True"
+            <gv:RadGridViewEx ItemsSource="{Binding InternalFileRows}" AutoGenerateColumns="False" IsFilteringAllowed="True"
                           Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended" 
   SelectedText="{Binding SelectedText}" MouseDoubleClick="RadGridViewEx_MouseDoubleClick" 
-                          SelectedItem="{Binding SelectedFile}"  AlternateRowBackground="{DynamicResource Envoirment.Background}" AlternationCount="2"
+                          SelectedItem="{Binding SelectedFileRow}"  AlternateRowBackground="{DynamicResource Envoirment.Background}" AlternationCount="2"
                           IsReadOnly="True" SelectionUnit="FullRow"  x:Name="gridView"  AutoGeneratingColumn="RadGridView_AutoGeneratingColumn" FilterSettings="{Binding FilterSettings}"
                           RowIndicatorVisibility="Collapsed" CustomColumns="{Binding CustomColumns}" >
                 

@@ -118,6 +118,9 @@
         public const string FileMetaDataName_Path = nameof(FileMetaDataName_Path);
 
         public const string FileMetaDataName_NameCategory = nameof(FileMetaDataName_NameCategory);
+        
+        public const string FileMetaDataName_HashSet = nameof(FileMetaDataName_HashSet);
+
 
         public const string FileDeleted_Yes = nameof(FileDeleted_Yes);
         public const string FileDeleted_No = nameof(FileDeleted_No);
@@ -142,7 +145,9 @@
 
 
         public const string FileMetaDataGUID_NameCategory = nameof(FileMetaDataGUID_NameCategory);
-        
+
+        public const string FileMetaDataGUID_HashSet = nameof(FileMetaDataGUID_HashSet);
+
         //名称类别拓展元素;
         public const string FileTag_CategoryDescriptor = nameof(FileTag_CategoryDescriptor);
 
@@ -225,6 +230,10 @@
         public const string StringMatchRuleName_IsEqualTo = nameof(StringMatchRuleName_IsEqualTo);
 
         public const string TBButtonToolTip_LoadCategoryNameFile = nameof(TBButtonToolTip_LoadCategoryNameFile);
+
+
+        public const string ContextCommandName_ComputeAllHash = nameof(ContextCommandName_ComputeAllHash);
+
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

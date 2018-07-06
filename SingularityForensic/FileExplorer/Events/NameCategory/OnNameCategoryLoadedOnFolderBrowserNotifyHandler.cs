@@ -26,7 +26,7 @@ namespace SingularityForensic.FileExplorer.Events.NameCategory {
 
             ThreadInvoker.BackInvoke(() => {
                 foreach (var dt in dts) {
-                    var files = dt.FolderBrowserViewModel?.Files;
+                    var files = dt.FolderBrowserViewModel?.FileRows;
                     if (files == null) {
                         continue;
                     }

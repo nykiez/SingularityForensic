@@ -1,5 +1,4 @@
-﻿using Prism.Commands;
-using SingularityForensic.Contracts.App;
+﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileSystem;
 using System;
@@ -15,6 +14,8 @@ using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Helpers;
 using CDFC.Util.IO;
+using SingularityForensic.Contracts.FileExplorer;
+using Prism.Commands;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>
@@ -48,11 +49,11 @@ namespace SingularityForensic.FileExplorer {
             }
 
             var cmi = CommandItemFactory.CreateNew(
-                new DelegateCommand(() =>{
-                    if (vm.SelectedFiles == null) {
+                CommandFactory.CreateDelegateCommand(() =>{
+                    if (vm.SelectedFileRows == null) {
                         return;
                     }
-                    RecoverFiles(vm.Files.Where(p => p.IsChecked).Select(p => p.File));
+                    RecoverFiles(vm.FileRows.Where(p => p.IsChecked).Select(p => p.File));
                 })
             );
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_SaveCheckedAs);
@@ -62,12 +63,10 @@ namespace SingularityForensic.FileExplorer {
 
         private static DelegateCommand CreateSaveAsFileCommand(IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(() => {
-                if (vm.SelectedFiles == null) {
+                if (vm.SelectedFileRows == null) {
                     return;
                 }
-
-                
-                RecoverFiles(vm.SelectedFiles.Select(p => p.File));
+                RecoverFiles(vm.SelectedFileRows.Select(p => p.File));
             });
             return comm;
         }
@@ -247,12 +246,12 @@ namespace SingularityForensic.FileExplorer {
                 throw new ArgumentNullException(nameof(vm));
             }
 
-            var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
-                if(vm.SelectedFiles == null) {
+            var cmi = CommandItemFactory.CreateNew(CommandFactory.CreateDelegateCommand(() => {
+                if(vm.SelectedFileRows == null) {
                     return;
                 }
 
-                foreach (var fileRow in vm.SelectedFiles) {
+                foreach (var fileRow in vm.SelectedFileRows) {
                     fileRow.IsChecked = true;
                 }
             }));
@@ -266,12 +265,12 @@ namespace SingularityForensic.FileExplorer {
                 throw new ArgumentNullException(nameof(vm));
             }
 
-            var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
-                if (vm.SelectedFiles == null) {
+            var cmi = CommandItemFactory.CreateNew(CommandFactory.CreateDelegateCommand(() => {
+                if (vm.SelectedFileRows == null) {
                     return;
                 }
 
-                foreach (var fileRow in vm.SelectedFiles) {
+                foreach (var fileRow in vm.SelectedFileRows) {
                     fileRow.IsChecked = false;
                 }
             }));
@@ -291,11 +290,11 @@ namespace SingularityForensic.FileExplorer {
             }
 
             var cmi = CommandItemFactory.CreateNew(new DelegateCommand(() => {
-                if (vm.SelectedFiles == null) {
+                if (vm.SelectedFileRows == null) {
                     return;
                 }
 
-                foreach (var fileRow in vm.Files) {
+                foreach (var fileRow in vm.FileRows) {
                     fileRow.IsChecked = true;
                 }
             }));
@@ -320,11 +319,11 @@ namespace SingularityForensic.FileExplorer {
         private static DelegateCommand CreateViewFileCommand(IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(
                 () => {
-                    if (vm.SelectedFile == null) {
+                    if (vm.SelectedFileRow == null) {
                         return;
                     }
 
-                    if (!(vm.SelectedFile.File is IBlockGroupedFile blockFile)) {
+                    if (!(vm.SelectedFileRow.File is IBlockGroupedFile blockFile)) {
                         return;
                     }
                     ThreadInvoker.BackInvoke(() => {
@@ -346,16 +345,16 @@ namespace SingularityForensic.FileExplorer {
                 },
 
                 () => {
-                    if (vm.SelectedFile == null) {
+                    if (vm.SelectedFileRow == null) {
                         return false;
                     }
 
-                    if (!(vm.SelectedFile.File is IRegularFile regFile)) {
+                    if (!(vm.SelectedFileRow.File is IRegularFile regFile)) {
                         return false;
                     }
 
                     return true;
-                }).ObservesProperty(() => vm.SelectedFile);
+                }).ObservesProperty(() => vm.SelectedFileRow);
 
             vm.SelectedFileChanged += delegate { comm.RaiseCanExecuteChanged(); };
 
@@ -390,11 +389,11 @@ namespace SingularityForensic.FileExplorer {
 
         private static DelegateCommand CreateListBlockCommand(IFolderBrowserViewModel vm) {
             var comm = new DelegateCommand(() => {
-                if (vm.SelectedFile == null) {
+                if (vm.SelectedFileRow == null) {
                     return;
                 }
 
-                if (!(vm.SelectedFile.File is IBlockGroupedFile blockGrouped)) {
+                if (!(vm.SelectedFileRow.File is IBlockGroupedFile blockGrouped)) {
                     return;
                 }
 
@@ -437,57 +436,48 @@ namespace SingularityForensic.FileExplorer {
         }
 
         private static IEnumerable<ICommandItem> CreateComputeHashCommandItems(IFolderBrowserViewModel vm) {
-            var hashers = ServiceProvider.GetAllInstances<IHasher>();
+            var hashers = GenericServiceStaticInstances<IHasher>.Currents;
             foreach (var hasher in hashers) {
-                var comm = CreateComputeHashCommand(vm, hasher);
+                var comm = CreateComputeHashCommand(vm,new IHasher[] { hasher });
                 var cmi = CommandItemFactory.CreateNew(comm);
                 cmi.Name = hasher.HashTypeName;
                 yield return cmi;
             }
+            var allComm = CreateComputeHashCommand(vm, hashers);
+            var allCmi = CommandItemFactory.CreateNew(allComm);
+            allCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ComputeAllHash);
+            yield return allCmi;
         }
 
-        private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IHasher hasher) {
+        private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IEnumerable<IHasher> hashers) {
             var comm = new DelegateCommand(() => {
-                /////获取选中文件的行;
-                //IEnumerable<Stream> GetSelectedFileStreams() {
-
-                //};
-                var stream = vm.SelectedFile?.File?.GetInputStream();
-                if(stream == null) {
-                    return;
-                }
-                
-                var loadingDialog = DialogService.Current.CreateLoadingDialog();
-                byte[] result = null;
-
-                loadingDialog.DoWork += delegate {
-                    result = ComputeHashOnDialog(loadingDialog, hasher,stream);
-                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
-                    vm.SelectedFile.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
-#if DEBUG
-                    //foreach (var file in vm.SelectedFiles) {
-                    //    file.File.ExtensibleTag.SetInstance(result.BytesToHexString()?.ToUpper(), metaGUID);
-                    //    file.NotifyProperty(metaGUID);
-                    //}
-#endif
-                    vm.SelectedFile.NotifyProperty(metaGUID);
-                    
-                    stream.Dispose();
-                };
-
-                loadingDialog.RunWorkerCompleted += delegate {
-                    if(result == null) {
-                        return;
-                    }
-                    
-                    DialogService.Current.GetInputValue(hasher.HashTypeName, string.Empty, result.BytesToHexString()?.ToUpper());
-                };
-                
-                loadingDialog.Show();
+                ComputeHashCore(vm, hashers);
             });
             return comm;
         }
 
+        private static void ComputeHashCore(IFolderBrowserViewModel vm,IEnumerable<IHasher> hashers) {
+            var slRows = vm.SelectedFileRows;
+            if(slRows == null) {
+                return;
+            }
+
+            var inputStreamAndFileTuples = new List<(IFileRow fileRow, Stream inputStream)>();
+            foreach (var row in slRows) {
+                var inputStream = row.File?.GetInputStream();
+                if(inputStream == null) {
+                    continue;
+                }
+
+                inputStreamAndFileTuples.Add((row, inputStream));
+            }
+            
+            var loadingDialog = DialogService.Current.CreateLoadingDialog();
+            loadingDialog.DoWork += delegate { ComputeHashOnDialog(loadingDialog, hashers, inputStreamAndFileTuples); };
+            loadingDialog.ShowDialog();
+        }
+
+    
         /// <summary>
         /// 在进度窗体当中计算哈希;
         /// </summary>
@@ -495,38 +485,84 @@ namespace SingularityForensic.FileExplorer {
         /// <param name="hasher"></param>
         /// <param name="inputStream"></param>
         /// <returns></returns>
-        private static byte[] ComputeHashOnDialog(ILoadingDialog loadingDialog,IHasher hasher,Stream inputStream) {
-            var latestPro = 0;
+        private static void ComputeHashOnDialog(
+            ILoadingDialog loadingDialog,
+            IEnumerable<IHasher> hashers,
+            IEnumerable<(IFileRow fileRow, Stream inputStream)> inputStreamAndFileTuples
+        ) {
+            var hasherIndex = 0;
+            var hasherCount = hashers.Count();
+            var allStreamSizeSum = inputStreamAndFileTuples.Sum(p => p.inputStream.Length);
+            long finishedStreamSizeSum = 0;
 
-            var reporter = ProgessReporterFactory.CreateNew();
-            reporter.ProgressReported += (sender, e) => {
-                if (latestPro < e.totalPer) {
-                    latestPro = e.totalPer;
-                    loadingDialog.ReportProgress(latestPro);
+            foreach (var hasher in hashers) {
+                var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
+
+                foreach (var tuple in inputStreamAndFileTuples) {
+                    var reporter = ProgessReporterFactory.CreateNew();
+                    reporter.ProgressReported += (sender, e) => {
+                        var thisStreamFinishedSize = tuple.inputStream.Length * e.totalPer;
+                        loadingDialog.ReportProgress((int)((finishedStreamSizeSum + thisStreamFinishedSize) * 100 / allStreamSizeSum));
+                    };
+                    loadingDialog.Canceld += delegate {
+                        reporter.Cancel();
+                    };
+
+                    var result =  ComputeHashValue(hasher, tuple.inputStream, reporter);
+                    if(result != null) {
+                        var hashValue = result.BytesToHexString();
+                        
+                        tuple.fileRow.File.ExtensibleTag.SetInstance(hashValue, metaGUID);
+                        tuple.fileRow.NotifyProperty(metaGUID);
+                    }
+                    
+                    finishedStreamSizeSum += tuple.inputStream.Length;
+                    if (loadingDialog.CancellationPending) {
+                        break;
+                    }
+
+                    //尝试释放流;
+                    try {
+                        tuple.inputStream.Dispose();
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteCallerLine(ex.Message);
+                    }
                 }
-            };
 
-            loadingDialog.Canceld += delegate {
-                reporter.Cancel();
-            };
+                if (loadingDialog.CancellationPending) {
+                    break;
+                }
 
+                hasherIndex++;
+            }
+            
+        }
+
+        /// <summary>
+        /// 计算哈希;
+        /// </summary>
+        /// <param name="hasher"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="progressReporter">通知,取消回调</param>
+        /// <returns></returns>
+        private static byte[] ComputeHashValue(IHasher hasher,Stream inputStream, IProgressReporter progressReporter) {
             var opStream = new OperatebleStream(inputStream) {
                 Position = 0
             };
-            if (reporter != null) {
-                //订阅取消事件;
-                reporter.Canceld += (sender, e) => {
-                    opStream.Break();
-                };
-                //订阅流位置变更事件,通知进度;
-                opStream.PositionChanged += (sender, e) => {
-                    reporter.ReportProgress((int)(e * 100 / opStream.Length));
-                };
-            }
-            
+
+            progressReporter.Canceld += delegate {
+                opStream.Break();
+            };
+
+            //订阅流位置变更事件,通知进度;
+            opStream.PositionChanged += (sender, e) => {
+                progressReporter.ReportProgress((int)(e * 100 / opStream.Length));
+            };
+
             var bts = hasher.ComputeHash(inputStream);
             //若被中止,则返回为空;
-            if (opStream.Broken || (reporter?.CancelPending ?? false)) {
+            if (opStream.Broken || (progressReporter?.CancelPending ?? false)) {
                 return null;
             }
             return bts;

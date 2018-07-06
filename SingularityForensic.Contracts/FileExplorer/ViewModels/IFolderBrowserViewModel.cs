@@ -27,11 +27,11 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// <summary>
         /// 当前选定的文件;
         /// </summary>
-        IFileRow SelectedFile { get; }
+        IFileRow SelectedFileRow { get; }
         /// <summary>
         /// 当前聚焦的文件行;
         /// </summary>
-        IEnumerable<IFileRow> SelectedFiles { get; }
+        IEnumerable<IFileRow> SelectedFileRows { get; }
         //void AddSelectedFile(IEnumerable<IFileRow> fileRows);
 
         event EventHandler SelectedFileChanged;
@@ -41,7 +41,7 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         bool IsBusy { get; set; }
         string BusyWord { get; set; }
 
-        IEnumerable<IFileRow> Files { get; }
+        IEnumerable<IFileRow> FileRows { get; }
         event EventHandler FileCollectionChanged;
 
         /// <summary>
