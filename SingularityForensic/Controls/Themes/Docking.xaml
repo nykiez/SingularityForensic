@@ -9,6 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Docking.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="telerik:RadPaneGroup" x:Key="NoBordernessGroupStyle"  >
+        <Setter Property="Background" Value="{DynamicResource Envoirment.Background}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate  TargetType="local:RadPaneGroup">

@@ -1,12 +1,13 @@
-﻿<controls:CorneredWindow x:Class="SingularityForensic.FileExplorer.Windows.ListBlocksWindow"
+﻿<metros:MetroWindow x:Class="SingularityForensic.FileExplorer.Windows.ListBlocksWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:SingularityForensic.Controls.Windows" ResizeMode="NoResize" ShowCloseButton="True"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"  
-        Title="ListClustersWindow" Height="300" Width="300" Style="{DynamicResource MsgWindowStyle}">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" Style="{DynamicResource WindowStyle}"
+        Title="ListClustersWindow" Height="300" Width="300" >
     
     <Grid>
         <Grid.RowDefinitions>
@@ -23,4 +24,4 @@
 
         <Button x:Name="btnClose" Click="btnClose_Click" Margin="0,12" HorizontalAlignment="Center" Style="{DynamicResource SureBtnStyle}" Grid.Row="1" Content="{DynamicResource Close}"/>
     </Grid>
-</controls:CorneredWindow>
+</metros:MetroWindow>

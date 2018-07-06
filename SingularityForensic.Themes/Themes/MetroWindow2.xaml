@@ -12,7 +12,7 @@
 
     <sys:Double x:Key="DialogTitleHeight">30</sys:Double>
     <sys:Int32 x:Key="WindowTitleHeight">30</sys:Int32>
-    <Thickness x:Key="WindowBorderThickness">1</Thickness>
+    <Thickness x:Key="WindowBorderThickness">0</Thickness>
     <SolidColorBrush x:Key="WindowTitleBack">#f0f0f0</SolidColorBrush>
     <SolidColorBrush x:Key="WindowTitleFore">#ffffff</SolidColorBrush>
     <SolidColorBrush x:Key="WindowBorderBrush">#CCCEDB</SolidColorBrush>
@@ -592,7 +592,7 @@
         <Setter Property="IconTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Controls:MultiFrameImage Width="{TemplateBinding Width}" 
+                    <Controls:MultiFrameImage Width="16" 
                                                       Height="{TemplateBinding Height}"
                                                       MultiFrameImageMode="{Binding IconScalingMode, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}}}"
                                                       RenderOptions.BitmapScalingMode="{Binding IconBitmapScalingMode, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}}}"
@@ -605,8 +605,9 @@
         <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}"/>
         <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}"/>
         <Setter Property="TitleCaps" Value="False"/>
-        <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+        <!--<Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>-->
         <Setter Property="TitlebarHeight"   Value="{StaticResource WindowTitleHeight}"/>
         <Setter Property="WindowTitleBrush" Value="{StaticResource WindowTitleBack}"  />
+        <Setter Property="NonActiveWindowTitleBrush" Value="{StaticResource WindowTitleBack}"  />
     </Style>
 </ResourceDictionary>

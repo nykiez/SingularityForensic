@@ -1,6 +1,8 @@
 ﻿using Ookii.Dialogs.Wpf;
 using SingularityForensic.App.Dialogs;
 using SingularityForensic.Contracts.App;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
 namespace SingularityForensic.App {
@@ -48,6 +50,10 @@ namespace SingularityForensic.App {
 
         public string GetInputValue(string title = "", string desc = "", string val = "") {
             return InputValueDialog.Show(title, desc,val);
+        }
+
+        public ISingleSelectDialog<TOption> CreateSingleSelectOptionDialog<TOption>(IEnumerable<TOption> options, Func<TOption, string> getText) {
+            throw new NotImplementedException();
         }
     }
     

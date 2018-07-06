@@ -27,7 +27,7 @@
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel>
-            <telerik:RadButton DockPanel.Dock="Bottom"  Content="{DynamicResource Confirm}" Command="{Binding ConfirmCommand}" ></telerik:RadButton>
+            <Button Style="{DynamicResource SureBtnStyle}" DockPanel.Dock="Bottom"  Content="{DynamicResource Confirm}" Command="{Binding ConfirmCommand}" ></Button>
             <!--<telerik:RadTreeListView SelectedItem="{Binding SelectedUnit}">
                 <telerik:RadTreeListView.ItemTemplate>
                     

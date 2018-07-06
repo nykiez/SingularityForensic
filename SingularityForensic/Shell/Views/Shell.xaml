@@ -13,7 +13,7 @@
                     xmlns:cvts="http://singularity/converters"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts" 
-                   x:Name="shell"
+                   x:Name="shell" 
         WindowStartupLocation="CenterScreen" d:DesignWidth="1440"
         mc:Ignorable="d" Icon="/SingularityForensic;component/Images/Shell/TitleIcon.png"
                     prism:ViewModelLocator.AutoWireViewModel="True"

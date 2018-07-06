@@ -27,8 +27,8 @@
         </telerik:RadSplitContainer>
         <telerik:RadSplitContainer Margin="0,0,3,0" >
             <telerik:RadPaneGroup Style="{DynamicResource NoBordernessGroupStyle}" >
-                <telerik:RadPane CanUserClose="False" PaneHeaderVisibility="Collapsed"  BorderThickness="0" Header="{DynamicResource Header_MainContent}">
-                    <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}"/>
+                <telerik:RadPane CanUserClose="False" PaneHeaderVisibility="Collapsed" Background="{DynamicResource Envoirment.Background}"  BorderThickness="0" Header="{DynamicResource Header_MainContent}">
+                    <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}" />
                 </telerik:RadPane>
             </telerik:RadPaneGroup>
 

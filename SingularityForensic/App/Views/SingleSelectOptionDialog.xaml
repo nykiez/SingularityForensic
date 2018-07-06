@@ -1,0 +1,14 @@
+﻿<metros:MetroWindow x:Class="SingularityForensic.App.Views.SingleSelectOptionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SingularityForensic.App.Views"
+        mc:Ignorable="d" Style="{DynamicResource WindowStyle}"
+        Title="{Binding WindowTitle,FallbackValue=请选择}" Height="450" Width="800">
+    
+    <Grid>
+        
+    </Grid>
+</metros:MetroWindow>

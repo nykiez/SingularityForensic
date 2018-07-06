@@ -4,7 +4,7 @@ namespace SingularityForensic.FileExplorer.Windows {
     /// <summary>
     /// 列出簇窗体;
     /// </summary>
-    public partial class ListBlocksWindow : CorneredWindow {
+    public partial class ListBlocksWindow  {
         public ListBlocksWindow() {
             InitializeComponent();
         }

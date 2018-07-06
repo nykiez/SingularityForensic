@@ -290,6 +290,9 @@
     <Compile Include="App\Views\MessageBoxWindow.xaml.cs">
       <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App\Views\SingleSelectOptionDialog.xaml.cs">
+      <DependentUpon>SingleSelectOptionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseDevice\BaseDeviceInfo.cs" />
     <Compile Include="BaseDevice\Events\Hex\OnHexDataContextLoadedOnGPTDeviceHandler.cs" />
     <Compile Include="BaseDevice\BasePartInfo.cs" />
@@ -821,6 +824,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="App\Views\MessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="App\Views\SingleSelectOptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

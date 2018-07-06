@@ -49,6 +49,18 @@ namespace SingularityForensic.Contracts.App {
         ILoadingDialog CreateLoadingDialog();
 
         IDoubleLoadingDialog CreateDoubleLoadingDialog();
+
+        /// <summary>
+        /// 创建单选对话框;
+        /// </summary>
+        /// <typeparam name="TOption"></typeparam>
+        /// <param name="options">所有选项</param>
+        /// <param name="getText">根据选项显示文字的委托</param>
+        /// <returns></returns>
+        ISingleSelectDialog<TOption> CreateSingleSelectOptionDialog<TOption>(
+            IEnumerable<TOption> options, 
+            Func<TOption, string> getText
+        );
     }
 
 
@@ -142,5 +154,13 @@ namespace SingularityForensic.Contracts.App {
 
     public interface ISingleSelectDialog<TOption> {
         TOption GetOption();
+        /// <summary>
+        /// 对话框标题;
+        /// </summary>
+        string WindowTitle { get; set; }
+        /// <summary>
+        /// 描述;
+        /// </summary>
+        string Description { get; set; }
     }
 }
