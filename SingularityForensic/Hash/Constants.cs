@@ -92,5 +92,12 @@
 
         public const string MsgText_HashImportedFormat = nameof(MsgText_HashImportedFormat);
 
+
+        public const string WindowTitle_SelectHashSet = nameof(WindowTitle_SelectHashSet);
+
+
+        public const string Description_SelectHashSet = nameof(Description_SelectHashSet);
+
+
     }
 }

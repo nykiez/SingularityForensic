@@ -171,6 +171,9 @@
     <Compile Include="Hash\TestHashManagement.xaml.cs">
       <DependentUpon>TestHashManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hash\TestSelectHashSet.xaml.cs">
+      <DependentUpon>TestSelectHashSet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hex\TestLoadHex.xaml.cs">
       <DependentUpon>TestLoadHex.xaml</DependentUpon>
     </Compile>
@@ -271,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Hash\TestHashManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hash\TestSelectHashSet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,4 +24,6 @@
   <sys:String x:Key="WindowTitle_ImportingHash">导入哈希值中</sys:String>
   <sys:String x:Key="MsgText_ImportingHashFormat">当前导入共{0}行,成功{1}行,未成功{2}行</sys:String>
   <sys:String x:Key="MsgText_HashImportedFormat">导入哈希完成,共{0}行,成功导入{1}行,未成功{2}行</sys:String>
+  <sys:String x:Key="WindowTitle_SelectHashSet">选择哈希集</sys:String>
+  <sys:String x:Key="Description_SelectHashSet">选择哈希集</sys:String>
 </ResourceDictionary>

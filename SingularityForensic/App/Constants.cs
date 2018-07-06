@@ -45,6 +45,10 @@
         
         public const string MsgBtnText_Yes = nameof(MsgBtnText_Yes);
 
+
+        public const string MsgText_NoOptionSelected = nameof(MsgText_NoOptionSelected);
+
+
         public const string WindowTitle_Tip = nameof(WindowTitle_Tip);
     }
 }

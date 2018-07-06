@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Hash;
+﻿using SingularityForensic.Contracts.App;
+using SingularityForensic.Contracts.Hash;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Hash.ViewModels;
 using SingularityForensic.Hash.Views;
@@ -33,9 +34,11 @@ namespace SingularityForensic.Hash
             return vm.HashSet;
         }
 
-        public IHashSet SelectIHashSet() {
-            throw new NotImplementedException();
-
+        public IHashSet SelectHashSet() {
+            var dialog = DialogService.Current.CreateSingleSelectOptionDialog(HashSetManagementService.HashSets, p => p.Name);
+            dialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_SelectHashSet);
+            dialog.Description = LanguageService.FindResourceString(Constants.Description_SelectHashSet);
+            return dialog.GetOption();
         }
 
         public void ShowManagementDialog() {

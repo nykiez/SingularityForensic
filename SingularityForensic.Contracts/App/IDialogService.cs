@@ -60,7 +60,7 @@ namespace SingularityForensic.Contracts.App {
         ISingleSelectDialog<TOption> CreateSingleSelectOptionDialog<TOption>(
             IEnumerable<TOption> options, 
             Func<TOption, string> getText
-        );
+        ) where TOption:class;
     }
 
 

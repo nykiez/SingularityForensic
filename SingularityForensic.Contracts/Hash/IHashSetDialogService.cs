@@ -19,7 +19,7 @@ namespace SingularityForensic.Contracts.Hash {
         /// 选择哈希集;
         /// </summary>
         /// <returns></returns>
-        IHashSet SelectIHashSet();
+        IHashSet SelectHashSet();
 
         /// <summary>
         /// 创建一个新的哈希集;
@@ -31,7 +31,7 @@ namespace SingularityForensic.Contracts.Hash {
     public class HashSetDialogService:GenericServiceStaticInstance<IHashSetDialogService> {
         public static IHashSet CreateNewHashSet() => Current?.CreateNewHashSet();
         public static void ShowManagementDialog() => Current?.ShowManagementDialog();
-        public static IHashSet SelectedHashSet() => Current?.SelectIHashSet();
+        public static IHashSet SelectedHashSet() => Current?.SelectHashSet();
     }
 
 }

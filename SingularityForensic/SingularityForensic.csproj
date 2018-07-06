@@ -276,9 +276,11 @@
     <Compile Include="App\AppServiceImpl.cs" />
     <Compile Include="App\ClipBoardServiceImpl.cs" />
     <Compile Include="App\Design\MessageBoxWindowDesignViewModel.cs" />
+    <Compile Include="App\Dialogs\SingleSelectDialog.cs" />
     <Compile Include="App\LocalExplorerServiceImpl.cs" />
     <Compile Include="App\Dialogs\DoubleProcessDialog.cs" />
     <Compile Include="App\Dialogs\ProgressDialog.cs" />
+    <Compile Include="App\Models\OptionModel.cs" />
     <Compile Include="App\MouseServiceImpl.cs" />
     <Compile Include="App\ProgressReporter.cs" />
     <Compile Include="App\Constants.cs" />
@@ -287,6 +289,7 @@
     <Compile Include="App\ThreadInvokerImpl.cs" />
     <Compile Include="App\LanguageServiceImpl.cs" />
     <Compile Include="App\ViewModels\MessageBoxWindowViewModel.cs" />
+    <Compile Include="App\ViewModels\SingleSelectOptionDialogViewModel.cs" />
     <Compile Include="App\Views\MessageBoxWindow.xaml.cs">
       <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
     </Compile>

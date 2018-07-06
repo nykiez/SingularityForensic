@@ -52,8 +52,12 @@ namespace SingularityForensic.App {
             return InputValueDialog.Show(title, desc,val);
         }
 
-        public ISingleSelectDialog<TOption> CreateSingleSelectOptionDialog<TOption>(IEnumerable<TOption> options, Func<TOption, string> getText) {
-            throw new NotImplementedException();
+        public ISingleSelectDialog<TOption> CreateSingleSelectOptionDialog<TOption>(
+            IEnumerable<TOption> options, 
+            Func<TOption, string> getText
+        ) where TOption : class {
+            var dialog = new SingleSelectDialog<TOption>(options, getText);
+            return dialog;
         }
     }
     

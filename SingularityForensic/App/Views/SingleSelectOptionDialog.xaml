@@ -4,11 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SingularityForensic.App.Views"
-        mc:Ignorable="d" Style="{DynamicResource WindowStyle}"
-        Title="{Binding WindowTitle,FallbackValue=请选择}" Height="450" Width="800">
-    
-    <Grid>
-        
-    </Grid>
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:prism="http://prismlibrary.com/" 
+        xmlns:local="clr-namespace:SingularityForensic.App.Views" WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d" Style="{DynamicResource WindowStyle}" ResizeMode="NoResize"
+        Title="{Binding WindowTitle,FallbackValue=请选择}" SizeToContent="Height" Width="360">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </i:EventTrigger>
+                        
+        <prism:InteractionRequestTrigger SourceObject="{Binding CloseRequest}" >
+            <ei:CallMethodAction MethodName="Close" TargetObject="{Binding ElementName=window}" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <DockPanel Margin="12,3">
+        <TextBlock Text="{Binding Description,FallbackValue=请选择}" DockPanel.Dock="Top" Margin="0,12,0,0" TextAlignment="Center" />
+        <ComboBox ItemsSource="{Binding OptionModels}" DisplayMemberPath="OptionText"
+                  SelectedItem="{Binding SelectedOptionModel}" 
+                  MinWidth="120" DockPanel.Dock="Top" Margin="0,12" HorizontalAlignment="Center" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
+            <Button Command="{Binding ConfirmCommand}" Style="{DynamicResource SureBtnStyle}" Margin="12,0" Content="{DynamicResource Confirm}" />
+            <Button Command="{Binding CancelCommand}" Style="{DynamicResource DenyBtnStyle}" Margin="12,0" Content="{DynamicResource Cancel}" />
+        </StackPanel>
+    </DockPanel>
 </metros:MetroWindow>

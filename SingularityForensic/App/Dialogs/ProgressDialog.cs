@@ -85,8 +85,9 @@ namespace SingularityForensic.App.Dialogs {
             if (owner != null && owner.IsVisible) {
                 window.Owner = owner;
             }
-            else if((SingularityForensic.Contracts.Shell.ShellService.Current.Shell as Window)?.IsLoaded??false){
-                window.Owner = SingularityForensic.Contracts.Shell.ShellService.Current.Shell as Window;
+            else if((Contracts.Shell.ShellService.Current.Shell as Window)?.IsLoaded??false){
+                window.Owner = Contracts.Shell.ShellService.Current.Shell as Window;
+                window.ShowInTaskbar = false;
             }
 
             //window.ShowInTaskbar = false;
