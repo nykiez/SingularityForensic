@@ -9,13 +9,10 @@ using SysIO = System.IO;
 using SingularityForensic.FileExplorer.MessageBoxes;
 using SingularityForensic.Contracts.Document;
 using SingularityForensic.Contracts.Hex;
-using SingularityForensic.Contracts.Hash;
-using System.IO;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.FileExplorer.Helpers;
-using CDFC.Util.IO;
-using SingularityForensic.Contracts.FileExplorer;
 using Prism.Commands;
+using System.IO;
 
 namespace SingularityForensic.FileExplorer {
     /// <summary>
@@ -424,148 +421,5 @@ namespace SingularityForensic.FileExplorer {
         }
     }
 
-    public static partial class FolderBrowserCommandItemFactory {
-        public static ICommandItem CreateComputeHashCommandItem(IFolderBrowserViewModel vm) {
-            var cmi = CommandItemFactory.CreateNew(null);
-            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ComputeHash);
-            var commandItems = CreateComputeHashCommandItems(vm);
-            foreach (var cm in commandItems) {
-                cmi.AddChild(cm);
-            }
-            return cmi;
-        }
-
-        private static IEnumerable<ICommandItem> CreateComputeHashCommandItems(IFolderBrowserViewModel vm) {
-            var hashers = GenericServiceStaticInstances<IHasher>.Currents;
-            foreach (var hasher in hashers) {
-                var comm = CreateComputeHashCommand(vm,new IHasher[] { hasher });
-                var cmi = CommandItemFactory.CreateNew(comm);
-                cmi.Name = hasher.HashTypeName;
-                yield return cmi;
-            }
-            var allComm = CreateComputeHashCommand(vm, hashers);
-            var allCmi = CommandItemFactory.CreateNew(allComm);
-            allCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ComputeAllHash);
-            yield return allCmi;
-        }
-
-        private static DelegateCommand CreateComputeHashCommand(IFolderBrowserViewModel vm,IEnumerable<IHasher> hashers) {
-            var comm = new DelegateCommand(() => {
-                ComputeHashCore(vm, hashers);
-            });
-            return comm;
-        }
-
-        private static void ComputeHashCore(IFolderBrowserViewModel vm,IEnumerable<IHasher> hashers) {
-            var slRows = vm.SelectedFileRows;
-            if(slRows == null) {
-                return;
-            }
-
-            var inputStreamAndFileTuples = new List<(IFileRow fileRow, Stream inputStream)>();
-            foreach (var row in slRows) {
-                var inputStream = row.File?.GetInputStream();
-                if(inputStream == null) {
-                    continue;
-                }
-
-                inputStreamAndFileTuples.Add((row, inputStream));
-            }
-            
-            var loadingDialog = DialogService.Current.CreateLoadingDialog();
-            loadingDialog.DoWork += delegate { ComputeHashOnDialog(loadingDialog, hashers, inputStreamAndFileTuples); };
-            loadingDialog.ShowDialog();
-        }
-
     
-        /// <summary>
-        /// 在进度窗体当中计算哈希;
-        /// </summary>
-        /// <param name="loadingDialog"></param>
-        /// <param name="hasher"></param>
-        /// <param name="inputStream"></param>
-        /// <returns></returns>
-        private static void ComputeHashOnDialog(
-            ILoadingDialog loadingDialog,
-            IEnumerable<IHasher> hashers,
-            IEnumerable<(IFileRow fileRow, Stream inputStream)> inputStreamAndFileTuples
-        ) {
-            var hasherIndex = 0;
-            var hasherCount = hashers.Count();
-            var allStreamSizeSum = inputStreamAndFileTuples.Sum(p => p.inputStream.Length);
-            long finishedStreamSizeSum = 0;
-
-            foreach (var hasher in hashers) {
-                var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
-
-                foreach (var tuple in inputStreamAndFileTuples) {
-                    var reporter = ProgessReporterFactory.CreateNew();
-                    reporter.ProgressReported += (sender, e) => {
-                        var thisStreamFinishedSize = tuple.inputStream.Length * e.totalPer;
-                        loadingDialog.ReportProgress((int)((finishedStreamSizeSum + thisStreamFinishedSize) * 100 / allStreamSizeSum));
-                    };
-                    loadingDialog.Canceld += delegate {
-                        reporter.Cancel();
-                    };
-
-                    var result =  ComputeHashValue(hasher, tuple.inputStream, reporter);
-                    if(result != null) {
-                        var hashValue = result.BytesToHexString();
-                        
-                        tuple.fileRow.File.ExtensibleTag.SetInstance(hashValue, metaGUID);
-                        tuple.fileRow.NotifyProperty(metaGUID);
-                    }
-                    
-                    finishedStreamSizeSum += tuple.inputStream.Length;
-                    if (loadingDialog.CancellationPending) {
-                        break;
-                    }
-
-                    //尝试释放流;
-                    try {
-                        tuple.inputStream.Dispose();
-                    }
-                    catch(Exception ex) {
-                        LoggerService.WriteCallerLine(ex.Message);
-                    }
-                }
-
-                if (loadingDialog.CancellationPending) {
-                    break;
-                }
-
-                hasherIndex++;
-            }
-            
-        }
-
-        /// <summary>
-        /// 计算哈希;
-        /// </summary>
-        /// <param name="hasher"></param>
-        /// <param name="inputStream"></param>
-        /// <param name="progressReporter">通知,取消回调</param>
-        /// <returns></returns>
-        private static byte[] ComputeHashValue(IHasher hasher,Stream inputStream, IProgressReporter progressReporter) {
-            var opStream = new OperatebleStream(inputStream) {
-                Position = 0
-            };
-
-            progressReporter.Canceld += delegate {
-                opStream.Break();
-            };
-
-            //订阅流位置变更事件,通知进度;
-            opStream.PositionChanged += (sender, e) => {
-                progressReporter.ReportProgress((int)(e * 100 / opStream.Length));
-            };
-
-            var bts = hasher.ComputeHash(inputStream);
-            //若被中止,则返回为空;
-            if (opStream.Broken || (progressReporter?.CancelPending ?? false)) {
-                return null;
-            }
-            return bts;
-        }
-    }
 }

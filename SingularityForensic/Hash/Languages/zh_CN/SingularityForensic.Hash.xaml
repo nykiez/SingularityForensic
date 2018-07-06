@@ -26,4 +26,9 @@
   <sys:String x:Key="MsgText_HashImportedFormat">导入哈希完成,共{0}行,成功导入{1}行,未成功{2}行</sys:String>
   <sys:String x:Key="WindowTitle_SelectHashSet">选择哈希集</sys:String>
   <sys:String x:Key="Description_SelectHashSet">选择哈希集</sys:String>
+  <sys:String x:Key="ContextCommandName_ListHashValue">显示列表</sys:String>
+  <sys:String x:Key="WindowTitle_ListHashValueFormat">哈希列表({0})</sys:String>
+  <sys:String x:Key="HashPairProp_Name">名称</sys:String>
+  <sys:String x:Key="HashPairProp_Value">值</sys:String>
+  <sys:String x:Key="WindowTitle_LoadingHashPairs">正在加载</sys:String>
 </ResourceDictionary>

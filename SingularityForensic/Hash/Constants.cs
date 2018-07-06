@@ -83,6 +83,7 @@
 
         public const string ContextCommandName_ImportHash = nameof(ContextCommandName_ImportHash);
 
+        public const string ContextCommandName_ListHashValue = nameof(ContextCommandName_ListHashValue);
 
         public const string WindowTitle_ImportingHash = nameof(WindowTitle_ImportingHash);
 
@@ -97,6 +98,15 @@
 
 
         public const string Description_SelectHashSet = nameof(Description_SelectHashSet);
+        
+        public const string WindowTitle_ListHashValueFormat = nameof(WindowTitle_ListHashValueFormat);
+        
+        public const string HashPairProp_Name = nameof(HashPairProp_Name);
+        
+        public const string HashPairProp_Value = nameof(HashPairProp_Value);
+
+
+        public const string WindowTitle_LoadingHashPairs = nameof(WindowTitle_LoadingHashPairs);
 
 
     }

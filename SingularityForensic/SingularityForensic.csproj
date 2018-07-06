@@ -383,6 +383,7 @@
     <Compile Include="FAT\FATPartType.cs" />
     <Compile Include="FileExplorer\CategoryNameFileMetaDataProvider.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFileExplorerModuleLoadingForHashColumnEventHandler.cs" />
+    <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandHashHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnNavMenuHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnFileExplorerModuleLoadingForNameCategoryServiceHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnNameCategoryLoadedOnFolderBrowserNotifyHandler.cs" />
@@ -458,11 +459,15 @@
     <Compile Include="Hash\SHA1Hasher.cs" />
     <Compile Include="Hash\ViewModels\CreateHashSetDialogViewModel.cs" />
     <Compile Include="Hash\ViewModels\HashSetManagementDialogViewModel.cs" />
+    <Compile Include="Hash\ViewModels\ListHashValuesDialogViewModel.cs" />
     <Compile Include="Hash\Views\CreateHashSetDialog.xaml.cs">
       <DependentUpon>CreateHashSetDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Hash\Views\HashSetManagementDialog.xaml.cs">
       <DependentUpon>HashSetManagementDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hash\Views\ListHashValuesDialog.xaml.cs">
+      <DependentUpon>ListHashValuesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Hex\BufferToProCodeFormatters.cs" />
     <Compile Include="Hex\BytesToCharEncodings.cs" />
@@ -964,6 +969,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Hash\Views\HashSetManagementDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hash\Views\ListHashValuesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

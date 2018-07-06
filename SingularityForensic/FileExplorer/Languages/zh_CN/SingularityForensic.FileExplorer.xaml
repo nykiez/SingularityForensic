@@ -71,4 +71,6 @@
   <sys:String x:Key="TBButtonToolTip_LoadCategoryNameFile">加载名称类别文件</sys:String>
   <sys:String x:Key="FileMetaDataName_HashSet">哈希集</sys:String>
   <sys:String x:Key="ContextCommandName_ComputeAllHash">全部</sys:String>
+  <sys:String x:Key="ContextCommandName_AddToHashSet">加入至哈希集</sys:String>
+  <sys:String x:Key="WindowTitle_AddingToHashSet">正在加入至哈希集</sys:String>
 </ResourceDictionary>

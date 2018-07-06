@@ -230,9 +230,14 @@
         public const string StringMatchRuleName_IsEqualTo = nameof(StringMatchRuleName_IsEqualTo);
 
         public const string TBButtonToolTip_LoadCategoryNameFile = nameof(TBButtonToolTip_LoadCategoryNameFile);
-
-
+        
         public const string ContextCommandName_ComputeAllHash = nameof(ContextCommandName_ComputeAllHash);
+        
+        public const string ContextCommandName_AddToHashSet = nameof(ContextCommandName_AddToHashSet);
+
+
+        public const string WindowTitle_AddingToHashSet = nameof(WindowTitle_AddingToHashSet);
+
 
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

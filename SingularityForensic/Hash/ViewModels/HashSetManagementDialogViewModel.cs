@@ -30,6 +30,11 @@ namespace SingularityForensic.Hash.ViewModels
                 HashSetModels.Add(new HashSetModel(hashSet));
             }
 
+            //加入列出表功能;
+            var listHashCmi = CommandItemFactory.CreateNew(ListHashValuesCommand);
+            listHashCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_ListHashValue);
+            ContextCommands.Add(listHashCmi);
+
             //加入删除哈希集命令;
             var delCmi = CommandItemFactory.CreateNew(DeleteHashSetCommand);
             delCmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_DeleteHashSet);
@@ -84,6 +89,7 @@ namespace SingularityForensic.Hash.ViewModels
             (_deleteHashSetCommand = new DelegateCommand(
                 () => {
                     if(SelectedHashSetModel == null) {
+                        MsgBoxService.Show(LanguageService.FindResourceString(Constants.MsgText_NoHashSetModelBeenSelected));
                         return;
                     }
 
@@ -197,8 +203,23 @@ namespace SingularityForensic.Hash.ViewModels
                 }
             ));
 
-        
-        
+
+        /// <summary>
+        /// 列出哈希值;
+        /// </summary>
+        private DelegateCommand _listHashValuesCommand;
+        public DelegateCommand ListHashValuesCommand => _listHashValuesCommand ??
+            (_listHashValuesCommand = new DelegateCommand(
+                () => {
+                    if(SelectedHashSetModel == null) {
+                        MsgBoxService.Show(LanguageService.FindResourceString(Constants.MsgText_NoHashSetModelBeenSelected));
+                        return;
+                    }
+
+                    HashSetDialogService.ListHashSetPairs(SelectedHashSetModel.HashSet);
+                }
+            ));
+
 
         /// <summary>
         /// 应用更改;

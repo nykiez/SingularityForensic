@@ -79,7 +79,7 @@ namespace SingularityForensic.Test.App {
                             } 
                         }
                         catch(Exception ex) {
-                            Assert.Fail();
+                            Assert.Fail(ex.Message);
                         }
                     });
                     _languageDictObjectMocker = mocker.Object;

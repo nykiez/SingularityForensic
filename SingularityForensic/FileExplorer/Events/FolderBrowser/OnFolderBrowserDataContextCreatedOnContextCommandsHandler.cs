@@ -6,7 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
-    /// 分区加入时加入基础右键菜单;
+    /// 分区资源管理器加入时加入基础右键菜单;
     /// </summary>
     [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
     public class OnFolderBrowserDataContextCreatedOnContextCommandsHandler : IFolderBrowserDataContextCreatedEventHandler {
@@ -26,7 +26,6 @@ namespace SingularityForensic.FileExplorer.Events {
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateCheckAllCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateViewFileCommandItem(vm));
             vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateNavigateCommandItem(vm));
-            vm.AddContextCommand(FolderBrowserCommandItemFactory.CreateComputeHashCommandItem(vm));
         }
     }
 }

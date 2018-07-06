@@ -275,9 +275,7 @@ namespace SingularityForensic.Hash {
             if (_indexSearcher == null) {
                 throw new InvalidOperationException($"{nameof(_indexSearcher)} can't be null.Please invoke {nameof(BeginOpen)} first.");
             }
-
-
-
+            
             var query = new PhraseQuery();
             query.Add(new Term(nameof(IHashPair.Value), value));
             var res = _indexSearcher.Search(query, 12);

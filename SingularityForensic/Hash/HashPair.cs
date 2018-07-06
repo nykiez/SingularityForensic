@@ -17,11 +17,7 @@ namespace SingularityForensic.Hash {
                 throw new ArgumentException($"{nameof(value)} can't be empty");
             }
 
-            if(name == null) {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            this.Name = name;
+            this.Name = name ?? throw new ArgumentNullException(nameof(name));
             this.Value = value;
         }
         public string Value { get; }
