@@ -139,13 +139,14 @@ namespace SingularityForensic.Document {
                 SelectedDocument = null;
                 PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
             }
-            
+
 #if DEBUG
-            System.GC.Collect();
-            System.GC.WaitForPendingFinalizers();
-            System.GC.Collect();
-            System.GC.Collect();
-            System.GC.Collect();
+            for (int i = 0; i < 2; i++) {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+            }
+            
+            
 #endif
         }
 

@@ -155,9 +155,10 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 //Thread.Sleep(3000);
 #endif
                 IsBusy = false;
+                this.FileCollectionChanged?.Invoke(this, EventArgs.Empty);
                 fillEvt.Set();
             }));
-            this.FileCollectionChanged?.Invoke(this, EventArgs.Empty);
+            
             //RaisePropertyChanged(nameof(FilterSettings));
 
 #if DEBUG
@@ -166,7 +167,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             }
 #endif
         }
-
+        
         public event EventHandler FileCollectionChanged;
         
         private ObservableCollection<INavNodeModel> NavNodeModels { get; set; } = new ObservableCollection<INavNodeModel>();

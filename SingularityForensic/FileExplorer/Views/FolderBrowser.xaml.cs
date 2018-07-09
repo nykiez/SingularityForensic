@@ -1,5 +1,6 @@
 ﻿using CDFCUIContracts.Helpers;
 using SingularityForensic.Controls;
+using System.Collections;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,24 +22,30 @@ namespace SingularityForensic.FileExplorer.Views {
             //this.Unloaded += FolderBrowser_Unloaded;
         }
 
-        //private void FolderBrowser_Unloaded(object sender, RoutedEventArgs e) {
-        //    if(this.DataContext is IInteractionGridViewModel vm) {
-        //        vm.GetSelectedRows = null;
-        //    }
-        //}
+        private void FolderBrowser_Unloaded(object sender, RoutedEventArgs e) {
+            if (this.DataContext is IInteractionGridViewModel vm) {
+                vm.GetSelectedRows = null;
+                vm.SelectedAllRows = null;
+            }
+            
+
+        }
 
         private void FolderBrowser_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
             if(e.NewValue is IInteractionGridViewModel newVM) {
-                newVM.GetSelectedRows = () => gridView.SelectedItems;
+                newVM.GetSelectedRows = GetSelectedItems;
+                newVM.SelectedAllRows = SelectAllRows;
             }
 
             if (e.OldValue is IInteractionGridViewModel oldVM){
                 oldVM.GetSelectedRows = null;
+                oldVM.SelectedAllRows = null;
             }
         }
 
+        private IEnumerable GetSelectedItems() => gridView.SelectedItems;
+        private void SelectAllRows() => gridView.SelectAll();
 
-        
         private void RadGridView_AutoGeneratingColumn(object sender,GridViewAutoGeneratingColumnEventArgs e) {
             var args = new Contracts.Controls.GridViewAutoGeneratingColumnEventArgs(e.ItemPropertyInfo);
             (this.DataContext as IInteractionGridViewModel)?.NotifyAutoGeneratingColumns(args);

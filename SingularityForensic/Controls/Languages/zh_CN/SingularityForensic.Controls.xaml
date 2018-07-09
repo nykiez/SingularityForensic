@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="CopyAsProgramCode">拷贝为代码</sys:String>
-    <sys:String x:Key="CopyCellTextFormat">复制"{0}"</sys:String>
-
+    
     <!--多处共用-->
     <sys:String x:Key="OK" xml:space="preserve">确  定</sys:String>
     <sys:String x:Key="Cancel" xml:space="preserve">取  消</sys:String>

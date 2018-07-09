@@ -11,7 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 
 namespace SingularityForensic.Controls {
     /// <summary>
@@ -32,6 +31,10 @@ namespace SingularityForensic.Controls {
         /// 当前选定的项集合;
         /// </summary>
         Func<IEnumerable> GetSelectedRows { get; set; }
+        /// <summary>
+        /// 选定所有项;
+        /// </summary>
+        Action SelectedAllRows { get; set; }
         IEnumerable<CustomColumn> CustomColumns { get; }
     }
 
@@ -49,16 +52,22 @@ namespace SingularityForensic.Controls {
         public event EventHandler UnLoaded;
 
         /// <summary>
+        /// 选定所有项;
+        /// </summary>
+        public Action SelectedAllRows { get; set; }
+
+        /// <summary>
         /// 拷贝单元格内内容;
         /// </summary>
         private ICommandItem _copySelectedTextCommandItem;
         public ICommandItem CopySelectedTextCommandItem {
             get {
                 if (_copySelectedTextCommandItem == null) {
-                    _copySelectedTextCommandItem = CommandItemFactory.CreateNew(new DelegateCommand(
+                    _copySelectedTextCommandItem = CommandItemFactory.CreateNew(
+                        new DelegateCommand(
                             () => {
                                 if (SelectedText != null) {
-                                    Clipboard.SetText(SelectedText);
+                                    ClipBoardService.SetText(SelectedText);
                                 }
                             },
                             () => SelectedText != null
@@ -77,7 +86,7 @@ namespace SingularityForensic.Controls {
                     };
 
                     try {
-                        _copySelectedTextCommandItem.Name = string.Format(LanguageService.FindResourceString("CopyCellTextFormat"), SelectedText);
+                        _copySelectedTextCommandItem.Name = LanguageService.TryGetStringWithFormat("CopyCellTextFormat", SelectedText);
                     }
                     catch (Exception ex) {
                         LoggerService.WriteCallerLine(ex.Message);
@@ -95,12 +104,31 @@ namespace SingularityForensic.Controls {
             get {
                 if (_contextCommands == null) {
                     _contextCommands = new ObservableCollection<ICommandItem>() {
-                        CopySelectedTextCommandItem
+                        CopySelectedTextCommandItem,
+                        SelectedAllCommandItem
                     };
                 }
                 return _contextCommands;
             }
         }
+
+        private ICommandItem _selecteAllCommandItem;
+        public ICommandItem SelectedAllCommandItem {
+            get {
+                if(_selecteAllCommandItem == null) {
+                    _selecteAllCommandItem = CommandItemFactory.CreateNew(
+                        new DelegateCommand(
+                            () => {
+                                SelectedAllRows?.Invoke();
+                            }
+                        ));
+
+                    _selecteAllCommandItem.Name = LanguageService.FindResourceString(Constants.GridViewCommandName_SelectedAll);
+                }
+                return _selecteAllCommandItem;
+            }
+        }
+            
 
         public virtual void NotifyDoubleClickOnRow(object row) {
         }

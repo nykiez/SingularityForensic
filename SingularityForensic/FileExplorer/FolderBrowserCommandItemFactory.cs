@@ -371,7 +371,7 @@ namespace SingularityForensic.FileExplorer {
             cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_Navigate);
             return cmi;
         }
-
+        
         /// <summary>
         /// 列出簇功能;
         /// </summary>
@@ -419,6 +419,8 @@ namespace SingularityForensic.FileExplorer {
 
             return comm;
         }
+
+
     }
 
     

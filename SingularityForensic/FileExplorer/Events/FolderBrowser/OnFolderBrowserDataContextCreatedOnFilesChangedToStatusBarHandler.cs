@@ -20,7 +20,7 @@ namespace SingularityForensic.FileExplorer.Events {
         public bool IsEnabled => true;
 
         public void Handle(IFolderBrowserDataContext args) {
-            if(args == null) {
+            if (args == null) {
                 return;
             }
             if (args.FolderBrowserViewModel == null) {
@@ -53,13 +53,15 @@ namespace SingularityForensic.FileExplorer.Events {
                     fileCount++;
                 }
 
-                var fileCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemText_FileCount, GridChildLength.Auto,5);
-                var regFileCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_RegFileCount, GridChildLength.Auto, 6);
-                var dirCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_DirectoryCount, GridChildLength.Auto, 7);
+                ThreadInvoker.UIInvoke(() => {
+                    var fileCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemText_FileCount, GridChildLength.Auto, 5);
+                    var regFileCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_RegFileCount, GridChildLength.Auto, 6);
+                    var dirCountItem = StatusBarService.GetOrCreateStatusBarTextItem(Constants.StatusBarItemGUID_DirectoryCount, GridChildLength.Auto, 7);
 
-                fileCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_FileCount)} {fileCount}";
-                regFileCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_RegFileCount)} {regFileCount}";
-                dirCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_DirectoryCount)} {dirCount}";
+                    fileCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_FileCount)} {fileCount}";
+                    regFileCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_RegFileCount)} {regFileCount}";
+                    dirCountItem.Text = $"{LanguageService.FindResourceString(Constants.StatusBarItemText_DirectoryCount)} {dirCount}";
+                });
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

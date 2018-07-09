@@ -32,7 +32,6 @@ namespace SingularityForensic.Contracts.FileExplorer.ViewModels {
         /// 当前聚焦的文件行;
         /// </summary>
         IEnumerable<IFileRow> SelectedFileRows { get; }
-        //void AddSelectedFile(IEnumerable<IFileRow> fileRows);
 
         event EventHandler SelectedFileChanged;
         //INavNodeModel SelectedNavNode { get; }
