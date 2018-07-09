@@ -90,7 +90,7 @@ namespace SingularityForensic.Contracts.Helpers {
             }
 
             var handlers = GenericServiceStaticInstances<TEventHandler>.Currents;
-            PublishEventToHandlers<TEventHandler, TEventArgs>(args, handlers);
+            PublishEventToHandlers(args, handlers);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace SingularityForensic.Contracts.Helpers {
         /// <typeparam name="TEventArgs"></typeparam>
         /// <param name="args"></param>
         /// <param name="eventHandlers"></param>
-        public static void PublishEventToHandlers<TEventHandler>( IEnumerable<TEventHandler> eventHandlers) where TEventHandler:class, IEventHandler {
+        public static void PublishEventToHandlers<TEventHandler>(IEnumerable<TEventHandler> eventHandlers) where TEventHandler:class, IEventHandler {
             if (eventHandlers == null) {
                 return;
             }

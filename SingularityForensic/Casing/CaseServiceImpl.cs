@@ -18,14 +18,9 @@ namespace SingularityForensic.Casing {
         /// <summary>
         /// 当前案件;
         /// </summary>
-        public ICase CurrentCase {
-            get => _currentCase;
-            private set => _currentCase = value;
-        }
+        public ICase CurrentCase { get; private set; }
 
         public IEnumerable<ICase> RecentCases => Enumerable.Empty<ICase>();
-
-        private ICase _currentCase;
 
         /// <summary>
         /// 创建一个空案件;
@@ -102,9 +97,7 @@ namespace SingularityForensic.Casing {
             //发布案件加载中事件;
             PubEventHelper.GetEvent<CaseLoadingEvent>().Publish(cs);
             CurrentCase = cs;
-            //发布已经加载案件的事件;
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Publish(CurrentCase);
-            
+
             //从文档中加载证据项;
             var msg = ServiceProvider.Current.GetInstance<IDialogService>()?.CreateDoubleLoadingDialog();
             if (msg == null) {
@@ -139,7 +132,12 @@ namespace SingularityForensic.Casing {
                         });
                     }
                 }
+
+                //发布加载案件完成的事件;
+                PubEventHelper.GetEvent<CaseLoadedEvent>().Publish();
+                PubEventHelper.PublishEventToHandlers<ICaseLoadedEventHandler>();
             };
+            
 
             msg.ShowDialog();
         }

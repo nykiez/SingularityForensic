@@ -141,7 +141,6 @@
     <Compile Include="BaseDevice\DosAndGptTest.cs" />
     <Compile Include="FAT\FatStreamParsingProviderTest.cs" />
     <Compile Include="FileSystem\FileExtensionsTests.cs" />
-    <Compile Include="FileSystem\FileSystemExtensionsTests.cs" />
     <Compile Include="FileSystem\FileSystemServiceTest.cs" />
     <Compile Include="FileSystem\FileBaseTest.cs" />
     <Compile Include="BaseDevice\DosAndGptNativeTest.cs" />
@@ -151,6 +150,7 @@
     <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hash\HashSetManagementServiceTest.cs" />
     <Compile Include="Hash\HashSetTests.cs" />
+    <Compile Include="Hash\HashStatusManagementServiceTest.cs" />
     <Compile Include="Hash\ViewModels\CreateHashSetDialogViewModelTests.cs" />
     <Compile Include="Hash\ViewModels\HashSetManagementDialogViewModelTests.cs" />
     <Compile Include="Hex\EncodingTest.cs" />

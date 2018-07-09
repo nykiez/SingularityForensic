@@ -10,10 +10,6 @@ using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingularityForensic.Hash {
     /// <summary>
@@ -198,7 +194,10 @@ namespace SingularityForensic.Hash {
             }
             
             try {
-                var hashPair = HashPairFactory.CreateHashPair(name, value.ToUpper());
+                var hashPair = new HashPair(name, value.ToUpper()) {
+                    HasherGUID = this.Hasher.GUID
+                };
+
                 var doc = new Lucene.Net.Documents.Document();
                 doc.Add(new Field(nameof(IHashPair.Name), hashPair.Name, Field.Store.YES, Field.Index.NOT_ANALYZED));
                 doc.Add(new Field(nameof(IHashPair.Value), hashPair.Value, Field.Store.YES, Field.Index.NOT_ANALYZED));
@@ -253,8 +252,10 @@ namespace SingularityForensic.Hash {
                 if(string.IsNullOrEmpty(valValue) || nameValue == null) {
                     continue;
                 }
-                
-                yield return HashPairFactory.CreateHashPair(nameValue, valValue);
+
+                yield return new HashPair(nameValue, valValue) {
+                    HasherGUID = Hasher.GUID
+                };
             }
             
         }
@@ -292,7 +293,9 @@ namespace SingularityForensic.Hash {
                 if (name == null) {
                     continue;
                 }
-                yield return HashPairFactory.CreateHashPair(name, value);
+                yield return new HashPair(name, value) {
+                    HasherGUID = Hasher.GUID
+                };
             }
 
 #if DEBUG
@@ -373,7 +376,7 @@ namespace SingularityForensic.Hash {
             }
         }
     }
-
+    
     [Export(typeof(IHashSetFactory))]
     class HashSetFactoryImpl : IHashSetFactory {
         public IHashSet CreateNew(string path, string guid, IHasher hasher) {

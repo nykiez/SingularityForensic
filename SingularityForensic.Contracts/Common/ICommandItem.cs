@@ -52,7 +52,7 @@ namespace SingularityForensic.Contracts.Common {
     /// 命令项工厂;
     /// </summary>
     public interface ICommandItemFactory {
-        ICommandItem CreateNew(ICommand command,string guid,Func<bool> isVisible);
+        ICommandItem CreateNew(ICommand command,string guid,Func<bool> isVisible = null);
     }
 
     public class CommandItemFactory:GenericServiceStaticInstance<ICommandItemFactory> {

@@ -6,7 +6,7 @@ namespace SingularityForensic.Contracts.Casing {
     //案件服务契约;
     public interface ICaseService {
         /// <summary>
-        /// 创建一个空案件,注意,并不加载;
+        /// 创建一个空案件,值得注意的是,这并不会加载创建的案件;
         /// </summary>
         /// <returns></returns>
         ICase CreateNewCase();

@@ -20,15 +20,19 @@ namespace SingularityForensic.Hash {
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
             this.Value = value;
         }
-        public string Value { get; }
+        public string Value { get; internal set; }
 
-        public string Name { get; }
+        public string Name { get; internal set; }
+
+        public string HasherGUID { get; internal set; }
+
+        public string PairType { get; internal set; }
     }
 
-    [Export(typeof(IHashPairFactory))]
-    class HashPairFactoryImpl : IHashPairFactory {
-        public IHashPair CreateHashPair(string name, string value) => new HashPair(name, value);
+    //[Export(typeof(IHashPairFactory))]
+    //class HashPairFactoryImpl : IHashPairFactory {
+    //    public IHashPair CreateHashPair(string name, string value) => new HashPair(name, value);
 
-        public IHashPair CreateHashPair(string value) => new HashPair(string.Empty, value);
-    }
+    //    public IHashPair CreateHashPair(string value) => new HashPair(string.Empty, value);
+    //}
 }

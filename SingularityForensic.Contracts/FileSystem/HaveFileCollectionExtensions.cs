@@ -157,6 +157,31 @@ namespace SingularityForensic.Contracts.FileSystem {
             );
         }
 
+        public static string[] GetUrlArgsByFile(this IHaveFileCollection haveFileCollection, IFile file) {
+            if (file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            if (haveFileCollection == null) {
+                throw new ArgumentNullException(nameof(haveFileCollection));
+            }
+
+            var fileStack = haveFileCollection.GetParentFiles(file, true);
+            if (fileStack == null) {
+                return null;
+            }
+
+            var stackSize = fileStack.Count();
+            var array = new string[stackSize];
+            var index = 0;
+            foreach (var cell in fileStack) {
+                array[stackSize - index - 1] = cell.Name;
+                
+                index++;
+            }
+            return array;
+        }
+
         /// <summary>
         /// 根据文件得到路径;
         /// </summary>

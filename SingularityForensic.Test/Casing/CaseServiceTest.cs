@@ -23,7 +23,7 @@ namespace SingularityForensic.Test.Casing {
             PubEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(cs => {
                 _caseLoading = true;
             });
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(cs => {
+            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(() => {
                 _caseLoaded = true;
             });
         }

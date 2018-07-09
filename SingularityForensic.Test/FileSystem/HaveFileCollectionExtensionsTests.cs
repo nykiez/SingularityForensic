@@ -36,6 +36,8 @@ namespace SingularityForensic.Test.BaseDevice {
                 count++;
             }
             Trace.WriteLine($"{count}");
+
+            FileSystemService.Current.UnMountFile(device);
         }
 
         [TestMethod()]
@@ -102,6 +104,11 @@ namespace SingularityForensic.Test.BaseDevice {
             var file2 = fileCollection.GetFileByUrl(path) as IRegularFile;
             var url = fileCollection.GetUrlByFile(file2);
             Assert.AreEqual(url, path);
+        }
+
+        [TestCleanup]
+        public void Clean() {
+
         }
     }
 }

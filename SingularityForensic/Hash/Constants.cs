@@ -26,9 +26,20 @@
 
         public const string XmlAttrName_HashSets_Set_IsEnabled = "IsEnabled";
 
-        //默认的哈希存储路径;
+        //默认的哈希存储路径(作用域为程序全局);
         public const string HashDefaultStorageFolder = "HashSets";
 
+        //哈希状态存储路径(作用域为案件内);
+        public const string HashStatusStorageName = "HashStatus.txt";
+
+        //哈希状态文件属性分割符;
+        public const char HashStatusFormat_Spliter = ' ';
+
+        //哈希状态文件属性包含符号;(")
+        public const char HashStatusFormat_Container = '"';
+
+        //哈希集的哈希类型;
+        public const string HashPairType_HashSet = nameof(HashPairType_HashSet);
     }
 
     /// <summary>

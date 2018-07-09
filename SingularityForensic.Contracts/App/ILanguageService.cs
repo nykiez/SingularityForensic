@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace SingularityForensic.Contracts.App {
-    //语言提供者;
+    /// <summary>
+    /// 描述语言种类的单位;
+    /// </summary>
     public class LanguageProvider {
-        public LanguageProvider(string languageName,string lanType) {
+        public LanguageProvider(string languageName,string languageType) {
             this.LanguageName = languageName;
-            Type = lanType;
+            Type = languageType;
         }
         /// <summary>
         /// 语言名称(比如简体中文);
@@ -27,7 +29,11 @@ namespace SingularityForensic.Contracts.App {
     /// 语言服务契约;
     /// </summary>
     public interface ILanguageService {
-        //找寻资源字符串;
+        /// <summary>
+        /// 找寻资源字符串;
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
         string FindResourceString(string keyName);
         
         /// <summary>
@@ -44,6 +50,14 @@ namespace SingularityForensic.Contracts.App {
         /// 初始化;
         /// </summary>
         void Initialize();
+
+        /// <summary>
+        /// 尝试根据指定格式的值与参数获取字符串内容,适用于句势具有动态性的语言查找场景;
+        /// </summary>
+        /// <param name="languageFormatKey">语言格式键值(比如"{0}是哲学家")</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        string TryGetStringWithFormat(string languageFormatKey, params object[] args);
     }
 
     /// <summary>
@@ -64,32 +78,8 @@ namespace SingularityForensic.Contracts.App {
     }
     public class LanguageService : GenericServiceStaticInstance<ILanguageService> {
         public static string FindResourceString(string keyName) => Current?.FindResourceString(keyName);
+        public static string TryGetStringWithFormat(string languageFormatKey, params object[] args) => Current?.TryGetStringWithFormat(languageFormatKey, args);
     }
 
-    public static class LanguageServiceExtensions {
-        /// <summary>
-        /// 尝试根据指定格式的值与参数获取字符串内容,适用于句势具有动态性的语言查找;
-        /// </summary>
-        /// <param name="languageService"></param>
-        /// <param name="languageFormatKey">语言格式键值(比如"{0}是哲学家")</param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static string TryGetStringWithFormat(this ILanguageService languageService,string languageFormatKey, params object[] args) {
-            if(languageService == null) {
-                throw new ArgumentNullException(nameof(languageService));
-            }
-            
-            try {
-#if DEBUG
-                var format = LanguageService.FindResourceString(languageFormatKey);
-                return string.Format(format, args);
-#endif
-                return string.Format(LanguageService.FindResourceString(languageFormatKey), args);
-            }
-            catch(Exception ex) {
-                LoggerService.WriteException(ex);
-                return languageService.FindResourceString(languageFormatKey);
-            }
-        }
-    }
+    
 }

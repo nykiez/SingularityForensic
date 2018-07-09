@@ -78,5 +78,11 @@ namespace SingularityForensic.App.Views {
             this.CancellationPending = true;
             this.Canceld?.Invoke(this, EventArgs.Empty);
         }
+
+#if DEBUG
+        ~DoubleProcessWindow() {
+
+        }
+#endif
     }
 }

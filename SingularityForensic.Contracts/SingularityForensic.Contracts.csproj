@@ -150,6 +150,7 @@
     <Compile Include="FileExplorer\Events\NameCategoryDescriptorsLoadedEvent.cs" />
     <Compile Include="FileExplorer\ICategoryNameService.cs" />
     <Compile Include="FileExplorer\Events\FileExplorerModuleLoadingEvent.cs" />
+    <Compile Include="FileExplorer\IHashStatusManagementService.cs" />
     <Compile Include="FileExplorer\IFolderBrowserDataContext.cs" />
     <Compile Include="FileExplorer\IFullFileNameProvider.cs" />
     <Compile Include="FileExplorer\Constants.cs" />
@@ -168,7 +169,6 @@
     <Compile Include="FileExplorer\ViewModels\INavMenuViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\IPartitionsBrowserViewModel.cs" />
     <Compile Include="FileExplorer\Models\INavNodeModel.cs" />
-    <Compile Include="FileSystem\FileSystemExtensions.cs" />
     <Compile Include="FileSystem\IDeviceService.cs" />
     <Compile Include="FileSystem\IFileService.cs" />
     <Compile Include="FileSystem\StreamFileStoken.cs" />
@@ -209,6 +209,7 @@
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\Events\HashModuleLoadingEvent.cs" />
+    <Compile Include="Hash\IHashStatusManagementService.cs" />
     <Compile Include="Hash\IHashSetDialogService.cs" />
     <Compile Include="Hash\Events\HashSetIsEnabledChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetNameChangedEvent.cs" />

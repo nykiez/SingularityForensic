@@ -112,6 +112,8 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
             var allStreamSizeSum = inputStreamAndFileTuples.Sum(p => p.inputStream.Length);
             long finishedStreamSizeSum = 0;
 
+            HashStatusManagementService.BeginEdit();
+
             foreach (var hasher in hashers) {
                 var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
 
@@ -130,6 +132,13 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
                         var hashValue = result.BytesToHexString();
 
                         tuple.fileRow.File.ExtensibleTag.SetInstance(hashValue, metaGUID);
+
+                        //使用文件的完整路径为存储的哈希值名;
+                        var path = FileSystemService.Current.GetPath(tuple.fileRow.File);
+                        if (!string.IsNullOrEmpty(path)) {
+                            //表明类型为文件的哈希值类型;
+                            HashStatusManagementService.SetFileHashValue(path, hashValue, hasher.GUID, Constants.HashPairType_File);
+                        }
                         tuple.fileRow.NotifyProperty(metaGUID);
                     }
 
@@ -154,6 +163,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
                 hasherIndex++;
             }
 
+            HashStatusManagementService.EndEdit();
         }
 
         /// <summary>
@@ -223,11 +233,62 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
         private static void AddToHashSet(IHashSet hashSet,IFolderBrowserViewModel vm) {
             var loadingDialog = DialogService.Current.CreateLoadingDialog();
             loadingDialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_AddingToHashSet);
-            loadingDialog.DoWork += delegate {
-                AddToHashSetCore(loadingDialog,hashSet,vm);
-            };
+
+            //总/成功/未成功记录数量;
+            var rowCount = 0;
+            var succeedCount = 0;
+            var errCount = 0;
+
+            //是否错误,错误信息;
+            var error = false;
+            string errMsg = null;
+
+            void AddToHashSetCore() {
+                try {
+                    hashSet.BeginEdit();
+                    var rows = vm.SelectedFileRows;
+                    if (rows == null) {
+                        return;
+                    }
+                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hashSet.Hasher.GUID}";
+                    
+                    foreach (var row in rows) {
+                        var hashValue = row.File.ExtensibleTag.GetInstance<string>(metaGUID);
+                        if (hashValue != null && hashValue.Length == hashSet.Hasher.BytesPerHashValue * 2) {
+                            hashSet.AddHashPair(row.File.Name, hashValue);
+                            succeedCount++;
+                        }
+                        else {
+                            errCount++;
+                        }
+                        rowCount++;
+#if DEBUG
+                        System.Threading.Thread.Sleep(100);
+#endif
+                        if (rowCount % 2 == 0) {
+                            loadingDialog.ReportProgress(0, $"{rowCount}", string.Empty);
+                        }
+                    }
+                }
+                catch (Exception ex) {
+                    LoggerService.WriteException(ex);
+                    errMsg = ex.Message;
+                }
+                finally {
+                    hashSet.EndEdit();
+                }
+            }
+
+            loadingDialog.DoWork += (sender, e) => AddToHashSetCore();
 
             loadingDialog.IsProgressVisible = false;
+            loadingDialog.RunWorkerCompleted += delegate {
+                MsgBoxService.Show(
+                    LanguageService.Current.TryGetStringWithFormat(
+                        Constants.MsgText_AddingToHashSetFormat,rowCount,succeedCount,errCount
+                        )
+                    );
+            };
             loadingDialog.ShowDialog();
             
             //foreach (var row in vm.SelectedFileRows) {
@@ -235,39 +296,6 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
             //}
         }
 
-        private static void AddToHashSetCore(ILoadingDialog loadingDialog,IHashSet hashSet,IFolderBrowserViewModel vm) {
-            try {
-                hashSet.BeginEdit();
-                var rows = vm.SelectedFileRows;
-                if(rows == null) {
-                    return;
-                }
-                var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hashSet.Hasher.GUID}";
-                var rowCount = 0;
-                var errCount = 0;
-                var succeedCount = 0;
-
-                foreach (var row in rows) {
-                    var hashValue = row.File.ExtensibleTag.GetInstance<string>(metaGUID);
-                    if(hashValue != null && hashValue.Length == hashSet.Hasher.BytesPerHashValue * 2) {
-                        hashSet.AddHashPair(row.File.Name, hashValue);
-                    }
-                    else {
-                        errCount ++;
-                    }
-                    rowCount++;
-
-                    if(rowCount % 100 == 0) {
-                        loadingDialog.ReportProgress(0, $"{rowCount}",string.Empty);
-                    }
-                }
-            }
-            catch (Exception ex) {
-                LoggerService.WriteException(ex);
-            }
-            finally {
-                hashSet.EndEdit();
-            }
-        }
+        
     }
 }

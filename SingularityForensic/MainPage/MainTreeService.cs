@@ -99,7 +99,7 @@ namespace SingularityForensic.MainPage {
 
         public ITreeUnit SelectedUnit => VM?.SelectedUnit;
         
-        public void ClearNodes() {
+        public void ClearUnits() {
             var cArgs = new CancelEventArgs();
             PubEventHelper.GetEvent<TreeUnitsClearingEvent>().Publish((cArgs,this));
             if (!cArgs.Cancel) {

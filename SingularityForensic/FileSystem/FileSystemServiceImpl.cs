@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace SingularityForensic.FileSystem {
@@ -93,7 +94,89 @@ namespace SingularityForensic.FileSystem {
             });
         }
 
-        
+        public IFile GetFile(string path) {
+            if (string.IsNullOrEmpty(path)) {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            path = path.Replace('/',Contracts.FileSystem.Constants.Path_SplitChar);
+            var pathParams = path.Split(Contracts.FileSystem.Constants.Path_SplitChar);
+            if (pathParams.Length == 0) {
+                throw new ArgumentException($"Invalid {nameof(path)}:{path}");
+            }
+
+            var mountedUnit = MountedUnits.FirstOrDefault(p => p.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID) == pathParams[0]);
+            
+            if(mountedUnit == null) {
+                return null;
+            }
+
+            if (pathParams.Length == 1) {
+                return mountedUnit.File;
+            }
+
+            if (!(mountedUnit.File is IHaveFileCollection haveFileCollection)) {
+                return null;
+            }
+            //在集合内部使用集合名替代案件文件GUID;
+            var pathArray = pathParams.ToArray();
+            pathArray[0] = haveFileCollection.Name;
+            return haveFileCollection.GetFileByUrlArgs(pathArray);
+        }
+
+        public string GetPath(IFile file) {
+            if (file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            var mountUnit = GetOwnMountUnit(file);
+            if (mountUnit == null) {
+                return null;
+            }
+            var root = mountUnit.File;
+            //若查找的文件为根文件,则直接返回跟文件的GUID;
+            if (root == file) {
+                return mountUnit.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID);
+            }
+
+            if(root is IHaveFileCollection haveFileCollection) {
+                var args = haveFileCollection.GetUrlArgsByFile(file);
+                if(args == null || args.Length == 0) {
+                    return null;
+                }
+                args[0] = mountUnit.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID);
+
+                var sb = new StringBuilder();
+                var argIndex = 0;
+                foreach (var arg in args) {
+                    if(argIndex == 0) {
+                        sb.Append(arg);
+                    }
+                    else {
+                        sb.Append($"{Contracts.FileSystem.Constants.Path_SplitChar}{arg}");
+                    }
+
+                    argIndex++;
+                }
+                return sb.ToString();
+            }
+
+            return null;
+        }
+
+        public IMountedUnit GetOwnMountUnit(IFile file) {
+            if (file == null) {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            var root = file;
+            while (root.Parent != null) {
+                root = root.Parent;
+            }
+
+            var mountUnit = MountedUnits.FirstOrDefault(p => p.File == root);
+            return mountUnit;
+        }
     }
 
     class MountedUnit : IMountedUnit {

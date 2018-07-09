@@ -14,9 +14,20 @@ namespace SingularityForensic.Contracts.Casing {
         string CaseInfo { get; }
         XDocument XDoc { get; }
         IEnumerable<ICaseEvidence> CaseEvidences {get;}
+        /// <summary>
+        /// 当前案件的本地路径;
+        /// </summary>
         string Path { get; }
         string CaseName { get; }
+        /// <summary>
+        /// 添加新的证据项;仅作保存,并不会进行加载动作;若要进行加载,请使用<see cref="LoadCaseEvidence(ICaseEvidence,IProgressReporter)"/>
+        /// </summary>
+        /// <param name="csEvidence"></param>
         void AddNewCaseEvidence(ICaseEvidence csEvidence);
+        /// <summary>
+        /// 加载证据项;
+        /// </summary>
+        /// <param name="csEvidence"></param>
         void LoadCaseEvidence(ICaseEvidence csEvidence);
         void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter);
         /// <summary>

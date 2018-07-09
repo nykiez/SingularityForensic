@@ -167,6 +167,19 @@ namespace SingularityForensic.App {
                 }
             }
         }
+
+        
+
+        public string TryGetStringWithFormat(string languageFormatKey, params object[] args) {
+            try {
+                var format = FindResourceString(languageFormatKey);
+                return string.Format(format, args);
+            }
+            catch (Exception ex) {
+                LoggerService.WriteException(ex);
+                return FindResourceString(languageFormatKey);
+            }
+        }
     }
 
 

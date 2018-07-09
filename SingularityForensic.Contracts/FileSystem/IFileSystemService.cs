@@ -43,7 +43,27 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 所有文件;
         /// </summary>
         IEnumerable<IMountedUnit> MountedUnits { get; }
-        
+
+        /// <summary>
+        /// 从文件系统中根据某个路径获取文件;
+        /// </summary>
+        /// <param name="path">路径的首个参数应为对应案件文件的GUID,路径分割符("/"或"\")将只能同时出现一次</param>
+        /// <returns></returns>
+        IFile GetFile(string path);
+
+        /// <summary>
+        /// 根据文件获取完整路径;
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        string GetPath(IFile file);
+
+        /// <summary>
+        /// 获取文件所在的挂载单元根文件(案件相关);
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        IMountedUnit GetOwnMountUnit(IFile file);
     }
 
     public interface IMountedUnit {

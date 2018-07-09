@@ -49,7 +49,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
             set {
                 SetProperty(ref _rootNavNode, value);
                 if (value != null) {
-                    SelectedPath = value.Name;
+                    SelectedPath = null;
                 }
             }
         }

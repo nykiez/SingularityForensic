@@ -11,14 +11,29 @@ namespace SingularityForensic.Contracts.TreeView {
     /// </summary>
     public interface ITreeService {
         //void AddUnit(TreeUnit unit);
+        /// <summary>
+        /// 加入节点;
+        /// </summary>
+        /// <param name="parentUnit">若为空,则直接加入一级节点队列</param>
+        /// <param name="unit"></param>
         void AddUnit(ITreeUnit parentUnit, ITreeUnit unit);
-
+        /// <summary>
+        /// 移除节点;
+        /// </summary>
+        /// <param name="unit"></param>
         void RemoveUnit(ITreeUnit unit);
-
+        /// <summary>
+        /// 当前所有节点;
+        /// </summary>
         IEnumerable<ITreeUnit> CurrentUnits { get; }
+        /// <summary>
+        /// 当前选中的节点;
+        /// </summary>
         ITreeUnit SelectedUnit { get; }
-        
-        void ClearNodes();
+        /// <summary>
+        /// 清除所有节点;
+        /// </summary>
+        void ClearUnits();
 
         /// <summary>
         /// 上下文命令项;

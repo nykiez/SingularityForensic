@@ -44,7 +44,7 @@ namespace SingularityForensic.Casing {
         }
         private void RegisterEvents() {
             //加入案件节点;
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(OnCaseLoaded);
+            PubEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(OnCaseLoaded);
             
             //订阅案件关闭事件;
             PubEventHelper.Subscribe<CaseUnloadedEvent>(OnCaseUnloaded);
@@ -116,6 +116,10 @@ namespace SingularityForensic.Casing {
             LoadEvidenceUnitToTree(evidence);
         }
 
+        /// <summary>
+        /// 在节点中加入证据项节点;
+        /// </summary>
+        /// <param name="evidence"></param>
         private void LoadEvidenceUnitToTree(ICaseEvidence evidence) {
             var treeService = MainTreeService.Current;
             if (treeService == null) {
@@ -125,7 +129,6 @@ namespace SingularityForensic.Casing {
 
             var unit = TreeUnitFactory.CreateNew(Contracts.Casing.Constants.TreeUnitType_CaseEvidence);
             unit.Label = evidence.Name;
-
             unit.SetInstance(evidence, Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
             treeService.AddUnit(treeService.CurrentUnits.FirstOrDefault(), unit);
         }
@@ -135,7 +138,7 @@ namespace SingularityForensic.Casing {
             //清空Tab;
             DocumentService.MainDocumentService.CloseAllDocuments();
             //清空树形;
-            MainTreeService.Current?.ClearNodes();
+            MainTreeService.Current?.ClearUnits();
             //重置标题;
             ShellService.Current?.SetTitle(string.Empty);
         }
@@ -196,12 +199,8 @@ namespace SingularityForensic.Casing {
             ));
 
         private void RegisterEventsForCommands() {
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(cs => {
-                CloseCaseCommand.RaiseCanExecuteChanged();
-            });
-            PubEventHelper.Subscribe<CaseUnloadedEvent>(() => {
-                CloseCaseCommand.RaiseCanExecuteChanged();
-            });
+            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(CloseCaseCommand.RaiseCanExecuteChanged);
+            PubEventHelper.Subscribe<CaseUnloadedEvent>(CloseCaseCommand.RaiseCanExecuteChanged);
         }
     }
 }

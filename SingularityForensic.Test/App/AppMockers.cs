@@ -101,6 +101,8 @@ namespace SingularityForensic.Test.App {
                     mocker.Setup(p => p.OpenFile(It.IsAny<string>())).Callback<string>(p => {
                         Trace.WriteLine($"We are gonna open file : {p}");
                     });
+
+                    _localExplorerServiceMocker = mocker.Object;
                 }
                 return _localExplorerServiceMocker;
             }

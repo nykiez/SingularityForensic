@@ -32,6 +32,17 @@ namespace SingularityForensic.App.Dialogs {
                 Canceld?.Invoke(this, EventArgs.Empty);
             };
             window.ShowDialog();
+
+#if DEBUG
+            ThreadInvoker.BackInvoke(() => {
+                System.Threading.Thread.Sleep(1000);
+                for (int i = 0; i < 2; i++) {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+            });
+            
+#endif
         }
         private void RunTask() {
             ThreadInvoker.BackInvoke(() => {

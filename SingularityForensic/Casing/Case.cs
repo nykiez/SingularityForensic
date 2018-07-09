@@ -143,11 +143,12 @@ namespace SingularityForensic.Casing {
         /// <param name="reporter">进度回调器</param>
         public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
-                PubEventHelper.PublishEventToHandlers((csEvidence, reporter), _caseEvidenceLoadingEventHandlers);
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
+                PubEventHelper.PublishEventToHandlers((csEvidence, reporter), _caseEvidenceLoadingEventHandlers);
                 //案件中加入文件;
                 _caseEvidences.Add(csEvidence);
                 PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
+                PubEventHelper.PublishEventToHandlers<ICaseEvidenceLoadedEventHanlder, ICaseEvidence>(csEvidence);
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);

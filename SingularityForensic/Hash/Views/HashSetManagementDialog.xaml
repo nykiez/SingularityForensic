@@ -34,7 +34,7 @@
 
         <gv:RadGridViewEx Style="{DynamicResource RadGridViewExStyle}" GroupRenderMode="Flat" CanUserFreezeColumns="False"
                           RowIndicatorVisibility="Collapsed"  SelectionMode="Single" AutoGenerateColumns="False"
-                             SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}" 
+                             SelectedItem="{Binding SelectedHashSetModel,Mode=OneWayToSource}" Margin="-1"
                              ShowGroupPanel="False" ItemsSource="{Binding HashSetModels}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Deleted">

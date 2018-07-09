@@ -85,6 +85,43 @@
         
         public const string ConfigKey_CategoryDescriptorFile = "CategoryNameFile";
         public const string ConfigValue_CategoryDescriptorDefaultFile = "File Type Categories.txt";
+
+        /// <summary>
+        /// 元数据区分部分;
+        /// </summary>
+
+        public const string FileMetaDataGUID_Name = nameof(FileMetaDataGUID_Name);
+        public const string FileMetaDataGUID_FileType = nameof(FileMetaDataGUID_FileType);
+        public const string FileMetaDataGUID_Size = nameof(FileMetaDataGUID_Size);
+        public const string FileMetaDataGUID_ModifiedTime = nameof(FileMetaDataGUID_ModifiedTime);
+        public const string FileMetaDataGUID_AccessedTime = nameof(FileMetaDataGUID_AccessedTime);
+        public const string FileMetaDataGUID_CreateTime = nameof(FileMetaDataGUID_CreateTime);
+        public const string FileMetaDataGUID_StartLBA = nameof(FileMetaDataGUID_StartLBA);
+
+        public const string FileMetaDataGUID_Deleted = nameof(FileMetaDataGUID_Deleted);
+        public const string FileMetaDataGUID_Path = nameof(FileMetaDataGUID_Path);
+        
+        public const string FileMetaDataGUID_File = nameof(FileMetaDataGUID_File);
+
+        public const string FileMetaDataGUID_NameCategory = nameof(FileMetaDataGUID_NameCategory);
+
+        public const string FileMetaDataGUID_HashSet = nameof(FileMetaDataGUID_HashSet);
+
+        public const string PartMetaDataGUID_Partition = nameof(PartMetaDataGUID_Partition);
+
+        public const string PartMetaDataGUID_PartType = nameof(PartMetaDataGUID_PartType);
+
+        public const string PartMetaDataGUID_StartLBA = nameof(PartMetaDataGUID_StartLBA);
+        public const string PartitionMetaDataGUID_LastMountTime = nameof(PartitionMetaDataGUID_LastMountTime);
+
+        //名称类别拓展元素;
+        public const string FileTag_CategoryDescriptor = nameof(FileTag_CategoryDescriptor);
+
+        //哈希集状态元素;
+        public const string FileTag_HashSetState = nameof(FileTag_HashSetState);
+
+        //文件的哈希类型;
+        public const string HashPairType_File = nameof(HashPairType_File);
     }
 
     /// <summary>
@@ -105,7 +142,6 @@
         /// <summary>
         /// 元数据名部分;
         /// </summary>
-
         public const string FileMetaDataName_Name = nameof(FileMetaDataName_Name);
         public const string FileMetaDataName_FileType = nameof(FileMetaDataName_FileType);
         public const string FileMetaDataName_Size = nameof(FileMetaDataName_Size);
@@ -121,45 +157,17 @@
         
         public const string FileMetaDataName_HashSet = nameof(FileMetaDataName_HashSet);
 
-
+        
         public const string FileDeleted_Yes = nameof(FileDeleted_Yes);
         public const string FileDeleted_No = nameof(FileDeleted_No);
         public const string FileDeleted_Unknown = nameof(FileDeleted_Unknown);
 
         
-
-        /// <summary>
-        /// 元数据区分部分;
-        /// </summary>
-
-        public const string FileMetaDataGUID_Name = nameof(FileMetaDataGUID_Name);
-        public const string FileMetaDataGUID_FileType = nameof(FileMetaDataGUID_FileType);
-        public const string FileMetaDataGUID_Size = nameof(FileMetaDataGUID_Size);
-        public const string FileMetaDataGUID_ModifiedTime = nameof(FileMetaDataGUID_ModifiedTime);
-        public const string FileMetaDataGUID_AccessedTime = nameof(FileMetaDataGUID_AccessedTime);
-        public const string FileMetaDataGUID_CreateTime = nameof(FileMetaDataGUID_CreateTime);
-        public const string FileMetaDataGUID_StartLBA = nameof(FileMetaDataGUID_StartLBA);
-
-        public const string FileMetaDataGUID_Deleted = nameof(FileMetaDataGUID_Deleted);
-        public const string FileMetaDataGUID_Path = nameof(FileMetaDataGUID_Path);
-
-
-        public const string FileMetaDataGUID_NameCategory = nameof(FileMetaDataGUID_NameCategory);
-
-        public const string FileMetaDataGUID_HashSet = nameof(FileMetaDataGUID_HashSet);
-
-        //名称类别拓展元素;
-        public const string FileTag_CategoryDescriptor = nameof(FileTag_CategoryDescriptor);
-
-
         public const string FileType_Directory = nameof(FileType_Directory);
         public const string FileType_RegularFile = nameof(FileType_RegularFile);
         public const string FileType_Unknown = nameof(FileType_Unknown);
 
-        public const string PartMetaDataGUID_PartType = nameof(PartMetaDataGUID_PartType);
-        
-        public const string PartMetaDataGUID_StartLBA = nameof(PartMetaDataGUID_StartLBA);
-        public const string PartitionMetaDataGUID_LastMountTime = nameof(PartitionMetaDataGUID_LastMountTime);
+       
 
         public const string PartMetaDataName_PartType = nameof(PartMetaDataName_PartType);
         public const string PartMetaDataName_StartLBA = nameof(PartMetaDataName_StartLBA);
@@ -167,11 +175,10 @@
 
         //文件/分区本体;
         public const string PartMetaDataName_Partition = nameof(PartMetaDataName_Partition);
-        public const string PartMetaDataGUID_Partition = nameof(PartMetaDataGUID_Partition);
+        
 
         public const string FileMetaDataName_File = nameof(FileMetaDataName_File);
-        public const string FileMetaDataGUID_File = nameof(FileMetaDataGUID_File);
-
+        
         public const string DocumentTitle_HexDevice = nameof(DocumentTitle_HexDevice);
         public const string DocumentTitle_HexPartition = nameof(DocumentTitle_HexPartition);
         public const string DocumentTitle_HexFile = nameof(DocumentTitle_HexFile);
@@ -238,6 +245,8 @@
 
         public const string WindowTitle_AddingToHashSet = nameof(WindowTitle_AddingToHashSet);
 
+
+        public const string MsgText_AddingToHashSetFormat = nameof(MsgText_AddingToHashSetFormat);
 
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

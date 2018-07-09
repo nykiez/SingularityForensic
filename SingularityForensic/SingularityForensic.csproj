@@ -385,6 +385,7 @@
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFileExplorerModuleLoadingForHashColumnEventHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandHashHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnNavMenuHandler.cs" />
+    <Compile Include="FileExplorer\Events\Hash\OnCaseLoadedOnLoadFileHashHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnFileExplorerModuleLoadingForNameCategoryServiceHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnNameCategoryLoadedOnFolderBrowserNotifyHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedEventOnDeviceHexHandler.cs" />
@@ -447,6 +448,7 @@
     <Compile Include="Hash\HashPair.cs" />
     <Compile Include="Hash\HashSet.cs" />
     <Compile Include="Hash\HashSetDialogServiceImpl.cs" />
+    <Compile Include="Hash\HashStatusManagementServiceImpl.cs" />
     <Compile Include="Hash\MenuItemDefinitions.cs" />
     <Compile Include="Hash\Models\HasherModel.cs" />
     <Compile Include="Hash\Models\HashSetModel.cs" />
