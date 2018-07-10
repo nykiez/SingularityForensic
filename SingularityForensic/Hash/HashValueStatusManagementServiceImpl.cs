@@ -10,8 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Hash {
-    [Export(typeof(IHashStatusManagementService))]
-    class HashStatusManagementServiceImpl : IHashStatusManagementService {
+    /// <summary>
+    /// 哈希值状态存储服务,为得到较快的写入与遍历速度,采用TXT作为存储核心实现;
+    /// </summary>
+    [Export(typeof(IHashValueStatusManagementService))]
+    class HashValueStatusManagementServiceImpl : IHashValueStatusManagementService {
         private StreamWriter _streamWriter;
         private StreamReader _streamReader;
         private static string GetStorageFileName() {
@@ -19,7 +22,7 @@ namespace SingularityForensic.Hash {
             if (cs == null) {
                 throw new InvalidOperationException($"{nameof(CaseService.Current.CurrentCase)} hasn't been set.");
             }
-            return $"{cs.Path}/{Constants.HashStatusStorageName}";
+            return $"{cs.Path}/{Constants.HashValueStatusStorageName}";
         }
 
         public void BeginEdit() {
@@ -67,6 +70,10 @@ namespace SingularityForensic.Hash {
             }
             
             try {
+                if (!File.Exists(GetStorageFileName())) {
+                    File.Create(GetStorageFileName()).Dispose();
+                }
+                
                 _streamReader = new StreamReader(GetStorageFileName());
             }
             catch(Exception ex) {
@@ -121,8 +128,8 @@ namespace SingularityForensic.Hash {
             if(formattedProp.Length < 2) {
                 return false;
             }
-            return formattedProp[0] == Constants.HashStatusFormat_Container &&
-                formattedProp[formattedProp.Length - 1] == Constants.HashStatusFormat_Container;
+            return formattedProp[0] == Constants.HashValueStatusFormat_Container &&
+                formattedProp[formattedProp.Length - 1] == Constants.HashValueStatusFormat_Container;
         }
 
         /// <summary>
@@ -135,45 +142,46 @@ namespace SingularityForensic.Hash {
                 throw new ArgumentNullException(nameof(prop));
             }
 
-            return $"{Constants.HashStatusFormat_Container}{prop}{Constants.HashStatusFormat_Container}{Constants.HashStatusFormat_Spliter}";
+            return $"{Constants.HashValueStatusFormat_Container}{prop}{Constants.HashValueStatusFormat_Container}{Constants.HashValueStatusFormat_Spliter}";
         }
 
-        public IEnumerable<IHashPair> GetAllFileHashPairs() {
+        public IEnumerable<IUnitHashValueStatus> GetAllHashValueStatus() {
             if(_streamReader == null) {
                 throw new InvalidOperationException($"Please invoke {nameof(BeginOpen)} before invoking this method.");
             }
             
             _streamReader.BaseStream.Position = 0;
 
-            //将使用纯文本作为存储基础,一行内分别存储哈希名,哈希值,HasnerGUID;使用分割符分开,并使用包含符避免中断的歧义;
+            //将使用纯文本作为存储基础,一行内分别存储哈希名,哈希值,HasnerGUID;使用分割符分开,并使用包含符避免文字空格所导致的歧义;
             string line = null;
             while ((line = _streamReader.ReadLine()) != null) {
-                var splitParams = line.Split(Constants.HashStatusFormat_Spliter);
+                var splitParams = line.Split(Constants.HashValueStatusFormat_Spliter);
                 //行内属性数量必须满足,且属性值必须已包含符开始并结尾;
                 if (splitParams.Length < 4 || splitParams.Take(4).Any(p => !CheckFormattedPropValid(p))) {
                     continue;
                 }
 
-                yield return new HashPair(
+                yield return new UnitHashValueStatus(
                     GetPropFromFormattedProp(splitParams[0]),
                     GetPropFromFormattedProp(splitParams[1])){
                     HasherGUID = GetPropFromFormattedProp(splitParams[2]),
-                    PairType = GetPropFromFormattedProp(splitParams[3])
+                    StatusType = GetPropFromFormattedProp(splitParams[3])
                 };
             }
         }
         
-        public void SetFileHashValue(string name, string hashValue, string hasherGUID,string hashPairType) {
+        public void SetUnitHashValueStatus(string name, string hashValue, string hasherGUID,string hashValueStatusType) {
             if(_streamWriter == null) {
                 throw new InvalidOperationException($"Please invoke {nameof(BeginEdit)} before invoking this method.");
             }
 
             try {
+                //一行内写入名称,哈希值,哈希器GUID,哈希值状态类型;
                 _streamWriter.WriteLine(
                     GetFormattedPropFromProp(name) + 
                     GetFormattedPropFromProp(hashValue) + 
                     GetFormattedPropFromProp(hasherGUID) +
-                    GetFormattedPropFromProp(hashPairType)
+                    GetFormattedPropFromProp(hashValueStatusType)
                 );
             }
             catch(Exception ex) {

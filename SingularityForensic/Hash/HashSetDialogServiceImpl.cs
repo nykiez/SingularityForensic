@@ -87,7 +87,11 @@ namespace SingularityForensic.Hash
         }
 
         public IHashSet SelectHashSet() {
-            var dialog = DialogService.Current.CreateSingleSelectOptionDialog(HashSetManagementService.HashSets, p => p.Name);
+            var dialog = DialogService.Current.CreateSingleSelectOptionDialog(
+                HashSetManagementService.HashSets.Where(p => p.IsEnabled),
+                p => $"{p.Name}({p.Hasher.HashTypeName})"
+            );
+
             dialog.WindowTitle = LanguageService.FindResourceString(Constants.WindowTitle_SelectHashSet);
             dialog.Description = LanguageService.FindResourceString(Constants.Description_SelectHashSet);
             return dialog.GetOption();

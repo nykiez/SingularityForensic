@@ -4,7 +4,7 @@ using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.FileExplorer.Helpers;
 using System.ComponentModel.Composition;
 
-namespace SingularityForensic.FileExplorer.Events {
+namespace SingularityForensic.FileExplorer.Events.TreeView {
     /// <summary>
     /// 加入文件系统节点响应(左键);
     /// </summary>

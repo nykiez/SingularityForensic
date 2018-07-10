@@ -209,7 +209,9 @@
     <Compile Include="FileExplorer\IconSources.cs" />
     <Compile Include="FileSystem\IFileDetailInfoProvider.cs" />
     <Compile Include="Hash\Events\HashModuleLoadingEvent.cs" />
-    <Compile Include="Hash\IHashStatusManagementService.cs" />
+    <Compile Include="Hash\IHashSetStatusManagementService.cs" />
+    <Compile Include="Hash\IUnitHashValueStatus.cs" />
+    <Compile Include="Hash\IHashValueStatusManagementService.cs" />
     <Compile Include="Hash\IHashSetDialogService.cs" />
     <Compile Include="Hash\Events\HashSetIsEnabledChangedEvent.cs" />
     <Compile Include="Hash\Events\HashSetNameChangedEvent.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Hash\IHashPair.cs" />
     <Compile Include="Hash\IHashSet.cs" />
     <Compile Include="Hash\IHashSetManagementService.cs" />
+    <Compile Include="Hash\IUnitHashSetStatus.cs" />
     <Compile Include="Hex\HexExtensions.cs" />
     <Compile Include="Hex\IBytesToCharEncoding.cs" />
     <Compile Include="Hex\IBrushBlock.cs" />

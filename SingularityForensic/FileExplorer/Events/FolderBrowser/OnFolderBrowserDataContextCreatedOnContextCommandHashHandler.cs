@@ -32,10 +32,15 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
             //加入计算哈希值菜单;
             vm.AddContextCommand(CreateComputeHashCommandItem(vm));
             //加入加入哈希集菜单;
-            vm.AddContextCommand(CreateAddToHashSetCommandItem(vm)); 
+            vm.AddContextCommand(CreateAddToHashSetCommandItem(vm));
+            //加入匹配哈希值菜单;
+            vm.AddContextCommand(CreateMatchHashSetsCommandItem(vm));
         }
     }
 
+    /// <summary>
+    /// 计算哈希值相关;
+    /// </summary>
     partial class OnFolderBrowserDataContextCreatedOnContextCommandHashHandler {
         /// <summary>
         /// 创建计算哈希值菜单;
@@ -137,7 +142,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
                         var path = FileSystemService.Current.GetPath(tuple.fileRow.File);
                         if (!string.IsNullOrEmpty(path)) {
                             //表明类型为文件的哈希值类型;
-                            HashStatusManagementService.SetFileHashValue(path, hashValue, hasher.GUID, Constants.HashPairType_File);
+                            HashStatusManagementService.SetUnitHashValue(path, hashValue, hasher.GUID, Constants.HashValueStatusType_File);
                         }
                         tuple.fileRow.NotifyProperty(metaGUID);
                     }
@@ -171,7 +176,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
         /// </summary>
         /// <param name="hasher"></param>
         /// <param name="inputStream"></param>
-        /// <param name="progressReporter">通知,取消回调</param>
+        /// <param name="progressReporter">进度通知器</param>
         /// <returns></returns>
         private static byte[] ComputeHashValue(IHasher hasher, Stream inputStream, IProgressReporter progressReporter) {
             var opStream = new OperatebleStream(inputStream) {
@@ -196,6 +201,9 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
         }
     }
 
+    /// <summary>
+    /// 加入哈希集相关;
+    /// </summary>
     partial class OnFolderBrowserDataContextCreatedOnContextCommandHashHandler {
         /// <summary>
         /// 创建"加入到哈希集"菜单;
@@ -285,7 +293,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
             loadingDialog.RunWorkerCompleted += delegate {
                 MsgBoxService.Show(
                     LanguageService.Current.TryGetStringWithFormat(
-                        Constants.MsgText_AddingToHashSetFormat,rowCount,succeedCount,errCount
+                        Constants.MsgText_AddedToHashSetFormat,rowCount,succeedCount,errCount
                         )
                     );
             };
@@ -297,5 +305,128 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
         }
 
         
+    }
+
+    /// <summary>
+    /// 匹配哈希库相关;
+    /// </summary>
+    partial class OnFolderBrowserDataContextCreatedOnContextCommandHashHandler {
+        /// <summary>
+        /// 创建"匹配哈希集"菜单;
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        private static ICommandItem CreateMatchHashSetsCommandItem(IFolderBrowserViewModel vm) {
+            if (vm == null) {
+                throw new ArgumentNullException(nameof(vm));
+            }
+
+            var cmi = CommandItemFactory.CreateNew(CreateMatchHashSetsCommand(vm));
+            cmi.Name = LanguageService.FindResourceString(Constants.ContextCommandName_MatchHashSets);
+            return cmi;
+        }
+
+        private static DelegateCommand CreateMatchHashSetsCommand(IFolderBrowserViewModel vm) {
+            var comm = new DelegateCommand(() => {
+                var loadingDialog = DialogService.Current.CreateLoadingDialog();
+                string errMsg = null;
+                
+                loadingDialog.DoWork += delegate {
+                    try {
+                        MatchHashSetsOnDialog(loadingDialog, vm.SelectedFileRows);
+                    }
+                    catch(Exception ex) {
+                        LoggerService.WriteException(ex);
+                        errMsg = ex.Message;
+                    }
+                };
+
+                loadingDialog.RunWorkerCompleted += delegate {
+                    if(errMsg != null) {
+                        MsgBoxService.Show(errMsg);
+                    }
+                };
+
+                loadingDialog.ShowDialog();
+            });
+
+            return comm;
+        }
+
+        private static void MatchHashSetsOnDialog(
+            ILoadingDialog loadingDialog,
+            IEnumerable<IFileRow> fileRows) {
+            var rowCount =  fileRows.Count();
+            var rowIndex = 0;
+            var hashSets = HashSetManagementService.HashSets.Where(p => p.IsEnabled);
+
+            //为防止在内循环中反复构造metaGUID,在外构造后组成Tuple再进行遍历匹配;
+            var hashSetAndMetaGUIDTuples = new List<(IHashSet hashSet, string metaGUID)>();
+            foreach (var hashSet in hashSets) {
+                hashSetAndMetaGUIDTuples.Add((hashSet, $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hashSet.Hasher.GUID}"));
+                hashSet.BeginOpen();
+            }
+
+            if(hashSetAndMetaGUIDTuples.Count == 0) {
+                return;
+            }
+            
+            try {
+                //打开哈希集的服务编辑状态,以保存;
+                HashSetStatusManagementService.BeginEdit();
+                foreach (var row in fileRows) {
+                    IHashSet[] hashSetArray = null;
+                    hashSetArray = hashSetAndMetaGUIDTuples.Where(tuple => {
+                        var hashValue = row.File.ExtensibleTag.GetInstance<string>(tuple.metaGUID);
+                        if (hashValue == null) {
+                            return false;
+                        }
+
+                        if (hashValue.Length != tuple.hashSet.Hasher.BytesPerHashValue * 2) {
+                            return false;
+                        }
+
+                        //若匹配到哈希值,则说明该哈希集满足条件;
+                        var pair = tuple.hashSet.FindHashPairs(hashValue).FirstOrDefault();
+                        if (pair == null) {
+                            return false;
+                        }
+
+                        return true;
+                    }).Select(p => p.hashSet).ToArray();
+
+                    if (hashSetArray.Length == 0) {
+                        continue;
+                    }
+
+                    //写入状态;
+                    var path = FileSystemService.Current.GetPath(row.File);
+                    if (path == null) {
+                        continue;
+                    }
+                    HashSetStatusManagementService.SetUnitHashSetStatus(path, hashSetArray.Select(p => p.GUID).ToArray(), Constants.HashSetsStatusType_File);
+
+                    //写入拓展;
+                    row.File.ExtensibleTag.SetInstance(hashSetArray, Constants.FileTag_HashSets);
+                    row.NotifyProperty(Constants.FileMetaDataGUID_HashSets);
+
+                    //通知进度;
+                    loadingDialog.ReportProgress(rowIndex * 100 / rowCount);
+                }
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+                throw;
+            }
+            finally {
+                //打开哈希集的服务编辑状态,以递交更改;
+                HashSetStatusManagementService.EndEdit();
+            }
+            
+            foreach (var hashSet in hashSets) {
+                hashSet.EndOpen();
+            }
+            
+        }
     }
 }

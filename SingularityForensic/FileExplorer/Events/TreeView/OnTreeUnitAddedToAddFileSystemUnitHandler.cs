@@ -8,7 +8,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
 
-namespace SingularityForensic.FileExplorer.Events {
+namespace SingularityForensic.FileExplorer.Events.TreeView {
     /// <summary>
     /// 案件文件节点加入时加入文件系统节点;
     /// </summary>

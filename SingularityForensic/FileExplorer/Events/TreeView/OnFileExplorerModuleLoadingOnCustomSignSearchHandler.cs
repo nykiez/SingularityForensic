@@ -1,15 +1,11 @@
 ﻿using SingularityForensic.Contracts.App;
-using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.FileExplorer.Events;
-using SingularityForensic.Contracts.FileSystem;
-using SingularityForensic.Contracts.TreeView;
 using System.ComponentModel.Composition;
-using System.Linq;
-
-namespace SingularityForensic.FileExplorer.Events {
+using static SingularityForensic.FileExplorer.Events.TreeView.TreeServiceHelper;
+namespace SingularityForensic.FileExplorer.Events.TreeView {
     /// <summary>
-    /// 为设备/分区节点加入时加入自定义签名扫描;
+    /// 为设备/分区节点加入自定义签名扫描;
     /// </summary>
     [Export(typeof(IFileExplorerModuleLoadingEventHandler))]
     class OnFileExplorerModuleLoadingOnCustomSignSearchHandler : IFileExplorerModuleLoadingEventHandler {
@@ -38,60 +34,6 @@ namespace SingularityForensic.FileExplorer.Events {
 
             treeService.AddContextCommand(cmi);
         }
-
-        private static IStreamFile GetStreamFileFromUnitSelected(ITreeService treeService) {
-            if(treeService == null) {
-                return null;
-            }
-            if(treeService.SelectedUnit == null) {
-                return null;
-            }
-
-            if(treeService.SelectedUnit.TypeGuid == Contracts.Casing.Constants.TreeUnitType_CaseEvidence) {
-                return GetStreamFileFromCaseEvidenceUnit(treeService.SelectedUnit);
-            }
-            if (treeService.SelectedUnit?.TypeGuid == Contracts.FileExplorer.Constants.TreeUnitType_InnerFile) {
-                return GetStreamFileFromInnerFileUnit(treeService.SelectedUnit);
-            }
-            return null;
-        }
-
-        private static IStreamFile GetStreamFileFromCaseEvidenceUnit(ITreeUnit treeUnit) {
-            if(treeUnit == null) {
-                return null;
-            }
-            
-            var csEvidence = treeUnit.GetInstance<ICaseEvidence>(Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
-            if (csEvidence == null) {
-                LoggerService.WriteCallerLine($"{nameof(csEvidence)} can't be null.");
-                return null;
-            }
-
-            var fileTuple = FileSystemService.Current.MountedUnits?.FirstOrDefault(p => p.XElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
-            if (fileTuple == null) {
-                LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
-                return null;
-            }
-
-            if (fileTuple.File is IStreamFile streamFile) {
-                return streamFile;
-            }
-
-            return null;
-        }
-
-        private static IStreamFile GetStreamFileFromInnerFileUnit(ITreeUnit treeUnit) {
-            var file = treeUnit.GetInstance<IFile>(Contracts.FileExplorer.Constants.TreeUnitTag_InnerFile);
-            if (file == null) {
-                LoggerService.WriteCallerLine($"{nameof(file)} can't be null.");
-                return null;
-            }
-
-            if (file is IStreamFile streamFile) {
-                return streamFile;
-            }
-
-            return null;
-        }
+        
     }
 }

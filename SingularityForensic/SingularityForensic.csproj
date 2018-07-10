@@ -386,10 +386,12 @@
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandHashHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnNavMenuHandler.cs" />
     <Compile Include="FileExplorer\Events\Hash\OnCaseLoadedOnLoadFileHashHandler.cs" />
+    <Compile Include="FileExplorer\Events\Hash\OnCaseLoadedOnLoadFileHashSetHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnFileExplorerModuleLoadingForNameCategoryServiceHandler.cs" />
     <Compile Include="FileExplorer\Events\NameCategory\OnNameCategoryLoadedOnFolderBrowserNotifyHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedEventOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnDocumentAddedShowPartitionBrowserHandler.cs" />
+    <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingOnMatchHashSetsHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileSystemUnitSelectedChangedHandler.cs" />
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnFocusedPartChangedOnDeviceHexHandler.cs" />
     <Compile Include="FileExplorer\Events\FolderBrowser\OnFolderBrowserDataContextCreatedOnContextCommandOpenFileWithHandler.cs" />
@@ -408,6 +410,7 @@
     <Compile Include="FileExplorer\Events\PartitionBrowser\OnPartitionDoubleClickedHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnFileExplorerModuleLoadingOnCustomSignSearchHandler.cs" />
     <Compile Include="FileExplorer\Events\TreeView\OnTreeUnitAddedToAddFileSystemUnitHandler.cs" />
+    <Compile Include="FileExplorer\Events\TreeView\TreeServiceHelper.cs" />
     <Compile Include="FileExplorer\FolderBrowserDataContext.cs" />
     <Compile Include="FileExplorer\FileExtensions.cs" />
     <Compile Include="FileExplorer\FileRowFactoryImpl.cs" />
@@ -448,7 +451,10 @@
     <Compile Include="Hash\HashPair.cs" />
     <Compile Include="Hash\HashSet.cs" />
     <Compile Include="Hash\HashSetDialogServiceImpl.cs" />
-    <Compile Include="Hash\HashStatusManagementServiceImpl.cs" />
+    <Compile Include="Hash\HashSetStatusManagementServiceImpl.cs" />
+    <Compile Include="Hash\HashValueStatusManagementServiceImpl.cs" />
+    <Compile Include="Hash\UnitHashSetStatus.cs" />
+    <Compile Include="Hash\UnitHashValueStatus.cs" />
     <Compile Include="Hash\MenuItemDefinitions.cs" />
     <Compile Include="Hash\Models\HasherModel.cs" />
     <Compile Include="Hash\Models\HashSetModel.cs" />

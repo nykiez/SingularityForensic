@@ -7,7 +7,7 @@ using SingularityForensic.Contracts.TreeView.Events;
 using SingularityForensic.FileExplorer.Helpers;
 using System.ComponentModel.Composition;
 
-namespace SingularityForensic.FileExplorer.Events {
+namespace SingularityForensic.FileExplorer.Events.TreeView {
     /// <summary>
     /// 点击节点子文件(分区 / 目录)时,操作文档区域;
     /// </summary>

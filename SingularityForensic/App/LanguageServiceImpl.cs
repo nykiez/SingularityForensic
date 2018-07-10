@@ -167,9 +167,7 @@ namespace SingularityForensic.App {
                 }
             }
         }
-
         
-
         public string TryGetStringWithFormat(string languageFormatKey, params object[] args) {
             try {
                 var format = FindResourceString(languageFormatKey);

@@ -8,7 +8,7 @@ using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.FileExplorer.Helpers;
 using System.ComponentModel.Composition;
 
-namespace SingularityForensic.FileExplorer.Events {
+namespace SingularityForensic.FileExplorer.Events.TreeView {
     /// <summary>
     /// 添加子文件递归浏览的命令;
     /// </summary>

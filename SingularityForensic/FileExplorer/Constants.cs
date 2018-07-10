@@ -56,6 +56,8 @@
 
         public const string FileHashMetaDataProvider_GUIDPrefix = "HashMetaData_";
 
+        public const string FileHashSetMetaDataProvider_GUIDPrefix = "HashSetMetaData";
+
         /// <summary>
         /// 打开方式,右键;
         /// </summary>
@@ -105,7 +107,7 @@
 
         public const string FileMetaDataGUID_NameCategory = nameof(FileMetaDataGUID_NameCategory);
 
-        public const string FileMetaDataGUID_HashSet = nameof(FileMetaDataGUID_HashSet);
+        public const string FileMetaDataGUID_HashSets = nameof(FileMetaDataGUID_HashSets);
 
         public const string PartMetaDataGUID_Partition = nameof(PartMetaDataGUID_Partition);
 
@@ -118,10 +120,14 @@
         public const string FileTag_CategoryDescriptor = nameof(FileTag_CategoryDescriptor);
 
         //哈希集状态元素;
-        public const string FileTag_HashSetState = nameof(FileTag_HashSetState);
+        public const string FileTag_HashSets = nameof(FileTag_HashSets);
 
         //文件的哈希类型;
-        public const string HashPairType_File = nameof(HashPairType_File);
+        public const string HashValueStatusType_File = nameof(HashValueStatusType_File);
+
+
+        public const string HashSetsStatusType_File = nameof(HashSetsStatusType_File);
+
     }
 
     /// <summary>
@@ -243,10 +249,13 @@
         public const string ContextCommandName_AddToHashSet = nameof(ContextCommandName_AddToHashSet);
 
 
+        public const string ContextCommandName_MatchHashSets = nameof(ContextCommandName_MatchHashSets);
+
+
         public const string WindowTitle_AddingToHashSet = nameof(WindowTitle_AddingToHashSet);
 
 
-        public const string MsgText_AddingToHashSetFormat = nameof(MsgText_AddingToHashSetFormat);
+        public const string MsgText_AddedToHashSetFormat = nameof(MsgText_AddedToHashSetFormat);
 
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);
         //public const string FileMetaDataName_ = nameof(FileMetaDataName_);

@@ -22,19 +22,19 @@ namespace SingularityForensic.FileExplorer.Events.Hash {
         public void Handle() {
             try {
                 HashStatusManagementService.BeginOpen();
-                var pairs = HashStatusManagementService.GetAllFileHashPairs();
-                foreach (var pair in pairs) {
-                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{pair.HasherGUID}";
-                    if (pair.PairType != Constants.HashPairType_File) {
+                var statuss = HashStatusManagementService.GetAllHashValueStatus();
+                foreach (var status in statuss) {
+                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{status.HasherGUID}";
+                    if (status.StatusType != Constants.HashValueStatusType_File) {
                         continue;
                     }
 
-                    var file = FileSystemService.Current.GetFile(pair.Name);
+                    var file = FileSystemService.Current.GetFile(status.Name);
                     if(file == null) {
                         continue;
                     }
 
-                    file.ExtensibleTag.SetInstance(pair.Value, metaGUID);
+                    file.ExtensibleTag.SetInstance(status.Value, metaGUID);
                 }
             }
             catch (Exception ex) {

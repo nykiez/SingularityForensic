@@ -19,7 +19,7 @@ namespace SingularityForensic.Test.Hash {
             TestCommon.InitializeTest();
             CaseService.ConfirmCaseLoaded();
             Assert.IsNotNull(CaseService.Current.CurrentCase);
-            _hashStatusService = ServiceProvider.GetInstance<IHashStatusManagementService>();
+            _hashStatusService = ServiceProvider.GetInstance<IHashValueStatusManagementService>();
             Assert.IsNotNull(_hashStatusService);
             //var cs = new Mock<ICase>();
             //cs.SetupProperty(p => p.Path, "E://anli/Case");
@@ -28,7 +28,7 @@ namespace SingularityForensic.Test.Hash {
 
             //ExportProviderServiceProviderMocker.StaticInstance.SetInstance<ICaseService>(csService.Object);
         }
-        IHashStatusManagementService _hashStatusService;
+        IHashValueStatusManagementService _hashStatusService;
         [TestMethod]
         public void TestSetAndGet() {
             var testName = "testName";
@@ -38,17 +38,17 @@ namespace SingularityForensic.Test.Hash {
 
             _hashStatusService.BeginEdit();
             _hashStatusService.DeleteAll();
-            _hashStatusService.SetFileHashValue(testName, testHash, testGUID, testPairType);
+            _hashStatusService.SetUnitHashValueStatus(testName, testHash, testGUID, testPairType);
             _hashStatusService.EndEdit();
 
             _hashStatusService.BeginOpen();
-            var pairs = _hashStatusService.GetAllFileHashPairs();
+            var pairs = _hashStatusService.GetAllHashValueStatus();
             Assert.AreEqual(pairs.Count(), 1);
             var pair = pairs.First();
             Assert.AreEqual(pair.Name, testName);
             Assert.AreEqual(pair.Value, testHash);
             Assert.AreEqual(pair.HasherGUID, testGUID);
-            Assert.AreEqual(pair.PairType, testPairType);
+            Assert.AreEqual(pair.StatusType, testPairType);
             _hashStatusService.EndOpen();
         }
     }

@@ -30,16 +30,17 @@
         public const string HashDefaultStorageFolder = "HashSets";
 
         //哈希状态存储路径(作用域为案件内);
-        public const string HashStatusStorageName = "HashStatus.txt";
+        public const string HashValueStatusStorageName = "HashValueStatus.txt";
 
         //哈希状态文件属性分割符;
-        public const char HashStatusFormat_Spliter = ' ';
+        public const char HashValueStatusFormat_Spliter = ' ';
 
         //哈希状态文件属性包含符号;(")
-        public const char HashStatusFormat_Container = '"';
+        public const char HashValueStatusFormat_Container = '"';
 
-        //哈希集的哈希类型;
-        public const string HashPairType_HashSet = nameof(HashPairType_HashSet);
+
+        public const string HashSetStatusStorageName = "HashSetStatus.txt";
+
     }
 
     /// <summary>

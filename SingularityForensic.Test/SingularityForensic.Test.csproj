@@ -149,6 +149,7 @@
     <Compile Include="ForensicInfoTest.cs" />
     <Compile Include="Hash\HasherTests.cs" />
     <Compile Include="Hash\HashSetManagementServiceTest.cs" />
+    <Compile Include="Hash\HashSetStatusManagementServiceTest.cs" />
     <Compile Include="Hash\HashSetTests.cs" />
     <Compile Include="Hash\HashStatusManagementServiceTest.cs" />
     <Compile Include="Hash\ViewModels\CreateHashSetDialogViewModelTests.cs" />

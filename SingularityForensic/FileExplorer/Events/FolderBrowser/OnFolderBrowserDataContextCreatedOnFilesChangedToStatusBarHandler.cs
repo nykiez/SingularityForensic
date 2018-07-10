@@ -11,7 +11,7 @@ using System.ComponentModel.Composition;
 
 namespace SingularityForensic.FileExplorer.Events {
     /// <summary>
-    /// 当当前文件行发生变更时,通知状态栏变化;
+    /// 当资源管理器当前文件集合发生变更时,通知状态栏变化;
     /// </summary>
     [Export(typeof(IFolderBrowserDataContextCreatedEventHandler))]
     class OnFolderBrowserDataContextCreatedOnFilesChangedToStatusBarHandler : IFolderBrowserDataContextCreatedEventHandler {

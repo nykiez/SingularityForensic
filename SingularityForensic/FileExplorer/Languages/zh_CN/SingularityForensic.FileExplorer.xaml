@@ -73,4 +73,6 @@
   <sys:String x:Key="ContextCommandName_ComputeAllHash">全部</sys:String>
   <sys:String x:Key="ContextCommandName_AddToHashSet">加入至哈希集</sys:String>
   <sys:String x:Key="WindowTitle_AddingToHashSet">正在加入至哈希集</sys:String>
+  <sys:String x:Key="MsgText_AddedToHashSetFormat">导入总计{0}次,成功{1}次,错误{2}次</sys:String>
+  <sys:String x:Key="ContextCommandName_MatchHashSets">匹配哈希集</sys:String>
 </ResourceDictionary>

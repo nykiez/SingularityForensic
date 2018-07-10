@@ -46,37 +46,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        
-        <!--<DockPanel x:Name="navDock" >
-            
-            --><!--<ItemsControl ItemsSource="{Binding NavNodes}" DockPanel.Dock="Left">
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="TextElement.Foreground" Value="Black"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Left"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" >
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                    <i:InvokeCommandAction Command="{Binding EscapeToCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock >/</TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>--><!--
-
-            <TextBlock Text="{Binding TotalFileState}" DockPanel.Dock="Right"/>
-        </DockPanel>-->
         <telerik:RadBusyIndicator Grid.Row="1" IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyWord}">
             <gv:RadGridViewEx ItemsSource="{Binding InternalFileRows}" AutoGenerateColumns="False" IsFilteringAllowed="True"
                           Style="{DynamicResource RadGridViewExStyle}" SelectionMode="Extended" 
@@ -160,11 +129,6 @@
                         </ContextMenu.ItemContainerStyle>
                     </ContextMenu>
                 </gv:RadGridViewEx.ScrollContentContextMenu>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="AutoGeneratingColumn">
-                        <prism:InvokeCommandAction Command="{Binding AutoGeneratingColumnCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </gv:RadGridViewEx>
         </telerik:RadBusyIndicator>
         

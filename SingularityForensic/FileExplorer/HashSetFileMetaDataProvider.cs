@@ -21,49 +21,66 @@ namespace SingularityForensic.FileExplorer
 
         public override Type MetaDataType => typeof(string);
 
-        public override string GUID => Constants.FileMetaDataGUID_HashSet;
+        public override string GUID => Constants.FileMetaDataGUID_HashSets;
 
         public override int Order => 16;
 
         public override object GetMetaData(IFile file) {
+            var hashSets = file.ExtensibleTag.GetInstance<IHashSet[]>(Constants.FileTag_HashSets);
+            if (hashSets == null) {
+                return string.Empty;
+            }
+
             var sb = new StringBuilder();
-            var hashSets = HashSetManagementService.HashSets;
-            return string.Empty;
-            foreach (var hashSet in hashSets) {
-                if (!hashSet.IsEnabled) {
+            foreach (var hashset in hashSets) {
+                if (!hashset.IsEnabled) {
                     continue;
                 }
-#if DEBUG
-                if (file.Name == "avformat-56.dll") {
-
-                }
-#endif
-                var hashValue = file.ExtensibleTag?.GetInstance<string>($"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hashSet.Hasher.GUID}");
-
-                if (hashValue == null){
-                    continue;
-                }
-
-                if(hashValue.Length != hashSet.Hasher.BytesPerHashValue * 2) {
-                    continue;
-                }
-
-                try {
-                    hashSet.BeginOpen();
-                    var hashPairs = hashSet.FindHashPairs(hashValue);
-                    if (hashPairs.FirstOrDefault() == null) {
-                        sb.Append($"{hashSet.Name};");
-                    }
-                }
-                catch(Exception ex) {
-
-                }
-                finally {
-                    hashSet.EndOpen();
-                }
-                
+                sb.Append($"{hashset.Name};");
             }
             return sb.ToString();
+
+            //一下代码原用于实时查询,匹配显示哈希集所用,但性能不足(滚动卡顿);
+            //            var hashSets = HashSetManagementService.HashSets;
+
+            //            foreach (var hashSet in hashSets) {
+            //                if (!hashSet.IsEnabled) {
+            //                    continue;
+            //                }
+            //#if DEBUG
+            //                if (file.Name == "avformat-56.dll") {
+
+            //                }
+            //#endif
+            //                var hashValue = file.ExtensibleTag?.GetInstance<string>($"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hashSet.Hasher.GUID}");
+
+            //                if (hashValue == null) {
+            //                    continue;
+            //                }
+
+            //                if (hashValue.Length != hashSet.Hasher.BytesPerHashValue * 2) {
+            //                    continue;
+            //                }
+
+            //                try {
+            //                    hashSet.BeginOpen();
+            //                    var hashPairs = hashSet.FindHashPairs(hashValue);
+            //                    if (hashPairs.FirstOrDefault() != null) {
+            //                        sb.Append($"{hashSet.Name};");
+            //                    }
+            //                }
+            //                catch (Exception ex) {
+
+            //                }
+            //                finally {
+            //                    hashSet.EndOpen();
+            //                }
+
+            //            }
+            //            return sb.ToString();
+            //            return string.Empty;
+
+
         }
     }
 }

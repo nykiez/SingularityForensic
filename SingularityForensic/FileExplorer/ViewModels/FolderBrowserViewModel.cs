@@ -76,9 +76,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// 所属主文件（分区，设备等);
         /// </summary>
         public IHaveFileCollection OwnedFileCollection { get; }                                        
-
-
-
+        
         public CustomTypedListSource<IFileRow> InternalFileRows { get; set; } = new CustomTypedListSource<IFileRow>();
         public IEnumerable<IFileRow> FileRows  => InternalFileRows;
         
