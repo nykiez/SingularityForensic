@@ -17,4 +17,10 @@
   <sys:String x:Key="MenuItemText_CreateCase">创建案件</sys:String>
   <sys:String x:Key="ContextCommandName_RemoveCaseEvidence">移除</sys:String>
   <sys:String x:Key="MsgText_ConfirmToRemoveEvidence">确定要移除该证据项吗?</sys:String>
+  <sys:String x:Key="MsgText_ConfirmToCloseCurrentCase">尚有案件未关闭,确定关闭它吗?</sys:String>
+  <sys:String x:Key="BtnText_OpenRecentCase">打开</sys:String>
+  <sys:String x:Key="MsgText_ConfirmToRemoveRecentCaseFormat">未能发现案件文件"{0}",是否将其从最近案件列表中移除?</sys:String>
+  <sys:String x:Key="RecentCaseRecordGroupName_Today">今天</sys:String>
+  <sys:String x:Key="RecentCaseRecordGroupName_Yesterday">昨天</sys:String>
+  <sys:String x:Key="RecentCaseRecordGroupName_Earlier">更早</sys:String>
 </ResourceDictionary>

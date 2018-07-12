@@ -15,7 +15,8 @@ namespace SingularityForensic.Test.Casing {
                             CaseInfo = "Info",
                             CaseType = "dd",
                             CaseNum = "001",
-                            CaseTime = "2013131"
+                            CaseTime = "2013131",
+                            GUID = "317983179831"
                         };
                         return cs;
                     });

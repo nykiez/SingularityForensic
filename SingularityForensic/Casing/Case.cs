@@ -29,7 +29,7 @@ namespace SingularityForensic.Casing {
             this.XDoc = new XDocument(new XElement(nameof(ICase)));
             this.CaseName = caseName;
             this.Path = $"{direct}/{caseName}";
-
+            this.GUID = Guid.NewGuid().ToString("P");
             try {
                 //创建案件文件夹;
                 if (!SysIO.Directory.Exists(this.Path)) {
@@ -43,7 +43,6 @@ namespace SingularityForensic.Casing {
                 throw;
             }
 
-            Initialize();
         }
 
         private Case(XDocument doc, string path) {
@@ -51,20 +50,11 @@ namespace SingularityForensic.Casing {
             var rootElem = doc.Root;
             this.CaseName = rootElem.Attribute(nameof(CaseName))?.Value;
             this.Path = path;
-            Initialize();
         }
         
-        private void Initialize() {
-            InitializeEventHandlers();
-        }
-        private void InitializeEventHandlers() {
-            _caseEvidenceLoadingEventHandlers = ServiceProvider.
-                GetAllInstances<ICaseEvidenceLoadingEventHandler>().
-                OrderBy(p => p.Sort).
-                ToArray();
-        }
+    
 
-        private IEnumerable<ICaseEvidenceLoadingEventHandler> _caseEvidenceLoadingEventHandlers;
+        
         //案件时间;
         public string CaseTime {
             get => XDoc.GetXElemValue();
@@ -144,7 +134,7 @@ namespace SingularityForensic.Casing {
         public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
                 PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
-                PubEventHelper.PublishEventToHandlers((csEvidence, reporter), _caseEvidenceLoadingEventHandlers);
+                PubEventHelper.PublishEventToHandlers<ICaseEvidenceLoadingEventHandler, (ICaseEvidence csEvidence, IProgressReporter reporter)>((csEvidence, reporter));
                 //案件中加入文件;
                 _caseEvidences.Add(csEvidence);
                 PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
@@ -244,6 +234,11 @@ namespace SingularityForensic.Casing {
         public string CaseName {
             get => XDoc?.Root?.Attribute(nameof(CaseName))?.Value;
             set => XDoc?.Root?.SetAttributeValue(nameof(CaseName), value);
+        }
+
+        public string GUID {
+            get => XDoc.GetXElemValue();
+            set => XDoc.SetXElemValue(value);
         }
 
         /// <summary>

@@ -19,16 +19,6 @@ namespace SingularityForensic.FileExplorer.Views {
             SingularityForensic.Contracts.Common.LoggerService.WriteCallerLine("Folder initializing");
             InitializeComponent();
             this.DataContextChanged += FolderBrowser_DataContextChanged;
-            //this.Unloaded += FolderBrowser_Unloaded;
-        }
-
-        private void FolderBrowser_Unloaded(object sender, RoutedEventArgs e) {
-            if (this.DataContext is IInteractionGridViewModel vm) {
-                vm.GetSelectedRows = null;
-                vm.SelectedAllRows = null;
-            }
-            
-
         }
 
         private void FolderBrowser_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {

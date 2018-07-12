@@ -301,6 +301,17 @@
     <Compile Include="BaseDevice\BasePartInfo.cs" />
     <Compile Include="BaseDevice\Events\Hex\OnHexDataContextLoadedOnMBRDeviceHandler.cs" />
     <Compile Include="BaseDevice\InnerPartsType.cs" />
+    <Compile Include="Casing\Design\RecentCaseRecordsDesignViewModel.cs" />
+    <Compile Include="Casing\Events\Casing\OnCaseLoadedOnAddToRecentCaseRecordHandler.cs" />
+    <Compile Include="Casing\Events\MainPage\OnMainPageLoadedOnNavigateToRecentRecordHandler.cs" />
+    <Compile Include="Casing\Events\Shell\OnShellClosingOnCaseClosingHandler.cs" />
+    <Compile Include="Casing\Models\RecentCaseRecordGroupModel.cs" />
+    <Compile Include="Casing\RecentCaseRecord.cs" />
+    <Compile Include="Casing\RecentCaseRecordManagementServiceImpl.cs" />
+    <Compile Include="Casing\ViewModels\RecentCaseRecordsViewModel.cs" />
+    <Compile Include="Casing\Views\RecentCaseRecords.xaml.cs">
+      <DependentUpon>RecentCaseRecords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommandFactoryImpl.cs" />
     <Compile Include="Common\LoggerServiceImpl.cs" />
     <Compile Include="App\Dialogs\MessageBoxDialog.cs" />
@@ -326,7 +337,7 @@
     <Compile Include="Casing\MenuItemDefinitions.cs" />
     <Compile Include="Casing\MessageBoxes\CreateCaseMessageBox.cs" />
     <Compile Include="Casing\MessageBoxes\ShowCaseFilePropertyMessageBox.cs" />
-    <Compile Include="Casing\Models\TreeUnits.cs" />
+    <Compile Include="Casing\Models\RecentCaseRecordModel.cs" />
     <Compile Include="Casing\IconSources.cs" />
     <Compile Include="Casing\CaseServiceImpl.cs" />
     <Compile Include="Casing\CaseUIService.cs" />
@@ -362,6 +373,7 @@
     <Compile Include="Document\Design\DocumentTabsDesignViewModel.cs" />
     <Compile Include="Document\DocumentBase.cs" />
     <Compile Include="Document\DocumentModule.cs" />
+    <Compile Include="Document\Events\DocumentAddedOnNavigateToDocumentsViewHandler.cs" />
     <Compile Include="Document\Models\DocumentModel.cs" />
     <Compile Include="Ext\Constants.cs" />
     <Compile Include="Ext\Events\Hex\OnHexDataContextLoadedOnExtPartHandler.cs" />
@@ -446,7 +458,7 @@
     <Compile Include="FileSystem\FileBase.cs" />
     <Compile Include="FileSystem\Partition.cs" />
     <Compile Include="Hash\Events\OnHashModuleLoadingHashSetManagementServiceInitializingHandler.cs" />
-    <Compile Include="Hash\HashManagementServiceImpl.cs" />
+    <Compile Include="Hash\HashSetManagementServiceImpl.cs" />
     <Compile Include="Hash\HashModule.cs" />
     <Compile Include="Hash\HashPair.cs" />
     <Compile Include="Hash\HashSet.cs" />
@@ -632,7 +644,6 @@
     <Compile Include="BaseDevice\NativeBasicDeviceStructs.cs" />
     <Compile Include="BaseDevice\UnmanagedBasicDeviceManager.cs" />
     <Compile Include="FAT\Structs.cs" />
-    <Compile Include="FileSystem\NTFSStreamParsingProvider.cs" />
     <Compile Include="FileSystem\UnknownStreamParsingProvider.cs" />
     <Compile Include="Helpers\ConfigState.cs" />
     <Compile Include="About\MenuItemDefinitions.cs" />
@@ -690,6 +701,7 @@
     <Compile Include="About\AboutMessageBox.cs" />
     <Compile Include="Drive\Design\DriveItemsWindowDesignViewModel.cs" />
     <Compile Include="MainPage\Constants.cs" />
+    <Compile Include="MainPage\Events\OnMainPageLoadedOnNavigateToDefaultViewHandler.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
     <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
@@ -871,6 +883,10 @@
     <Page Include="Casing\Views\CreateCaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Casing\Views\RecentCaseRecords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Casing\Views\ShowFileCaseFilePropertyWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1291,7 +1307,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adb\Languages\en_US\" />
-    <Folder Include="Casing\Events\" />
     <Folder Include="Casing\Languages\en_US\" />
     <Folder Include="Controls\Languages\en_US\" />
     <Folder Include="Drive\Languages\en_US\" />
@@ -1656,6 +1671,7 @@
     <Resource Include="Controls\Images\Desc_Back.png" />
     <Resource Include="Controls\Images\TalkLog_Left.png" />
     <Resource Include="Controls\Images\TalkLog_Right.png" />
+    <Resource Include="Casing\Images\Icon_Case.png" />
     <Content Include="Drive\cdfc_device.dll" />
     <Content Include="Drive\DevManager.dll" />
     <Content Include="Ext\ExtRecover.dll" />

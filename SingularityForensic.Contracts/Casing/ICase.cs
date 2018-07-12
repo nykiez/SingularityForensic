@@ -7,11 +7,30 @@ using System.Xml.Linq;
 
 namespace SingularityForensic.Contracts.Casing {
     public interface ICase {
+        /// <summary>
+        /// 案件时间;
+        /// </summary>
         string CaseTime { get; }
+        /// <summary>
+        /// 案件类型;
+        /// </summary>
         string CaseType { get; }
+        /// <summary>
+        /// 案件编号;
+        /// </summary>
         string CaseNum { get; }
+        /// <summary>
+        /// 案件描述;
+        /// </summary>
         string CaseDes { get; }
+        /// <summary>
+        /// 案件详细;
+        /// </summary>
         string CaseInfo { get; }
+        /// <summary>
+        /// 标识GUID;
+        /// </summary>
+        string GUID { get; }
         XDocument XDoc { get; }
         IEnumerable<ICaseEvidence> CaseEvidences {get;}
         /// <summary>
@@ -35,7 +54,9 @@ namespace SingularityForensic.Contracts.Casing {
         /// </summary>
         /// <param name="evidence"></param>
         void RemoveCaseEvidence(ICaseEvidence evidence);
-
+        /// <summary>
+        /// 保存;
+        /// </summary>
         void Save();
     }
     

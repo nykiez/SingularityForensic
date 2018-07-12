@@ -116,5 +116,11 @@ namespace SingularityForensic.Hex {
 
         public event EventHandler SelectedToolTipItemChanged;
         public IToolTipItem SelectedToolTipItem => _vm.SelectedToolTipItemModel?.ToolTipItem;
+
+#if DEBUG
+        ~HexDataContext() {
+
+        }
+#endif
     }
 }

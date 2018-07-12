@@ -14,7 +14,25 @@
         public const string TBButtonGUID__CloseCase = nameof(TBButtonGUID__CloseCase);
 
         public const string TBButtonGUID__CreateCase = nameof(TBButtonGUID__CreateCase);
+        
+        public const string RecentRecordsManagement_ConfigFile = "RecentCases.xml";
+        
+        public const string XmlElemName_RecentRecords_Root = "RencentsCases";
+        
+        public const string XmlElemName_RecentRecords_Record = "Record";
+        
+        public const string XmlElemName_RecentRecords_Record_CaseName = "Name";
+        
+        public const string XmlElemName_RecentRecords_Record_CasePath = "Path";
+        
+        public const string XmlElemName_RecentRecords_Record_CaseTime = "CreateTime";
+        
+        public const string XmlElemName_RecentRecords_Record_CaseGUID = "GUID";
+        
+        public const string XmlElemName_RecentRecords_Record_LastAccessTime = "LastAccessTime";
 
+        //因为使用XML存储路径时,值中无法出现冒号,故暂时使用转义符替代冒号;
+        public const string Xml_CommaEscapeString = "&amc;";
     }
 
     /// <summary>
@@ -71,6 +89,22 @@
         public const string MenuItemText_CreateCase = nameof(MenuItemText_CreateCase);
 
         public const string MsgText_ConfirmToRemoveEvidence = nameof(MsgText_ConfirmToRemoveEvidence);
+        
+        public const string MsgText_ConfirmToCloseCurrentCase = nameof(MsgText_ConfirmToCloseCurrentCase);
+
+
+        public const string BtnText_OpenRecentCase = nameof(BtnText_OpenRecentCase);
+
+
+        public const string MsgText_ConfirmToRemoveRecentCaseFormat = nameof(MsgText_ConfirmToRemoveRecentCaseFormat);
+        
+        public const string RecentCaseRecordGroupName_Today = nameof(RecentCaseRecordGroupName_Today);
+
+
+        public const string RecentCaseRecordGroupName_Yesterday = nameof(RecentCaseRecordGroupName_Yesterday);
+
+
+        public const string RecentCaseRecordGroupName_Earlier = nameof(RecentCaseRecordGroupName_Earlier);
 
     }
 }

@@ -10,7 +10,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:prism="http://prismlibrary.com/"
-             mc:Ignorable="d"  Unloaded="FolderBrowser_Unloaded"
+             mc:Ignorable="d"  
              d:DesignHeight="600" d:DesignWidth="1400">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Unloaded">

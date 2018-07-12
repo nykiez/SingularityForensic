@@ -28,10 +28,14 @@ namespace SingularityForensic.Casing {
         /// <returns></returns>
         /// <param name="load">是否加载</param>
         public ICase CreateNewCase() {
+            //若当前尚存在,则询问是否关闭后创建;
             if (CurrentCase != null) {
-                if(MsgBoxService.Current?.Show(
-                    ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConfirmToCloseAndCreate"),
-                   LanguageService.Current?.FindResourceString("Tip"), MessageBoxButton.YesNo) != MessageBoxResult.Yes) {
+                if(
+                    MsgBoxService.Current?.Show(
+                        ServiceProvider.Current?.GetInstance<ILanguageService>()?.FindResourceString("ConfirmToCloseAndCreate"),
+                        LanguageService.Current?.FindResourceString("Tip"), MessageBoxButton.YesNo
+                    ) != MessageBoxResult.Yes
+                ) {
                     return null;
                 }
             }
@@ -161,6 +165,7 @@ namespace SingularityForensic.Casing {
             if (cs == null) {
                 return false;
             }
+
             LoadCase(cs);
 
             return CurrentCase != null;

@@ -115,7 +115,7 @@ namespace SingularityForensic.BaseDevice {
                     if (dosPTable.Info != IntPtr.Zero) {
                         var stInfoDisk = dosPTable.Info.GetStructure<StInFoDisk>();
                         dosPartInfo.InfoDisk = new InfoDisk(stInfoDisk) {
-                            InternalDisplayName = LanguageService.FindResourceString($"{Constants.DisplayName_InfoDisk}{++infoDiskIndex}")
+                            InternalDisplayName = $"{LanguageService.FindResourceString(Constants.DisplayName_InfoDisk)}{++infoDiskIndex}"
                         };
                     }
 

@@ -85,6 +85,8 @@
     <Compile Include="App\IDialogService.cs" />
     <Compile Include="App\ILanguageService.cs" />
     <Compile Include="Casing\Events\CaseModuleLoadingEvent.cs" />
+    <Compile Include="Casing\IRecentCaseRecord.cs" />
+    <Compile Include="Casing\IRecentCaseRecordManagementService.cs" />
     <Compile Include="Common\EditingValueEventArgs.cs" />
     <Compile Include="Common\EntityHelper.cs" />
     <Compile Include="Common\ExtensibleExtensions.cs" />

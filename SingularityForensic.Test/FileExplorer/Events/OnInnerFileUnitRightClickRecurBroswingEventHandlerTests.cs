@@ -4,6 +4,7 @@ using SingularityForensic.Contracts.FileExplorer.ViewModels;
 using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.FileExplorer.Events;
+using SingularityForensic.FileExplorer.Events.TreeView;
 using System.Linq;
 
 namespace SingularityForensic.Test.FileExplorer.Events {

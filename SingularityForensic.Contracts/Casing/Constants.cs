@@ -31,5 +31,9 @@ namespace SingularityForensic.Contracts.Casing {
         /// 证据项根元素名;
         /// </summary>
         public const string CaseEvidenceRootElemName = nameof(ICaseEvidence);
+
+
+        public const string RecentCaseRecordsView = nameof(RecentCaseRecordsView);
+
     }
 }

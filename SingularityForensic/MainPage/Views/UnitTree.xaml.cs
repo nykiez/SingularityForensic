@@ -28,29 +28,7 @@ namespace SingularityForensic.MainPage.Views {
         }
 
 
-        private void CaseTreeList_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
-            //if (e.ClickCount == 1 && DataContext is UnitTreeViewModel vm) {
-            //    if (e.OriginalSource is DependencyObject dpo) {
-            //        object dt = null;
-            //        if (dpo is FrameworkElement element) {
-            //            dt = element.DataContext;
-            //        }
-            //        else {
-            //            dt = VisualHelper.GetVisualParent<FrameworkElement>(dpo)?.DataContext;
-            //        }
-
-            //        if (dt is ITreeUnit unit) {
-            //            if (unit is ITreeUnit tUnit) {
-            //                //通知右键点击;
-            //                if (e.RightButton == MouseButtonState.Pressed) {
-            //                    vm.NotifyRightClick(tUnit);
-            //                }
-            //            }
-
-            //        }
-            //    }
-            //}
-        }
+       
     }
 
    

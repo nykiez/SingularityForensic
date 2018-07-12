@@ -30,7 +30,7 @@ namespace SingularityForensic.Hash {
             var dataFile = GetDataFileName();
             if (!File.Exists(dataFile)) {
                 try {
-                    var xDoc = new XDocument(new XElement(nameof(Constants.XmlElemName_HashSets_Root)));
+                    var xDoc = new XDocument(new XElement(Constants.XmlElemName_HashSets_Root));
                     xDoc.Save(dataFile);
                 }
                 catch (Exception ex) {
@@ -81,8 +81,7 @@ namespace SingularityForensic.Hash {
         /// </summary>
         private void InitializeHashSets() {
             _hashSets.Clear();
-            var configFileOk = CheckDataFileExists();
-            if (!configFileOk) {
+            if (CheckDataFileExists()) {
                 LoggerService.WriteCallerLine($"Failed to check {GetDataFileName()} file");
                 return;
             }
@@ -93,6 +92,11 @@ namespace SingularityForensic.Hash {
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);
+                return;
+            }
+
+            if(xDoc.Root == null) {
+                LoggerService.WriteCallerLine($"{nameof(xDoc.Root)} can't be null.");
                 return;
             }
 

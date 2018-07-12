@@ -31,8 +31,16 @@ namespace SingularityForensic.Contracts.Common {
 
             return res;
         }
-
-
+        
+        /// <summary>
+        /// 比较两个字节数组从某个起始位置开始的内容是否相等;
+        /// </summary>
+        /// <param name="arr1"></param>
+        /// <param name="arr2"></param>
+        /// <param name="len"></param>
+        /// <param name="arr1Start"></param>
+        /// <param name="arr2Start"></param>
+        /// <returns></returns>
         public static bool IsHeadSame(this byte[] arr1, byte[] arr2, int len, int arr1Start = 0, int arr2Start = 0) {
             var min = Math.Min(arr1.Length - arr1Start, arr2.Length - arr2Start);
             min = Math.Min(min, len);
@@ -75,36 +83,77 @@ namespace SingularityForensic.Contracts.Common {
 
         //Convert a byte to Hex char,i.e,10 = 'A'
         public static char ByteToHexChar(this int val) {
-            if (val < 10)
+            if (val < 10) {
                 return (char)(48 + val);
-
-            switch (val) {
-                case 10: return 'A';
-                case 11: return 'B';
-                case 12: return 'C';
-                case 13: return 'D';
-                case 14: return 'E';
-                case 15: return 'F';
-                default: return 's';
+            }
+            else if(val < 16) {
+                return (char)(val + 55);
+            }
+            else {
+                return 's';
             }
         }
-
         /// <summary>
-        /// Converts a byte array to a hex string. For example: {10,11} = "0A 0B"
+        /// Convert a HexChar to byte,i.e,'A' = 10;
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static byte HexCharToByte(char val) {
+            if(val < 48) {
+                throw new ArgumentException($"{nameof(val)} '{val}' is not a valid hex char.");
+            }
+            else if(val < 58){
+                return (byte)(val - 48);
+            }
+            else if(val > 64 && val < 71) {
+                return (byte)(val - 55);
+            }
+            else {
+                throw new ArgumentException($"{nameof(val)} '{val}' is not a valid hex char.");
+            }
+        }
+        /// <summary>
+        /// Converts a byte array to a hex string. For example: {10,11} = "0A0B"
         /// </summary>
         public static string BytesToHexString(this byte[] data) {
             if (data == null) return string.Empty;
-
-            var sb = new StringBuilder();
-
-            foreach (var b in data) {
-                sb.Append(ByteToHexChar(b / 16));
-                sb.Append(ByteToHexChar(b % 16));
-            }
             
-            return sb.ToString();
-        }
+            var chArr = new char[data.Length * 2];
+            for (int i = 0; i < data.Length; i++) {
+                chArr[2 * i] = ByteToHexChar(data[i] >> 4);
+                chArr[2 * i + 1] = ByteToHexChar(data[i] -((data[i] >> 4) << 4));
+            }
 
+            return new string(chArr);
+        }
+        
+        /// <summary>
+        /// From HexString To byte[]
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
+        public static byte[] HexStringToBytes(this string hexString) {
+            if (hexString == null) return null;
+
+            var chArr = hexString.ToCharArray();
+            var validLength = chArr.Length / 2 * 2;
+            var validTime = validLength / 2;
+            var bts = new byte[validTime];
+            
+            for (int i = 0; i < validTime; i++) {
+                bts[i] += (byte)(HexCharToByte(chArr[2 * i]) * 16);
+                bts[i] += HexCharToByte(chArr[2 * i + 1]);
+            }
+
+#if DEBUG
+            var str = BytesToHexString(bts);
+            if(str != hexString) {
+
+            }
+#endif
+            return bts;
+        }
+        
         /// <summary>
         /// Convert Char to Byte
         /// </summary>

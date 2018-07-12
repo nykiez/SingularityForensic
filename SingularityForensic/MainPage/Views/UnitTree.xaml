@@ -58,7 +58,7 @@
 
     <DockPanel >
         <FrameworkElement x:Name="dataElment" Visibility="Collapsed" />
-        <telerik:RadTreeView Background="White" PreviewMouseDown="CaseTreeList_PreviewMouseDown"
+        <telerik:RadTreeView Background="White" 
                              IsLineEnabled="True"
             ItemsSource="{Binding TreeUnits}" x:Name="CaseTreeList" SelectionMode="Single" 
                              SelectedItem="{Binding SelectedUnit,Mode=TwoWay}"  

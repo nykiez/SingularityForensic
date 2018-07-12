@@ -146,6 +146,9 @@
     <Compile Include="App\TestProgressService.xaml.cs">
       <DependentUpon>TestProgressService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Casing\TestRecentCaseRecords.xaml.cs">
+      <DependentUpon>TestRecentCaseRecords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\TestStackGrid.xaml.cs">
       <DependentUpon>TestStackGrid.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,9 @@
     </Compile>
     <Compile Include="TestApp.xaml.cs">
       <DependentUpon>TestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestCasing.xaml.cs">
+      <DependentUpon>TestCasing.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestCommon.xaml.cs">
       <DependentUpon>TestCommon.xaml</DependentUpon>
@@ -242,6 +248,10 @@
       <DependentUpon>TestTreeView.xaml</DependentUpon>
     </Compile>
     <Page Include="App\TestProgressService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Casing\TestRecentCaseRecords.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,6 +316,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestCasing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -426,7 +440,9 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TestCasing\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCopy "$(SolutionDir)packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll" "$(SolutionDir)DemoUI\$(OutDir)Entities\EntityFramework.dll"  /I /D /E /Y

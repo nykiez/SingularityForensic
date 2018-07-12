@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="SingularityForensic.Casing.Views.RecentCaseRecords"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SingularityForensic.Casing.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:dvms="clr-namespace:SingularityForensic.Casing.Design" prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance dvms:RecentCaseRecordsDesignViewModel,IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="GroupItemTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Header}" Foreground="#736693" FontSize="18"/>
+                <ItemsControl ItemsSource="{Binding Items}" Background="Transparent" BorderThickness="0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <DockPanel Margin="0,9" Cursor="Hand" HorizontalAlignment="Stretch" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding OpenCaseCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <DockPanel.Style>
+                                    <Style TargetType="DockPanel">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextElement.Foreground" Value="#0e6198"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DockPanel.Style>
+                                <Button DockPanel.Dock="Right" Style="{DynamicResource SureBtnStyle}"  Margin="12,0"
+                                        Content="{DynamicResource BtnText_OpenRecentCase}" Command="{Binding OpenCaseCommand}">
+
+                                </Button>
+                                <Image Source="/SingularityForensic;component/Casing/Images/Icon_Case.png" Width="24" Margin="12,0" />
+                                <StackPanel >
+                                    <TextBlock Text="{Binding Record.CaseName}" FontSize="18"/>
+                                    <TextBlock Text="{Binding Record.CaseTime}" Foreground="#808080"/>
+                                </StackPanel>
+                               
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </StackPanel>
+            
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding RecordGroups}" ItemTemplate="{StaticResource GroupItemTemplate}">
+            
+        </ItemsControl>
+    </Grid>
+</UserControl>

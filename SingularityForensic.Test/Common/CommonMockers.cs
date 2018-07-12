@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Mef.Events;
 using SingularityForensic.Contracts.Common;
+using System;
 
 namespace SingularityForensic.Test.Common {
     public static class CommonMockers {
@@ -21,6 +22,7 @@ namespace SingularityForensic.Test.Common {
             get {
                 if(_loggerService == null) {
                     var logService = new Mock<ILoggerService>();
+                    logService.Setup(p => p.WriteException(It.IsAny<Exception>(),It.IsAny<string>())).Callback<Exception>(ex => throw ex);
                     //logService.Setup(p => p.WriteCallerLine(It.IsAny<string>(),It.IsAny<string>())).Throws(new System.Exception());
                     //logService.Setup(p => p.WriteLine(It.IsAny<string>())).Throws(new System.Exception());
                     _loggerService = logService.Object;
@@ -29,6 +31,8 @@ namespace SingularityForensic.Test.Common {
                 return _loggerService;
             }
         }
+
+
 
         private static IViewProvider _viewProvider;
         public static IViewProvider ViewProviderMocker {
