@@ -13,5 +13,8 @@ namespace SingularityForensic.MainMenu
 
         public const string MenuGroupName_File = nameof(MenuGroupName_File);
 
+
+        public const string MenuItemText_Exit = nameof(MenuItemText_Exit);
+
     }
 }

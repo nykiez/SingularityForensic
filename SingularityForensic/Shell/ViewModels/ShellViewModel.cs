@@ -72,7 +72,7 @@ namespace SingularityForensic.Shell.ViewModels {
 
         public event EventHandler<CancelEventArgs> ClosingRequest;
 
-
+        public InteractionRequest<INotification> CloseRequest { get; } = new InteractionRequest<INotification>();
     }
     
     public partial class ShellViewModel {

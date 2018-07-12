@@ -5,16 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://www.codeplex.com/prism"
-        xmlns:publicCvts="http://singularity/converters"
-                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-            xmlns:sviews="clr-namespace:SingularityForensic.Shell.Views"
-                    xmlns:cvts="http://singularity/converters"
+        xmlns:cvts="http://singularity/converters"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
         xmlns:shell="clr-namespace:SingularityForensic.Contracts.Shell;assembly=SingularityForensic.Contracts" 
-                   x:Name="shell" 
-        WindowStartupLocation="CenterScreen" d:DesignWidth="1440"
+        WindowStartupLocation="CenterScreen" d:DesignWidth="1440" x:Name="shell" 
         mc:Ignorable="d" Icon="/SingularityForensic;component/Images/Shell/TitleIcon.png"
                     prism:ViewModelLocator.AutoWireViewModel="True"
                     Style="{DynamicResource WindowStyle}"
@@ -38,6 +34,9 @@
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding FocusRequest}">
             <ei:CallMethodAction MethodName="Focus" TargetObject="{Binding ElementName=shell}"/>
+        </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding CloseRequest}" >
+            <ei:CallMethodAction MethodName="Close" TargetObject="{Binding ElementName=shell}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <metros:MetroWindow.TitleTemplate>

@@ -693,6 +693,7 @@
     <Compile Include="MainMenu\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainMenu\MainMenuModule.cs" />
     <Compile Include="MainMenu\MenuGroupDefinitions.cs" />
+    <Compile Include="MainMenu\MenuItemDefinitions.cs" />
     <Compile Include="MainMenu\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="MainMenu\Views\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>

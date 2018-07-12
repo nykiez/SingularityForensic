@@ -1,4 +1,5 @@
-﻿using SingularityForensic.Contracts.Common;
+﻿using Prism.Interactivity.InteractionRequest;
+using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Contracts.Shell;
 using SingularityForensic.Contracts.Shell.Events;
@@ -90,6 +91,10 @@ namespace SingularityForensic.Shell {
 
         public void Show() {
             (_shellView as Window).Show();
+        }
+
+        public void Close() {
+            _shellVM.CloseRequest.Raise(new Notification());
         }
 
         public object Shell => ViewProvider.GetView(Contracts.Shell.Constants.ShellView);
