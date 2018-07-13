@@ -17,6 +17,7 @@ namespace SingularityForensic.Contracts.Casing {
         /// 上次打开时间;
         /// </summary>
         DateTime LastAccessTime { get; }
+
     }
 
     

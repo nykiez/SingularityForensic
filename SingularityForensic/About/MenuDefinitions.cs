@@ -3,7 +3,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.MainMenu;
 using System.ComponentModel.Composition;
 
-namespace SingularityForensic.HelpAbout {
+namespace SingularityForensic.About {
     //菜单组定义;
     public static class MenuGroupDefinitions {
         [Export]

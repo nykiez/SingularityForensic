@@ -188,7 +188,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="WPFHexaEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.2.1\lib\NET451\WPFHexaEditor.dll</HintPath>
+      <HintPath>..\packages\WpfHexaeditor.DevBranch.0.2.2\lib\NET451\WPFHexaEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -329,7 +329,7 @@
     </Compile>
     <Compile Include="BaseDevice\Constants.cs" />
     <Compile Include="Casing\Case.cs" />
-    <Compile Include="Casing\CaseDialogService.cs" />
+    <Compile Include="Casing\CaseDialogServiceImpl.cs" />
     <Compile Include="Casing\CaseEvidence.cs" />
     <Compile Include="Casing\CaseModule.cs" />
     <Compile Include="Casing\CaseCommandItemFactory.cs" />
@@ -751,7 +751,7 @@
     <Compile Include="Shell\Models\IShell.cs" />
     <Compile Include="Shell\ShellServiceImpl.cs" />
     <Compile Include="Shell\Models\ViewerProgramMessage.cs" />
-    <Compile Include="HelpAbout\MenuDefinitions.cs" />
+    <Compile Include="About\MenuDefinitions.cs" />
     <Compile Include="Shell\ViewModels\RecentCaseViewModel.cs" />
     <Compile Include="Shell\Views\BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>

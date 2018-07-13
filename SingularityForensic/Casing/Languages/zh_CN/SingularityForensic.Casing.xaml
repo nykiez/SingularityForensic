@@ -23,4 +23,5 @@
   <sys:String x:Key="RecentCaseRecordGroupName_Today">今天</sys:String>
   <sys:String x:Key="RecentCaseRecordGroupName_Yesterday">昨天</sys:String>
   <sys:String x:Key="RecentCaseRecordGroupName_Earlier">更早</sys:String>
+  <sys:String x:Key="RecentCaseRecord_Title">最近案件</sys:String>
 </ResourceDictionary>

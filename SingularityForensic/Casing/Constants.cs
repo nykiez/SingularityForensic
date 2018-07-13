@@ -106,5 +106,8 @@
 
         public const string RecentCaseRecordGroupName_Earlier = nameof(RecentCaseRecordGroupName_Earlier);
 
+
+        public const string RecentCaseRecord_Title = nameof(RecentCaseRecord_Title);
+
     }
 }

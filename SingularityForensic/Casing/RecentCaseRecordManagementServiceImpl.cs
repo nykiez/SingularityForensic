@@ -103,18 +103,18 @@ namespace SingularityForensic.Casing {
             //若找到,直接更新最后访问时间即可;
             var csElem = elems.FirstOrDefault(p => GetOriStringFromXmlValue(p.GetXElemValue(Constants.XmlElemName_RecentRecords_Record_CaseGUID)) == cs.GUID);
             if(csElem != null) {
-                csElem.SetXElemValue(DateTime.Now.ToString(), Constants.XmlElemName_RecentRecords_Record_LastAccessTime);
-                return;
+                csElem.SetXElemValue(GetXmlValueFromOriString(DateTime.Now.ToString()), Constants.XmlElemName_RecentRecords_Record_LastAccessTime);
             }
-
-            //否则，将新建一个元素;
-            csElem = CreateXElementByCase(cs);
-            if(csElem == null) {
-                LoggerService.WriteCallerLine($"{nameof(csElem)} can't be null.");
-                return;
+            else {
+                //否则，将新建一个元素;
+                csElem = CreateXElementByCase(cs);
+                if (csElem == null) {
+                    LoggerService.WriteCallerLine($"{nameof(csElem)} can't be null.");
+                    return;
+                }
+                xDoc.Root.Add(csElem);
             }
-
-            xDoc.Root.Add(csElem);
+            
             xDoc.Save(GetDataFileName());
         }
 

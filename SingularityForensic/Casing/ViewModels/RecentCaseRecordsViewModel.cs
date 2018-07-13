@@ -64,9 +64,9 @@ namespace SingularityForensic.Casing.ViewModels {
 
             
             //根据时间段添加group;
-            void AddGroup(string groupName,DateTime earliestTime,TimeSpan? lastedTime) {
-                var thisGroupRecords = records.Where(p => p.LastAccessTime >= earliestTime &&
-                (lastedTime == null || p.LastAccessTime < earliestTime + lastedTime.Value)).ToArray(); 
+            void AddGroup(string groupName,DateTime latestTime,TimeSpan? lastedTime) {
+                var thisGroupRecords = records.Where(p => p.LastAccessTime <= latestTime &&
+                (lastedTime == null || p.LastAccessTime > latestTime - lastedTime.Value)).ToArray(); 
                 if(thisGroupRecords.Length == 0) {
                     return;
                 }
@@ -83,18 +83,18 @@ namespace SingularityForensic.Casing.ViewModels {
 
             AddGroup(
                 LanguageService.FindResourceString(Constants.RecentCaseRecordGroupName_Today), 
-                DateTime.Now.Date,TimeSpan.FromDays(1)
+                DateTime.Now.Date.AddDays(1),TimeSpan.FromDays(1)
             );
 
             AddGroup(
                 LanguageService.FindResourceString(Constants.RecentCaseRecordGroupName_Yesterday),
-                DateTime.Now.Date.AddDays(-1),
+                DateTime.Now.Date,
                 TimeSpan.FromDays(1));
 
             AddGroup(
-                LanguageService.FindResourceString(Constants.RecentCaseRecordGroupName_Yesterday),
-                DateTime.Now.Date.AddDays(-7),
-                TimeSpan.FromDays(7));
+                LanguageService.FindResourceString(Constants.RecentCaseRecordGroupName_Earlier),
+                DateTime.Now.Date.AddDays(-1),
+                null);
         }
 
 

@@ -151,9 +151,23 @@ namespace SingularityForensic.Casing {
     }
 
     public static partial class CaseCommandItemFactory {
+        /// <summary>
+        /// 检查是否是案件节点被选中;
+        /// </summary>
+        /// <param name="treeService"></param>
+        /// <returns></returns>
         private static bool CheckCaseUnitSelected(ITreeService treeService) => treeService.CheckTypedUnitSelected(Contracts.Casing.Constants.TreeUnitType_Case);
+        /// <summary>
+        /// 检查证据项节点是否被选中;
+        /// </summary>
+        /// <param name="treeService"></param>
+        /// <returns></returns>
         private static bool CheckEvidenceUnitSelected(ITreeService treeService) => treeService.CheckTypedUnitSelected(Contracts.Casing.Constants.TreeUnitType_CaseEvidence);
-
+        /// <summary>
+        /// 从案件节点中获取案件;
+        /// </summary>
+        /// <param name="treeService"></param>
+        /// <returns></returns>
         private static ICase GetCaseFromSelectedUnit(ITreeService treeService) {
             if (treeService == null) {
                 throw new ArgumentNullException(nameof(treeService));
@@ -165,6 +179,11 @@ namespace SingularityForensic.Casing {
 
             return treeService.SelectedUnit?.GetInstance<ICase>(Contracts.Casing.Constants.TreeUnitTag_Case);
         }
+        /// <summary>
+        /// 从证据项节点中获取证据项;
+        /// </summary>
+        /// <param name="treeService"></param>
+        /// <returns></returns>
         private static ICaseEvidence GetEvidenceFromSelectedUnit(ITreeService treeService) {
             if (treeService == null) {
                 throw new ArgumentNullException(nameof(treeService));

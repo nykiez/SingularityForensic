@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SingularityForensic.Contracts.Casing;
@@ -83,6 +84,15 @@ namespace SingularityForensic.Test.Casing {
             Assert.AreEqual(record.CaseTime, cs.CaseTime);
 
             Assert.AreEqual(record.LastAccessTime.Date, DateTime.Now.Date);
+
+            //测试时间更新;
+            Thread.Sleep(1000);
+            _recentCaseRecordManagementService.AddCase(cs);
+            records = _recentCaseRecordManagementService.GetAllRecentRecords();
+            Assert.IsNotNull(records);
+            Assert.AreEqual(records.Count(), 1);
+            var record2 = records.First();
+            Assert.IsTrue(record2.LastAccessTime > record.LastAccessTime);
         }
     }
 }

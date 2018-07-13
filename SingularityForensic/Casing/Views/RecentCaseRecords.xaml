@@ -12,11 +12,11 @@
     <UserControl.Resources>
         <DataTemplate x:Key="GroupItemTemplate">
             <StackPanel>
-                <TextBlock Text="{Binding Header}" Foreground="#736693" FontSize="18"/>
+                <TextBlock Text="{Binding Header}" Foreground="#73669B" FontSize="12"/>
                 <ItemsControl ItemsSource="{Binding Items}" Background="Transparent" BorderThickness="0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >
-                            <DockPanel Margin="0,9" Cursor="Hand" HorizontalAlignment="Stretch" >
+                            <DockPanel Margin="0,3" Cursor="Hand" HorizontalAlignment="Stretch" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
                                         <i:InvokeCommandAction Command="{Binding OpenCaseCommand}"/>
@@ -32,14 +32,14 @@
                                         </Style.Triggers>
                                     </Style>
                                 </DockPanel.Style>
-                                <Button DockPanel.Dock="Right" Style="{DynamicResource SureBtnStyle}"  Margin="12,0"
+                                <Button DockPanel.Dock="Right" Style="{DynamicResource SureBtnStyle}"  Margin="12,0" VerticalAlignment="Center"
                                         Content="{DynamicResource BtnText_OpenRecentCase}" Command="{Binding OpenCaseCommand}">
 
                                 </Button>
-                                <Image Source="/SingularityForensic;component/Casing/Images/Icon_Case.png" Width="24" Margin="12,0" />
+                                <Image Source="/SingularityForensic;component/Casing/Images/Icon_Case.png" Width="24" Margin="0,0,12,0" />
                                 <StackPanel >
-                                    <TextBlock Text="{Binding Record.CaseName}" FontSize="18"/>
-                                    <TextBlock Text="{Binding Record.CaseTime}" Foreground="#808080"/>
+                                    <TextBlock Text="{Binding Record.CaseName}"  FontSize="8" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Record.CasePath}"  FontSize="8"  TextTrimming="CharacterEllipsis" ToolTip="{Binding Record.CasePath}" Foreground="#808080"/>
                                 </StackPanel>
                                
                             </DockPanel>
@@ -51,9 +51,10 @@
             
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
-        <ItemsControl ItemsSource="{Binding RecordGroups}" ItemTemplate="{StaticResource GroupItemTemplate}">
+    <DockPanel Margin="6,0">
+        <TextBlock Text="{DynamicResource RecentCaseRecord_Title}" DockPanel.Dock="Top" FontSize="18"  Margin="0,6" Foreground="#7e6693"/>
+        <ItemsControl  ItemsSource="{Binding RecordGroups}" ItemTemplate="{StaticResource GroupItemTemplate}">
             
         </ItemsControl>
-    </Grid>
+    </DockPanel>
 </UserControl>

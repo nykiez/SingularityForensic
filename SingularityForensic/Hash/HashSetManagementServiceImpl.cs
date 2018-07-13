@@ -81,7 +81,7 @@ namespace SingularityForensic.Hash {
         /// </summary>
         private void InitializeHashSets() {
             _hashSets.Clear();
-            if (CheckDataFileExists()) {
+            if (!CheckDataFileExists()) {
                 LoggerService.WriteCallerLine($"Failed to check {GetDataFileName()} file");
                 return;
             }

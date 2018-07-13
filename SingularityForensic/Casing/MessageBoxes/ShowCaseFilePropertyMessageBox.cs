@@ -3,10 +3,6 @@ using SingularityForensic.Casing.Views;
 
 namespace SingularityForensic.Casing.MessageBoxes {
     public static class ShowCaseFilePropertyMessageBox {
-        //public static TCaseFile Show<TCaseFile>(TCaseFile caseFile) where TCaseFile : ICaseFile {
-        //    //ServiceLocator.Current.GetInstance<>
-        //}
-
         public static ICaseEvidence Show(ICaseEvidence caseFile) {
             var window = new ShowCaseFilePropertyWindow(caseFile);
             var res = window.ShowDialog();

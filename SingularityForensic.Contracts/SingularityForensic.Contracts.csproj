@@ -313,12 +313,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="FileExplorer\Images\Type_RegularFile.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="FileExplorer\Images\Type_Directory.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="StatusBar\Events\" />
   </ItemGroup>
   <ItemGroup>
