@@ -59,9 +59,6 @@ namespace SingularityForensic.Contracts.Casing {
         
         //当前的案件;
         ICase CurrentCase { get; }
-
-        //最近案件;
-        IEnumerable<ICase> RecentCases { get; }
     }
 
     public class CaseService: GenericServiceStaticInstance<ICaseService> {

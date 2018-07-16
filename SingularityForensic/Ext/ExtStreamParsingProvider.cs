@@ -10,6 +10,9 @@ using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace SingularityForensic.Ext {
+    /// <summary>
+    /// Ext文件系统解析器;
+    /// </summary>
     [Export(typeof(IStreamParsingProvider))]
     public partial class ExtStreamParsingProvider : IStreamParsingProvider {
         public int Order => 33;
@@ -42,7 +45,7 @@ namespace SingularityForensic.Ext {
             }
         }
 
-        public IFile ParseStream(Stream stream, string name, XElement xElem, IProgressReporter reporter) {
+        public IFile ParseStream(Stream stream, string name, IProgressReporter reporter) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }

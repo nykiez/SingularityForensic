@@ -22,6 +22,7 @@ namespace SingularityForensic.Test.Drive {
             _dService = ServiceProvider.Current.GetInstance<DriveService>();
             Assert.IsNotNull(_dService);
             _dService.Initialize();
+            FileSystemService.Current.Initialize();
         }
 
         private DriveService _dService;
@@ -33,10 +34,37 @@ namespace SingularityForensic.Test.Drive {
             _dService.AddDrive();
             Assert.AreEqual(FileSystemService.Current.MountedUnits.Count(), 1);
             Assert.AreEqual(CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
-            
-            
+
+            //测试移除证据项;
+            CaseService.Current.CurrentCase.RemoveCaseEvidence(CaseService.Current.CurrentCase.CaseEvidences.First());
+
+            Assert.AreEqual(FileSystemService.Current.MountedUnits.Count(), 0);
+            Assert.AreEqual(CaseService.Current.CurrentCase.CaseEvidences.Count(), 0);
         }
 
+        private void TestAddVolumeCore() {
+            DriveMockers.SLDriveTuple = (DriveType_LocalVolume, _comObject.LocalHdds.First().Volumes.First());
+            _dService.AddDrive();
+            Assert.AreEqual(FileSystemService.Current.MountedUnits.Count(), 1);
+            Assert.AreEqual(CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
+        }
+        [TestMethod]
+        public void TestAddVolume() {
+            TestAddVolumeCore();
+
+            //测试移除证据项;
+            CaseService.Current.CurrentCase.RemoveCaseEvidence(CaseService.Current.CurrentCase.CaseEvidences.First());
+            
+            Assert.AreEqual(FileSystemService.Current.MountedUnits.Count(), 0);
+            Assert.AreEqual(CaseService.Current.CurrentCase.CaseEvidences.Count(), 0);
+
+            TestAddVolumeCore();
+            //测试关闭案件响应;
+            CaseService.Current.CloseCurrentCase();
+            Assert.AreEqual(FileSystemService.Current.MountedUnits.Count(), 0);
+            Assert.AreEqual(CaseService.Current.CurrentCase, null);
+            //CaseService.Current.CloseCurrentCase();
+        }
 
         [TestCleanup]
         public void Clean() {

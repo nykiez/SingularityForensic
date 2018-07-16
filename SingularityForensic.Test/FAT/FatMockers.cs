@@ -18,7 +18,7 @@ namespace SingularityForensic.Test.FAT {
                 FirstOrDefault(p => p.GUID == SingularityForensic.FAT.Constants.StreamParserGUID_FAT);
             Assert.IsNotNull(provider);
 
-            return provider.ParseStream(File.OpenRead("E://anli/FAT32.img"),string.Empty,null,null) as IPartition;
+            return provider.ParseStream(File.OpenRead("E://anli/FAT32.img"),string.Empty,null) as IPartition;
         }
     }
 }

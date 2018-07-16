@@ -21,7 +21,7 @@ namespace SingularityForensic.Imaging {
             this._mounterProviders = mounterProviders.OrderBy(p => p.Sort);
         }
         
-        private IEnumerable<IImgMounterProvider> _mounterProviders;
+        private readonly IEnumerable<IImgMounterProvider> _mounterProviders;
         
         public void Initialize() {
             RegisterEvents();
@@ -91,16 +91,16 @@ namespace SingularityForensic.Imaging {
                 return;
             }
 
-            var tuples = MounterTuples.Where(p => p.csEvidence == evidence).ToArray();
+            var tuples = ImgMountUnits.Where(p => p.CaseEvidence == evidence).ToArray();
             foreach (var tuple in tuples) {
                 //文件系统卸载文件;
-                var files = fsService.MountedUnits.Where(p => tuple.csEvidence.XElem == p.XElem).ToArray();
+                var files = fsService.MountedUnits.Where(p => tuple.CaseEvidence.EvidenceGUID == p.GUID).ToArray();
                 foreach (var fileTuple in files) {
                     fsService.UnMountFile(fileTuple.File);
                 }
 
-                tuple.mounter.Dispose();
-                _mounterTuples.Remove(tuple);
+                tuple.ImgMounter.Dispose();
+                _mountUnits.Remove(tuple);
             }
 
         }
@@ -108,29 +108,29 @@ namespace SingularityForensic.Imaging {
         /// <summary>
         /// 案件卸载时,卸载所有镜像挂载器;
         /// </summary>
-        private void OnCaseUnloadedOnImaging() {
+        private void OnCaseUnloadedOnImaging(ICase cs) {
             var fsService = FileSystemService.Current;
             if (fsService == null) {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
             }
 
-            foreach (var tuple in MounterTuples) {
+            foreach (var tuple in ImgMountUnits) {
                 //文件系统卸载镜像文件;
-                var files = fsService.MountedUnits.Where(p => tuple.csEvidence.XElem == p.XElem).ToArray();
+                var files = fsService.MountedUnits.Where(p => tuple.CaseEvidence.EvidenceGUID == p.GUID).ToArray();
                 foreach (var file in files) {
                     fsService.UnMountFile(file.File);
                 }
 
                 try {
-                    tuple.mounter.Dispose();
+                    tuple.ImgMounter.Dispose();
                 }
                 catch(Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
                 }
             }
 
-            _mounterTuples.Clear();
+            _mountUnits.Clear();
         }
 
         /// <summary>
@@ -200,10 +200,10 @@ namespace SingularityForensic.Imaging {
                     throw new Exception($"Valid {nameof(imgMounter)} not found.");
                 }
                 //加入挂载流;
-                _mounterTuples.Add((imgMounter,csEvidence));
+                _mountUnits.Add(new ImgMountUnit(imgMounter,csEvidence));
 
                 //尝试将数据流挂载到文件系统上;
-                FileSystemService.Current.MountStream(imgMounter.RawStream,csEvidence.Name,csEvidence.XElem, reporter);
+                FileSystemService.Current.MountStream(imgMounter.RawStream,csEvidence.Name,csEvidence.EvidenceGUID, reporter);
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);
@@ -304,9 +304,8 @@ namespace SingularityForensic.Imaging {
             
         }
 
-        private List<(IImgMounter mounter,ICaseEvidence csEvidence)> _mounterTuples =
-            new List<(IImgMounter mounter, ICaseEvidence csEvidence)>();
+        private List<IImgMountUnit> _mountUnits = new List<IImgMountUnit>();
 
-        public IEnumerable<(IImgMounter mounter, ICaseEvidence csEvidence)> MounterTuples => _mounterTuples.Select(p => p);
+        public IEnumerable<IImgMountUnit> ImgMountUnits => _mountUnits.Select(p => p);
     }
 }

@@ -43,7 +43,7 @@ namespace SingularityForensic.FileExplorer.Events.TreeView {
                 return null;
             }
 
-            var fileTuple = FileSystemService.Current.MountedUnits?.FirstOrDefault(p => p.XElem.GetXElemValue(nameof(ICaseEvidence.EvidenceGUID)) == csEvidence.EvidenceGUID);
+            var fileTuple = FileSystemService.Current.MountedUnits?.FirstOrDefault(p => p.GUID== csEvidence.EvidenceGUID);
             if (fileTuple == null) {
                 LoggerService.WriteCallerLine($"{nameof(fileTuple)} can't be null.");
                 return null;

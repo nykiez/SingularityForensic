@@ -81,7 +81,7 @@ namespace SingularityForensic.FAT {
             return null;
         }
         
-        public IFile ParseStream(Stream stream, string name, XElement xElem, IProgressReporter reporter) {
+        public IFile ParseStream(Stream stream, string name, IProgressReporter reporter) {
             if(stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }

@@ -20,7 +20,7 @@ namespace SingularityForensic.FileSystem {
             return true;
         }
         
-        public IDevice ParseStream(Stream stream, string name, XElement xElem) {
+        public IDevice ParseStream(Stream stream, string name) {
             var device = FileFactory.CreateDevice(Constants.DeviceKey_Unknown);
             var stoken = device.GetStoken(Constants.DeviceKey_Unknown);
             stoken.BaseStream = stream;
@@ -37,7 +37,7 @@ namespace SingularityForensic.FileSystem {
     [Export(typeof(IUnknownPartitionParsingProvider))]
     public class UnknownPartStreamParsingProvider : IUnknownPartitionParsingProvider {
       
-        public IPartition ParseStream(Stream stream, string name, XElement xElem) {
+        public IPartition ParseStream(Stream stream, string name) {
             var part = FileFactory.CreatePartition(Constants.PartitionKey_Unknown);
             var partStoken = part.GetStoken(Constants.PartitionKey_Unknown);
             partStoken.BaseStream = stream;

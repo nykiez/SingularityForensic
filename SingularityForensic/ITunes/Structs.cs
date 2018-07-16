@@ -17,7 +17,15 @@ namespace SingularityForensic.ITunes {
         public IntPtr next;
 
         public string PhonePath => strPhonePath;
-        public string LocalPath => strLocalPath;
+        public string LocalPath {
+            get {
+                return strLocalPath;
+                //return System.Text.Encoding.ASCII.GetString(strLocalPath);
+                //return string.Empty;
+                //strLocalPath;
+            }
+            
+        }
 
         public DateTime? ModifiedTime => GetTime(nLastModifyTime);
 

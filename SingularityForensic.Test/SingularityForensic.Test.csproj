@@ -38,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.0\lib\net45\Castle.Core.dll</HintPath>
@@ -165,6 +166,7 @@
     <Compile Include="ITunesTest.cs" />
     <Compile Include="ITunes\IOSBackUpParserTests.cs" />
     <Compile Include="ITunes\ITunesBackUpServiceTests.cs" />
+    <Compile Include="Local\LocalDirParserTest.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="NTFS\BiosParameterBlockTests.cs" />
     <Compile Include="Shell\ShellMockers.cs" />

@@ -387,7 +387,7 @@
     <Compile Include="Ext\CompatibleFeatures.cs" />
     <Compile Include="Ext\Structs.cs" />
     <Compile Include="Ext\SuperBlock.cs" />
-    <Compile Include="FAT\Events\OnHexDataContextLoadedOnFatPartHandler.cs" />
+    <Compile Include="FAT\Events\Hex\OnHexDataContextLoadedOnFatPartHandler.cs" />
     <Compile Include="FAT\FATDBR.cs" />
     <Compile Include="FAT\FATFileInfo.cs" />
     <Compile Include="FAT\FATInfo.cs" />
@@ -607,7 +607,6 @@
     <Compile Include="FileExplorer\Models\ViewerProgram.cs" />
     <Compile Include="FileExplorer\Models\ViewerProgramModel.cs" />
     <Compile Include="FileExplorer\FileMetaDataProviders.cs" />
-    <Compile Include="FileExplorer\ViewModels\FileDetailTabModel.cs" />
     <Compile Include="FileExplorer\ViewModels\FolderBrowserViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\ListBlockWindowViewModel.cs" />
     <Compile Include="FileExplorer\ViewModels\PartitionsBrowserViewModel.cs" />
@@ -667,11 +666,12 @@
     <Compile Include="Imaging\IconSources.cs" />
     <Compile Include="Imaging\ImagingModule.cs" />
     <Compile Include="Imaging\ImagingServiceImpl.cs" />
+    <Compile Include="Imaging\ImgMounUnit.cs" />
     <Compile Include="Imaging\MenuDefinitions.cs" />
     <Compile Include="ITunes\Constants.cs" />
-    <Compile Include="ITunes\Global\Services\ForensicService.cs" />
     <Compile Include="ITunes\InfoKindsDefinitions.cs" />
     <Compile Include="ITunes\IOSBackUpParser.cs" />
+    <Compile Include="ITunes\ITunesBackUpManager.cs" />
     <Compile Include="ITunes\ITunesFullFileNameProviderImpl.cs" />
     <Compile Include="ITunes\ITunesModule.cs" />
     <Compile Include="ITunes\ITunesBackUpService.cs" />
@@ -681,6 +681,7 @@
     <Compile Include="ITunes\Structs.cs" />
     <Compile Include="Local\Constants.cs" />
     <Compile Include="Local\LocalDirectoryManager.cs" />
+    <Compile Include="Local\LocalDirParser.cs" />
     <Compile Include="Local\LocalFileService.cs" />
     <Compile Include="Local\LocalModule.cs" />
     <Compile Include="MainMenu\Constants.cs" />
@@ -1250,6 +1251,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Local\Langauges\zh_CN\SingularityForensic.Local.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="packages.config" />
     <None Include="Previewers\OutSideIn\adinit.dat" />
     <None Include="Previewers\OutSideIn\cmmap000.bin" />
@@ -1295,8 +1300,6 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="ITunes\Events\Casing\" />
-    <Folder Include="ITunes\Models\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
   </ItemGroup>

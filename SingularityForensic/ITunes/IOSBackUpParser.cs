@@ -7,18 +7,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 
-namespace SingularityForensic.ITunes {
-    /// <summary>
-    /// ITunes备份管理器;
-    /// </summary>
-    public class ITunesBackUpManager {
-        /// <summary>
-        /// 实际存储的内容;
-        /// </summary>
-        public IDirectory Directory { get; internal set; }
-        public StIOSBasicInfo? BasicInfo { get; internal set; }
-    }
-    
+namespace SingularityForensic.ITunes { 
     public static partial class IOSBackUpParser {  
         private const string MBDBName = "Manifest.mbdb";
         private const string DBName = "Manifest.db";
@@ -50,10 +39,10 @@ namespace SingularityForensic.ITunes {
             try {
                 var ptr = IntPtr.Zero;
                 if (di.GetFiles().FirstOrDefault(p => p.Name == MBDBName) != null) {
-                    ptr = parse(szPtr, 1);
+                    ptr = ITunesBackUp_Parse(szPtr, 1);
                 }
                 else if (di.GetFiles().FirstOrDefault(p => p.Name == DBName) != null) {
-                    ptr = parse(szPtr, 1000);
+                    ptr = ITunesBackUp_Parse(szPtr, 1000);
                 }
                 var direct = FileFactory.CreateDirectory(Constants.DirectoryKey_ITunesBackup);
                 var dirStoken = direct.GetStoken(Constants.DirectoryKey_ITunesBackup);
@@ -91,7 +80,7 @@ namespace SingularityForensic.ITunes {
 #if DEBUG
                     index++;
                     if(index >= 20) {
-                        break;
+                        //break;
                     }
 #endif
                 }
@@ -103,7 +92,7 @@ namespace SingularityForensic.ITunes {
                 return null;
             }
             finally {
-                parse_exit();
+                ITunesBackUp_Parse_Exit();
                 Marshal.FreeHGlobal(szPtr);
             }
         }
@@ -143,11 +132,11 @@ namespace SingularityForensic.ITunes {
     }
 
     public static partial class IOSBackUpParser {
-        [DllImport("iosparse.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr parse(IntPtr szDir, int nType);
+        [DllImport("iosparse.dll", CharSet = CharSet.Auto,EntryPoint = "parse", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr ITunesBackUp_Parse(IntPtr szDir, int nType);
 
-        [DllImport("iosparse.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void parse_exit();
+        [DllImport("iosparse.dll", CharSet = CharSet.Auto,EntryPoint = "parse_exit", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ITunesBackUp_Parse_Exit();
 
         [DllImport("PListCpp.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr GetPlist(IntPtr pszFilePath);

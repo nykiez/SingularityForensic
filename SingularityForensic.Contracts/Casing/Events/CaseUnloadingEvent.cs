@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Casing.Events {
-    //案件卸载时发生;
+    /// <summary>
+    /// 案件卸载时发生;
+    /// </summary>
     public class CaseUnloadingEvent:PubSubEvent<CancelEventArgs> {
 
     }

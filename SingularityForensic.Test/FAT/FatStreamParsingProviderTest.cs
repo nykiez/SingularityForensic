@@ -49,7 +49,7 @@ namespace SingularityForensic.Test.FAT {
 
         [TestMethod()]
         public void ParseStreamTest() {
-            var file = _streamParsingProvider.ParseStream(_fatStream, string.Empty, null, null);
+            var file = _streamParsingProvider.ParseStream(_fatStream, string.Empty, null);
             var part = file as IPartition;
             Assert.IsNotNull(part);
             Assert.AreEqual(part.PartType.GUID , SingularityForensic.FAT.Constants.PartitionType_FAT32);

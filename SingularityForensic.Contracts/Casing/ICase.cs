@@ -31,7 +31,13 @@ namespace SingularityForensic.Contracts.Casing {
         /// 标识GUID;
         /// </summary>
         string GUID { get; }
+        /// <summary>
+        /// 案件文档;
+        /// </summary>
         XDocument XDoc { get; }
+        /// <summary>
+        /// 案件所包含的所有证据项;
+        /// </summary>
         IEnumerable<ICaseEvidence> CaseEvidences {get;}
         /// <summary>
         /// 当前案件的本地路径;

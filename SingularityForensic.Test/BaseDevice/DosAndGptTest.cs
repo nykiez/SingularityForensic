@@ -40,7 +40,7 @@ namespace SingularityForensic.Test.BaseDevice {
             _stream = File.OpenRead(DOSImgPath);
 
             Assert.IsTrue(_streamParser.CheckIsValidStream(_stream));
-            var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
+            var file = _streamParser.ParseStream(_stream, string.Empty, null);
 
             //检查"签名";
             Assert.IsTrue(file.TypeGuid == SingularityForensic.BaseDevice.Constants.DeviceType_DOS);
@@ -74,7 +74,7 @@ namespace SingularityForensic.Test.BaseDevice {
         [TestMethod]
         public void TestGPTDevice() {
             _stream = File.OpenRead(GPTImgPath);
-            var file = _streamParser.ParseStream(_stream, string.Empty, null, null);
+            var file = _streamParser.ParseStream(_stream, string.Empty, null);
 
             //检查"签名";
             Assert.IsTrue(file.TypeGuid == SingularityForensic.BaseDevice.Constants.DeviceType_GPT);

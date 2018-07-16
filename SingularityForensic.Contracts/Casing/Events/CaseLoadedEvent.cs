@@ -2,7 +2,9 @@
 using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Contracts.Casing.Events {
-    //案件被加载事件;
+    /// <summary>
+    /// 案件已经被加载事件;
+    /// </summary>
     public class CaseLoadedEvent : PubSubEvent {
     }
 

@@ -24,18 +24,20 @@ namespace SingularityForensic.Test.ITunes {
 
         [TestMethod()]
         public void AddITunesBackUpDirTest() {
-            AppMockers.OpenDirName =  "H://iosb";
+            var folderName = "iosb";
+            AppMockers.OpenDirName = $"H://{folderName}";
+
             _iTunesBackUpService.AddITunesBackUpDir();
             
             //测试挂载;
             Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 1);
             var file = Contracts.FileSystem.FileSystemService.Current.MountedUnits.ElementAt(0);
-            Assert.AreEqual(file.File.Name, "iosb");
+            Assert.AreEqual(file.File.Name, folderName);
 
             //查看案件是否被正确挂载;
             Assert.AreEqual(Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
             var csEvidence = Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.ElementAt(0);
-            Assert.AreEqual(csEvidence.Name , "iosb");
+            Assert.AreEqual(csEvidence.Name , folderName);
 
             Assert.AreEqual(_iTunesBackUpService.Managers.Count(), 1);
 
@@ -65,7 +67,7 @@ namespace SingularityForensic.Test.ITunes {
 
         [TestCleanup]
         public void Clean() {
-         
+            
         }
 
     }

@@ -18,14 +18,14 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// <param name="device"></param>
         /// <param name="key"></param>
         /// <param name="reporter"></param>
-        void FillParts(IDevice device, XElement xElem, IProgressReporter reporter);
+        void FillParts(IDevice device, IProgressReporter reporter);
     }
 
     public class DeviceService : GenericServiceStaticInstance<IDeviceService> {
-        public static void FillParts(IDevice device, XElement xElem, IProgressReporter reporter) => Current.FillParts(device, xElem, reporter);
+        public static void FillParts(IDevice device, IProgressReporter reporter) => Current.FillParts(device, reporter);
     }
 
     public static class DeviceExtensions {
-        public static void FillParts(this IDevice device, XElement xElem, IProgressReporter reporter) => DeviceService.FillParts(device, xElem, reporter);
+        public static void FillParts(this IDevice device, IProgressReporter reporter) => DeviceService.FillParts(device, reporter);
     }
 }

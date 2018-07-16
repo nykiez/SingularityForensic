@@ -88,7 +88,7 @@ namespace SingularityForensic.Test.Casing {
                 closing = true;
                 e.Cancel = true;
             });
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(() => closed = true);
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(cs => closed = true);
 
             CloseCase();
 

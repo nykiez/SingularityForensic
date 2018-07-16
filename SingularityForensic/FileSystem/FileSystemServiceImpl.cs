@@ -22,7 +22,7 @@ namespace SingularityForensic.FileSystem {
 
         public IEnumerable<IMountedUnit> MountedUnits => _enumFiles.Select(p => p);
         
-        public IFile MountStream(Stream stream,string name,XElement xElem, IProgressReporter reporter) {
+        public IFile MountStream(Stream stream,string name,string guid, IProgressReporter reporter) {
             IFile file = null;
 
             foreach (var provider in _parsingProviders) {
@@ -30,7 +30,7 @@ namespace SingularityForensic.FileSystem {
                     if (!provider.CheckIsValidStream(stream)) {
                         continue;   
                     }
-                    file = provider.ParseStream(stream, name, xElem, reporter);
+                    file = provider.ParseStream(stream, name, reporter);
 
                     if(file != null) {
                         break;
@@ -43,11 +43,11 @@ namespace SingularityForensic.FileSystem {
 
             if(file == null) {
                 file = ServiceProvider.Current?.GetInstance<IUnknownDeviceParsingProvider>()?.
-                    ParseStream(stream, name, xElem);
+                    ParseStream(stream, name);
             }
 
             if (file != null) {
-                _enumFiles.Add(new MountedUnit { File = file, XElem = xElem });
+                _enumFiles.Add(new MountedUnit { File = file, GUID = guid });
                 return file;
             }
 
@@ -63,19 +63,9 @@ namespace SingularityForensic.FileSystem {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            var tuples = _enumFiles.Where(p => p.File == file).ToArray();
-            foreach (var tuple in tuples) {
-                try {
-                    if(tuple.File is IDisposable disOb) {
-                        disOb.Dispose();
-                    }
-                }
-                catch(Exception ex) {
-                    LoggerService.WriteCallerLine(ex.Message);
-                }
-                finally {
-                    _enumFiles.Remove(tuple);
-                }
+            var units = _enumFiles.Where(p => p.File == file).ToArray();
+            foreach (var unit in units) {
+                UnMountFile(unit);
             }
         }
 
@@ -83,14 +73,14 @@ namespace SingularityForensic.FileSystem {
         /// 挂载现有文件文件;
         /// </summary>
         /// <param name="file"></param>
-        public void MountFile(IFile file,XElement xElem) {
+        public void MountFile(IFile file,string guid) {
             if(file == null) {
                 throw new ArgumentNullException(nameof(file));
             }
 
             _enumFiles.Add(new MountedUnit {
                 File = file,
-                XElem = xElem
+                GUID = guid
             });
         }
 
@@ -105,7 +95,7 @@ namespace SingularityForensic.FileSystem {
                 throw new ArgumentException($"Invalid {nameof(path)}:{path}");
             }
 
-            var mountedUnit = MountedUnits.FirstOrDefault(p => p.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID) == pathParams[0]);
+            var mountedUnit = MountedUnits.FirstOrDefault(p => p.GUID == pathParams[0]);
             
             if(mountedUnit == null) {
                 return null;
@@ -136,7 +126,7 @@ namespace SingularityForensic.FileSystem {
             var root = mountUnit.File;
             //若查找的文件为根文件,则直接返回跟文件的GUID;
             if (root == file) {
-                return mountUnit.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID);
+                return mountUnit.GUID;
             }
 
             if(root is IHaveFileCollection haveFileCollection) {
@@ -144,7 +134,7 @@ namespace SingularityForensic.FileSystem {
                 if(args == null || args.Length == 0) {
                     return null;
                 }
-                args[0] = mountUnit.XElem.GetXElemValue(Contracts.Common.Constants.EvidenceGUID);
+                args[0] = mountUnit.GUID;
 
                 var sb = new StringBuilder();
                 var argIndex = 0;
@@ -177,12 +167,28 @@ namespace SingularityForensic.FileSystem {
             var mountUnit = MountedUnits.FirstOrDefault(p => p.File == root);
             return mountUnit;
         }
+
+        public void UnMountFile(IMountedUnit mountUnit) {
+            try {
+                if (mountUnit.File is IDisposable disOb) {
+                    disOb.Dispose();
+                }
+            }
+            catch (Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+            }
+            finally {
+                _enumFiles.Remove(mountUnit);
+            }
+        }
     }
 
     class MountedUnit : IMountedUnit {
         public IFile File { get; internal set; }
 
         public XElement XElem { get; internal set; }
+
+        public string GUID { get; internal set; }
     }
 
 }

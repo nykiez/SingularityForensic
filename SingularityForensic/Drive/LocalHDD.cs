@@ -60,8 +60,9 @@ namespace SingularityForensic.Drive {
         private DriveStream _stream;
         public Stream GetStream() {
             if(_stream == null) {
-                _stream = new DriveStream(Handle,this.SectorSize);
-                _stream.InternalLength = this.Size;
+                _stream = new DriveStream(Handle, this.SectorSize) {
+                    InternalLength = this.Size
+                };
             }
             return _stream;
         }

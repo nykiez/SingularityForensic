@@ -19,9 +19,7 @@ namespace SingularityForensic.Casing {
         /// 当前案件;
         /// </summary>
         public ICase CurrentCase { get; private set; }
-
-        public IEnumerable<ICase> RecentCases => Enumerable.Empty<ICase>();
-
+        
         /// <summary>
         /// 创建一个空案件;
         /// </summary>
@@ -184,9 +182,9 @@ namespace SingularityForensic.Casing {
             }
 
             CurrentCase.Save();
+            var cs = CurrentCase;
             CurrentCase = null;
-            
-            PubEventHelper.Publish<CaseUnloadedEvent>();
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Publish(cs);
             
         }
         

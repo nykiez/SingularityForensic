@@ -32,7 +32,7 @@ namespace SingularityForensic.Test.BaseDevice {
             });
             //G:\\MobileImgs\\Z0176-809.dd
             //E:\\anli\\Ext4G.img
-            var file = _fsService.MountStream(File.OpenRead(testImgPath),"name", elem, reporter.Object);
+            var file = _fsService.MountStream(File.OpenRead(testImgPath),"name", _eviGUID, reporter.Object);
         }
 
         [TestMethod()]

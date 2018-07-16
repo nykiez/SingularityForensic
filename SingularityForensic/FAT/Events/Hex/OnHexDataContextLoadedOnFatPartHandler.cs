@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace SingularityForensic.FAT.Events {
+namespace SingularityForensic.FAT.Events.Hex {
     /// <summary>
     /// 高亮FAT分区信息;
     /// </summary>

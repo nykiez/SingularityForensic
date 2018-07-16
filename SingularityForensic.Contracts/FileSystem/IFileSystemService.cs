@@ -22,24 +22,30 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="name"></param>
-        /// <param name="xElem"></param>
+        /// <param name="guid">唯一标识</param>
         /// <param name="reporter"></param>
         /// <returns></returns>
-        IFile MountStream(Stream stream, string name, XElement xElem, IProgressReporter reporter);
+        IFile MountStream(Stream stream, string name, string guid, IProgressReporter reporter);
 
         /// <summary>
         /// 挂载现有的文件;
         /// </summary>
         /// <param name="file">在外部构建的文件</param>
-        /// <param name="xElem">拓展元素,与案件相关</param>
-        void MountFile(IFile file, XElement xElem);
+        /// <param name="guid">唯一标识,与<see cref="ICaseEvidence.EvidenceGUID"/>对应</param>
+        void MountFile(IFile file, string guid);
 
         /// <summary>
         /// 卸载文件;
         /// </summary>
         /// <param name="file"></param>
         void UnMountFile(IFile file);
-        
+
+        /// <summary>
+        /// 卸载文件;
+        /// </summary>
+        /// <param name="mountUnit">挂载单位</param>
+        void UnMountFile(IMountedUnit mountUnit);
+
         /// <summary>
         /// 所有文件;
         /// </summary>
@@ -72,6 +78,8 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// file为对应的文件管理单元;
         /// </summary>
         IFile File { get; }
+        
+        string GUID { get; }
         /// <summary>
         /// xElem为信息项,为了避免与案件模块耦合,使用xElem作为信息媒介;
         /// </summary>
@@ -82,40 +90,5 @@ namespace SingularityForensic.Contracts.FileSystem {
     public class FileSystemService :GenericServiceStaticInstance<IFileSystemService> {
 
     }
-
-    public static class FileSystemServiceExtensions {
-        public static IFile GetFile(this IFileSystemService fsService,string url) {
-            if (string.IsNullOrEmpty(url)) {
-                return null;
-            }
-            if(fsService == null) {
-                return null;
-            }
-            
-            url = url.Replace('\\', '/');
-
-            var args = url.Split('/');
-            if (args.Count() <= 1) {
-                LoggerService.Current?.WriteCallerLine($"Invalid args count");
-                return null;
-            }
-
-            foreach (var unit in fsService.MountedUnits) {
-                
-                if(unit.XElem.Element(nameof(ICaseEvidence.EvidenceGUID))?.Value == args.FirstOrDefault()) {
-                    if(unit.File is IDevice device) {
-                        return device.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
-                    }
-
-                    if(unit.File is IHaveFileCollection enumFile)  {
-                        return enumFile.GetFileByUrl(url.Substring(url.IndexOf('/') + 1));
-                    }
-                    
-                }
-                
-            }
-
-            return null;
-        }
-    }
+    
 }

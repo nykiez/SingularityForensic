@@ -47,7 +47,7 @@ namespace SingularityForensic.Casing {
             PubEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(OnCaseLoaded);
             
             //订阅案件关闭事件;
-            PubEventHelper.Subscribe<CaseUnloadedEvent>(OnCaseUnloaded);
+            PubEventHelper.Subscribe<CaseUnloadedEvent,ICase>(OnCaseUnloaded);
 
             //当案件文件被加载时,向树形节点中加入案件文件;
             PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(OnEvidenceLoaded);
@@ -134,7 +134,7 @@ namespace SingularityForensic.Casing {
         }
 
         //案件被卸载时发生;
-        private void OnCaseUnloaded() {
+        private void OnCaseUnloaded(ICase cs) {
             //清空Tab;
             DocumentService.MainDocumentService.CloseAllDocuments();
             //清空树形;
@@ -200,7 +200,7 @@ namespace SingularityForensic.Casing {
 
         private void RegisterEventsForCommands() {
             PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(CloseCaseCommand.RaiseCanExecuteChanged);
-            PubEventHelper.Subscribe<CaseUnloadedEvent>(CloseCaseCommand.RaiseCanExecuteChanged);
+            PubEventHelper.Subscribe<CaseUnloadedEvent,ICase>(cs => CloseCaseCommand.RaiseCanExecuteChanged());
         }
     }
 }

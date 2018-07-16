@@ -14,7 +14,7 @@ namespace SingularityForensic.Test.Imaging {
     [TestClass]
     public class ImagingServiceTest {
         //private const string OpenFileName = "G://MobileImgs/Honor/mmcblk0";
-        private const string OpenFileName = "E:\\mmcblk0";
+        private const string OpenFileName = "E:\\anli\\FAT32.img";
 
         [TestInitialize]
         public void Initialize() {
@@ -43,9 +43,9 @@ namespace SingularityForensic.Test.Imaging {
 
             Assert.AreEqual(_fsService.MountedUnits.Count(), 1);
 
-            Assert.AreEqual(_imgService.MounterTuples.Count(), 1);
+            Assert.AreEqual(_imgService.ImgMountUnits.Count(), 1);
 
-            var firstEvi = _imgService.MounterTuples.First().csEvidence;
+            var firstEvi = _imgService.ImgMountUnits.First().CaseEvidence;
 
             Assert.IsTrue(firstEvi.EvidenceTypeGuids.Contains(SingularityForensic.Contracts.Imaging.Constants.EvidenceType_Img));
         }
@@ -56,13 +56,13 @@ namespace SingularityForensic.Test.Imaging {
             _csService.LoadCase($"{CaseMockers.CaseFolder}/{CaseMockers.CaseName}/{CaseMockers.CaseName}{SingularityForensic.Casing.Constants.CaseFileExtention}");
             Assert.IsNotNull(_csService.CurrentCase);
 
-            Assert.AreNotEqual(_imgService.MounterTuples.Count(),0);
+            Assert.AreNotEqual(_imgService.ImgMountUnits.Count(),0);
 
-            var imgPath = _imgService.MounterTuples.First().mounter.ImgPath;
+            var imgPath = _imgService.ImgMountUnits.First().ImgMounter.ImgPath;
             
             Assert.AreEqual(Path.GetFullPath(imgPath), Path.GetFullPath(OpenFileName));
 
-            var stream = _imgService.MounterTuples.First().mounter.RawStream;
+            var stream = _imgService.ImgMountUnits.First().ImgMounter.RawStream;
         }
     }
 }

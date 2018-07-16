@@ -37,6 +37,7 @@ namespace SingularityForensic.ITunes {
 
             string backUpPath = null;
 
+            //由于暂时不能处理包含了非ASCII的路径;在输入纯ASCII码前，不能进行
             while (true) {
                 backUpPath = DialogService.Current.OpenDirect();
 
@@ -56,6 +57,10 @@ namespace SingularityForensic.ITunes {
         }
 
         public void AddITunesBackUpDir(string backUpPath) {
+            if(backUpPath == null) {
+                throw new ArgumentNullException(nameof(backUpPath));
+            }
+
             var di = new DirectoryInfo(backUpPath);
             if (!di.Exists) {
                 throw new DirectoryNotFoundException($"{backUpPath}");
@@ -66,12 +71,11 @@ namespace SingularityForensic.ITunes {
             }, di.Name, backUpPath);
 
             csEvidence[ITunesBackUpDir_Path] = Path.GetFullPath(backUpPath);
-
             CaseService.Current.CurrentCase.AddNewCaseEvidence(csEvidence);
-
+            
             CaseService.Current.CurrentCase.LoadCaseEvidence(csEvidence);
         }
-        
+
         private List<ITunesBackUpManager> _managers = new List<ITunesBackUpManager>();
         public IEnumerable<ITunesBackUpManager> Managers => _managers.Select(p => p);
 
@@ -94,7 +98,7 @@ namespace SingularityForensic.ITunes {
         }
 
         /// <summary>
-        /// 加载案件文件若为ITunes备份文件夹,则响应镜像解析;
+        /// 加载案件文件若为ITunes备份文件夹,则ITunes备份处理;
         /// </summary>
         /// <param name="tuple"></param>
         private void OnCaseEvidenceLoading((ICaseEvidence csEvidence, IProgressReporter reporter) tuple) {
@@ -108,6 +112,7 @@ namespace SingularityForensic.ITunes {
             if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_ITunesBackUpDir) ?? false)) {
                 return;
             }
+
             var backUpPath = csEvidence[ITunesBackUpDir_Path];
             if (string.IsNullOrEmpty(backUpPath)) {
                 LoggerService.WriteCallerLine($"{nameof(backUpPath)} can't be null.");
@@ -115,13 +120,15 @@ namespace SingularityForensic.ITunes {
             }
 
             try {
-                reporter.ReportProgress(50, LanguageService.FindResourceString(Constants.ProgressWord_ITunesBeingParsed), string.Empty);
+                reporter?.ReportProgress(50, LanguageService.FindResourceString(Constants.ProgressWord_ITunesBeingParsed), string.Empty);
                 var manager = IOSBackUpParser.DoParse(backUpPath);
                 if(manager == null) {
                     return;
                 }
 
-                FileSystemService.Current.MountFile(manager.Directory, csEvidence.XElem);
+                //文件系统挂载;
+                FileSystemService.Current.MountFile(manager.Directory,csEvidence.EvidenceGUID);
+                //添加实例;
                 _managers.Add(manager);
             }
             catch (Exception ex) {
@@ -146,7 +153,7 @@ namespace SingularityForensic.ITunes {
             try {
                 var dir = FileSystemService.Current.GetFile(csEvidence.EvidenceGUID) as IDirectory;
                 var manager = Managers.FirstOrDefault(p => p.Directory == dir);
-                if(manager == null) {
+                if (manager == null) {
                     return;
                 }
                 //从文件系统中卸载;
@@ -161,7 +168,11 @@ namespace SingularityForensic.ITunes {
         /// <summary>
         /// 案件文件被卸载时,进行卸载操作;
         /// </summary>
-        private void OnCaseUnloaded() {
+        private void OnCaseUnloaded(ICase cs) {
+            if(cs == null) {
+                return;
+            }
+
             try {
                 foreach (var manager in Managers) {
                     FileSystemService.Current.UnMountFile(manager.Directory);

@@ -5,6 +5,7 @@ using SingularityForensic.Contracts.Hex;
 using SingularityForensic.Contracts.Hex.Events;
 using SingularityForensic.FAT;
 using SingularityForensic.FAT.Events;
+using SingularityForensic.FAT.Events.Hex;
 using System;
 using System.Diagnostics;
 using System.Linq;

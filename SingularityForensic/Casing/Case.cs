@@ -286,6 +286,7 @@ namespace SingularityForensic.Casing {
             }
 
             _caseEvidences.Remove(evidence);
+            evidence.XElem.Remove();
             PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Publish(evidence);
             PubEventHelper.PublishEventToHandlers<ICaseEvidenceRemovedEventHandler,ICaseEvidence>(evidence);
         }

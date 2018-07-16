@@ -135,7 +135,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                                 this.InternalFileRows.Add(row);
                             }
                         }));
-                        System.Threading.Thread.Sleep(1);
+                        System.Threading.Thread.Sleep(2);
                         index = 0;
                     }
                     if(thisPriLevel != fillPriLevel) {
@@ -241,7 +241,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     /// </summary>
     public partial class FolderBrowserViewModel {
         /// <summary>
-        /// 双击进入目录动作;
+        /// 双击通知动作;
         /// </summary>
         /// <param name="row"></param>
         public override void NotifyDoubleClickOnRow(object row) {
@@ -277,7 +277,9 @@ namespace SingularityForensic.FileExplorer.ViewModels {
     
     ////目录视图资源管理器模型过滤命令部分;
     public partial class FolderBrowserViewModel {
-        //一键取消所有的过滤;
+        /// <summary>
+        /// 取消所有的过滤;
+        /// </summary>
         private IDelegateCommand _cancelFilteringCommand;
         public IDelegateCommand CancelFilteringCommand =>
             _cancelFilteringCommand ?? (_cancelFilteringCommand = CommandFactory.CreateDelegateCommand(() => {

@@ -29,7 +29,7 @@ namespace SingularityForensic.Test.Ext {
         public void ParseStreamTest() {
             var reporter = new Mock<IProgressReporter>();
             //reporter.Setup(p => p.ReportProgress(It.IsAny<int>(),It.IsAny<int>(), It.IsAny<string>(),It.IsAny<string>())).Raises);
-            var part = _provider.ParseStream(_stream, null, null, null) as IPartition;
+            var part = _provider.ParseStream(_stream, null, null) as IPartition;
             Assert.IsNotNull(part);
         }
 

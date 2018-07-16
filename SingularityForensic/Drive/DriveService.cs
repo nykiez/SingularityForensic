@@ -83,29 +83,28 @@ namespace SingularityForensic.Drive {
 
             PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnDrive);
         }
-
-        private List<ICaseEvidence> _driveEvidences = new List<ICaseEvidence>();
-        public IEnumerable<ICaseEvidence> DriveEvidences => _driveEvidences.Select(p => p);
+        
 
         /// <summary>
         /// 当卸载案件时;进行卸载操作;
         /// </summary>
-        private void OnCaseUnloadedOnDrive() {
+        private void OnCaseUnloadedOnDrive(ICase cs) {
             var fsService = FileSystemService.Current;
             if (fsService == null) {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
             }
 
-            foreach (var evidence in DriveEvidences) {
-                //文件系统卸载本地Drive相关的案件文件;
-                var files = fsService.MountedUnits.Where(p => evidence.XElem == p.XElem).ToArray();
-                foreach (var file in files) {
-                    fsService.UnMountFile(file.File);
-                }
-            }
+            var driveCaseEvidences = cs.CaseEvidences.Where(p => 
+                (p.EvidenceTypeGuids?.Contains(EvidenceType_LocalHDD)??false) ||
+                (p.EvidenceTypeGuids?.Contains(EvidenceType_LocalVolume)??false)).ToArray();
 
-            _driveEvidences.Clear();
+            var driveMountUnits = fsService.MountedUnits.Where(p => driveCaseEvidences.Any(q => q.EvidenceGUID == q.EvidenceGUID)).ToArray();
+
+            //文件系统卸载本地Drive相关的案件文件;
+            foreach (var unit in driveMountUnits) {
+                fsService.UnMountFile(unit);
+            }
         }
 
         /// <summary>
@@ -154,13 +153,10 @@ namespace SingularityForensic.Drive {
             }
 
 
-            var tuples = DriveEvidences.Where(p => p == evidence).ToArray();
-            foreach (var tuple in tuples) {
-                //文件系统卸载文件;
-                var files = fsService.MountedUnits.Where(p => tuple.XElem == p.XElem).ToArray();
-                foreach (var fileTuple in files) {
-                    fsService.UnMountFile(fileTuple.File);
-                }
+            //文件系统卸载文件;
+            var files = fsService.MountedUnits.Where(p => evidence.EvidenceGUID == p.GUID).ToArray();
+            foreach (var fileTuple in files) {
+                fsService.UnMountFile(fileTuple.File);
             }
         }
 
@@ -212,17 +208,18 @@ namespace SingularityForensic.Drive {
             var hdd = ComObject.Current.LocalHdds.FirstOrDefault(p => p.SerialNumber == csEvidence[nameof(LocalHDD.SerialNumber)]);
             if(hdd == null) {
                 LoggerService.WriteCallerLine($"No local hdd with {nameof(LocalHDD.SerialNumber)} - {csEvidence[nameof(LocalHDD.SerialNumber)]} found.");
-                MsgBoxService.ShowError(LanguageService.FindResourceString(NoHddMatchedFound));
                 return;
             }
 
             try {
                 //尝试将数据流挂载到文件系统上;
-                FileSystemService.Current.MountStream(hdd.GetStream(), csEvidence.Name, csEvidence.XElem, reporter);
+                FileSystemService.Current.MountStream(hdd.GetStream(), csEvidence.Name, csEvidence.EvidenceGUID, reporter);
             }
             catch(Exception ex) {
-                LoggerService.WriteCallerLine(ex.Message);   
-                MsgBoxService.ShowError(ex.Message);
+                LoggerService.WriteCallerLine(ex.Message);
+                ThreadInvoker.UIInvoke(() => {
+                    MsgBoxService.ShowError(ex.Message);
+                });
             }
             
         }
@@ -237,7 +234,7 @@ namespace SingularityForensic.Drive {
                 throw new ArgumentNullException(nameof(csEvidence));
             }
 
-            if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalHDD) ?? false)) {
+            if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_LocalVolume) ?? false)) {
                 throw new ArgumentException($"{nameof(csEvidence.EvidenceTypeGuids)} doesn't contain valid label:{EvidenceType_LocalHDD}");
             }
 
@@ -265,11 +262,20 @@ namespace SingularityForensic.Drive {
 
             if(volume == null) {
                 LoggerService.WriteCallerLine($"{nameof(volume)} not been found");
-                MsgBoxService.ShowError(LanguageService.FindResourceString(NoVolumeMatchedFound));
                 return;
             }
 
-            FileSystemService.Current?.MountStream(volume.GetStream(), volume.Sign.ToString(), csEvidence.XElem, reporter);
+            try {
+                FileSystemService.Current?.MountStream(volume.GetStream(), volume.Sign.ToString(), csEvidence.EvidenceGUID, reporter);
+
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+                ThreadInvoker.UIInvoke(() => {
+                    MsgBoxService.Show(ex.Message);
+                });
+            }
+            
         }
     }
 }

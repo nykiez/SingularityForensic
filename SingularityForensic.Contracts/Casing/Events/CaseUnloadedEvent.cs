@@ -6,6 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.Casing.Events {
-    public class CaseUnloadedEvent:PubSubEvent {
+    public class CaseUnloadedEvent:PubSubEvent<ICase> {
     }
 }

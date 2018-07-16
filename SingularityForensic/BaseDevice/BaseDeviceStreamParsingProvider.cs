@@ -29,7 +29,7 @@ namespace SingularityForensic.BaseDevice {
             return GetPartsType(stream) != null;
         }
         
-        public IFile ParseStream(Stream stream, string name, XElement xElem, IProgressReporter reporter) {
+        public IFile ParseStream(Stream stream, string name, IProgressReporter reporter) {
             if(stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
@@ -60,13 +60,13 @@ namespace SingularityForensic.BaseDevice {
                     device = FileFactory.CreateDevice(Constants.DeviceKey_DOS);
                     deviceStoken = device.GetStoken(Constants.DeviceKey_DOS);
                     EditStoken();
-                    EditStokenOnDos(deviceStoken, xElem, unEntity);
+                    EditStokenOnDos(deviceStoken, unEntity);
                     break;
                 case InnerPartsType.GPT:
                     device = FileFactory.CreateDevice(Constants.DeviceKey_GPT);
                     deviceStoken = device.GetStoken(Constants.DeviceKey_GPT);
                     EditStoken();
-                    EditStokenOnGpt(deviceStoken, xElem, unEntity);
+                    EditStokenOnGpt(deviceStoken, unEntity);
                     break;
                 default:
                     break;
@@ -74,7 +74,7 @@ namespace SingularityForensic.BaseDevice {
             
             if (device != null) {
                 //加载分区;
-                device.FillParts(xElem, reporter);
+                device.FillParts(reporter);
                 device.Disposing += OnDeviceDisposing;
             }
             
@@ -89,7 +89,6 @@ namespace SingularityForensic.BaseDevice {
         /// <param name="xElem">案件文件相关Xml元素</param>
         private static void EditStokenOnDos(
             DeviceStoken deviceStoken,
-            XElement xElem,
             IUnmanagedBasicDeviceManager entity) {
 
             if(deviceStoken == null) {
@@ -200,7 +199,7 @@ namespace SingularityForensic.BaseDevice {
         /// <param name="xElem"></param>
         /// <param name="reporter"></param>
         /// <returns></returns>
-        private static void EditStokenOnGpt(DeviceStoken deviceStoken,XElement xElem, IUnmanagedBasicDeviceManager entity) {
+        private static void EditStokenOnGpt(DeviceStoken deviceStoken, IUnmanagedBasicDeviceManager entity) {
             if (deviceStoken == null) {
                 throw new ArgumentNullException(nameof(deviceStoken));
             }

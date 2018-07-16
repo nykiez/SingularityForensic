@@ -22,10 +22,15 @@ namespace SingularityForensic.Contracts.Imaging {
         void AddImg();
 
         
-        IEnumerable<(IImgMounter mounter, ICaseEvidence csEvidence)> MounterTuples { get; }
+        IEnumerable<IImgMountUnit> ImgMountUnits { get; }
     }
 
     public class ImgService: GenericServiceStaticInstance<IImagingService> {
 
+    }
+
+    public interface IImgMountUnit {
+        IImgMounter ImgMounter { get; }
+        ICaseEvidence CaseEvidence { get; }
     }
 }

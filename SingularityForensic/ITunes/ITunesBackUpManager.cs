@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.Local {
+namespace SingularityForensic.ITunes {
     /// <summary>
-    /// 本地目录管理单位;
+    /// ITunes备份管理单位;
     /// </summary>
-    public class LocalDirectoryManager {
+    public class ITunesBackUpManager {
         /// <summary>
         /// 实际存储的内容;
         /// </summary>
         public IDirectory Directory { get; internal set; }
+        public StIOSBasicInfo? BasicInfo { get; internal set; }
     }
 }
