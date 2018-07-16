@@ -17,12 +17,16 @@ namespace SingularityForensic.ITunes {
         public void Initialize() {
             RegisterEvents();
         }
-
+        
         private void RegisterEvents() {
             PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
-            
+
+            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
+
+            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
         }
 
+      
         /// <summary>
         /// 添加ITunes备份文件夹;
         /// </summary>
@@ -125,5 +129,50 @@ namespace SingularityForensic.ITunes {
             }
 
         }
+
+        /// <summary>
+        /// 移除案件文件为ITunes备份文件夹时,进行卸载操作;
+        /// </summary>
+        /// <param name="csEvidence"></param>
+        private void OnCaseEvidenceRemoved(ICaseEvidence csEvidence) {
+            if(csEvidence == null) {
+                return;
+            }
+
+            if (!(csEvidence.EvidenceTypeGuids?.Contains(EvidenceType_ITunesBackUpDir) ?? false)) {
+                return;
+            }
+
+            try {
+                var dir = FileSystemService.Current.GetFile(csEvidence.EvidenceGUID) as IDirectory;
+                var manager = Managers.FirstOrDefault(p => p.Directory == dir);
+                if(manager == null) {
+                    return;
+                }
+                //从文件系统中卸载;
+                FileSystemService.Current.UnMountFile(dir);
+                _managers.Remove(manager);
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+            }
+        }
+
+        /// <summary>
+        /// 案件文件被卸载时,进行卸载操作;
+        /// </summary>
+        private void OnCaseUnloaded() {
+            try {
+                foreach (var manager in Managers) {
+                    FileSystemService.Current.UnMountFile(manager.Directory);
+                }
+
+                _managers.Clear();
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+            }
+        }
+
     }
 }

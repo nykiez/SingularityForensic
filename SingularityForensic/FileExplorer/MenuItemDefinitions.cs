@@ -16,7 +16,7 @@ namespace SingularityForensic.FileExplorer {
     
     static class MenuItemDefinitions {
         /// <summary>
-        /// 加载名称类别文件工具栏;
+        ///"加载名称类别"文件工具栏;
         /// </summary>
         private static IToolBarButtonItem _loadCategoryNameDescriptorsToolBarItem;
         [Export]

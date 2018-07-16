@@ -88,7 +88,7 @@ namespace SingularityForensic.Drive {
         public IEnumerable<ICaseEvidence> DriveEvidences => _driveEvidences.Select(p => p);
 
         /// <summary>
-        /// 当卸载案件时;
+        /// 当卸载案件时;进行卸载操作;
         /// </summary>
         private void OnCaseUnloadedOnDrive() {
             var fsService = FileSystemService.Current;
@@ -98,7 +98,7 @@ namespace SingularityForensic.Drive {
             }
 
             foreach (var evidence in DriveEvidences) {
-                //文件系统卸载镜像文件;
+                //文件系统卸载本地Drive相关的案件文件;
                 var files = fsService.MountedUnits.Where(p => evidence.XElem == p.XElem).ToArray();
                 foreach (var file in files) {
                     fsService.UnMountFile(file.File);
@@ -129,6 +129,10 @@ namespace SingularityForensic.Drive {
             }
         }
 
+        /// <summary>
+        /// 移除案件文件时,进行卸载操作;
+        /// </summary>
+        /// <param name="evidence"></param>
         private void OnCaseEvidenceRemovedOnDrive(ICaseEvidence evidence) {
             if(evidence == null) {
                 return;

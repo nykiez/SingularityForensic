@@ -91,7 +91,7 @@ namespace SingularityForensic.ITunes {
 #if DEBUG
                     index++;
                     if(index >= 20) {
-                        //break;
+                        break;
                     }
 #endif
                 }

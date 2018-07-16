@@ -75,8 +75,7 @@ namespace SingularityForensic.Hex {
         public ICollection<IBrushBlock> CustomBackgroundBlocks => _customBackgroundBlocksWrapper;
 
         private CollectionWrapper<IBrushBlock, WpfHexaEditor.Core.Interfaces.IBrushBlock> _customBackgroundBlocksWrapper;
-            
-
+        
         private HexViewViewModel _vm = new HexViewViewModel();
 
         public object UIObject => StackGrid.UIObject;

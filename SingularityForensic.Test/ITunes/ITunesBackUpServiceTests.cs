@@ -3,6 +3,7 @@ using SingularityForensic.Contracts.Common;
 using SingularityForensic.ITunes;
 using SingularityForensic.Test.App;
 using System.Linq;
+using System.Threading;
 
 namespace SingularityForensic.Test.ITunes {
     [TestClass()]
@@ -26,16 +27,46 @@ namespace SingularityForensic.Test.ITunes {
             AppMockers.OpenDirName =  "H://iosb";
             _iTunesBackUpService.AddITunesBackUpDir();
             
-            Assert.AreEqual(SingularityForensic.Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 1);
-            var file = SingularityForensic.Contracts.FileSystem.FileSystemService.Current.MountedUnits.ElementAt(0);
+            //测试挂载;
+            Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 1);
+            var file = Contracts.FileSystem.FileSystemService.Current.MountedUnits.ElementAt(0);
             Assert.AreEqual(file.File.Name, "iosb");
 
-            Assert.AreEqual(SingularityForensic.Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
-            var csEvidence = SingularityForensic.Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.ElementAt(0);
+            //查看案件是否被正确挂载;
+            Assert.AreEqual(Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 1);
+            var csEvidence = Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.ElementAt(0);
             Assert.AreEqual(csEvidence.Name , "iosb");
 
             Assert.AreEqual(_iTunesBackUpService.Managers.Count(), 1);
-            
+
+            //测试移除案件文件时卸载;
+            Contracts.Casing.CaseService.Current.CurrentCase.RemoveCaseEvidence(csEvidence);
+            Assert.AreEqual(Contracts.Casing.CaseService.Current.CurrentCase.CaseEvidences.Count(), 0);
+            Assert.AreEqual(_iTunesBackUpService.Managers.Count(), 0);
+            Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 0);
+
+            _iTunesBackUpService.AddITunesBackUpDir();
+
+            //测试卸载案件时卸载;
+            Contracts.Casing.CaseService.Current.CloseCurrentCase();
+            Assert.AreEqual(Contracts.Casing.CaseService.Current.CurrentCase, null);
+            Assert.AreEqual(_iTunesBackUpService.Managers.Count(), 0);
+            Assert.AreEqual(Contracts.FileSystem.FileSystemService.Current.MountedUnits.Count(), 0);
+
+            csEvidence = null;
+            file = null;
+            //测试回收;
+            for (int i = 0; i < 2; i++) {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+            }
+
         }
+
+        [TestCleanup]
+        public void Clean() {
+         
+        }
+
     }
 }

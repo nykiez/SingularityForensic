@@ -1,5 +1,6 @@
 ﻿namespace SingularityForensic.ITunes {
     public static partial class Constants {
+        //证据项类型,ITunes备份文件夹;
         public const string EvidenceType_ITunesBackUpDir = nameof(EvidenceType_ITunesBackUpDir);
 
         public const string ITunesBackUpDir_Path = nameof(ITunesBackUpDir_Path);

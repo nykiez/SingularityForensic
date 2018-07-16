@@ -17,6 +17,7 @@ namespace SingularityForensic.Hex.Models {
             get => _customBackgroundBlock.Length;
             set => _customBackgroundBlock.Length = value;
         }
+
         public Brush Brush {
             get => _customBackgroundBlock.Background;
             set => _customBackgroundBlock.Background = value;

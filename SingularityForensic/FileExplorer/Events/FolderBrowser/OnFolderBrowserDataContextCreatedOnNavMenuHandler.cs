@@ -21,7 +21,12 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser {
             if(folderBrowserDataContext == null) {
                 return;
             }
+
             if(folderBrowserDataContext.FolderBrowserViewModel == null) {
+                return;
+            }
+
+            if (folderBrowserDataContext.FolderBrowserViewModel.OwnedFileCollection == null) {
                 return;
             }
 

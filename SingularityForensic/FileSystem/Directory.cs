@@ -19,5 +19,11 @@ namespace SingularityForensic.FileSystem {
         public bool IsBack => _stoken.IsBack;
 
         public bool IsLocalBackUp => _stoken.IsLocalBackUp;
+
+#if DEBUG
+        ~Directory() {
+
+        }
+#endif
     }
 }

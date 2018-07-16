@@ -547,7 +547,7 @@
     <Compile Include="Hex\HexUIServiceImpl.cs" />
     <Compile Include="Hex\Models\BytesToCharEncodingWrapper.cs" />
     <Compile Include="Hex\Models\CollectionWrapper.cs" />
-    <Compile Include="Hex\Models\CutomBackgroundWrapper.cs" />
+    <Compile Include="Hex\Models\BrushBlockWrapper.cs" />
     <Compile Include="Hex\Models\GoToOffsetSetting.cs" />
     <Compile Include="Hex\Models\ToolTipItemModels.cs" />
     <Compile Include="Hex\ToolTipDataItem.cs" />
@@ -679,16 +679,10 @@
     <Compile Include="ITunes\MenuItemDefinitions.cs" />
     <Compile Include="ITunes\Resources\IconResources.cs" />
     <Compile Include="ITunes\Structs.cs" />
-    <Compile Include="ITunes\TabModels\ITunesGridTabModel.cs" />
-    <Compile Include="ITunes\Views\ITunesFolderBrowser.xaml.cs">
-      <DependentUpon>ITunesFolderBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ITunes\Views\ITunesGrid.xaml.cs">
-      <DependentUpon>ITunesGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ITunes\Views\StartForensicWindow.xaml.cs">
-      <DependentUpon>StartForensicWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Local\Constants.cs" />
+    <Compile Include="Local\LocalDirectoryManager.cs" />
+    <Compile Include="Local\LocalFileService.cs" />
+    <Compile Include="Local\LocalModule.cs" />
     <Compile Include="MainMenu\Constants.cs" />
     <Compile Include="MainMenu\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainMenu\MainMenuModule.cs" />
@@ -1073,18 +1067,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ITunes\Views\ITunesFolderBrowser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ITunes\Views\ITunesGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ITunes\Views\StartForensicWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainMenu\Languages\zh_CN\SingularityForensic.MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1313,9 +1295,8 @@
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="ITunes\Events\" />
+    <Folder Include="ITunes\Events\Casing\" />
     <Folder Include="ITunes\Models\" />
-    <Folder Include="ITunes\ViewModels\" />
     <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
   </ItemGroup>

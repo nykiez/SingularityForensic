@@ -31,6 +31,7 @@ namespace SingularityForensic.Contracts.FileSystem {
         /// 挂载现有的文件;
         /// </summary>
         /// <param name="file">在外部构建的文件</param>
+        /// <param name="xElem">拓展元素,与案件相关</param>
         void MountFile(IFile file, XElement xElem);
 
         /// <summary>

@@ -14,5 +14,11 @@ namespace SingularityForensic.FileSystem {
         public RegularFile(string key) : base(key) {
 
         }
+
+#if DEBUG
+        ~RegularFile() {
+
+        }
+#endif
     }
 }
