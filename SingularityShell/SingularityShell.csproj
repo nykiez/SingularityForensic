@@ -127,11 +127,6 @@
       <Name>SingularityForensic.Contracts</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SingularityForensic.Info\SingularityForensic.Info.csproj">
-      <Project>{6287251b-d2c5-4a03-89f3-7de1f9399d7a}</Project>
-      <Name>SingularityForensic.Info</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\SingularityForensic.Themes\SingularityForensic.Themes.csproj">
       <Project>{42c3a445-0dd2-47a8-921c-921b65d81d50}</Project>
       <Name>SingularityForensic.Themes</Name>
@@ -155,80 +150,80 @@
 XCopy "$(SolutionDir)\packages\CDFC.Controls.0.1.2.2\lib\NET451" "$(TargetDir)Controls\" /I /D /E /Y
 
 
-XCopy "$(SolutionDir)\packages\Prism.Core.6.3.0\lib\net45\Prism.dll" "$(TargetDir)Common\Prism.dll"  /I /D /E /Y
-XCopy "$(SolutionDir)\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll" "$(TargetDir)Common\Prism.Mef.Wpf.dll" /I /D /E /Y
-XCopy "$(SolutionDir)\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll" "$(TargetDir)Common\Prism.Wpf.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll" "$(TargetDir)Common\Microsoft.Practices.ServiceLocation.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\Prism.Core.6.3.0\lib\net45\Prism.dll" "$(TargetDir)Common\Prism.dll"  /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll" "$(TargetDir)Common\Prism.Mef.Wpf.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll" "$(TargetDir)Common\Prism.Wpf.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll" "$(TargetDir)Common\Microsoft.Practices.ServiceLocation.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  "$(TargetDir)Controls\MahApps.Metro.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll"  "$(TargetDir)Controls\MahApps.Metro.dll" /I /D /E /Y
+         
+ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.2.2\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll" /I /D /E /Y
+         
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\$(OutDir)SingularityForensic.dll" "$(TargetDir)Entities\SingularityForensic.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb" /I /D /E /Y
-XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll" /I /D /E /Y
-XCopy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.2.2\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll" /I /D /E /Y
-XCopy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)EWF.NET\ewf.net.dll" "$(TargetDir)Entities\ewf.net.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Entities\cdfc_device.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"   /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic\$(OutDir)SingularityForensic.dll" "$(TargetDir)Entities\SingularityForensic.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn" "$(TargetDir)OutSideIn" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Imaging\libewf.dll" "$(TargetDir)Entities\libewf.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Imaging\zlib.dll" "$(TargetDir)Entities\zlib.dll" /I /D /E /Y
-XCopy "$(SolutionDir)EWF.NET\ewf.net.dll" "$(TargetDir)Entities\ewf.net.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Drive\cdfc_device.dll" "$(TargetDir)Entities\cdfc_device.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Drive\DevManager.dll" "$(TargetDir)Entities\DevManager.dll"   /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll"  /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)Entities\ExtRecover.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic\BaseDevice\PartitionManager.dll" "$(TargetDir)Entities\PartitionManager.dll"  /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\FAT\FatRecover.dll" "$(TargetDir)Entities\FatRecover.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\Ext\ExtRecover.dll" "$(TargetDir)Entities\ExtRecover.dll" /I /D /E /Y
-
-XCopy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\App\LanguageConfig.xml" "$(TargetDir)LanguageConfig.xml" /I /D /E /Y
 
 XCopy "$(SolutionDir)SingularityForensic\$(OutDir)Languages"  "$(TargetDir)Languages\"  /I /D /E /Y
 XCopy "$(ProjectDir)Languages"  "$(TargetDir)Languages\"  /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic.Themes\$(OutDir)SingularityForensic.Themes.dll" "$(TargetDir)Controls\SingularityForensic.Themes.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic.Contracts\$(OutDir)SingularityForensic.Contracts.dll" "$(TargetDir)Entities\SingularityForensic.Contracts.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic.Themes\$(OutDir)SingularityForensic.Themes.dll" "$(TargetDir)Controls\SingularityForensic.Themes.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml" /I /D /E /Y
-XCopy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\FileExplorer\ViewerPrograms.xml" "$(TargetDir)Resources\ViewerPrograms.xml" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)SingularityForensic\FileExplorer\File Type Categories.txt" "$(TargetDir)Resources\File Type Categories.txt" /I /D /E /Y
 
-XCopy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll" "$(TargetDir)Controls\Meta.Vlc.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Meta.Vlc.Wpf.17.06.20\lib\net45\x86\Meta.Vlc.Wpf.dll" "$(TargetDir)Controls\Meta.Vlc.Wpf.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Meta.Vlc.17.06.20\lib\net45\x86\Meta.Vlc.dll" "$(TargetDir)Controls\Meta.Vlc.dll" /I /D /E /Y
 XCopy "$(SolutionDir)packages\Meta.Vlc.Lib.16.05.01\content\LibVlc" "$(TargetDir)"  /I /D /E /Y
 
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.GridView.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Themes.VisualStudio2013.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Themes.VisualStudio2013.dll" "$(TargetDir)Controls\Telerik.Windows.Themes.VisualStudio2013.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Docking.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Docking.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Data.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.GridView.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.GridView.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.GridView.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Input.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Input.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Input.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Data.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Navigation.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Navigation.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Navigation.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Themes.VisualStudio2013.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Themes.VisualStudio2013.dll" "$(TargetDir)Controls\Telerik.Windows.Themes.VisualStudio2013.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Docking.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Docking.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Docking.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Telerik.Windows.Controls.Data.for.Wpf.45.2015.3.930\lib\net45\Telerik.Windows.Controls.Data.dll" "$(TargetDir)Controls\Telerik.Windows.Controls.Data.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll" /I /D /E /Y
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll" /I /D /E /Y
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)BouncyCastle.Crypto.dll" "$(TargetDir)Entities\BouncyCastle.Crypto.dll" /I /D /E /Y
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll" /I /D /E /Y
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Chloe.dll" "$(TargetDir)Entities\Chloe.dll" /I /D /E /Y
-XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Newtonsoft.Json.dll" "$(TargetDir)Entities\Newtonsoft.Json.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)BouncyCastle.Crypto.dll" "$(TargetDir)Entities\BouncyCastle.Crypto.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Cflab.DataTransport.dll" "$(TargetDir)Entities\Cflab.DataTransport.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Chloe.dll" "$(TargetDir)Entities\Chloe.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Chloe.SQLite.dll" "$(TargetDir)Entities\Chloe.SQLite.dll" /I /D /E /Y
 XCopy "$(SolutionDir)Cflab.DataTransport\$(OutDir)Tools" "$(TargetDir)Tools"  /I /D /E /Y
 
 XCopy "$(SolutionDir)SingularityForensic\ITunes\DLLS" "$(TargetDir)Entities\"  /I /D /E /Y
 
 XCopy "$(SolutionDir)SingularityForensic\Previewers\OutSideIn" "$(TargetDir)OutSideIn" /I /D /E /Y
 
-XCopy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll" /I /D /E /Y
-XCopy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\$(ConfigurationName)\DirectOutIn.dll" "$(TargetDir)Entities\DirectOutIn.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\$(ConfigurationName)\StreamExtension.dll" "$(TargetDir)Entities\StreamExtension.dll" /I /D /E /Y
 
-XCopy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll" /I /D /E /Y
+ECHO F | XCopy "C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll" "$(TargetDir)Controls\Microsoft.Expression.Interactions.dll" /I /D /E /Y
 
-XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(TargetDir)Entities\System.Data.SQLite.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(TargetDir)Entities\System.Data.SQLite.EF6.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(TargetDir)Entities\System.Data.SQLite.Linq.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll" "$(TargetDir)Entities\System.Data.SQLite.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.108.0\lib\net451\System.Data.SQLite.EF6.dll" "$(TargetDir)Entities\System.Data.SQLite.EF6.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll" "$(TargetDir)Entities\System.Data.SQLite.Linq.dll" /I /D /E /Y
 XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x86" "$(TargetDir)x86" /I /D /E /Y 
 XCopy "$(SolutionDir)packages\System.Data.SQLite.Core.1.0.108.0\build\net451\x64" "$(TargetDir)x64" /I /D /E /Y
 
-XCopy "$(SolutionDir)packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll" "$(TargetDir)Entities\Lucene.Net.dll" /I /D /E /Y
-XCopy "$(SolutionDir)packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll" "$(TargetDir)Entities\ICSharpCode.SharpZipLib.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll" "$(TargetDir)Entities\Lucene.Net.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll" "$(TargetDir)Entities\ICSharpCode.SharpZipLib.dll" /I /D /E /Y
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

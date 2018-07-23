@@ -167,6 +167,7 @@
     <Compile Include="ITunes\IOSBackUpParserTests.cs" />
     <Compile Include="ITunes\ITunesBackUpServiceTests.cs" />
     <Compile Include="Local\LocalDirParserTest.cs" />
+    <Compile Include="Local\LocalFileServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="NTFS\BiosParameterBlockTests.cs" />
     <Compile Include="Shell\ShellMockers.cs" />

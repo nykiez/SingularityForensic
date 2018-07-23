@@ -7,7 +7,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mainPage="clr-namespace:SingularityForensic.Contracts.MainPage;assembly=SingularityForensic.Contracts"
-             xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" x:Class="SingularityForensic.MainPage.Views.MainPage"
+             x:Class="SingularityForensic.MainPage.Views.MainPage"
              mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True" 
              d:DesignHeight="300" d:DesignWidth="1000">
     
@@ -16,24 +16,45 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <telerik:RadDocking HasDocumentHost="False" x:Name="docking"  BorderThickness="0"  >
-        <telerik:RadSplitContainer Orientation="Horizontal" InitialPosition="DockedLeft" Margin="3,0,0,0" >
-            <telerik:RadPaneGroup  telerik:ProportionalStackPanel.RelativeSize="50, 600" BorderThickness="1" >
-                <telerik:RadPane CanUserClose="False"  Header="{DynamicResource CaseData}"  CanDockInDocumentHost="False">
-                    <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.NodeTreeRegion}"/>
-                </telerik:RadPane>
-            </telerik:RadPaneGroup>
-        </telerik:RadSplitContainer>
-        <telerik:RadSplitContainer Margin="0,0,3,0" >
-            <telerik:RadPaneGroup Style="{DynamicResource NoBordernessGroupStyle}" >
-                <telerik:RadPane CanUserClose="False" PaneHeaderVisibility="Collapsed" Background="{DynamicResource Envoirment.Background}"  BorderThickness="0" Header="{DynamicResource Header_MainContent}">
-                    <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}" />
-                </telerik:RadPane>
-            </telerik:RadPaneGroup>
-
-
-        </telerik:RadSplitContainer>
-    </telerik:RadDocking>
+    <DockPanel>
+        <telerik:RadDocking x:Name="docking"  BorderThickness="0" PanesSource="{Binding Panes}" DockingPanesFactory="{Binding PanesFactory}"  >
+            <telerik:RadDocking.DocumentHost>
+              
+                <!--<ContentControl>
+                    <telerik:RadSplitContainer>
+                        <telerik:RadPaneGroup x:Name="DocumentGroup">
+                            <telerik:RadPane x:Name="LayoutXml" Header="Layout Xml"
+								telerik:RadDocking.SerializationTag="LayoutXml"
+								telerik:RadDocking.FloatingSize="450, 400">
+                                <TextBox TextWrapping="Wrap" Grid.Row="2" x:Name="XmlTextBox" VerticalContentAlignment="Top" Background="#19F4F4F5"
+									VerticalScrollBarVisibility="Auto"
+									Text="{Binding Xml, Mode=TwoWay}" />
+                            </telerik:RadPane>
+                            <telerik:RadDocumentPane Header="Document 1" Title="Document 1"
+								telerik:RadDocking.SerializationTag="DocumentPane">
+                                <TextBox x:Name="DocumentTextBox" VerticalContentAlignment="Top" Text="Some text" Background="#19F4F4F5" />
+                            </telerik:RadDocumentPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                </ContentControl>-->
+                
+                <ContentControl prism:RegionManager.RegionName="{x:Static mainPage:Constants.MainPageDocumentRegion}" />
+            </telerik:RadDocking.DocumentHost>
+            <!--<telerik:RadSplitContainer InitialPosition="DockedRight">
+                <telerik:RadPaneGroup Style="{DynamicResource NoBordernessGroupStyle}">
+                    <telerik:RadPane  PaneHeaderVisibility="Collapsed" >
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+            <telerik:RadSplitContainer InitialPosition="DockedLeft" Width="120">
+                <telerik:RadPaneGroup  >
+                    <telerik:RadPane CanUserClose="False"  Header="{DynamicResource CaseData}"  CanDockInDocumentHost="False">
+                        
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>-->
+        </telerik:RadDocking>
+    </DockPanel>
+    
 
 </UserControl>

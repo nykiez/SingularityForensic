@@ -27,7 +27,7 @@ namespace SingularityForensic.MainMenu.ViewModels {
         /// </summary>
         private void BuildBasicMenus() {
             foreach (var group in MenuGroups) {
-                foreach (var item in menuItems.Where(i => i.GroupID == group.GUID).OrderBy(i => i.SortOrder)) {
+                foreach (var item in menuItems.Where(i => i.GroupID == group.GUID).OrderBy(i => i.Sort)) {
                     group.Children.Add(item);
                 } 
             }

@@ -97,7 +97,7 @@ namespace SingularityForensic.Casing {
             }
 
             //发布案件加载中事件;
-            PubEventHelper.GetEvent<CaseLoadingEvent>().Publish(cs);
+            CommonEventHelper.GetEvent<CaseLoadingEvent>().Publish(cs);
             CurrentCase = cs;
 
             //从文档中加载证据项;
@@ -136,8 +136,8 @@ namespace SingularityForensic.Casing {
                 }
 
                 //发布加载案件完成的事件;
-                PubEventHelper.GetEvent<CaseLoadedEvent>().Publish();
-                PubEventHelper.PublishEventToHandlers<ICaseLoadedEventHandler>();
+                CommonEventHelper.GetEvent<CaseLoadedEvent>().Publish();
+                CommonEventHelper.PublishEventToHandlers<ICaseLoadedEventHandler>();
             };
             
 
@@ -176,7 +176,7 @@ namespace SingularityForensic.Casing {
             }
 
             var arg = new CancelEventArgs();
-            PubEventHelper.GetEvent<CaseUnloadingEvent>().Publish(arg);
+            CommonEventHelper.GetEvent<CaseUnloadingEvent>().Publish(arg);
             if (arg.Cancel) {
                 return;
             }
@@ -184,7 +184,7 @@ namespace SingularityForensic.Casing {
             CurrentCase.Save();
             var cs = CurrentCase;
             CurrentCase = null;
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Publish(cs);
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().Publish(cs);
             
         }
         

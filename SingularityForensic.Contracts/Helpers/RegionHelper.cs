@@ -13,5 +13,7 @@ namespace SingularityForensic.Contracts.Helpers {
 
         public static IRegionManager RegisterViewWithRegion(string regionName, Type viewType) => RegionManager?.RegisterViewWithRegion(regionName, viewType);
         public static IRegionManager RegisterViewWithRegion(string regionName, Func<object> getContentDelegate) => RegionManager?.RegisterViewWithRegion(regionName, getContentDelegate);
+
+        
     }
 }

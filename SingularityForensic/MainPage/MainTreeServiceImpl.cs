@@ -12,9 +12,9 @@ using System.Linq;
 
 namespace SingularityForensic.MainPage {
     [Export(Contracts.MainPage.Constants.MainTreeService,typeof(ITreeService))]
-    public partial class MainTreeService : ITreeService {
+    public partial class MainTreeServiceImpl : ITreeService {
         [ImportingConstructor]
-        public MainTreeService(UnitTreeViewModel vm) {
+        public MainTreeServiceImpl(UnitTreeViewModel vm) {
             this.VM = vm;
             Initialize();
         }
@@ -46,8 +46,8 @@ namespace SingularityForensic.MainPage {
             }
 
             try {
-                PubEventHelper.GetEvent<TreeUnitRightClicked>().Publish((e, this as ITreeService));
-                PubEventHelper.PublishEventToHandlers((e, this as ITreeService), _treeUnitRightClickeEventHandlers);
+                CommonEventHelper.GetEvent<TreeUnitRightClicked>().Publish((e, this as ITreeService));
+                CommonEventHelper.PublishEventToHandlers((e, this as ITreeService), _treeUnitRightClickeEventHandlers);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -69,8 +69,8 @@ namespace SingularityForensic.MainPage {
             foreach (var cmi in ContextCommands) {
                 cmi.NotifyProperty(nameof(ICommandItem.IsVisible));
             }
-            PubEventHelper.PublishEventToHandlers((VM.SelectedUnit, this as ITreeService), _treeUnitSelectedChangedEventHandlers);
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
+            CommonEventHelper.PublishEventToHandlers((VM.SelectedUnit, this as ITreeService), _treeUnitSelectedChangedEventHandlers);
+            CommonEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Publish((VM.SelectedUnit, this));
         }
 
         //移除unit;
@@ -91,7 +91,7 @@ namespace SingularityForensic.MainPage {
                 throw ex;
             }
 
-            PubEventHelper.GetEvent<TreeUnitRemovedEvent>().Publish((unit, this));
+            CommonEventHelper.GetEvent<TreeUnitRemovedEvent>().Publish((unit, this));
         }
 
         //所有的跟Unit;
@@ -101,7 +101,7 @@ namespace SingularityForensic.MainPage {
         
         public void ClearUnits() {
             var cArgs = new CancelEventArgs();
-            PubEventHelper.GetEvent<TreeUnitsClearingEvent>().Publish((cArgs,this));
+            CommonEventHelper.GetEvent<TreeUnitsClearingEvent>().Publish((cArgs,this));
             if (!cArgs.Cancel) {
                 VM.TreeUnits.Clear();
             }
@@ -122,8 +122,8 @@ namespace SingularityForensic.MainPage {
             });
             
             try {
-                PubEventHelper.GetEvent<TreeUnitAddedEvent>().Publish((nUnit, this));
-                PubEventHelper.PublishEventToHandlers((nUnit, this as ITreeService),_treeUnitAddedEventHandlers);
+                CommonEventHelper.GetEvent<TreeUnitAddedEvent>().Publish((nUnit, this));
+                CommonEventHelper.PublishEventToHandlers((nUnit, this as ITreeService),_treeUnitAddedEventHandlers);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -133,7 +133,7 @@ namespace SingularityForensic.MainPage {
         
     }
 
-    public partial class MainTreeService {
+    public partial class MainTreeServiceImpl {
         /// <summary>
         /// 上下文命令菜单;
         /// </summary>

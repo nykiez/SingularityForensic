@@ -150,9 +150,9 @@ namespace SingularityForensic.Hash {
         }
 
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<HashSetDescriptionChangedEvent>().SubscribeCheckingSubscribed<HashSetDescriptionChangedEvent,IHashSet>(OnHashSetDescriptionChanged);
-            PubEventHelper.GetEvent<HashSetNameChangedEvent>().SubscribeCheckingSubscribed<HashSetNameChangedEvent, IHashSet>(OnHashSetNameChanged);
-            PubEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().SubscribeCheckingSubscribed<HashSetIsEnabledChangedEvent, IHashSet>(OnHashSetIsEnabledChanged);
+            CommonEventHelper.GetEvent<HashSetDescriptionChangedEvent>().SubscribeCheckingSubscribed<HashSetDescriptionChangedEvent,IHashSet>(OnHashSetDescriptionChanged);
+            CommonEventHelper.GetEvent<HashSetNameChangedEvent>().SubscribeCheckingSubscribed<HashSetNameChangedEvent, IHashSet>(OnHashSetNameChanged);
+            CommonEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().SubscribeCheckingSubscribed<HashSetIsEnabledChangedEvent, IHashSet>(OnHashSetIsEnabledChanged);
         }
 
         /// <summary>

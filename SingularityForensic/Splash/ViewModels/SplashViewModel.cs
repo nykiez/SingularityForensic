@@ -10,7 +10,7 @@ namespace SingularityForensic.Splash.ViewModels {
             RegisterEvents();
         }
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<SplashMessageEvent>().Subscribe(msg => {
+            CommonEventHelper.GetEvent<SplashMessageEvent>().Subscribe(msg => {
                 LoadingText = msg;
             });
         }

@@ -77,11 +77,11 @@ namespace SingularityForensic.Drive {
         /// </summary>
         private void RegisterEvents() {
             //订阅HDD/卷案件加载事件;
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseLoadingOnDrive);
+            CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseLoadingOnDrive);
 
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnDrive);
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnDrive);
 
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnDrive);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnDrive);
         }
         
 
@@ -151,12 +151,11 @@ namespace SingularityForensic.Drive {
                 LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
                 return;
             }
-
-
+            
             //文件系统卸载文件;
-            var files = fsService.MountedUnits.Where(p => evidence.EvidenceGUID == p.GUID).ToArray();
-            foreach (var fileTuple in files) {
-                fsService.UnMountFile(fileTuple.File);
+            var units = fsService.MountedUnits.Where(p => evidence.EvidenceGUID == p.GUID).ToArray();
+            foreach (var unit in units) {
+                fsService.UnMountFile(unit);
             }
         }
 

@@ -6,6 +6,9 @@ using System.IO;
 using System.Linq;
 
 namespace SingularityForensic.ITunes {
+    /// <summary>
+    /// ITunes文件流提供者;
+    /// </summary>
     [Export(typeof(IFileInputStreamProvider))]
     class ITunesRegularFileInputStreamProvider : IFileInputStreamProvider {
         public int Sort => 64;

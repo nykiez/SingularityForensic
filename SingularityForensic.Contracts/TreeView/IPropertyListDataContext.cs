@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityForensic.Contracts.TreeView {
+    /// <summary>
+    /// 属性网格上下文;
+    /// </summary>
     public interface IPropertyListDataContext:IUIObjectProvider {
         /// <summary>
         /// 数据提供者;

@@ -8,7 +8,7 @@ using System.Windows.Threading;
 namespace SingularityForensic.Splash {
     [Export(typeof(ISplashService))]
     public class SplashService : ISplashService {
-        private Views.Splash sWin => ServiceProvider.Current.GetInstance<Views.Splash>();
+        private Views.Splash SWin => ServiceProvider.Current.GetInstance<Views.Splash>();
         
         public void ReportMessage(string msg) {
             

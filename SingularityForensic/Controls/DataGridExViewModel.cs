@@ -145,7 +145,7 @@ namespace SingularityForensic.Controls {
             set {
                 SetFilterSettings(value);
                 RaisePropertyChanged();
-                PubEventHelper.GetEvent<FilterSettingsChangedEvent>().Publish(_filterSettings);
+                CommonEventHelper.GetEvent<FilterSettingsChangedEvent>().Publish(_filterSettings);
             }
         }
 

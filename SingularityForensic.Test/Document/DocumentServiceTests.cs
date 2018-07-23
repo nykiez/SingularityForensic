@@ -29,11 +29,11 @@ namespace SingularityForensic.Test.Document {
             var newDoc = _documentService.CreateNewDocument();
             var addingCatched = false;
             var addedCathed = true;
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
                 addingCatched = true;
                 Assert.AreEqual(tuple.tab, newDoc);
             });
-            PubEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddedEvent>().Subscribe(tuple => {
                 addedCathed = true;
                 Assert.AreEqual(tuple.tab, newDoc);
             });
@@ -62,11 +62,11 @@ namespace SingularityForensic.Test.Document {
             var removedDoc = _documentService.SelectedDocument;
 
             RegisterCloseEvents();
-            PubEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
                 Assert.AreEqual(tuple.tab, removedDoc);
             });
 
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
                 Assert.AreEqual(tuple.doc, removedDoc);
             });
             
@@ -83,11 +83,11 @@ namespace SingularityForensic.Test.Document {
         /// 注册关闭事件;
         /// </summary>
         private void RegisterCloseEvents() {
-            PubEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
                 closingCatched = true;
             });
 
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
                 closedCatched = true;            });
         }
         

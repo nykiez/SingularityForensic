@@ -11,12 +11,12 @@ namespace SingularityForensic.FileExplorer {
     [ModuleExport(typeof(FileExplorerModule))]
     public class FileExplorerModule:IModule {
         public void Initialize() {
-            PubEventHelper.GetEvent<SplashMessageEvent>().
+            CommonEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.FileExploerLoading));
 
             try {
-                PubEventHelper.GetEvent<FileExplorerModuleLoadingEvent>().Publish();
-                PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<IFileExplorerModuleLoadingEventHandler>.Currents);
+                CommonEventHelper.GetEvent<FileExplorerModuleLoadingEvent>().Publish();
+                CommonEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<IFileExplorerModuleLoadingEventHandler>.Currents);
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);

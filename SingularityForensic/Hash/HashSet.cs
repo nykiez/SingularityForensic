@@ -80,8 +80,8 @@ namespace SingularityForensic.Hash {
 
                 _name = value;
                 try {
-                    PubEventHelper.GetEvent<HashSetNameChangedEvent>().Publish(this);
-                    PubEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetNameChangedEventHandler>.Currents);
+                    CommonEventHelper.GetEvent<HashSetNameChangedEvent>().Publish(this);
+                    CommonEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetNameChangedEventHandler>.Currents);
                 }
                 catch(Exception ex) {
                     LoggerService.WriteException(ex);
@@ -105,8 +105,8 @@ namespace SingularityForensic.Hash {
 
                 _description = value;
                 try {
-                    PubEventHelper.GetEvent<HashSetDescriptionChangedEvent>().Publish(this);
-                    PubEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetDescriptionChangedEventHandler>.Currents);
+                    CommonEventHelper.GetEvent<HashSetDescriptionChangedEvent>().Publish(this);
+                    CommonEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetDescriptionChangedEventHandler>.Currents);
                 }
                 catch( Exception ex) {
                     LoggerService.WriteException(ex);
@@ -125,8 +125,8 @@ namespace SingularityForensic.Hash {
 
                 _isEnabled = value;
                 try {
-                    PubEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().Publish(this);
-                    PubEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetIsEnabledChangedEventHandler>.Currents);
+                    CommonEventHelper.GetEvent<HashSetIsEnabledChangedEvent>().Publish(this);
+                    CommonEventHelper.PublishEventToHandlers(this as IHashSet, GenericServiceStaticInstances<IHashSetIsEnabledChangedEventHandler>.Currents);
                 }
                 catch(Exception ex) {
                     LoggerService.WriteException(ex);

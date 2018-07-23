@@ -21,7 +21,7 @@ namespace SingularityForensic.Hex {
         }
 
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<SelectedDocumentChangedEvent>().Subscribe(tuple => {
                 CanHexOperatable = GetCurrentHexDataContext() != null;
             });
         }

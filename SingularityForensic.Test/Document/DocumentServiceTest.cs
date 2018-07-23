@@ -26,10 +26,10 @@ namespace SingularityForensic.Test.Documents {
             var addingCatched = false;
             var addedCatched = false;
 
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
                 addingCatched = true;
             });
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
                 addedCatched = true;
             });
             
@@ -52,11 +52,11 @@ namespace SingularityForensic.Test.Documents {
             var closingCatched = false;
 
             var doc = _documentService.CurrentDocuments.First();
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosedEvent>().Subscribe(tuple => {
                 closedCatched = true;
                 Assert.AreEqual(tuple.doc, doc);
             });
-            PubEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentClosingEvent>().Subscribe(tuple => {
                 closingCatched = true;
                 Assert.AreEqual(tuple.tab, doc);
             });
@@ -118,11 +118,11 @@ namespace SingularityForensic.Test.Documents {
             var addingCatched = false;
             var addedCatched = false;
 
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
                 addingCatched = true;
             });
 
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Subscribe(tuple => {
                 addedCatched = true;
             });
 

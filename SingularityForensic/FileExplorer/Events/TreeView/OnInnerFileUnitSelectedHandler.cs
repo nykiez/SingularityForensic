@@ -41,20 +41,21 @@ namespace SingularityForensic.FileExplorer.Events.TreeView {
                 return;
             }
 
-            IStreamFile streamFile = null;
+            IFile docFile = null;
             if (innerFile is IStreamFile) {
-                streamFile = innerFile as IStreamFile;
+                docFile = innerFile as IStreamFile;
             }
             else {
-                streamFile = innerFile.GetParent<IStreamFile>();
+                docFile = innerFile.GetParent<IStreamFile>()??innerFile.GetRoot();
             }
+            
 
-            if (streamFile == null) {
-                LoggerService.WriteCallerLine($"{nameof(streamFile)} can't be null.");
+            if (docFile == null) {
+                LoggerService.WriteCallerLine($"{nameof(docFile)} can't be null.");
                 return;
             }
 
-            var doc = FileExplorerUIHelper.GetOrAddFileDocument(streamFile);
+            var doc = FileExplorerUIHelper.GetOrAddFileDocument(docFile);
             if (doc == null) {
                 LoggerService.WriteCallerLine($"{nameof(doc)} can't be null.");
                 return;

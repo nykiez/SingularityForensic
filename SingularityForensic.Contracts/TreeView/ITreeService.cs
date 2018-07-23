@@ -34,7 +34,6 @@ namespace SingularityForensic.Contracts.TreeView {
         /// 清除所有节点;
         /// </summary>
         void ClearUnits();
-
         /// <summary>
         /// 上下文命令项;
         /// </summary>

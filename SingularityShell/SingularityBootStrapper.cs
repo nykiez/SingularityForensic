@@ -6,9 +6,11 @@ using SingularityForensic.Common;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.Shell;
+using SingularityForensic.Contracts.Splash;
 using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 
 namespace SingularityShell {
@@ -66,12 +68,13 @@ namespace SingularityShell {
 #endif
             base.InitializeModules();
 #if RELEASE
-            splashService.CloseSplash();
+            ServiceProvider.Current.GetInstance<ISplashService>().CloseSplash();
 #endif
         }
 
         protected override void InitializeShell() {
             ShellService.Current.Show();
+
         }
     }
 }

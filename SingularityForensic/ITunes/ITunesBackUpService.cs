@@ -19,11 +19,11 @@ namespace SingularityForensic.ITunes {
         }
         
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
+            CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
 
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
 
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
         }
 
       

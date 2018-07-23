@@ -11,7 +11,7 @@ namespace SingularityForensic.Test.ITunes {
         public void Initialize() {
             TestCommon.InitializeTest();
         }
-        
+
         [TestMethod()]
         public void DoParseTest() {
             var manager = IOSBackUpParser.DoParse("H://iosb");
@@ -24,7 +24,9 @@ namespace SingularityForensic.Test.ITunes {
 
             var fs = regFile.GetInputStream();
 
-            
+
         }
+
+       
     }
 }

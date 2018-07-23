@@ -22,8 +22,8 @@ namespace SingularityForensic.Common {
                 elem.DataContext = dataContext;
                 
             }
-            PubEventHelper.GetEvent<ViewCreatedEvent>().Publish((elem as object,viewName));
-            PubEventHelper.PublishEventToHandlers((elem as object,viewName), ViewCreateEventHandlers);
+            CommonEventHelper.GetEvent<ViewCreatedEvent>().Publish((elem as object,viewName));
+            CommonEventHelper.PublishEventToHandlers((elem as object,viewName), ViewCreateEventHandlers);
             return elem;
         }
 

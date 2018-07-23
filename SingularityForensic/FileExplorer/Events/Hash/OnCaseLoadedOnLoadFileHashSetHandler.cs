@@ -34,16 +34,20 @@ namespace SingularityForensic.FileExplorer.Events.Hash {
                     if(status.HashSetGuids == null) {
                         continue;
                     }
+#if DEBUG
+                    //if (status.UnitName.StartsWith("9")) {
 
+                    //}
+#endif
                     //从文件系统中找到对应的文件;
                     var file = FileSystemService.Current.GetFile(status.UnitName);
                     if(file == null) {
-                        return;
+                        continue;
                     }
 
                     //找出属于包含了文件的哈希集集合;
                     var hashSets = allHashSets.
-                        //Where(p => status.HashSetGuids.Contains(p.GUID)).
+                        Where(p => status.HashSetGuids.Contains(p.GUID)).
                         ToArray();
                     if(hashSets.Length == 0) {
                         continue;

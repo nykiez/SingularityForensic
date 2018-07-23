@@ -23,8 +23,8 @@ namespace SingularityForensic.FileExplorer.ViewModel {
         public IFolderBrowserDataContext CreateFolderBrowserDataContext(IHaveFileCollection haveFileCollection) {
             var dataContext = new FolderBrowserDataContext(haveFileCollection);
             try {
-                PubEventHelper.PublishEventToHandlers(dataContext as IFolderBrowserDataContext, _folderBrowserViewModelCreatedEventHandlers);
-                PubEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Publish(dataContext);
+                CommonEventHelper.PublishEventToHandlers(dataContext as IFolderBrowserDataContext, _folderBrowserViewModelCreatedEventHandlers);
+                CommonEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Publish(dataContext);
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);
@@ -41,7 +41,7 @@ namespace SingularityForensic.FileExplorer.ViewModel {
         }
         public IPartitionsBrowserViewModel CreatePartitionsBrowserViewModel(IDevice device) {
             var vm = new PartitionsBrowserViewModel(device);
-            PubEventHelper.GetEvent<PartitionsBrowserViewModelCreatedEvent>().Publish(vm);
+            CommonEventHelper.GetEvent<PartitionsBrowserViewModelCreatedEvent>().Publish(vm);
             return vm;
         }
 

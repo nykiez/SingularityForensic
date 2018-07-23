@@ -32,7 +32,7 @@ namespace SingularityForensic.FileExplorer.Tests {
         public void TestPartitionDoubleClick() {
             var clicked = false;
             
-            PubEventHelper.GetEvent<PartitionDoubleClickedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<PartitionDoubleClickedEvent>().Subscribe(tuple => {
                 clicked = true;
                 Assert.AreEqual(tuple.part, _vm.Partitions[0].File);
             });

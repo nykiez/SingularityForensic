@@ -41,8 +41,8 @@ namespace SingularityForensic.FileExplorer {
         public void LoadDescriptorsFromFile(string fileName) {
             try {
                 LoadDescriptorInternal(fileName);
-                PubEventHelper.GetEvent<NameCategoryDescriptorsLoadedEvent>().Publish();
-                PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<INameCategoryDescriptorsLoadedEventHandler>.Currents);
+                CommonEventHelper.GetEvent<NameCategoryDescriptorsLoadedEvent>().Publish();
+                CommonEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<INameCategoryDescriptorsLoadedEventHandler>.Currents);
             }
             catch(Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

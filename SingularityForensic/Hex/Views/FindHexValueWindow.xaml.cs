@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SingularityForensic.Controls.Windows {
+namespace SingularityForensic.Hex.Views {
     /// <summary>
     /// Interaction logic for FindHexValueWindow.xaml
     /// </summary>

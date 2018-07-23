@@ -66,20 +66,20 @@ namespace SingularityForensic.FileExplorer.Events.TreeView {
         private static bool CheckFileSystemUnitSelected(ITreeService treeService) => treeService.CheckTypedUnitSelected(Contracts.FileExplorer.Constants.TreeUnitType_FileSystem);
 
         private void HandleOnFileCollection(IHaveFileCollection haveFileCollection) {
-            IStreamFile streamFile = null;
+            IFile docFile = null;
             if (haveFileCollection is IStreamFile) {
-                streamFile = haveFileCollection as IStreamFile;
+                docFile = haveFileCollection as IStreamFile;
             }
             else {
-                streamFile = haveFileCollection.GetParent<IStreamFile>();
+                docFile = haveFileCollection.GetParent<IStreamFile>()??haveFileCollection.GetRoot();
             }
 
-            if (streamFile == null) {
-                LoggerService.WriteCallerLine($"{nameof(streamFile)} can't be null.");
+            if (docFile == null) {
+                LoggerService.WriteCallerLine($"{nameof(docFile)} can't be null.");
                 return;
             }
 
-            var doc = FileExplorerUIHelper.GetOrAddFileDocument(streamFile);
+            var doc = FileExplorerUIHelper.GetOrAddFileDocument(docFile);
             if (doc == null) {
                 LoggerService.WriteCallerLine($"{nameof(doc)} can't be null.");
                 return;

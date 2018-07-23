@@ -76,6 +76,6 @@ namespace SingularityForensic.FileSystem {
 
         }
 
-        public int Sort => 128;
+        public int Sort => int.MaxValue;
     }
 }

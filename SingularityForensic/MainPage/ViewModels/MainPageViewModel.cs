@@ -6,6 +6,9 @@ using SingularityForensic.Contracts.MainPage.Events;
 using System;
 using SingularityForensic.Contracts.Common;
 using SingularityForensic.Contracts.App;
+using System.Collections.ObjectModel;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.Docking;
 
 namespace SingularityForensic.MainPage.ViewModels {
     [Export]
@@ -13,13 +16,13 @@ namespace SingularityForensic.MainPage.ViewModels {
         /// <summary>
         /// 主页被加载时命令;
         /// </summary>
-        private DelegateCommand _loadedCommand;
-        public DelegateCommand LoadedCommand => _loadedCommand ??
-            (_loadedCommand = new DelegateCommand(
+        private Prism.Commands.DelegateCommand _loadedCommand;
+        public Prism.Commands.DelegateCommand LoadedCommand => _loadedCommand ??
+            (_loadedCommand = new Prism.Commands.DelegateCommand(
                 () => {
                     try {
-                        PubEventHelper.Publish<MainPageLoadedEvent>();
-                        PubEventHelper.PublishEventToHandlers<IMainPageLoadedEventHandler>();
+                        CommonEventHelper.Publish<MainPageLoadedEvent>();
+                        CommonEventHelper.PublishEventToHandlers<IMainPageLoadedEventHandler>();
                     }
                     catch(Exception ex) {
                         LoggerService.WriteException(ex);
@@ -27,6 +30,17 @@ namespace SingularityForensic.MainPage.ViewModels {
                     }
                 }
             ));
+
+        public ObservableCollection<RadPane> Panes { get; } = new ObservableCollection<RadPane>();
+
+        private DockingPanesFactory _panesFactory;
+        public DockingPanesFactory PanesFactory {
+            get => _panesFactory ?? (_panesFactory = new DockingPanesFactory());
+            set {
+                SetProperty(ref _panesFactory, value);
+            }
+        }
+       
     }
     
     

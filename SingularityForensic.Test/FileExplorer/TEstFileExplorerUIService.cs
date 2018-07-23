@@ -38,7 +38,7 @@ namespace SingularityForensic.Test.FileExplorer {
             var file = _fsService.MountStream(File.OpenRead(AppMockers.OpenFileName), csEvidence.Name,csEvidence.EvidenceGUID, null);
             csUnit.SetInstance(csEvidence, SingularityForensic.Contracts.Casing.Constants.TreeUnitTag_CaseEvidence);
 
-            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Publish((csUnit, MainTreeService.Current));
+            CommonEventHelper.GetEvent<TreeUnitAddedEvent>().Publish((csUnit, MainTreeService.Current));
 
             Assert.AreEqual(csUnit.Children.Count, 1);
         }

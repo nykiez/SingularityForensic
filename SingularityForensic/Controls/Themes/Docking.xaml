@@ -8,18 +8,13 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Telerik.Windows.Themes.VisualStudio2013;component/Themes/Telerik.Windows.Controls.Docking.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    <ControlTemplate  TargetType="local:RadPaneGroup" x:Key="NoBordernessGroupTemplate">
+        <ContentPresenter x:Name="ContentElement"/>
+    </ControlTemplate>
     <Style TargetType="telerik:RadPaneGroup" x:Key="NoBordernessGroupStyle"  >
         <Setter Property="Background" Value="{DynamicResource Envoirment.Background}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate  TargetType="local:RadPaneGroup">
-                    <Grid>
-                        <ContentPresenter x:Name="ContentElement"
-                        />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <!--<Setter Property="BorderThickness" Value="0"/>-->
+        <Setter Property="Template" Value="{StaticResource NoBordernessGroupTemplate}"/>
     </Style>
 
 </ResourceDictionary>

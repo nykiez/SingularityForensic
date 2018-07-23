@@ -16,8 +16,6 @@ namespace SingularityForensic.Contracts.MainMenu {
         string Header { get; }
     }
     
-    
-    
     public class MenuObjectItem : IUIObjectProvider {
         public object UIObject { get; set; }
         public string GUID { get; set; }
@@ -27,15 +25,15 @@ namespace SingularityForensic.Contracts.MainMenu {
     /// 上下文菜单模型;
     /// </summary>
     public class MenuButtonItem:MenuObjectItem {
-        public MenuButtonItem(string groupId , string text, int sortOrder = 32) {
+        public MenuButtonItem(string groupId , string text, int sort = 32) {
             this.Text = text;
             this.GroupID = groupId;
-            this.SortOrder = sortOrder;
+            this.Sort = sort;
         }
 
         public string GroupID { get; }
         public string Text { get;  }
-        public int SortOrder { get; }
+        public int Sort { get; set; }
         public object ToolTip { get; set; }
         public Uri IconSource { get; set; }
         public string InputGestureText { get; set; }

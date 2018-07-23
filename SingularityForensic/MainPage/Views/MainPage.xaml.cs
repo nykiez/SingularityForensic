@@ -5,6 +5,8 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Telerik.Windows.Controls;
+using System.Linq;
 
 namespace SingularityForensic.MainPage.Views {
     /// <summary>
@@ -14,10 +16,16 @@ namespace SingularityForensic.MainPage.Views {
     public partial class MainPage : UserControl{
         public MainPage() {
             InitializeComponent();
-            //this.Loaded += MainPage_Loaded;
-            //this.Loaded += MainPage_Loaded1;
         }
 
+
+#if DEBUG
+        private class SEntity {
+            ~SEntity() {
+
+            }
+        }
+#endif
         private void MainPage_Loaded1(object sender, RoutedEventArgs e) {
             var window = this.TryFindParent<Window>();
             if(window == null) {
@@ -46,7 +54,7 @@ namespace SingularityForensic.MainPage.Views {
             CheckFolderExists();
 
             Stream _layoutStream = null;
-
+            
             try {
                 _layoutStream = File.Open(fsName, FileMode.OpenOrCreate);
                 docking.SaveLayout(_layoutStream);
@@ -70,16 +78,27 @@ namespace SingularityForensic.MainPage.Views {
             //try {
             //    _layoutStream = File.OpenRead(fsName);
             //    //docking.LoadLayout(_layoutStream);
-            //    mainContent.PaneHeaderVisibility = Visibility.Collapsed;
+            //    //mainContent.PaneHeaderVisibility = Visibility.Collapsed;
             //}
             //catch (Exception ex) {
 
             //}
             //_layoutStream?.Dispose();
 
-            
+
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            var dd = this.docking;
+#if DEBUG
+            var container = (dd.Items[2] as RadSplitContainer);
+            var group = container.Items[0] as RadPaneGroup;
+            
+            //var pane = group.Items[0] as RadPane;
+            //container.Visibility = Visibility.Visible;
+            //group.Visibility = Visibility.Visible;
+            //pane.Visibility = Visibility.Visible;
+#endif
+        }
     }
 }

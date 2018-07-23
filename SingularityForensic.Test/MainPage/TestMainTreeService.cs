@@ -11,17 +11,17 @@ namespace SingularityForensic.Test.MainPage {
         [TestInitialize]
         public void Initialize() {
             TestCommon.InitializeTest();
-            _treeService = MainTreeService.Current as SingularityForensic.MainPage.MainTreeService;
+            _treeService = MainTreeService.Current as SingularityForensic.MainPage.MainTreeServiceImpl;
             Assert.IsNotNull(_treeService);
         }
 
-        private SingularityForensic.MainPage.MainTreeService _treeService;
+        private SingularityForensic.MainPage.MainTreeServiceImpl _treeService;
 
         [TestMethod]
         public void TestAddUnit() {
             var unit = TreeUnitFactory.CreateNew(string.Empty);
             var addedCatched = false;
-            var addStoken = PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(tuple => {
+            var addStoken = CommonEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(tuple => {
                 addedCatched = true;
                 Assert.AreEqual(unit, tuple.unit);
             });
@@ -30,7 +30,7 @@ namespace SingularityForensic.Test.MainPage {
 
             Assert.IsTrue(addedCatched);
 
-            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Unsubscribe(addStoken);
+            CommonEventHelper.GetEvent<TreeUnitAddedEvent>().Unsubscribe(addStoken);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace SingularityForensic.Test.MainPage {
             var addedCatched = false;
             var areEqual = false;
 
-            PubEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<TreeUnitAddedEvent>().Subscribe(tuple => {
                 addedCatched = true;
                 areEqual = newUnit == tuple.unit;
             });
@@ -62,7 +62,7 @@ namespace SingularityForensic.Test.MainPage {
             var areEqual = false;
 
 
-            PubEventHelper.GetEvent<TreeUnitRemovedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<TreeUnitRemovedEvent>().Subscribe(tuple => {
                 removedCatched = true;
                 areEqual = unit == tuple.unit;
             });
@@ -82,7 +82,7 @@ namespace SingularityForensic.Test.MainPage {
             var selectedCatched = false;
             var areEqual = false;
 
-            PubEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<TreeUnitSelectedChangedEvent>().Subscribe(tuple => {
                 selectedCatched = true;
                 areEqual = tuple.unit == slUnit;
             });

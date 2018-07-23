@@ -9,7 +9,7 @@ namespace SingularityForensic.Document {
     [ModuleExport(typeof(DocumentModule))]
     public class DocumentModule : IModule {
         public void Initialize() {
-            PubEventHelper.GetEvent<SplashMessageEvent>().Publish(LanguageService.FindResourceString(Constants.DocumentModule_BeingLoaded));
+            CommonEventHelper.GetEvent<SplashMessageEvent>().Publish(LanguageService.FindResourceString(Constants.DocumentModule_BeingLoaded));
             DocumentService.MainDocumentService.Initialize();
         }
 

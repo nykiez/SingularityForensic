@@ -8,7 +8,7 @@ namespace SingularityForensic.Hex {
     [ModuleExport(typeof(HexModule))]
     public class HexModule : IModule {
         public void Initialize() {
-            PubEventHelper.
+            CommonEventHelper.
                 GetEvent<Contracts.Splash.Events.SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.SplashText_HexModuleBeingLoaded));
             

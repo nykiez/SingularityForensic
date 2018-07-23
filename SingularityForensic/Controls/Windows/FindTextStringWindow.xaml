@@ -37,11 +37,11 @@
                 </DockPanel>
                 <StackPanel Margin="0,6" Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style TargetType="Button" BasedOn="{StaticResource SureBtnStyle}">
                             <Setter Property="Margin" Value="24,0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <Button x:Name="btnSure" Click="btnSure_Click" Content="{DynamicResource Confirm}" />
+                    <Button x:Name="btnSure" Click="btnSure_Click"  Content="{DynamicResource Confirm}" />
                     <Button x:Name="btnCancel" Click="btnCancel_Click" Style="{DynamicResource DenyBtnStyle}" Content="{DynamicResource Cancel}" />
                 </StackPanel>
             </StackPanel>

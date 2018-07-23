@@ -1,4 +1,4 @@
-﻿using SingularityForensic.Controls.Windows;
+﻿using SingularityForensic.Hex.Views;
 
 namespace SingularityForensic.Hex.Controls {
     public class FindHexValueMessageBox {

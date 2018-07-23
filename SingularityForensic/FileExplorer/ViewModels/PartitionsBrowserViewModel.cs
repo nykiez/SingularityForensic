@@ -71,8 +71,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                 }
 
                 SelectedPart = _selectedRow;
-                PubEventHelper.PublishEventToHandlers((this as IPartitionsBrowserViewModel, SelectedPart),GenericServiceStaticInstances<IFocusedPartitionChangedEventHandler>.Currents);
-                PubEventHelper.GetEvent<FocusedPartitionChangedEvent>().Publish((this, SelectedPart));
+                CommonEventHelper.PublishEventToHandlers((this as IPartitionsBrowserViewModel, SelectedPart),GenericServiceStaticInstances<IFocusedPartitionChangedEventHandler>.Currents);
+                CommonEventHelper.GetEvent<FocusedPartitionChangedEvent>().Publish((this, SelectedPart));
             }
         }
 
@@ -100,8 +100,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
 
             try {
                 var part = partRow.File;
-                PubEventHelper.GetEvent<PartitionDoubleClickedEvent>().Publish((this,part));
-                PubEventHelper.PublishEventToHandlers((this as IPartitionsBrowserViewModel, part), GenericServiceStaticInstances<IPartitionDoubleClickedEventHandler>.Currents);
+                CommonEventHelper.GetEvent<PartitionDoubleClickedEvent>().Publish((this,part));
+                CommonEventHelper.PublishEventToHandlers((this as IPartitionsBrowserViewModel, part), GenericServiceStaticInstances<IPartitionDoubleClickedEventHandler>.Currents);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);

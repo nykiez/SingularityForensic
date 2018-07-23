@@ -80,6 +80,7 @@
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\IClipBoardService.cs" />
     <Compile Include="App\IMouseService.cs" />
+    <Compile Include="App\IResourceLocator.cs" />
     <Compile Include="App\IThreadInvoker.cs" />
     <Compile Include="App\IMessageBoxService.cs" />
     <Compile Include="App\IDialogService.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="Controls\GridViewAutoGeneratingColumnEventArgs.cs" />
     <Compile Include="Controls\IDataGridViewModel.cs" />
     <Compile Include="Converters\ProgressValueToValueConverter.cs" />
+    <Compile Include="Docking\DockingContainerBase.cs" />
+    <Compile Include="Docking\DockingPaneBase.cs" />
+    <Compile Include="Docking\DockingPaneGroupBase.cs" />
     <Compile Include="Document\Constants.cs" />
     <Compile Include="Document\Events\DocumentClosedEvent.cs" />
     <Compile Include="Document\Events\DocumentClosingEvent.cs" />
@@ -245,7 +249,7 @@
     <Compile Include="Info\IForensicInfoServiceProvider.cs" />
     <Compile Include="Info\InfoProvider.cs" />
     <Compile Include="Info\ForensicTreeUnit.cs" />
-    <Compile Include="Helpers\PubEventHelper.cs" />
+    <Compile Include="Helpers\CommonEventHelper.cs" />
     <Compile Include="Helpers\RegionHelper.cs" />
     <Compile Include="Hex\Events\HexDataContextLoadedEvent.cs" />
     <Compile Include="Hex\IHexDataContext.cs" />
@@ -258,7 +262,14 @@
     <Compile Include="MainMenu\MenuItemGroupEx.cs" />
     <Compile Include="MainMenu\MenuItemModel.cs" />
     <Compile Include="FileSystem\UnmanagedStreamAdapter.cs" />
+    <Compile Include="Docking\DockingPosition.cs" />
     <Compile Include="MainPage\Constants.cs" />
+    <Compile Include="Docking\IDockingContainer.cs" />
+    <Compile Include="Docking\IDockingItem.cs" />
+    <Compile Include="Docking\IDockingPaneGroup.cs" />
+    <Compile Include="Docking\IDockingPane.cs" />
+    <Compile Include="Docking\IDockingService.cs" />
+    <Compile Include="MainPage\MainDockingService.cs" />
     <Compile Include="MainPage\MainTreeService.cs" />
     <Compile Include="Previewers\IPreviewer.cs" />
     <Compile Include="Previewers\IPreviewProvider.cs" />
@@ -313,6 +324,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Docking\Events\" />
     <Folder Include="StatusBar\Events\" />
   </ItemGroup>
   <ItemGroup>

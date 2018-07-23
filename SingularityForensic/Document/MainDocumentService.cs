@@ -44,7 +44,7 @@ namespace SingularityForensic.Document {
                 return;
             }
 
-            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((SelectedDocument, this));
+            CommonEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((SelectedDocument, this));
         }
 
         public DocumentTabsViewModel VM { get; }
@@ -70,14 +70,14 @@ namespace SingularityForensic.Document {
                 return;
             }
 
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Publish((doc,this));
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Publish((doc,this));
             
             document.CloseRequest += Document_CloseRequest;
 
             VM.Documents.Add(document);
             
-            PubEventHelper.PublishEventToHandlers((doc, this as IDocumentService),_documentAddedEventHandlers);
-            PubEventHelper.GetEvent<DocumentAddedEvent>().Publish((doc, this));
+            CommonEventHelper.PublishEventToHandlers((doc, this as IDocumentService),_documentAddedEventHandlers);
+            CommonEventHelper.GetEvent<DocumentAddedEvent>().Publish((doc, this));
 
             SelectedDocument = document;
         }
@@ -90,15 +90,15 @@ namespace SingularityForensic.Document {
         //关闭所有Tab;
         public void CloseAllDocuments() {
             var cEvg = new CancelEventArgs();
-            PubEventHelper.GetEvent<DocumentsClearingEvent>().Publish((cEvg,this));
+            CommonEventHelper.GetEvent<DocumentsClearingEvent>().Publish((cEvg,this));
             if (cEvg.Cancel) {
                 return;
             }
 
             foreach (var doc in VM.Documents) {
                 try {
-                    PubEventHelper.PublishEventToHandlers((doc as IDocumentBase, this as IDocumentService),_documentClosedEventHandlers);
-                    PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
+                    CommonEventHelper.PublishEventToHandlers((doc as IDocumentBase, this as IDocumentService),_documentClosedEventHandlers);
+                    CommonEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
                 }
                 catch(Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
@@ -106,7 +106,7 @@ namespace SingularityForensic.Document {
             }
             
             VM.Documents.Clear();
-            PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
+            CommonEventHelper.GetEvent<DocumentsCleared>().Publish(this);
         }
 
         /// <summary>
@@ -123,21 +123,21 @@ namespace SingularityForensic.Document {
             }
             
             var cEvg = new CancelEventArgs();
-            PubEventHelper.GetEvent<DocumentClosingEvent>().Publish((doc, cEvg,this));
+            CommonEventHelper.GetEvent<DocumentClosingEvent>().Publish((doc, cEvg,this));
             if (cEvg.Cancel) {
                 return;
             }
 
             VM.Documents.Remove(document);
 
-            PubEventHelper.PublishEventToHandlers((doc as IDocumentBase, this as IDocumentService), _documentClosedEventHandlers);
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc,this));
+            CommonEventHelper.PublishEventToHandlers((doc as IDocumentBase, this as IDocumentService), _documentClosedEventHandlers);
+            CommonEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc,this));
             
             document.CloseRequest -= Document_CloseRequest;
 
             if (VM.Documents.Count == 0) {
                 SelectedDocument = null;
-                PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
+                CommonEventHelper.GetEvent<DocumentsCleared>().Publish(this);
             }
 
 #if DEBUG
@@ -156,7 +156,7 @@ namespace SingularityForensic.Document {
             get => VM.SelectedDocument;
             set {
                 if(value == null) {
-                    PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((null, this));
+                    CommonEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((null, this));
                     VM.SelectedDocument = null;
                     return;
                 }
@@ -166,7 +166,7 @@ namespace SingularityForensic.Document {
                 }
 
                 VM.SelectedDocument = document;
-                PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((document, this));
+                CommonEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((document, this));
                 //SelectedTabChanged?.Invoke(this, _selectedTab);
             }
         }

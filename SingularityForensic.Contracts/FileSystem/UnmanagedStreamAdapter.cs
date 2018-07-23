@@ -83,11 +83,11 @@ namespace SingularityForensic.Contracts.FileSystem {
             return readCount;
         }
 
-        //private int OnRead(byte[] buffer, int count) {
-        //    return OriStream.Read(buffer, 0, count);
-        //}
 
-        //初始化非托管指针;
+
+        /// <summary>
+        /// 初始化非托管委托指针(函数指针);
+        /// </summary>
         private void InitializePtr() {
             //位置委托;
             SetInt64Delegate setPos = OnSetPos;
@@ -155,9 +155,9 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
         }
 
-        //所有实例必须依托在GCHandle
+        //所有实例的引用必须存放在此静态示例列表;避免本单位被GC回收后;
         //非托管环境意外进行了调用,引发了非法访问内存的错误;
-        //只有在调用Dispose方法后,才可解除引用,使得垃圾回收按照预期正常执行;
+        //只有在调用Dispose方法后,才可解除引用,使得垃圾回收按照预期正常执行对实例的回收;
         private static List<UnmanagedStreamAdapter> _instances = new List<UnmanagedStreamAdapter>();
 
         ~UnmanagedStreamAdapter() {

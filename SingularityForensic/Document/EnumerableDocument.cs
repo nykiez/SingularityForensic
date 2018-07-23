@@ -19,7 +19,7 @@ namespace SingularityForensic.Document {
 
         public IEnumerable<IDocumentBase> Children => _vm.DocumentTabs.Select(p => p);
         private void OnSelectedTabChanged(object sender, IDocumentBase e) {
-            PubEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((e, this));
+            CommonEventHelper.GetEvent<SelectedDocumentChangedEvent>().Publish((e, this));
         }
 
         
@@ -49,9 +49,9 @@ namespace SingularityForensic.Document {
                 throw new ArgumentNullException(nameof(tab));
             }
 
-            PubEventHelper.GetEvent<DocumentAddingEvent>().Publish((tab, this));
+            CommonEventHelper.GetEvent<DocumentAddingEvent>().Publish((tab, this));
             _vm.DocumentTabs.Add(tab);
-            PubEventHelper.GetEvent<DocumentAddedEvent>().Publish((tab, this));
+            CommonEventHelper.GetEvent<DocumentAddedEvent>().Publish((tab, this));
         }
 
         public void RemoveDocument(IDocumentBase tab) {
@@ -60,17 +60,17 @@ namespace SingularityForensic.Document {
             }
 
             var cEvg = new CancelEventArgs();
-            PubEventHelper.GetEvent<DocumentClosingEvent>().Publish((tab, cEvg, this));
+            CommonEventHelper.GetEvent<DocumentClosingEvent>().Publish((tab, cEvg, this));
             if (cEvg.Cancel) {
                 return;
             }
             _vm.DocumentTabs.Remove(tab);
-            PubEventHelper.PublishEventToHandlers((tab, this as IDocumentService),
+            CommonEventHelper.PublishEventToHandlers((tab, this as IDocumentService),
                 ServiceProvider.GetAllInstances<IDocumentClosedEventHandler>().OrderBy(p => p.Sort));
-            PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((tab, this));
+            CommonEventHelper.GetEvent<DocumentClosedEvent>().Publish((tab, this));
 
             if(_vm.DocumentTabs.Count == 0) {
-                PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
+                CommonEventHelper.GetEvent<DocumentsCleared>().Publish(this);
             }
         }
 
@@ -84,7 +84,7 @@ namespace SingularityForensic.Document {
 
         public void CloseAllDocuments() {
             var cEvg = new CancelEventArgs();
-            PubEventHelper.GetEvent<DocumentsClearingEvent>().Publish((cEvg, this));
+            CommonEventHelper.GetEvent<DocumentsClearingEvent>().Publish((cEvg, this));
             if (cEvg.Cancel) {
                 return;
             }
@@ -93,9 +93,9 @@ namespace SingularityForensic.Document {
 
             foreach (var doc in _vm.DocumentTabs) {
                 try {
-                    PubEventHelper.PublishEventToHandlers((doc, this as IDocumentService),
+                    CommonEventHelper.PublishEventToHandlers((doc, this as IDocumentService),
                         ServiceProvider.GetAllInstances<IDocumentClosedEventHandler>().OrderBy(p => p.Sort));
-                    PubEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
+                    CommonEventHelper.GetEvent<DocumentClosedEvent>().Publish((doc, this));
                 }
                 catch (Exception ex) {
                     LoggerService.WriteCallerLine(ex.Message);
@@ -103,7 +103,7 @@ namespace SingularityForensic.Document {
             }
 
             _vm.DocumentTabs.Clear();
-            PubEventHelper.GetEvent<DocumentsCleared>().Publish(this);
+            CommonEventHelper.GetEvent<DocumentsCleared>().Publish(this);
         }
 
         public void Initialize() {

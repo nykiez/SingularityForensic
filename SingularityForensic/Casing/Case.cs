@@ -133,12 +133,12 @@ namespace SingularityForensic.Casing {
         /// <param name="reporter">进度回调器</param>
         public void LoadCaseEvidence(ICaseEvidence csEvidence, IProgressReporter reporter) {
             try {
-                PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
-                PubEventHelper.PublishEventToHandlers<ICaseEvidenceLoadingEventHandler, (ICaseEvidence csEvidence, IProgressReporter reporter)>((csEvidence, reporter));
+                CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Publish((csEvidence, reporter));
+                CommonEventHelper.PublishEventToHandlers<ICaseEvidenceLoadingEventHandler, (ICaseEvidence csEvidence, IProgressReporter reporter)>((csEvidence, reporter));
                 //案件中加入文件;
                 _caseEvidences.Add(csEvidence);
-                PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
-                PubEventHelper.PublishEventToHandlers<ICaseEvidenceLoadedEventHanlder, ICaseEvidence>(csEvidence);
+                CommonEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Publish(csEvidence);
+                CommonEventHelper.PublishEventToHandlers<ICaseEvidenceLoadedEventHanlder, ICaseEvidence>(csEvidence);
             }
             catch (Exception ex) {
                 LoggerService.Current?.WriteCallerLine(ex.Message);
@@ -181,7 +181,7 @@ namespace SingularityForensic.Casing {
             }
 
             try {
-                PubEventHelper.GetEvent<CaseEvidenceAddedEvent>()?.Publish(csEvidence);
+                CommonEventHelper.GetEvent<CaseEvidenceAddedEvent>()?.Publish(csEvidence);
             }
             catch (Exception ex) {
                 LoggerService.WriteCallerLine(ex.Message);
@@ -287,8 +287,8 @@ namespace SingularityForensic.Casing {
 
             _caseEvidences.Remove(evidence);
             evidence.XElem.Remove();
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Publish(evidence);
-            PubEventHelper.PublishEventToHandlers<ICaseEvidenceRemovedEventHandler,ICaseEvidence>(evidence);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Publish(evidence);
+            CommonEventHelper.PublishEventToHandlers<ICaseEvidenceRemovedEventHandler,ICaseEvidence>(evidence);
         }
     }
 }

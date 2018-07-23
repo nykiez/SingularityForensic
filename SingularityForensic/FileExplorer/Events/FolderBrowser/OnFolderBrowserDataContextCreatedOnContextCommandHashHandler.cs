@@ -116,42 +116,66 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
             var hasherCount = hashers.Count();
             var allStreamSizeSum = inputStreamAndFileTuples.Sum(p => p.inputStream.Length);
             long finishedStreamSizeSum = 0;
+           
+            if(hasherCount == 0) {
+                return;
+            }
 
-            HashStatusManagementService.BeginEdit();
+            try {
+                HashStatusManagementService.BeginEdit();
+                foreach (var hasher in hashers) {
+                    var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
 
-            foreach (var hasher in hashers) {
-                var metaGUID = $"{Constants.FileHashMetaDataProvider_GUIDPrefix}{hasher.GUID}";
+                    foreach (var tuple in inputStreamAndFileTuples) {
+                        var reporter = ProgessReporterFactory.CreateNew();
+                        var prePro = 0;
+                        reporter.ProgressReported += (sender, e) => {
+                            var thisStreamFinishedSize = tuple.inputStream.Length * e.totalPer;
+                            var thisPro = (int)((finishedStreamSizeSum + thisStreamFinishedSize) * 100 / allStreamSizeSum) * (hasherIndex + 1) / hasherCount;
+                            if (prePro == thisPro) {
+                                return;
+                            }
+                            prePro = thisPro;
+                            loadingDialog.ReportProgress(thisPro);
+                        };
+                        loadingDialog.Canceld += delegate {
+                            reporter.Cancel();
+                        };
 
-                foreach (var tuple in inputStreamAndFileTuples) {
-                    var reporter = ProgessReporterFactory.CreateNew();
-                    reporter.ProgressReported += (sender, e) => {
-                        var thisStreamFinishedSize = tuple.inputStream.Length * e.totalPer;
-                        loadingDialog.ReportProgress((int)((finishedStreamSizeSum + thisStreamFinishedSize) * 100 / allStreamSizeSum));
-                    };
-                    loadingDialog.Canceld += delegate {
-                        reporter.Cancel();
-                    };
+                        var result = ComputeHashValue(hasher, tuple.inputStream, reporter);
+                        if (result != null) {
+                            var hashValue = result.BytesToHexString();
 
-                    var result = ComputeHashValue(hasher, tuple.inputStream, reporter);
-                    if (result != null) {
-                        var hashValue = result.BytesToHexString();
+                            tuple.fileRow.File.ExtensibleTag.SetInstance(hashValue, metaGUID);
 
-                        tuple.fileRow.File.ExtensibleTag.SetInstance(hashValue, metaGUID);
-
-                        //使用文件的完整路径为存储的哈希值名;
-                        var path = FileSystemService.Current.GetPath(tuple.fileRow.File);
-                        if (!string.IsNullOrEmpty(path)) {
-                            //表明类型为文件的哈希值类型;
-                            HashStatusManagementService.SetUnitHashValue(path, hashValue, hasher.GUID, Constants.HashValueStatusType_File);
+                            //使用文件的完整路径为存储的哈希值名;
+                            var path = FileSystemService.Current.GetPath(tuple.fileRow.File);
+                            if (!string.IsNullOrEmpty(path)) {
+                                //表明类型为文件的哈希值类型;
+                                HashStatusManagementService.SetUnitHashValue(path, hashValue, hasher.GUID, Constants.HashValueStatusType_File);
+                            }
+                            tuple.fileRow.NotifyProperty(metaGUID);
                         }
-                        tuple.fileRow.NotifyProperty(metaGUID);
+
+                        finishedStreamSizeSum += tuple.inputStream.Length;
+                        if (loadingDialog.CancellationPending) {
+                            break;
+                        }
                     }
 
-                    finishedStreamSizeSum += tuple.inputStream.Length;
                     if (loadingDialog.CancellationPending) {
                         break;
                     }
 
+                    hasherIndex++;
+                }
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+            }
+            finally {
+                HashStatusManagementService.EndEdit();
+                foreach (var tuple in inputStreamAndFileTuples) {
                     //尝试释放流;
                     try {
                         tuple.inputStream.Dispose();
@@ -160,15 +184,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
                         LoggerService.WriteCallerLine(ex.Message);
                     }
                 }
-
-                if (loadingDialog.CancellationPending) {
-                    break;
-                }
-
-                hasherIndex++;
             }
-
-            HashStatusManagementService.EndEdit();
         }
 
         /// <summary>
@@ -192,7 +208,7 @@ namespace SingularityForensic.FileExplorer.Events.FolderBrowser
                 progressReporter.ReportProgress((int)(e * 100 / opStream.Length));
             };
 
-            var bts = hasher.ComputeHash(inputStream);
+            var bts = hasher.ComputeHash(opStream);
             //若被中止,则返回为空;
             if (opStream.Broken || (progressReporter?.CancelPending ?? false)) {
                 return null;

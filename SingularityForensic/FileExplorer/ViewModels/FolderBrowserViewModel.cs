@@ -89,8 +89,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
                     return;
                 }
                 SelectedFileChanged?.Invoke(this, EventArgs.Empty);
-                PubEventHelper.PublishEventToHandlers((this as Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel, SelectedFile: SelectedFileRow), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
-                PubEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFileRow));
+                CommonEventHelper.PublishEventToHandlers((this as Contracts.FileExplorer.ViewModels.IFolderBrowserViewModel, SelectedFile: SelectedFileRow), GenericServiceStaticInstances<IFocusedFileRowChangedEventHandler>.Currents);
+                CommonEventHelper.GetEvent<FocusedFileRowChangedEvent>().Publish((this,SelectedFileRow));
 
 #if DEBUG
                 //var fs = SelectedFiles.ToArray();

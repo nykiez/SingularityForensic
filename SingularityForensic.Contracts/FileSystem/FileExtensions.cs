@@ -19,7 +19,13 @@ namespace SingularityForensic.Contracts.FileSystem {
             }
             return null;
         }
-        
+        public static IFile GetRoot(this IFile file) {
+            while (file != null && file.Parent != null) {
+                file = file.Parent;
+            }
+            return file;
+        }
+
         /// <summary>
         /// 获取输入文件的输入流;
         /// </summary>

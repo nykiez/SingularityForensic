@@ -24,9 +24,9 @@ namespace SingularityForensic.Hex {
                 throw new ArgumentNullException(nameof(hexDataContext));
             }
 
-            PubEventHelper.PublishEventToHandlers(hexDataContext, _hexDataContextLoadedEventHandlers);
+            CommonEventHelper.PublishEventToHandlers(hexDataContext, _hexDataContextLoadedEventHandlers);
 
-            PubEventHelper.GetEvent<HexDataContextLoadedEvent>().Publish(hexDataContext);
+            CommonEventHelper.GetEvent<HexDataContextLoadedEvent>().Publish(hexDataContext);
         }
     }
 }

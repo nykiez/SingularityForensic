@@ -24,7 +24,7 @@ namespace SingularityForensic.Test.FileExplorer {
 
             var createCatched = false;
             var areEqual = false;
-            PubEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<FolderBrowserDataContextCreatedEvent>().Subscribe(tuple => {
                 createCatched = true;
                 areEqual = tuple.FolderBrowserViewModel.OwnedFileCollection == part;
             });

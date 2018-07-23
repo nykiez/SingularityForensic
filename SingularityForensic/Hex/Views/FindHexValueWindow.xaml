@@ -1,4 +1,4 @@
-﻿<metros:MetroWindow x:Class="SingularityForensic.Controls.Windows.FindHexValueWindow"
+﻿<metros:MetroWindow x:Class="SingularityForensic.Hex.Views.FindHexValueWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:controls="clr-namespace:CDFCControls.Controls;assembly=CDFCControls"
                          xmlns:metros="http://metro.mahapps.com/winfx/xaml/controls"
@@ -36,7 +36,7 @@
                 </DockPanel>
                 <StackPanel Margin="0,6" Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style TargetType="Button" BasedOn="{StaticResource SureBtnStyle}">
                             <Setter Property="Margin" Value="24,0"/>
                         </Style>
                     </StackPanel.Resources>

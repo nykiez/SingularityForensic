@@ -20,10 +20,10 @@ namespace SingularityForensic.Test.Casing {
         private bool _caseLoading = false;
         private bool _caseLoaded = false;
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(cs => {
+            CommonEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(cs => {
                 _caseLoading = true;
             });
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(() => {
+            CommonEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(() => {
                 _caseLoaded = true;
             });
         }
@@ -84,11 +84,11 @@ namespace SingularityForensic.Test.Casing {
             bool closed = false;
 
             //阻止案件关闭;
-            var closingStoken = PubEventHelper.GetEvent<CaseUnloadingEvent>().Subscribe(e => {
+            var closingStoken = CommonEventHelper.GetEvent<CaseUnloadingEvent>().Subscribe(e => {
                 closing = true;
                 e.Cancel = true;
             });
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(cs => closed = true);
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(cs => closed = true);
 
             CloseCase();
 
@@ -99,14 +99,14 @@ namespace SingularityForensic.Test.Casing {
             closing = false;
 
             //取消阻止案件事件;
-            PubEventHelper.GetEvent<CaseUnloadingEvent>().Unsubscribe(closingStoken);
+            CommonEventHelper.GetEvent<CaseUnloadingEvent>().Unsubscribe(closingStoken);
             //或者如下语句,均能取消订阅;
             //closingStoken.Dispose();
 
             closingStoken = null;
 
             //并订阅新的卸载案件中事件;
-            PubEventHelper.GetEvent<CaseUnloadingEvent>().Subscribe(e => {
+            CommonEventHelper.GetEvent<CaseUnloadingEvent>().Subscribe(e => {
                 closing = true;
             });
 
@@ -155,7 +155,7 @@ namespace SingularityForensic.Test.Casing {
             
             //测试添加案件文件事件是否能够被正常触发;
             bool addedCaptured = false;
-            PubEventHelper.GetEvent<CaseEvidenceAddedEvent>().Subscribe(csEvidence => {
+            CommonEventHelper.GetEvent<CaseEvidenceAddedEvent>().Subscribe(csEvidence => {
                 addedCaptured = true;
             });
 
@@ -174,12 +174,12 @@ namespace SingularityForensic.Test.Casing {
             //测试案件文件加载中/已加载是否能够被正常触发;
             var evidenceLoading = false;
             var evidenceLoaded = false;
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(tuple => {
+            CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(tuple => {
                 evidenceLoading = true;
                 Assert.AreEqual(tuple.csEvidence, _csEvidence);
             });
 
-            PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(csEvidence => {
+            CommonEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(csEvidence => {
                 evidenceLoaded = true;
                 Assert.AreEqual(csEvidence, _csEvidence);
             });

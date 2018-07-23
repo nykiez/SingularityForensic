@@ -11,10 +11,10 @@ namespace SingularityForensic.Casing {
     [ModuleExport(typeof(CaseModule))]
     public class CaseModule : IModule {
         public void Initialize() {
-            PubEventHelper.GetEvent<SplashMessageEvent>().
+            CommonEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.CaseModuleBeingLoaded));
 
-            PubEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<ICaseModuleLoadingEventHandler>.Currents);
+            CommonEventHelper.PublishEventToHandlers(GenericServiceStaticInstances<ICaseModuleLoadingEventHandler>.Currents);
 
             _caseUiService = ServiceProvider.Current?.GetInstance<ICaseUIService>();
             _caseUiService?.Initialize();

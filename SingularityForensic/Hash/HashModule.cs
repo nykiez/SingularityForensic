@@ -15,12 +15,12 @@ namespace SingularityForensic.Hash {
     [ModuleExport(typeof(HashModule))]
     class HashModule : IModule {
         public void Initialize() {
-            PubEventHelper.GetEvent<SplashMessageEvent>().
+            CommonEventHelper.GetEvent<SplashMessageEvent>().
                 Publish(LanguageService.FindResourceString(Constants.HashModuleLoading));
 
             try {
-                PubEventHelper.GetEvent<HashModuleLoadingEvent>().Publish();
-                PubEventHelper.PublishEventToHandlers<IHashModuleLoadingEventHandler>();
+                CommonEventHelper.GetEvent<HashModuleLoadingEvent>().Publish();
+                CommonEventHelper.PublishEventToHandlers<IHashModuleLoadingEventHandler>();
             }
             catch(Exception ex) {
                 LoggerService.WriteException(ex);

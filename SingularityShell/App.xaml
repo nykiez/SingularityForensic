@@ -13,17 +13,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 
                 <!--Custom Theme Setting-->
-                
-                <!--<ResourceDictionary Source="pack://application:,,,/CDFCControls;component/Themes/Generic.xaml"/>-->
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Themes;component/Themes/Generic.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Controls/Themes/Generic.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/CDFCControls;component/Themes/Generic.xaml"/>-->
+               
                 <!--Language Setting-->
                 <app:ResourceDictionaryEx Name="{x:Static app:Constants.LanguageDict}" >
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/App/Languages/zh_CN/SingularityForensic.App.xaml"/>
-
-                        <ResourceDictionary Source="pack://application:,,,/SingularityForensic.Info;component/Languages/zh_CN/SingularityForensic.Info.xaml"/>
-
 
                         <!--<ResourceDictionary Source="pack://application:,,,/CDFCMessageBoxes;component/Languages/zh_CN/CDFCMessageBoxes.xaml"/>-->
                         <ResourceDictionary Source="pack://application:,,,/SingularityForensic;component/Drive/Languages/zh_CN/SingularityForensic.Drive.xaml"/>

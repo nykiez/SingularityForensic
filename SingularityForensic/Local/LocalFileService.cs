@@ -2,6 +2,7 @@
 using SingularityForensic.Contracts.Casing;
 using SingularityForensic.Contracts.Casing.Events;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.FileSystem;
 using SingularityForensic.Contracts.Helpers;
 using System;
 using System.Collections.Generic;
@@ -16,21 +17,65 @@ namespace SingularityForensic.Local {
     /// 本地文件服务;
     /// </summary>
     [Export]
-    class LocalFileService {
+    public class LocalFileService {
         public void Initialize() {
             RegisterEvents();
         }
 
         private void RegisterEvents() {
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
+            CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().SubscribeCheckingSubscribed((Action<(ICaseEvidence csEvidence, IProgressReporter reporter)>)OnCaseEvidenceLoading);
 
-            //PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
-
-            //PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloaded);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().SubscribeCheckingSubscribed((Action<ICaseEvidence>)OnCaseEvidenceRemoved);
+            
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().SubscribeCheckingSubscribed((Action<ICase>) OnCaseUnloaded);
         }
 
         /// <summary>
-        /// 加载案件文件若为本地文件夹,则响应本地文件夹处理;
+        /// 当卸载案件时;进行卸载操作;
+        /// </summary>
+        private void OnCaseUnloaded(ICase cs) {
+            if(cs == null) {
+                return;
+            }
+
+            var fsService = FileSystemService.Current;
+            if (fsService == null) {
+                LoggerService.Current.WriteCallerLine($"{nameof(fsService)} can't be null.");
+                return;
+            }
+
+            var localEvidences = cs.CaseEvidences.Where(p => p.EvidenceTypeGuids?.Contains(Constants.EvidenceType_LocalDir)??false).ToArray();
+
+            var localDirMountUnits = fsService.MountedUnits.Where(p => localEvidences.Any(q => q.EvidenceGUID == q.EvidenceGUID)).ToArray();
+
+            //文件系统卸载本地Drive相关的案件文件;
+            foreach (var unit in localDirMountUnits) {
+                fsService.UnMountFile(unit);
+            }
+        }
+
+        /// <summary>
+        /// 所移除证据项若为本地文件夹,则响应卸载处理;
+        /// </summary>
+        /// <param name="csEvidence"></param>
+        private void OnCaseEvidenceRemoved(ICaseEvidence csEvidence) {
+            if (csEvidence == null) {
+                return;
+            }
+
+            if (!(csEvidence.EvidenceTypeGuids?.Contains(Constants.EvidenceType_LocalDir) ?? false)) {
+                return;
+            }
+
+            //文件系统卸载文件;
+            var units = FileSystemService.Current.MountedUnits.Where(p => p.GUID == csEvidence.EvidenceGUID).ToArray();
+            foreach (var unit in units) {
+                FileSystemService.Current.UnMountFile(unit);
+            }
+        }
+
+        /// <summary>
+        /// 加载证据项若为本地文件夹,则响应本地文件夹处理;
         /// </summary>
         /// <param name="tuple"></param>
         private void OnCaseEvidenceLoading((ICaseEvidence csEvidence, IProgressReporter reporter) tuple) {
@@ -58,18 +103,12 @@ namespace SingularityForensic.Local {
                     LoggerService.WriteCallerLine($"{nameof(directory)} can't be null.");
                     return;
                 }
-
-                var manager = new LocalDirectoryManager {
-                    Directory = directory
-                };
-                
-                _localDirectoryManagers.Add(manager);
+                FileSystemService.Current.MountFile(directory, csEvidence.EvidenceGUID);
             }
             catch(Exception ex) {
-
+                LoggerService.WriteException(ex);
+                throw;
             }
-
-
         }
 
         public void AddLocalDir() {
@@ -85,12 +124,16 @@ namespace SingularityForensic.Local {
         }
 
         public void AddLocalDir(string dirPath) {
+            if (CaseService.ConfirmCaseLoaded() != true) {
+                return;
+            }
+
             if (dirPath == null) {
                 throw new ArgumentNullException(nameof(dirPath));
             }
 
             var di = new DirectoryInfo(dirPath);
-            if (Directory.Exists(dirPath)) {
+            if (!Directory.Exists(dirPath)) {
                 throw new DirectoryNotFoundException($"{dirPath} is not found.");
             }
 
@@ -103,8 +146,6 @@ namespace SingularityForensic.Local {
             CaseService.Current.CurrentCase.LoadCaseEvidence(csEvidence);
         }
 
-        public IEnumerable<LocalDirectoryManager> DirectoryManagers { get; }
-        private List<LocalDirectoryManager> _localDirectoryManagers = new List<LocalDirectoryManager>();
 
     }
 }

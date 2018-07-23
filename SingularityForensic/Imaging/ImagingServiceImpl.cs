@@ -32,13 +32,13 @@ namespace SingularityForensic.Imaging {
         /// </summary>
         private void RegisterEvents() {
 
-            PubEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
+            CommonEventHelper.GetEvent<CaseEvidenceLoadingEvent>().Subscribe(OnCaseEvidenceLoading);
 
 
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnImaging);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemovedOnImaging);
 
 
-            PubEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnImaging);
+            CommonEventHelper.GetEvent<CaseUnloadedEvent>().Subscribe(OnCaseUnloadedOnImaging);
         }
 
         /// <summary>

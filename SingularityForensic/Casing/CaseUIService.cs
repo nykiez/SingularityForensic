@@ -44,15 +44,15 @@ namespace SingularityForensic.Casing {
         }
         private void RegisterEvents() {
             //加入案件节点;
-            PubEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(OnCaseLoaded);
+            CommonEventHelper.GetEvent<CaseLoadingEvent>().Subscribe(OnCaseLoaded);
             
             //订阅案件关闭事件;
-            PubEventHelper.Subscribe<CaseUnloadedEvent,ICase>(OnCaseUnloaded);
+            CommonEventHelper.Subscribe<CaseUnloadedEvent,ICase>(OnCaseUnloaded);
 
             //当案件文件被加载时,向树形节点中加入案件文件;
-            PubEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(OnEvidenceLoaded);
+            CommonEventHelper.GetEvent<CaseEvidenceLoadedEvent>().Subscribe(OnEvidenceLoaded);
 
-            PubEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
+            CommonEventHelper.GetEvent<CaseEvidenceRemovedEvent>().Subscribe(OnCaseEvidenceRemoved);
         }
 
         /// <summary>
@@ -199,8 +199,8 @@ namespace SingularityForensic.Casing {
             ));
 
         private void RegisterEventsForCommands() {
-            PubEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(CloseCaseCommand.RaiseCanExecuteChanged);
-            PubEventHelper.Subscribe<CaseUnloadedEvent,ICase>(cs => CloseCaseCommand.RaiseCanExecuteChanged());
+            CommonEventHelper.GetEvent<CaseLoadedEvent>().Subscribe(CloseCaseCommand.RaiseCanExecuteChanged);
+            CommonEventHelper.Subscribe<CaseUnloadedEvent,ICase>(cs => CloseCaseCommand.RaiseCanExecuteChanged());
         }
     }
 }

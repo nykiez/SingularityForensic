@@ -22,7 +22,7 @@ namespace SingularityForensic.Drive {
             get {
                 if (_addDriveToolBarItem == null) {
                     _addDriveToolBarItem = ToolBarItemFactory.CreateToolBarButtonItem(AddImgCommand, Constants.TBButtonGUID__AddDrive);
-                    _addDriveToolBarItem.Icon = IconSources.AddDriveIcon;
+                    _addDriveToolBarItem.Icon = IconResources.AddDriveIcon;
                     _addDriveToolBarItem.ToolTip = LanguageService.FindResourceString(Constants.TBButtonToolTip_AddDrive);
                     _addDriveToolBarItem.Sort = 4;
                 }
@@ -35,7 +35,7 @@ namespace SingularityForensic.Drive {
            MenuConstants.MenuGroupGUID_File,
            LanguageService.FindResourceString(Constants.TBButtonToolTip_AddDrive), 4) {
                 Command = AddImgCommand,
-                IconSource = IconSources.AddDriveIcon
+                IconSource = IconResources.AddDriveIcon
         };
     }
 }

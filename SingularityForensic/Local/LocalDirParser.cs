@@ -48,7 +48,7 @@ namespace SingularityForensic.Local {
             }
             
             foreach (var fileInfoNode in dirInfo.GetFiles()) {
-                thisDir.Children.Add(GetRegFileInternal(fileInfoNode));
+                thisDir.Children.Add(GetRegFile(fileInfoNode));
                 progressReporter?.ReportProgress(50, fileInfoNode.Name, string.Empty);
             }
 
@@ -79,7 +79,7 @@ namespace SingularityForensic.Local {
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <returns></returns>
-        private static IFile GetRegFileInternal(FileInfo fileInfo) {
+        private static IFile GetRegFile(FileInfo fileInfo) {
             if (fileInfo == null) {
                 throw new ArgumentNullException(nameof(fileInfo));
             }
@@ -88,6 +88,7 @@ namespace SingularityForensic.Local {
             var stoken = regFile.GetStoken(Constants.RegularFileKey_LocalRegFile);
             stoken.TypeGuid = Constants.RegularFileType_LocalRegFile;
             ApplyFileSystemInfoToStokenBase(fileInfo, stoken);
+            stoken.Size = fileInfo.Length;
             stoken.SetInstance(fileInfo, Constants.RegularFileTag_LocalFileInfo);
             return regFile;
         }

@@ -286,6 +286,7 @@
     <Compile Include="App\Constants.cs" />
     <Compile Include="App\DialogServiceImpl.cs" />
     <Compile Include="App\ResourceDictionaryEx.cs" />
+    <Compile Include="App\ResourceLocatorImpl.cs" />
     <Compile Include="App\ThreadInvokerImpl.cs" />
     <Compile Include="App\LanguageServiceImpl.cs" />
     <Compile Include="App\ViewModels\MessageBoxWindowViewModel.cs" />
@@ -532,7 +533,7 @@
     <Compile Include="Controls\Windows\Filtering\FilterStringWindow.xaml.cs">
       <DependentUpon>FilterStringWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Windows\FindHexValueWindow.xaml.cs">
+    <Compile Include="Hex\Views\FindHexValueWindow.xaml.cs">
       <DependentUpon>FindHexValueWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Windows\FindTextStringWindow.xaml.cs">
@@ -677,13 +678,18 @@
     <Compile Include="ITunes\ITunesBackUpService.cs" />
     <Compile Include="ITunes\ITunesRegularFileInputStreamProvider.cs" />
     <Compile Include="ITunes\MenuItemDefinitions.cs" />
-    <Compile Include="ITunes\Resources\IconResources.cs" />
+    <Compile Include="ITunes\IconResources.cs" />
     <Compile Include="ITunes\Structs.cs" />
+    <Compile Include="ITunes\ToolBarItemDefinitions.cs" />
     <Compile Include="Local\Constants.cs" />
+    <Compile Include="Local\IconResources.cs" />
     <Compile Include="Local\LocalDirectoryManager.cs" />
     <Compile Include="Local\LocalDirParser.cs" />
     <Compile Include="Local\LocalFileService.cs" />
     <Compile Include="Local\LocalModule.cs" />
+    <Compile Include="Local\LocalRegularFileInputStreamProvider.cs" />
+    <Compile Include="Local\MenuItemDefinitions.cs" />
+    <Compile Include="Local\ToolBarItemDefinitions.cs" />
     <Compile Include="MainMenu\Constants.cs" />
     <Compile Include="MainMenu\Events\MenuSelectedGroupChangedEvent.cs" />
     <Compile Include="MainMenu\MainMenuModule.cs" />
@@ -697,10 +703,16 @@
     <Compile Include="About\AboutMessageBox.cs" />
     <Compile Include="Drive\Design\DriveItemsWindowDesignViewModel.cs" />
     <Compile Include="MainPage\Constants.cs" />
+    <Compile Include="MainPage\DockingPaneContainers.cs" />
+    <Compile Include="MainPage\DockingPaneGroups.cs" />
+    <Compile Include="MainPage\DockingPanes.cs" />
+    <Compile Include="MainPage\DockingPanesFactoryImpl.cs" />
     <Compile Include="MainPage\Events\OnMainPageLoadedOnNavigateToDefaultViewHandler.cs" />
+    <Compile Include="MainPage\MainDockingServiceImpl.cs" />
     <Compile Include="MainPage\MainPageModule.cs" />
-    <Compile Include="MainPage\MainTreeService.cs" />
+    <Compile Include="MainPage\MainTreeServiceImpl.cs" />
     <Compile Include="MainMenu\IconResources.cs" />
+    <Compile Include="MainPage\Models\PaneModel.cs" />
     <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
@@ -964,7 +976,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Windows\FindHexValueWindow.xaml">
+    <Page Include="Hex\Views\FindHexValueWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1251,7 +1263,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Local\Langauges\zh_CN\SingularityForensic.Local.xaml">
+    <Page Include="Local\Languages\zh_CN\SingularityForensic.Local.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1297,10 +1309,10 @@
     <Folder Include="Adb\Languages\en_US\" />
     <Folder Include="Casing\Languages\en_US\" />
     <Folder Include="Controls\Languages\en_US\" />
+    <Folder Include="Docking\" />
     <Folder Include="Drive\Languages\en_US\" />
     <Folder Include="Drive\Models\" />
     <Folder Include="FileExplorer\Design\" />
-    <Folder Include="MainPage\Models\" />
     <Folder Include="Previewers\Languages\en_US\" />
   </ItemGroup>
   <ItemGroup>
@@ -1676,6 +1688,7 @@
     <Content Include="ITunes\DLLS\PListCpp.dll" />
     <Content Include="ITunes\DLLS\vccorlib120d.dll" />
     <Resource Include="ITunes\Images\TreeUnitIcon_ITunes.jpg" />
+    <Resource Include="Local\Images\Toolbar_AddLocalDir.png" />
     <Content Include="Previewers\OutSideIn\debmp.dll" />
     <Content Include="Previewers\OutSideIn\dehex.dll" />
     <Content Include="Previewers\OutSideIn\dess.dll" />
@@ -1925,7 +1938,8 @@ XCopy "$(ProjectDir)MainMenu\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)TreeView\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
-XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /I /D  /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)Local\Languages" "$(TargetDir)Languages\" /I /D  /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
