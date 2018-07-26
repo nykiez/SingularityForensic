@@ -105,6 +105,7 @@
     <Compile Include="BaseDevice\BaseDeviceTest.cs" />
     <Compile Include="Casing\CaseTest.cs" />
     <Compile Include="Casing\RecentCaseRecordManagementServiceTest.cs" />
+    <Compile Include="Common\EnumerableTest.cs" />
     <Compile Include="Common\ExportProviderServiceProviderMocker.cs" />
     <Compile Include="App\DialogMockers.cs" />
     <Compile Include="App\LanguageServiceTests.cs" />
@@ -170,6 +171,9 @@
     <Compile Include="Local\LocalFileServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="NTFS\BiosParameterBlockTests.cs" />
+    <Compile Include="NTFS\UsnJrnPreviewProviderTests.cs" />
+    <Compile Include="NTFS\UsnRecordV2Tests.cs" />
+    <Compile Include="NTFS\ViewModels\UsnJrnlPreviewerViewModelTests.cs" />
     <Compile Include="Shell\ShellMockers.cs" />
     <Compile Include="StatusBar\StatusBarServiceTest.cs" />
     <Compile Include="TestDos.cs" />

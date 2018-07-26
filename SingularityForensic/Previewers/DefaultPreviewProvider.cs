@@ -34,9 +34,7 @@ namespace SingularityForensic.Previewers {
             return previewer;
         }
 
-        public IPreviewer CreatePreviewer(Stream stream, string originName) {
-            throw new System.NotImplementedException();
-        }
+        public IPreviewer CreatePreviewer(Stream stream, string originName) => null;
 
         /// <summary>
         /// VlC所支持后缀;

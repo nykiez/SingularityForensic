@@ -9,8 +9,8 @@ using System.Threading;
 using System.Windows;
 
 namespace SingularityForensic.Previewers.ViewModels {
-    public class VlcVideoPreviewerModel: VideoPreviewerModel<VlcPlayer> {
-        public VlcVideoPreviewerModel(VlcPlayer player):base(player) {
+    public class VlcVideoPreviewerViewModel: VideoPreviewerModel<VlcPlayer> {
+        public VlcVideoPreviewerViewModel(VlcPlayer player):base(player) {
 
         }
         

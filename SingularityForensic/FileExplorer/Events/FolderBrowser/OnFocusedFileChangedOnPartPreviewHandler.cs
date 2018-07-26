@@ -82,10 +82,10 @@ namespace SingularityForensic.FileExplorer.Events {
                 return null;
             }
 
-            if (fileBaseStream.Length > 1024 * 1024 * 100) {
-                fileBaseStream.Dispose();
-                return null;
-            }
+            //if (fileBaseStream.Length > 1024 * 1024 * 100) {
+            //    fileBaseStream.Dispose();
+            //    return null;
+            //}
 
             if (_previewerProviders == null) {
                 LoggerService.WriteCallerLine($"{nameof(_previewerProviders)} can't be null.");
@@ -111,6 +111,9 @@ namespace SingularityForensic.FileExplorer.Events {
                             System.IO.Directory.CreateDirectory(tempDirectory);
                         }
 
+                        if(fileBaseStream.Length > 1024 * 1024 * 100) {
+                            continue;
+                        }
                         using (var tempFs = File.Create(tempFileName)) {
                             fileBaseStream.CopyTo(tempFs);
                             savedToLocal = true;

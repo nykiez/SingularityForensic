@@ -35,4 +35,5 @@ namespace SingularityForensic.MainPage {
 
         public override bool CanUserClose { get; set; } = false;
     }
+    
 }

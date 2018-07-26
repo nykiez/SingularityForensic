@@ -716,8 +716,16 @@
     <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
+    <Compile Include="NTFS\Constants.cs" />
+    <Compile Include="NTFS\UsnJrnlPreviewer.cs" />
+    <Compile Include="NTFS\UsnJrnPreviewProvider.cs" />
+    <Compile Include="NTFS\UsnRecordV2.cs" />
     <Compile Include="NTFS\StBPB.cs" />
     <Compile Include="NTFS\Structs.cs" />
+    <Compile Include="NTFS\ViewModels\UsnJrnlPreviewerViewModel.cs" />
+    <Compile Include="NTFS\Views\UsnJrnlPreviewer.xaml.cs">
+      <DependentUpon>UsnJrnlPreviewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Previewers\Constants.cs" />
     <Compile Include="Previewers\DefaultPreviewerModule.cs" />
     <Compile Include="Previewers\DefaultPreviewProvider.cs" />
@@ -727,8 +735,8 @@
     <Compile Include="Previewers\PlainTextPreviewer.cs" />
     <Compile Include="Previewers\SqlitePreviewer.cs" />
     <Compile Include="Previewers\VlcVideoPreviewer.cs" />
-    <Compile Include="Previewers\ViewModels\SqlitePreviewerModel.cs" />
-    <Compile Include="Previewers\ViewModels\VideoPreviewerModel.cs" />
+    <Compile Include="Previewers\ViewModels\SqlitePreviewerViewModel.cs" />
+    <Compile Include="Previewers\ViewModels\VideoPreviewerViewModel.cs" />
     <Compile Include="Previewers\Views\ImagePreviewer.xaml.cs">
       <DependentUpon>ImagePreviewer.xaml</DependentUpon>
     </Compile>
@@ -1087,6 +1095,14 @@
     <Page Include="MainMenu\Views\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="NTFS\Languages\zh_CN\SingularityForensic.NTFS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NTFS\Views\UsnJrnlPreviewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Previewers\Languages\zh_CN\SingularityForensic.Previewers.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1939,7 +1955,8 @@ XCopy "$(ProjectDir)BaseDevice\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)Ext\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)TreeView\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
 XCopy "$(ProjectDir)Hash\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
-XCopy "$(ProjectDir)Local\Languages" "$(TargetDir)Languages\" /I /D  /E /Y</PostBuildEvent>
+XCopy "$(ProjectDir)Local\Languages" "$(TargetDir)Languages\" /I /D  /E /Y
+XCopy "$(ProjectDir)NTFS\Languages" "$(TargetDir)Languages\" /I /D  /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

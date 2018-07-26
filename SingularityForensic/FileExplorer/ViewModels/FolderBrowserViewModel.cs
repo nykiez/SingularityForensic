@@ -77,7 +77,7 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// </summary>
         public IHaveFileCollection OwnedFileCollection { get; }                                        
         
-        public CustomTypedListSource<IFileRow> InternalFileRows { get; set; } = new CustomTypedListSource<IFileRow>();
+        public ObservableCollection<IFileRow> InternalFileRows { get; set; } = new ObservableCollection<IFileRow>();
         public IEnumerable<IFileRow> FileRows  => InternalFileRows;
         
         private IFileRow _selectedFile;

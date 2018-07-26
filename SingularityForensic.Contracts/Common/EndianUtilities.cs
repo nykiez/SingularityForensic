@@ -8,19 +8,19 @@ namespace SingularityForensic.Contracts.Common {
     public static class EndianUtilities {
         #region Bit Twiddling
 
-        public static void WriteBytesLittleEndian(ushort val, byte[] buffer, int offset) {
+        public static void WriteBytesLittleEndian(this byte[] buffer, ushort val, int offset) {
             buffer[offset] = (byte)(val & 0xFF);
             buffer[offset + 1] = (byte)((val >> 8) & 0xFF);
         }
 
-        public static void WriteBytesLittleEndian(uint val, byte[] buffer, int offset) {
+        public static void WriteBytesLittleEndian(this byte[] buffer, uint val, int offset) {
             buffer[offset] = (byte)(val & 0xFF);
             buffer[offset + 1] = (byte)((val >> 8) & 0xFF);
             buffer[offset + 2] = (byte)((val >> 16) & 0xFF);
             buffer[offset + 3] = (byte)((val >> 24) & 0xFF);
         }
 
-        public static void WriteBytesLittleEndian(ulong val, byte[] buffer, int offset) {
+        public static void WriteBytesLittleEndian(this byte[] buffer, ulong val, int offset) {
             buffer[offset] = (byte)(val & 0xFF);
             buffer[offset + 1] = (byte)((val >> 8) & 0xFF);
             buffer[offset + 2] = (byte)((val >> 16) & 0xFF);
@@ -31,36 +31,36 @@ namespace SingularityForensic.Contracts.Common {
             buffer[offset + 7] = (byte)((val >> 56) & 0xFF);
         }
 
-        public static void WriteBytesLittleEndian(short val, byte[] buffer, int offset) {
-            WriteBytesLittleEndian((ushort)val, buffer, offset);
+        public static void WriteBytesLittleEndian(this byte[] buffer, short val, int offset) {
+            WriteBytesLittleEndian(buffer,(ushort)val, offset);
         }
 
-        public static void WriteBytesLittleEndian(int val, byte[] buffer, int offset) {
-            WriteBytesLittleEndian((uint)val, buffer, offset);
+        public static void WriteBytesLittleEndian(this byte[] buffer, int val, int offset) {
+            WriteBytesLittleEndian(buffer, (uint)val,offset);
         }
 
-        public static void WriteBytesLittleEndian(long val, byte[] buffer, int offset) {
-            WriteBytesLittleEndian((ulong)val, buffer, offset);
+        public static void WriteBytesLittleEndian(this byte[] buffer, long val, int offset) {
+            WriteBytesLittleEndian(buffer, (ulong)val, offset);
         }
 
-        public static void WriteBytesLittleEndian(Guid val, byte[] buffer, int offset) {
+        public static void WriteBytesLittleEndian(this byte[] buffer, Guid val, int offset) {
             byte[] le = val.ToByteArray();
             Array.Copy(le, 0, buffer, offset, 16);
         }
 
-        public static void WriteBytesBigEndian(ushort val, byte[] buffer, int offset) {
+        public static void WriteBytesBigEndian(this byte[] buffer, ushort val, int offset) {
             buffer[offset] = (byte)(val >> 8);
             buffer[offset + 1] = (byte)(val & 0xFF);
         }
 
-        public static void WriteBytesBigEndian(uint val, byte[] buffer, int offset) {
+        public static void WriteBytesBigEndian(this byte[] buffer, uint val, int offset) {
             buffer[offset] = (byte)((val >> 24) & 0xFF);
             buffer[offset + 1] = (byte)((val >> 16) & 0xFF);
             buffer[offset + 2] = (byte)((val >> 8) & 0xFF);
             buffer[offset + 3] = (byte)(val & 0xFF);
         }
 
-        public static void WriteBytesBigEndian(ulong val, byte[] buffer, int offset) {
+        public static void WriteBytesBigEndian(this byte[] buffer, ulong val, int offset) {
             buffer[offset] = (byte)((val >> 56) & 0xFF);
             buffer[offset + 1] = (byte)((val >> 48) & 0xFF);
             buffer[offset + 2] = (byte)((val >> 40) & 0xFF);
@@ -71,84 +71,84 @@ namespace SingularityForensic.Contracts.Common {
             buffer[offset + 7] = (byte)(val & 0xFF);
         }
 
-        public static void WriteBytesBigEndian(short val, byte[] buffer, int offset) {
-            WriteBytesBigEndian((ushort)val, buffer, offset);
+        public static void WriteBytesBigEndian(this byte[] buffer, short val, int offset) {
+            WriteBytesBigEndian(buffer,(ushort)val, offset);
         }
 
-        public static void WriteBytesBigEndian(int val, byte[] buffer, int offset) {
-            WriteBytesBigEndian((uint)val, buffer, offset);
+        public static void WriteBytesBigEndian(this byte[] buffer, int val, int offset) {
+            WriteBytesBigEndian(buffer, (uint)val,  offset);
         }
 
-        public static void WriteBytesBigEndian(long val, byte[] buffer, int offset) {
-            WriteBytesBigEndian((ulong)val, buffer, offset);
+        public static void WriteBytesBigEndian(this byte[] buffer, long val, int offset) {
+            WriteBytesBigEndian(buffer, (ulong)val, offset);
         }
 
-        public static void WriteBytesBigEndian(Guid val, byte[] buffer, int offset) {
+        public static void WriteBytesBigEndian(this byte[] buffer, Guid val, int offset) {
             byte[] le = val.ToByteArray();
-            WriteBytesBigEndian(ToUInt32LittleEndian(le, 0), buffer, offset + 0);
-            WriteBytesBigEndian(ToUInt16LittleEndian(le, 4), buffer, offset + 4);
-            WriteBytesBigEndian(ToUInt16LittleEndian(le, 6), buffer, offset + 6);
+            WriteBytesBigEndian(buffer,ToUInt32LittleEndian(le, 0),  offset + 0);
+            WriteBytesBigEndian(buffer,ToUInt16LittleEndian(le, 4),  offset + 4);
+            WriteBytesBigEndian(buffer, ToUInt16LittleEndian(le, 6),  offset + 6);
             Array.Copy(le, 8, buffer, offset + 8, 8);
         }
 
-        public static ushort ToUInt16LittleEndian(byte[] buffer, int offset) {
+        public static ushort ToUInt16LittleEndian(this byte[] buffer, int offset) {
             return (ushort)(((buffer[offset + 1] << 8) & 0xFF00) | ((buffer[offset + 0] << 0) & 0x00FF));
         }
 
-        public static uint ToUInt32LittleEndian(byte[] buffer, int offset) {
+        public static uint ToUInt32LittleEndian(this byte[] buffer, int offset) {
             return (uint)(((buffer[offset + 3] << 24) & 0xFF000000U) | ((buffer[offset + 2] << 16) & 0x00FF0000U)
                           | ((buffer[offset + 1] << 8) & 0x0000FF00U) | ((buffer[offset + 0] << 0) & 0x000000FFU));
         }
 
-        public static ulong ToUInt64LittleEndian(byte[] buffer, int offset) {
+        public static ulong ToUInt64LittleEndian(this byte[] buffer, int offset) {
             return ((ulong)ToUInt32LittleEndian(buffer, offset + 4) << 32) | ToUInt32LittleEndian(buffer, offset + 0);
         }
 
-        public static short ToInt16LittleEndian(byte[] buffer, int offset) {
+        public static short ToInt16LittleEndian(this byte[] buffer, int offset) {
             return (short)ToUInt16LittleEndian(buffer, offset);
         }
 
-        public static int ToInt32LittleEndian(byte[] buffer, int offset) {
+        public static int ToInt32LittleEndian(this byte[] buffer, int offset) {
             return (int)ToUInt32LittleEndian(buffer, offset);
         }
 
-        public static long ToInt64LittleEndian(byte[] buffer, int offset) {
+        public static long ToInt64LittleEndian(this byte[] buffer, int offset) {
             return (long)ToUInt64LittleEndian(buffer, offset);
         }
 
-        public static ushort ToUInt16BigEndian(byte[] buffer, int offset) {
+        public static ushort ToUInt16BigEndian(this byte[] buffer, int offset) {
             return (ushort)(((buffer[offset] << 8) & 0xFF00) | ((buffer[offset + 1] << 0) & 0x00FF));
         }
 
-        public static uint ToUInt32BigEndian(byte[] buffer, int offset) {
+        public static uint ToUInt32BigEndian(this byte[] buffer, int offset) {
             uint val = (uint)(((buffer[offset + 0] << 24) & 0xFF000000U) | ((buffer[offset + 1] << 16) & 0x00FF0000U)
                               | ((buffer[offset + 2] << 8) & 0x0000FF00U) | ((buffer[offset + 3] << 0) & 0x000000FFU));
             return val;
         }
 
-        public static ulong ToUInt64BigEndian(byte[] buffer, int offset) {
+        public static ulong ToUInt64BigEndian(this byte[] buffer, int offset) {
             return ((ulong)ToUInt32BigEndian(buffer, offset + 0) << 32) | ToUInt32BigEndian(buffer, offset + 4);
         }
 
-        public static short ToInt16BigEndian(byte[] buffer, int offset) {
+        public static short ToInt16BigEndian(this byte[] buffer, int offset) {
             return (short)ToUInt16BigEndian(buffer, offset);
         }
 
-        public static int ToInt32BigEndian(byte[] buffer, int offset) {
+        public static int ToInt32BigEndian(this byte[] buffer, int offset) {
             return (int)ToUInt32BigEndian(buffer, offset);
         }
 
-        public static long ToInt64BigEndian(byte[] buffer, int offset) {
+        public static long ToInt64BigEndian(this byte[] buffer, int offset) {
             return (long)ToUInt64BigEndian(buffer, offset);
         }
 
-        public static Guid ToGuidLittleEndian(byte[] buffer, int offset) {
+        public static Guid ToGuidLittleEndian(this byte[] buffer, int offset) {
             byte[] temp = new byte[16];
             Array.Copy(buffer, offset, temp, 0, 16);
             return new Guid(temp);
         }
 
-        public static Guid ToGuidBigEndian(byte[] buffer, int offset) {
+        public static Guid ToGuidBigEndian(this byte[] buffer, int offset) {
             return new Guid(
                 ToUInt32BigEndian(buffer, offset + 0),
                 ToUInt16BigEndian(buffer, offset + 4),
@@ -163,13 +163,13 @@ namespace SingularityForensic.Contracts.Common {
                 buffer[offset + 15]);
         }
 
-        public static byte[] ToByteArray(byte[] buffer, int offset, int length) {
+        public static byte[] ToByteArray(this byte[] buffer, int offset, int length) {
             byte[] result = new byte[length];
             Array.Copy(buffer, offset, result, 0, length);
             return result;
         }
 
-        public static T ToStruct<T>(byte[] buffer, int offset)
+        public static T ToStruct<T>(this byte[] buffer, int offset)
             where T : IByteArraySerializable, new() {
             T result = new T();
             result.ReadFrom(buffer, offset);

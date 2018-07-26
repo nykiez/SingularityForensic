@@ -21,7 +21,7 @@ namespace SingularityForensic.Previewers {
     }
 
     
-    public class VlcVideoPreviewer : VideoPreviewer<VlcVideoPreviewerModel> {
+    public class VlcVideoPreviewer : VideoPreviewer<VlcVideoPreviewerViewModel> {
         public VlcVideoPreviewer(string videoFileName) {
             this.FileName = videoFileName;
         }
@@ -46,14 +46,14 @@ namespace SingularityForensic.Previewers {
         /// <summary>
         /// Vlc视图模型;
         /// </summary>
-        private VlcVideoPreviewerModel _videoPreviewerModel;
-        public override VlcVideoPreviewerModel VideoPreviewerModel {
+        private VlcVideoPreviewerViewModel _videoPreviewerModel;
+        public override VlcVideoPreviewerViewModel VideoPreviewerModel {
             get {
                 if(_videoPreviewerModel == null) {
                     var _player = new VlcPlayer(previewerPanel.Player) {
                         FileName = FileName
                     };
-                    _videoPreviewerModel = new VlcVideoPreviewerModel(_player);
+                    _videoPreviewerModel = new VlcVideoPreviewerViewModel(_player);
                 }
                 return _videoPreviewerModel;
             }

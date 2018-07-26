@@ -18,10 +18,10 @@ namespace SingularityForensic.FileExplorer {
             var fileNode = selfIncluded?file:file.Parent;
             while (fileNode != null) {
                 if (fileNode is IPartition part) {
-                    sb.Insert(0, $"/{part.GetPartFixAndName()}");
+                    sb.Insert(0, $"\\{part.GetPartFixAndName()}");
                 }
                 else {
-                    sb.Insert(0, $"/{fileNode.Name}");
+                    sb.Insert(0, $"\\{fileNode.Name}");
                 }
 
                 fileNode = fileNode.Parent;

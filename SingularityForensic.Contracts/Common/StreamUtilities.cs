@@ -40,7 +40,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="buffer">The buffer to populate.</param>
         /// <param name="offset">Offset in the buffer to start.</param>
         /// <param name="count">The number of bytes to read.</param>
-        public static void ReadExact(Stream stream, byte[] buffer, int offset, int count) {
+        public static void ReadExact(this Stream stream, byte[] buffer, int offset, int count) {
             int originalCount = count;
 
             while (count > 0) {
@@ -61,7 +61,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="stream">The stream to read.</param>
         /// <param name="count">The number of bytes to read.</param>
         /// <returns>The data read from the stream.</returns>
-        public static byte[] ReadExact(Stream stream, int count) {
+        public static byte[] ReadExact(this Stream stream, int count) {
             byte[] buffer = new byte[count];
 
             ReadExact(stream, buffer, 0, count);
@@ -79,7 +79,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="offset">Offset in the buffer to start.</param>
         /// <param name="count">The number of bytes to read.</param>
         /// <returns>The number of bytes actually read.</returns>
-        public static int ReadMaximum(Stream stream, byte[] buffer, int offset, int count) {
+        public static int ReadMaximum(this Stream stream, byte[] buffer, int offset, int count) {
             int totalRead = 0;
 
             while (count > 0) {
@@ -96,16 +96,13 @@ namespace SingularityForensic.Contracts.Common {
 
             return totalRead;
         }
-
-
-
  
         /// <summary>
         /// Reads a disk sector (512 bytes).
         /// </summary>
         /// <param name="stream">The stream to read.</param>
         /// <returns>The sector data as a byte array.</returns>
-        public static byte[] ReadSector(Stream stream) {
+        public static byte[] ReadSector(this Stream stream) {
             return ReadExact(stream, Sizes.Sector);
         }
 
@@ -115,7 +112,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <typeparam name="T">The type of the structure.</typeparam>
         /// <param name="stream">The stream to read.</param>
         /// <returns>The structure.</returns>
-        public static T ReadStruct<T>(Stream stream)
+        public static T ReadStruct<T>(this Stream stream)
             where T : IByteArraySerializable, new() {
             T result = new T();
             byte[] buffer = ReadExact(stream, result.Size);
@@ -130,7 +127,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="stream">The stream to read.</param>
         /// <param name="length">The number of bytes to read.</param>
         /// <returns>The structure.</returns>
-        public static T ReadStruct<T>(Stream stream, int length)
+        public static T ReadStruct<T>(this Stream stream, int length)
             where T : IByteArraySerializable, new() {
             T result = new T();
             byte[] buffer = ReadExact(stream, length);
@@ -144,7 +141,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <typeparam name="T">The type of the structure.</typeparam>
         /// <param name="stream">The stream to write to.</param>
         /// <param name="obj">The structure to write.</param>
-        public static void WriteStruct<T>(Stream stream, T obj)
+        public static void WriteStruct<T>(this Stream stream, T obj)
             where T : IByteArraySerializable {
             byte[] buffer = new byte[obj.Size];
             obj.WriteTo(buffer, 0);
@@ -157,7 +154,7 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="source">The stream to copy from.</param>
         /// <param name="dest">The destination stream.</param>
         /// <remarks>Copying starts at the current stream positions.</remarks>
-        public static void PumpStreams(Stream source, Stream dest) {
+        public static void PumpStreams(this Stream source, Stream dest) {
             byte[] buffer = new byte[8192];
             int numRead;
 

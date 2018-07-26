@@ -56,6 +56,7 @@ namespace SingularityForensic.Contracts.App {
         /// <param name="factory">转化工厂方法</param>
         /// <param name="bufferLength">缓冲区大小</param>
         /// <param name="sleepInterval">睡眠周期</param>
+        /// <param name="callBack">完成后回调</param>
         public static void AddBufferItemsToCollection<TOriginalEntity,TEntity>(
             ICollection<TEntity> entitySet,
             IEnumerable<TOriginalEntity> oriEntitySet,

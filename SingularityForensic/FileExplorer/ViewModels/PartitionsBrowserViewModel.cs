@@ -11,6 +11,7 @@ using SingularityForensic.FileExplorer.Models;
 using SingularityForensic.Contracts.Controls;
 using SingularityForensic.Controls;
 using SingularityForensic.Contracts.FileExplorer.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace SingularityForensic.FileExplorer.ViewModels {
     /// <summary>
@@ -29,8 +30,8 @@ namespace SingularityForensic.FileExplorer.ViewModels {
         /// <summary>
         /// 分区数据绑定源;
         /// </summary>
-        public CustomTypedListSource<IPartitionRow> Partitions { get; set; } 
-            = new CustomTypedListSource<IPartitionRow>();
+        public ObservableCollection<IPartitionRow> Partitions { get; set; } 
+            = new ObservableCollection<IPartitionRow>();
         
         /// <summary>
         /// 初始化列;比如在<see cref="InitializeFileRowDescriptors"/>后执行

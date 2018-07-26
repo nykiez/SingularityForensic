@@ -12,17 +12,17 @@ using CDFCCultures.Helpers;
 using SingularityForensic.Contracts.Common;
 
 namespace SingularityForensic.Previewers.ViewModels {
-    public partial class SqlitePreviewerModel:BindableBase {
+    public partial class SqlitePreviewerViewModel:BindableBase {
         public string ConnString => $"Data Source={DbPath};Version=3;New=true";
         public SQLiteConnection Conn { get; }
-        public SqlitePreviewerModel(string dbPath) {
+        public SqlitePreviewerViewModel(string dbPath) {
             DbPath = dbPath;
             if (File.Exists(DbPath)) {
                 try {
                     Conn = new SQLiteConnection(ConnString);
                 }
                 catch(Exception ex) {
-                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(SqlitePreviewerModel)}:{ex.Message}");
+                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerViewModel)}->{nameof(SqlitePreviewerViewModel)}:{ex.Message}");
                 }
             }
             LoadUnits();
@@ -65,7 +65,7 @@ namespace SingularityForensic.Previewers.ViewModels {
                 reader.Close();
             }
             catch(Exception ex) {
-                LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(LoadUnits)}:{ex.Message}");
+                LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerViewModel)}->{nameof(LoadUnits)}:{ex.Message}");
             }
             finally {
                 tablesUnit.Label += $"({tableCount})";
@@ -138,7 +138,7 @@ namespace SingularityForensic.Previewers.ViewModels {
                     }
                 }
                 catch (Exception ex) {
-                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerModel)}->{nameof(NotifySelectedUnitChanged)}:{ex.Message}");
+                    LoggerService.WriteCallerLine($"{nameof(SqlitePreviewerViewModel)}->{nameof(NotifySelectedUnitChanged)}:{ex.Message}");
                     MsgBoxService.Current?.Show($"{ex.Message}");
                 }
             }
@@ -185,7 +185,7 @@ namespace SingularityForensic.Previewers.ViewModels {
         }
     }
 
-    public partial class SqlitePreviewerModel {
+    public partial class SqlitePreviewerViewModel {
         //执行语句命令;
         private DelegateCommand _executeSqlCommand;
         public DelegateCommand ExecuteSqlCommand =>

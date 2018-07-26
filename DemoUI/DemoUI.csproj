@@ -192,6 +192,9 @@
     <Compile Include="MainPage\TestUnitTree.xaml.cs">
       <DependentUpon>TestUnitTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NTFS\TestUsnJrnlPreviewer.xaml.cs">
+      <DependentUpon>TestUsnJrnlPreviewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Previewers\TestVideoPreviewer.xaml.cs">
       <DependentUpon>TestVideoPreviewer.xaml</DependentUpon>
     </Compile>
@@ -215,6 +218,9 @@
     </Compile>
     <Compile Include="TestMainPage.xaml.cs">
       <DependentUpon>TestMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestNTFS.xaml.cs">
+      <DependentUpon>TestNTFS.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestPreviewer.xaml.cs">
       <DependentUpon>TestPreviewer.xaml</DependentUpon>
@@ -328,6 +334,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NTFS\TestUsnJrnlPreviewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Previewers\TestVideoPreviewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -385,6 +395,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestNTFS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

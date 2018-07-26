@@ -7,9 +7,9 @@ namespace SingularityForensic.Previewers {
     /// </summary>
     public class SqlitePreviewer : IPreviewer {
         public SqlitePreviewer(string fileName) {
-            vm = new SqlitePreviewerModel(fileName);
+            vm = new SqlitePreviewerViewModel(fileName);
         }
-        private SqlitePreviewerModel vm;
+        private SqlitePreviewerViewModel vm;
         public object DataContext {
             get {
                 return vm;

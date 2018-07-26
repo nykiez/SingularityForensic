@@ -41,8 +41,10 @@ namespace SingularityForensic.MainPage {
         public void Initialize() {
             _dockingContainers.AddRange(GenericServiceStaticInstances<IDockingPaneContainer>.
                  Currents.Where(p => p.DockingServiceName == Contracts.MainPage.Constants.MainDockingService));
+
             _dockingGroups.AddRange(GenericServiceStaticInstances<IDockingPaneGroup>.
                 Currents.Where(p => _dockingContainers.Exists(q => q.GUID == p.ContainerGUID)));
+
             _dockingPanes.AddRange(GenericServiceStaticInstances<IDockingPane>.
                 Currents.Where(p => _dockingGroups.Exists(q => q.GUID == p.InitPaneGroupGUID)));
 
@@ -62,8 +64,8 @@ namespace SingularityForensic.MainPage {
 
             paneControl.DataContext = new PaneModel(pane);
             paneControl.SetBinding(HeaderedContentControl.HeaderProperty, new Binding(nameof(PaneModel.Header)));
-            paneControl.Width = pane.InitialWidth;
-            paneControl.Height = pane.InitialHeight;
+            
+            
             paneControl.PaneHeaderVisibility = pane.PaneHeaderVisibility;
             paneControl.CanUserClose = pane.CanUserClose;
             DockingPanel.SetInitialSize(paneControl, new System.Windows.Size(pane.InitialWidth, pane.InitialHeight));

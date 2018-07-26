@@ -13,11 +13,11 @@ namespace SingularityForensic.Previewers.Views {
             InitializeComponent();
             
         }
-        private SqlitePreviewerModel vm;
-        public SqlitePreviewerModel VM {
+        private SqlitePreviewerViewModel vm;
+        public SqlitePreviewerViewModel VM {
             get {
                 if (vm == null) {
-                    vm = this.DataContext as SqlitePreviewerModel;
+                    vm = this.DataContext as SqlitePreviewerViewModel;
                 }
                 return vm;
             }

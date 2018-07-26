@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:local="clr-namespace:SingularityForensic.NTFS.Languages.zh_CN">
+  <sys:String x:Key="UsnMetaName_RecordPosition">记录位置</sys:String>
+  <sys:String x:Key="UsnMetaName_RecordLength">记录长度</sys:String>
+  <sys:String x:Key="UsnMetaName_FileReferenceNumber">文件引用标识</sys:String>
+  <sys:String x:Key="UsnMetaName_ParentFileReferenceNumber">父文件引用标识</sys:String>
+  <sys:String x:Key="UsnMetaName_Usn">USN号码</sys:String>
+  <sys:String x:Key="UsnMetaName_Reason">USNReason</sys:String>
+  <sys:String x:Key="UsnMetaName_FileAttributes">文件属性</sys:String>
+  <sys:String x:Key="UsnMetaName_FileNameLength">文件名长度(字节)</sys:String>
+  <sys:String x:Key="UsnMetaName_FileNameOffset">文件名偏移</sys:String>
+  <sys:String x:Key="UsnMetaName_FileName">文件名</sys:String>
+  <sys:String x:Key="UsnMetaName_DateTime">时间</sys:String>
+</ResourceDictionary>
