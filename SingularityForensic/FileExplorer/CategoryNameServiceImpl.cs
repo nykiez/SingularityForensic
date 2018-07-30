@@ -84,7 +84,11 @@ namespace SingularityForensic.FileExplorer {
 
                     //若为-开头，为规则声明起始行,直到下一个规则声明行前,均为类型描述行(若以\t开头);
                     if (line.StartsWith(Constants.TextLine_CategoryRulePrefix)) {
-                        var tryRecognizer = _stringRecognizers.FirstOrDefault(p => p.Rule.Type == line.Substring(1));
+                        var tryRecognizer = _stringRecognizers.FirstOrDefault(p => p.Rule.Type == line.Substring(1)?.Trim());
+#if DEBUG
+                        var ss = line.Substring(1);
+                        var tryRecognizer2 = _stringRecognizers.FirstOrDefault(p => p.Rule.Type == ss);
+#endif
                         if (tryRecognizer == null) {
                             LoggerService.WriteCallerLine($"{line} is not matched.");
                         }

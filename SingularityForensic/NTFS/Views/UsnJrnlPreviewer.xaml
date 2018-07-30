@@ -19,6 +19,7 @@
                 <gv:RadGridViewEx.Columns >
                     <gv:RowNumberColumn Header="#"   
 								 Width="30" CellStyle="{StaticResource GridViewCellStyle}" />
+                    <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileName}" DataMemberBinding="{Binding FileName}"/>
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_RecordPosition}" DataMemberBinding="{Binding RecordPosition}"/>
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_RecordLength}" DataMemberBinding="{Binding RecordLength}"/>
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileReferenceNumber}" DataMemberBinding="{Binding FileReferenceNumber}"/>
@@ -29,7 +30,6 @@
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileAttributes}" DataMemberBinding="{Binding FileAttributes}"/>
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileNameLength}" DataMemberBinding="{Binding FileNameLength}"/>
                     <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileNameOffset}" DataMemberBinding="{Binding FileNameOffset}"/>
-                    <telerik:GridViewDataColumn Header="{DynamicResource UsnMetaName_FileName}" DataMemberBinding="{Binding FileName}"/>
                 </gv:RadGridViewEx.Columns>
             </gv:RadGridViewEx>
         </telerik:RadBusyIndicator>

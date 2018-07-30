@@ -8,12 +8,12 @@
 	.png PNG
 	.bmp Bitmap
 *** 压缩文件
--EndsWith 
+-EndsWith
 	.zip 压缩文件	3
 	.rar 压缩文件
 	.7z 压缩文件
 *** 常用办公文档
--EndsWith 
+-EndsWith
 	.doc Office 2003
 	.docx Office 2007
 	.xls Office 2003
