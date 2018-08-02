@@ -64,7 +64,7 @@ namespace SingularityForensic.NTFS {
 #endif
 
         //轮询缓冲区长度;
-        const int TestBufferLength = 512;
+        const int TestBufferLength = 4* 1024 * 1024;
         //记录所在Position必为8的倍数;
         const int UnitLength = 8;
         /// <summary>
@@ -80,7 +80,7 @@ namespace SingularityForensic.NTFS {
         /// 从流的当前位置读取一个Usn记录;
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="testBuffer">轮询至零缓冲区</param>
+        /// <param name="testBuffer">为节约缓冲区大小，设置了读取缓冲区，减少构建缓冲区的频率</param>
         /// <returns></returns>
         private static UsnRecordV2 ReadFromStreamCore(Stream stream,byte[] testBuffer = null) {
             if (stream == null) {
@@ -90,7 +90,7 @@ namespace SingularityForensic.NTFS {
             if (stream.Position >= stream.Length) {
                 return null;
             }
-
+            
             if(testBuffer == null) {
                 testBuffer = new byte[TestBufferLength];
             }
@@ -101,24 +101,24 @@ namespace SingularityForensic.NTFS {
             stream.Position = stream.Position / UnitLength * UnitLength;
             
             var readLength = 0;
-            var noZeroIndex = -1;
+            var nonZeroIndex = -1;
             while ((readLength = stream.Read(testBuffer, 0, TestBufferLength)) != 0) {
                 for (int i = 0; i < readLength; i++) {
                     if (testBuffer[i] != 0) {
-                        noZeroIndex = i;
+                        nonZeroIndex = i;
                         break;
                     }
                 }
-                if (noZeroIndex != -1) {
+                if (nonZeroIndex != -1) {
                     break;
                 }
             }
 
-            if (noZeroIndex == -1) {
+            if (nonZeroIndex == -1) {
                 return null;
             }
 
-            stream.Position -= (readLength - noZeroIndex);
+            stream.Position -= (readLength - nonZeroIndex);
             while (stream.ReadByte() == 0) ;
             stream.Position--;
             
@@ -162,9 +162,72 @@ namespace SingularityForensic.NTFS {
 
             UsnRecordV2 record = null;
             var testBuffer = new byte[TestBufferLength];
-            while((record = ReadFromStreamCore(stream,testBuffer)) != null) {
-                yield return record;
+            byte[] buffer = null;
+            while(stream.Position < stream.Length) {
+                var bufferPosition = stream.Position;
+                var startIndex = 0;
+
+                if(stream.Length - stream.Position > TestBufferLength) {
+                    stream.Read(testBuffer, 0, TestBufferLength);
+                    buffer = testBuffer;
+                }
+                else {
+                    buffer = new byte[stream.Length - stream.Position];
+                    stream.Read(buffer, 0, buffer.Length);
+                }
+                
+                while((record = ReadFromBuffer(buffer,ref startIndex)) != null) {
+                    record.RecordPosition = bufferPosition + startIndex;
+                    yield return record;
+                }
             }
         }
+
+        private static UsnRecordV2 ReadFromBuffer(byte[] buffer,ref int startIndex) {
+            if(buffer == null) {
+                throw new ArgumentNullException(nameof(buffer));
+            }
+
+            while(startIndex < buffer.Length && buffer[startIndex] == 0) {
+                startIndex++;
+            }
+
+            //记录余下的长度;
+            var leftLength = buffer.Length - startIndex;
+            if (leftLength < StructWithoutFileName_Size) {
+                return null;
+            }
+
+            var usnRecord = new UsnRecordV2();
+            usnRecord.RecordLength = buffer.ToUInt32LittleEndian(startIndex);
+            usnRecord.FileReferenceNumber = buffer.ToUInt64LittleEndian(FR_OFFSET + startIndex);
+            usnRecord.ParentFileReferenceNumber = buffer.ToUInt64LittleEndian(PFR_OFFSET + startIndex);
+            usnRecord.Usn = (long)buffer.ToUInt64LittleEndian(USN_OFFSET);
+            usnRecord.DateTime = System.DateTime.FromFileTime(buffer.ToInt64LittleEndian(DateTime_OFFSET + startIndex));
+            usnRecord.Reason = buffer.ToUInt32LittleEndian(REASON_OFFSET + startIndex);
+            usnRecord.FileAttributes = buffer.ToUInt32LittleEndian(FA_OFFSET + startIndex);
+            usnRecord.FileNameLength = buffer.ToUInt16LittleEndian(FNL_OFFSET + startIndex);
+            usnRecord.FileNameOffset = buffer.ToUInt16LittleEndian(FN_OFFSET + startIndex);
+            
+            leftLength = buffer.Length - startIndex - StructWithoutFileName_Size;
+
+            if(leftLength >= usnRecord.FileNameLength) {
+                //读取名称;
+                try {
+                    usnRecord.FileName = Encoding.Unicode.GetString(buffer, startIndex + StructWithoutFileName_Size, usnRecord.FileNameLength);
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                }
+            }
+            else {
+
+            }
+
+            startIndex += (int)usnRecord.RecordLength;
+            return usnRecord;
+        }
+
+
     }
 }

@@ -29,7 +29,7 @@ namespace DemoUI.NTFS {
      
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            this._previewer = new UsnJrnlPreviewer(File.OpenRead("E://anli/$UsnJrnl(1)"));
+            this._previewer = new UsnJrnlPreviewer(File.OpenRead("E://anli/UsnJrnl(1)"));
             bd.Child = _previewer.UIObject as UIElement;
         }
 

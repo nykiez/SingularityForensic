@@ -42,8 +42,15 @@ namespace SingularityForensic.NTFS.ViewModels {
                     BusyWord = $"{percentage}%";
                 };
 
-                Records = UsnRecordV2.ReadRecordsFromStream(opStream).ToList();
-                IsBusy = false;
+                try {
+                    Records = UsnRecordV2.ReadRecordsFromStream(opStream).ToList();
+                    IsBusy = false;
+                }
+                catch(Exception ex) {
+                    LoggerService.WriteException(ex);
+                    BusyWord = ex.Message;
+                }
+                
 
                 //取消释放中断处理;
                 _dispoingActions.Remove(opStream.Break);

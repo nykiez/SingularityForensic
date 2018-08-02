@@ -15,7 +15,7 @@ namespace SingularityForensic.Test.NTFS {
         public void UsnRecordV2Test() {
             Assert.Fail();
         }
-        private const string UsnFileName = "E://anli/$UsnJrnl(1)";
+        private const string UsnFileName = "E://anli/UsnJrnl(1)";
 
         [TestMethod()]
         public void ReadFromStreamTest() {
@@ -33,7 +33,7 @@ namespace SingularityForensic.Test.NTFS {
             var fs = File.OpenRead(UsnFileName);
             var records = UsnRecordV2.ReadRecordsFromStream(fs);
             foreach (var record in records) {
-                Trace.WriteLine(record.FileName);
+                //Trace.WriteLine($"{record.FileName}");
             }
             fs.Dispose();
         }
