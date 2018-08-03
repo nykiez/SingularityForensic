@@ -5,12 +5,12 @@
 //using System.Threading.Tasks;
 
 namespace SingularityForensic.NTFS {
-    class RSTRRecord {
+    class LogFileRSTRRecord {
         const int SECTOR_SIZE = 512;
 
         const int SECTOR_AMOUNT = 8;
 
-        RSTRRecord(byte[] data) {
+        LogFileRSTRRecord(byte[] data) {
 
             //    self.header = RestartPageHeader(data[:48])     # 0x00 - 0x2F
             //self.offset_dict = search_fixup(self, data)

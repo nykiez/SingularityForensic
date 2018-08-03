@@ -716,7 +716,9 @@
     <Compile Include="MainPage\ViewModels\UnitTreeViewModel.cs" />
     <Compile Include="MainPage\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Imaging\EWFImgMounter.cs" />
-    <Compile Include="NTFS\RSTRRecord.cs" />
+    <Compile Include="NTFS\LogFileRSTR.cs" />
+    <Compile Include="NTFS\LogFileRSTRHeader.cs" />
+    <Compile Include="NTFS\LogFileRSTRRecord.cs" />
     <Compile Include="NTFS\Constants.cs" />
     <Compile Include="NTFS\LogFile.cs" />
     <Compile Include="NTFS\UsnJrnlPreviewer.cs" />

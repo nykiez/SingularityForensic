@@ -1,5 +1,6 @@
 ﻿using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Common.ComponentModel;
 using SingularityForensic.Contracts.TreeView;
 using SingularityForensic.PropertyGrid.ViewModels;
 using SingularityForensic.TreeView.Models;

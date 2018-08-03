@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Common.ComponentModel;
 
 namespace SingularityForensic.FAT {
     public class FATDBR : StructFieldDecriptorBase<StFatDBR>,ICustomMemberDescriptor {

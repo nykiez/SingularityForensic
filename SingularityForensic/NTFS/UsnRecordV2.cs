@@ -24,7 +24,11 @@ namespace SingularityForensic.NTFS {
         private const int FN_OFFSET = 58;
         private const int StructWithoutFileName_Size = 60;
 
+        /// <summary>
+        /// 记录在流中的位置,非原结构体中成员;
+        /// </summary>
         public long RecordPosition { get; private set; }
+
         public UInt32 RecordLength { get; private set; }
         public UInt64 FileReferenceNumber { get; private set; }
         public UInt64 ParentFileReferenceNumber { get; private set; }
@@ -35,24 +39,7 @@ namespace SingularityForensic.NTFS {
         public Int32 FileNameLength { get; private set; }
         public ushort FileNameOffset { get; private set; }
         public string FileName { get; private set; }
-
-        /// <summary>
-        /// USN Record Constructor
-        /// </summary>
-        /// <param name="usnRecordPtr">Buffer of bytes representing the USN Record</param>
-        public UsnRecordV2(IntPtr usnRecordPtr) {
-            this.RecordLength = (UInt32)Marshal.ReadInt32(usnRecordPtr);
-            this.FileReferenceNumber = (UInt64)Marshal.ReadInt64(usnRecordPtr, FR_OFFSET);
-            this.ParentFileReferenceNumber = (UInt64)Marshal.ReadInt64(usnRecordPtr, PFR_OFFSET);
-            this.Usn = Marshal.ReadInt64(usnRecordPtr, USN_OFFSET);
-            this.DateTime = System.DateTime.FromFileTime(Marshal.ReadInt64(usnRecordPtr, DateTime_OFFSET));
-            this.Reason = (UInt32)Marshal.ReadInt32(usnRecordPtr, REASON_OFFSET);
-            this.FileAttributes = (UInt32)Marshal.ReadInt32(usnRecordPtr, FA_OFFSET);
-            this.FileNameLength = Marshal.ReadInt16(usnRecordPtr, FNL_OFFSET);
-            this.FileNameOffset = (ushort)Marshal.ReadInt16(usnRecordPtr, FN_OFFSET);
-            this.FileName = Marshal.PtrToStringUni(new IntPtr(usnRecordPtr.ToInt32() + this.FileNameOffset), this.FileNameLength / sizeof(char));
-        }
-
+        
         private UsnRecordV2() {
 
         }
@@ -62,27 +49,16 @@ namespace SingularityForensic.NTFS {
 
         }
 #endif
-
-        //轮询缓冲区长度;
-        const int TestBufferLength = 4* 1024 * 1024;
-        //记录所在Position必为8的倍数;
+        
+        //记录所在位置必为8的倍数;
         const int UnitLength = 8;
+        const int ClusterSize = 4096;
         /// <summary>
         /// 从流的当前位置读取一个Usn记录;
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
         public static UsnRecordV2 ReadFromStream(Stream stream) {
-            return ReadFromStreamCore(stream);
-        }
-
-        /// <summary>
-        /// 从流的当前位置读取一个Usn记录;
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="testBuffer">为节约缓冲区大小，设置了读取缓冲区，减少构建缓冲区的频率</param>
-        /// <returns></returns>
-        private static UsnRecordV2 ReadFromStreamCore(Stream stream,byte[] testBuffer = null) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
             }
@@ -90,21 +66,16 @@ namespace SingularityForensic.NTFS {
             if (stream.Position >= stream.Length) {
                 return null;
             }
-            
-            if(testBuffer == null) {
-                testBuffer = new byte[TestBufferLength];
-            }
-            else if(testBuffer.Length != TestBufferLength){
-                throw new ArgumentException($"The length of {nameof(testBuffer)} is not valid,Expected:{TestBufferLength},Actual:{testBuffer.Length}");
-            }
+
+            var buffer = new byte[ClusterSize];
 
             stream.Position = stream.Position / UnitLength * UnitLength;
-            
+
             var readLength = 0;
             var nonZeroIndex = -1;
-            while ((readLength = stream.Read(testBuffer, 0, TestBufferLength)) != 0) {
+            while ((readLength = stream.Read(buffer, 0, ClusterSize)) != 0) {
                 for (int i = 0; i < readLength; i++) {
-                    if (testBuffer[i] != 0) {
+                    if (buffer[i] != 0) {
                         nonZeroIndex = i;
                         break;
                     }
@@ -121,7 +92,7 @@ namespace SingularityForensic.NTFS {
             stream.Position -= (readLength - nonZeroIndex);
             while (stream.ReadByte() == 0) ;
             stream.Position--;
-            
+
             var startPosition = stream.Position;
 
             var leftCount = stream.Length - stream.Position;
@@ -153,6 +124,15 @@ namespace SingularityForensic.NTFS {
             return usnRecord;
         }
 
+        
+
+        //轮询缓冲区长度;
+        const int TraverseBufferLength = ClusterSize * 1024;
+        /// <summary>
+        /// 从流中读取所有可能的Usn序列,注意,此方法延迟返回;
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
         public static IEnumerable<UsnRecordV2> ReadRecordsFromStream(Stream stream) {
             if (stream == null) {
                 throw new ArgumentNullException(nameof(stream));
@@ -160,16 +140,20 @@ namespace SingularityForensic.NTFS {
             
             stream.Position = 0;
 
+            //To-Do,根据观察,usn存储在文件中的位置以簇大小(大多为4096,由于尚未遇见非4096的情况,所以未做其它考虑)取整
+            //即在上一个usn记录存储完后,所在簇的剩余空间
+            //不足以存入下下一个记录时，那么，下一条记录将以下一个簇的起始位置为起始被存储,本簇的余下部分将被零填充;
+            //利用如上特性,将缓冲区的大小设置为簇大小的倍数,可以将流(文件)切分为多个块进行内存内解析,以提高处理速度;
             UsnRecordV2 record = null;
-            var testBuffer = new byte[TestBufferLength];
+            var traverseBuffer = new byte[TraverseBufferLength];
             byte[] buffer = null;
             while(stream.Position < stream.Length) {
                 var bufferPosition = stream.Position;
                 var startIndex = 0;
 
-                if(stream.Length - stream.Position > TestBufferLength) {
-                    stream.Read(testBuffer, 0, TestBufferLength);
-                    buffer = testBuffer;
+                if(stream.Length - stream.Position > TraverseBufferLength) {
+                    stream.Read(traverseBuffer, 0, TraverseBufferLength);
+                    buffer = traverseBuffer;
                 }
                 else {
                     buffer = new byte[stream.Length - stream.Position];
@@ -183,6 +167,12 @@ namespace SingularityForensic.NTFS {
             }
         }
 
+        /// <summary>
+        /// 从缓冲区中某个起始位置读取一个记录;
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="startIndex">可能的起始位置</param>
+        /// <returns></returns>
         private static UsnRecordV2 ReadFromBuffer(byte[] buffer,ref int startIndex) {
             if(buffer == null) {
                 throw new ArgumentNullException(nameof(buffer));
@@ -220,14 +210,11 @@ namespace SingularityForensic.NTFS {
                     LoggerService.WriteException(ex);
                 }
             }
-            else {
-
-            }
+            
 
             startIndex += (int)usnRecord.RecordLength;
             return usnRecord;
         }
-
-
+        
     }
 }

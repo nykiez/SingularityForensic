@@ -33,7 +33,7 @@ namespace SingularityForensic.Test.NTFS {
             var fs = File.OpenRead(UsnFileName);
             var records = UsnRecordV2.ReadRecordsFromStream(fs);
             foreach (var record in records) {
-                //Trace.WriteLine($"{record.FileName}");
+                Trace.WriteLine($"{record.FileName}");
             }
             fs.Dispose();
         }

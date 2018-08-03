@@ -7,6 +7,7 @@
 
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Common.ComponentModel;
 using System.Reflection;
 
 namespace SingularityForensic.Ext {
