@@ -144,8 +144,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 return null;
             }
 
-            return EntityHelper.GetEntityFromParams<IFile, string>(
-                enumFile,
+            return enumFile.GetEntityFromParams<IFile, string>(
                 urlArgs,
                 f => {
                     if (f is IHaveFileCollection haveFileCollection) {
@@ -233,7 +232,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            return EntityHelper.CheckOwn(haveFileCollection, file, f => f.Parent);
+            return haveFileCollection.CheckOwn(file, f => f.Parent);
 
             //IFile fileNode = file;
             //while (fileNode != null) {
@@ -263,7 +262,7 @@ namespace SingularityForensic.Contracts.FileSystem {
                 throw new InvalidOperationException($"{nameof(haveFileCollection)}({haveFileCollection.Name}) doesn't own the file ({file.Name})");
             }
 
-            return EntityHelper.GetParentEntities(haveFileCollection, file, f => f.Parent, selfIncluded);
+            return file.GetParentEntities(haveFileCollection, f => f.Parent, selfIncluded);
         }
         
         /// <summary>

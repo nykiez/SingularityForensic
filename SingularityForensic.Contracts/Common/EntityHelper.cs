@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 namespace SingularityForensic.Contracts.Common {
     public static class EntityHelper {
         /// <summary>
-        /// 从某个类似树形实体中根据对应参数找到一个实体节点;
+        /// 从某个树(节点)中根据对应参数找到一个实体节点;
+        /// (例如从路径参数中找到文件);
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TParam"></typeparam>
-        /// <param name="entity"></param>
-        /// <param name="splitParams"></param>
-        /// <param name="getChildren"></param>
-        /// <param name="predicate"></param>
+        /// <typeparam name="TEntity">节点类型</typeparam>
+        /// <typeparam name="TParam">参数类型</typeparam>
+        /// <param name="entity">树(节点)</param>
+        /// <param name="splitParams">参数数组(例如路径参数数组)</param>
+        /// <param name="getChildren">得到子节点的委托</param>
+        /// <param name="predicate">判定对应的节点与某个参数是否匹配(例如文件名与路径参数名称是否相等)</param>
         /// <returns></returns>
         public static TEntity GetEntityFromParams<TEntity, TParam>(
-           TEntity entity,
+           this TEntity entity,
            TParam[] splitParams,
            Func<TEntity, IEnumerable<TEntity>> getChildren,
            Func<TEntity, TParam, bool> predicate) {
@@ -59,19 +60,22 @@ namespace SingularityForensic.Contracts.Common {
 
         /// <summary>
         /// 得到指定节点以上所有父节点;
+        /// 若设定了截至节点,则到截至节点为止;
         /// </summary>
-        /// <param name="ownerEntity"></param>
-        /// <param name="entity"></param>
+        /// <param name="stopEntity">截至节点</param>
+        /// <param name="entity">节点</param>
+        /// <param name="getParent">得到父节点</param>
+        /// <param name="selfIncluded">是否包含自身</param>
         /// <returns></returns>
         public static IEnumerable<TEntity> GetParentEntities<TEntity>(
-            this TEntity ownerEntity, 
-            TEntity entity, 
+            this TEntity entity,
+            TEntity stopEntity, 
             Func<TEntity, TEntity> getParent,
             bool selfIncluded = false
         ) where TEntity:class{
 
-            if (ownerEntity == null) {
-                throw new ArgumentNullException(nameof(ownerEntity));
+            if (stopEntity == null) {
+                throw new ArgumentNullException(nameof(stopEntity));
             }
             if (entity == null) {
                 throw new ArgumentNullException(nameof(entity));
@@ -80,14 +84,14 @@ namespace SingularityForensic.Contracts.Common {
                 throw new ArgumentNullException(nameof(getParent));
             }
 
-            if (!CheckOwn(ownerEntity, entity,getParent)) {
-                throw new InvalidOperationException($"{nameof(ownerEntity)} doesn't own the file {nameof(entity)}");
+            if (!CheckOwn(stopEntity, entity,getParent)) {
+                throw new InvalidOperationException($"{nameof(stopEntity)} doesn't own the file {nameof(entity)}");
             }
 
             TEntity fileNode = selfIncluded ? entity : getParent(entity) ;
             while (fileNode != null) {
                 yield return fileNode;
-                if (fileNode == ownerEntity) {
+                if (fileNode == stopEntity) {
                     yield break;
                 }
                 fileNode = getParent(fileNode);
@@ -95,10 +99,10 @@ namespace SingularityForensic.Contracts.Common {
         }
 
         /// <summary>
-        /// 检查某个集合中是否包含某个节点;
+        /// 检查某个树形父节点中是否包含某个子节点;
         /// </summary>
-        /// <param name="parentEntity"></param>
-        /// <param name="childEntity"></param>
+        /// <param name="parentEntity">父节点</param>
+        /// <param name="childEntity">子节点</param>
         /// <returns></returns>
         public static bool CheckOwn<TEntity>(this TEntity parentEntity, TEntity childEntity,Func<TEntity,TEntity> getParent) where TEntity : class {
             if (parentEntity == null) {
