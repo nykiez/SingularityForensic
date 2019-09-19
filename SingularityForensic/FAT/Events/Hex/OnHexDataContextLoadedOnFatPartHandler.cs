@@ -57,9 +57,6 @@ namespace SingularityForensic.FAT.Events.Hex {
                 );
                 infoIndex++;
             }
-            
-            //UpdateBackgrounds(hexDataContext, fatPartInfo);
-            //UpdateToolTips(hexDataContext, fatPartInfo);
         }
     }
 }

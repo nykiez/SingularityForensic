@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CDFC.Util.PInvoke;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -175,6 +177,34 @@ namespace SingularityForensic.Contracts.Common {
             result.ReadFrom(buffer, offset);
             return result;
         }
+
+        /// <summary>
+        /// 通过<see cref="System.Runtime.InteropServices.Marshal"/>从缓冲区中获取结构体;
+        /// </summary>
+        /// <typeparam name="TStruct"></typeparam>
+        /// <param name="buffer"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static TStruct? ToStructWithMarshal<TStruct>(this byte[] buffer,int offset = 0) where TStruct:struct {
+            if(buffer == null) {
+                throw new ArgumentNullException(nameof(buffer));
+            }
+
+            var sz = Marshal.SizeOf(typeof(TStruct));
+            var stPtr = Marshal.AllocHGlobal(sz);
+            try {
+                Marshal.Copy(buffer, offset, stPtr, sz);
+                return stPtr.GetStructure<TStruct>();
+            }
+            catch(Exception ex) {
+                LoggerService.WriteException(ex);
+                return null;
+            }
+            finally {
+                Marshal.FreeHGlobal(stPtr);
+            }
+        }
+        
 
         /// <summary>
         /// Primitive conversion from Unicode to ASCII that preserves special characters.

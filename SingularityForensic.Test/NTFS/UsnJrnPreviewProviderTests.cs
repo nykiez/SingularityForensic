@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingularityForensic.NTFS;
+using SingularityForensic.NTFS.USN;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -33,6 +33,50 @@ namespace SingularityForensic.Contracts.Common {
         }
         
         /// <summary>
+        /// 截取字节数组组成新字节数组;
+        /// </summary>
+        /// <param name="data">原数组</param>
+        /// <param name="startIndex">起始位置</param>
+        /// <param name="length">截取长度</param>
+        /// <returns></returns>
+        public static byte[] SubBytes(this byte[] data, int startIndex,int length) {
+            if(data == null) {
+                throw new ArgumentNullException(nameof(data));
+            }
+            
+            if(startIndex < 0 || startIndex + 1 > data.Length) {
+                throw new IndexOutOfRangeException(nameof(startIndex));
+            }
+
+            if(length + startIndex > data.Length) {
+                throw new IndexOutOfRangeException($"{nameof(startIndex)}-{nameof(length)}");
+            }
+
+            var newData = new byte[length];
+            Array.Copy(data, startIndex, newData, 0, length);
+            return newData;
+        }
+
+        /// <summary>
+        /// 截取字节数组组成新字节数组;
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="startIndex">起始位置</param>
+        /// <returns></returns>
+        public static byte[] SubBytes(this byte[] data, int startIndex) {
+            if (data == null) {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (startIndex < 0 || startIndex + 1 > data.Length) {
+                throw new IndexOutOfRangeException(nameof(startIndex));
+            }
+
+            return SubBytes(data, startIndex, data.Length - startIndex);
+        }
+
+
+        /// <summary>
         /// 比较两个字节数组从某个起始位置开始的内容是否相等;
         /// </summary>
         /// <param name="arr1"></param>

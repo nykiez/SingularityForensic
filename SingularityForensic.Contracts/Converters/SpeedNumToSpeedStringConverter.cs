@@ -4,13 +4,7 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class SpeedNumToSpeedStringConverter : IValueConverter {
-        private static SpeedNumToSpeedStringConverter staticInstance;
-        public static SpeedNumToSpeedStringConverter StaticInstance {
-            get {
-                return staticInstance ??
-                    (staticInstance = new SpeedNumToSpeedStringConverter());
-            }
-        }
+        public static SpeedNumToSpeedStringConverter StaticInstance = new SpeedNumToSpeedStringConverter();
 
         private static string speedSuffixInKB = "KB/S";
         private static string speedSuffixInMB = "MB/S";

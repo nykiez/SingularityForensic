@@ -7,7 +7,7 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace SingularityForensic.Test {
     /// <summary>
-    /// //业务逻辑测试时必须调用这个类的InitializeTest方法;
+    /// 在测试用到容器的业务逻辑时,必须调用本类的InitializeTest方法;
     /// </summary>
     public static class TestCommon {
         /// <summary>

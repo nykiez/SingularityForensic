@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:app="clr-namespace:SingularityForensic.App">
   <sys:String x:Key="IsWorking">正在工作中</sys:String>
-  <sys:String x:Key="BrandName">流火</sys:String>
-  <sys:String x:Key="CompanyNameValue">天宇宁达</sys:String>
+    <sys:String x:Key="BrandName">Tida</sys:String>
+    <sys:String x:Key="CompanyNameValue">Tida</sys:String>
   <sys:String x:Key="AddressKey">地址：</sys:String>
-  <sys:String x:Key="AddressValue">武汉市东湖高新区武大科技园航域二期B3栋7088</sys:String>
+  <sys:String x:Key="AddressValue">https://www.github.com/JanusTida/SingualrityForensic</sys:String>
   <sys:String x:Key="EmailKey">邮箱：</sys:String>
-  <sys:String x:Key="EmailValue">support@cflab.net</sys:String>
+  <sys:String x:Key="EmailValue">1250244560@qq.com</sys:String>
   <sys:String x:Key="PhoneNumberKey">电话：</sys:String>
-  <sys:String x:Key="PhoneNumberValue">400-6090906</sys:String>
+  <sys:String x:Key="PhoneNumberValue">086-15171478810</sys:String>
   <sys:String x:Key="OriginSiteKey">官网：</sys:String>
-  <sys:String x:Key="OriginSiteValue">www.cflab.net</sys:String>
-  <sys:String x:Key="AttatchedSiteValue">www.cflab.cn</sys:String>
-  <sys:String x:Key="HelperStringValue">数据恢复、数据擦除、计算机取证、手机取证、反欺诈调查、法律援助请联系我们！</sys:String>
+    <sys:String x:Key="OriginSiteValue">https://www.github.com/JanusTida/SingualrityForensic</sys:String>
+    <sys:String x:Key="AttatchedSiteValue">https://www.github.com/JanusTida/SingualrityForensic</sys:String>
+    <sys:String x:Key="HelperStringValue">Mail to 1250244560@qq.com for help.</sys:String>
   <sys:String x:Key="Confirm">确  定</sys:String>
   <sys:String x:Key="Cancel">取  消</sys:String>
   <sys:String x:Key="Total">全部</sys:String>

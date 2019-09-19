@@ -22,8 +22,9 @@ namespace SingularityForensic.TreeView.Views {
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class PropertyListView : UserControl {
         public PropertyListView() {
-            
             InitializeComponent();
+            
         }
+        
     }
 }

@@ -5,9 +5,7 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class LevelToMarginConverter : IValueConverter {
-        private static LevelToMarginConverter _staticInstance;
-        public static LevelToMarginConverter StaticInstance => _staticInstance ??
-            (_staticInstance = new LevelToMarginConverter());
+        public static readonly LevelToMarginConverter StaticInstance = new LevelToMarginConverter();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             int direction = 0;

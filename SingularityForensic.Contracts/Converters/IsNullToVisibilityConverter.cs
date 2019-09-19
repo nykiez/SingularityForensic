@@ -5,13 +5,8 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class IsNullToVisibilityConverter : IValueConverter {
-        private static IsNullToVisibilityConverter staticInstance;
-        public static IsNullToVisibilityConverter StaticInstance {
-            get {
-                return staticInstance ??
-                    (staticInstance = new IsNullToVisibilityConverter());
-            }
-        }
+        public static readonly IsNullToVisibilityConverter StaticInstance = new IsNullToVisibilityConverter();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return value == null ? Visibility.Collapsed : Visibility.Visible;
         }

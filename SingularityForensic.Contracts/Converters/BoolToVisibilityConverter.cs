@@ -6,8 +6,7 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class BoolToVisibilityConverter : IValueConverter {
-        private static IValueConverter _staticInstance;
-        public static IValueConverter StaticInstance => _staticInstance ?? (_staticInstance = new BoolToVisibilityConverter());
+        public static readonly IValueConverter StaticInstance = new BoolToVisibilityConverter();
         /// <summary>
         /// 
         /// </summary>
@@ -24,13 +23,13 @@ namespace SingularityForensic.Contracts.Converters {
                 Enum.TryParse<VisibilityAttributes>(parameter.ToString(), out attributes);
             }
             if ((attributes & VisibilityAttributes.Reverse) == VisibilityAttributes.Reverse) {
-                return val ? (attributes & VisibilityAttributes.Save) == VisibilityAttributes.Save ?
+                return val ? (attributes & VisibilityAttributes.SaveSpace) == VisibilityAttributes.SaveSpace ?
                     Visibility.Hidden : Visibility.Collapsed :
                     Visibility.Visible;
             }
             else {
                 return val ? Visibility.Visible :
-                    (attributes & VisibilityAttributes.Save) == VisibilityAttributes.Save ?
+                    (attributes & VisibilityAttributes.SaveSpace) == VisibilityAttributes.SaveSpace ?
                     Visibility.Hidden : Visibility.Collapsed;
             }
         }
@@ -39,14 +38,14 @@ namespace SingularityForensic.Contracts.Converters {
             throw new NotImplementedException();
         }
     }
+
     /// <summary>
     /// 转换可视的枚举;
     /// </summary>
     [Flags]
     public enum VisibilityAttributes {
         Normal = 0,
-        Save = 1,//是否保留位置;
+        SaveSpace = 1,//是否保留位置;
         Reverse = 2//是否反转;
-
     }
 }

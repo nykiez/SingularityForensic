@@ -4,13 +4,7 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class ObjectsToEqualConverter : IValueConverter {
-        private static ObjectsToEqualConverter staticInstance;
-        public static ObjectsToEqualConverter StaticInstance {
-            get {
-                return staticInstance ??
-                    (staticInstance = new ObjectsToEqualConverter());
-            }
-        }
+        public static readonly ObjectsToEqualConverter StaticInstance = new ObjectsToEqualConverter();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return value != null ? value.Equals(parameter) : false;
         }

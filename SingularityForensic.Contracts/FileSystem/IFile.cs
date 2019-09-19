@@ -84,7 +84,10 @@ namespace SingularityForensic.Contracts.FileSystem {
     }
     
    
-    
+    /// <summary>
+    /// 文件的凭据;通过此凭据,将可以进行文件拓展属性的修改;
+    /// </summary>
+    /// <typeparam name="TStoken"></typeparam>
     public interface IFile<TStoken> : IHaveStoken<TStoken>,IFile where TStoken : FileStokenBase, new() {
         DateTime? GetExtensionTime(string timeLabel);
     }

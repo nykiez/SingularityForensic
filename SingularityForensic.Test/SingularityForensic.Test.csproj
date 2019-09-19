@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -171,6 +172,7 @@
     <Compile Include="Local\LocalFileServiceTests.cs" />
     <Compile Include="MainPage\TestMainTreeService.cs" />
     <Compile Include="NTFS\BiosParameterBlockTests.cs" />
+    <Compile Include="NTFS\LogFile\LogFileRSTRTests.cs" />
     <Compile Include="NTFS\UsnJrnPreviewProviderTests.cs" />
     <Compile Include="NTFS\UsnRecordV2Tests.cs" />
     <Compile Include="NTFS\ViewModels\UsnJrnlPreviewerViewModelTests.cs" />

@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using SingularityForensic.Contracts.App;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.NTFS.USN;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

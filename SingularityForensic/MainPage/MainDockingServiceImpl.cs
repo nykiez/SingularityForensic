@@ -21,9 +21,7 @@ namespace SingularityForensic.MainPage {
             this.VM = mainPageViewModel;
             mainPageViewModel.PanesFactory = new DockingPanesFactoryImpl(this);
         }
-
-
-
+        
         public  MainPageViewModel VM { get; }
 
         private readonly List<IDockingPaneContainer> _dockingContainers = new List<IDockingPaneContainer>();
@@ -41,7 +39,7 @@ namespace SingularityForensic.MainPage {
         public void Initialize() {
             _dockingContainers.AddRange(GenericServiceStaticInstances<IDockingPaneContainer>.
                  Currents.Where(p => p.DockingServiceName == Contracts.MainPage.Constants.MainDockingService));
-
+            
             _dockingGroups.AddRange(GenericServiceStaticInstances<IDockingPaneGroup>.
                 Currents.Where(p => _dockingContainers.Exists(q => q.GUID == p.ContainerGUID)));
 

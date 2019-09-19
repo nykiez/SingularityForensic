@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.NTFS {
+namespace SingularityForensic.NTFS.USN {
     public class UsnJrnlPreviewer : IPreviewer {
         public UsnJrnlPreviewer(Stream stream) {
             this._stream = stream ?? throw new ArgumentNullException(nameof(stream));
@@ -18,7 +18,7 @@ namespace SingularityForensic.NTFS {
         
         private UsnJrnlPreviewerViewModel _vm;
         public object UIObject { get; }
-        private Stream _stream;
+        private readonly Stream _stream;
 
         public void Dispose() {
             _vm.Dispose();

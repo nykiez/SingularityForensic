@@ -467,10 +467,20 @@ namespace SingularityForensic.FAT {
                 throw new ArgumentNullException(nameof(fatFileInfo));
             }
 
-            //编辑时间;
-            fileStoken2.ModifiedTime = fatFileInfo.StFileNode.Value.ModifiedTime;
-            fileStoken2.AccessedTime = fatFileInfo.StFileNode.Value.AccessTime;
-            fileStoken2.CreateTime = fatFileInfo.StFileNode.Value.CreateTime;
+            try {
+                //编辑时间;
+                fileStoken2.ModifiedTime = fatFileInfo.StFileNode.Value.ModifiedTime;
+                fileStoken2.AccessedTime = fatFileInfo.StFileNode.Value.AccessTime;
+                fileStoken2.CreateTime = fatFileInfo.StFileNode.Value.CreateTime;
+            }
+            catch(Exception ex) {
+                LoggerService.WriteCallerLine(ex.Message);
+#if DEBUG
+                //编辑时间;
+                //fileStoken2.ModifiedTime = fatFileInfo.StFileNode.Value.ModifiedTime;
+#endif
+            }
+            
         }
 
         /// <summary>

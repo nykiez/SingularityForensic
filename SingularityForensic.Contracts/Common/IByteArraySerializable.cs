@@ -29,4 +29,10 @@ namespace SingularityForensic.Contracts.Common {
         /// <param name="offset">The buffer offset to start writing at.</param>
         void WriteTo(byte[] buffer, int offset);
     }
+
+    //public static class ByteArrayHelper {
+    //    public static int ReadFrom<TStruct>(TStruct st,byte[] buffer, int offset)where TStruct:struct {
+
+    //    }
+    //}
 }

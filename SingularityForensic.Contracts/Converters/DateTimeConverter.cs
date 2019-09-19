@@ -4,13 +4,8 @@ using System.Windows.Data;
 
 namespace SingularityForensic.Contracts.Converters {
     public class DateTimeConverter : IValueConverter {
-        private static DateTimeConverter staticInstance;
-        public static DateTimeConverter StaticInstance {
-            get {
-                return staticInstance ??
-                    (staticInstance = new DateTimeConverter());
-            }
-        }
+        public static readonly DateTimeConverter StaticInstance = new DateTimeConverter();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
            DateTime? dateTime = (DateTime?)value;
            if (dateTime != null && dateTime.HasValue) {

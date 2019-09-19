@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -159,7 +160,7 @@ ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Me
          
 ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.pdb"  "$(TargetDir)Controls\MahApps.Metro.pdb" /I /D /E /Y
 ECHO F | XCopy "$(SolutionDir)\packages\MahApps.Metro.1.4.1\lib\net45\System.Windows.Interactivity.dll" "$(TargetDir)Controls\System.Windows.Interactivity.dll" /I /D /E /Y
-ECHO F | XCopy "$(SolutionDir)\packages\WpfHexaeditor.DevBranch.0.2.2\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll" /I /D /E /Y
+ECHO F | XCopy "$(SolutionDir)\packages\WPFHexaEditor.1.6.3\lib\net451\WPFHexaEditor.dll" "$(TargetDir)Controls\WPFHexaEditor.dll" /I /D /E /Y
 ECHO F | XCopy "$(SolutionDir)\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll" "$(TargetDir)Common\System.ValueTuple.dll" /I /D /E /Y
 ECHO F | XCopy "$(SolutionDir)packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" "$(SolutionDir)SingularityShell\$(OutDir)\Controls\Ookii.Dialogs.Wpf.dll" /I /D /E /Y
          

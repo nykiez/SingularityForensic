@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.NTFS {
+namespace SingularityForensic.NTFS.USN {
     /// <summary>
     /// NTFS-Usn日志预览器;
     /// </summary>

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SingularityForensic.NTFS {
+namespace SingularityForensic.NTFS.USN {
     /// <summary>
     /// Contains the USN Record Length(32bits), USN(64bits), File Reference Number(64bits), 
     /// Parent File Reference Number(64bits), Reason Code(32bits), File Attributes(32bits),
@@ -188,17 +188,18 @@ namespace SingularityForensic.NTFS {
                 return null;
             }
 
-            var usnRecord = new UsnRecordV2();
-            usnRecord.RecordLength = buffer.ToUInt32LittleEndian(startIndex);
-            usnRecord.FileReferenceNumber = buffer.ToUInt64LittleEndian(FR_OFFSET + startIndex);
-            usnRecord.ParentFileReferenceNumber = buffer.ToUInt64LittleEndian(PFR_OFFSET + startIndex);
-            usnRecord.Usn = (long)buffer.ToUInt64LittleEndian(USN_OFFSET);
-            usnRecord.DateTime = System.DateTime.FromFileTime(buffer.ToInt64LittleEndian(DateTime_OFFSET + startIndex));
-            usnRecord.Reason = buffer.ToUInt32LittleEndian(REASON_OFFSET + startIndex);
-            usnRecord.FileAttributes = buffer.ToUInt32LittleEndian(FA_OFFSET + startIndex);
-            usnRecord.FileNameLength = buffer.ToUInt16LittleEndian(FNL_OFFSET + startIndex);
-            usnRecord.FileNameOffset = buffer.ToUInt16LittleEndian(FN_OFFSET + startIndex);
-            
+            var usnRecord = new UsnRecordV2 {
+                RecordLength = buffer.ToUInt32LittleEndian(startIndex),
+                FileReferenceNumber = buffer.ToUInt64LittleEndian(FR_OFFSET + startIndex),
+                ParentFileReferenceNumber = buffer.ToUInt64LittleEndian(PFR_OFFSET + startIndex),
+                Usn = (long)buffer.ToUInt64LittleEndian(USN_OFFSET),
+                DateTime = System.DateTime.FromFileTime(buffer.ToInt64LittleEndian(DateTime_OFFSET + startIndex)),
+                Reason = buffer.ToUInt32LittleEndian(REASON_OFFSET + startIndex),
+                FileAttributes = buffer.ToUInt32LittleEndian(FA_OFFSET + startIndex),
+                FileNameLength = buffer.ToUInt16LittleEndian(FNL_OFFSET + startIndex),
+                FileNameOffset = buffer.ToUInt16LittleEndian(FN_OFFSET + startIndex)
+            };
+
             leftLength = buffer.Length - startIndex - StructWithoutFileName_Size;
 
             if(leftLength >= usnRecord.FileNameLength) {

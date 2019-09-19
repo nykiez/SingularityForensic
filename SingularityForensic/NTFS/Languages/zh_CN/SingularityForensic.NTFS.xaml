@@ -11,4 +11,6 @@
   <sys:String x:Key="UsnMetaName_FileNameOffset">文件名偏移</sys:String>
   <sys:String x:Key="UsnMetaName_FileName">文件名</sys:String>
   <sys:String x:Key="UsnMetaName_DateTime">时间</sys:String>
+  <sys:String x:Key="DisplayName_LogFileRSTRHeader">Restart Header</sys:String>
+  <sys:String x:Key="DisplayName_LogFileRSTRArea">Restart Area</sys:String>
 </ResourceDictionary>

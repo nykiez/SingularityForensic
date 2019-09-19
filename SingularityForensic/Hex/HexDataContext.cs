@@ -91,7 +91,6 @@ namespace SingularityForensic.Hex {
         }
 
         public void AddKeyBinding(ICommand command, Key key, ModifierKeys modifier = ModifierKeys.None) {
-            
             InputBindingExtensions.AddKeyBinding(UIObject,command, key, modifier);
         }
 

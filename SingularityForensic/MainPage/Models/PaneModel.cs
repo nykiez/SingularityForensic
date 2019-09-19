@@ -12,7 +12,6 @@ namespace SingularityForensic.MainPage.Models {
             this.Pane = pane ?? throw new ArgumentNullException(nameof(pane));
             pane.HeaderChanged += (sender,e) => RaisePropertyChanged(nameof(Header));
             pane.IsHiddenChanged += (sender, e) => RaisePropertyChanged(nameof(IsHidden));
-            
         }
 
         public IDockingPane Pane { get; }

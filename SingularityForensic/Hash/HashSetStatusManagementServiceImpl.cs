@@ -132,6 +132,9 @@ namespace SingularityForensic.Hash {
             UnitHashSetStatus status = null;
             while (true){
                 try {
+                    if (_streamReader.EndOfStream) {
+                        yield break;
+                    }
                     if(_streamReader.BaseStream.Position == _streamReader.BaseStream.Length - 1) {
                         continue;
                     }

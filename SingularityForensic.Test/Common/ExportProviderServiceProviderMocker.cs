@@ -7,16 +7,17 @@ using System.Linq;
 namespace SingularityForensic.Test.Common {
     /// <summary>
     /// 输出提供容器(mef)依赖项提供器;
+    /// 本类提供了在运行时动态指定实现实例的功能，以便于部分情况下单元测试的场景;
     /// </summary>
-    public class ExportProviderServiceProviderMocker : EmptyServiceProvider<ExportProviderServiceProviderMocker> {
-        //private static ExportProviderServiceProvider _staticInstance;
-        //public static ExportProviderServiceProvider StaticInstance => _staticInstance ?? (_staticInstance = new ExportProviderServiceProvider());
+    public class ExportProviderServiceProviderMocker : Contracts.Common.IServiceProvider {
+        private static ExportProviderServiceProviderMocker _staticInstance;
+        public static ExportProviderServiceProviderMocker StaticInstance => _staticInstance ?? (_staticInstance = new ExportProviderServiceProviderMocker());
 
         public ExportProvider ExportProvider { get; set; }
 
-        public override IEnumerable<TService> GetAllInstances<TService>() => ExportProvider.GetExportedValues<TService>();
+        public IEnumerable<TService> GetAllInstances<TService>() => ExportProvider.GetExportedValues<TService>();
 
-        public override IEnumerable<object> GetAllInstances(Type serviceType) {
+        public IEnumerable<object> GetAllInstances(Type serviceType) {
             List<object> instances = new List<object>();
 
 
@@ -34,9 +35,9 @@ namespace SingularityForensic.Test.Common {
             return instances;
         }
 
-        public override TService GetInstance<TService>() => (TService)GetInstance(typeof(TService));
+        public TService GetInstance<TService>() => (TService)GetInstance(typeof(TService));
 
-        public override object GetInstance(Type serviceType, string key) {
+        public object GetInstance(Type serviceType, string key) {
             IEnumerable<Lazy<object, object>> exports = this.ExportProvider.GetExports(serviceType, null, key);
 
             if ((exports != null) && (exports.Count() > 0)) {
@@ -62,12 +63,13 @@ namespace SingularityForensic.Test.Common {
             dics.Add(typeof(TService), service);
         }
 
-        public override object GetInstance(Type serviceType) {
+        public object GetInstance(Type serviceType) {
             if (dics.ContainsKey(serviceType) && dics[serviceType] != null) {
                 return dics[serviceType];
             }
             return GetInstance(serviceType, null);
         }
 
+        public TService GetInstance<TService>(string key) => (TService)GetInstance(typeof(TService), key);
     }
 }

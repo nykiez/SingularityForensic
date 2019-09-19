@@ -69,7 +69,7 @@ namespace SingularityForensic.FAT {
         }
 
         /// <summary>
-        /// 从文件事件转换至标准时间;
+        /// 从文件时间转换至标准时间;
         /// </summary>
         /// <param name="fileTime"></param>
         /// <returns></returns>

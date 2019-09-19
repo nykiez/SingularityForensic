@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using SingularityForensic.Contracts.Common;
+using SingularityForensic.Contracts.Common.ComponentModel;
 using SingularityForensic.Contracts.FileExplorer;
 using SingularityForensic.Contracts.FileSystem;
 using System;
@@ -47,7 +48,7 @@ namespace DemoUI.Controls {
 
         private void Button_Click(object sender, RoutedEventArgs e) {
 #if DEBUG
-            rpg.PropertyDefinitions.Clear();
+            //rpg.PropertyDefinitions.Clear();
 #endif
             
             if (index % 2 == 0) {

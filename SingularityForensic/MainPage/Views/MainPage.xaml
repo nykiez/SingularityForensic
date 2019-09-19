@@ -10,14 +10,13 @@
              x:Class="SingularityForensic.MainPage.Views.MainPage"
              mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True" 
              d:DesignHeight="300" d:DesignWidth="1000">
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <DockPanel>
-        <telerik:RadDocking x:Name="docking"  BorderThickness="0" PanesSource="{Binding Panes}" DockingPanesFactory="{Binding PanesFactory}"  >
+    <telerik:RadDocking x:Name="docking"  BorderThickness="0" PanesSource="{Binding Panes}" DockingPanesFactory="{Binding PanesFactory}"  >
             <telerik:RadDocking.DocumentHost>
               
                 <!--<ContentControl>
@@ -54,7 +53,5 @@
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>-->
         </telerik:RadDocking>
-    </DockPanel>
-    
 
 </UserControl>

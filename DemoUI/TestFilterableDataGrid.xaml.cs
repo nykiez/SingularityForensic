@@ -185,7 +185,7 @@ namespace DemoUI {
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) {
-            dgg.Columns[0].Width = 100;
+            //dgg.Columns[0].Width = 100;
         }
 
         private void Dgg2_LoadingRowDetails(object sender, GridViewRowDetailsEventArgs e) {

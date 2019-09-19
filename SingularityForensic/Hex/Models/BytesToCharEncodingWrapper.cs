@@ -2,7 +2,7 @@
 using System;
 
 namespace SingularityForensic.Hex.Models {
-    class BytesToCharEncodingWrapper : WpfHexaEditor.Core.Interfaces.IBytesToCharEncoding {
+    class BytesToCharEncodingWrapper : WpfHexaEditor.Core.Interfaces.IBytesToCharEncoding{
         public BytesToCharEncodingWrapper(IBytesToCharEncoding encoding) {
             this.Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
         }
@@ -10,6 +10,7 @@ namespace SingularityForensic.Hex.Models {
         public IBytesToCharEncoding Encoding { get; }
         public int BytePerChar => Encoding.BytePerChar;
 
-        public char Convert(byte[] bytesToConvert) => Encoding.Convert(bytesToConvert);
+        public char ConvertToChar(byte[] bytesToConvert) => Encoding.Convert(bytesToConvert);
+        
     }
 }

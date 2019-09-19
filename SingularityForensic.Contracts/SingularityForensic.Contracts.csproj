@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -125,7 +126,6 @@
     <Compile Include="Common\ExtensibleObject.cs" />
     <Compile Include="Common\GenericCollectionExtension.cs" />
     <Compile Include="Common\GenericServiceStaticInstance.cs" />
-    <Compile Include="App\EmptyServiceProvider.cs" />
     <Compile Include="Common\IEventHandler.cs" />
     <Compile Include="Common\IExtensible.cs" />
     <Compile Include="Common\IServiceProvider.cs" />
